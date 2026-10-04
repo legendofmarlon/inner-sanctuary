@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inner Sanctuary Wellness Foundation | Heal. Create. Connect.</title>
+  <meta name="description" content="Inner Sanctuary is a 501(c)(3) public charity dedicated to creating unhurried spaces where raw voices connect, artists create without rush, and purposeful community partners invest in human wellness." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ==================== INTERACTIVE FOREST CANVAS & ATMOSPHERE ==================== -->
+  <canvas id="forest-canvas"></canvas>
+  <div id="lantern-aura" class="lantern-aura"></div>
+
+  <!-- Parallax Botanical Canopy Accents (Framing the Sanctuary) -->
+  <svg class="botanical-canopy botanical-top-left" viewBox="0 0 260 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 0C60 40 120 100 140 180C142 188 135 195 127 192C80 170 30 110 0 60V0Z" fill="#2B4436"/>
+    <path d="M40 0C90 35 155 75 190 140C194 147 188 155 180 152C140 135 90 90 40 40V0Z" fill="#5F7B6B"/>
+    <path d="M120 20C160 55 210 100 230 170C233 178 225 185 218 180C185 160 145 110 110 70L120 20Z" fill="#2B4436"/>
+    <path d="M0 90C45 110 90 150 110 210C112 216 106 222 100 220C65 200 30 160 0 130V90Z" fill="#C59A3F" fill-opacity="0.6"/>
+  </svg>
+
+  <svg class="botanical-canopy botanical-top-right" viewBox="0 0 260 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 0C60 40 120 100 140 180C142 188 135 195 127 192C80 170 30 110 0 60V0Z" fill="#2B4436"/>
+    <path d="M40 0C90 35 155 75 190 140C194 147 188 155 180 152C140 135 90 90 40 40V0Z" fill="#5F7B6B"/>
+    <path d="M120 20C160 55 210 100 230 170C233 178 225 185 218 180C185 160 145 110 110 70L120 20Z" fill="#2B4436"/>
+  </svg>
+
+  <svg class="botanical-canopy botanical-bottom-left" viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 240C40 180 100 130 170 100C178 97 184 105 180 112C155 150 110 200 60 240H0Z" fill="#2B4436"/>
+    <path d="M0 160C45 125 110 90 160 70C168 67 173 75 169 82C135 115 90 160 50 190L0 160Z" fill="#5F7B6B"/>
+  </svg>
+
+  <!-- Ambient Exploration Status Pill -->
+  <div class="explorer-pill">
+    <span class="explorer-pulse-dot"></span>
+    <span>Sanctuary Forest • Exploring</span>
+  </div>
+
+  <!-- ==================== TOP ANNOUNCEMENT BAR ==================== -->
+  <div class="announcement-bar">
+    <span>✦ Inner Sanctuary Wellness Foundation • A 501(c)(3) Space for Raw Authenticity, Somatic Healing & Radical Self-Expression</span>
+    <a href="#four-releases">Explore The Four Releases →</a>
+  </div>
+
+  <!-- ==================== NAVIGATION ==================== -->
+  <nav>
+    <div class="container nav-inner">
+      <div class="brand-group">
+        <a href="#" class="brand-group">
+          <img class="nav-emblem" src="emblem.png" alt="Inner Sanctuary Emblem Logo" onerror="this.src='emblem.jpg'">
+          <div class="brand-text-block">
+            <span class="nav-title serif-brand">INNER SANCTUARY</span>
+            <span class="nav-subtitle">WELLNESS FOUNDATION</span>
+          </div>
+        </a>
+      </div>
+
+      <ul class="nav-links">
+        <li><a href="#four-releases">The Four Releases</a></li>
+        <li><a href="#mission">Our Mission</a></li>
+        <li><a href="#creatives">Creator Spotlight</a></li>
+        <li><a href="#dollar-campaign">The $1 Seed</a></li>
+        <li><a href="#sponsorship">Sponsorships</a></li>
+        <li><a href="#connect">Connect</a></li>
+      </ul>
+
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <a href="https://www.instagram.com/ourinnersanctuary/" target="_blank" rel="noopener noreferrer" class="btn-outline-gold" style="padding: 8px 14px; border-radius: 6px; display: inline-flex; align-items: center; gap: 6px; font-size: 0.76rem; text-decoration: none;" title="Follow @ourinnersanctuary on Instagram">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
+          <span class="desktop-only-ig">@ourinnersanctuary</span>
+        </a>
+        <a href="#dollar-campaign" class="btn btn-gold" style="padding: 10px 18px; font-size: 0.78rem;">Give $1 Seed</a>
+        <button id="mobile-nav-toggle" style="display: none; background: none; border: 1px solid var(--forest-green); color: var(--forest-green); padding: 8px 12px; border-radius: 6px; cursor: pointer;" aria-label="Toggle Menu">
+          ☰
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-nav-drawer" class="hidden" style="display: none; padding: 20px 24px; background: #F6F3EC; border-bottom: 1px solid var(--sunburst-gold);">
+      <ul style="list-style: none; display: flex; flex-direction: column; gap: 14px; font-weight: 600; text-transform: uppercase; font-size: 0.85rem;">
+        <li><a href="#four-releases">The Four Releases</a></li>
+        <li><a href="#mission">Our Mission</a></li>
+        <li><a href="#creatives">Creator Spotlight</a></li>
+        <li><a href="#dollar-campaign">The $1 Seed Movement</a></li>
+        <li><a href="#sponsorship">Sponsorships & CRA</a></li>
+        <li><a href="#connect">Connect / Drop In</a></li>
+        <li><a href="https://www.instagram.com/ourinnersanctuary/" target="_blank" rel="noopener noreferrer" style="color: var(--sunburst-gold); display: flex; align-items: center; gap: 8px;">📸 Instagram: @ourinnersanctuary</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ==================== HERO SECTION ==================== -->
+  <header class="hero">
+    <div class="container">
+      
+      <!-- Emblem Medallion with Celestial Ring -->
+      <div class="hero-emblem-container">
+        <div class="hero-emblem-ring"></div>
+        <img class="hero-emblem" src="emblem.png" alt="Inner Sanctuary Emblem Logo" onerror="this.src='emblem.jpg'">
+      </div>
+
+      <!-- 501(c)(3) Verification & Instagram Badge -->
+      <div style="display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 18px;">
+        <span class="badge badge-gold">501(c)(3) Public Charity • EIN: 39-3757168 • Effective Aug 9, 2025</span>
+        <a href="https://www.instagram.com/ourinnersanctuary/" target="_blank" rel="noopener noreferrer" class="badge badge-sage" style="text-decoration: none; display: inline-flex; align-items: center; gap: 6px;" title="Follow @ourinnersanctuary on Instagram">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
+          <span>@ourinnersanctuary</span>
+        </a>
+      </div>
+
+      <!-- Main Headline -->
+      <h1 class="hero-h1">INNER SANCTUARY</h1>
+      <div class="hero-tagline-motto">HEALTH • HARMONY • PEACE</div>
+
+      <div class="flourish-divider">✦</div>
+
+      <!-- Creator Spotlight Sub-Banner -->
+      <div class="sub-banner">
+        <h2>CREATOR SPOTLIGHT INITIATIVE</h2>
+        <p class="tagline">Raw Voices. Real Roots. Safe Spaces.</p>
+      </div>
+
+      <!-- Pitch -->
+      <p class="hero-pitch">
+        Where raw voices find grounded space. An unhurried sanctuary dedicated to mental and emotional wellness, authentic creative expression free from algorithmic pressure, and community care for artists and neighborhood families alike.
+      </p>
+
+      <!-- CTA Buttons -->
+      <div class="hero-cta-group">
+        <a href="#connect" class="btn btn-gold">Drop Into The Circle</a>
+        <a href="#four-releases" class="btn btn-forest">The Four Releases</a>
+        <a href="#dollar-campaign" class="btn btn-outline">Plant a $1 Seed</a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ==================== TRUST RIBBON ==================== -->
+  <section class="trust-ribbon">
+    <div class="container trust-grid">
+      <div class="trust-item">
+        <span class="trust-icon">✦</span>
+        <span>IRS 501(c)(3) Public Charity</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon">✦</span>
+        <span>Contributions 100% Tax-Deductible</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon">✦</span>
+        <span>CRA-Eligible Community Partner</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon">✦</span>
+        <span>Alcohol-Free Creative Safe Spaces</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== THE FOUR RELEASES: NATURE'S ORIGINAL MEDICINE ==================== -->
+  <section id="four-releases" class="section-padding" style="background: rgba(250, 248, 243, 0.65); backdrop-filter: blur(6px); border-bottom: 1px solid rgba(197, 154, 63, 0.2);">
+    <div class="container">
+      
+      <div class="section-header" style="max-width: 860px; margin: 0 auto 56px;">
+        <div class="section-subtitle">Nature’s Original Medicine</div>
+        <h2 class="section-title">The Four Releases</h2>
+        <div class="flourish-divider">✦</div>
+        <p style="font-size: 1.15rem; color: var(--forest-green); font-weight: 500; line-height: 1.85; margin-bottom: 16px;">
+          True wellness isn’t about being quiet, staying composed, or keeping yourself contained. Real healing is somatic—it moves through the body, clears the static, and brings you back to life.
+        </p>
+        <p style="font-size: 1.02rem; color: var(--charcoal-muted); margin-bottom: 0;">
+          We believe freedom and self-expression begin with the body’s four core regenerative releases:
+        </p>
+      </div>
+
+      <!-- Responsive 4-Column Grid -->
+      <div class="releases-grid">
+        
+        <!-- 1. Laughing -->
+        <div class="release-card">
+          <div class="release-glyph-box">☀️</div>
+          <h3 class="release-title">Laughing</h3>
+          <div class="release-subtitle">Breaking Tension Instantly</div>
+          <p class="release-desc">
+            Shared joy resets the nervous system, reminds us of our humanity, and breaks the weight of survival mode.
+          </p>
+        </div>
+
+        <!-- 2. Singing & Sounding -->
+        <div class="release-card">
+          <div class="release-glyph-box">🎙️</div>
+          <h3 class="release-title">Singing & Sounding</h3>
+          <div class="release-subtitle">Power of Your Vibration</div>
+          <p class="release-desc">
+            Giving voice to what words cannot carry. Your throat, your tone, your rhythm—reclaiming the power of your own vibration.
+          </p>
+        </div>
+
+        <!-- 3. Dancing -->
+        <div class="release-card">
+          <div class="release-glyph-box">🌿</div>
+          <h3 class="release-title">Dancing</h3>
+          <div class="release-subtitle">Energy Without Permission</div>
+          <p class="release-desc">
+            Moving energy without permission or choreography. Pure somatic release that shakes off stored trauma and reconnects spirit to soil.
+          </p>
+        </div>
+
+        <!-- 4. Crying -->
+        <div class="release-card">
+          <div class="release-glyph-box">💧</div>
+          <h3 class="release-title">Crying</h3>
+          <div class="release-subtitle">The Body’s Deepest Reset</div>
+          <p class="release-desc">
+            Tears aren't weakness; they are emotional detoxification, washing away the buildup so clarity can return.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Our Purpose Manifesto Callout -->
+      <div class="purpose-callout">
+        <div class="purpose-title">Our Purpose</div>
+        <h3 class="purpose-headline">Raw Authenticity. Unpoliced Joy. Radical Self-Expression.</h3>
+        
+        <p class="purpose-desc">
+          Inner Sanctuary is a space built for raw authenticity, unpoliced joy, and radical self-expression. In a world that demands you stay numb, performative, or small, we offer an open ground to feel completely. Whether you step up to an open mic, share a room with kindred spirits, or simply breathe in a circle that sees you, this is your invitation to lay the heavy armor down.
+        </p>
+
+        <div class="releases-mantra">
+          Laugh. Sing. Move. Release. Reclaim your freedom.
+        </div>
+
+        <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
+          <a href="#connect" class="btn btn-gold">Drop Into The Circle</a>
+          <a href="#dollar-campaign" class="btn btn-outline-gold">Plant a $1 Seed</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== $1 COMMUNITY CAMPAIGN HIGHLIGHT ==================== -->
+  <section id="dollar-campaign" class="section-padding" style="background: rgba(240, 236, 225, 0.7); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(197, 154, 63, 0.25);">
+    <div class="container">
+      
+      <div class="dollar-campaign-wrapper">
+        <div class="dollar-grid">
+          
+          <!-- Left Column: The Story of $1 -->
+          <div>
+            <div class="dollar-badge-flair">
+              <span>🌱 Grassroots Movement</span>
+              <span>•</span>
+              <span>The Power of One Dollar</span>
+            </div>
+            
+            <h2 class="dollar-title serif-brand">
+              Plant a Seed in the Sanctuary.
+            </h2>
+            
+            <p class="dollar-desc">
+              True community thrives from the ground up. It isn’t built from afar—it is held by the collective care of everyday people, local artists, and purposeful community partners working side by side. When a thousand of us come together to give just <strong>$1</strong>, we cultivate a living sanctuary: opening judgment-free stages, providing warm herbal tea, and protecting unhurried spaces where our local poets, musicians, and youth can exhale.
+            </p>
+
+            <!-- Direct Zeffy Verification Box -->
+            <div style="background: rgba(255, 255, 255, 0.08); border: 1.5px solid rgba(197, 154, 63, 0.45); border-radius: 12px; padding: 18px 22px; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+              <div style="flex: 1; min-width: 240px;">
+                <div style="display: flex; align-items: center; gap: 8px; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: #F8D98C; margin-bottom: 6px;">
+                  <span>🔒 Official Verified Giving Portal</span>
+                  <span>•</span>
+                  <span>0% Platform Fees</span>
+                </div>
+                <p style="font-size: 0.88rem; color: #E2ECE5; margin-bottom: 0; line-height: 1.6;">
+                  Give directly through our certified <strong>Zeffy</strong> portal. 100% of your tax-deductible gift reaches Inner Sanctuary without processing cuts.
+                </p>
+              </div>
+              <a href="https://www.zeffy.com/en-US/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation" target="_blank" rel="noopener noreferrer" class="btn btn-gold" style="padding: 11px 22px; font-size: 0.82rem; white-space: nowrap;">
+                Open Zeffy Portal ↗
+              </a>
+            </div>
+
+            <div style="display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 10px;">
+              <div>
+                <div style="font-family: 'Cinzel', serif; font-size: 1.8rem; font-weight: 700; color: #F8D98C;">$1</div>
+                <div style="font-size: 0.8rem; color: #CBD7D0; text-transform: uppercase; letter-spacing: 0.08em;">Minimum Gift</div>
+              </div>
+              <div style="border-left: 1px solid rgba(255,255,255,0.2); padding-left: 20px;">
+                <div style="font-family: 'Cinzel', serif; font-size: 1.8rem; font-weight: 700; color: #F8D98C;">100%</div>
+                <div style="font-size: 0.8rem; color: #CBD7D0; text-transform: uppercase; letter-spacing: 0.08em;">Tax-Deductible</div>
+              </div>
+              <div style="border-left: 1px solid rgba(255,255,255,0.2); padding-left: 20px;">
+                <div style="font-family: 'Cinzel', serif; font-size: 1.8rem; font-weight: 700; color: #F8D98C;">Grassroots</div>
+                <div style="font-size: 0.8rem; color: #CBD7D0; text-transform: uppercase; letter-spacing: 0.08em;">Direct Impact</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Interactive Donation Box -->
+          <div class="dollar-card-box">
+            <div style="text-align: center; margin-bottom: 18px;">
+              <span class="badge badge-sage" style="margin-bottom: 8px;">Select Your Seed</span>
+              <h3 style="font-size: 1.25rem; margin-bottom: 4px;">Choose an Amount</h3>
+              <p style="font-size: 0.85rem; color: var(--charcoal-muted); margin-bottom: 0;">No gift is too small to matter to the circle.</p>
+            </div>
+
+            <!-- Preset Chips -->
+            <div class="donation-presets">
+              <button class="preset-chip featured active" data-amount="1">$1</button>
+              <button class="preset-chip" data-amount="5">$5</button>
+              <button class="preset-chip" data-amount="10">$10</button>
+              <button class="preset-chip" data-amount="25">$25</button>
+            </div>
+
+            <!-- Custom Amount Field -->
+            <div style="margin-bottom: 18px;">
+              <label for="custom-donation-amount" style="font-size: 0.72rem; color: var(--forest-green); font-weight: 700;">Or Enter Custom Amount ($)</label>
+              <input type="number" id="custom-donation-amount" min="1" placeholder="e.g. 50" style="padding: 10px 14px; font-size: 0.95rem; margin-top: 4px;">
+            </div>
+
+            <!-- Dynamic Impact Display -->
+            <div class="impact-display">
+              <div class="impact-label">Direct Community Impact:</div>
+              <p id="impact-text" class="impact-text">
+                Spawns 1 community stage token, organic herbal tea & welcoming presence for a grassroots artist.
+              </p>
+            </div>
+
+            <!-- Action Button Linked to Zeffy -->
+            <a id="btn-donate-action" 
+               href="https://www.zeffy.com/en-US/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation" 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               class="btn btn-gold" 
+               style="width: 100%; padding: 14px 20px; font-size: 0.92rem; text-decoration: none;">
+              <span>Give $1 With Love</span>
+              <span>🌿</span>
+            </a>
+
+            <div style="text-align: center; margin-top: 14px; font-size: 0.75rem; color: var(--charcoal-muted); line-height: 1.6;">
+              🔒 Securely processed via <strong style="color: var(--forest-green);">Zeffy</strong> (0% fees) • Instant 501(c)(3) tax receipt sent to your email
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== MISSION & 3 PILLARS ==================== -->
+  <section id="mission" class="section-padding">
+    <div class="container">
+      
+      <div class="section-header">
+        <div class="section-subtitle">Our Purpose</div>
+        <h2 class="section-title">When We Create Space Within, We Create Change Around Us</h2>
+        <div class="flourish-divider">✦</div>
+        <p style="font-size: 1.12rem; max-width: 820px; margin: 0 auto; line-height: 1.85;">
+          Inner Sanctuary is a 501(c)(3) nonprofit dedicated to creating accessible spaces where people can slow down, express themselves freely, process life’s journey, and reconnect with who they are.
+        </p>
+        <blockquote style="margin-top: 24px; font-style: italic; color: var(--forest-green); font-weight: 500; font-size: 1.05rem;">
+          "Go easy on yourself. It's okay to pause. It's okay to put yourself first."
+        </blockquote>
+      </div>
+
+      <div class="pillars-grid">
+        
+        <!-- Pillar 1 -->
+        <div class="pillar-card">
+          <div class="pillar-icon-box">🌱</div>
+          <h3 class="pillar-title">Mental & Emotional Wellness</h3>
+          <p>
+            Cultivating inner stillness, nervous system regulation, and grounded self-care practices in a culture that rarely offers permission to pause.
+          </p>
+        </div>
+
+        <!-- Pillar 2 -->
+        <div class="pillar-card">
+          <div class="pillar-icon-box">🎙️</div>
+          <h3 class="pillar-title">Authentic Creative Expression</h3>
+          <p>
+            Empowering poets, vocalists, storytellers, and visual creators through intentional stages and media initiatives free of algorithmic hustle.
+          </p>
+        </div>
+
+        <!-- Pillar 3 -->
+        <div class="pillar-card">
+          <div class="pillar-icon-box">🤝</div>
+          <h3 class="pillar-title">Intergenerational Community Care</h3>
+          <p>
+            Fostering neighborhood trust, elder wisdom, youth mentorship, and welcoming spaces where every creative voice is honored and seen.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== DUAL AUDIENCE SPLIT ==================== -->
+  <section class="section-padding dual-audience-section">
+    <div class="container">
+      
+      <div class="section-header">
+        <div class="section-subtitle">Two Pathways, One Grounded Room</div>
+        <h2 class="section-title">Built For Creatives & Purpose-Driven Brands</h2>
+      </div>
+
+      <div class="split-grid">
+        
+        <!-- For Creatives -->
+        <div id="creatives" class="audience-card">
+          <div>
+            <div class="audience-tag">For Artists & Performers</div>
+            <h3>Come Home to Your Craft</h3>
+            <p>
+              Leave behind the algorithmic pressure and hurried venues. Inner Sanctuary offers an attentive, alcohol-free room of true listeners who honor your authentic story and raw roots.
+            </p>
+            <ul class="benefit-list">
+              <li>Featured stage time at our monthly showcase series</li>
+              <li>Spotlight placement in our Creator Video Archive</li>
+              <li>Supportive community circle free from toxic competition</li>
+              <li>Direct collaboration with fellow local poets, singers, and artisans</li>
+            </ul>
+          </div>
+          <a href="#blueprint-box" class="btn btn-outline" style="align-self: flex-start;">See Video Blueprint ↓</a>
+        </div>
+
+        <!-- For Sponsors -->
+        <div id="partners" class="audience-card partners">
+          <div>
+            <div class="audience-tag">For Brands, Banks & Sponsors</div>
+            <h3>Direct Grassroots Reinvestment</h3>
+            <p>
+              Connect face-to-face with 30–50+ local creatives, youth, and neighborhood families in a high-trust environment while fulfilling CRA community investment objectives.
+            </p>
+            <ul class="benefit-list">
+              <li>100% Tax-deductible charitable contributions (IRC Section 170)</li>
+              <li>Verified CRA documentation & IRS Form W-9 compliance</li>
+              <li>Prime on-site display table & 2-minute stage MC spotlight</li>
+              <li>Premier co-branding on printed event guides and digital QR portals</li>
+            </ul>
+          </div>
+          <a href="#sponsorship" class="btn btn-gold" style="align-self: flex-start;">View Sponsorship Tiers ↓</a>
+        </div>
+
+      </div>
+
+      <!-- ==================== 30-SECOND BLUEPRINT CARD ==================== -->
+      <div id="blueprint-box" class="blueprint-wrapper">
+        <div style="text-align: center; max-width: 720px; margin: 0 auto;">
+          <div class="badge badge-gold" style="margin-bottom: 12px;">Creator Spotlight Initiative</div>
+          <h3 style="font-size: 1.9rem; margin-bottom: 8px;">The 30-Second Video Blueprint</h3>
+          <p style="font-size: 0.95rem; color: var(--charcoal-muted);">
+            A simple, structured format to share your craft and voice with our community circle.
+          </p>
+        </div>
+
+        <div class="blueprint-timeline">
+          
+          <!-- Step 1 -->
+          <div class="blueprint-step">
+            <span class="step-time">0:00 – 0:10</span>
+            <h4 class="step-title">The Intro & Plug</h4>
+            <p style="font-size: 0.9rem; margin-bottom: 0; line-height: 1.6;">
+              State your name, artist handle, and craft. Let the circle know who you are and what you passionately create.
+            </p>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="blueprint-step">
+            <span class="step-time">0:10 – 0:20</span>
+            <h4 class="step-title">The Reflection</h4>
+            <p style="font-size: 0.9rem; margin-bottom: 0; line-height: 1.6;">
+              Why does an unhurried, safe creative sanctuary matter to your mental clarity, heart, and creative flow?
+            </p>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="blueprint-step">
+            <span class="step-time">0:20 – 0:30</span>
+            <h4 class="step-title">The Outro</h4>
+            <p style="font-size: 0.9rem; margin-bottom: 0; line-height: 1.6;">
+              “Tap in and show love to Inner Sanctuary” + invite folks to catch your next performance, drop, or project.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- Recording Specs -->
+        <div class="specs-grid">
+          <div class="spec-item">
+            <div class="spec-title">Framing</div>
+            <p class="spec-desc">Vertical (9:16 smartphone recording)</p>
+          </div>
+          <div class="spec-item">
+            <div class="spec-title">Audio & Light</div>
+            <p class="spec-desc">Natural window lighting; low room background noise</p>
+          </div>
+          <div class="spec-item">
+            <div class="spec-title">Energy</div>
+            <p class="spec-desc">Off-the-cuff and authentic—no rigid scripts needed</p>
+          </div>
+          <div class="spec-item">
+            <div class="spec-title">Delivery</div>
+            <p class="spec-desc">Text raw video, share via Google Drive, or DM @ourinnersanctuary</p>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin-top: 36px;">
+          <a href="#connect" class="btn btn-gold">Submit Your Video Link</a>
+          <a href="https://www.instagram.com/ourinnersanctuary/" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="display: inline-flex; align-items: center; gap: 8px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
+            <span>Tag or DM @ourinnersanctuary</span>
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ==================== SPONSORSHIP TIERS ==================== -->
+  <section id="sponsorship" class="section-padding" style="background: rgba(255, 255, 255, 0.88); backdrop-filter: blur(8px); border-top: 1px solid rgba(197, 154, 63, 0.2);">
+    <div class="container">
+      
+      <div class="section-header">
+        <div class="section-subtitle">Community Investment</div>
+        <h2 class="section-title">Partnership & Sponsorship Packages</h2>
+        <div class="flourish-divider">✦</div>
+        <p>All contributions are 100% tax-deductible under IRC Section 170(b)(1)(A)(vi).</p>
+      </div>
+
+      <div class="sponsor-tiers-grid">
+        
+        <!-- Tier 1 -->
+        <div class="tier-box">
+          <div>
+            <span class="badge badge-sage">Grassroots Support</span>
+            <h3 style="margin-top: 14px; font-size: 1.3rem;">Raffle & In-Kind Donor</h3>
+            <div class="tier-price">$5–$25 <span>or In-Kind</span></div>
+            <p style="font-size: 0.9rem;">
+              Provide 1–5 $5 gift cards or refreshments for our community raffle, directly supporting performers and neighborhood guests.
+            </p>
+            <ul class="benefit-list" style="margin-bottom: 24px;">
+              <li>Name recognition on community sponsor roll</li>
+              <li>Live verbal shout-out during raffle drawings</li>
+              <li>501(c)(3) in-kind contribution tax receipt</li>
+            </ul>
+          </div>
+          <a href="#connect" class="btn btn-outline" style="width: 100%;">Donate Cards / Items</a>
+        </div>
+
+        <!-- Tier 2 -->
+        <div class="tier-box">
+          <div>
+            <span class="badge badge-sage">Neighborhood Tier</span>
+            <h3 style="margin-top: 14px; font-size: 1.3rem;">Community Neighbor</h3>
+            <div class="tier-price">$100 <span>/ event</span></div>
+            <p style="font-size: 0.9rem;">
+              For local businesses wanting to support neighborhood youth and local arts while building authentic relationships.
+            </p>
+            <ul class="benefit-list" style="margin-bottom: 24px;">
+              <li>Logo placement on printed programs and digital QR guides</li>
+              <li>Live verbal stage announcement by MC Marlon Smith</li>
+              <li>Community partner tag on post-event recaps</li>
+              <li>100% Tax-deductible contribution receipt</li>
+            </ul>
+          </div>
+          <a href="#connect" class="btn btn-outline" style="width: 100%;">Select Tier</a>
+        </div>
+
+        <!-- Tier 3 (Featured) -->
+        <div class="tier-box featured">
+          <div class="tier-ribbon">Flagship / CRA Partner</div>
+          <div>
+            <span class="badge badge-gold">Top Billing</span>
+            <h3 style="margin-top: 14px; font-size: 1.3rem;">Presenting Showcase Partner</h3>
+            <div class="tier-price">$500 <span>/ showcase</span></div>
+            <p style="font-size: 0.9rem;">
+              Premier co-branding and on-site engagement for regional institutions, credit unions, and community-focused banks.
+            </p>
+            <ul class="benefit-list" style="margin-bottom: 24px;">
+              <li><strong>Dedicated on-site table/booth</strong> at our community showcases & gatherings</li>
+              <li><strong>2-minute live microphone spotlight</strong> or stage intro by MC</li>
+              <li><strong>Top-tier co-branding</strong> on flyers and digital programs</li>
+              <li><strong>Verified CRA documentation</strong> and event photo assets</li>
+            </ul>
+          </div>
+          <a href="#connect" class="btn btn-gold" style="width: 100%;">Become Flagship Partner</a>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== "DROP INTO THE CIRCLE" INTAKE FORM ==================== -->
+  <section id="connect" class="section-padding contact-section" style="background: rgba(239, 236, 227, 0.7); backdrop-filter: blur(8px);">
+    <div class="container">
+      
+      <div class="section-header">
+        <div class="section-subtitle">Get Involved</div>
+        <h2 class="section-title">Drop Into The Circle</h2>
+        <div class="flourish-divider">✦</div>
+        <p>Reach out to perform, submit your 30-second creator video, plant a seed, or sponsor an unhurried event.</p>
+      </div>
+
+      <div class="contact-card">
+        
+        <!-- Interactive Tabs -->
+        <div class="intake-tab-bar">
+          <button class="intake-tab active" data-role="artist">🎨 Artist Spotlight</button>
+          <button class="intake-tab" data-role="donor">💚 $1 Seed Donor</button>
+          <button class="intake-tab" data-role="sponsor">🏢 Sponsor / CRA</button>
+          <button class="intake-tab" data-role="raffle">🎁 Raffle Donor</button>
+        </div>
+
+        <form id="circle-intake-form">
+          <div class="form-grid">
+            
+            <div class="form-group">
+              <label for="form-name">Your Full Name or Organization *</label>
+              <input type="text" id="form-name" required placeholder="e.g. Maya Chen or Riverside Heritage Bank">
+            </div>
+
+            <div class="form-group">
+              <label for="form-email">Email Address *</label>
+              <input type="email" id="form-email" required placeholder="name@domain.com">
+            </div>
+
+            <div class="form-group">
+              <label for="role-select">I Am Reaching Out As *</label>
+              <select id="role-select" required>
+                <option value="Artist / Performer">Artist / Performer (Open Mic & Creator Spotlight)</option>
+                <option value="$1 Community Seed Donor">$1 Community Seed Donor</option>
+                <option value="Corporate / Business Sponsor">Corporate / Business Sponsor ($500 or $100 Tier)</option>
+                <option value="Raffle & In-Kind Donor">Raffle & In-Kind Donor (Gift cards, tea, refreshments)</option>
+                <option value="General Volunteer / Inquiry">General Volunteer / Inquiry</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="form-handle">Social Handle or Phone (Optional)</label>
+              <input type="text" id="form-handle" placeholder="@instagram, website, or phone">
+            </div>
+
+            <div class="form-group full">
+              <label for="form-message">Message, Video Link, or Donation Notes *</label>
+              <textarea id="form-message" rows="4" required placeholder="Tell us about your craft (poetry, music, storytelling, visual art), link to your 30-sec video, or note if you’d like to share in our upcoming circle..."></textarea>
+            </div>
+
+            <div class="form-group full" style="margin-top: 10px;">
+              <button type="submit" id="form-submit-btn" class="btn btn-gold" style="width: 100%;">
+                Submit Creator Application
+              </button>
+            </div>
+
+            <div class="form-group full" style="text-align: center; margin-top: 4px;">
+              <p style="font-size: 0.8rem; color: var(--charcoal-muted); margin-bottom: 0;">
+                Prefer social messaging? Connect with us on Instagram <a href="https://www.instagram.com/ourinnersanctuary/" target="_blank" rel="noopener noreferrer" style="color: var(--forest-green); font-weight: 600; text-decoration: underline;">@ourinnersanctuary</a>
+              </p>
+            </div>
+
+          </div>
+        </form>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer>
+    <div class="container">
+      
+      <div class="footer-grid">
+        
+        <!-- Brand Info -->
+        <div class="footer-brand">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+            <img src="emblem.png" alt="Emblem" style="width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--sunburst-gold);" onerror="this.src='emblem.jpg'">
+            <div>
+              <h4 class="serif-brand" style="margin-bottom: 2px;">INNER SANCTUARY</h4>
+              <div class="footer-tagline">HEALTH • HARMONY • PEACE</div>
+            </div>
+          </div>
+          
+          <p style="color: #A9BCB0; font-size: 0.92rem; max-width: 400px; line-height: 1.7;">
+            "Go easy on yourself. It's okay to pause. It's okay to put yourself first."
+          </p>
+
+          <div style="font-size: 0.85rem; color: #D3DFD8; margin-top: 16px;">
+            <strong>Mailing Address:</strong><br>
+            1601 W MacArthur Blvd Apt 4J, Santa Ana, CA 92704
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="footer-col">
+          <h5>Quick Navigation</h5>
+          <ul class="footer-links">
+            <li><a href="#mission">Foundation Mission</a></li>
+            <li><a href="#creatives">Creator Spotlight & Specs</a></li>
+            <li><a href="#dollar-campaign">The $1 Community Seed</a></li>
+            <li><a href="#four-releases">The Four Releases</a></li>
+            <li><a href="#sponsorship">Sponsorship Packages</a></li>
+            <li><a href="#connect">Contact Leadership</a></li>
+          </ul>
+        </div>
+
+        <!-- Leadership & Contact -->
+        <div class="footer-col">
+          <h5>Foundation Leadership</h5>
+          <p style="font-size: 0.88rem; color: #CBD7D0; margin-bottom: 8px;">
+            <strong>Teshia Campbell</strong><br>
+            Executive Director
+          </p>
+          <p style="font-size: 0.88rem; color: #CBD7D0; margin-bottom: 12px;">
+            <strong>Marlon Smith</strong><br>
+            Community Event Lead & MC
+          </p>
+          <p style="font-size: 0.88rem; margin-bottom: 12px;">
+            <a href="mailto:hello@innersanctuarywellnessfoundation.org" style="color: var(--sunburst-gold); font-weight: 600;">
+              hello@innersanctuarywellnessfoundation.org
+            </a>
+          </p>
+          <div>
+            <a href="https://www.instagram.com/ourinnersanctuary/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 8px; color: #FFFFFF; font-size: 0.8rem; font-weight: 600; text-decoration: none; padding: 7px 14px; border: 1px solid var(--sunburst-gold); border-radius: 6px; background: rgba(197, 154, 63, 0.16); transition: all 0.2s ease;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
+              <span>Follow @ourinnersanctuary</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Footer Bottom -->
+      <div class="footer-bottom">
+        <div>
+          © 2026 Inner Sanctuary Wellness Foundation. A California 501(c)(3) Public Charity (IRC Section 170(b)(1)(A)(vi)).
+        </div>
+        <div style="display: flex; align-items: center; gap: 16px;">
+          <span>EIN: 39-3757168</span>
+          <span>•</span>
+          <a href="https://www.instagram.com/ourinnersanctuary/" target="_blank" rel="noopener noreferrer" style="color: var(--sunburst-gold); display: inline-flex; align-items: center; gap: 5px;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
+            <span>Instagram</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Script File -->
+  <script src="script.js"></script>
+</body>
+</html>
