@@ -89,7 +89,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Custom Stylesheet -->
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=2.5">
 </head>
 <body>
 
@@ -125,7 +125,7 @@
   <!-- ==================== TOP ANNOUNCEMENT BAR ==================== -->
   <div class="announcement-bar">
     <span>✦ Inner Sanctuary Wellness Foundation • A 501(c)(3) Space for Raw Authenticity, Somatic Healing & Radical Self-Expression</span>
-    <a href="#four-releases">Explore The Four Releases →</a>
+    <a href="#medicine">Explore Our Medicine: LSD →</a>
   </div>
 
   <!-- ==================== NAVIGATION ==================== -->
@@ -142,12 +142,12 @@
       </div>
 
       <ul class="nav-links">
-        <li><a href="#four-releases">The Four Releases</a></li>
-        <li><a href="#mission">Our Mission</a></li>
-        <li><a href="#creatives">Creator Spotlight</a></li>
-        <li><a href="#dollar-campaign">The $1 Seed</a></li>
-        <li><a href="#sponsorship">Sponsorships</a></li>
-        <li><a href="#connect">Connect</a></li>
+        <li><a href="#remember">Pause & Remember</a></li>
+        <li><a href="#medicine">Our Medicine: LSD</a></li>
+        <li><a href="#open-mic">Community Open Mic</a></li>
+        <li><a href="#horizons">Future Horizons</a></li>
+        <li><a href="#circle-growth">Give & Sponsor</a></li>
+        <li><a href="#stay-in-loop">Stay in the Loop</a></li>
       </ul>
 
       <div style="display: flex; align-items: center; gap: 10px;">
@@ -155,7 +155,7 @@
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
           <span class="desktop-only-ig">@ourinnersanctuary</span>
         </a>
-        <a href="#dollar-campaign" class="btn btn-gold" style="padding: 10px 18px; font-size: 0.78rem;">Give $1 Seed</a>
+        <a href="#circle-growth" class="btn btn-gold" style="padding: 10px 18px; font-size: 0.78rem;">Give $1 Seed</a>
         <button id="mobile-nav-toggle" style="display: none; background: none; border: 1px solid var(--forest-green); color: var(--forest-green); padding: 8px 12px; border-radius: 6px; cursor: pointer;" aria-label="Toggle Menu">
           ☰
         </button>
@@ -165,16 +165,71 @@
     <!-- Mobile Navigation Drawer -->
     <div id="mobile-nav-drawer" class="hidden" style="display: none; padding: 20px 24px; background: #F6F3EC; border-bottom: 1px solid var(--sunburst-gold);">
       <ul style="list-style: none; display: flex; flex-direction: column; gap: 14px; font-weight: 600; text-transform: uppercase; font-size: 0.85rem;">
-        <li><a href="#four-releases">The Four Releases</a></li>
-        <li><a href="#mission">Our Mission</a></li>
-        <li><a href="#creatives">Creator Spotlight</a></li>
-        <li><a href="#dollar-campaign">The $1 Seed Movement</a></li>
-        <li><a href="#sponsorship">Sponsorships & CRA</a></li>
-        <li><a href="#connect">Connect / Drop In</a></li>
+        <li><a href="#remember">Pause & Remember</a></li>
+        <li><a href="#medicine">Our Medicine: LSD</a></li>
+        <li><a href="#open-mic">Open Mic & Pause Activations</a></li>
+        <li><a href="#horizons">Future Horizons</a></li>
+        <li><a href="#circle-growth">Give & Sponsor</a></li>
+        <li><a href="#stay-in-loop">Stay in the Loop</a></li>
+        <li><a href="#connect">Drop In / Contact</a></li>
         <li><a href="https://www.instagram.com/ourinnersanctuary/" target="_blank" rel="noopener noreferrer" style="color: var(--sunburst-gold); display: flex; align-items: center; gap: 8px;">📸 Instagram: @ourinnersanctuary</a></li>
       </ul>
     </div>
   </nav>
+
+  <!-- ==================== PROMINENT WEEKLY ELEMENT SANCTUARY BAR ==================== -->
+  <aside class="element-sanctuary-bar" aria-label="Weekly Element Theme and Soundscape Audio Controller">
+    <div class="container element-sanctuary-inner">
+      
+      <!-- Current Element Theme Display -->
+      <div class="element-status-wrap">
+        <span class="element-cycle-tag">✦ Weekly Element</span>
+        <div>
+          <span id="active-element-name" class="element-active-title">🌿 Earth & Forest Sanctuary</span>
+          <span class="desktop-only" style="color: rgba(197, 154, 63, 0.6); margin: 0 6px;">•</span>
+          <span id="active-element-quote" class="element-quote-short desktop-only">"Root down so your branches may reach without fear."</span>
+        </div>
+      </div>
+
+      <!-- Quick Element Theme Selector Pills (One-Tap Immersion) -->
+      <div class="element-pills-nav" role="tablist" aria-label="Choose Element Atmosphere">
+        <button class="element-pill-btn active" data-element="earth" role="tab" aria-selected="true" title="Switch to Earth & Whispering Forest Birds">
+          <span>🌲</span> <span>Earth</span> <span class="pill-vibe-tag">Forest</span>
+        </button>
+        <button class="element-pill-btn" data-element="water" role="tab" aria-selected="false" title="Switch to Water & Rolling Ocean Surf">
+          <span>🌊</span> <span>Water</span> <span class="pill-vibe-tag">Ocean</span>
+        </button>
+        <button class="element-pill-btn" data-element="air" role="tab" aria-selected="false" title="Switch to Air & Mountain Breeze">
+          <span>🌬️</span> <span>Air</span> <span class="pill-vibe-tag">Breeze</span>
+        </button>
+        <button class="element-pill-btn" data-element="fire" role="tab" aria-selected="false" title="Switch to Fire & Warm Crackling Hearth">
+          <span>🔥</span> <span>Fire</span> <span class="pill-vibe-tag">Hearth</span>
+        </button>
+        <button class="element-pill-btn" data-element="ether" role="tab" aria-selected="false" title="Switch to Ether & Celestial Koshi Chimes">
+          <span>🌌</span> <span>Ether</span> <span class="pill-vibe-tag">Chimes</span>
+        </button>
+      </div>
+
+      <!-- Audible Breathwork Soundscape Engine Controls -->
+      <div class="soundscape-controls-wrap">
+        <button id="soundscape-toggle-btn" class="soundscape-toggle-btn" type="button" aria-pressed="false" title="Click to immerse with real-time natural soundscapes and breath waves">
+          <span id="soundscape-icon">🔈</span>
+          <span id="soundscape-label">Soundscape: Off</span>
+          <span class="sound-wave-bars" aria-hidden="true">
+            <span class="sound-wave-bar"></span>
+            <span class="sound-wave-bar"></span>
+            <span class="sound-wave-bar"></span>
+          </span>
+        </button>
+
+        <div class="volume-control-pill" title="Adjust Soundscape Volume">
+          <span style="font-size: 0.72rem; color: #CBD7D0;">🎚️</span>
+          <input type="range" id="soundscape-volume" class="volume-slider" min="0" max="100" value="70" aria-label="Soundscape Volume">
+        </div>
+      </div>
+
+    </div>
+  </aside>
 
   <!-- ==================== HERO SECTION ==================== -->
   <header class="hero">
@@ -188,7 +243,7 @@
 
       <!-- 501(c)(3) Verification & Instagram Badge -->
       <div style="display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 18px;">
-        <span class="badge badge-gold">501(c)(3) Public Charity • EIN: 39-3757168 • Effective Aug 9, 2025</span>
+        <span class="badge badge-gold">IRS 501(c)(3) Public Charity • EIN: 39-3757168 • California Nonprofit</span>
         <a href="https://www.instagram.com/ourinnersanctuary/" target="_blank" rel="noopener noreferrer" class="badge badge-sage" style="text-decoration: none; display: inline-flex; align-items: center; gap: 6px;" title="Follow @ourinnersanctuary on Instagram">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
           <span>@ourinnersanctuary</span>
@@ -197,26 +252,126 @@
 
       <!-- Main Headline -->
       <h1 class="hero-h1">INNER SANCTUARY</h1>
-      <div class="hero-tagline-motto">HEALTH • HARMONY • PEACE</div>
+      <div class="hero-tagline-motto">WELLNESS FOUNDATION</div>
 
       <div class="flourish-divider">✦</div>
 
-      <!-- Creator Spotlight Sub-Banner -->
-      <div class="sub-banner">
-        <h2>CREATOR SPOTLIGHT INITIATIVE</h2>
-        <p class="tagline">Raw Voices. Real Roots. Safe Spaces.</p>
-      </div>
+      <!-- Core Manifesto Box: Pause. Breathe. Remember. -->
+      <div id="remember" class="hero-manifesto-box">
+        <div class="manifesto-lead-title">PAUSE. BREATHE. <span>REMEMBER.</span></div>
+        
+        <div class="manifesto-body-text">
+          <p style="font-size: 1.15rem; font-weight: 500; color: var(--forest-green);">
+            There was a time when we knew exactly who we were.
+          </p>
+          <p>
+            Before the world told us who to become. Before we learned to silence our emotions, shrink our expression, and search outside ourselves for the peace we once carried within.
+          </p>
+          <p>
+            Somewhere between surviving, striving, and trying to belong, we forgot.
+          </p>
+          <p style="color: var(--forest-light); font-weight: 600;">
+            We forgot how to listen to ourselves. How to feel without judgment. How to simply be.
+          </p>
+          
+          <div class="highlight-question">✦ But what if the essence of who we are was never lost? ✦</div>
+          
+          <p style="font-size: 1.08rem; color: var(--forest-dark); font-weight: 600;">
+            What if it's been there all along, waiting for us to remember?
+          </p>
+          
+          <div class="manifesto-closing">
+            At Inner Sanctuary Wellness Foundation, we help people tune into the essence of who they are.<br>
+            We create spaces to pause, breathe, explore the elements and emotions within, and find our way back to our roots, our origin, our true selves.
+          </div>
+        </div>
 
-      <!-- Pitch -->
-      <p class="hero-pitch">
-        Where raw voices find grounded space. An unhurried sanctuary dedicated to mental and emotional wellness, authentic creative expression free from algorithmic pressure, and community care for artists and neighborhood families alike.
-      </p>
+        <!-- Interactive Somatic Breathing Orb -->
+        <!-- Interactive Somatic Box Breathing Square & Orb -->
+        <div class="box-breathing-container">
+          <button id="orb-toggle-btn" class="breathing-orb-trigger" type="button">
+            <span>✦</span>
+            <span id="orb-btn-label">Begin 4x4 Somatic Box Breathing</span>
+          </button>
 
-      <!-- CTA Buttons -->
-      <div class="hero-cta-group">
-        <a href="#connect" class="btn btn-gold">Drop Into The Circle</a>
-        <a href="#four-releases" class="btn btn-forest">The Four Releases</a>
-        <a href="#dollar-campaign" class="btn btn-outline">Plant a $1 Seed</a>
+          <!-- The Box Breathing Square Visualizer -->
+          <div class="box-square-wrapper" id="box-square-wrapper">
+            
+            <!-- Side 1: Top (Hold) -->
+            <div class="box-side-badge box-side-top" id="box-badge-top">
+              <span>HOLD</span> <span>→</span>
+            </div>
+
+            <!-- Side 2: Right (Exhale Down) -->
+            <div class="box-side-badge box-side-right" id="box-badge-right">
+              <span>↓</span> <span>EXHALE</span>
+            </div>
+
+            <!-- Side 3: Bottom (Hold / Remember) -->
+            <div class="box-side-badge box-side-bottom" id="box-badge-bottom">
+              <span>←</span> <span>HOLD</span>
+            </div>
+
+            <!-- Side 4: Left (Inhale Up) -->
+            <div class="box-side-badge box-side-left" id="box-badge-left">
+              <span>INHALE</span> <span>↑</span>
+            </div>
+
+            <!-- Glowing Perimeter SVG Track -->
+            <svg class="box-svg-canvas" viewBox="0 0 320 320" aria-hidden="true">
+              <!-- Background square frame -->
+              <rect x="30" y="30" width="260" height="260" rx="24" class="box-track-bg" />
+              <!-- Highlight Edge Lines -->
+              <line id="box-line-left" x1="30" y1="290" x2="30" y2="30" class="box-edge-line" />
+              <line id="box-line-top" x1="30" y1="30" x2="290" y2="30" class="box-edge-line" />
+              <line id="box-line-right" x1="290" y1="30" x2="290" y2="290" class="box-edge-line" />
+              <line id="box-line-bottom" x1="290" y1="290" x2="30" y2="290" class="box-edge-line" />
+              <!-- Traveling Light Tracer Particle -->
+              <circle id="box-tracer-dot" cx="30" cy="290" r="9" class="box-tracer-dot" />
+            </svg>
+
+            <!-- Center Content inside the Square -->
+            <div class="box-inner-content">
+              <div class="breathing-orb-wrapper">
+                <div class="breathing-pulse-ring"></div>
+                <div id="somatic-orb" class="breathing-orb" title="Click to begin gentle somatic breath pause">
+                  <span id="orb-icon">🌿</span>
+                </div>
+                <div class="breathing-halo-aura"></div>
+              </div>
+
+              <div class="box-phase-indicator">
+                <span id="box-phase-title" class="box-phase-title">PAUSE</span>
+                <span id="box-phase-countdown" class="box-phase-countdown">4s</span>
+              </div>
+            </div>
+
+          </div>
+
+          <div id="breathing-guide-text" class="breathing-status-text">
+            Click the orb or button to begin Somatic Box Breath
+          </div>
+
+          <!-- Warm Female Voice Guide Toggle -->
+          <div class="breathing-voice-control-wrap">
+            <button id="voice-guide-toggle-btn" class="voice-guide-pill active" type="button" aria-pressed="true" title="Toggle Warm Female Voice Breath Guidance">
+              <span>🎙️ Guided Voice:</span>
+              <strong id="voice-guide-status">On (Warm Voice)</strong>
+            </button>
+          </div>
+
+          <div style="font-size: 0.76rem; color: var(--sunburst-gold); font-weight: 600; margin-top: 10px; letter-spacing: 0.05em; display: flex; align-items: center; justify-content: center; gap: 6px;">
+            <span>🍃</span>
+            <span>Up left (Inhale 4s) • Across top (Hold 4s) • Down right (Exhale 4s) • Across bottom (Hold 4s)</span>
+          </div>
+        </div>
+
+        <!-- CTA Buttons -->
+        <div class="hero-cta-group" style="margin-top: 24px;">
+          <a href="#open-mic" class="btn btn-gold">Drop Into The Circle</a>
+          <a href="#medicine" class="btn btn-forest">Our Medicine: LSD</a>
+          <a href="#circle-growth" class="btn btn-outline">Support The Foundation</a>
+        </div>
       </div>
 
     </div>
@@ -244,94 +399,311 @@
     </div>
   </section>
 
-  <!-- ==================== THE FOUR RELEASES: NATURE'S ORIGINAL MEDICINE ==================== -->
-  <section id="four-releases" class="section-padding" style="background: rgba(250, 248, 243, 0.65); backdrop-filter: blur(6px); border-bottom: 1px solid rgba(197, 154, 63, 0.2);">
+  <!-- ==================== OUR MEDICINE: LSD ==================== -->
+  <section id="medicine" class="section-padding" style="background: rgba(250, 248, 243, 0.7); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(197, 154, 63, 0.2);">
     <div class="container">
       
-      <div class="section-header" style="max-width: 860px; margin: 0 auto 56px;">
-        <div class="section-subtitle">Nature’s Original Medicine</div>
-        <h2 class="section-title">The Four Releases</h2>
+      <div class="section-header" style="max-width: 860px; margin: 0 auto 36px; text-align: center;">
+        <div class="section-subtitle">Somatic Alchemy & Nature’s Prescription</div>
+        <h2 class="section-title">Our Medicine? LSD.</h2>
+        
+        <!-- Playful Humor Pill -->
+        <div style="margin: 10px 0 16px;">
+          <span class="lsd-humor-pill">*(No, not that kind of LSD, silly!)* 😄</span>
+        </div>
+
         <div class="flourish-divider">✦</div>
-        <p style="font-size: 1.15rem; color: var(--forest-green); font-weight: 500; line-height: 1.85; margin-bottom: 16px;">
-          True wellness isn’t about being quiet, staying composed, or keeping yourself contained. Real healing is somatic—it moves through the body, clears the static, and brings you back to life.
+        
+        <div style="font-family: 'Cinzel', serif; font-size: 1.25rem; color: var(--forest-green); letter-spacing: 0.16em; font-weight: 700; margin-bottom: 16px;">
+          LAUGHING • SINGING • DANCING
+        </div>
+
+        <p style="font-size: 1.08rem; color: var(--charcoal-muted); line-height: 1.85; margin-bottom: 12px;">
+          Before anyone calls the wellness authorities... around here, healing isn't clinical, stiff, or complicated. Sometimes healing looks like deep belly laughter that shakes your ribs until you're gasping for air. A song you didn't know you needed to belt out. Or moving your body freely until whatever you've been holding onto finally shakes loose.
         </p>
-        <p style="font-size: 1.02rem; color: var(--charcoal-muted); margin-bottom: 0;">
-          We believe freedom and self-expression begin with the body’s four core regenerative releases:
+        <p style="font-size: 1.02rem; color: var(--forest-dark); font-weight: 600; line-height: 1.8; margin-bottom: 0;">
+          Our medicine is simply giving ourselves permission to be human.<br>
+          <span style="color: var(--forest-green);">To feel it all, express it all, and remember who we were before the rush.</span>
         </p>
       </div>
 
-      <!-- Responsive 4-Column Grid -->
-      <div class="releases-grid">
-        
-        <!-- 1. Laughing -->
-        <div class="release-card">
-          <div class="release-glyph-box">☀️</div>
-          <h3 class="release-title">Laughing</h3>
-          <div class="release-subtitle">Breaking Tension Instantly</div>
-          <p class="release-desc">
-            Shared joy resets the nervous system, reminds us of our humanity, and breaks the weight of survival mode.
+      <div class="lsdc-flow-container">
+        <!-- 3 Prominent Focused LSD Cards -->
+        <div class="lsd-trio-grid">
+          
+          <!-- L: Laughing -->
+          <div class="lsd-focus-card" data-element="laughing">
+            <div class="lsd-card-header">
+              <span class="lsd-letter-badge">L</span>
+              <div>
+                <h3 class="lsd-focus-title">Laughing</h3>
+                <span class="lsd-focus-subtitle">Nervous System Reset</span>
+              </div>
+            </div>
+            <p class="lsd-focus-desc">
+              Shared belly joy that instantly dissolves fight-or-flight survival mode, releases endorphins, and reminds us that lightness is our natural state.
+            </p>
+            <div class="lsd-vibe-tag">✦ Joy Medicine</div>
+          </div>
+
+          <!-- S: Singing -->
+          <div class="lsd-focus-card" data-element="singing">
+            <div class="lsd-card-header">
+              <span class="lsd-letter-badge">S</span>
+              <div>
+                <h3 class="lsd-focus-title">Singing</h3>
+                <span class="lsd-focus-subtitle">Vibrational Sound Release</span>
+              </div>
+            </div>
+            <p class="lsd-focus-desc">
+              Sounding your sacred voice and giving breath to frequencies words alone cannot carry. No choir training needed; just raw, unfiltered vocal resonance.
+            </p>
+            <div class="lsd-vibe-tag">✦ Voice Medicine</div>
+          </div>
+
+          <!-- D: Dancing -->
+          <div class="lsd-focus-card" data-element="dancing">
+            <div class="lsd-card-header">
+              <span class="lsd-letter-badge">D</span>
+              <div>
+                <h3 class="lsd-focus-title">Dancing</h3>
+                <span class="lsd-focus-subtitle">Embodied Somatic Motion</span>
+              </div>
+            </div>
+            <p class="lsd-focus-desc">
+              Moving energy freely without choreography, performance anxiety, or permission. Shaking off heavy weeks and reconnecting your root back to soil.
+            </p>
+            <div class="lsd-vibe-tag">✦ Motion Medicine</div>
+          </div>
+
+        </div>
+
+        <!-- Sweet reassurance note for Crying, Connecting, Creating -->
+        <div class="lsd-companion-note">
+          <span style="color: var(--sunburst-gold); font-size: 1.1rem;">🕊️</span>
+          <span><strong>And don't worry — we hold plenty of space for the rest of being human, too:</strong> the tears (Crying), authentic belonging (Connecting), and honest storytelling (Creating). Whatever is in your heart, the circle holds.</span>
+        </div>
+
+        <!-- Living Sanctuary Callout -->
+        <div class="purpose-callout" style="margin-top: 32px;">
+          <div class="purpose-title">The Foundation Truth</div>
+          <h3 class="purpose-headline" style="font-size: 1.45rem; line-height: 1.6;">
+            "Because the sanctuary we've been searching for isn't a place we have to find."
+          </h3>
+          
+          <p class="purpose-desc" style="font-size: 1.1rem; color: var(--forest-dark); font-weight: 500; margin-bottom: 20px;">
+            It's a place we learn to create within ourselves. And when we do, we can carry that sanctuary wherever life takes us.
           </p>
-        </div>
 
-        <!-- 2. Singing & Sounding -->
-        <div class="release-card">
-          <div class="release-glyph-box">🎙️</div>
-          <h3 class="release-title">Singing & Sounding</h3>
-          <div class="release-subtitle">Power of Your Vibration</div>
-          <p class="release-desc">
-            Giving voice to what words cannot carry. Your throat, your tone, your rhythm—reclaiming the power of your own vibration.
-          </p>
-        </div>
-
-        <!-- 3. Dancing -->
-        <div class="release-card">
-          <div class="release-glyph-box">🌿</div>
-          <h3 class="release-title">Dancing</h3>
-          <div class="release-subtitle">Energy Without Permission</div>
-          <p class="release-desc">
-            Moving energy without permission or choreography. Pure somatic release that shakes off stored trauma and reconnects spirit to soil.
-          </p>
-        </div>
-
-        <!-- 4. Crying -->
-        <div class="release-card">
-          <div class="release-glyph-box">💧</div>
-          <h3 class="release-title">Crying</h3>
-          <div class="release-subtitle">The Body’s Deepest Reset</div>
-          <p class="release-desc">
-            Tears aren't weakness; they are emotional detoxification, washing away the buildup so clarity can return.
-          </p>
-        </div>
-
-      </div>
-
-      <!-- Our Purpose Manifesto Callout -->
-      <div class="purpose-callout">
-        <div class="purpose-title">Our Purpose</div>
-        <h3 class="purpose-headline">Raw Authenticity. Unpoliced Joy. Radical Self-Expression.</h3>
-        
-        <p class="purpose-desc">
-          Inner Sanctuary is a space built for raw authenticity, unpoliced joy, and radical self-expression. In a world that demands you stay numb, performative, or small, we offer an open ground to feel completely. Whether you step up to an open mic, share a room with kindred spirits, or simply breathe in a circle that sees you, this is your invitation to lay the heavy armor down.
-        </p>
-
-        <div class="releases-mantra">
-          Laugh. Sing. Move. Release. Reclaim your freedom.
-        </div>
-
-        <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
-          <a href="#connect" class="btn btn-gold">Drop Into The Circle</a>
-          <a href="#dollar-campaign" class="btn btn-outline-gold">Plant a $1 Seed</a>
+          <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
+            <a href="#open-mic" class="btn btn-gold">Drop Into The Circle</a>
+            <a href="#circle-growth" class="btn btn-outline-gold">Support The Foundation</a>
+          </div>
         </div>
       </div>
 
     </div>
   </section>
 
-  <!-- ==================== $1 COMMUNITY CAMPAIGN HIGHLIGHT ==================== -->
-  <section id="dollar-campaign" class="section-padding" style="background: rgba(240, 236, 225, 0.7); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(197, 154, 63, 0.25);">
+  <!-- ==================== DROP INTO THE CIRCLE: UPCOMING COMMUNITY OPEN MIC & PAUSE ACTIVATIONS ==================== -->
+  <section id="open-mic" class="section-padding" style="background: rgba(240, 236, 225, 0.7); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(197, 154, 63, 0.25);">
     <div class="container">
       
-      <div class="dollar-campaign-wrapper">
+      <div class="section-header" style="max-width: 860px; margin: 0 auto 20px;">
+        <div class="section-subtitle">Get Into Your Element • Drop Into The Circle</div>
+        <h2 class="section-title">Community Open Mic & Pause Activations</h2>
+        <div class="flourish-divider">✦</div>
+        <p style="font-size: 1.08rem; color: var(--charcoal-muted); line-height: 1.8;">
+          An unhurried space for artists, neighbors, and truth-tellers to share space, breathe together, process life's journey, and be truly heard. Co-presented with <strong>SoCal Creatives Collective</strong>.
+        </p>
+      </div>
+
+      <!-- Featured Event Card -->
+      <div class="event-featured-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;">
+          <div class="event-tag-badge">
+            <span>✦</span> UPCOMING · COMMUNITY OPEN MIC & PAUSE ACTIVATIONS
+          </div>
+          <span style="font-size: 0.76rem; color: #F8D98C; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;">
+            📍 Irvine / Orange County • Alcohol-Free Creative Sanctuary
+          </span>
+        </div>
+        
+        <h3 style="font-family: 'Cinzel', serif; font-size: clamp(1.8rem, 3.2vw, 2.4rem); color: #FFFFFF; letter-spacing: 0.08em; margin-bottom: 8px;">
+          Open Mic & Creative Connection Gathering
+        </h3>
+        <p style="color: #CBD7D0; font-size: 0.95rem; margin-bottom: 0;">
+          Hosted by <strong>SoCal Creatives Collective</strong> & <strong>Inner Sanctuary Wellness Foundation</strong>
+        </p>
+
+        <!-- Date / Time / Location Banner -->
+        <div class="event-datetime-banner">
+          <div>
+            <div class="date-highlight">SUNDAY, NOVEMBER 15, 2026</div>
+            <div class="time-highlight">2:00 PM – 4:00 PM PST</div>
+          </div>
+          <div style="border-left: 1px solid rgba(255,255,255,0.25); padding-left: 20px;">
+            <div style="font-size: 0.95rem; font-weight: 700; color: #FFFFFF;">Location & Venue</div>
+            <div style="font-size: 0.88rem; color: #CBD7D0;">Cafe 86 • 2423 Park Ave, Irvine, CA</div>
+          </div>
+          <div style="border-left: 1px solid rgba(255,255,255,0.25); padding-left: 20px;">
+            <div style="font-size: 0.95rem; font-weight: 700; color: #FFFFFF;">The Experience</div>
+            <div style="font-size: 0.88rem; color: #CBD7D0;">Open Mic Stage + Somatic Pause Lounge</div>
+          </div>
+        </div>
+
+        <!-- The Dual Focal Points: Open Mic Aspect + Pause Activations Aspect -->
+        <div class="openmic-pause-split">
+          
+          <!-- Aspect 1: The Open Mic -->
+          <div class="openmic-facet-card">
+            <div class="facet-icon-tag">
+              <span>🎤</span>
+              <span>The Open Mic Aspect</span>
+            </div>
+            <h4 class="facet-headline">Raw Expression & True Listeners</h4>
+            <p class="facet-desc">
+              Come laugh, sing, share, listen, cry, create, or simply be. No performance necessary. Just come as you are.
+            </p>
+            <ul class="facet-list">
+              <li><strong>All creative mediums welcomed:</strong> Spoken word, poetry, acoustic music, storytelling, comedy, or reflections.</li>
+              <li><strong>Zero judgment, zero performance pressure:</strong> You don't have to be "polished" or famous. Share from the heart.</li>
+              <li><strong>Attentive community:</strong> A room that actually listens, cheers, and holds space without algorithmic rush.</li>
+            </ul>
+          </div>
+
+          <!-- Aspect 2: Pause Activations -->
+          <div class="openmic-facet-card">
+            <div class="facet-icon-tag">
+              <span>🌿</span>
+              <span>Pause Activations Aspect</span>
+            </div>
+            <h4 class="facet-headline">Somatic Recharge & Grounding Lounge</h4>
+            <p class="facet-desc">
+              A moment to pause, breathe, reflect, and reconnect. Dedicated wellness activations woven into the gathering.
+            </p>
+            <ul class="facet-list">
+              <li><strong>Botanical Herbal Tea Bar:</strong> Nourishing warm teas and hydration to soothe the throat and nervous system.</li>
+              <li><strong>Guided 4-4-4 Breathwork Intervals:</strong> Gentle group somatic breath pauses between sets to center the room.</li>
+              <li><strong>432 Hz Sound Meditations & Singing Bowls:</strong> Grounding vibrational resonance to relax tension and bring peace.</li>
+            </ul>
+          </div>
+
+        </div>
+
+        <div class="event-invitation-quote">
+          "Because sometimes healing looks like laughter that comes from deep within. Sometimes it's a song we didn't know we needed to sing. Or tears we've finally given ourselves permission to cry."
+        </div>
+
+        <div class="event-cta-bar">
+          <a href="https://www.meetup.com/socal-creatives-collective/events/316432286/?_xtd=gqFyqTExNjA3NjU1MqFwo2FwaQ%253D%253D&from=ref" 
+             target="_blank" 
+             rel="noopener noreferrer" 
+             class="btn-meetup" 
+             id="meetup-action-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.34 10.04a5.05 5.05 0 0 0-4.38-4.99 5.3 5.3 0 0 0-4.92 2.37 5.05 5.05 0 0 0-5.38 5.64 5.2 5.2 0 0 0 3.32 4.41c-.04.42-.04.85.01 1.27a4.93 4.93 0 0 0 5.48 4.26 5.32 5.32 0 0 0 4.25-2.73 4.98 4.98 0 0 0 4.88-5.32c-.01-.42-.09-.84-.24-1.24.87-1.02 1.25-2.38.98-3.67zm-3.32 4.27c-.24.51-.62.93-1.1 1.2-.23.13-.49.21-.75.25-.33.05-.67.04-1-.02-.45-.09-.87-.3-1.21-.61-.34-.31-.59-.7-.73-1.14-.14-.44-.16-.91-.07-1.36.09-.45.3-.87.61-1.21.31-.34.7-.59 1.14-.73.44-.14.91-.16 1.36-.07.45.09.87.3 1.21.61.34.31.59.7.73 1.14.14.44.16.91.07 1.36-.06.2-.14.39-.26.58z"/></svg>
+            <span>RSVP on Meetup Page ↗</span>
+          </a>
+
+          <button id="btn-add-calendar" type="button" class="btn btn-outline" style="border-color: #F8D98C; color: #F8D98C; cursor: pointer;">
+            📅 Add to Calendar (.ics)
+          </button>
+
+          <a href="#connect" class="btn btn-gold">
+            Sign Up to Share on Mic
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== MORE WAYS TO CONNECT (FUTURE HORIZONS) ==================== -->
+  <section id="horizons" class="section-padding" style="background: rgba(255, 255, 255, 0.88); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(197, 154, 63, 0.2);">
+    <div class="container">
+      
+      <div class="section-header" style="max-width: 820px; margin: 0 auto 16px;">
+        <div class="section-subtitle">Sanctuary Horizons & Expanding Spaces</div>
+        <h2 class="section-title">More Ways to Connect</h2>
+        <div class="flourish-divider">✦</div>
+        <p>
+          We are intentionally planting physical and experiential spaces that sustain somatic wellness, creative expression, and community belonging.
+        </p>
+      </div>
+
+      <div class="horizons-grid">
+        
+        <!-- 1. Pause Activations -->
+        <div class="horizon-card">
+          <div>
+            <span class="horizon-status-pill coming-soon">✦ Coming Soon</span>
+            <h3 class="horizon-title serif-brand">Pause Activations</h3>
+            <p class="horizon-desc">
+              <strong>A moment to pause, breathe, reflect, and reconnect.</strong><br>
+              Curated pop-up somatic wellness sanctuaries, tea ceremonies, sound meditation lounges, and guided pause stations at local community events, universities, and neighborhood festivals.
+            </p>
+          </div>
+          <div style="margin-top: 24px;">
+            <a href="#stay-in-loop" class="btn btn-outline" style="width: 100%; font-size: 0.8rem; padding: 10px 16px;">Get Early Access</a>
+          </div>
+        </div>
+
+        <!-- 2. Innertunement Studio -->
+        <div class="horizon-card" style="border-color: rgba(197, 154, 63, 0.5); box-shadow: 0 12px 32px rgba(197, 154, 63, 0.1);">
+          <div>
+            <span class="horizon-status-pill studio">✦ Coming January 2027</span>
+            <h3 class="horizon-title serif-brand">Innertunement Studio</h3>
+            <p class="horizon-desc">
+              <strong>A creative space for podcasts, retreats, music, recording, filming, and storytelling.</strong><br>
+              A state-of-the-art acoustic haven equipped for grassroots creators, conscious podcasters, and soulful musicians to record and produce high-caliber art without predatory industry hurdles.
+            </p>
+          </div>
+          <div style="margin-top: 24px;">
+            <a href="#connect" class="btn btn-gold" style="width: 100%; font-size: 0.8rem; padding: 10px 16px;">Studio Partnership Inquiry</a>
+          </div>
+        </div>
+
+        <!-- 3. Housing & Community Living -->
+        <div class="horizon-card">
+          <div>
+            <span class="horizon-status-pill housing">✦ In Development</span>
+            <h3 class="horizon-title serif-brand">Housing & Community Living</h3>
+            <p class="horizon-desc">
+              <strong>Exploring affordable housing and co-living spaces rooted in belonging and community.</strong><br>
+              Pioneering collective living sanctuaries that provide stable, peaceful, and affordable sanctuary for local artists, families, and community leaders committed to shared care.
+            </p>
+          </div>
+          <div style="margin-top: 24px;">
+            <a href="#circle-growth" class="btn btn-outline" style="width: 100%; font-size: 0.8rem; padding: 10px 16px;">Support This Initiative</a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== HELP US KEEP THE CIRCLE GROWING (GIVING & SPONSORSHIP) ==================== -->
+  <section id="circle-growth" class="section-padding" style="background: rgba(240, 236, 225, 0.7); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(197, 154, 63, 0.25);">
+    <div class="container">
+      
+      <div class="section-header" style="max-width: 860px; margin: 0 auto 44px;">
+        <div class="section-subtitle">Grassroots & Corporate Care</div>
+        <h2 class="section-title">Help Us Keep The Circle Growing</h2>
+        <div class="flourish-divider">✦</div>
+        <p style="font-size: 1.2rem; color: var(--forest-green); font-weight: 600; line-height: 1.8; margin-bottom: 14px;">
+          "Support spaces where people can pause, express, connect, and remember."
+        </p>
+        <p style="font-size: 1.02rem; color: var(--charcoal-muted); line-height: 1.8; margin-bottom: 22px;">
+          Whether you are an everyday neighbor planting a <strong>$1 Community Seed</strong> or a community-minded corporate/banking partner fulfilling <strong>CRA (Community Reinvestment Act)</strong> objectives, your partnership directly sustains unhurried healing spaces and authentic stages.
+        </p>
+        <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
+          <a href="#dollar-campaign-anchor" class="btn btn-gold">🌱 Donate ($1 Seed Movement)</a>
+          <a href="#sponsorship" class="btn btn-forest">🏢 Become a Sponsor</a>
+        </div>
+      </div>
+
+      <div id="dollar-campaign-anchor" class="dollar-campaign-wrapper">
         <div class="dollar-grid">
           
           <!-- Left Column: The Story of $1 -->
@@ -435,179 +807,6 @@
     </div>
   </section>
 
-  <!-- ==================== MISSION & 3 PILLARS ==================== -->
-  <section id="mission" class="section-padding">
-    <div class="container">
-      
-      <div class="section-header">
-        <div class="section-subtitle">Our Purpose</div>
-        <h2 class="section-title">When We Create Space Within, We Create Change Around Us</h2>
-        <div class="flourish-divider">✦</div>
-        <p style="font-size: 1.12rem; max-width: 820px; margin: 0 auto; line-height: 1.85;">
-          Inner Sanctuary is a 501(c)(3) nonprofit dedicated to creating accessible spaces where people can slow down, express themselves freely, process life’s journey, and reconnect with who they are.
-        </p>
-        <blockquote style="margin-top: 24px; font-style: italic; color: var(--forest-green); font-weight: 500; font-size: 1.05rem;">
-          "Go easy on yourself. It's okay to pause. It's okay to put yourself first."
-        </blockquote>
-      </div>
-
-      <div class="pillars-grid">
-        
-        <!-- Pillar 1 -->
-        <div class="pillar-card">
-          <div class="pillar-icon-box">🌱</div>
-          <h3 class="pillar-title">Mental & Emotional Wellness</h3>
-          <p>
-            Cultivating inner stillness, nervous system regulation, and grounded self-care practices in a culture that rarely offers permission to pause.
-          </p>
-        </div>
-
-        <!-- Pillar 2 -->
-        <div class="pillar-card">
-          <div class="pillar-icon-box">🎙️</div>
-          <h3 class="pillar-title">Authentic Creative Expression</h3>
-          <p>
-            Empowering poets, vocalists, storytellers, and visual creators through intentional stages and media initiatives free of algorithmic hustle.
-          </p>
-        </div>
-
-        <!-- Pillar 3 -->
-        <div class="pillar-card">
-          <div class="pillar-icon-box">🤝</div>
-          <h3 class="pillar-title">Intergenerational Community Care</h3>
-          <p>
-            Fostering neighborhood trust, elder wisdom, youth mentorship, and welcoming spaces where every creative voice is honored and seen.
-          </p>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ==================== DUAL AUDIENCE SPLIT ==================== -->
-  <section class="section-padding dual-audience-section">
-    <div class="container">
-      
-      <div class="section-header">
-        <div class="section-subtitle">Two Pathways, One Grounded Room</div>
-        <h2 class="section-title">Built For Creatives & Purpose-Driven Brands</h2>
-      </div>
-
-      <div class="split-grid">
-        
-        <!-- For Creatives -->
-        <div id="creatives" class="audience-card">
-          <div>
-            <div class="audience-tag">For Artists & Performers</div>
-            <h3>Come Home to Your Craft</h3>
-            <p>
-              Leave behind the algorithmic pressure and hurried venues. Inner Sanctuary offers an attentive, alcohol-free room of true listeners who honor your authentic story and raw roots.
-            </p>
-            <ul class="benefit-list">
-              <li>Featured stage time at our monthly showcase series</li>
-              <li>Spotlight placement in our Creator Video Archive</li>
-              <li>Supportive community circle free from toxic competition</li>
-              <li>Direct collaboration with fellow local poets, singers, and artisans</li>
-            </ul>
-          </div>
-          <a href="#blueprint-box" class="btn btn-outline" style="align-self: flex-start;">See Video Blueprint ↓</a>
-        </div>
-
-        <!-- For Sponsors -->
-        <div id="partners" class="audience-card partners">
-          <div>
-            <div class="audience-tag">For Brands, Banks & Sponsors</div>
-            <h3>Direct Grassroots Reinvestment</h3>
-            <p>
-              Connect face-to-face with 30–50+ local creatives, youth, and neighborhood families in a high-trust environment while fulfilling CRA community investment objectives.
-            </p>
-            <ul class="benefit-list">
-              <li>100% Tax-deductible charitable contributions (IRC Section 170)</li>
-              <li>Verified CRA documentation & IRS Form W-9 compliance</li>
-              <li>Prime on-site display table & 2-minute stage MC spotlight</li>
-              <li>Premier co-branding on printed event guides and digital QR portals</li>
-            </ul>
-          </div>
-          <a href="#sponsorship" class="btn btn-gold" style="align-self: flex-start;">View Sponsorship Tiers ↓</a>
-        </div>
-
-      </div>
-
-      <!-- ==================== 30-SECOND BLUEPRINT CARD ==================== -->
-      <div id="blueprint-box" class="blueprint-wrapper">
-        <div style="text-align: center; max-width: 720px; margin: 0 auto;">
-          <div class="badge badge-gold" style="margin-bottom: 12px;">Creator Spotlight Initiative</div>
-          <h3 style="font-size: 1.9rem; margin-bottom: 8px;">The 30-Second Video Blueprint</h3>
-          <p style="font-size: 0.95rem; color: var(--charcoal-muted);">
-            A simple, structured format to share your craft and voice with our community circle.
-          </p>
-        </div>
-
-        <div class="blueprint-timeline">
-          
-          <!-- Step 1 -->
-          <div class="blueprint-step">
-            <span class="step-time">0:00 – 0:10</span>
-            <h4 class="step-title">The Intro & Plug</h4>
-            <p style="font-size: 0.9rem; margin-bottom: 0; line-height: 1.6;">
-              State your name, artist handle, and craft. Let the circle know who you are and what you passionately create.
-            </p>
-          </div>
-
-          <!-- Step 2 -->
-          <div class="blueprint-step">
-            <span class="step-time">0:10 – 0:20</span>
-            <h4 class="step-title">The Reflection</h4>
-            <p style="font-size: 0.9rem; margin-bottom: 0; line-height: 1.6;">
-              Why does an unhurried, safe creative sanctuary matter to your mental clarity, heart, and creative flow?
-            </p>
-          </div>
-
-          <!-- Step 3 -->
-          <div class="blueprint-step">
-            <span class="step-time">0:20 – 0:30</span>
-            <h4 class="step-title">The Outro</h4>
-            <p style="font-size: 0.9rem; margin-bottom: 0; line-height: 1.6;">
-              “Tap in and show love to Inner Sanctuary” + invite folks to catch your next performance, drop, or project.
-            </p>
-          </div>
-
-        </div>
-
-        <!-- Recording Specs -->
-        <div class="specs-grid">
-          <div class="spec-item">
-            <div class="spec-title">Framing</div>
-            <p class="spec-desc">Vertical (9:16 smartphone recording)</p>
-          </div>
-          <div class="spec-item">
-            <div class="spec-title">Audio & Light</div>
-            <p class="spec-desc">Natural window lighting; low room background noise</p>
-          </div>
-          <div class="spec-item">
-            <div class="spec-title">Energy</div>
-            <p class="spec-desc">Off-the-cuff and authentic—no rigid scripts needed</p>
-          </div>
-          <div class="spec-item">
-            <div class="spec-title">Delivery</div>
-            <p class="spec-desc">Text raw video, share via Google Drive, or DM @ourinnersanctuary</p>
-          </div>
-        </div>
-
-        <div style="display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin-top: 36px;">
-          <a href="#connect" class="btn btn-gold">Submit Your Video Link</a>
-          <a href="https://www.instagram.com/ourinnersanctuary/" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="display: inline-flex; align-items: center; gap: 8px;">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
-            <span>Tag or DM @ourinnersanctuary</span>
-          </a>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
 
   <!-- ==================== SPONSORSHIP TIERS ==================== -->
   <section id="sponsorship" class="section-padding" style="background: rgba(255, 255, 255, 0.88); backdrop-filter: blur(8px); border-top: 1px solid rgba(197, 154, 63, 0.2);">
@@ -684,6 +883,40 @@
     </div>
   </section>
 
+  <!-- ==================== STAY IN THE LOOP ==================== -->
+  <section id="stay-in-loop" class="section-padding" style="background: rgba(250, 248, 243, 0.75); backdrop-filter: blur(8px); border-top: 1px solid rgba(197, 154, 63, 0.2);">
+    <div class="container">
+      <div class="stay-loop-card">
+        <span class="badge badge-gold" style="margin-bottom: 12px;">✦ The Living Circle</span>
+        <h2 class="serif-brand" style="font-size: 2.1rem; color: var(--forest-green); margin-bottom: 8px;">
+          Stay in the Loop
+        </h2>
+        <p style="font-size: 1.12rem; color: var(--charcoal-muted); margin-bottom: 6px;">
+          Be part of what's unfolding.
+        </p>
+        <p style="font-size: 0.92rem; color: var(--botanical-sage); font-weight: 500; margin-bottom: 0;">
+          Receive unhurried invitations, Open Mic updates, Pause Activations, and community reflections.
+        </p>
+
+        <form id="stay-loop-form" class="stay-loop-form" action="https://formsubmit.co/hello@innersanctuarywellnessfoundation.org" method="POST">
+          <input type="hidden" name="_cc" value="innersanctuary0@gmail.com">
+          <input type="hidden" name="_subject" value="New Member Joined The Circle • Inner Sanctuary">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="text" id="loop-name" name="name" class="stay-loop-input" placeholder="Your Name" required>
+          <input type="email" id="loop-email" name="email" class="stay-loop-input" placeholder="Your Email Address" required>
+          <button type="submit" class="btn btn-gold stay-loop-btn">
+            <span>Join the Circle</span> <span>🌿</span>
+          </button>
+        </form>
+
+        <div style="margin-top: 20px; font-size: 0.8rem; color: var(--charcoal-muted); display: flex; align-items: center; justify-content: center; gap: 8px;">
+          <span>🔒 We honor your peace. Direct updates sent to leadership & your inbox.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ==================== "DROP INTO THE CIRCLE" INTAKE FORM ==================== -->
   <section id="connect" class="section-padding contact-section" style="background: rgba(239, 236, 227, 0.7); backdrop-filter: blur(8px);">
     <div class="container">
@@ -692,36 +925,42 @@
         <div class="section-subtitle">Get Involved</div>
         <h2 class="section-title">Drop Into The Circle</h2>
         <div class="flourish-divider">✦</div>
-        <p>Reach out to perform, submit your 30-second creator video, plant a seed, or sponsor an unhurried event.</p>
+        <p>Reach out to perform, share your craft, plant a seed, or sponsor an unhurried event.</p>
       </div>
 
       <div class="contact-card">
         
         <!-- Interactive Tabs -->
         <div class="intake-tab-bar">
-          <button class="intake-tab active" data-role="artist">🎨 Artist Spotlight</button>
+          <button class="intake-tab active" data-role="artist">🎨 Artist / Performer</button>
           <button class="intake-tab" data-role="donor">💚 $1 Seed Donor</button>
           <button class="intake-tab" data-role="sponsor">🏢 Sponsor / CRA</button>
           <button class="intake-tab" data-role="raffle">🎁 Raffle Donor</button>
         </div>
 
-        <form id="circle-intake-form">
+        <form id="circle-intake-form" action="https://formsubmit.co/hello@innersanctuarywellnessfoundation.org" method="POST">
+          <!-- Dual Leadership Email Routing -->
+          <input type="hidden" name="_cc" value="innersanctuary0@gmail.com">
+          <input type="hidden" name="_subject" value="New Community Message • Inner Sanctuary Wellness Foundation">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="false">
+
           <div class="form-grid">
             
             <div class="form-group">
               <label for="form-name">Your Full Name or Organization *</label>
-              <input type="text" id="form-name" required placeholder="e.g. Maya Chen or Riverside Heritage Bank">
+              <input type="text" id="form-name" name="name" required placeholder="e.g. Maya Chen or Riverside Heritage Bank">
             </div>
 
             <div class="form-group">
               <label for="form-email">Email Address *</label>
-              <input type="email" id="form-email" required placeholder="name@domain.com">
+              <input type="email" id="form-email" name="email" required placeholder="name@domain.com">
             </div>
 
             <div class="form-group">
               <label for="role-select">I Am Reaching Out As *</label>
-              <select id="role-select" required>
-                <option value="Artist / Performer">Artist / Performer (Open Mic & Creator Spotlight)</option>
+              <select id="role-select" name="role" required>
+                <option value="Artist / Performer">Artist / Performer (Open Mic & Showcase)</option>
                 <option value="$1 Community Seed Donor">$1 Community Seed Donor</option>
                 <option value="Corporate / Business Sponsor">Corporate / Business Sponsor ($500 or $100 Tier)</option>
                 <option value="Raffle & In-Kind Donor">Raffle & In-Kind Donor (Gift cards, tea, refreshments)</option>
@@ -731,23 +970,26 @@
 
             <div class="form-group">
               <label for="form-handle">Social Handle or Phone (Optional)</label>
-              <input type="text" id="form-handle" placeholder="@instagram, website, or phone">
+              <input type="text" id="form-handle" name="contact_info" placeholder="@instagram, website, or phone">
             </div>
 
             <div class="form-group full">
-              <label for="form-message">Message, Video Link, or Donation Notes *</label>
-              <textarea id="form-message" rows="4" required placeholder="Tell us about your craft (poetry, music, storytelling, visual art), link to your 30-sec video, or note if you’d like to share in our upcoming circle..."></textarea>
+              <label for="form-message">Message, Craft, or Sharing Notes *</label>
+              <textarea id="form-message" name="message" rows="4" required placeholder="Tell us about your craft (poetry, music, storytelling, visual art), or share how you’d like to join or contribute to our upcoming circle..."></textarea>
             </div>
 
             <div class="form-group full" style="margin-top: 10px;">
               <button type="submit" id="form-submit-btn" class="btn btn-gold" style="width: 100%;">
-                Submit Creator Application
+                Send to Sanctuary Leadership ✉️
               </button>
             </div>
 
-            <div class="form-group full" style="text-align: center; margin-top: 4px;">
-              <p style="font-size: 0.8rem; color: var(--charcoal-muted); margin-bottom: 0;">
-                Prefer social messaging? Connect with us on Instagram <a href="https://www.instagram.com/ourinnersanctuary/" target="_blank" rel="noopener noreferrer" style="color: var(--forest-green); font-weight: 600; text-decoration: underline;">@ourinnersanctuary</a>
+            <div class="form-group full" style="text-align: center; margin-top: 8px;">
+              <p style="font-size: 0.82rem; color: var(--forest-green); font-weight: 600; margin-bottom: 4px;">
+                📬 Messages automatically route to <strong>hello@innersanctuarywellnessfoundation.org</strong> & <strong>innersanctuary0@gmail.com</strong>
+              </p>
+              <p style="font-size: 0.78rem; color: var(--charcoal-muted); margin-bottom: 0;">
+                Prefer your mail client? <a href="mailto:hello@innersanctuarywellnessfoundation.org?cc=innersanctuary0@gmail.com&subject=Community%20Inquiry%20-%20Inner%20Sanctuary" style="color: var(--sunburst-gold); font-weight: 700; text-decoration: underline;">Send directly via Email App ↗</a>
               </p>
             </div>
 
@@ -789,12 +1031,14 @@
         <div class="footer-col">
           <h5>Quick Navigation</h5>
           <ul class="footer-links">
-            <li><a href="#mission">Foundation Mission</a></li>
-            <li><a href="#creatives">Creator Spotlight & Specs</a></li>
-            <li><a href="#dollar-campaign">The $1 Community Seed</a></li>
-            <li><a href="#four-releases">The Four Releases</a></li>
+            <li><a href="#remember">Pause. Breathe. Remember.</a></li>
+            <li><a href="#medicine">Our Medicine: LSD</a></li>
+            <li><a href="#open-mic">Community Open Mic & Pause</a></li>
+            <li><a href="#horizons">Sanctuary Horizons</a></li>
+            <li><a href="#dollar-campaign-anchor">The $1 Community Seed</a></li>
             <li><a href="#sponsorship">Sponsorship Packages</a></li>
-            <li><a href="#connect">Contact Leadership</a></li>
+            <li><a href="#stay-in-loop">Stay in the Loop</a></li>
+            <li><a href="#connect">Drop Into The Circle</a></li>
           </ul>
         </div>
 
@@ -843,6 +1087,6 @@
   </footer>
 
   <!-- Script File -->
-  <script src="script.js"></script>
+  <script src="script.js?v=2.5"></script>
 </body>
 </html>
