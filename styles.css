@@ -3294,3 +3294,387 @@ body[data-element="earth"] {
     transform: translate3d(var(--end-x), 105vh, 0) rotate(var(--rot-end)) scale(0.9);
   }
 }
+
+
+/* ==========================================================================
+   INNER SANCTUARY 2-BREATH SACRED GEOMETRY GROUNDING WIDGET
+   Palette: Obsidian (#0B0F17), Golden Hour (#F5AF19), Prism Cyan (#00F2FE), Cream (#F8FAFC)
+   ========================================================================== */
+.sacred-breath-section {
+  background: radial-gradient(circle at 50% 25%, #0F1724 0%, #0B0F17 100%) !important;
+  color: #F8FAFC !important;
+  border-top: 1.5px solid rgba(245, 175, 25, 0.35) !important;
+  border-bottom: 1.5px solid rgba(245, 175, 25, 0.35) !important;
+  position: relative;
+  z-index: 1;
+}
+
+.sacred-geometry-widget {
+  position: relative;
+  max-width: 580px;
+  margin: 28px auto 16px;
+  padding: 32px 26px 26px;
+  border-radius: 32px;
+  background: radial-gradient(circle at 50% 30%, rgba(16, 24, 38, 0.95) 0%, rgba(11, 15, 23, 0.99) 100%);
+  border: 1.5px solid rgba(245, 175, 25, 0.38);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75), 0 0 40px rgba(0, 242, 254, 0.08), inset 0 0 60px rgba(245, 175, 25, 0.06);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  color: #F8FAFC;
+  text-align: center;
+  overflow: hidden;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.sacred-geometry-widget:hover {
+  border-color: rgba(245, 175, 25, 0.55);
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.82), 0 0 50px rgba(0, 242, 254, 0.12), inset 0 0 70px rgba(245, 175, 25, 0.09);
+}
+
+/* Subtle corner ambient glows */
+.sacred-geometry-widget::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 140px;
+  height: 140px;
+  background: radial-gradient(circle, rgba(0, 242, 254, 0.22) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.sacred-geometry-widget::after {
+  content: '';
+  position: absolute;
+  bottom: -60px;
+  left: -60px;
+  width: 140px;
+  height: 140px;
+  background: radial-gradient(circle, rgba(245, 175, 25, 0.22) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.breath-widget-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 8px;
+  position: relative;
+  z-index: 2;
+}
+
+.breath-widget-title-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.breath-widget-eyebrow {
+  font-family: 'Cinzel', serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  color: #F5AF19;
+  text-transform: uppercase;
+  font-weight: 700;
+  text-shadow: 0 0 14px rgba(245, 175, 25, 0.5);
+}
+
+/* Pill Mode Toggle Bar */
+.breath-mode-toggle {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 4px;
+  border-radius: 999px;
+  border: 1px solid rgba(245, 175, 25, 0.32);
+  gap: 4px;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.45);
+  max-width: 100%;
+}
+
+.breath-mode-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 8px 16px;
+  color: #CBD5E1;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.breath-mode-btn:hover {
+  color: #F8FAFC;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.breath-mode-btn.active {
+  background: linear-gradient(135deg, rgba(245, 175, 25, 0.28) 0%, rgba(0, 242, 254, 0.22) 100%);
+  color: #FFFFFF;
+  border: 1px solid rgba(245, 175, 25, 0.75);
+  box-shadow: 0 4px 18px rgba(245, 175, 25, 0.3), 0 0 14px rgba(0, 242, 254, 0.22);
+  font-weight: 700;
+}
+
+.breath-mode-desc {
+  font-size: 0.80rem;
+  color: #94A3B8;
+  margin-top: 10px;
+  margin-bottom: 4px;
+  min-height: 22px;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  transition: opacity 0.3s ease;
+}
+
+/* Sacred Geometry Canvas Stage */
+.sacred-stage-wrap {
+  position: relative;
+  width: 380px;
+  height: 380px;
+  max-width: 100%;
+  margin: 10px auto 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#sacred-lotus-canvas {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: filter 0.35s ease;
+}
+
+#sacred-lotus-canvas:hover {
+  filter: drop-shadow(0 0 20px rgba(245, 175, 25, 0.45)) drop-shadow(0 0 12px rgba(0, 242, 254, 0.35));
+}
+
+/* Centered Real-Time HUD Overlay */
+.sacred-phase-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 4;
+  text-align: center;
+  padding: 24px;
+}
+
+.sacred-phase-eyebrow {
+  font-family: 'Cinzel', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.25em;
+  color: #00F2FE;
+  text-shadow: 0 0 12px rgba(0, 242, 254, 0.85);
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+  transition: color 0.3s ease;
+}
+
+.sacred-phase-word {
+  font-family: 'Cinzel', serif;
+  font-size: 1.35rem;
+  letter-spacing: 0.16em;
+  color: #F5AF19;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.95), 0 0 18px rgba(245, 175, 25, 0.85);
+  font-weight: 700;
+  transition: all 0.35s ease;
+  line-height: 1.2;
+}
+
+.sacred-phase-timer {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.18rem;
+  letter-spacing: 0.15em;
+  color: #F8FAFC;
+  margin-top: 4px;
+  font-weight: 700;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.95);
+}
+
+.sacred-guide-subtext {
+  font-size: 0.76rem;
+  color: #CBD5E1;
+  margin-top: 6px;
+  letter-spacing: 0.04em;
+  max-width: 250px;
+  line-height: 1.35;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95);
+  transition: all 0.3s ease;
+}
+
+/* Controls Bar */
+.breath-widget-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 2;
+}
+
+.breath-primary-toggle {
+  background: linear-gradient(135deg, #F5AF19 0%, #D48806 100%);
+  color: #0B0F17;
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  font-size: 0.84rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 10px 24px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(245, 175, 25, 0.4), 0 0 12px rgba(0, 242, 254, 0.25);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  user-select: none;
+}
+
+.breath-primary-toggle:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 26px rgba(245, 175, 25, 0.55), 0 0 18px rgba(0, 242, 254, 0.4);
+}
+
+.breath-primary-toggle:active {
+  transform: translateY(0);
+}
+
+.breath-primary-toggle.active {
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  color: #FFFFFF;
+  box-shadow: 0 4px 18px rgba(16, 185, 129, 0.45);
+}
+
+.breath-cycle-tracker {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(245, 175, 25, 0.35);
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #F8FAFC;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  letter-spacing: 0.05em;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  transition: all 0.35s ease;
+}
+
+.breath-cycle-tracker.completed-goal {
+  border-color: #00F2FE;
+  background: rgba(0, 242, 254, 0.15);
+  color: #00F2FE;
+  box-shadow: 0 0 18px rgba(0, 242, 254, 0.4);
+}
+
+/* GA4 Compliance Hook Workshop CTA */
+.breath-workshop-cta-wrap {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(245, 175, 25, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  z-index: 2;
+}
+
+.breath-workshop-cta-btn {
+  background: rgba(0, 242, 254, 0.08);
+  border: 1.5px solid rgba(0, 242, 254, 0.6);
+  color: #00F2FE;
+  border-radius: 999px;
+  padding: 10px 22px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(0, 242, 254, 0.15);
+  user-select: none;
+}
+
+.breath-workshop-cta-btn:hover {
+  background: #00F2FE;
+  color: #0B0F17;
+  border-color: #00F2FE;
+  box-shadow: 0 8px 26px rgba(0, 242, 254, 0.48);
+  transform: translateY(-2px);
+}
+
+.breath-sub-compliance {
+  font-size: 0.72rem;
+  color: #94A3B8;
+  letter-spacing: 0.03em;
+}
+
+/* Accessibility: prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  #sacred-lotus-canvas {
+    transition: none !important;
+  }
+  .sacred-phase-word,
+  .sacred-guide-subtext,
+  .breath-primary-toggle {
+    transition: none !important;
+  }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 520px) {
+  .sacred-geometry-widget {
+    padding: 24px 16px 20px;
+    border-radius: 24px;
+  }
+  .breath-mode-toggle {
+    flex-direction: column;
+    border-radius: 20px;
+    width: 100%;
+  }
+  .breath-mode-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .sacred-stage-wrap {
+    width: 310px;
+    height: 310px;
+  }
+  .sacred-phase-word {
+    font-size: 1.15rem;
+  }
+  .breath-primary-toggle {
+    width: 100%;
+    justify-content: center;
+  }
+}

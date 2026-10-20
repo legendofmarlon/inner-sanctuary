@@ -1759,153 +1759,299 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================================================================
-  // 7. SOMATIC BREATHING & PAUSE ORB ENGINE
-  // =========================================================================
-  const orb = document.getElementById('somatic-orb');
-  const orbBtn = document.getElementById('orb-toggle-btn');
-  const orbLabel = document.getElementById('orb-btn-label');
-  const guideText = document.getElementById('breathing-guide-text');
-  const orbIcon = document.getElementById('orb-icon');
-
-  const countdownBadge = document.getElementById('breathing-countdown-badge');
-  const countdownText = document.getElementById('countdown-text');
-  const boxPhaseTitle = document.getElementById('box-phase-title');
-  const boxPhaseCountdown = document.getElementById('box-phase-countdown');
-  const tracerDot = document.getElementById('box-tracer-dot');
-
-  let isBreathingActive = false;
-  let breathStartTime = null;
-  let currentTracerProgress = 0;
-  let totalCycleProgress = 0;
-  let breathStep = 0; // 0: Inhale, 1: Hold, 2: Exhale, 3: Rest
-  let lastActivePhase = -1;
-  let breathAnimId = null;
-
-  const PHASE_DURATION = 4000;  // 4.0 seconds per phase
-  const CYCLE_DURATION = 16000; // 16.0 seconds per complete 4-4-4-4 cycle
-
-  // =========================================================================
-  // SACRED GEOMETRY MANDALA BREATH ENGINE (Pure 60FPS High-Precision Canvas)
+  // 7. INNER SANCTUARY 2-BREATH SACRED GEOMETRY GROUNDING WIDGET (60FPS Canvas)
+  // Palette: Deep Obsidian (#0B0F17), Golden Hour Amber (#F5AF19), Prism Cyan (#00F2FE)
   // =========================================================================
   const lotusCanvas = document.getElementById('sacred-lotus-canvas');
-  let lotusAngle = 0;
+  const orbBtn = document.getElementById('orb-toggle-btn');
+  const orbLabel = document.getElementById('orb-btn-label');
+  const btnCtrlIcon = document.getElementById('btn-ctrl-icon');
+  const guideText = document.getElementById('breathing-guide-text');
+  const sacredGuideSubtext = document.getElementById('sacred-guide-subtext');
+  const sacredPhaseEyebrow = document.getElementById('sacred-phase-eyebrow');
+  const boxPhaseTitle = document.getElementById('box-phase-title');
+  const boxPhaseCountdown = document.getElementById('box-phase-countdown');
+  const breathCycleTracker = document.getElementById('breath-cycle-tracker');
+  const cycleCountLabel = document.getElementById('cycle-count-label');
+  const breathModeDesc = document.getElementById('breath-mode-desc');
+  const btnModeDouble = document.getElementById('btn-mode-double');
+  const btnModeTwoCount = document.getElementById('btn-mode-twocount');
+  const breathWorkshopCtaBtn = document.getElementById('breath-workshop-cta-btn');
 
-  // Floating stardust particles around sacred geometry
+  // State Machine Configuration
+  let currentBreathMode = 'double-inhale'; // 'double-inhale' (13.0s) or 'two-count' (4.0s)
+  let isBreathingActive = false;
+  let breathStartTime = null;
+  let breathAnimId = null;
+  let completedCycles = 0;
+  const TARGET_CYCLES = 5;
+  let hasFiredGA4_3Cycles = false;
+  let lastReportedCycleIndex = -1;
+
+  // Real-time animation physics metrics passed to Sacred Canvas Renderer
+  let currentGeometryScale = 0.15;      // Layer 1 & 2 scale (0.15 to 1.00)
+  let currentLayer3Scale = 0.15;        // Layer 3 Metatron Star scale (0.15 to 1.00)
+  let currentRotationAngle = 0;         // Geometry rotation angle in radians
+  let currentCyanGlowIntensity = 0;     // Bioluminescent cyan glow (0.0 to 1.0)
+  let currentCycleProgress = 0;         // Progress within current cycle (0.0 to 1.0)
+  let currentPhaseIndex = -1;
+
+  // Check Accessibility prefers-reduced-motion
+  const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Mode Descriptions
+  const MODE_DESCRIPTIONS = {
+    'double-inhale': 'Double-Inhale Physiological Sigh • 13.0s Cycle • Rapidly activates the parasympathetic vagal brake',
+    'two-count': 'Coherent 2-Count Pulse • 4.0s Rhythm • Rapid centering for stage presence, focus & balance'
+  };
+
+  // Google Ad Grants & GA4 Engagement Hook
+  function fireGA4WidgetEngagement(source) {
+    if (typeof gtag === 'function') {
+      try {
+        gtag('event', 'wellness_widget_engaged', {
+          event_category: 'somatic_breathwork',
+          event_label: source || 'wellness_widget_interaction',
+          mode: currentBreathMode,
+          cycles_completed: completedCycles,
+          value: 1
+        });
+      } catch (err) {
+        console.warn('[GA4] Event dispatch error:', err);
+      }
+    }
+    console.log('[Inner Sanctuary GA4] Event fired: wellness_widget_engaged | Source:', source, '| Mode:', currentBreathMode);
+  }
+
+  // Update Cycle Counter HUD
+  function updateCycleTrackerUI() {
+    if (cycleCountLabel) {
+      cycleCountLabel.textContent = `Cycles Completed: ${completedCycles} / ${TARGET_CYCLES}`;
+    }
+    if (breathCycleTracker) {
+      if (completedCycles >= TARGET_CYCLES) {
+        breathCycleTracker.classList.add('completed-goal');
+      } else {
+        breathCycleTracker.classList.remove('completed-goal');
+      }
+    }
+  }
+
+  // Floating Stardust Motes
   const stardustParticles = [];
-  for (let i = 0; i < 16; i++) {
+  const NUM_STARDUST = 24;
+  for (let i = 0; i < NUM_STARDUST; i++) {
     stardustParticles.push({
-      angle: (i / 16) * Math.PI * 2,
-      baseDist: 90 + Math.random() * 50,
+      angle: (i / NUM_STARDUST) * Math.PI * 2,
+      baseDist: 70 + Math.random() * 80,
       size: Math.random() * 2.2 + 1.0,
-      speed: (Math.random() * 0.004 + 0.002) * (Math.random() > 0.5 ? 1 : -1),
-      alpha: Math.random() * 0.5 + 0.3
+      speed: (Math.random() * 0.003 + 0.0015) * (Math.random() > 0.5 ? 1 : -1),
+      alpha: Math.random() * 0.55 + 0.35,
+      isCyan: Math.random() > 0.5
     });
   }
 
+  // -------------------------------------------------------------------------
+  // BREATHING STATE MACHINE UPDATE LOOP
+  // -------------------------------------------------------------------------
   function updateSacredBreathLoop(now) {
     if (!isBreathingActive) return;
     if (!breathStartTime) breathStartTime = now;
 
     const totalElapsed = now - breathStartTime;
-    const cycleTime = totalElapsed % CYCLE_DURATION;
-    const currentPhase = Math.floor(cycleTime / PHASE_DURATION);
-    const phaseElapsed = cycleTime % PHASE_DURATION;
-    const rawProgress = phaseElapsed / PHASE_DURATION; // 0.0 to 1.0
 
-    // Organic sine ease-in-out breathing curve:
-    const easeProgress = (1 - Math.cos(rawProgress * Math.PI)) / 2;
-    currentTracerProgress = easeProgress;
-    totalCycleProgress = cycleTime / CYCLE_DURATION;
-    breathStep = currentPhase;
+    if (currentBreathMode === 'double-inhale') {
+      // MODE A: "2-Breath Sanctuary Reset" (Double-Inhale Physiological Sigh — 13.0s Cycle)
+      const CYCLE_DURATION = 13000;
+      const cycleTime = totalElapsed % CYCLE_DURATION;
+      currentCycleProgress = cycleTime / CYCLE_DURATION;
 
-    // Seconds countdown in current 4-second phase:
-    const secondsLeft = Math.max(1, 4 - Math.floor(phaseElapsed / 1000));
+      // Track completed cycles
+      const cycleIdx = Math.floor(totalElapsed / CYCLE_DURATION);
+      if (cycleIdx > lastReportedCycleIndex) {
+        if (lastReportedCycleIndex !== -1) {
+          completedCycles++;
+          updateCycleTrackerUI();
 
-    let title = "READY";
-    let guide = "Soften your gaze on the mandala...";
-    let activeBadgeId = null;
-    let targetElement = 'air';
+          if (completedCycles === 3 && !hasFiredGA4_3Cycles) {
+            hasFiredGA4_3Cycles = true;
+            fireGA4WidgetEngagement('completed_3_cycles');
+            showToast('✨ Nervous System Grounded! 3 Breath Cycles Complete.');
+          } else if (completedCycles === TARGET_CYCLES) {
+            showToast('🏆 Full 5-Cycle Somatic Reset Complete! Deep peace is with you.');
+          }
+        }
+        lastReportedCycleIndex = cycleIdx;
+      }
 
-    if (currentPhase === 0) {
-      // INHALE (4s): Breathing in, geometry gently expands outward
-      title = "BREATHE IN...";
-      guide = "↑ Inhale deeply through your nose • Opening your sanctuary";
-      activeBadgeId = 'box-badge-left';
-      targetElement = 'air';
-    } else if (currentPhase === 1) {
-      // HOLD (4s): Gentle stillness, warm golden solar bloom
-      title = "HOLD...";
-      guide = "→ Hold in gentle stillness • Feeling peaceful warmth within";
-      activeBadgeId = 'box-badge-top';
-      targetElement = 'fire';
-    } else if (currentPhase === 2) {
-      // EXHALE (4s): Breathing out, geometry gently folds inward
-      title = "BREATHE OUT...";
-      guide = "↓ Exhale slowly through your mouth • Releasing what you carry";
-      activeBadgeId = 'box-badge-right';
-      targetElement = 'water';
+      // Phase Timing Windows:
+      // 1. INHALE 1: 0ms -> 2500ms (2.5s)
+      // 2. MICRO-PAUSE: 2500ms -> 3000ms (0.5s)
+      // 3. INHALE 2: 3000ms -> 4500ms (1.5s)
+      // 4. APEX HOLD: 4500ms -> 5500ms (1.0s)
+      // 5. LONG EXHALE: 5500ms -> 11500ms (6.0s)
+      // 6. CORE STILLNESS: 11500ms -> 13000ms (1.5s)
+
+      if (cycleTime < 2500) {
+        // Phase 1: Inhale 1 (Deep Belly Breath)
+        currentPhaseIndex = 0;
+        const p = cycleTime / 2500;
+        const ease = (1 - Math.cos(p * Math.PI)) / 2;
+        currentGeometryScale = 0.15 + 0.60 * ease; // 0.15 -> 0.75
+        currentLayer3Scale = 0.15 + 0.15 * ease;   // 0.15 -> 0.30 (subtle)
+        currentRotationAngle = prefersReducedMotion ? 0 : ease * 0.35;
+        currentCyanGlowIntensity = 0.05 * ease;
+
+        const countSec = Math.min(2, Math.floor(p * 2.5) + 1);
+        setHUD('INHALE (1 OF 2)', 'BELLY INHALE', `${countSec}s`, 'Breathe In (1 of 2)... Fill the Belly');
+      } else if (cycleTime < 3000) {
+        // Phase 2: Micro-Pause (0.5s)
+        currentPhaseIndex = 1;
+        const p = (cycleTime - 2500) / 500;
+        const pulse = Math.sin(p * Math.PI) * 0.02;
+        currentGeometryScale = 0.75 + pulse;
+        currentLayer3Scale = 0.30;
+        currentRotationAngle = prefersReducedMotion ? 0 : 0.35;
+        currentCyanGlowIntensity = 0.1;
+
+        setHUD('MICRO-PAUSE', 'HOLD', 'HOLD', 'Soft pause... prepare for the sip');
+      } else if (cycleTime < 4500) {
+        // Phase 3: Inhale 2 (Top-Off Sip of Air - 1.5s)
+        // Layer 3 (Metatron's Star) snaps open from 0.75 to 1.00 scale with bioluminescent cyan glow!
+        currentPhaseIndex = 2;
+        const p = (cycleTime - 3000) / 1500;
+        const ease = (1 - Math.cos(p * Math.PI)) / 2;
+        currentGeometryScale = 0.75 + 0.25 * ease; // 0.75 -> 1.00
+        currentLayer3Scale = 0.30 + 0.70 * ease;   // Snaps open to 1.00 full scale!
+        currentRotationAngle = prefersReducedMotion ? 0 : 0.35 + ease * 0.30;
+        currentCyanGlowIntensity = ease;          // Bioluminescent cyan glow blooms to 1.0
+
+        setHUD('SIP AIR (2 OF 2)', 'TOP-OFF SIP', 'SIP', 'Sip More Air In (2 of 2)... Top It Off');
+      } else if (cycleTime < 5500) {
+        // Phase 4: Apex Hold (1.0s)
+        currentPhaseIndex = 3;
+        const p = (cycleTime - 4500) / 1000;
+        const pulse = Math.sin(p * Math.PI) * 0.02;
+        currentGeometryScale = 1.00 + pulse;
+        currentLayer3Scale = 1.00;
+        currentRotationAngle = prefersReducedMotion ? 0 : 0.65;
+        currentCyanGlowIntensity = 1.0;
+
+        setHUD('STILLNESS', 'HOLD RESONANCE', 'HOLD', 'Hold & Feel the Resonance');
+      } else if (cycleTime < 11500) {
+        // Phase 5: Long Exhale (Collapse into Center - 6.0s)
+        // Geometry counter-rotates and folds inward from 1.00 back to 0.15 scale
+        currentPhaseIndex = 4;
+        const p = (cycleTime - 5500) / 6000;
+        const ease = (1 - Math.cos(p * Math.PI)) / 2;
+        currentGeometryScale = 1.00 - 0.85 * ease; // 1.00 -> 0.15
+        currentLayer3Scale = 1.00 - 0.85 * ease;   // 1.00 -> 0.15
+        currentRotationAngle = prefersReducedMotion ? 0 : 0.65 * (1 - ease);
+        currentCyanGlowIntensity = 1.0 * (1 - ease);
+
+        const secLeft = Math.max(1, 6 - Math.floor(p * 6));
+        setHUD('RELEASE', 'SLOW EXHALE', `${secLeft}s`, 'Slow Exhale Out the Mouth... Let It Fold Inward');
+      } else {
+        // Phase 6: Core Stillness (1.5s)
+        currentPhaseIndex = 5;
+        const p = (cycleTime - 11500) / 1500;
+        const pulse = Math.sin(p * Math.PI * 2) * 0.015;
+        currentGeometryScale = 0.15 + pulse;
+        currentLayer3Scale = 0.15;
+        currentRotationAngle = 0;
+        currentCyanGlowIntensity = 0;
+
+        setHUD('THE SEED', 'CORE STILLNESS', 'REST', 'Rest at the glowing seed... grounding');
+      }
+
     } else {
-      // REST (4s): Resting centered at seed origin
-      title = "REST...";
-      guide = "← Rest in quiet grounded stillness • Sanctuary is within you";
-      activeBadgeId = 'box-badge-bottom';
-      targetElement = 'earth';
-    }
+      // MODE B: "2-Count Stage Pulse" (4.0s Coherent Rhythm for Performers)
+      const CYCLE_DURATION = 4000;
+      const cycleTime = totalElapsed % CYCLE_DURATION;
+      currentCycleProgress = cycleTime / CYCLE_DURATION;
 
-    // Update overlay text
-    if (boxPhaseTitle && boxPhaseTitle.textContent !== title) {
-      boxPhaseTitle.textContent = title;
-    }
-    if (boxPhaseCountdown) {
-      boxPhaseCountdown.textContent = `${secondsLeft}s`;
-    }
-    if (guideText && guideText.textContent !== guide) {
-      guideText.textContent = guide;
-    }
-    if (countdownText) {
-      countdownText.textContent = `${title}: ${secondsLeft}s`;
-    }
+      // Track completed cycles
+      const cycleIdx = Math.floor(totalElapsed / CYCLE_DURATION);
+      if (cycleIdx > lastReportedCycleIndex) {
+        if (lastReportedCycleIndex !== -1) {
+          completedCycles++;
+          updateCycleTrackerUI();
 
-    // Handle phase state changes
-    if (currentPhase !== lastActivePhase) {
-      lastActivePhase = currentPhase;
-
-      document.querySelectorAll('.box-side-badge, .sacred-side-label').forEach(b => b.classList.remove('active'));
-      if (activeBadgeId) {
-        const badge = document.getElementById(activeBadgeId);
-        if (badge) badge.classList.add('active');
+          if (completedCycles === 3 && !hasFiredGA4_3Cycles) {
+            hasFiredGA4_3Cycles = true;
+            fireGA4WidgetEngagement('completed_3_cycles');
+            showToast('✨ Stage Presence Centered! 3 Cycles Complete.');
+          } else if (completedCycles === TARGET_CYCLES) {
+            showToast('🏆 5-Cycle Rhythm Achieved! You are centered and ready.');
+          }
+        }
+        lastReportedCycleIndex = cycleIdx;
       }
 
-      // Sync full-page living canvas element
-      if (typeof switchElementTheme === 'function') {
-        switchElementTheme(targetElement, false);
+      // Phase Timing:
+      // 1. INHALE (2 Counts): 0ms -> 2000ms
+      // 2. EXHALE (2 Counts): 2000ms -> 4000ms
+
+      if (cycleTime < 2000) {
+        // Inhale 2 Counts
+        currentPhaseIndex = 0;
+        const p = cycleTime / 2000;
+        const ease = (1 - Math.cos(p * Math.PI)) / 2;
+        currentGeometryScale = 0.15 + 0.85 * ease; // 0.15 -> 1.00
+        currentLayer3Scale = 0.15 + 0.85 * ease;   // 0.15 -> 1.00
+        currentRotationAngle = prefersReducedMotion ? 0 : ease * 0.50;
+        currentCyanGlowIntensity = 0.8 * ease;
+
+        const countNum = p < 0.5 ? '1' : '2';
+        setHUD('STAGE INHALE', 'INHALE', `COUNT ${countNum}`, `Inhale... 1... 2`);
+      } else {
+        // Exhale 2 Counts
+        currentPhaseIndex = 1;
+        const p = (cycleTime - 2000) / 2000;
+        const ease = (1 - Math.cos(p * Math.PI)) / 2;
+        currentGeometryScale = 1.00 - 0.85 * ease; // 1.00 -> 0.15
+        currentLayer3Scale = 1.00 - 0.85 * ease;   // 1.00 -> 0.15
+        currentRotationAngle = prefersReducedMotion ? 0 : 0.50 * (1 - ease);
+        currentCyanGlowIntensity = 0.8 * (1 - ease);
+
+        const countNum = p < 0.5 ? '1' : '2';
+        setHUD('STAGE EXHALE', 'EXHALE', `COUNT ${countNum}`, `Exhale... 1... 2`);
       }
     }
 
-    // Sync ambient background canvas breathing
+    // Sync ambient background canvas breathing aura
     if (window.sanctuaryBreathSync) {
       window.sanctuaryBreathSync.active = true;
-      window.sanctuaryBreathSync.step = breathStep;
-      window.sanctuaryBreathSync.progress = currentTracerProgress;
-    }
-
-    // Central orb scaling if element present
-    if (orb) {
-      if (breathStep === 0) {
-        orb.style.transform = `scale(${1.0 + easeProgress * 0.35})`;
-      } else if (breathStep === 1) {
-        const float = Math.sin(now * 0.004) * 0.03;
-        orb.style.transform = `scale(${1.35 + float})`;
-      } else if (breathStep === 2) {
-        orb.style.transform = `scale(${1.35 - easeProgress * 0.35})`;
-      } else {
-        orb.style.transform = `scale(1.0)`;
-      }
+      window.sanctuaryBreathSync.step = currentPhaseIndex;
+      window.sanctuaryBreathSync.progress = currentCycleProgress;
+      window.sanctuaryBreathSync.scale = currentGeometryScale;
     }
 
     breathAnimId = requestAnimationFrame(updateSacredBreathLoop);
   }
 
+  // Update HUD Helper
+  function setHUD(eyebrow, title, countdown, subtext) {
+    if (sacredPhaseEyebrow && sacredPhaseEyebrow.textContent !== eyebrow) {
+      sacredPhaseEyebrow.textContent = eyebrow;
+    }
+    if (boxPhaseTitle && boxPhaseTitle.textContent !== title) {
+      boxPhaseTitle.textContent = title;
+    }
+    if (boxPhaseCountdown && boxPhaseCountdown.textContent !== countdown) {
+      boxPhaseCountdown.textContent = countdown;
+    }
+    if (sacredGuideSubtext && sacredGuideSubtext.textContent !== subtext) {
+      sacredGuideSubtext.textContent = subtext;
+    }
+    if (guideText && guideText.textContent !== subtext) {
+      guideText.textContent = subtext;
+    }
+  }
+
+  // -------------------------------------------------------------------------
+  // SESSION CONTROLS: START / PAUSE / MODE SWITCH
+  // -------------------------------------------------------------------------
   function startSomaticBreath() {
     if (isBreathingActive) {
       stopSomaticBreath();
@@ -1914,229 +2060,355 @@ document.addEventListener('DOMContentLoaded', () => {
 
     isBreathingActive = true;
     breathStartTime = performance.now();
-    lastActivePhase = -1;
+    lastReportedCycleIndex = -1;
 
-    if (orb) orb.classList.add('active');
-    if (orbLabel) orbLabel.textContent = "Pause Breath";
-    if (orbBtn) orbBtn.style.background = "var(--forest-green)";
-    if (orbBtn) orbBtn.style.color = "#FFFFFF";
+    if (orbBtn) {
+      orbBtn.classList.add('active');
+    }
+    if (orbLabel) {
+      orbLabel.textContent = 'Pause Session';
+    }
+    if (btnCtrlIcon) {
+      btnCtrlIcon.textContent = '⏸';
+    }
 
-    // Start authentic soundscape if user has it active
+    // Start natural ambient soundscape if loaded and user hasn't muted
     if (soundscape && !soundscape.isPlaying) {
       soundscape.start();
     }
 
     cancelAnimationFrame(breathAnimId);
     breathAnimId = requestAnimationFrame(updateSacredBreathLoop);
-    showToast("🍃 Sacred 4x4 Breathwork started. Breathe with the mandala...");
+    showToast('🍃 Sacred Geometry Grounding active. Breathe with the mandala...');
   }
 
   function stopSomaticBreath() {
     isBreathingActive = false;
     breathStartTime = null;
-    totalCycleProgress = 0;
     cancelAnimationFrame(breathAnimId);
 
     if (window.sanctuaryBreathSync) {
       window.sanctuaryBreathSync.active = false;
     }
 
-    if (orb) {
-      orb.classList.remove('active');
-      orb.style.transform = 'scale(1.0)';
+    if (orbBtn) {
+      orbBtn.classList.remove('active');
     }
-    if (orbLabel) orbLabel.textContent = "Begin Sacred Breath";
-    if (orbBtn) orbBtn.style.background = "";
-    if (orbBtn) orbBtn.style.color = "";
-    if (guideText) guideText.textContent = "Click Begin or tap the mandala to center your breath";
-    if (orbIcon) orbIcon.textContent = "🌿";
-    if (boxPhaseTitle) boxPhaseTitle.textContent = "READY";
-    if (boxPhaseCountdown) boxPhaseCountdown.textContent = "✦";
+    if (orbLabel) {
+      orbLabel.textContent = 'Begin Breath Session';
+    }
+    if (btnCtrlIcon) {
+      btnCtrlIcon.textContent = '▶';
+    }
 
-    document.querySelectorAll('.box-side-badge, .sacred-side-label').forEach(b => b.classList.remove('active'));
-    showToast("🕊️ Breathwork paused. Returning to center.");
+    setHUD('READY', 'BREATHE', '✦', 'Click Begin or tap the mandala to ground your nervous system');
+
+    showToast('🕊️ Breathwork paused. Resting at center.');
   }
 
-  // =========================================================================
-  // SACRED GEOMETRY CANVAS RENDERER (#sacred-lotus-canvas)
-  // Inspired by the iHASCO 60-Second Breathing Geometry (Fluid Mandala)
-  // =========================================================================
+  // Mode Switcher Handlers
+  function switchBreathMode(newMode) {
+    if (currentBreathMode === newMode) return;
+    currentBreathMode = newMode;
+
+    if (btnModeDouble && btnModeTwoCount) {
+      if (newMode === 'double-inhale') {
+        btnModeDouble.classList.add('active');
+        btnModeDouble.setAttribute('aria-selected', 'true');
+        btnModeTwoCount.classList.remove('active');
+        btnModeTwoCount.setAttribute('aria-selected', 'false');
+      } else {
+        btnModeTwoCount.classList.add('active');
+        btnModeTwoCount.setAttribute('aria-selected', 'true');
+        btnModeDouble.classList.remove('active');
+        btnModeDouble.setAttribute('aria-selected', 'false');
+      }
+    }
+
+    if (breathModeDesc) {
+      breathModeDesc.style.opacity = '0';
+      setTimeout(() => {
+        breathModeDesc.textContent = MODE_DESCRIPTIONS[newMode] || '';
+        breathModeDesc.style.opacity = '1';
+      }, 150);
+    }
+
+    // Reset cycle timer smoothly for new mode
+    if (isBreathingActive) {
+      breathStartTime = performance.now();
+      lastReportedCycleIndex = -1;
+    }
+
+    showToast(newMode === 'double-inhale'
+      ? '🌱 Mode: 2-Breath Reset (Double Inhale Sigh)'
+      : '⚡ Mode: 2-Count Stage Pulse (Coherent Rhythm)'
+    );
+  }
+
+  if (btnModeDouble) {
+    btnModeDouble.addEventListener('click', () => switchBreathMode('double-inhale'));
+  }
+  if (btnModeTwoCount) {
+    btnModeTwoCount.addEventListener('click', () => switchBreathMode('two-count'));
+  }
+
+  if (orbBtn) {
+    orbBtn.addEventListener('click', startSomaticBreath);
+  }
+
+  // GA4 Hook on CTA Button Click
+  if (breathWorkshopCtaBtn) {
+    breathWorkshopCtaBtn.addEventListener('click', () => {
+      fireGA4WidgetEngagement('cta_workshop_click');
+      if (typeof selectIntakeTab === 'function') {
+        selectIntakeTab('attendee');
+      }
+    });
+  }
+
+  // -------------------------------------------------------------------------
+  // 60FPS SACRED GEOMETRY CANVAS RENDERER (#sacred-lotus-canvas)
+  // Multi-layered Sacred Geometry:
+  // Layer 1: Core Seed (glowing golden-amber orb)
+  // Layer 2: 6-Fold Flower of Life Petals (expand outward, collapse into center)
+  // Layer 3: 12-Fold Metatron's Star / Sri Yantra (snaps open on 2nd inhale with cyan glow, collapses inward on exhale)
+  // Layer 4: Outer Orbit Track & Traveling Starlight Pearl
+  // Layer 5: Drifting Sacred Stardust Motes
+  // -------------------------------------------------------------------------
   if (lotusCanvas) {
     const lctx = lotusCanvas.getContext('2d');
-    const L_WIDTH = 400;
-    const L_HEIGHT = 400;
-    lotusCanvas.width = L_WIDTH;
-    lotusCanvas.height = L_HEIGHT;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const CANVAS_SIZE = 420;
 
-    const CX = L_WIDTH / 2;
-    const CY = L_HEIGHT / 2;
-    const ORBIT_RADIUS = 145;
+    lotusCanvas.width = CANVAS_SIZE * dpr;
+    lotusCanvas.height = CANVAS_SIZE * dpr;
+    lctx.scale(dpr, dpr);
 
-    function renderSacredLotus(timestamp) {
-      lctx.clearRect(0, 0, L_WIDTH, L_HEIGHT);
+    const CX = CANVAS_SIZE / 2; // 210
+    const CY = CANVAS_SIZE / 2; // 210
+    const ORBIT_RADIUS = 158;
 
-      lotusAngle += isBreathingActive ? 0.003 : 0.0015;
+    let ambientTime = 0;
 
-      let lotusScale = 0.82;
-      let auraAlpha = 0.14;
-      let haloColor = 'rgba(197, 154, 63, 0.2)';
+    function renderSacredCanvas(timestamp) {
+      lctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+      ambientTime += 0.016;
 
-      if (isBreathingActive) {
-        if (breathStep === 0) {
-          // INHALE: Blossoms outward from 0.78 to 1.32
-          lotusScale = 0.78 + currentTracerProgress * 0.54;
-          auraAlpha = 0.12 + currentTracerProgress * 0.20;
-          haloColor = `rgba(248, 217, 140, ${auraAlpha})`;
-        } else if (breathStep === 1) {
-          // HOLD: Luminous solar bloom starlight sustain
-          const pulse = (Math.sin(timestamp * 0.004) + 1) / 2;
-          lotusScale = 1.32 + pulse * 0.035;
-          auraAlpha = 0.26 + pulse * 0.12;
-          haloColor = `rgba(235, 185, 80, ${auraAlpha})`;
-        } else if (breathStep === 2) {
-          // EXHALE: Folds gracefully inward from 1.32 to 0.78
-          lotusScale = 1.32 - currentTracerProgress * 0.54;
-          auraAlpha = 0.32 - currentTracerProgress * 0.18;
-          haloColor = `rgba(92, 168, 185, ${auraAlpha})`;
-        } else {
-          // REST: Centered seed stillness
-          lotusScale = 0.78 + Math.sin(timestamp * 0.002) * 0.015;
-          auraAlpha = 0.14;
-          haloColor = 'rgba(95, 123, 107, 0.20)';
-        }
-      } else {
-        lotusScale = 0.82 + Math.sin(timestamp * 0.0018) * 0.03;
+      // Base geometry values (smooth idle pulse when not actively guided)
+      let scale = currentGeometryScale;
+      let starScale = currentLayer3Scale;
+      let rotation = currentRotationAngle;
+      let cyanIntensity = currentCyanGlowIntensity;
+
+      if (!isBreathingActive) {
+        const idlePulse = (Math.sin(ambientTime * 1.8) + 1) / 2;
+        scale = 0.28 + idlePulse * 0.12;
+        starScale = 0.22 + idlePulse * 0.08;
+        rotation = ambientTime * 0.15;
+        cyanIntensity = idlePulse * 0.25;
       }
 
-      // 1. Draw Outer Orbital Breath Track Ring
-      lctx.save();
-      lctx.beginPath();
-      lctx.arc(CX, CY, ORBIT_RADIUS, 0, Math.PI * 2);
-      lctx.strokeStyle = 'rgba(197, 154, 63, 0.22)';
-      lctx.lineWidth = 1.6;
-      lctx.stroke();
-
-      // 2. Draw Active Smooth Orbit Progress Arc (Traveling Clockwise)
-      if (isBreathingActive) {
-        const startAngle = -Math.PI / 2; // 12 o'clock top
-        const endAngle = startAngle + (totalCycleProgress * Math.PI * 2);
+      // ---------------------------------------------------------------------
+      // LAYER 5: Floating Sacred Stardust Motes
+      // ---------------------------------------------------------------------
+      stardustParticles.forEach(p => {
+        p.angle += p.speed;
+        const driftDist = p.baseDist * (0.8 + scale * 0.6);
+        const px = CX + Math.cos(p.angle) * driftDist;
+        const py = CY + Math.sin(p.angle) * driftDist;
 
         lctx.beginPath();
+        lctx.arc(px, py, p.size, 0, Math.PI * 2);
+        lctx.fillStyle = p.isCyan
+          ? `rgba(0, 242, 254, ${p.alpha * (0.3 + cyanIntensity * 0.6)})`
+          : `rgba(245, 175, 25, ${p.alpha * (0.35 + scale * 0.45)})`;
+        lctx.fill();
+      });
+
+      // ---------------------------------------------------------------------
+      // LAYER 4: Outer Orbit Track & Traveling Starlight Pearl
+      // ---------------------------------------------------------------------
+      lctx.save();
+      // Orbit Track Ring
+      lctx.beginPath();
+      lctx.arc(CX, CY, ORBIT_RADIUS, 0, Math.PI * 2);
+      lctx.strokeStyle = 'rgba(245, 175, 25, 0.18)';
+      lctx.lineWidth = 1.5;
+      lctx.stroke();
+
+      if (isBreathingActive) {
+        const startAngle = -Math.PI / 2; // 12 o'clock top
+        const endAngle = startAngle + (currentCycleProgress * Math.PI * 2);
+
+        // Active glowing progress arc
+        lctx.beginPath();
         lctx.arc(CX, CY, ORBIT_RADIUS, startAngle, endAngle);
-        lctx.strokeStyle = '#F8D98C';
+        lctx.strokeStyle = cyanIntensity > 0.4 ? '#00F2FE' : '#F5AF19';
         lctx.lineWidth = 3.2;
-        lctx.shadowColor = '#F8D98C';
+        lctx.shadowColor = cyanIntensity > 0.4 ? '#00F2FE' : '#F5AF19';
         lctx.shadowBlur = 14;
         lctx.stroke();
 
-        // Traveling Starlight Particle
+        // Traveling Starlight Pearl
         const pearlX = CX + Math.cos(endAngle) * ORBIT_RADIUS;
         const pearlY = CY + Math.sin(endAngle) * ORBIT_RADIUS;
 
         lctx.beginPath();
-        lctx.arc(pearlX, pearlY, 6.5, 0, Math.PI * 2);
+        lctx.arc(pearlX, pearlY, 6.0, 0, Math.PI * 2);
         lctx.fillStyle = '#FFFFFF';
-        lctx.shadowColor = '#FFF5B8';
-        lctx.shadowBlur = 18;
+        lctx.shadowColor = '#00F2FE';
+        lctx.shadowBlur = 16;
         lctx.fill();
       }
       lctx.restore();
 
-      // 3. Stardust Motes Drifting around Perimeter
-      stardustParticles.forEach(p => {
-        p.angle += p.speed;
-        const dist = p.baseDist * (isBreathingActive ? lotusScale : 1.0);
-        const px = CX + Math.cos(p.angle) * dist;
-        const py = CY + Math.sin(p.angle) * dist;
+      // ---------------------------------------------------------------------
+      // LAYER 3: 12-Fold Metatron's Star / Sri Yantra Polygon
+      // 12 radial vertices spaced at 30-degree intervals (0° through 330°)
+      // Connected by chords (every 4th vertex for 3 triangles, every 5th for star lattice)
+      // Snaps open on 2nd inhale with bioluminescent golden-cyan glow!
+      // Folds inward toward center on exhale!
+      // ---------------------------------------------------------------------
+      const STAR_MAX_R = 124;
+      const starR = STAR_MAX_R * starScale;
 
-        lctx.beginPath();
-        lctx.arc(px, py, p.size, 0, Math.PI * 2);
-        lctx.fillStyle = `rgba(248, 217, 140, ${p.alpha * (isBreathingActive ? 0.85 : 0.45)})`;
-        lctx.fill();
-      });
-
-      // 4. Center Luminous Aura Halo
-      const haloGrad = lctx.createRadialGradient(CX, CY, 10, CX, CY, 135 * lotusScale);
-      haloGrad.addColorStop(0, haloColor);
-      haloGrad.addColorStop(0.55, 'rgba(197, 154, 63, 0.06)');
-      haloGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
-      lctx.fillStyle = haloGrad;
-      lctx.beginPath();
-      lctx.arc(CX, CY, 135 * lotusScale, 0, Math.PI * 2);
-      lctx.fill();
-
-      // 5. Sacred Geometry Lotus & Flower of Life Mandala
-      lctx.save();
-      lctx.translate(CX, CY);
-      lctx.rotate(lotusAngle);
-      lctx.scale(lotusScale, lotusScale);
-
-      // Outer 12 Sacred Lotus Petals
-      const numPetals = 12;
-      const petalRadius = 48;
-
-      for (let i = 0; i < numPetals; i++) {
-        const theta = (i * Math.PI * 2) / numPetals;
+      if (starR > 6) {
         lctx.save();
-        lctx.rotate(theta);
+        const vertices = [];
+        for (let i = 0; i < 12; i++) {
+          const theta = (i * Math.PI) / 6 + (rotation * 1.25);
+          vertices.push({
+            x: CX + Math.cos(theta) * starR,
+            y: CY + Math.sin(theta) * starR
+          });
+        }
 
-        lctx.beginPath();
-        lctx.moveTo(0, 0);
-        lctx.bezierCurveTo(petalRadius * 0.42, -petalRadius * 0.95, petalRadius * 0.95, -petalRadius * 0.42, petalRadius * 1.55, 0);
-        lctx.bezierCurveTo(petalRadius * 0.95, petalRadius * 0.42, petalRadius * 0.42, petalRadius * 0.95, 0, 0);
-        lctx.fillStyle = 'rgba(197, 154, 63, 0.10)';
-        lctx.fill();
-        lctx.strokeStyle = 'rgba(248, 217, 140, 0.55)';
+        // Chord stroke styling
+        const isCyanPeak = cyanIntensity > 0.35;
+        lctx.strokeStyle = isCyanPeak
+          ? `rgba(0, 242, 254, ${0.45 + cyanIntensity * 0.45})`
+          : `rgba(245, 175, 25, ${0.25 + starScale * 0.45})`;
         lctx.lineWidth = 1.3;
+        lctx.shadowColor = isCyanPeak ? '#00F2FE' : '#F5AF19';
+        lctx.shadowBlur = (8 + 14 * cyanIntensity) * starScale;
+
+        // Chords: Every 4th vertex (forms 3 interlocking equilateral triangles — 12-point Merkabah)
+        for (let i = 0; i < 12; i++) {
+          const next = (i + 4) % 12;
+          lctx.beginPath();
+          lctx.moveTo(vertices[i].x, vertices[i].y);
+          lctx.lineTo(vertices[next].x, vertices[next].y);
+          lctx.stroke();
+        }
+
+        // Chords: Every 5th vertex (interlocking 12-pointed grand star polygon lattice)
+        if (starScale > 0.3) {
+          lctx.strokeStyle = `rgba(0, 242, 254, ${0.20 * starScale + cyanIntensity * 0.45})`;
+          for (let i = 0; i < 12; i++) {
+            const next = (i + 5) % 12;
+            lctx.beginPath();
+            lctx.moveTo(vertices[i].x, vertices[i].y);
+            lctx.lineTo(vertices[next].x, vertices[next].y);
+            lctx.stroke();
+          }
+        }
+
+        // Outer Bounding Dodecagon
+        lctx.beginPath();
+        for (let i = 0; i < 12; i++) {
+          if (i === 0) lctx.moveTo(vertices[i].x, vertices[i].y);
+          else lctx.lineTo(vertices[i].x, vertices[i].y);
+        }
+        lctx.closePath();
+        lctx.strokeStyle = `rgba(245, 175, 25, ${0.20 * starScale})`;
         lctx.stroke();
+
+        // Vertex Bioluminescent Seed Nodes
+        vertices.forEach((v, idx) => {
+          lctx.beginPath();
+          lctx.arc(v.x, v.y, 2.2 + 2.2 * starScale, 0, Math.PI * 2);
+          lctx.fillStyle = idx % 2 === 0 ? '#00F2FE' : '#FFF5B8';
+          lctx.shadowColor = '#00F2FE';
+          lctx.shadowBlur = 10 * starScale;
+          lctx.fill();
+        });
 
         lctx.restore();
       }
 
-      // Overlapping Flower of Life Circles
+      // ---------------------------------------------------------------------
+      // LAYER 2: 6-Fold Flower of Life Petals
+      // 6 overlapping circles at 60-degree intervals (0°, 60°, 120°, 180°, 240°, 300°)
+      // As breath progresses, distance of each circle's center from origin expands & rotates;
+      // On exhale, counter-rotates and collapses inward until merging into center circle!
+      // ---------------------------------------------------------------------
+      lctx.save();
+      const FLOWER_MAX_DIST = 46;
+      const flowerDist = FLOWER_MAX_DIST * scale;
+      const petalRadius = 14 + 38 * scale;
+
+      lctx.strokeStyle = '#F5AF19';
+      lctx.lineWidth = 1.35;
+      lctx.shadowColor = '#F5AF19';
+      lctx.shadowBlur = 6 * scale;
+
       for (let i = 0; i < 6; i++) {
-        const theta = (i * Math.PI * 2) / 6;
-        const ox = Math.cos(theta) * 32;
-        const oy = Math.sin(theta) * 32;
+        const theta = (i * Math.PI) / 3 + rotation;
+        const ox = CX + Math.cos(theta) * flowerDist;
+        const oy = CY + Math.sin(theta) * flowerDist;
 
         lctx.beginPath();
-        lctx.arc(ox, oy, 32, 0, Math.PI * 2);
-        lctx.strokeStyle = 'rgba(197, 154, 63, 0.38)';
-        lctx.lineWidth = 1.1;
+        lctx.arc(ox, oy, petalRadius, 0, Math.PI * 2);
+        lctx.fillStyle = `rgba(245, 175, 25, ${0.05 * scale})`;
+        lctx.fill();
         lctx.stroke();
       }
 
-      // Concentric Harmonic Resonance Rings
-      [22, 48, 76].forEach((r, idx) => {
-        lctx.beginPath();
-        lctx.arc(0, 0, r, 0, Math.PI * 2);
-        lctx.strokeStyle = idx === 0 ? '#F8D98C' : 'rgba(197, 154, 63, 0.4)';
-        lctx.lineWidth = idx === 0 ? 1.5 : 1.0;
-        lctx.stroke();
-      });
-
-      // Luminous Center Seed
+      // Concentric Harmonizing Ring around petals
       lctx.beginPath();
-      lctx.arc(0, 0, 10, 0, Math.PI * 2);
-      lctx.fillStyle = 'rgba(248, 217, 140, 0.85)';
-      lctx.shadowColor = '#F8D98C';
-      lctx.shadowBlur = 12;
-      lctx.fill();
+      lctx.arc(CX, CY, flowerDist + petalRadius, 0, Math.PI * 2);
+      lctx.strokeStyle = `rgba(245, 175, 25, ${0.25 * scale})`;
+      lctx.stroke();
 
       lctx.restore();
 
-      requestAnimationFrame(renderSacredLotus);
+      // ---------------------------------------------------------------------
+      // LAYER 1: The Core Seed
+      // A central pulsing golden-amber orb that never disappears, visual anchor.
+      // ---------------------------------------------------------------------
+      lctx.save();
+      const coreSeedRadius = 12 + 8 * scale + Math.sin(ambientTime * 2.5) * 1.5;
+
+      // Center multi-stop luminous glow
+      const seedGrad = lctx.createRadialGradient(CX, CY, 0, CX, CY, coreSeedRadius * 2.0);
+      seedGrad.addColorStop(0, '#FFFFFF');
+      seedGrad.addColorStop(0.25, '#FFF2A8');
+      seedGrad.addColorStop(0.65, '#F5AF19');
+      seedGrad.addColorStop(1, 'rgba(245, 175, 25, 0)');
+
+      lctx.fillStyle = seedGrad;
+      lctx.shadowColor = '#F5AF19';
+      lctx.shadowBlur = 16 + 12 * scale;
+      lctx.beginPath();
+      lctx.arc(CX, CY, coreSeedRadius * 2.0, 0, Math.PI * 2);
+      lctx.fill();
+
+      // Core anchor spark point
+      lctx.beginPath();
+      lctx.arc(CX, CY, 4.0, 0, Math.PI * 2);
+      lctx.fillStyle = '#FFFFFF';
+      lctx.shadowColor = '#00F2FE';
+      lctx.shadowBlur = 10;
+      lctx.fill();
+      lctx.restore();
+
+      requestAnimationFrame(renderSacredCanvas);
     }
 
-    requestAnimationFrame(renderSacredLotus);
-    lotusCanvas.addEventListener('click', startSomaticBreath);
-  }
+    requestAnimationFrame(renderSacredCanvas);
 
-  if (orb) {
-    orb.addEventListener('click', startSomaticBreath);
-  }
-  if (orbBtn) {
-    orbBtn.addEventListener('click', startSomaticBreath);
+    // Tap/Click on Canvas to toggle breathwork
+    lotusCanvas.addEventListener('click', startSomaticBreath);
   }
 
   // =========================================================================
