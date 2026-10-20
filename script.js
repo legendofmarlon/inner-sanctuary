@@ -1900,12 +1900,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const breathCycleTracker = document.getElementById('breath-cycle-tracker');
   const cycleCountLabel = document.getElementById('cycle-count-label');
   const breathModeDesc = document.getElementById('breath-mode-desc');
-  const btnPaceGrounding = document.getElementById('btn-pace-grounding');
-  const btnPaceSteady = document.getElementById('btn-pace-steady');
+  const btnPaceDeep = document.getElementById('btn-pace-deep');
+  const btnPaceGentle = document.getElementById('btn-pace-gentle');
   const breathWorkshopCtaBtn = document.getElementById('breath-workshop-cta-btn');
 
   // State Configuration
-  let currentPace = 'grounding'; // 'grounding' (3s In / 3s Out = 6s cycle) or 'steady' (2s In / 2s Out = 4s cycle)
+  let currentPace = 'deep'; // 'deep' (5s In / 5s Out = 10s cycle) or 'gentle' (4s In / 4s Out = 8s cycle)
   let isBreathingActive = false;
   let breathStartTime = null;
   let breathAnimId = null;
@@ -1926,17 +1926,17 @@ document.addEventListener('DOMContentLoaded', () => {
   // Accessibility prefers-reduced-motion
   const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Pace durations in milliseconds (strictly 2-count, ZERO PAUSES)
+  // Pace durations in milliseconds (Deep unhurried 2-count, ZERO PAUSES)
   const PACE_CONFIGS = {
-    'grounding': {
-      phaseMs: 3000,
-      cycleMs: 6000,
-      desc: 'Soothing 2-Count Flow • 3.0s Inhale (Count 1, 2) • 3.0s Exhale (Count 1, 2) • Zero Pauses'
+    'deep': {
+      phaseMs: 5000,
+      cycleMs: 10000,
+      desc: 'Deep Unhurried Rhythm • Inhale 2 Slow Counts (5s) • Exhale 2 Slow Counts (5s) • Zero Pauses'
     },
-    'steady': {
-      phaseMs: 2000,
-      cycleMs: 4000,
-      desc: 'Active 2-Count Pulse • 2.0s Inhale (Count 1, 2) • 2.0s Exhale (Count 1, 2) • Zero Pauses'
+    'gentle': {
+      phaseMs: 4000,
+      cycleMs: 8000,
+      desc: 'Gentle Calming Flow • Inhale 2 Slow Counts (4s) • Exhale 2 Slow Counts (4s) • Zero Pauses'
     }
   };
 
@@ -2050,7 +2050,7 @@ document.addEventListener('DOMContentLoaded', () => {
         '✦ 2-COUNT FLOW (NO PAUSE) ✦',
         'INHALE',
         `COUNT ${countNumber}`,
-        `Breathe In... ${countNumber === '1' ? '1...' : '1... 2'}`
+        `Breathe In Slowly... ${countNumber === '1' ? '1...' : '1... 2'}`
       );
     } else {
       // EXHALE (2 Counts): Mandala counter-rotates and collapses inward from 1.00 to 0.15 scale
@@ -2063,7 +2063,7 @@ document.addEventListener('DOMContentLoaded', () => {
         '✦ 2-COUNT FLOW (NO PAUSE) ✦',
         'EXHALE',
         `COUNT ${countNumber}`,
-        `Breathe Out... ${countNumber === '1' ? '1...' : '1... 2 (collapse inward)'}`
+        `Breathe Out Slowly... ${countNumber === '1' ? '1...' : '1... 2 (collapse inward)'}`
       );
     }
 
@@ -2156,17 +2156,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if (currentPace === newPace) return;
     currentPace = newPace;
 
-    if (btnPaceGrounding && btnPaceSteady) {
-      if (newPace === 'grounding') {
-        btnPaceGrounding.classList.add('active');
-        btnPaceGrounding.setAttribute('aria-selected', 'true');
-        btnPaceSteady.classList.remove('active');
-        btnPaceSteady.setAttribute('aria-selected', 'false');
+    if (btnPaceDeep && btnPaceGentle) {
+      if (newPace === 'deep') {
+        btnPaceDeep.classList.add('active');
+        btnPaceDeep.setAttribute('aria-selected', 'true');
+        btnPaceGentle.classList.remove('active');
+        btnPaceGentle.setAttribute('aria-selected', 'false');
       } else {
-        btnPaceSteady.classList.add('active');
-        btnPaceSteady.setAttribute('aria-selected', 'true');
-        btnPaceGrounding.classList.remove('active');
-        btnPaceGrounding.setAttribute('aria-selected', 'false');
+        btnPaceGentle.classList.add('active');
+        btnPaceGentle.setAttribute('aria-selected', 'true');
+        btnPaceDeep.classList.remove('active');
+        btnPaceDeep.setAttribute('aria-selected', 'false');
       }
     }
 
@@ -2185,17 +2185,17 @@ document.addEventListener('DOMContentLoaded', () => {
       lastTriggeredPhase = -1;
     }
 
-    showToast(newPace === 'grounding'
-      ? '🌿 Tempo: Soothing Flow (3s In • 3s Out)'
-      : '⚡ Tempo: Active Pulse (2s In • 2s Out)'
+    showToast(newPace === 'deep'
+      ? '🌿 Tempo: Deep Sanctuary Pace (5s In • 5s Out)'
+      : '🍃 Tempo: Gentle Flow (4s In • 4s Out)'
     );
   }
 
-  if (btnPaceGrounding) {
-    btnPaceGrounding.addEventListener('click', () => switchPace('grounding'));
+  if (btnPaceDeep) {
+    btnPaceDeep.addEventListener('click', () => switchPace('deep'));
   }
-  if (btnPaceSteady) {
-    btnPaceSteady.addEventListener('click', () => switchPace('steady'));
+  if (btnPaceGentle) {
+    btnPaceGentle.addEventListener('click', () => switchPace('gentle'));
   }
 
   // Breath Sound Toggle
