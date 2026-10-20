@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // =========================================================================
   // 1. INTERACTIVE FOREST ATMOSPHERE & EXPLORATION ENGINE
   // =========================================================================
-  const canvas = document.getElementById('forest-canvas');
+  const canvas = document.getElementById('elemental-sanctuary-bg') || document.getElementById('forest-canvas');
   if (canvas) {
     const ctx = canvas.getContext('2d');
     let width = canvas.width = window.innerWidth;
@@ -52,53 +52,49 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Spawn burst of fireflies on click
-    window.addEventListener('click', (e) => {
-      // Don't interrupt form clicks or buttons
-      if (e.target.tagName === 'BUTTON' || e.target.tagName === 'INPUT' || e.target.tagName === 'A' || e.target.tagName === 'SELECT') return;
-      for (let i = 0; i < 7; i++) {
-        particles.push(new Firefly(e.clientX, e.clientY, true));
-      }
-    });
-
     // Active Element State
     let currentElement = 'earth';
 
     const elementThemes = {
       earth: {
+        shortName: "Earth",
+        icon: "🌿",
         name: "🌿 Earth & Forest Sanctuary",
         quote: "Root down so your branches may reach without fear. Feel your feet on the soil.",
-        freq: 432,
         bg: "#F6F3EC",
-        soundLabel: "Audible Forest Breeze • 432 Hz"
+        soundLabel: "Lush Forest Canopy & Morning Birdsong"
       },
       water: {
-        name: "🌊 Water & Ocean Surf",
-        quote: "Giving yourself permission to feel without judgment. Tears washing away hurry.",
-        freq: 528,
+        shortName: "Water",
+        icon: "🌊",
+        name: "🌊 Water & Forest Creek Sanctuary",
+        quote: "A gentle mountain creek flowing over smooth stones. Washes away hurry.",
         bg: "#EDF3F5",
-        soundLabel: "Audible Ocean Waves • 528 Hz"
+        soundLabel: "Soothing Babbling Forest Stream"
       },
       air: {
-        name: "🌬️ Air & Mountain Wind",
-        quote: "Unburdening the chest. Sounding your sacred voice and reclaiming your frequency.",
-        freq: 639,
+        shortName: "Air",
+        icon: "🌬️",
+        name: "🌬️ Air & Mountain Breeze Sanctuary",
+        quote: "Unburdening the chest. Deep mountain air opening space for clarity.",
         bg: "#F2F5F8",
-        soundLabel: "Audible Mountain Breeze • 639 Hz"
+        soundLabel: "Gentle Mountain Wind & Airy Breeze"
       },
       fire: {
-        name: "🔥 Fire & Warm Hearth",
-        quote: "Moving energy freely without permission or choreography. Pure creative spark.",
-        freq: 741,
+        shortName: "Fire",
+        icon: "🔥",
+        name: "🔥 Fire & Warm Hearth Sanctuary",
+        quote: "Moving energy freely without permission. Cozy hearthside warmth.",
         bg: "#FAF2EC",
-        soundLabel: "Crackling Warm Hearth • 741 Hz"
+        soundLabel: "Crackling Wood Fireplace & Warm Hearth"
       },
       ether: {
-        name: "🌌 Ether & Celestial Chimes",
+        shortName: "Ether",
+        icon: "🌌",
+        name: "🌌 Ether & Celestial Sanctuary",
         quote: "Realizing the sanctuary isn't a place we have to find; it is within you.",
-        freq: 852,
         bg: "#F3EEF8",
-        soundLabel: "Celestial Koshi Chimes • 852 Hz"
+        soundLabel: "Gentle Koshi Wind Chimes"
       }
     };
 
@@ -109,25 +105,26 @@ document.addEventListener('DOMContentLoaded', () => {
     // 1. EARTH: Fireflies & Floating Botanical Leaves
     class Firefly {
       constructor(startX, startY, isBurst = false) {
-        this.x = startX !== undefined ? startX : Math.random() * width;
-        this.y = startY !== undefined ? startY : Math.random() * height;
-        this.size = Math.random() * 2.8 + 1.2;
+        this.x = startX !== undefined ? (isBurst ? startX + (Math.random() - 0.5) * 30 : startX) : Math.random() * width;
+        this.y = startY !== undefined ? (isBurst ? startY + (Math.random() - 0.5) * 30 : startY) : Math.random() * height;
+        this.size = Math.random() * 2.6 + 1.2;
         this.baseSize = this.size;
         this.isBurst = isBurst;
-        this.alpha = Math.random() * 0.6 + 0.2;
-        this.pulseSpeed = Math.random() * 0.03 + 0.01;
+        this.alpha = Math.random() * 0.5 + 0.35;
+        this.pulseSpeed = Math.random() * 0.024 + 0.012;
         this.pulsePhase = Math.random() * Math.PI * 2;
-        this.vx = (Math.random() - 0.5) * (isBurst ? 2.5 : 0.6);
-        this.vy = (Math.random() - 0.5) * (isBurst ? 2.5 : 0.6) - (isBurst ? 0.5 : 0.2);
-        this.lifespan = isBurst ? 180 : Infinity;
+        this.vx = (Math.random() - 0.5) * (isBurst ? 3.5 : 0.45);
+        this.vy = (Math.random() - 0.5) * (isBurst ? 3.5 : 0.45) - (isBurst ? 0.8 : 0.15);
+        this.lifespan = isBurst ? Math.random() * 90 + 60 : Infinity;
         this.age = 0;
+        this.hueShift = Math.random() > 0.4 ? '248, 217, 140' : '175, 215, 160';
       }
 
       update() {
         this.age++;
         this.pulsePhase += this.pulseSpeed;
-        this.vx += (Math.random() - 0.5) * 0.04;
-        this.vy += (Math.random() - 0.5) * 0.04 - 0.005;
+        this.vx += (Math.random() - 0.5) * 0.03;
+        this.vy += (Math.random() - 0.5) * 0.03 - 0.003;
 
         const dx = this.x - mouse.x;
         const dy = this.y - mouse.y;
@@ -135,9 +132,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (dist < mouse.radius) {
           const force = (mouse.radius - dist) / mouse.radius;
           const angle = Math.atan2(dy, dx);
-          this.vx += Math.cos(angle) * force * 0.35;
-          this.vy += Math.sin(angle) * force * 0.35;
-          this.size = this.baseSize * (1 + force * 0.8);
+          this.vx += Math.cos(angle) * force * 0.3;
+          this.vy += Math.sin(angle) * force * 0.3;
+          this.size = this.baseSize * (1 + force * 0.7);
         } else {
           this.size = this.baseSize;
         }
@@ -156,16 +153,28 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       draw() {
-        const pulse = (Math.sin(this.pulsePhase) + 1) / 2;
-        const currentAlpha = this.alpha * (0.3 + pulse * 0.7);
+        // Natural Lampyridae double-sine flash curve
+        const rawPulse = Math.sin(this.pulsePhase) * Math.sin(this.pulsePhase * 0.45);
+        const pulse = Math.max(0, rawPulse);
+        const fade = this.isBurst ? Math.max(0, 1 - this.age / this.lifespan) : 1;
+        const currentAlpha = this.alpha * (0.12 + pulse * 0.88) * fade;
+
+        // Wide atmospheric emerald halo
         ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(197, 154, 63, ${currentAlpha})`;
+        ctx.arc(this.x, this.y, this.size * 5.5, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(95, 123, 107, ${currentAlpha * 0.16})`;
         ctx.fill();
 
+        // Warm luminous mid-glow
         ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size * 3.5, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(95, 123, 107, ${currentAlpha * 0.25})`;
+        ctx.arc(this.x, this.y, this.size * 2.5, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${this.hueShift}, ${currentAlpha * 0.45})`;
+        ctx.fill();
+
+        // Sharp glowing core
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 252, 235, ${currentAlpha * 0.95})`;
         ctx.fill();
       }
     }
@@ -177,78 +186,118 @@ document.addEventListener('DOMContentLoaded', () => {
 
       reset(init = false) {
         this.x = Math.random() * width;
-        this.y = init ? Math.random() * height : -30;
-        this.size = Math.random() * 9 + 7;
-        this.speedY = Math.random() * 0.45 + 0.35;
-        this.oscillationSpeed = Math.random() * 0.02 + 0.01;
-        this.oscillationAmp = Math.random() * 35 + 20;
-        this.angle = Math.random() * Math.PI * 2;
-        this.rotationSpeed = (Math.random() - 0.5) * 0.02;
+        this.y = init ? Math.random() * height : -35;
+        this.size = Math.random() * 8 + 6;
+        this.speedY = Math.random() * 0.4 + 0.3;
+        this.oscSpeed = Math.random() * 0.018 + 0.009;
+        this.oscAmp = Math.random() * 32 + 18;
+        this.angleZ = Math.random() * Math.PI * 2;
+        this.angleY = Math.random() * Math.PI * 2; // 3D flip angle
+        this.rotSpeedZ = (Math.random() - 0.5) * 0.015;
+        this.rotSpeedY = Math.random() * 0.02 + 0.01;
         this.startX = this.x;
         this.time = Math.random() * 100;
-        this.color = Math.random() > 0.4 ? 'rgba(95, 123, 107, 0.22)' : 'rgba(197, 154, 63, 0.2)';
+        this.isAmber = Math.random() > 0.45;
       }
 
       update() {
-        this.time += this.oscillationSpeed;
+        this.time += this.oscSpeed;
         this.y += this.speedY;
-        this.x = this.startX + Math.sin(this.time) * this.oscillationAmp;
-        this.angle += this.rotationSpeed;
+        this.x = this.startX + Math.sin(this.time) * this.oscAmp;
+        this.angleZ += this.rotSpeedZ;
+        this.angleY += this.rotSpeedY;
         if (this.y > height + 40) this.reset();
       }
 
       draw() {
         ctx.save();
         ctx.translate(this.x, this.y);
-        ctx.rotate(this.angle);
-        ctx.fillStyle = this.color;
+        ctx.rotate(this.angleZ);
+        // 3D yaw squish simulation
+        const flip = Math.cos(this.angleY);
+        ctx.scale(flip, 1);
+
+        const fillColor = this.isAmber 
+          ? (flip >= 0 ? 'rgba(197, 154, 63, 0.22)' : 'rgba(224, 182, 88, 0.16)')
+          : (flip >= 0 ? 'rgba(95, 123, 107, 0.24)' : 'rgba(125, 160, 140, 0.18)');
+
+        ctx.fillStyle = fillColor;
         ctx.beginPath();
-        ctx.moveTo(0, -this.size);
-        ctx.quadraticCurveTo(this.size * 0.7, 0, 0, this.size);
-        ctx.quadraticCurveTo(-this.size * 0.7, 0, 0, -this.size);
+        ctx.moveTo(0, -this.size * 1.2);
+        ctx.quadraticCurveTo(this.size * 0.75, 0, 0, this.size * 1.2);
+        ctx.quadraticCurveTo(-this.size * 0.75, 0, 0, -this.size * 1.2);
         ctx.fill();
+
+        // Central vein
+        ctx.strokeStyle = this.isAmber ? 'rgba(165, 125, 45, 0.22)' : 'rgba(70, 95, 80, 0.22)';
+        ctx.lineWidth = 0.8;
+        ctx.beginPath();
+        ctx.moveTo(0, -this.size * 1.1);
+        ctx.lineTo(0, this.size * 1.1);
+        ctx.stroke();
+
         ctx.restore();
       }
     }
 
-    // 2. WATER: Translucent Shimmering Bubbles & Concentric Ripples
+    // 2. WATER: Translucent Shimmering Bubbles & Specular Highlights
     class WaterBubble {
-      constructor() {
-        this.reset(true);
+      constructor(startX, startY, isBurst = false) {
+        this.reset(startX === undefined, startX, startY, isBurst);
       }
 
-      reset(init = false) {
-        this.x = Math.random() * width;
-        this.y = init ? Math.random() * height : height + 20;
-        this.radius = Math.random() * 6 + 3;
-        this.speedY = Math.random() * 0.8 + 0.4;
-        this.oscSpeed = Math.random() * 0.03 + 0.01;
-        this.oscAmp = Math.random() * 18 + 8;
+      reset(init = false, startX, startY, isBurst = false) {
+        this.isBurst = isBurst;
+        this.age = 0;
+        this.lifespan = isBurst ? Math.random() * 80 + 50 : Infinity;
+        this.x = startX !== undefined ? startX + (Math.random() - 0.5) * 36 : Math.random() * width;
+        this.y = startY !== undefined ? startY + (Math.random() - 0.5) * 36 : (init ? Math.random() * height : height + 25);
+        this.radius = isBurst ? (Math.random() * 6.5 + 2.5) : (Math.random() * 5.5 + 2.5);
+        this.speedY = isBurst ? (Math.random() * 2.2 + 0.9) : (Math.random() * 0.7 + 0.35);
+        this.speedX = isBurst ? (Math.random() - 0.5) * 2.2 : 0;
+        this.oscSpeed = Math.random() * 0.025 + 0.01;
+        this.oscAmp = Math.random() * 16 + 6;
         this.startX = this.x;
         this.time = Math.random() * 50;
-        this.alpha = Math.random() * 0.35 + 0.15;
+        this.alpha = Math.random() * 0.32 + 0.14;
       }
 
       update() {
+        this.age++;
         this.time += this.oscSpeed;
         this.y -= this.speedY;
+        if (this.speedX) {
+          this.x += this.speedX;
+          this.speedX *= 0.98;
+        }
         this.x = this.startX + Math.sin(this.time) * this.oscAmp;
+        if (this.isBurst && (this.age > this.lifespan || this.y < -30)) return false;
         if (this.y < -30) this.reset();
+        return true;
       }
 
       draw() {
+        const fade = this.isBurst ? Math.max(0, 1 - this.age / this.lifespan) : 1;
+        const currentAlpha = this.alpha * fade;
         ctx.save();
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(92, 168, 185, ${this.alpha * 0.25})`;
+        ctx.fillStyle = `rgba(92, 168, 185, ${currentAlpha * 0.18})`;
         ctx.fill();
-        ctx.strokeStyle = `rgba(180, 225, 235, ${this.alpha * 0.8})`;
-        ctx.lineWidth = 1;
+        ctx.strokeStyle = `rgba(180, 225, 235, ${currentAlpha * 0.75})`;
+        ctx.lineWidth = 0.9;
         ctx.stroke();
 
+        // Primary specular highlight (top left)
         ctx.beginPath();
-        ctx.arc(this.x - this.radius * 0.35, this.y - this.radius * 0.35, this.radius * 0.25, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${this.alpha * 0.9})`;
+        ctx.arc(this.x - this.radius * 0.35, this.y - this.radius * 0.35, this.radius * 0.26, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${currentAlpha * 0.92})`;
+        ctx.fill();
+
+        // Secondary rim refraction (bottom right)
+        ctx.beginPath();
+        ctx.arc(this.x + this.radius * 0.28, this.y + this.radius * 0.28, this.radius * 0.14, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(180, 230, 245, ${currentAlpha * 0.65})`;
         ctx.fill();
         ctx.restore();
       }
@@ -261,29 +310,39 @@ document.addEventListener('DOMContentLoaded', () => {
           x: e.clientX,
           y: e.clientY,
           radius: 4,
-          maxRadius: Math.random() * 40 + 35,
+          maxRadius: Math.random() * 45 + 35,
           alpha: 0.35
         });
+      } else if (currentElement === 'fire' && Math.random() > 0.75) {
+        fireEmbers.push(new FireEmber(e.clientX, e.clientY, true));
+      } else if (currentElement === 'air' && Math.random() > 0.75) {
+        airMotes.push(new SunbeamMote(e.clientX, e.clientY, true));
+      } else if (currentElement === 'earth' && Math.random() > 0.88) {
+        earthFireflies.push(new Firefly(e.clientX, e.clientY, true));
       }
     });
 
-    // 3. AIR: Flowing Wind Streams & Dandelion Seeds
+    // 3. AIR: Flowing Wind Streams & Weightless Sunbeam Motes
     class DandelionSeed {
-      constructor() {
-        this.reset(true);
+      constructor(startX, startY, isBurst = false) {
+        this.reset(startX === undefined, startX, startY, isBurst);
       }
 
-      reset(init = false) {
-        this.x = init ? Math.random() * width : -30;
-        this.y = Math.random() * height;
-        this.speedX = Math.random() * 1.4 + 0.8;
-        this.speedY = (Math.random() - 0.5) * 0.3;
+      reset(init = false, startX, startY, isBurst = false) {
+        this.isBurst = isBurst;
+        this.age = 0;
+        this.lifespan = isBurst ? Math.random() * 120 + 80 : Infinity;
+        this.x = startX !== undefined ? startX + (Math.random() - 0.5) * 20 : (init ? Math.random() * width : -30);
+        this.y = startY !== undefined ? startY + (Math.random() - 0.5) * 20 : Math.random() * height;
+        this.speedX = isBurst ? (Math.random() * 2.8 + 1.2) : (Math.random() * 1.4 + 0.8);
+        this.speedY = isBurst ? (Math.random() - 0.5) * 1.8 : ((Math.random() - 0.5) * 0.3);
         this.size = Math.random() * 4 + 3;
         this.angle = Math.random() * Math.PI * 2;
-        this.alpha = Math.random() * 0.3 + 0.2;
+        this.alpha = Math.random() * 0.35 + 0.2;
       }
 
       update() {
+        this.age++;
         const dx = this.x - mouse.x;
         const dy = this.y - mouse.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
@@ -297,16 +356,20 @@ document.addEventListener('DOMContentLoaded', () => {
         this.y += this.speedY;
         this.angle += 0.02;
 
+        if (this.isBurst && (this.age > this.lifespan || this.x > width + 40)) return false;
         if (this.x > width + 40 || this.y < -40 || this.y > height + 40) {
           this.reset();
         }
+        return true;
       }
 
       draw() {
+        const fade = this.isBurst ? Math.max(0, 1 - this.age / this.lifespan) : 1;
+        const currentAlpha = this.alpha * fade;
         ctx.save();
         ctx.translate(this.x, this.y);
         ctx.rotate(this.angle);
-        ctx.strokeStyle = `rgba(180, 210, 225, ${this.alpha})`;
+        ctx.strokeStyle = `rgba(180, 210, 225, ${currentAlpha})`;
         ctx.lineWidth = 1;
         for (let i = 0; i < 5; i++) {
           const a = (i / 5) * Math.PI - Math.PI / 2;
@@ -317,77 +380,156 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         ctx.beginPath();
         ctx.arc(0, 0, 1.5, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(150, 185, 205, ${this.alpha * 1.2})`;
+        ctx.fillStyle = `rgba(150, 185, 205, ${currentAlpha * 1.2})`;
         ctx.fill();
         ctx.restore();
       }
     }
 
-    // 4. FIRE: Crackling Rising Embers & Sparks
-    class FireEmber {
-      constructor() {
-        this.reset(true);
+    class SunbeamMote {
+      constructor(startX, startY, isBurst = false) {
+        this.reset(startX === undefined, startX, startY, isBurst);
       }
 
-      reset(init = false) {
-        this.x = Math.random() * width;
-        this.y = init ? Math.random() * height : height + 10;
-        this.size = Math.random() * 3 + 1.2;
-        this.speedY = Math.random() * 1.8 + 0.9;
-        this.speedX = (Math.random() - 0.5) * 0.8;
-        this.alpha = Math.random() * 0.6 + 0.4;
-        this.flickerSpeed = Math.random() * 0.1 + 0.05;
-        this.hue = Math.random() > 0.4 ? '235, 125, 45' : '245, 190, 60';
-      }
-
-      update() {
-        this.y -= this.speedY;
-        this.x += this.speedX + Math.sin(this.y * 0.03) * 0.6;
-        this.alpha -= 0.0025;
-
-        if (this.y < -20 || this.alpha <= 0) {
-          this.reset();
-        }
-      }
-
-      draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${this.hue}, ${Math.max(0, this.alpha)})`;
-        ctx.fill();
-
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size * 3, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${this.hue}, ${Math.max(0, this.alpha * 0.25)})`;
-        ctx.fill();
-      }
-    }
-
-    // 5. ETHER: Twinkling Starlight & Orbiting Stardust
-    class CelestialStar {
-      constructor() {
-        this.x = Math.random() * width;
-        this.y = Math.random() * height;
-        this.size = Math.random() * 2 + 0.8;
+      reset(init = false, startX, startY, isBurst = false) {
+        this.isBurst = isBurst;
+        this.age = 0;
+        this.lifespan = isBurst ? Math.random() * 90 + 60 : Infinity;
+        this.x = startX !== undefined ? startX + (Math.random() - 0.5) * 35 : Math.random() * width;
+        this.y = startY !== undefined ? startY + (Math.random() - 0.5) * 35 : (init ? Math.random() * height : height + 15);
+        this.size = isBurst ? (Math.random() * 3.0 + 1.2) : (Math.random() * 2.2 + 0.8);
+        this.speedY = isBurst ? (Math.random() * 2.2 + 0.8) : (Math.random() * 0.35 + 0.18);
+        this.speedX = isBurst ? (Math.random() - 0.5) * 2.0 : (Math.random() * 0.2 + 0.05);
+        this.alpha = Math.random() * 0.55 + 0.25;
         this.phase = Math.random() * Math.PI * 2;
-        this.speed = Math.random() * 0.03 + 0.01;
-        this.color = Math.random() > 0.5 ? 'rgba(197, 154, 63, ' : 'rgba(180, 150, 220, ';
       }
 
       update() {
-        this.phase += this.speed;
+        this.age++;
+        this.y -= this.speedY;
+        this.x += this.speedX + Math.sin(this.y * 0.015) * 0.35;
+        this.phase += 0.025;
+        if (this.isBurst && (this.age > this.lifespan || this.y < -20)) return false;
+        if (this.y < -20) this.reset();
+        return true;
       }
 
       draw() {
         const twinkle = (Math.sin(this.phase) + 1) / 2;
-        const a = 0.2 + twinkle * 0.65;
+        const fade = this.isBurst ? Math.max(0, 1 - this.age / this.lifespan) : 1;
+        const a = this.alpha * (0.35 + twinkle * 0.65) * fade;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = `${this.color}${a})`;
+        ctx.fillStyle = `rgba(248, 217, 140, ${a})`;
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size * 3.2, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 245, 210, ${a * 0.22})`;
+        ctx.fill();
+      }
+    }
+
+    // 4. FIRE: Thermodynamic Embers & Swirling Heat Turbulence
+    class FireEmber {
+      constructor(startX, startY, isBurst = false) {
+        this.reset(startX === undefined, startX, startY, isBurst);
+      }
+
+      reset(init = false, startX, startY, isBurst = false) {
+        this.isBurst = isBurst;
+        this.age = 0;
+        this.maxLife = isBurst ? Math.random() * 70 + 40 : (Math.random() * 140 + 80);
+        this.x = startX !== undefined ? startX + (Math.random() - 0.5) * 30 : (width * 0.5 + (Math.random() - 0.5) * (width * 0.85));
+        this.y = startY !== undefined ? startY + (Math.random() - 0.5) * 30 : (init ? Math.random() * height : height + 12);
+        this.size = isBurst ? (Math.random() * 3.4 + 1.4) : (Math.random() * 2.8 + 1.2);
+        this.speedY = isBurst ? (Math.random() * 3.2 + 1.6) : (Math.random() * 1.9 + 1.0);
+        this.speedX = isBurst ? (Math.random() - 0.5) * 3.0 : ((Math.random() - 0.5) * 0.9);
+        this.wobbleAmp = Math.random() * 2.2 + 0.8;
+        this.alpha = Math.random() * 0.75 + 0.35;
+        if (!isBurst && init) {
+          this.age = Math.random() * this.maxLife;
+        }
+      }
+
+      update() {
+        this.age++;
+        this.y -= this.speedY;
+        this.x += this.speedX + Math.sin(this.y * 0.025) * this.wobbleAmp;
+
+        const lifeProgress = this.age / this.maxLife;
+        this.alpha = (1 - lifeProgress) * 0.85;
+
+        if (this.y < -20 || this.age >= this.maxLife) {
+          if (this.isBurst) return false;
+          this.reset();
+        }
+        return true;
+      }
+
+      draw() {
+        const lifeProgress = this.age / this.maxLife;
+        let color;
+        if (lifeProgress < 0.25) {
+          color = '255, 245, 180'; // Hot golden spark
+        } else if (lifeProgress < 0.6) {
+          color = '245, 155, 45';  // Radiant amber
+        } else {
+          color = '215, 65, 30';   // Deep ruby ember
+        }
+
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${color}, ${Math.max(0, this.alpha)})`;
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size * 3.2, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${color}, ${Math.max(0, this.alpha * 0.22)})`;
+        ctx.fill();
+      }
+    }
+
+    // 5. ETHER: Twinkling Starlight & Sacred Orbiting Stardust
+    class CelestialStar {
+      constructor(startX, startY, isBurst = false) {
+        this.isBurst = isBurst;
+        this.age = 0;
+        this.lifespan = isBurst ? Math.random() * 100 + 60 : Infinity;
+        this.x = startX !== undefined ? startX + (Math.random() - 0.5) * 35 : Math.random() * width;
+        this.y = startY !== undefined ? startY + (Math.random() - 0.5) * 35 : Math.random() * height;
+        this.vx = isBurst ? (Math.random() - 0.5) * 3.5 : 0;
+        this.vy = isBurst ? (Math.random() - 0.5) * 3.5 : 0;
+        this.size = isBurst ? (Math.random() * 3.0 + 1.4) : (Math.random() * 2 + 0.8);
+        this.phase = Math.random() * Math.PI * 2;
+        this.speed = Math.random() * 0.04 + 0.01;
+        this.color = Math.random() > 0.5 ? 'rgba(197, 154, 63, ' : 'rgba(180, 150, 220, ';
+      }
+
+      update() {
+        this.age++;
+        this.phase += this.speed;
+        if (this.isBurst) {
+          this.x += this.vx;
+          this.y += this.vy;
+          this.vx *= 0.96;
+          this.vy *= 0.96;
+          return this.age < this.lifespan;
+        }
+        return true;
+      }
+
+      draw() {
+        const twinkle = (Math.sin(this.phase) + 1) / 2;
+        const fade = this.isBurst ? Math.max(0, 1 - this.age / this.lifespan) : 1;
+        const a = (0.2 + twinkle * 0.65) * fade;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = `${this.color}${Math.max(0, a)})`;
         ctx.fill();
 
         if (twinkle > 0.8) {
-          ctx.strokeStyle = `${this.color}${a * 0.7})`;
+          ctx.strokeStyle = `${this.color}${Math.max(0, a * 0.7)})`;
           ctx.lineWidth = 0.7;
           ctx.beginPath();
           ctx.moveTo(this.x - 4, this.y);
@@ -400,24 +542,38 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     class OrbitingStardust {
-      constructor() {
+      constructor(startX, startY, isBurst = false) {
+        this.isBurst = isBurst;
+        this.originX = startX;
+        this.originY = startY;
+        this.age = 0;
+        this.lifespan = isBurst ? Math.random() * 90 + 50 : Infinity;
         this.angle = Math.random() * Math.PI * 2;
-        this.radius = Math.random() * 120 + 30;
-        this.speed = (Math.random() * 0.02 + 0.01) * (Math.random() > 0.5 ? 1 : -1);
-        this.size = Math.random() * 2 + 1;
-        this.alpha = Math.random() * 0.4 + 0.2;
+        this.radius = isBurst ? (Math.random() * 70 + 20) : (Math.random() * 120 + 30);
+        this.speed = (Math.random() * 0.03 + 0.015) * (Math.random() > 0.5 ? 1 : -1);
+        this.size = isBurst ? (Math.random() * 2.8 + 1.4) : (Math.random() * 2 + 1);
+        this.alpha = Math.random() * 0.5 + 0.3;
       }
 
       update() {
+        this.age++;
         this.angle += this.speed;
+        if (this.isBurst) {
+          this.radius += 0.4;
+          return this.age < this.lifespan;
+        }
+        return true;
       }
 
       draw() {
-        const ox = mouse.x + Math.cos(this.angle) * this.radius;
-        const oy = mouse.y + Math.sin(this.angle) * (this.radius * 0.6);
+        const centerRefX = this.isBurst ? (this.originX || mouse.x) : mouse.x;
+        const centerRefY = this.isBurst ? (this.originY || mouse.y) : mouse.y;
+        const ox = centerRefX + Math.cos(this.angle) * this.radius;
+        const oy = centerRefY + Math.sin(this.angle) * (this.radius * 0.6);
         ctx.beginPath();
         ctx.arc(ox, oy, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(185, 145, 235, ${this.alpha})`;
+        const a = this.isBurst ? this.alpha * (1 - this.age / this.lifespan) : this.alpha;
+        ctx.fillStyle = `rgba(185, 145, 235, ${Math.max(0, a)})`;
         ctx.fill();
       }
     }
@@ -427,16 +583,19 @@ document.addEventListener('DOMContentLoaded', () => {
     for (let i = 0; i < 40; i++) earthFireflies.push(new Firefly());
 
     const earthLeaves = [];
-    for (let i = 0; i < 12; i++) earthLeaves.push(new DriftingLeaf());
+    for (let i = 0; i < 14; i++) earthLeaves.push(new DriftingLeaf());
 
     const waterBubbles = [];
     for (let i = 0; i < 30; i++) waterBubbles.push(new WaterBubble());
 
     const airSeeds = [];
-    for (let i = 0; i < 25; i++) airSeeds.push(new DandelionSeed());
+    for (let i = 0; i < 22; i++) airSeeds.push(new DandelionSeed());
+
+    const airMotes = [];
+    for (let i = 0; i < 35; i++) airMotes.push(new SunbeamMote());
 
     const fireEmbers = [];
-    for (let i = 0; i < 45; i++) fireEmbers.push(new FireEmber());
+    for (let i = 0; i < 50; i++) fireEmbers.push(new FireEmber());
 
     const etherStars = [];
     for (let i = 0; i < 60; i++) etherStars.push(new CelestialStar());
@@ -444,9 +603,111 @@ document.addEventListener('DOMContentLoaded', () => {
     const etherOrbiters = [];
     for (let i = 0; i < 20; i++) etherOrbiters.push(new OrbitingStardust());
 
+    // Interactive Elemental Click Bursts
+    function spawnElementalBurst(x, y) {
+      if (currentElement === 'earth') {
+        for (let i = 0; i < 16; i++) {
+          earthFireflies.push(new Firefly(x, y, true));
+        }
+      } else if (currentElement === 'water') {
+        for (let i = 0; i < 3; i++) {
+          waterRipples.push({
+            x: x + (Math.random() - 0.5) * 20,
+            y: y + (Math.random() - 0.5) * 20,
+            radius: 4,
+            maxRadius: Math.random() * 55 + 40,
+            alpha: 0.45
+          });
+        }
+        for (let i = 0; i < 18; i++) {
+          waterBubbles.push(new WaterBubble(x, y, true));
+        }
+      } else if (currentElement === 'air') {
+        for (let i = 0; i < 20; i++) {
+          airMotes.push(new SunbeamMote(x, y, true));
+        }
+        for (let i = 0; i < 4; i++) {
+          airSeeds.push(new DandelionSeed(x, y, true));
+        }
+      } else if (currentElement === 'fire') {
+        for (let i = 0; i < 25; i++) {
+          fireEmbers.push(new FireEmber(x, y, true));
+        }
+      } else if (currentElement === 'ether') {
+        for (let i = 0; i < 20; i++) {
+          etherStars.push(new CelestialStar(x, y, true));
+        }
+        for (let i = 0; i < 6; i++) {
+          etherOrbiters.push(new OrbitingStardust(x, y, true));
+        }
+      }
+    }
+
+    window.addEventListener('click', (e) => {
+      if (e.target.closest('button, a, input, select, textarea, .box-breathing-container, #sacred-breathing-portal, .contact-card, .tier-box, .lsd-focus-card, .modal, .funder-doc-card, .intake-tab-bar, nav')) {
+        return;
+      }
+      spawnElementalBurst(e.clientX, e.clientY);
+    });
+
+    // Global bridge for 4x4 Somatic Breathwork Sync with Canvas
+    window.sanctuaryBreathSync = {
+      active: false,
+      step: 0,
+      progress: 0,
+      scale: 1.0
+    };
+
     // Main animation render loop
     function animate() {
       ctx.clearRect(0, 0, width, height);
+
+      // Render Dynamic Somatic Breathwork Canvas Aura when 4x4 breathing is active
+      if (window.sanctuaryBreathSync && window.sanctuaryBreathSync.active) {
+        const step = window.sanctuaryBreathSync.step;
+        const prog = window.sanctuaryBreathSync.progress;
+        const centerX = width / 2;
+        const centerY = height * 0.40;
+
+        let auraRadius = 240;
+        let auraColorInner = 'rgba(197, 154, 63, 0.12)';
+        let auraColorMid = 'rgba(197, 154, 63, 0.04)';
+
+        if (step === 0) {
+          // AIR (Inhale): Soft rising golden-white luminescence expanding outward
+          const expand = 1.0 + prog * 0.5;
+          auraRadius = Math.min(width, height) * 0.48 * expand;
+          auraColorInner = `rgba(255, 248, 225, ${0.12 + prog * 0.08})`;
+          auraColorMid = `rgba(197, 154, 63, ${0.05 + prog * 0.04})`;
+        } else if (step === 1) {
+          // FIRE / SOLAR GOLD (Hold): Warm radiant golden-amber aura expansion & solar shimmer
+          const shimmer = (Math.sin(Date.now() * 0.003) + 1) / 2;
+          auraRadius = Math.min(width, height) * 0.65;
+          auraColorInner = `rgba(216, 170, 73, ${0.16 + shimmer * 0.07})`;
+          auraColorMid = `rgba(235, 125, 45, ${0.07 + shimmer * 0.04})`;
+        } else if (step === 2) {
+          // WATER (Exhale): Smooth liquid undertones contracting gently
+          const contract = 1.45 - prog * 0.45;
+          auraRadius = Math.min(width, height) * 0.48 * contract;
+          auraColorInner = `rgba(92, 168, 185, ${0.14 - prog * 0.05})`;
+          auraColorMid = `rgba(142, 204, 218, ${0.06 - prog * 0.02})`;
+        } else {
+          // EARTH (Rest): Deep forest-obsidian & warm terracotta/gold settled stillness
+          auraRadius = Math.min(width, height) * 0.35;
+          auraColorInner = 'rgba(95, 123, 107, 0.09)';
+          auraColorMid = 'rgba(197, 154, 63, 0.03)';
+        }
+
+        const breathAura = ctx.createRadialGradient(centerX, centerY, 30, centerX, centerY, Math.max(50, auraRadius));
+        breathAura.addColorStop(0, auraColorInner);
+        breathAura.addColorStop(0.65, auraColorMid);
+        breathAura.addColorStop(1, 'rgba(246, 243, 236, 0)');
+
+        ctx.fillStyle = breathAura;
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, Math.max(50, auraRadius), 0, Math.PI * 2);
+        ctx.fill();
+      }
 
       // Smooth mouse interpolation
       mouse.x += (mouse.targetX - mouse.x) * 0.08;
@@ -478,8 +739,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // ELEMENT-SPECIFIC VISUAL RENDERS:
       if (currentElement === 'water') {
-        // Multi-layered Rolling Ocean Swell Waves
         const time = Date.now() * 0.001;
+
+        // 1. Liquid Oceanic Caustics Refraction Grid
+        ctx.save();
+        ctx.strokeStyle = 'rgba(142, 204, 218, 0.055)';
+        ctx.lineWidth = 2.2;
+        for (let c = 0; c < 3; c++) {
+          ctx.beginPath();
+          const cY = height * (0.64 + c * 0.11);
+          ctx.moveTo(0, cY);
+          for (let x = 0; x <= width; x += 40) {
+            const y = cY + Math.sin(x * 0.005 + time * 1.4 + c) * 16 + Math.cos(x * 0.003 - time * 0.8) * 10;
+            ctx.lineTo(x, y);
+          }
+          ctx.stroke();
+        }
+        ctx.restore();
+
+        // 2. Multi-layered Rolling Ocean Swell Waves
         ctx.save();
         ctx.beginPath();
         const baseWaveY1 = height * 0.86;
@@ -490,7 +768,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         ctx.lineTo(width, height);
         ctx.closePath();
-        ctx.fillStyle = 'rgba(92, 168, 185, 0.06)';
+        ctx.fillStyle = 'rgba(92, 168, 185, 0.07)';
         ctx.fill();
 
         ctx.beginPath();
@@ -502,39 +780,84 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         ctx.lineTo(width, height);
         ctx.closePath();
-        ctx.fillStyle = 'rgba(142, 204, 218, 0.08)';
+        ctx.fillStyle = 'rgba(142, 204, 218, 0.09)';
         ctx.fill();
         ctx.restore();
 
-        // Water Mouse Ripples
+        // 3. Spontaneous Ambient Rain Droplet Ripples
+        if (Math.random() < 0.012) {
+          waterRipples.push({
+            x: Math.random() * width,
+            y: height * (0.35 + Math.random() * 0.6),
+            radius: 3,
+            maxRadius: Math.random() * 50 + 35,
+            alpha: 0.28
+          });
+        }
+
+        // 4. Water Mouse Ripples & Ambient Ripples
         for (let r = waterRipples.length - 1; r >= 0; r--) {
           const rip = waterRipples[r];
-          rip.radius += 0.8;
-          rip.alpha -= 0.008;
+          rip.radius += 0.85;
+          rip.alpha -= 0.006;
           if (rip.alpha <= 0 || rip.radius > rip.maxRadius) {
             waterRipples.splice(r, 1);
           } else {
             ctx.beginPath();
             ctx.arc(rip.x, rip.y, rip.radius, 0, Math.PI * 2);
             ctx.strokeStyle = `rgba(142, 204, 218, ${rip.alpha})`;
-            ctx.lineWidth = 1.2;
+            ctx.lineWidth = 1.3;
             ctx.stroke();
+
+            // Inner harmonic ring
+            if (rip.radius > 12) {
+              ctx.beginPath();
+              ctx.arc(rip.x, rip.y, rip.radius * 0.55, 0, Math.PI * 2);
+              ctx.strokeStyle = `rgba(180, 225, 235, ${rip.alpha * 0.45})`;
+              ctx.lineWidth = 0.8;
+              ctx.stroke();
+            }
           }
         }
 
-        // Render Water Bubbles
-        waterBubbles.forEach(b => {
-          b.update();
+        // 5. Render Water Bubbles
+        for (let i = waterBubbles.length - 1; i >= 0; i--) {
+          const b = waterBubbles[i];
+          const alive = b.update();
           b.draw();
-        });
+          if (b.isBurst && !alive) waterBubbles.splice(i, 1);
+        }
+
       } else if (currentElement === 'air') {
-        // Sweeping Wind Breeze Streaks
         const t = Date.now() * 0.001;
+
+        // 1. Atmospheric Volumetric God-Rays (Golden Morning Sunbeams)
+        const rayTime = Date.now() * 0.0004;
+        ctx.save();
+        for (let i = 0; i < 4; i++) {
+          const rayAlpha = (Math.sin(rayTime + i * 1.4) * 0.5 + 0.5) * 0.035 + 0.015;
+          const rayGrad = ctx.createLinearGradient(0, 0, width * 0.8, height);
+          rayGrad.addColorStop(0, `rgba(248, 225, 160, ${rayAlpha * 1.6})`);
+          rayGrad.addColorStop(0.5, `rgba(255, 248, 220, ${rayAlpha})`);
+          rayGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+          ctx.fillStyle = rayGrad;
+          ctx.beginPath();
+          const startX = width * (0.08 + i * 0.25);
+          ctx.moveTo(startX, 0);
+          ctx.lineTo(startX + 140, 0);
+          ctx.lineTo(startX - 180 + width * 0.48, height);
+          ctx.lineTo(startX - 340 + width * 0.48, height);
+          ctx.closePath();
+          ctx.fill();
+        }
+        ctx.restore();
+
+        // 2. Sweeping Wind Breeze Streaks
         ctx.save();
         ctx.strokeStyle = 'rgba(180, 215, 230, 0.12)';
         ctx.lineWidth = 1.5;
         for (let i = 0; i < 4; i++) {
-          const yBase = height * (0.25 + i * 0.2);
+          const yBase = height * (0.22 + i * 0.22);
           ctx.beginPath();
           ctx.moveTo(-50, yBase);
           for (let x = -50; x <= width + 50; x += 30) {
@@ -545,33 +868,47 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         ctx.restore();
 
-        // Render Dandelion Seeds
-        airSeeds.forEach(s => {
-          s.update();
+        // 3. Render Sunbeam Golden Motes
+        for (let i = airMotes.length - 1; i >= 0; i--) {
+          const m = airMotes[i];
+          const alive = m.update();
+          m.draw();
+          if (m.isBurst && !alive) airMotes.splice(i, 1);
+        }
+
+        // 4. Render Dandelion Seeds
+        for (let i = airSeeds.length - 1; i >= 0; i--) {
+          const s = airSeeds[i];
+          const alive = s.update();
           s.draw();
-        });
+          if (s.isBurst && !alive) airSeeds.splice(i, 1);
+        }
+
       } else if (currentElement === 'fire') {
-        // Warm Pulsing Hearth Glow at bottom
+        // 1. Warm Pulsing Hearth Glow at bottom
         const fireTime = Date.now() * 0.002;
         const hearthPulse = (Math.sin(fireTime) + 1) / 2;
-        const hearthGrad = ctx.createRadialGradient(width / 2, height + 40, 20, width / 2, height + 40, height * 0.6);
-        hearthGrad.addColorStop(0, `rgba(235, 125, 45, ${0.14 + hearthPulse * 0.06})`);
-        hearthGrad.addColorStop(0.6, `rgba(245, 185, 60, ${0.05 + hearthPulse * 0.03})`);
+        const hearthGrad = ctx.createRadialGradient(width / 2, height + 40, 20, width / 2, height + 40, height * 0.65);
+        hearthGrad.addColorStop(0, `rgba(235, 125, 45, ${0.16 + hearthPulse * 0.07})`);
+        hearthGrad.addColorStop(0.5, `rgba(245, 185, 60, ${0.06 + hearthPulse * 0.03})`);
         hearthGrad.addColorStop(1, 'rgba(250, 242, 236, 0)');
         ctx.fillStyle = hearthGrad;
         ctx.fillRect(0, 0, width, height);
 
-        // Render Rising Embers
-        fireEmbers.forEach(e => {
-          e.update();
+        // 2. Render Rising Thermodynamic Embers
+        for (let i = fireEmbers.length - 1; i >= 0; i--) {
+          const e = fireEmbers[i];
+          const alive = e.update();
           e.draw();
-        });
+          if (e.isBurst && !alive) fireEmbers.splice(i, 1);
+        }
+
       } else if (currentElement === 'ether') {
-        // Render Sacred Celestial Rings in Center
+        // 1. Render Sacred Celestial Rings in Center
         const ringTime = Date.now() * 0.001;
         const ringPulse = (Math.sin(ringTime * 0.5) + 1) / 2;
         ctx.save();
-        ctx.strokeStyle = `rgba(180, 150, 220, ${0.06 + ringPulse * 0.05})`;
+        ctx.strokeStyle = `rgba(180, 150, 220, ${0.07 + ringPulse * 0.05})`;
         ctx.lineWidth = 1;
         ctx.beginPath();
         ctx.arc(width / 2, height * 0.45, 120 + ringPulse * 30, 0, Math.PI * 2);
@@ -581,27 +918,48 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.stroke();
         ctx.restore();
 
-        // Render Celestial Stars
-        etherStars.forEach(s => {
-          s.update();
+        // 2. Render Celestial Stars
+        for (let i = etherStars.length - 1; i >= 0; i--) {
+          const s = etherStars[i];
+          const alive = s.update();
           s.draw();
-        });
+          if (s.isBurst && !alive) etherStars.splice(i, 1);
+        }
 
-        // Orbiting Stardust motes around cursor
-        etherOrbiters.forEach(o => {
-          o.update();
+        // 3. Orbiting Stardust motes around cursor
+        for (let i = etherOrbiters.length - 1; i >= 0; i--) {
+          const o = etherOrbiters[i];
+          const alive = o.update();
           o.draw();
-        });
+          if (o.isBurst && !alive) etherOrbiters.splice(i, 1);
+        }
+
       } else {
-        // Earth: Drifting Leaves & Fireflies
+        // Earth: Golden Root Filaments, 3D Drifting Leaves & Bioluminescent Fireflies
+        const earthTime = Date.now() * 0.0012;
+        const rootPulse = (Math.sin(earthTime) + 1) / 2;
+
+        // Subtle grounding root gradient along bottom
+        const earthGlow = ctx.createRadialGradient(width / 2, height + 30, 10, width / 2, height + 30, height * 0.45);
+        earthGlow.addColorStop(0, `rgba(197, 154, 63, ${0.06 + rootPulse * 0.03})`);
+        earthGlow.addColorStop(0.7, `rgba(95, 123, 107, ${0.03 + rootPulse * 0.02})`);
+        earthGlow.addColorStop(1, 'rgba(246, 243, 236, 0)');
+        ctx.fillStyle = earthGlow;
+        ctx.fillRect(0, height * 0.6, width, height * 0.4);
+
+        // Render 3D Tumbling Botanical Leaves
         earthLeaves.forEach(l => {
           l.update();
           l.draw();
         });
-        earthFireflies.forEach(f => {
-          f.update();
+
+        // Render Bioluminescent Fireflies
+        for (let i = earthFireflies.length - 1; i >= 0; i--) {
+          const f = earthFireflies[i];
+          const alive = f.update();
           f.draw();
-        });
+          if (f.isBurst && !alive) earthFireflies.splice(i, 1);
+        }
       }
 
       requestAnimationFrame(animate);
@@ -609,10 +967,124 @@ document.addEventListener('DOMContentLoaded', () => {
 
     animate();
 
+    // Hero Medallion 3D Tilt & Touch Shimmer Interaction
+    const emblemContainer = document.getElementById('hero-emblem-container');
+    if (emblemContainer) {
+      const handleMedallionMove = (clientX, clientY) => {
+        const rect = emblemContainer.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const deltaX = (clientX - centerX) / (rect.width / 2);
+        const deltaY = (clientY - centerY) / (rect.height / 2);
+
+        const tiltX = Math.max(-14, Math.min(14, -deltaY * 12));
+        const tiltY = Math.max(-14, Math.min(14, deltaX * 12));
+
+        emblemContainer.style.transform = `perspective(900px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) scale(1.03)`;
+      };
+
+      emblemContainer.addEventListener('mousemove', (e) => {
+        handleMedallionMove(e.clientX, e.clientY);
+      });
+
+      emblemContainer.addEventListener('mouseleave', () => {
+        emblemContainer.style.transform = '';
+      });
+
+      emblemContainer.addEventListener('touchmove', (e) => {
+        if (e.touches && e.touches[0]) {
+          handleMedallionMove(e.touches[0].clientX, e.touches[0].clientY);
+        }
+      }, { passive: true });
+
+      emblemContainer.addEventListener('touchend', () => {
+        emblemContainer.style.transform = '';
+      });
+
+      // Whimsical Nature & Falling Leaves Celebration on Click
+      emblemContainer.addEventListener('click', (e) => {
+        const rect = emblemContainer.getBoundingClientRect();
+        const originX = rect.left + rect.width / 2;
+        const originY = rect.top + rect.height / 2;
+        triggerFallingNatureLeaves(originX, originY);
+
+        // Gently start soothing nature soundscape if not playing yet
+        if (soundscape && !soundscape.isPlaying) {
+          soundscape.start();
+        }
+      });
+    }
+
+    // Interactive Falling Botanical Leaves & White Magnolia Petals
+    function triggerFallingNatureLeaves(originX, originY) {
+      if (emblemContainer) {
+        emblemContainer.classList.remove('clicked');
+        void emblemContainer.offsetWidth; // force reflow
+        emblemContainer.classList.add('clicked');
+      }
+
+      // 5 Variety Botanical SVGs (Monstera, Golden Oak, White Magnolia Petal, Emerald Fern, Solar Mote)
+      const leafSVGs = [
+        `<svg width="34" height="34" viewBox="0 0 32 32" fill="none"><path d="M16 2C24 6 30 14 26 24C23 30 16 30 16 30C16 30 9 30 6 24C2 14 8 6 16 2Z" fill="#2B4436" fill-opacity="0.9"/><path d="M16 2V30M16 10C20 12 24 16 24 16M16 16C20 18 24 22 24 22M16 10C12 12 8 16 8 16M16 16C12 18 8 22 8 22" stroke="#F8D98C" stroke-width="1.2"/></svg>`,
+        `<svg width="30" height="30" viewBox="0 0 28 28" fill="none"><path d="M14 2C20 8 26 14 22 22C18 26 14 26 14 26C14 26 10 26 6 22C2 14 8 8 14 2Z" fill="#C59A3F" fill-opacity="0.95"/><path d="M14 2V26M14 9C18 11 21 14 21 14M14 15C18 17 21 20 21 20M14 9C10 11 7 14 7 14M14 15C10 17 7 20 7 20" stroke="#FFF2D6" stroke-width="1"/></svg>`,
+        `<svg width="32" height="32" viewBox="0 0 30 30" fill="none"><path d="M15 2C22 8 27 15 24 23C21 28 15 28 15 28C15 28 9 28 6 23C3 15 8 8 15 2Z" fill="#FAF8F5" fill-opacity="0.98" stroke="#C59A3F" stroke-width="1.4"/><circle cx="15" cy="20" r="3" fill="#F8D98C"/></svg>`,
+        `<svg width="28" height="28" viewBox="0 0 26 26" fill="none"><path d="M13 2C19 7 24 13 20 20C16 24 13 24 13 24C13 24 10 24 6 20C2 13 7 7 13 2Z" fill="#5F7B6B" fill-opacity="0.9"/><path d="M13 2V24" stroke="#FAF8F5" stroke-width="1.2"/></svg>`,
+        `<svg width="22" height="22" viewBox="0 0 20 20" fill="none"><path d="M10 0L12.5 7.5L20 10L12.5 12.5L10 20L7.5 12.5L0 10L7.5 7.5L10 0Z" fill="#F8D98C"/></svg>`
+      ];
+
+      const count = 30;
+      for (let i = 0; i < count; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'nature-leaf-particle';
+        particle.innerHTML = leafSVGs[i % leafSVGs.length];
+
+        const startX = originX + (Math.random() - 0.5) * 200;
+        const startY = originY + (Math.random() - 0.5) * 90;
+        const midX = (Math.random() - 0.5) * 260;
+        const midX2 = (Math.random() - 0.5) * 380;
+        const endX = (Math.random() - 0.5) * 520;
+        const rotMid = `${(Math.random() - 0.5) * 200}deg`;
+        const rotMid2 = `${(Math.random() - 0.5) * 400}deg`;
+        const rotEnd = `${(Math.random() - 0.5) * 720}deg`;
+        const duration = 2.5 + Math.random() * 2.3;
+        const delay = Math.random() * 0.45;
+
+        particle.style.left = `${startX}px`;
+        particle.style.top = `${startY}px`;
+        particle.style.setProperty('--mid-x', `${midX}px`);
+        particle.style.setProperty('--mid-x2', `${midX2}px`);
+        particle.style.setProperty('--end-x', `${endX}px`);
+        particle.style.setProperty('--rot-mid', rotMid);
+        particle.style.setProperty('--rot-mid2', rotMid2);
+        particle.style.setProperty('--rot-end', rotEnd);
+        particle.style.animation = `flutterAndFall ${duration}s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${delay}s forwards`;
+
+        document.body.appendChild(particle);
+
+        setTimeout(() => {
+          particle.remove();
+        }, (duration + delay + 0.3) * 1000);
+      }
+
+      // Spawn ambient canvas burst
+      if (typeof earthFireflies !== 'undefined' && Array.isArray(earthFireflies)) {
+        for (let i = 0; i < 16; i++) {
+          earthFireflies.push(new Firefly(originX, originY, true));
+        }
+      }
+      if (typeof earthLeaves !== 'undefined' && Array.isArray(earthLeaves)) {
+        for (let i = 0; i < 8; i++) {
+          earthLeaves.push(new DriftingLeaf());
+        }
+      }
+
+      showToast("🍃 A breath of forest calm... You are grounded and held.");
+    }
+
     // =========================================================================
-    // 1B. AUTHENTIC STUDIO SOUNDSCAPE ENGINE (REAL NATURAL AUDIO STEMS)
+    // 1B. AUTHENTIC NATURAL SOUNDSCAPE ENGINE (REAL FIELD RECORDINGS - ZERO RINGING)
     // =========================================================================
-    class RealAudioSoundscape {
+    class NaturalStudioSoundscape {
       constructor() {
         this.isPlaying = false;
         this.currentElement = 'earth';
@@ -623,13 +1095,13 @@ document.addEventListener('DOMContentLoaded', () => {
         this.breathInterval = null;
         this.isBreathingSync = false;
 
-        // High-definition authentic natural recordings
+        // High-definition authentic organic natural recordings
         this.tracks = {
-          earth: 'audio/birds.mp3',      // Lush forest canopy & morning birdsong
-          water: 'audio/ocean.mp3',      // Rolling Pacific ocean surf & breaking waves
-          air: 'audio/wind.mp3',        // Deep mountain wind & airy breeze
-          fire: 'audio/fireplace.mp3',  // Crackling wood fireplace with real pops & embers
-          ether: 'audio/ether.ogg'      // Inviting celestial Koshi wind chimes
+          earth: 'audio/birds.mp3',       // Lush forest canopy & morning birdsong
+          water: 'audio/creek.ogg',       // Soothing babbling mountain creek stream
+          air: 'audio/wind.mp3',          // Deep mountain wind & airy breeze
+          fire: 'audio/fireplace.mp3',   // Warm crackling wood fireplace with real pops & embers
+          ether: 'audio/ether.ogg'       // Gentle celestial Koshi wind chimes
         };
       }
 
@@ -692,16 +1164,35 @@ document.addEventListener('DOMContentLoaded', () => {
         const playPromise = audio.play();
         if (playPromise !== undefined) {
           playPromise.then(() => {
-            this.fadeIn(audio, this.volume, 900);
+            this.fadeIn(audio, this.volume, 800);
           }).catch(() => {
-            // Browser autoplay suppression handled gracefully
+            // Autoplay permissions handled gracefully
           });
+        }
+      }
+
+      crossfadeTo(newElement) {
+        const prevAudio = this.activeAudio;
+        const nextAudio = this.getAudio(newElement);
+        this.activeAudio = nextAudio;
+
+        const playPromise = nextAudio.play();
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            this.fadeIn(nextAudio, this.volume, 800);
+            if (prevAudio && prevAudio !== nextAudio) {
+              this.fadeOut(prevAudio, () => {
+                prevAudio.pause();
+                prevAudio.currentTime = 0;
+              }, 600);
+            }
+          }).catch(() => {});
         }
       }
 
       fadeIn(audio, targetVolume, duration = 800) {
         clearInterval(this.fadeInterval);
-        const stepTime = 40;
+        const stepTime = 30;
         const steps = duration / stepTime;
         const stepVolume = targetVolume / steps;
         audio.volume = 0;
@@ -717,7 +1208,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       fadeOut(audio, onComplete, duration = 600) {
         clearInterval(this.fadeInterval);
-        const stepTime = 40;
+        const stepTime = 30;
         const steps = duration / stepTime;
         const stepVolume = (audio.volume || this.volume) / steps;
         this.fadeInterval = setInterval(() => {
@@ -731,40 +1222,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }, stepTime);
       }
 
-      crossfadeTo(newElement) {
-        const prevAudio = this.activeAudio;
-        const nextAudio = this.getAudio(newElement);
-        this.activeAudio = nextAudio;
-
-        const playPromise = nextAudio.play();
-        if (playPromise !== undefined) {
-          playPromise.then(() => {
-            this.fadeIn(nextAudio, this.volume, 900);
-            if (prevAudio && prevAudio !== nextAudio) {
-              this.fadeOut(prevAudio, () => {
-                prevAudio.pause();
-              }, 700);
-            }
-          }).catch(() => {});
-        }
-      }
-
-      // Real-time breathwork volume swell & release
+      // Smooth breathwork volume swell & release sync
       syncBreath(stepName, durationSec) {
         if (!this.isPlaying || !this.activeAudio) return;
         this.isBreathingSync = true;
         const targetVol = this.volume;
 
         if (stepName === 'inhale') {
-          // Breeze/surf swells up
-          this.rampVolume(this.activeAudio, Math.min(1.0, targetVol * 1.35), durationSec * 1000);
+          // Swells gently with the inhalation wave
+          this.rampVolume(this.activeAudio, Math.min(1.0, targetVol * 1.3), durationSec * 1000);
         } else if (stepName === 'hold') {
-          // Gentle floating calm
-          this.rampVolume(this.activeAudio, targetVol * 1.1, durationSec * 1000);
+          // Sustains steady natural atmosphere
+          this.rampVolume(this.activeAudio, targetVol * 1.05, durationSec * 1000);
         } else if (stepName === 'exhale') {
-          // Gently washes away and recedes
-          this.rampVolume(this.activeAudio, Math.max(0.12, targetVol * 0.42), durationSec * 1000);
+          // Softly washes away
+          this.rampVolume(this.activeAudio, Math.max(0.15, targetVol * 0.45), durationSec * 1000);
         } else {
+          // Rest / settle
           this.rampVolume(this.activeAudio, targetVol, durationSec * 1000);
         }
       }
@@ -798,12 +1272,13 @@ document.addEventListener('DOMContentLoaded', () => {
           iconElem.textContent = playing ? '🔊' : '🔈';
         }
         if (labelElem) {
-          labelElem.textContent = playing ? 'Soundscape: Playing' : 'Soundscape: Off';
+          const activeTheme = elementThemes[this.currentElement] || elementThemes.earth;
+        labelElem.textContent = playing ? `Immersed in ${activeTheme.shortName}` : 'Tune In';
         }
       }
     }
 
-    soundscape = new RealAudioSoundscape();
+    soundscape = new NaturalStudioSoundscape();
     window.soundscape = soundscape;
 
     // Soundscape Toggle Button
@@ -831,43 +1306,87 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =========================================================================
-    // 1C. ELEMENT THEME SWITCHING COORDINATOR
+    // 1C. AUTOMATIC WEEKLY ELEMENT ROTATION & COORDINATOR
     // =========================================================================
+    const WEEKLY_ELEMENT_CYCLE = ['earth', 'water', 'air', 'fire', 'ether'];
+
+    function getThisWeeksSchedule() {
+      const now = new Date();
+      // Monday-aligned week calculation
+      const d = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+      const dayNum = d.getUTCDay() || 7;
+      d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+      const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+      const weekNo = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+
+      // Current week date range string (Monday to Sunday)
+      const currentDay = now.getDay();
+      const diffToMonday = now.getDate() - currentDay + (currentDay === 0 ? -6 : 1);
+      const monday = new Date(now.getFullYear(), now.getMonth(), diffToMonday);
+      const sunday = new Date(now.getFullYear(), now.getMonth(), diffToMonday + 6);
+      const fmt = (dt) => dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      const dateRangeStr = `${fmt(monday)} – ${fmt(sunday)}`;
+
+      // Week 43 (Oct 19-25, 2026) is Earth (index 0). Automatically rotates each Monday!
+      const cycleOffset = 43;
+      const cycleIndex = ((weekNo - cycleOffset) % WEEKLY_ELEMENT_CYCLE.length + WEEKLY_ELEMENT_CYCLE.length) % WEEKLY_ELEMENT_CYCLE.length;
+      return {
+        key: WEEKLY_ELEMENT_CYCLE[cycleIndex],
+        weekNo: weekNo,
+        dateRange: dateRangeStr
+      };
+    }
+
     function switchElementTheme(elKey, userTriggered = true) {
       if (!elementThemes[elKey]) return;
       currentElement = elKey;
       const theme = elementThemes[elKey];
 
-      // Update Top Bar Pills
-      document.querySelectorAll('.element-pill-btn').forEach(pill => {
-        const matches = pill.dataset.element === elKey;
-        pill.classList.toggle('active', matches);
-        pill.setAttribute('aria-selected', matches ? 'true' : 'false');
-      });
-
-      // Update Labels
+      // Update Top Bar Headline
       const nameElem = document.getElementById('active-element-name');
       const quoteElem = document.getElementById('active-element-quote');
-      if (nameElem) nameElem.textContent = theme.name;
+      if (nameElem) {
+        nameElem.innerHTML = `Tune into this week's element: <strong>${theme.icon} ${theme.shortName}</strong>`;
+      const pillTitle = document.getElementById('active-pill-title');
+      if (pillTitle) pillTitle.textContent = `${theme.shortName} & Sanctuary`;
+      }
       if (quoteElem) quoteElem.textContent = `"${theme.quote}"`;
+
+      // Update Cycle Indicator Dots
+      document.querySelectorAll('.cycle-dot').forEach(dot => {
+        const matches = dot.dataset.element === elKey;
+        dot.classList.toggle('active', matches);
+        dot.setAttribute('aria-selected', matches ? 'true' : 'false');
+      });
 
       // Update Body Theme attribute for smooth background shift
       document.body.setAttribute('data-element', elKey);
 
-      // Update Soundscape
+      // Smoothly crossfade natural field recording soundscape
       soundscape.setElement(elKey);
 
+      // Update Soundscape Toggle Button Label
+      const soundLabel = document.getElementById('soundscape-label');
+      if (soundLabel) {
+        soundLabel.textContent = soundscape.isPlaying ? `Immersed in ${theme.shortName}` : 'Tune In';
+      }
+
       if (userTriggered) {
-        playHarmonicTone(theme.freq, 0.9);
         createHeartFlourish();
-        showToast(`✨ Tuned into ${theme.name}: ${theme.soundLabel}`);
+        showToast(`🌿 Tuned into this week's element: ${theme.name}`);
       }
     }
 
-    // Bind Top Bar Element Selector Pills (One-Tap Immersion)
-    document.querySelectorAll('.element-pill-btn').forEach(pill => {
-      pill.addEventListener('click', () => {
-        switchElementTheme(pill.dataset.element, true);
+    // Initialize to This Week's Element automatically
+    const thisWeek = getThisWeeksSchedule();
+    const dateRangeElem = document.getElementById('active-element-date');
+    if (dateRangeElem) dateRangeElem.textContent = thisWeek.dateRange;
+    switchElementTheme(thisWeek.key, false);
+
+    // Bind Cycle Dots for Exploring / Previewing
+    document.querySelectorAll('.cycle-dot').forEach(dot => {
+      dot.addEventListener('click', () => {
+        switchElementTheme(dot.dataset.element, true);
         if (!soundscape.isPlaying) {
           soundscape.start();
         }
@@ -909,7 +1428,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       if (donateBtn) {
-        donateBtn.innerHTML = `<span>Give $${selectedAmount} With Love</span> <span>🌿</span>`;
+        donateBtn.innerHTML = `<span>Plant Your $${selectedAmount} Seed</span> <span>🌿</span>`;
       }
     });
   });
@@ -921,19 +1440,109 @@ document.addEventListener('DOMContentLoaded', () => {
         presetChips.forEach(c => c.classList.remove('active'));
         selectedAmount = val;
         if (impactText) {
-          impactText.textContent = `Every $${val} seeds unhurried creative wellness and community safety for our circle.`;
+          impactText.textContent = `Every $${val} seeds unhurried creative wellness and community safety for our sanctuary.`;
         }
         if (donateBtn) {
-          donateBtn.innerHTML = `<span>Give $${val} With Love</span> <span>🌿</span>`;
+          donateBtn.innerHTML = `<span>Plant Your $${val} Seed</span> <span>🌿</span>`;
         }
       }
     });
   }
 
+  // Golden Seed Particle Burst & Major-9th Crystal Bowl/Harp Sanctuary Chime
+  function triggerGoldenSeedBurst(originX, originY) {
+    const container = document.body;
+    const count = 32;
+    const emojis = ['🌱', '🍃', '✨', '✦', '🌿', '💛'];
+    const colors = ['#C59A3F', '#F8D98C', '#E2ECE5', '#5F7B6B', '#FFFFFF'];
+
+    for (let i = 0; i < count; i++) {
+      const el = document.createElement('div');
+      el.className = 'seed-particle';
+
+      const isEmoji = i % 3 === 0;
+      if (isEmoji) {
+        el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        el.style.fontSize = `${Math.random() * 14 + 14}px`;
+      } else {
+        const size = Math.random() * 10 + 6;
+        el.style.width = `${size}px`;
+        el.style.height = `${size}px`;
+        el.style.background = colors[Math.floor(Math.random() * colors.length)];
+        el.style.boxShadow = `0 0 14px ${colors[Math.floor(Math.random() * 2)]}`;
+      }
+
+      el.style.left = `${originX}px`;
+      el.style.top = `${originY}px`;
+
+      const angle = Math.random() * Math.PI * 2;
+      const distance = Math.random() * 150 + 60;
+      const tx = Math.cos(angle) * distance;
+      const ty = Math.sin(angle) * distance - 45; // upward sanctuary lift
+      const rot = (Math.random() - 0.5) * 360;
+
+      el.style.setProperty('--tx', `${tx}px`);
+      el.style.setProperty('--ty', `${ty}px`);
+      el.style.setProperty('--rot', `${rot}deg`);
+
+      container.appendChild(el);
+      setTimeout(() => el.remove(), 1500);
+    }
+  }
+
+  function playSanctuaryHarmonicChime() {
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      const ctx = new AudioCtx();
+      if (ctx.state === 'suspended') ctx.resume();
+
+      // Lush major-9th crystal bowl & harp chord tuned in sacred 432Hz harmony
+      // A3 (216Hz), C#4 (270Hz), E4 (324Hz), G#4 (405Hz), B4 (486Hz), E5 (648Hz shimmer)
+      const chordFrequencies = [216, 270, 324, 405, 486, 648];
+      const now = ctx.currentTime;
+
+      const chordMaster = ctx.createGain();
+      chordMaster.gain.setValueAtTime(0.32, now);
+      chordMaster.connect(ctx.destination);
+
+      chordFrequencies.forEach((freq, idx) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+
+        osc.type = idx % 2 === 0 ? 'sine' : 'triangle';
+        osc.frequency.setValueAtTime(freq, now);
+
+        // Micro-detune for organic shimmering crystal chorus
+        const detune = (idx - 2.5) * 2.4;
+        osc.detune.setValueAtTime(detune, now);
+
+        // Staggered arpeggiated attack like a celestial harp sweep
+        const noteDelay = idx * 0.055;
+        const noteStart = now + noteDelay;
+
+        gain.gain.setValueAtTime(0.0001, noteStart);
+        gain.gain.linearRampToValueAtTime(0.24 / (idx * 0.2 + 1), noteStart + 0.08);
+        gain.gain.exponentialRampToValueAtTime(0.0001, noteStart + 3.2);
+
+        osc.connect(gain);
+        gain.connect(chordMaster);
+
+        osc.start(noteStart);
+        osc.stop(noteStart + 3.4);
+      });
+    } catch (e) {}
+  }
+
   if (donateBtn) {
     donateBtn.addEventListener('click', () => {
-      createHeartFlourish();
-      showToast(`🌿 Blessings! Opening the secure Zeffy portal to plant your $${selectedAmount} seed in the Sanctuary...`);
+      const rect = donateBtn.getBoundingClientRect();
+      const originX = rect.left + rect.width / 2;
+      const originY = rect.top + rect.height / 2;
+
+      triggerGoldenSeedBurst(originX, originY);
+      playSanctuaryHarmonicChime();
+      showToast(`🌱 Your Seed Has Been Planted in the Sanctuary • Opening Zeffy...`);
     });
   }
 
@@ -952,20 +1561,41 @@ document.addEventListener('DOMContentLoaded', () => {
       placeholder: 'Tell us about your craft (poetry, music, storytelling, visual art), or share how you’d like to join or perform in our upcoming circle...',
       buttonText: 'Send to Sanctuary Leadership ✉️'
     },
+    'volunteer': {
+      selectVal: 'General Volunteer / Community Care',
+      placeholder: 'Tell us how you’d like to help (pouring herbal tea, welcoming neighbors, stage/sound setup, community care), and your availability...',
+      buttonText: 'Join Volunteer Circle ✉️'
+    },
     'donor': {
       selectVal: '$1 Community Seed Donor',
       placeholder: 'Let us know how you’d like to support the $1 movement, or leave a word of encouragement for our creative circle...',
       buttonText: 'Send to Sanctuary Leadership ✉️'
     },
     'sponsor': {
-      selectVal: 'Corporate / Business Sponsor',
-      placeholder: 'Share your organization name, preferred sponsorship tier ($500 Presenting Partner or $100 Community Neighbor), and CRA objectives...',
-      buttonText: 'Request Sponsorship Details ✉️'
+      selectVal: 'Corporate Sponsor / Bank CRA Partner',
+      placeholder: 'Share your organization name, preferred sponsorship tier ($1,000–$2,500 Presenting, $250–$500 Community Neighbor, or $5,000+ Underwriter), and CRA/CSR objectives...',
+      buttonText: 'Request Sponsorship Due Diligence Kit ✉️'
+    },
+    'grantmaker': {
+      selectVal: 'Institutional Grantmaker / Foundation RFP',
+      placeholder: 'Please share your foundation or grantmaking entity name, RFP focus area, due diligence requirements (IRS letter, Logic Model, Form 990), or grant guidelines...',
+      buttonText: 'Submit Grant Inquiry / RFP ✉️'
     },
     'raffle': {
       selectVal: 'Raffle & In-Kind Donor',
       placeholder: 'Tell us about your gift card contribution (1–5 $5 cards) or botanical/refreshment donations for our community showcase series...',
       buttonText: 'Pledge Raffle Item ✉️'
+    }
+  };
+
+  window.selectIntakeTab = function(role) {
+    const targetTab = document.querySelector(`.intake-tab[data-role="${role}"]`);
+    if (targetTab) {
+      targetTab.click();
+      const formSection = document.getElementById('connect');
+      if (formSection) {
+        formSection.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
@@ -1143,132 +1773,137 @@ document.addEventListener('DOMContentLoaded', () => {
   const boxPhaseCountdown = document.getElementById('box-phase-countdown');
   const tracerDot = document.getElementById('box-tracer-dot');
 
-  let countdownTimer = null;
-  let breathInterval = null;
-  let breathStep = 0;
   let isBreathingActive = false;
-  let tracerAnimId = null;
-  let phaseStartTime = null;
+  let breathStartTime = null;
+  let currentTracerProgress = 0;
+  let totalCycleProgress = 0;
+  let breathStep = 0; // 0: Inhale, 1: Hold, 2: Exhale, 3: Rest
+  let lastActivePhase = -1;
+  let breathAnimId = null;
 
-  // Warm Female Voice Guide System
-  let isVoiceGuideEnabled = true;
-  const voiceGuideToggleBtn = document.getElementById('voice-guide-toggle-btn');
-  const voiceGuideStatus = document.getElementById('voice-guide-status');
+  const PHASE_DURATION = 4000;  // 4.0 seconds per phase
+  const CYCLE_DURATION = 16000; // 16.0 seconds per complete 4-4-4-4 cycle
 
-  const voiceAudioTracks = {
-    0: new Audio('audio/voice_inhale.wav'),
-    1: new Audio('audio/voice_hold.wav'),
-    2: new Audio('audio/voice_exhale.wav'),
-    3: new Audio('audio/voice_remember.wav')
-  };
+  // =========================================================================
+  // SACRED GEOMETRY MANDALA BREATH ENGINE (Pure 60FPS High-Precision Canvas)
+  // =========================================================================
+  const lotusCanvas = document.getElementById('sacred-lotus-canvas');
+  let lotusAngle = 0;
 
-  Object.values(voiceAudioTracks).forEach(a => {
-    a.preload = 'auto';
-    a.volume = 0.95;
-  });
-
-  if (voiceGuideToggleBtn) {
-    voiceGuideToggleBtn.addEventListener('click', () => {
-      isVoiceGuideEnabled = !isVoiceGuideEnabled;
-      voiceGuideToggleBtn.classList.toggle('active', isVoiceGuideEnabled);
-      voiceGuideToggleBtn.classList.toggle('muted', !isVoiceGuideEnabled);
-      voiceGuideToggleBtn.setAttribute('aria-pressed', isVoiceGuideEnabled ? 'true' : 'false');
-      if (voiceGuideStatus) {
-        voiceGuideStatus.textContent = isVoiceGuideEnabled ? 'On (Warm Voice)' : 'Off (Muted)';
-      }
-      showToast(isVoiceGuideEnabled ? '🎙️ Warm female guided voice enabled.' : '🔇 Guided voice muted.');
+  // Floating stardust particles around sacred geometry
+  const stardustParticles = [];
+  for (let i = 0; i < 16; i++) {
+    stardustParticles.push({
+      angle: (i / 16) * Math.PI * 2,
+      baseDist: 90 + Math.random() * 50,
+      size: Math.random() * 2.2 + 1.0,
+      speed: (Math.random() * 0.004 + 0.002) * (Math.random() > 0.5 ? 1 : -1),
+      alpha: Math.random() * 0.5 + 0.3
     });
   }
 
-  function speakVoiceGuide(stepIdx) {
-    if (!isVoiceGuideEnabled) return;
+  function updateSacredBreathLoop(now) {
+    if (!isBreathingActive) return;
+    if (!breathStartTime) breathStartTime = now;
 
-    let speechUsed = false;
-    if ('speechSynthesis' in window) {
-      try {
-        window.speechSynthesis.cancel();
-        const phrases = [
-          "Inhale gently. One... two... three... four.",
-          "Hold in stillness. One... two... three... four.",
-          "Exhale slowly. One... two... three... four.",
-          "Hold and remember. One... two... three... four."
-        ];
-        const text = phrases[stepIdx];
-        if (text) {
-          const utter = new SpeechSynthesisUtterance(text);
-          utter.rate = 0.82;
-          utter.pitch = 1.0;
-          utter.volume = 0.95;
+    const totalElapsed = now - breathStartTime;
+    const cycleTime = totalElapsed % CYCLE_DURATION;
+    const currentPhase = Math.floor(cycleTime / PHASE_DURATION);
+    const phaseElapsed = cycleTime % PHASE_DURATION;
+    const rawProgress = phaseElapsed / PHASE_DURATION; // 0.0 to 1.0
 
-          const voices = window.speechSynthesis.getVoices();
-          const femaleVoice = voices.find(v => 
-            (v.name.includes('Jenny') || v.name.includes('Aria') || v.name.includes('Zira') || 
-             v.name.includes('Samantha') || v.name.includes('Victoria') || v.name.includes('Karen') ||
-             v.name.includes('Female') || v.name.includes('Google US English')) &&
-            !v.name.includes('David') && !v.name.includes('Mark') && !v.name.includes('Male')
-          );
-          if (femaleVoice) {
-            utter.voice = femaleVoice;
-            window.speechSynthesis.speak(utter);
-            speechUsed = true;
-          }
-        }
-      } catch (err) {
-        speechUsed = false;
+    // Organic sine ease-in-out breathing curve:
+    const easeProgress = (1 - Math.cos(rawProgress * Math.PI)) / 2;
+    currentTracerProgress = easeProgress;
+    totalCycleProgress = cycleTime / CYCLE_DURATION;
+    breathStep = currentPhase;
+
+    // Seconds countdown in current 4-second phase:
+    const secondsLeft = Math.max(1, 4 - Math.floor(phaseElapsed / 1000));
+
+    let title = "READY";
+    let guide = "Soften your gaze on the mandala...";
+    let activeBadgeId = null;
+    let targetElement = 'air';
+
+    if (currentPhase === 0) {
+      // INHALE (4s): Breathing in, geometry gently expands outward
+      title = "BREATHE IN...";
+      guide = "↑ Inhale deeply through your nose • Opening your sanctuary";
+      activeBadgeId = 'box-badge-left';
+      targetElement = 'air';
+    } else if (currentPhase === 1) {
+      // HOLD (4s): Gentle stillness, warm golden solar bloom
+      title = "HOLD...";
+      guide = "→ Hold in gentle stillness • Feeling peaceful warmth within";
+      activeBadgeId = 'box-badge-top';
+      targetElement = 'fire';
+    } else if (currentPhase === 2) {
+      // EXHALE (4s): Breathing out, geometry gently folds inward
+      title = "BREATHE OUT...";
+      guide = "↓ Exhale slowly through your mouth • Releasing what you carry";
+      activeBadgeId = 'box-badge-right';
+      targetElement = 'water';
+    } else {
+      // REST (4s): Resting centered at seed origin
+      title = "REST...";
+      guide = "← Rest in quiet grounded stillness • Sanctuary is within you";
+      activeBadgeId = 'box-badge-bottom';
+      targetElement = 'earth';
+    }
+
+    // Update overlay text
+    if (boxPhaseTitle && boxPhaseTitle.textContent !== title) {
+      boxPhaseTitle.textContent = title;
+    }
+    if (boxPhaseCountdown) {
+      boxPhaseCountdown.textContent = `${secondsLeft}s`;
+    }
+    if (guideText && guideText.textContent !== guide) {
+      guideText.textContent = guide;
+    }
+    if (countdownText) {
+      countdownText.textContent = `${title}: ${secondsLeft}s`;
+    }
+
+    // Handle phase state changes
+    if (currentPhase !== lastActivePhase) {
+      lastActivePhase = currentPhase;
+
+      document.querySelectorAll('.box-side-badge, .sacred-side-label').forEach(b => b.classList.remove('active'));
+      if (activeBadgeId) {
+        const badge = document.getElementById(activeBadgeId);
+        if (badge) badge.classList.add('active');
+      }
+
+      // Sync full-page living canvas element
+      if (typeof switchElementTheme === 'function') {
+        switchElementTheme(targetElement, false);
       }
     }
 
-    if (!speechUsed && voiceAudioTracks[stepIdx]) {
-      try {
-        const clip = voiceAudioTracks[stepIdx];
-        clip.currentTime = 0;
-        clip.play().catch(() => {});
-      } catch (e) {}
-    }
-  }
-
-  // 4x4 Box Breathing Coordinates on SVG Canvas (320x320)
-  const boxEdgeCoords = [
-    { startX: 30, startY: 290, endX: 30, endY: 30, title: "INHALE", badgeId: "box-badge-left", lineId: "box-line-left", guide: "↑ Up left side: Inhale deeply opening your inner sanctuary", icon: "🌱" },
-    { startX: 30, startY: 30, endX: 290, endY: 30, title: "HOLD", badgeId: "box-badge-top", lineId: "box-line-top", guide: "→ Across top: Hold in stillness feeling peace within", icon: "✨" },
-    { startX: 290, startY: 30, endX: 290, endY: 290, title: "EXHALE", badgeId: "box-badge-right", lineId: "box-line-right", guide: "↓ Down right side: Exhale slowly releasing what you carry", icon: "💨" },
-    { startX: 290, startY: 290, endX: 30, endY: 290, title: "HOLD & REMEMBER", badgeId: "box-badge-bottom", lineId: "box-line-bottom", guide: "← Across bottom: Hold & remember sanctuary is within you", icon: "🕊️" }
-  ];
-
-  function updateTracer(now) {
-    if (!isBreathingActive) return;
-    if (!phaseStartTime) phaseStartTime = now;
-    const elapsed = now - phaseStartTime;
-    const progress = Math.min(1, elapsed / 4000);
-    const edge = boxEdgeCoords[breathStep];
-
-    const curX = edge.startX + (edge.endX - edge.startX) * progress;
-    const curY = edge.startY + (edge.endY - edge.startY) * progress;
-
-    if (tracerDot) {
-      tracerDot.setAttribute('cx', curX);
-      tracerDot.setAttribute('cy', curY);
+    // Sync ambient background canvas breathing
+    if (window.sanctuaryBreathSync) {
+      window.sanctuaryBreathSync.active = true;
+      window.sanctuaryBreathSync.step = breathStep;
+      window.sanctuaryBreathSync.progress = currentTracerProgress;
     }
 
-    // Dynamic Central Orb Expansion/Contraction
+    // Central orb scaling if element present
     if (orb) {
       if (breathStep === 0) {
-        const s = 1.0 + progress * 0.35;
-        orb.style.transform = `scale(${s})`;
+        orb.style.transform = `scale(${1.0 + easeProgress * 0.35})`;
       } else if (breathStep === 1) {
-        const float = Math.sin(progress * Math.PI) * 0.04;
+        const float = Math.sin(now * 0.004) * 0.03;
         orb.style.transform = `scale(${1.35 + float})`;
       } else if (breathStep === 2) {
-        const s = 1.35 - progress * 0.35;
-        orb.style.transform = `scale(${s})`;
+        orb.style.transform = `scale(${1.35 - easeProgress * 0.35})`;
       } else {
         orb.style.transform = `scale(1.0)`;
       }
     }
 
-    if (progress < 1) {
-      tracerAnimId = requestAnimationFrame(updateTracer);
-    }
+    breathAnimId = requestAnimationFrame(updateSacredBreathLoop);
   }
 
   function startSomaticBreath() {
@@ -1278,115 +1913,223 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     isBreathingActive = true;
+    breathStartTime = performance.now();
+    lastActivePhase = -1;
+
     if (orb) orb.classList.add('active');
-    if (orbLabel) orbLabel.textContent = "Pause Box Breath";
+    if (orbLabel) orbLabel.textContent = "Pause Breath";
     if (orbBtn) orbBtn.style.background = "var(--forest-green)";
     if (orbBtn) orbBtn.style.color = "#FFFFFF";
 
-    // Auto-immerse with real audio soundscape
+    // Start authentic soundscape if user has it active
     if (soundscape && !soundscape.isPlaying) {
       soundscape.start();
-      showToast("🍃 Natural soundscape is now breathing in sync with your breath...");
     }
 
-    breathStep = 0;
-    runBreathStep();
-  }
-
-  function runBreathStep() {
-    if (!isBreathingActive) return;
-
-    const edge = boxEdgeCoords[breathStep];
-    if (guideText) guideText.textContent = edge.guide;
-    if (orbIcon) orbIcon.textContent = edge.icon;
-    if (boxPhaseTitle) boxPhaseTitle.textContent = edge.title;
-
-    // Highlight active side badge and SVG line
-    document.querySelectorAll('.box-side-badge').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.box-edge-line').forEach(l => l.classList.remove('active'));
-
-    const currentBadge = document.getElementById(edge.badgeId);
-    const currentLine = document.getElementById(edge.lineId);
-    if (currentBadge) currentBadge.classList.add('active');
-    if (currentLine) currentLine.classList.add('active');
-
-    // Smooth tracer dot animation
-    phaseStartTime = performance.now();
-    cancelAnimationFrame(tracerAnimId);
-    tracerAnimId = requestAnimationFrame(updateTracer);
-
-    // Harmonic Solfeggio Chime on each breath transition
-    const stepFrequencies = [432, 528, 396, 852];
-    playHarmonicTone(stepFrequencies[breathStep] || 432, 0.9);
-
-    // Warm female guided voice with 1-2-3-4 count
-    speakVoiceGuide(breathStep);
-
-    // Real-time breathwork sync with authentic soundscape
-    if (soundscape && soundscape.isPlaying) {
-      if (breathStep === 0) {
-        soundscape.syncBreath('inhale', 4.0);
-      } else if (breathStep === 1) {
-        soundscape.syncBreath('hold', 4.0);
-      } else if (breathStep === 2) {
-        soundscape.syncBreath('exhale', 4.0);
-      } else {
-        soundscape.syncBreath('hold', 4.0);
-      }
-    }
-
-    // Second-by-second countdown display
-    let secondsLeft = 4;
-    clearInterval(countdownTimer);
-    if (boxPhaseCountdown) boxPhaseCountdown.textContent = `${secondsLeft}s`;
-    if (countdownText) countdownText.textContent = `${edge.title}: ${secondsLeft}s`;
-
-    countdownTimer = setInterval(() => {
-      secondsLeft--;
-      if (secondsLeft > 0) {
-        if (boxPhaseCountdown) boxPhaseCountdown.textContent = `${secondsLeft}s`;
-        if (countdownText) countdownText.textContent = `${edge.title}: ${secondsLeft}s`;
-      } else {
-        clearInterval(countdownTimer);
-      }
-    }, 1000);
-
-    breathStep = (breathStep + 1) % boxEdgeCoords.length;
-    breathInterval = setTimeout(runBreathStep, 4000);
+    cancelAnimationFrame(breathAnimId);
+    breathAnimId = requestAnimationFrame(updateSacredBreathLoop);
+    showToast("🍃 Sacred 4x4 Breathwork started. Breathe with the mandala...");
   }
 
   function stopSomaticBreath() {
     isBreathingActive = false;
-    clearTimeout(breathInterval);
-    clearInterval(countdownTimer);
-    cancelAnimationFrame(tracerAnimId);
+    breathStartTime = null;
+    totalCycleProgress = 0;
+    cancelAnimationFrame(breathAnimId);
 
-    if ('speechSynthesis' in window) {
-      try { window.speechSynthesis.cancel(); } catch (e) {}
+    if (window.sanctuaryBreathSync) {
+      window.sanctuaryBreathSync.active = false;
     }
-    Object.values(voiceAudioTracks).forEach(a => {
-      try { a.pause(); a.currentTime = 0; } catch (e) {}
-    });
 
     if (orb) {
       orb.classList.remove('active');
       orb.style.transform = 'scale(1.0)';
     }
-    if (orbLabel) orbLabel.textContent = "Begin 4x4 Somatic Box Breathing";
+    if (orbLabel) orbLabel.textContent = "Begin Sacred Breath";
     if (orbBtn) orbBtn.style.background = "";
     if (orbBtn) orbBtn.style.color = "";
-    if (guideText) guideText.textContent = "Click the orb or button to begin Somatic Box Breath";
+    if (guideText) guideText.textContent = "Click Begin or tap the mandala to center your breath";
     if (orbIcon) orbIcon.textContent = "🌿";
-    if (boxPhaseTitle) boxPhaseTitle.textContent = "PAUSE";
-    if (boxPhaseCountdown) boxPhaseCountdown.textContent = "4s";
+    if (boxPhaseTitle) boxPhaseTitle.textContent = "READY";
+    if (boxPhaseCountdown) boxPhaseCountdown.textContent = "✦";
 
-    // Reset tracer dot to bottom-left origin
-    if (tracerDot) {
-      tracerDot.setAttribute('cx', 30);
-      tracerDot.setAttribute('cy', 290);
+    document.querySelectorAll('.box-side-badge, .sacred-side-label').forEach(b => b.classList.remove('active'));
+    showToast("🕊️ Breathwork paused. Returning to center.");
+  }
+
+  // =========================================================================
+  // SACRED GEOMETRY CANVAS RENDERER (#sacred-lotus-canvas)
+  // Inspired by the iHASCO 60-Second Breathing Geometry (Fluid Mandala)
+  // =========================================================================
+  if (lotusCanvas) {
+    const lctx = lotusCanvas.getContext('2d');
+    const L_WIDTH = 400;
+    const L_HEIGHT = 400;
+    lotusCanvas.width = L_WIDTH;
+    lotusCanvas.height = L_HEIGHT;
+
+    const CX = L_WIDTH / 2;
+    const CY = L_HEIGHT / 2;
+    const ORBIT_RADIUS = 145;
+
+    function renderSacredLotus(timestamp) {
+      lctx.clearRect(0, 0, L_WIDTH, L_HEIGHT);
+
+      lotusAngle += isBreathingActive ? 0.003 : 0.0015;
+
+      let lotusScale = 0.82;
+      let auraAlpha = 0.14;
+      let haloColor = 'rgba(197, 154, 63, 0.2)';
+
+      if (isBreathingActive) {
+        if (breathStep === 0) {
+          // INHALE: Blossoms outward from 0.78 to 1.32
+          lotusScale = 0.78 + currentTracerProgress * 0.54;
+          auraAlpha = 0.12 + currentTracerProgress * 0.20;
+          haloColor = `rgba(248, 217, 140, ${auraAlpha})`;
+        } else if (breathStep === 1) {
+          // HOLD: Luminous solar bloom starlight sustain
+          const pulse = (Math.sin(timestamp * 0.004) + 1) / 2;
+          lotusScale = 1.32 + pulse * 0.035;
+          auraAlpha = 0.26 + pulse * 0.12;
+          haloColor = `rgba(235, 185, 80, ${auraAlpha})`;
+        } else if (breathStep === 2) {
+          // EXHALE: Folds gracefully inward from 1.32 to 0.78
+          lotusScale = 1.32 - currentTracerProgress * 0.54;
+          auraAlpha = 0.32 - currentTracerProgress * 0.18;
+          haloColor = `rgba(92, 168, 185, ${auraAlpha})`;
+        } else {
+          // REST: Centered seed stillness
+          lotusScale = 0.78 + Math.sin(timestamp * 0.002) * 0.015;
+          auraAlpha = 0.14;
+          haloColor = 'rgba(95, 123, 107, 0.20)';
+        }
+      } else {
+        lotusScale = 0.82 + Math.sin(timestamp * 0.0018) * 0.03;
+      }
+
+      // 1. Draw Outer Orbital Breath Track Ring
+      lctx.save();
+      lctx.beginPath();
+      lctx.arc(CX, CY, ORBIT_RADIUS, 0, Math.PI * 2);
+      lctx.strokeStyle = 'rgba(197, 154, 63, 0.22)';
+      lctx.lineWidth = 1.6;
+      lctx.stroke();
+
+      // 2. Draw Active Smooth Orbit Progress Arc (Traveling Clockwise)
+      if (isBreathingActive) {
+        const startAngle = -Math.PI / 2; // 12 o'clock top
+        const endAngle = startAngle + (totalCycleProgress * Math.PI * 2);
+
+        lctx.beginPath();
+        lctx.arc(CX, CY, ORBIT_RADIUS, startAngle, endAngle);
+        lctx.strokeStyle = '#F8D98C';
+        lctx.lineWidth = 3.2;
+        lctx.shadowColor = '#F8D98C';
+        lctx.shadowBlur = 14;
+        lctx.stroke();
+
+        // Traveling Starlight Particle
+        const pearlX = CX + Math.cos(endAngle) * ORBIT_RADIUS;
+        const pearlY = CY + Math.sin(endAngle) * ORBIT_RADIUS;
+
+        lctx.beginPath();
+        lctx.arc(pearlX, pearlY, 6.5, 0, Math.PI * 2);
+        lctx.fillStyle = '#FFFFFF';
+        lctx.shadowColor = '#FFF5B8';
+        lctx.shadowBlur = 18;
+        lctx.fill();
+      }
+      lctx.restore();
+
+      // 3. Stardust Motes Drifting around Perimeter
+      stardustParticles.forEach(p => {
+        p.angle += p.speed;
+        const dist = p.baseDist * (isBreathingActive ? lotusScale : 1.0);
+        const px = CX + Math.cos(p.angle) * dist;
+        const py = CY + Math.sin(p.angle) * dist;
+
+        lctx.beginPath();
+        lctx.arc(px, py, p.size, 0, Math.PI * 2);
+        lctx.fillStyle = `rgba(248, 217, 140, ${p.alpha * (isBreathingActive ? 0.85 : 0.45)})`;
+        lctx.fill();
+      });
+
+      // 4. Center Luminous Aura Halo
+      const haloGrad = lctx.createRadialGradient(CX, CY, 10, CX, CY, 135 * lotusScale);
+      haloGrad.addColorStop(0, haloColor);
+      haloGrad.addColorStop(0.55, 'rgba(197, 154, 63, 0.06)');
+      haloGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      lctx.fillStyle = haloGrad;
+      lctx.beginPath();
+      lctx.arc(CX, CY, 135 * lotusScale, 0, Math.PI * 2);
+      lctx.fill();
+
+      // 5. Sacred Geometry Lotus & Flower of Life Mandala
+      lctx.save();
+      lctx.translate(CX, CY);
+      lctx.rotate(lotusAngle);
+      lctx.scale(lotusScale, lotusScale);
+
+      // Outer 12 Sacred Lotus Petals
+      const numPetals = 12;
+      const petalRadius = 48;
+
+      for (let i = 0; i < numPetals; i++) {
+        const theta = (i * Math.PI * 2) / numPetals;
+        lctx.save();
+        lctx.rotate(theta);
+
+        lctx.beginPath();
+        lctx.moveTo(0, 0);
+        lctx.bezierCurveTo(petalRadius * 0.42, -petalRadius * 0.95, petalRadius * 0.95, -petalRadius * 0.42, petalRadius * 1.55, 0);
+        lctx.bezierCurveTo(petalRadius * 0.95, petalRadius * 0.42, petalRadius * 0.42, petalRadius * 0.95, 0, 0);
+        lctx.fillStyle = 'rgba(197, 154, 63, 0.10)';
+        lctx.fill();
+        lctx.strokeStyle = 'rgba(248, 217, 140, 0.55)';
+        lctx.lineWidth = 1.3;
+        lctx.stroke();
+
+        lctx.restore();
+      }
+
+      // Overlapping Flower of Life Circles
+      for (let i = 0; i < 6; i++) {
+        const theta = (i * Math.PI * 2) / 6;
+        const ox = Math.cos(theta) * 32;
+        const oy = Math.sin(theta) * 32;
+
+        lctx.beginPath();
+        lctx.arc(ox, oy, 32, 0, Math.PI * 2);
+        lctx.strokeStyle = 'rgba(197, 154, 63, 0.38)';
+        lctx.lineWidth = 1.1;
+        lctx.stroke();
+      }
+
+      // Concentric Harmonic Resonance Rings
+      [22, 48, 76].forEach((r, idx) => {
+        lctx.beginPath();
+        lctx.arc(0, 0, r, 0, Math.PI * 2);
+        lctx.strokeStyle = idx === 0 ? '#F8D98C' : 'rgba(197, 154, 63, 0.4)';
+        lctx.lineWidth = idx === 0 ? 1.5 : 1.0;
+        lctx.stroke();
+      });
+
+      // Luminous Center Seed
+      lctx.beginPath();
+      lctx.arc(0, 0, 10, 0, Math.PI * 2);
+      lctx.fillStyle = 'rgba(248, 217, 140, 0.85)';
+      lctx.shadowColor = '#F8D98C';
+      lctx.shadowBlur = 12;
+      lctx.fill();
+
+      lctx.restore();
+
+      requestAnimationFrame(renderSacredLotus);
     }
-    document.querySelectorAll('.box-side-badge').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.box-edge-line').forEach(l => l.classList.remove('active'));
+
+    requestAnimationFrame(renderSacredLotus);
+    lotusCanvas.addEventListener('click', startSomaticBreath);
   }
 
   if (orb) {
@@ -1394,6 +2137,61 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   if (orbBtn) {
     orbBtn.addEventListener('click', startSomaticBreath);
+  }
+
+  // =========================================================================
+  // ECHO SANCTUARY WISDOM REFLECTION (Interactive Somatic Companion)
+  // =========================================================================
+  const echoStamp = document.querySelector('.echo-sanctuary-stamp');
+  const echoWisdomQuotes = [
+    "Take a breath, friend. You don't have to carry the whole forest on your shoulders today.",
+    "Sanctuary isn't a place we have to search for; it has been resting inside you all along.",
+    "Feel how unconditionally the earth holds you in this very moment. You are safe to let go.",
+    "Your breath is your anchor. Whenever the world is loud, return to your four sacred counts.",
+    "Give yourself permission to feel without judgment. Tears and laughter both belong here.",
+    "Root down deeply into who you are, so your branches can sway freely in the wind."
+  ];
+
+  let echoQuoteIdx = 0;
+  if (echoStamp) {
+    echoStamp.style.cursor = 'pointer';
+    echoStamp.setAttribute('role', 'button');
+    echoStamp.setAttribute('tabindex', '0');
+    echoStamp.setAttribute('title', "Click to receive Echo's Sanctuary Reflection ✦");
+
+    const triggerEchoWisdom = () => {
+      playHarmonicTone(432, 2.8, 0.045);
+      createHeartFlourish();
+      const quote = echoWisdomQuotes[echoQuoteIdx % echoWisdomQuotes.length];
+      echoQuoteIdx++;
+      showToast(`🦉 Echo: "${quote}"`);
+
+      // Switch into Echo Living Guide mode so her video guide appears
+      if (typeof switchPortalMode === 'function' && portalVisualMode !== 'echo') {
+        switchPortalMode('echo');
+      }
+
+      // Avatar frame pulse animation
+      const avatar = echoStamp.querySelector('.echo-avatar-frame');
+      if (avatar) {
+        avatar.style.transform = 'scale(1.18)';
+        avatar.style.boxShadow = '0 0 24px rgba(248, 217, 140, 0.95)';
+        avatar.style.borderColor = '#FFF3A8';
+        setTimeout(() => {
+          avatar.style.transform = '';
+          avatar.style.boxShadow = '';
+          avatar.style.borderColor = '';
+        }, 800);
+      }
+    };
+
+    echoStamp.addEventListener('click', triggerEchoWisdom);
+    echoStamp.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        triggerEchoWisdom();
+      }
+    });
   }
 
   // =========================================================================
@@ -1424,28 +2222,50 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Pure Web Audio API Harmonic Chime (Grounding Somatic Frequencies)
-  function playHarmonicTone(frequency, durationSec = 1.0) {
+  // Pure Web Audio API Harmonic Tibetan Singing Bowl Chime (Grounding Somatic Frequencies)
+  function playHarmonicTone(frequency = 432, durationSec = 1.6, peakGain = 0.012) {
     try {
       const AudioContext = window.AudioContext || window.webkitAudioContext;
       if (!AudioContext) return;
       const audioCtx = new AudioContext();
       
-      const osc = audioCtx.createOscillator();
-      const gainNode = audioCtx.createGain();
+      // Fundamental crystal tone
+      const osc1 = audioCtx.createOscillator();
+      const gain1 = audioCtx.createGain();
+      osc1.type = 'sine';
+      osc1.frequency.setValueAtTime(frequency, audioCtx.currentTime);
 
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(frequency, audioCtx.currentTime);
+      // Warm overtone (2.0x fundamental with subtle chorus warmth)
+      const osc2 = audioCtx.createOscillator();
+      const gain2 = audioCtx.createGain();
+      osc2.type = 'sine';
+      osc2.frequency.setValueAtTime(frequency * 2.002, audioCtx.currentTime);
 
-      gainNode.gain.setValueAtTime(0.001, audioCtx.currentTime);
-      gainNode.gain.exponentialRampToValueAtTime(0.12, audioCtx.currentTime + 0.1);
-      gainNode.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + durationSec);
+      // Lowpass filter to ensure silky warmth
+      const filter = audioCtx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(320, audioCtx.currentTime);
 
-      osc.connect(gainNode);
-      gainNode.connect(audioCtx.destination);
+      const now = audioCtx.currentTime;
 
-      osc.start();
-      osc.stop(audioCtx.currentTime + durationSec);
+      // Gentle attack curve (no abrupt click/ding)
+      gain1.gain.setValueAtTime(0.0001, now);
+      gain1.gain.exponentialRampToValueAtTime(peakGain, now + 0.18);
+      gain1.gain.exponentialRampToValueAtTime(0.0001, now + durationSec);
+
+      gain2.gain.setValueAtTime(0.0001, now);
+      gain2.gain.exponentialRampToValueAtTime(peakGain * 0.18, now + 0.22);
+      gain2.gain.exponentialRampToValueAtTime(0.0001, now + durationSec * 0.85);
+
+      osc1.connect(filter);
+      osc2.connect(filter);
+      filter.connect(gain1);
+      gain1.connect(audioCtx.destination);
+
+      osc1.start(now);
+      osc2.start(now);
+      osc1.stop(now + durationSec);
+      osc2.stop(now + durationSec);
     } catch (e) {
       // Audio autoplay gracefully suppressed if user hasn't interacted
     }
@@ -1495,12 +2315,12 @@ document.addEventListener('DOMContentLoaded', () => {
   if (meetupBtn) {
     meetupBtn.addEventListener('click', () => {
       createHeartFlourish();
-      showToast("✦ Joining the circle on Meetup! Opening community group...");
+      showToast("✦ Connecting with our community on Meetup! Opening community group...");
     });
   }
 
   // =========================================================================
-  // 10. "STAY IN THE LOOP" NEWSLETTER / CIRCLE FORM (DUAL EMAIL ROUTING)
+  // 10. "STAY IN THE LOOP" NEWSLETTER / COMMUNITY FORM (DUAL EMAIL ROUTING)
   // =========================================================================
   const stayLoopForm = document.getElementById('stay-loop-form');
   if (stayLoopForm) {
@@ -1512,7 +2332,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const email = emailInput ? emailInput.value.trim() : '';
 
       const btn = stayLoopForm.querySelector('button');
-      const originalText = btn ? btn.innerHTML : 'Join the Circle 🌿';
+      const originalText = btn ? btn.innerHTML : 'Join Our Community 🌿';
       if (btn) btn.innerHTML = '<span>Joining...</span> <span>🌿</span>';
 
       try {
@@ -1527,7 +2347,7 @@ document.addEventListener('DOMContentLoaded', () => {
             email,
             type: 'Stay in the Loop Member',
             _cc: 'innersanctuary0@gmail.com',
-            _subject: `New Member Joined The Circle: ${name} (${email}) • Inner Sanctuary`
+            _subject: `New Community Member Joined: ${name} (${email}) • Inner Sanctuary`
           })
         });
       } catch (err) {
@@ -1538,7 +2358,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       playHarmonicTone(528, 1.2);
       createHeartFlourish();
-      showToast(`🌿 Welcome to the circle, ${name}! Both hello@innersanctuarywellnessfoundation.org & innersanctuary0@gmail.com have received your email.`);
+      showToast(`🌿 Welcome to our sanctuary community, ${name}! Both hello@innersanctuarywellnessfoundation.org & innersanctuary0@gmail.com have received your email.`);
       stayLoopForm.reset();
     });
   }

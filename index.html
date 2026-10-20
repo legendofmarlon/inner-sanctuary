@@ -93,8 +93,8 @@
 </head>
 <body>
 
-  <!-- ==================== INTERACTIVE FOREST CANVAS & ATMOSPHERE ==================== -->
-  <canvas id="forest-canvas"></canvas>
+  <!-- ==================== ELEMENTAL SANCTUARY IMMERSION CANVAS ==================== -->
+  <canvas id="elemental-sanctuary-bg"></canvas>
   <div id="lantern-aura" class="lantern-aura"></div>
 
   <!-- Parallax Botanical Canopy Accents (Framing the Sanctuary) -->
@@ -142,12 +142,14 @@
       </div>
 
       <ul class="nav-links">
-        <li><a href="#remember">Pause & Remember</a></li>
-        <li><a href="#medicine">Our Medicine: LSD</a></li>
-        <li><a href="#open-mic">Community Open Mic</a></li>
-        <li><a href="#horizons">Future Horizons</a></li>
-        <li><a href="#circle-growth">Give & Sponsor</a></li>
-        <li><a href="#stay-in-loop">Stay in the Loop</a></li>
+        <li><a href="#remember">Home</a></li>
+        <li><a href="#medicine">About Us</a></li>
+        <li><a href="#open-mic">Our Programs</a></li>
+        <li><a href="#horizons">Our Vision</a></li>
+        <li><a href="#sponsorship">Partner With Us</a></li>
+        <li><a href="#stay-in-loop">Events & Updates</a></li>
+        <li><a href="#breath">Sacred Breath</a></li>
+        <li><a href="#connect">Get Involved</a></li>
       </ul>
 
       <div style="display: flex; align-items: center; gap: 10px;">
@@ -155,7 +157,7 @@
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
           <span class="desktop-only-ig">@ourinnersanctuary</span>
         </a>
-        <a href="#circle-growth" class="btn btn-gold" style="padding: 10px 18px; font-size: 0.78rem;">Give $1 Seed</a>
+        <a href="#circle-growth" class="btn btn-gold nav-donate-cta" style="padding: 10px 18px; font-size: 0.78rem;">Donate $1</a>
         <button id="mobile-nav-toggle" style="display: none; background: none; border: 1px solid var(--forest-green); color: var(--forest-green); padding: 8px 12px; border-radius: 6px; cursor: pointer;" aria-label="Toggle Menu">
           ☰
         </button>
@@ -165,67 +167,64 @@
     <!-- Mobile Navigation Drawer -->
     <div id="mobile-nav-drawer" class="hidden" style="display: none; padding: 20px 24px; background: #F6F3EC; border-bottom: 1px solid var(--sunburst-gold);">
       <ul style="list-style: none; display: flex; flex-direction: column; gap: 14px; font-weight: 600; text-transform: uppercase; font-size: 0.85rem;">
-        <li><a href="#remember">Pause & Remember</a></li>
-        <li><a href="#medicine">Our Medicine: LSD</a></li>
-        <li><a href="#open-mic">Open Mic & Pause Activations</a></li>
-        <li><a href="#horizons">Future Horizons</a></li>
-        <li><a href="#circle-growth">Give & Sponsor</a></li>
-        <li><a href="#stay-in-loop">Stay in the Loop</a></li>
-        <li><a href="#connect">Drop In / Contact</a></li>
+        <li><a href="#remember">Home</a></li>
+        <li><a href="#medicine">About Us</a></li>
+        <li><a href="#open-mic">Our Programs</a></li>
+        <li><a href="#horizons">Our Vision</a></li>
+        <li><a href="#sponsorship">Partner With Us</a></li>
+        <li><a href="#stay-in-loop">Events & Updates</a></li>
+        <li><a href="#breath">Sacred Breath</a></li>
+        <li><a href="#connect">Get Involved</a></li>
+        <li><a href="#circle-growth" class="btn btn-gold" style="display: inline-block; text-align: center; margin-top: 6px; padding: 10px 18px;">Donate $1</a></li>
         <li><a href="https://www.instagram.com/ourinnersanctuary/" target="_blank" rel="noopener noreferrer" style="color: var(--sunburst-gold); display: flex; align-items: center; gap: 8px;">📸 Instagram: @ourinnersanctuary</a></li>
       </ul>
     </div>
   </nav>
 
-  <!-- ==================== PROMINENT WEEKLY ELEMENT SANCTUARY BAR ==================== -->
-  <aside class="element-sanctuary-bar" aria-label="Weekly Element Theme and Soundscape Audio Controller">
+  <!-- ==================== THIS WEEK'S SANCTUARY ELEMENT BAR ==================== -->
+  <aside class="element-sanctuary-bar" aria-label="This Week's Element Theme and Natural Soundscape Audio Controller">
     <div class="container element-sanctuary-inner">
       
-      <!-- Current Element Theme Display -->
+      <!-- Current Weekly Element Headline -->
       <div class="element-status-wrap">
-        <span class="element-cycle-tag">✦ Weekly Element</span>
-        <div>
-          <span id="active-element-name" class="element-active-title">🌿 Earth & Forest Sanctuary</span>
+        <span class="element-cycle-tag" id="weekly-cycle-badge">✦ Weekly Focus</span>
+        <div class="element-active-text-group">
+          <span id="active-element-name" class="element-active-title">Tune into this week's element: <strong>🌿 Earth</strong></span>
           <span class="desktop-only" style="color: rgba(197, 154, 63, 0.6); margin: 0 6px;">•</span>
-          <span id="active-element-quote" class="element-quote-short desktop-only">"Root down so your branches may reach without fear."</span>
+          <span id="active-element-date" class="element-date-range desktop-only">Oct 19 – Oct 25</span>
+          <span class="desktop-only" style="color: rgba(197, 154, 63, 0.6); margin: 0 6px;">•</span>
+          <span id="active-element-quote" class="element-quote-short desktop-only">"Root down so your branches may reach without fear. Feel your feet on the soil."</span>
         </div>
       </div>
 
-      <!-- Quick Element Theme Selector Pills (One-Tap Immersion) -->
-      <div class="element-pills-nav" role="tablist" aria-label="Choose Element Atmosphere">
-        <button class="element-pill-btn active" data-element="earth" role="tab" aria-selected="true" title="Switch to Earth & Whispering Forest Birds">
-          <span>🌲</span> <span>Earth</span> <span class="pill-vibe-tag">Forest</span>
-        </button>
-        <button class="element-pill-btn" data-element="water" role="tab" aria-selected="false" title="Switch to Water & Rolling Ocean Surf">
-          <span>🌊</span> <span>Water</span> <span class="pill-vibe-tag">Ocean</span>
-        </button>
-        <button class="element-pill-btn" data-element="air" role="tab" aria-selected="false" title="Switch to Air & Mountain Breeze">
-          <span>🌬️</span> <span>Air</span> <span class="pill-vibe-tag">Breeze</span>
-        </button>
-        <button class="element-pill-btn" data-element="fire" role="tab" aria-selected="false" title="Switch to Fire & Warm Crackling Hearth">
-          <span>🔥</span> <span>Fire</span> <span class="pill-vibe-tag">Hearth</span>
-        </button>
-        <button class="element-pill-btn" data-element="ether" role="tab" aria-selected="false" title="Switch to Ether & Celestial Koshi Chimes">
-          <span>🌌</span> <span>Ether</span> <span class="pill-vibe-tag">Chimes</span>
-        </button>
-      </div>
-
-      <!-- Audible Breathwork Soundscape Engine Controls -->
-      <div class="soundscape-controls-wrap">
-        <button id="soundscape-toggle-btn" class="soundscape-toggle-btn" type="button" aria-pressed="false" title="Click to immerse with real-time natural soundscapes and breath waves">
-          <span id="soundscape-icon">🔈</span>
-          <span id="soundscape-label">Soundscape: Off</span>
-          <span class="sound-wave-bars" aria-hidden="true">
-            <span class="sound-wave-bar"></span>
-            <span class="sound-wave-bar"></span>
-            <span class="sound-wave-bar"></span>
-          </span>
-        </button>
-
-        <div class="volume-control-pill" title="Adjust Soundscape Volume">
-          <span style="font-size: 0.72rem; color: #CBD7D0;">🎚️</span>
-          <input type="range" id="soundscape-volume" class="volume-slider" min="0" max="100" value="70" aria-label="Soundscape Volume">
+      <!-- Weekly Immersion Action & Audio Controls (Earth Only for Now) -->
+      <div class="weekly-soundscape-action-wrap">
+        
+        <!-- Active Earth Badge Pill -->
+        <div class="active-element-pill-badge" id="active-weekly-pill" title="This Week's Active Element: Earth & Forest Sanctuary">
+          <span class="pill-icon">🌲</span>
+          <span class="pill-title" id="active-pill-title">Earth & Forest</span>
+          <span class="pill-vibe-tag">Forest</span>
         </div>
+
+        <!-- Soundscape Audio Toggle & Volume -->
+        <div class="soundscape-controls-wrap">
+          <button id="soundscape-toggle-btn" class="soundscape-toggle-btn" type="button" aria-pressed="false" title="Click to immerse with this week's natural forest soundscape">
+            <span id="soundscape-icon">🔈</span>
+            <span id="soundscape-label">Tune In</span>
+            <span class="sound-wave-bars" aria-hidden="true">
+              <span class="sound-wave-bar"></span>
+              <span class="sound-wave-bar"></span>
+              <span class="sound-wave-bar"></span>
+            </span>
+          </button>
+
+          <div class="volume-control-pill" title="Adjust Soundscape Volume">
+            <span style="font-size: 0.72rem; color: #CBD7D0;">🎚️</span>
+            <input type="range" id="soundscape-volume" class="volume-slider" min="0" max="100" value="70" aria-label="Soundscape Volume">
+          </div>
+        </div>
+
       </div>
 
     </div>
@@ -235,10 +234,12 @@
   <header class="hero">
     <div class="container">
       
-      <!-- Emblem Medallion with Celestial Ring -->
-      <div class="hero-emblem-container">
+      <!-- Emblem Medallion with Celestial Ring & 3D Shimmer Aura -->
+      <div class="hero-emblem-container" id="hero-emblem-container">
+        <div class="hero-emblem-halo"></div>
         <div class="hero-emblem-ring"></div>
-        <img class="hero-emblem" src="emblem.png" alt="Inner Sanctuary Emblem Logo" onerror="this.src='emblem.jpg'">
+        <div class="hero-emblem-shimmer"></div>
+        <img class="hero-emblem" id="hero-emblem-img" src="emblem.png" alt="Inner Sanctuary Sacred Medallion Emblem" onerror="this.src='emblem.jpg'">
       </div>
 
       <!-- 501(c)(3) Verification & Instagram Badge -->
@@ -286,91 +287,12 @@
           </div>
         </div>
 
-        <!-- Interactive Somatic Breathing Orb -->
-        <!-- Interactive Somatic Box Breathing Square & Orb -->
-        <div class="box-breathing-container">
-          <button id="orb-toggle-btn" class="breathing-orb-trigger" type="button">
-            <span>✦</span>
-            <span id="orb-btn-label">Begin 4x4 Somatic Box Breathing</span>
-          </button>
-
-          <!-- The Box Breathing Square Visualizer -->
-          <div class="box-square-wrapper" id="box-square-wrapper">
-            
-            <!-- Side 1: Top (Hold) -->
-            <div class="box-side-badge box-side-top" id="box-badge-top">
-              <span>HOLD</span> <span>→</span>
-            </div>
-
-            <!-- Side 2: Right (Exhale Down) -->
-            <div class="box-side-badge box-side-right" id="box-badge-right">
-              <span>↓</span> <span>EXHALE</span>
-            </div>
-
-            <!-- Side 3: Bottom (Hold / Remember) -->
-            <div class="box-side-badge box-side-bottom" id="box-badge-bottom">
-              <span>←</span> <span>HOLD</span>
-            </div>
-
-            <!-- Side 4: Left (Inhale Up) -->
-            <div class="box-side-badge box-side-left" id="box-badge-left">
-              <span>INHALE</span> <span>↑</span>
-            </div>
-
-            <!-- Glowing Perimeter SVG Track -->
-            <svg class="box-svg-canvas" viewBox="0 0 320 320" aria-hidden="true">
-              <!-- Background square frame -->
-              <rect x="30" y="30" width="260" height="260" rx="24" class="box-track-bg" />
-              <!-- Highlight Edge Lines -->
-              <line id="box-line-left" x1="30" y1="290" x2="30" y2="30" class="box-edge-line" />
-              <line id="box-line-top" x1="30" y1="30" x2="290" y2="30" class="box-edge-line" />
-              <line id="box-line-right" x1="290" y1="30" x2="290" y2="290" class="box-edge-line" />
-              <line id="box-line-bottom" x1="290" y1="290" x2="30" y2="290" class="box-edge-line" />
-              <!-- Traveling Light Tracer Particle -->
-              <circle id="box-tracer-dot" cx="30" cy="290" r="9" class="box-tracer-dot" />
-            </svg>
-
-            <!-- Center Content inside the Square -->
-            <div class="box-inner-content">
-              <div class="breathing-orb-wrapper">
-                <div class="breathing-pulse-ring"></div>
-                <div id="somatic-orb" class="breathing-orb" title="Click to begin gentle somatic breath pause">
-                  <span id="orb-icon">🌿</span>
-                </div>
-                <div class="breathing-halo-aura"></div>
-              </div>
-
-              <div class="box-phase-indicator">
-                <span id="box-phase-title" class="box-phase-title">PAUSE</span>
-                <span id="box-phase-countdown" class="box-phase-countdown">4s</span>
-              </div>
-            </div>
-
-          </div>
-
-          <div id="breathing-guide-text" class="breathing-status-text">
-            Click the orb or button to begin Somatic Box Breath
-          </div>
-
-          <!-- Warm Female Voice Guide Toggle -->
-          <div class="breathing-voice-control-wrap">
-            <button id="voice-guide-toggle-btn" class="voice-guide-pill active" type="button" aria-pressed="true" title="Toggle Warm Female Voice Breath Guidance">
-              <span>🎙️ Guided Voice:</span>
-              <strong id="voice-guide-status">On (Warm Voice)</strong>
-            </button>
-          </div>
-
-          <div style="font-size: 0.76rem; color: var(--sunburst-gold); font-weight: 600; margin-top: 10px; letter-spacing: 0.05em; display: flex; align-items: center; justify-content: center; gap: 6px;">
-            <span>🍃</span>
-            <span>Up left (Inhale 4s) • Across top (Hold 4s) • Down right (Exhale 4s) • Across bottom (Hold 4s)</span>
-          </div>
-        </div>
-
         <!-- CTA Buttons -->
-        <div class="hero-cta-group" style="margin-top: 24px;">
-          <a href="#open-mic" class="btn btn-gold">Drop Into The Circle</a>
+        <div class="hero-cta-group" style="margin-top: 28px;">
+          <a href="#open-mic" class="btn btn-gold">Community Gathering</a>
           <a href="#medicine" class="btn btn-forest">Our Medicine: LSD</a>
-          <a href="#circle-growth" class="btn btn-outline">Support The Foundation</a>
+          <a href="#breath" class="btn btn-outline">Sacred Breathwork ✦</a>
+          <a href="#connect" class="btn btn-gold">Get Involved</a>
         </div>
       </div>
 
@@ -484,19 +406,19 @@
           <span><strong>And don't worry — we hold plenty of space for the rest of being human, too:</strong> the tears (Crying), authentic belonging (Connecting), and honest storytelling (Creating). Whatever is in your heart, the circle holds.</span>
         </div>
 
-        <!-- Living Sanctuary Callout -->
-        <div class="purpose-callout" style="margin-top: 32px;">
-          <div class="purpose-title">The Foundation Truth</div>
-          <h3 class="purpose-headline" style="font-size: 1.45rem; line-height: 1.6;">
+        <!-- Living Sanctuary Callout: Foundation Truth -->
+        <div class="purpose-callout foundation-truth-card" style="margin-top: 32px; background: rgba(8, 12, 10, 0.86); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(212, 175, 55, 0.4); border-radius: 16px; padding: 2.5rem; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);">
+          <div class="purpose-title foundation-truth-title" style="color: #F5D77F; font-family: 'Cinzel', serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 14px; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);">The Foundation Truth</div>
+          <h3 class="purpose-headline foundation-truth-headline" style="font-size: clamp(1.4rem, 2.4vw, 1.85rem); line-height: 1.5; color: #F5D77F; font-family: 'Cinzel', serif; font-weight: 700; margin-bottom: 20px; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);">
             "Because the sanctuary we've been searching for isn't a place we have to find."
           </h3>
           
-          <p class="purpose-desc" style="font-size: 1.1rem; color: var(--forest-dark); font-weight: 500; margin-bottom: 20px;">
+          <p class="purpose-desc foundation-truth-body" style="font-size: clamp(1.05rem, 1.5vw, 1.2rem); color: #FAF8F5; font-weight: 500; line-height: 1.8; margin: 0 auto 26px; max-width: 820px; text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);">
             It's a place we learn to create within ourselves. And when we do, we can carry that sanctuary wherever life takes us.
           </p>
 
           <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
-            <a href="#open-mic" class="btn btn-gold">Drop Into The Circle</a>
+            <a href="#open-mic" class="btn btn-gold">Community Gathering</a>
             <a href="#circle-growth" class="btn btn-outline-gold">Support The Foundation</a>
           </div>
         </div>
@@ -505,13 +427,13 @@
     </div>
   </section>
 
-  <!-- ==================== DROP INTO THE CIRCLE: UPCOMING COMMUNITY OPEN MIC & PAUSE ACTIVATIONS ==================== -->
+  <!-- ==================== UPCOMING COMMUNITY OPEN MIC & PAUSE ACTIVATIONS ==================== -->
   <section id="open-mic" class="section-padding" style="background: rgba(240, 236, 225, 0.7); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(197, 154, 63, 0.25);">
     <div class="container">
       
       <div class="section-header" style="max-width: 860px; margin: 0 auto 20px;">
-        <div class="section-subtitle">Get Into Your Element • Drop Into The Circle</div>
-        <h2 class="section-title">Community Open Mic & Pause Activations</h2>
+        <div class="section-subtitle">Get Into Your Element • Community Gathering</div>
+        <h2 class="section-title">Community Open Mic</h2>
         <div class="flourish-divider">✦</div>
         <p style="font-size: 1.08rem; color: var(--charcoal-muted); line-height: 1.8;">
           An unhurried space for artists, neighbors, and truth-tellers to share space, breathe together, process life's journey, and be truly heard. Co-presented with <strong>SoCal Creatives Collective</strong>.
@@ -522,7 +444,7 @@
       <div class="event-featured-card">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;">
           <div class="event-tag-badge">
-            <span>✦</span> UPCOMING · COMMUNITY OPEN MIC & PAUSE ACTIVATIONS
+            <span>✦</span> UPCOMING · COMMUNITY OPEN MIC
           </div>
           <span style="font-size: 0.76rem; color: #F8D98C; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;">
             📍 Irvine / Orange County • Alcohol-Free Creative Sanctuary
@@ -548,47 +470,26 @@
           </div>
           <div style="border-left: 1px solid rgba(255,255,255,0.25); padding-left: 20px;">
             <div style="font-size: 0.95rem; font-weight: 700; color: #FFFFFF;">The Experience</div>
-            <div style="font-size: 0.88rem; color: #CBD7D0;">Open Mic Stage + Somatic Pause Lounge</div>
+            <div style="font-size: 0.88rem; color: #CBD7D0;">Open Mic Stage & Creative Sanctuary</div>
           </div>
         </div>
 
-        <!-- The Dual Focal Points: Open Mic Aspect + Pause Activations Aspect -->
-        <div class="openmic-pause-split">
-          
-          <!-- Aspect 1: The Open Mic -->
-          <div class="openmic-facet-card">
+        <div class="openmic-single-wrap">
+          <div class="openmic-facet-card openmic-full-width">
             <div class="facet-icon-tag">
               <span>🎤</span>
-              <span>The Open Mic Aspect</span>
+              <span>The Open Mic Stage</span>
             </div>
             <h4 class="facet-headline">Raw Expression & True Listeners</h4>
             <p class="facet-desc">
               Come laugh, sing, share, listen, cry, create, or simply be. No performance necessary. Just come as you are.
             </p>
             <ul class="facet-list">
-              <li><strong>All creative mediums welcomed:</strong> Spoken word, poetry, acoustic music, storytelling, comedy, or reflections.</li>
+              <li><strong>All creative mediums welcomed:</strong> Spoken word, poetry, acoustic music, storytelling, comedy, or personal reflections.</li>
               <li><strong>Zero judgment, zero performance pressure:</strong> You don't have to be "polished" or famous. Share from the heart.</li>
               <li><strong>Attentive community:</strong> A room that actually listens, cheers, and holds space without algorithmic rush.</li>
             </ul>
           </div>
-
-          <!-- Aspect 2: Pause Activations -->
-          <div class="openmic-facet-card">
-            <div class="facet-icon-tag">
-              <span>🌿</span>
-              <span>Pause Activations Aspect</span>
-            </div>
-            <h4 class="facet-headline">Somatic Recharge & Grounding Lounge</h4>
-            <p class="facet-desc">
-              A moment to pause, breathe, reflect, and reconnect. Dedicated wellness activations woven into the gathering.
-            </p>
-            <ul class="facet-list">
-              <li><strong>Botanical Herbal Tea Bar:</strong> Nourishing warm teas and hydration to soothe the throat and nervous system.</li>
-              <li><strong>Guided 4-4-4 Breathwork Intervals:</strong> Gentle group somatic breath pauses between sets to center the room.</li>
-              <li><strong>432 Hz Sound Meditations & Singing Bowls:</strong> Grounding vibrational resonance to relax tension and bring peace.</li>
-            </ul>
-          </div>
-
         </div>
 
         <div class="event-invitation-quote">
@@ -790,9 +691,9 @@
                href="https://www.zeffy.com/en-US/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation" 
                target="_blank" 
                rel="noopener noreferrer" 
-               class="btn btn-gold" 
+               class="btn btn-gold seed-pulse-btn" 
                style="width: 100%; padding: 14px 20px; font-size: 0.92rem; text-decoration: none;">
-              <span>Give $1 With Love</span>
+              <span>Plant Your $1 Seed</span>
               <span>🌿</span>
             </a>
 
@@ -808,54 +709,266 @@
   </section>
 
 
-  <!-- ==================== SPONSORSHIP TIERS ==================== -->
-  <section id="sponsorship" class="section-padding" style="background: rgba(255, 255, 255, 0.88); backdrop-filter: blur(8px); border-top: 1px solid rgba(197, 154, 63, 0.2);">
+  <!-- ==================== INSTITUTIONAL GIVING, GRANTS & CORPORATE PARTNERSHIPS ==================== -->
+  <section id="sponsorship" class="section-padding" style="background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(10px); border-top: 1px solid rgba(197, 154, 63, 0.25); border-bottom: 1px solid rgba(197, 154, 63, 0.25);">
     <div class="container">
       
-      <div class="section-header">
-        <div class="section-subtitle">Community Investment</div>
-        <h2 class="section-title">Partnership & Sponsorship Packages</h2>
+      <div class="section-header" style="max-width: 900px; margin: 0 auto 36px; text-align: center;">
+        <div class="section-subtitle">Fiduciary Excellence • CRA Qualification • Health Equity</div>
+        <h2 class="section-title">Institutional Giving, Grants & Corporate Partnerships</h2>
         <div class="flourish-divider">✦</div>
-        <p>All contributions are 100% tax-deductible under IRC Section 170(b)(1)(A)(vi).</p>
+        <p style="font-size: 1.05rem; line-height: 1.8; color: var(--charcoal-muted); margin-bottom: 0;">
+          Inner Sanctuary Wellness Foundation is an IRS-recognized <strong>501(c)(3) public charity</strong> (Federal EIN: <strong>39-3757168</strong>, California Nonprofit Public Benefit Corp). We partner with financial institutions, regional employers, community foundations, and local businesses to deliver quantifiable somatic wellness, trauma mitigation, and alcohol-free creative safe spaces across Southern California.
+        </p>
       </div>
 
-      <div class="sponsor-tiers-grid">
+      <!-- Institutional Due Diligence & Fiduciary Facts Grid -->
+      <div class="fiduciary-badge-grid">
+        
+        <!-- Fact 1 -->
+        <div class="fiduciary-card">
+          <div>
+            <div class="fiduciary-header">
+              <span class="fiduciary-icon">🏛️</span>
+              <span class="fiduciary-title">Federal Exemption</span>
+            </div>
+            <div class="fiduciary-value">501(c)(3) Public Charity</div>
+            <p class="fiduciary-desc">
+              Affirmed under Internal Revenue Code § 501(c)(3). Contributions are fully tax-deductible to the extent allowed by law under IRC § 170(b)(1)(A)(vi).
+            </p>
+          </div>
+          <span class="fiduciary-badge-pill">✦ EIN: 39-3757168</span>
+        </div>
+
+        <!-- Fact 2 -->
+        <div class="fiduciary-card">
+          <div>
+            <div class="fiduciary-header">
+              <span class="fiduciary-icon">📈</span>
+              <span class="fiduciary-title">Bank CRA Eligibility</span>
+            </div>
+            <div class="fiduciary-value">CRA Community Development</div>
+            <p class="fiduciary-desc">
+              Direct community service delivery targeting Low-to-Moderate Income (LMI) creators, workers, and families in Santa Ana and the Inland Empire. Comprehensive CRA audit documentation provided.
+            </p>
+          </div>
+          <span class="fiduciary-badge-pill">✦ CRA Qualified Service</span>
+        </div>
+
+        <!-- Fact 3 -->
+        <div class="fiduciary-card">
+          <div>
+            <div class="fiduciary-header">
+              <span class="fiduciary-icon">🌴</span>
+              <span class="fiduciary-title">State Entity Standing</span>
+            </div>
+            <div class="fiduciary-value">California Public Benefit Corp</div>
+            <p class="fiduciary-desc">
+              Registered in active good standing with the California Attorney General Registry of Charitable Trusts (CA DOJ), California Secretary of State, and Franchise Tax Board.
+            </p>
+          </div>
+          <span class="fiduciary-badge-pill">✦ CA DOJ Registry Verified</span>
+        </div>
+
+        <!-- Fact 4 -->
+        <div class="fiduciary-card">
+          <div>
+            <div class="fiduciary-header">
+              <span class="fiduciary-icon">🏷️</span>
+              <span class="fiduciary-title">IRS Foundation Taxonomy</span>
+            </div>
+            <div class="fiduciary-value">NTEE Codes E20 & A20</div>
+            <p class="fiduciary-desc">
+              Standardized classification under National Taxonomy of Exempt Entities: <strong>E20</strong> (Community Mental Health & Somatic Wellness) and <strong>A20</strong> (Arts, Culture & Humanities).
+            </p>
+          </div>
+          <span class="fiduciary-badge-pill">✦ Aligned RFP Criteria</span>
+        </div>
+
+        <!-- Fact 5 -->
+        <div class="fiduciary-card">
+          <div>
+            <div class="fiduciary-header">
+              <span class="fiduciary-icon">🛡️</span>
+              <span class="fiduciary-title">Fiduciary Transparency</span>
+            </div>
+            <div class="fiduciary-value">100% Program Allocation</div>
+            <p class="fiduciary-desc">
+              Form 990 available for public inspection. Powered by 0% platform fee infrastructure (Zeffy), ensuring 100% of community gifts reach program operations. Zero data selling or sharing.
+            </p>
+          </div>
+          <span class="fiduciary-badge-pill">✦ AFP Donor Bill of Rights</span>
+        </div>
+
+        <!-- Fact 6 -->
+        <div class="fiduciary-card">
+          <div>
+            <div class="fiduciary-header">
+              <span class="fiduciary-icon">💼</span>
+              <span class="fiduciary-title">Workplace Giving</span>
+            </div>
+            <div class="fiduciary-value">Corporate Matching Ready</div>
+            <p class="fiduciary-desc">
+              Eligible on major enterprise corporate giving platforms including <strong>Benevity</strong>, <strong>CyberGrants</strong>, <strong>YourCause</strong>, <strong>Blackbaud</strong>, and <strong>Deed</strong>.
+            </p>
+          </div>
+          <span class="fiduciary-badge-pill">✦ 1:1 Employer Match</span>
+        </div>
+
+      </div>
+
+      <!-- Funder & Corporate Due Diligence Action Banner -->
+      <div class="funder-action-banner">
+        <div class="funder-banner-grid">
+          <div class="funder-banner-info">
+            <div class="funder-banner-tag">
+              <span>✦</span>
+              <span>Grantmaker & Corporate Due Diligence Kit</span>
+            </div>
+            <h3 class="funder-banner-title">Institutional Partnership & Verification</h3>
+            <p class="funder-banner-desc">
+              Are you a corporate social responsibility (CSR) director, foundation program officer, or bank CRA compliance lead? Access our formal verification packet, including our IRS 501(c)(3) determination letter, signed Form W-9, programmatic logic model, and CRA community development narrative.
+            </p>
+          </div>
+
+          <div class="funder-action-buttons">
+            <a href="mailto:hello@innersanctuarywellnessfoundation.org?cc=innersanctuary0@gmail.com&subject=Due%20Diligence%20Request%3A%20IRS%20501(c)(3)%20Letter%20%26%20W-9%20-%20Inner%20Sanctuary&body=Hello%20Inner%20Sanctuary%20Leadership%2C%0A%0AWe%20are%20reviewing%20community%20partnerships%20%2F%20grant%20opportunities%20and%20would%20like%20to%20request%20your%20official%20due%20diligence%20packet%20(IRS%20Letter%2C%20Form%20W-9%2C%20Logic%20Model).%0A%0AOrganization%3A%20%0AName%20%2F%20Title%3A%20%0AContact%20Email%3A%20" class="btn-funder-primary">
+              <span>📄</span>
+              <span>Request IRS Letter & W-9 (.pdf)</span>
+            </a>
+            <a href="#logic-model" class="btn-funder-outline">
+              <span>📊</span>
+              <span>View Program Logic Model & Metrics ↓</span>
+            </a>
+            <a href="#connect" class="btn-funder-outline" onclick="selectIntakeTab('sponsor')">
+              <span>🤝</span>
+              <span>Submit Corporate Partnership / RFP →</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Theory of Change / Program Logic Model Framework -->
+      <div id="logic-model" class="logic-model-container">
+        <div class="logic-model-header">
+          <span class="badge badge-gold" style="margin-bottom: 8px;">Theory of Change & Logic Model</span>
+          <h3 style="font-family: 'Cinzel', serif; font-size: 1.65rem; color: var(--forest-green); margin-bottom: 8px;">
+            Community Health Equity & Impact Architecture
+          </h3>
+          <p style="font-size: 0.95rem; color: var(--charcoal-muted); line-height: 1.7; margin-bottom: 0;">
+            How our somatic and creative safe space interventions translate into measurable resilience, stress reduction, and grassroots community stability.
+          </p>
+        </div>
+
+        <div class="logic-model-grid">
+          
+          <!-- Pillar 1 -->
+          <div class="logic-step-card">
+            <div class="logic-step-num">Step 01 • Target Need</div>
+            <h4 class="logic-step-title">The Burnout & Stigma Gap</h4>
+            <p class="logic-step-desc">
+              High-stress environments, isolation, and lack of affordable, non-stigmatized, alcohol-free healing spaces for frontline community members and emerging artists.
+            </p>
+            <ul class="logic-step-list">
+              <li>76% of emerging artists report acute stress & burnout</li>
+              <li>Prohibitive costs for private clinical somatic therapy</li>
+              <li>Scarcity of substance-free creative sanctuaries</li>
+            </ul>
+          </div>
+
+          <!-- Pillar 2 -->
+          <div class="logic-step-card">
+            <div class="logic-step-num">Step 02 • Somatic Intervention</div>
+            <h4 class="logic-step-title">Unhurried Somatic Spaces</h4>
+            <p class="logic-step-desc">
+              Accessible, non-clinical community gatherings combining The Four Releases (Breath, Vocal Resonance, Embodied Motion, Rest) and Somatic Medicine (Laughing, Singing, Dancing).
+            </p>
+            <ul class="logic-step-list">
+              <li>Guided 4x4 Box Breathing & nervous system resets</li>
+              <li>Supportive Community Open Mic & expressive stages</li>
+              <li>Botanical tea sanctuary & peer connection circles</li>
+            </ul>
+          </div>
+
+          <!-- Pillar 3 -->
+          <div class="logic-step-card">
+            <div class="logic-step-num">Step 03 • Measurable Outputs</div>
+            <h4 class="logic-step-title">Grassroots Delivery & Scale</h4>
+            <p class="logic-step-desc">
+              Direct, quantifiable outputs documented at each gathering to verify equitable community benefit for grantmakers and CRA officers.
+            </p>
+            <ul class="logic-step-list">
+              <li>100% Free or low-barrier access for all participants</li>
+              <li>40+ Local BIPOC & emerging artists spotlit & paid</li>
+              <li>500+ Hours of somatic regulation delivered annually</li>
+            </ul>
+          </div>
+
+          <!-- Pillar 4 -->
+          <div class="logic-step-card">
+            <div class="logic-step-num">Step 04 • Long-Term Impact</div>
+            <h4 class="logic-step-title">Generational Healing Equity</h4>
+            <p class="logic-step-desc">
+              Sustainable emotional self-regulation, reduced isolation, strengthened civic fabric, and a replicable model for grassroots public wellness.
+            </p>
+            <ul class="logic-step-list">
+              <li>94% report immediate nervous system deceleration</li>
+              <li>Strengthened neighborhood resilience & trust</li>
+              <li>Scalable framework across Orange County & Inland Empire</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Upgraded 4-Column Sponsorship & Partnership Tiers -->
+      <div style="text-align: center; margin-top: 48px; margin-bottom: 8px;">
+        <span class="badge badge-sage">Corporate & Community Packages</span>
+        <h3 style="font-family: 'Cinzel', serif; font-size: 1.85rem; color: var(--forest-green); margin-top: 8px; margin-bottom: 6px;">
+          Partnership & Underwriting Tiers
+        </h3>
+        <p style="font-size: 0.95rem; color: var(--charcoal-muted); margin-bottom: 0;">
+          All contributions are 100% tax-deductible under IRC Section 170(b)(1)(A)(vi). Custom multi-year and in-kind agreements available.
+        </p>
+      </div>
+
+      <div class="sponsor-tiers-grid sponsor-four-col">
         
         <!-- Tier 1 -->
         <div class="tier-box">
           <div>
             <span class="badge badge-sage">Grassroots Support</span>
-            <h3 style="margin-top: 14px; font-size: 1.3rem;">Raffle & In-Kind Donor</h3>
-            <div class="tier-price">$5–$25 <span>or In-Kind</span></div>
-            <p style="font-size: 0.9rem;">
-              Provide 1–5 $5 gift cards or refreshments for our community raffle, directly supporting performers and neighborhood guests.
+            <h3 style="margin-top: 14px; font-size: 1.22rem;">Raffle & In-Kind Donor</h3>
+            <div class="tier-price">$25–$100 <span>or In-Kind</span></div>
+            <p style="font-size: 0.88rem; color: var(--charcoal-muted); line-height: 1.6;">
+              Provide 1–5 $5 gift cards, organic herbal tea, or healthy refreshments for our community raffle, directly honoring performers and neighborhood guests.
             </p>
             <ul class="benefit-list" style="margin-bottom: 24px;">
               <li>Name recognition on community sponsor roll</li>
-              <li>Live verbal shout-out during raffle drawings</li>
+              <li>Live verbal shout-out during community raffle</li>
               <li>501(c)(3) in-kind contribution tax receipt</li>
             </ul>
           </div>
-          <a href="#connect" class="btn btn-outline" style="width: 100%;">Donate Cards / Items</a>
+          <a href="#connect" class="btn btn-outline" style="width: 100%;" onclick="selectIntakeTab('raffle')">Pledge In-Kind</a>
         </div>
 
         <!-- Tier 2 -->
         <div class="tier-box">
           <div>
             <span class="badge badge-sage">Neighborhood Tier</span>
-            <h3 style="margin-top: 14px; font-size: 1.3rem;">Community Neighbor</h3>
-            <div class="tier-price">$100 <span>/ event</span></div>
-            <p style="font-size: 0.9rem;">
-              For local businesses wanting to support neighborhood youth and local arts while building authentic relationships.
+            <h3 style="margin-top: 14px; font-size: 1.22rem;">Community Neighbor</h3>
+            <div class="tier-price">$250–$500 <span>/ event</span></div>
+            <p style="font-size: 0.88rem; color: var(--charcoal-muted); line-height: 1.6;">
+              For local practices, cafes, and businesses wanting to sponsor neighborhood youth and local arts while building authentic community relationships.
             </p>
             <ul class="benefit-list" style="margin-bottom: 24px;">
-              <li>Logo placement on printed programs and digital QR guides</li>
+              <li>Logo placement on printed programs & digital QR guides</li>
               <li>Live verbal stage announcement by MC Marlon Smith</li>
               <li>Community partner tag on post-event recaps</li>
               <li>100% Tax-deductible contribution receipt</li>
             </ul>
           </div>
-          <a href="#connect" class="btn btn-outline" style="width: 100%;">Select Tier</a>
+          <a href="#connect" class="btn btn-outline" style="width: 100%;" onclick="selectIntakeTab('sponsor')">Select Neighborhood Tier</a>
         </div>
 
         <!-- Tier 3 (Featured) -->
@@ -863,10 +976,10 @@
           <div class="tier-ribbon">Flagship / CRA Partner</div>
           <div>
             <span class="badge badge-gold">Top Billing</span>
-            <h3 style="margin-top: 14px; font-size: 1.3rem;">Presenting Showcase Partner</h3>
-            <div class="tier-price">$500 <span>/ showcase</span></div>
-            <p style="font-size: 0.9rem;">
-              Premier co-branding and on-site engagement for regional institutions, credit unions, and community-focused banks.
+            <h3 style="margin-top: 14px; font-size: 1.22rem;">Presenting Showcase & CRA Partner</h3>
+            <div class="tier-price">$1,000–$2,500 <span>/ showcase</span></div>
+            <p style="font-size: 0.88rem; color: var(--charcoal-muted); line-height: 1.6;">
+              Premier co-branding and on-site engagement for regional institutions, credit unions, corporate giving programs, and CRA-qualifying banks.
             </p>
             <ul class="benefit-list" style="margin-bottom: 24px;">
               <li><strong>Dedicated on-site table/booth</strong> at our community showcases & gatherings</li>
@@ -875,9 +988,46 @@
               <li><strong>Verified CRA documentation</strong> and event photo assets</li>
             </ul>
           </div>
-          <a href="#connect" class="btn btn-gold" style="width: 100%;">Become Flagship Partner</a>
+          <a href="#connect" class="btn btn-gold" style="width: 100%;" onclick="selectIntakeTab('sponsor')">Become Flagship Partner</a>
         </div>
 
+        <!-- Tier 4 -->
+        <div class="tier-box">
+          <div>
+            <span class="badge badge-forest">Foundational Tier</span>
+            <h3 style="margin-top: 14px; font-size: 1.22rem;">Foundational Impact Underwriter</h3>
+            <div class="tier-price">$5,000–$10,000 <span>/ annual</span></div>
+            <p style="font-size: 0.88rem; color: var(--charcoal-muted); line-height: 1.6;">
+              Year-long institutional underwriting powering seasonal community wellness circles, artist stipends, and somatic health equity infrastructure.
+            </p>
+            <ul class="benefit-list" style="margin-bottom: 24px;">
+              <li><strong>Named series underwriter</strong> across all seasonal activations</li>
+              <li><strong>Executive impact briefing</strong> with Executive Director Teshia Campbell</li>
+              <li><strong>Custom workplace wellness session</strong> for your corporate team</li>
+              <li><strong>Co-authored annual impact report</strong> & case study spotlight</li>
+            </ul>
+          </div>
+          <a href="#connect" class="btn btn-forest" style="width: 100%;" onclick="selectIntakeTab('grantmaker')">Inquire as Underwriter</a>
+        </div>
+
+      </div>
+
+      <!-- Workplace Giving & Matching Gifts Strip -->
+      <div class="workplace-giving-strip">
+        <div class="workplace-giving-content">
+          <div class="workplace-giving-title">✦ Double Your Impact with Employer Matching Gifts</div>
+          <p class="workplace-giving-desc">
+            Did you know many employers match charitable gifts dollar-for-dollar? Inquire with your HR or CSR department to search for <strong>Inner Sanctuary Wellness Foundation</strong> (EIN: <strong>39-3757168</strong>) on your workplace giving portal.
+          </p>
+        </div>
+        <div class="workplace-badge-cluster">
+          <span class="workplace-badge">Benevity</span>
+          <span class="workplace-badge">CyberGrants</span>
+          <span class="workplace-badge">YourCause</span>
+          <span class="workplace-badge">Blackbaud</span>
+          <span class="workplace-badge">Deed</span>
+          <span class="workplace-badge">United Way</span>
+        </div>
       </div>
 
     </div>
@@ -887,7 +1037,7 @@
   <section id="stay-in-loop" class="section-padding" style="background: rgba(250, 248, 243, 0.75); backdrop-filter: blur(8px); border-top: 1px solid rgba(197, 154, 63, 0.2);">
     <div class="container">
       <div class="stay-loop-card">
-        <span class="badge badge-gold" style="margin-bottom: 12px;">✦ The Living Circle</span>
+        <span class="badge badge-gold" style="margin-bottom: 12px;">✦ The Living Community</span>
         <h2 class="serif-brand" style="font-size: 2.1rem; color: var(--forest-green); margin-bottom: 8px;">
           Stay in the Loop
         </h2>
@@ -900,13 +1050,13 @@
 
         <form id="stay-loop-form" class="stay-loop-form" action="https://formsubmit.co/hello@innersanctuarywellnessfoundation.org" method="POST">
           <input type="hidden" name="_cc" value="innersanctuary0@gmail.com">
-          <input type="hidden" name="_subject" value="New Member Joined The Circle • Inner Sanctuary">
+          <input type="hidden" name="_subject" value="New Community Member • Inner Sanctuary">
           <input type="hidden" name="_template" value="table">
           <input type="hidden" name="_captcha" value="false">
           <input type="text" id="loop-name" name="name" class="stay-loop-input" placeholder="Your Name" required>
           <input type="email" id="loop-email" name="email" class="stay-loop-input" placeholder="Your Email Address" required>
           <button type="submit" class="btn btn-gold stay-loop-btn">
-            <span>Join the Circle</span> <span>🌿</span>
+            <span>Join Our Community</span> <span>🌿</span>
           </button>
         </form>
 
@@ -917,25 +1067,306 @@
     </div>
   </section>
 
-  <!-- ==================== "DROP INTO THE CIRCLE" INTAKE FORM ==================== -->
-  <section id="connect" class="section-padding contact-section" style="background: rgba(239, 236, 227, 0.7); backdrop-filter: blur(8px);">
-    <div class="container">
+  <!-- ==================== SACRED SOMATIC BREATHWORK INTEGRATION (BOTTOM GROUNDING) ==================== -->
+  <section id="breath" class="section-padding" style="background: radial-gradient(circle at 50% 30%, rgba(20, 36, 28, 0.98) 0%, rgba(10, 19, 14, 1) 100%); color: #F6F3EC; border-top: 1.5px solid rgba(197, 154, 63, 0.4); border-bottom: 1.5px solid rgba(197, 154, 63, 0.4); position: relative; z-index: 1;">
+    <div class="container" style="text-align: center;">
       
-      <div class="section-header">
-        <div class="section-subtitle">Get Involved</div>
-        <h2 class="section-title">Drop Into The Circle</h2>
+      <div class="section-header" style="max-width: 820px; margin: 0 auto 16px; text-align: center;">
+        <div class="section-subtitle" style="color: #F8D98C;">Somatic Reset • 4x4 Box Breathing • Inner Stillness</div>
+        <h2 class="section-title" style="color: #FFFFFF;">Pause & Center: Sacred Breathwork</h2>
         <div class="flourish-divider">✦</div>
-        <p>Reach out to perform, share your craft, plant a seed, or sponsor an unhurried event.</p>
+        <p style="color: #CBD7D0; font-size: 1.04rem; line-height: 1.8; margin-bottom: 0;">
+          Before you continue your day or connect with our circle, ground your nervous system in 60 seconds of continuous 4-4-4-4 Box Breathing. Follow the blooming sacred lotus geometry, feel your shoulders drop, and receive Echo's sanctuary reflection.
+        </p>
       </div>
 
+      <!-- Sacred Geometry Lotus Visualizer & Echo Avatar Stamp -->
+      <div class="box-breathing-container" id="sacred-breathing-portal">
+        <style>
+          #sacred-breathing-portal {
+            position: relative;
+            max-width: 520px;
+            margin: 20px auto 10px;
+            padding: 28px 24px 22px;
+            border-radius: 28px;
+            background: radial-gradient(circle at 50% 45%, rgba(22, 38, 30, 0.98) 0%, rgba(12, 22, 17, 0.99) 100%);
+            border: 1.5px solid rgba(197, 154, 63, 0.45);
+            box-shadow: 0 24px 60px rgba(10, 20, 15, 0.45), inset 0 0 50px rgba(197, 154, 63, 0.12);
+            color: #F6F3EC;
+            text-align: center;
+            overflow: hidden;
+          }
+          .sacred-stage-wrap {
+            position: relative;
+            width: 340px;
+            height: 340px;
+            max-width: 100%;
+            margin: 12px auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          #sacred-lotus-canvas {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: filter 0.3s ease;
+          }
+          #sacred-lotus-canvas:hover {
+            filter: drop-shadow(0 0 16px rgba(248, 217, 140, 0.45));
+          }
+          .sacred-phase-overlay {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 3;
+          }
+          .sacred-phase-word {
+            font-family: 'Cinzel', serif;
+            font-size: 1.22rem;
+            letter-spacing: 0.2em;
+            color: #F8D98C;
+            text-shadow: 0 2px 16px rgba(0, 0, 0, 0.95);
+            font-weight: 700;
+            transition: all 0.35s ease;
+          }
+          .sacred-phase-timer {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.88rem;
+            letter-spacing: 0.18em;
+            color: rgba(246, 243, 236, 0.92);
+            margin-top: 4px;
+            font-weight: 600;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.95);
+          }
+          .sacred-side-label {
+            position: absolute;
+            font-family: 'Cinzel', serif;
+            font-size: 0.68rem;
+            letter-spacing: 0.16em;
+            color: rgba(248, 217, 140, 0.4);
+            font-weight: 600;
+            transition: all 0.35s ease;
+            pointer-events: none;
+            white-space: nowrap;
+          }
+          .sacred-side-label.active {
+            color: #F8D98C;
+            text-shadow: 0 0 14px rgba(248, 217, 140, 0.95);
+            transform: scale(1.1);
+          }
+          .side-top { top: 6px; left: 50%; transform: translateX(-50%); }
+          .side-top.active { transform: translateX(-50%) scale(1.1); }
+          .side-bottom { bottom: 6px; left: 50%; transform: translateX(-50%); }
+          .side-bottom.active { transform: translateX(-50%) scale(1.1); }
+          .side-left { left: 4px; top: 50%; transform: translateY(-50%); }
+          .side-left.active { transform: translateY(-50%) scale(1.1); }
+          .side-right { right: 4px; top: 50%; transform: translateY(-50%); }
+          .side-right.active { transform: translateY(-50%) scale(1.1); }
+
+          /* Echo Sanctuary Stamp Badge */
+          .echo-sanctuary-stamp {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 14px;
+            padding: 7px 14px 7px 8px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(197, 154, 63, 0.42);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            user-select: none;
+          }
+          .echo-sanctuary-stamp:hover {
+            transform: translateY(-2px);
+            border-color: #F8D98C;
+            background: rgba(255, 255, 255, 0.10);
+            box-shadow: 0 6px 24px rgba(197, 154, 63, 0.32);
+          }
+          .echo-avatar-frame {
+            position: relative;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 1.5px solid #F8D98C;
+            box-shadow: 0 0 12px rgba(197, 154, 63, 0.55);
+            overflow: hidden;
+            background: radial-gradient(circle at 50% 35%, #D49B54, #2B1A12);
+            flex-shrink: 0;
+          }
+          .echo-avatar-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+          }
+          .echo-stamp-meta {
+            text-align: left;
+            line-height: 1.25;
+          }
+          .echo-stamp-title {
+            font-family: 'Cinzel', serif;
+            font-size: 0.72rem;
+            color: #F8D98C;
+            letter-spacing: 0.1em;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+          }
+          .echo-stamp-sub {
+            font-size: 0.65rem;
+            color: #CBD7D0;
+            letter-spacing: 0.04em;
+          }
+        </style>
+
+        <div style="font-family: 'Cinzel', serif; font-size: 0.82rem; letter-spacing: 0.2em; color: #F8D98C; text-transform: uppercase; margin-bottom: 4px;">
+          ✦ Sacred Somatic Breathwork ✦
+        </div>
+
+        <p id="sacred-sub-prompt" style="font-size: 0.84rem; color: #CBD7D0; margin-bottom: 12px;">
+          Soften your gaze on the sacred geometry. Tap the mandala or click below to breathe.
+        </p>
+
+        <button id="orb-toggle-btn" class="breathing-orb-trigger" type="button" style="margin-bottom: 6px;">
+          <span>✦</span>
+          <span id="orb-btn-label">Begin Sacred Breath</span>
+        </button>
+
+        <!-- The Sacred Geometry Visualizer Stage -->
+        <div class="sacred-stage-wrap">
+          <canvas id="sacred-lotus-canvas" width="400" height="400" title="Click to start or pause breath"></canvas>
+
+          <!-- Four Pillars of Breath Progression -->
+          <div class="sacred-side-label side-top" id="box-badge-top">HOLD 4s ↑</div>
+          <div class="sacred-side-label side-right" id="box-badge-right">EXHALE 4s →</div>
+          <div class="sacred-side-label side-bottom" id="box-badge-bottom">REST 4s ↓</div>
+          <div class="sacred-side-label side-left" id="box-badge-left">← INHALE 4s</div>
+
+          <!-- Center Phase Overlay -->
+          <div class="sacred-phase-overlay">
+            <div class="sacred-phase-word" id="box-phase-title">READY</div>
+            <div class="sacred-phase-timer" id="box-phase-countdown">✦</div>
+          </div>
+        </div>
+
+        <div id="breathing-guide-text" class="breathing-status-text" style="color: #CBD7D0; font-size: 0.82rem; margin-top: 4px;">
+          Click Begin or tap the mandala to center your breath
+        </div>
+
+        <!-- Echo Sanctuary Stamp Badge (Interactive Somatic Companion) -->
+        <div class="echo-sanctuary-stamp" role="button" tabindex="0" title="Click to receive Echo's Sanctuary Reflection ✦">
+          <div class="echo-avatar-frame">
+            <img src="echo.png" alt="Echo Sanctuary Avatar" onerror="this.src='emblem.png'">
+          </div>
+          <div class="echo-stamp-meta">
+            <div class="echo-stamp-title">
+              <span>ECHO SANCTUARY</span>
+              <span style="font-size: 0.65rem;">✦</span>
+            </div>
+            <div class="echo-stamp-sub">Sacred Geometry Reflection • Tap for Wisdom ✦</div>
+          </div>
+        </div>
+
+        <div style="font-size: 0.74rem; color: #F8D98C; font-weight: 600; margin-top: 12px; letter-spacing: 0.05em; display: flex; align-items: center; justify-content: center; gap: 6px;">
+          <span>🍃</span>
+          <span>Inhale 4s • Hold 4s • Exhale 4s • Rest 4s • Continuous Calming Flow</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== GET INVOLVED: COMMUNITY CONNECTION & INTAKE ==================== -->
+  <section id="connect" class="section-padding contact-section" style="background: rgba(239, 236, 227, 0.78); backdrop-filter: blur(10px); border-top: 1px solid rgba(197, 154, 63, 0.2);">
+    <div class="container">
+      
+      <div class="section-header" style="max-width: 860px; margin: 0 auto 36px; text-align: center;">
+        <div class="section-subtitle">Take Action • Community Care • Radical Inclusion</div>
+        <h2 class="section-title">Get Involved: Find Your Place in the Sanctuary</h2>
+        <div class="flourish-divider">✦</div>
+        <p style="font-size: 1.08rem; color: var(--charcoal-muted); line-height: 1.8; margin-bottom: 0;">
+          Healing is not meant to be done alone. Whether you want to share a poem or song on stage, volunteer with our welcoming circle, plant a $1 seed, or sponsor an unhurried gathering — there is a seat in our sanctuary for you.
+        </p>
+      </div>
+
+      <!-- 4 Prominent Get Involved Pathway Cards -->
+      <div class="get-involved-pathways">
+        
+        <!-- Pathway 1: Perform -->
+        <div class="pathway-card" onclick="selectIntakeTab('artist')" role="button" tabindex="0">
+          <div>
+            <div class="pathway-card-icon">🎨</div>
+            <h3 class="pathway-card-title">Perform at Open Mic</h3>
+            <div class="pathway-card-sub">Artists • Poets • Musicians</div>
+            <p class="pathway-card-desc">
+              Share your sacred craft in an alcohol-free, unhurried space that truly listens. No auditions, no competition, raw authentic expression.
+            </p>
+          </div>
+          <span class="pathway-card-action">Step Up to the Mic →</span>
+        </div>
+
+        <!-- Pathway 2: Volunteer -->
+        <div class="pathway-card" onclick="selectIntakeTab('volunteer')" role="button" tabindex="0">
+          <div>
+            <div class="pathway-card-icon">🌿</div>
+            <h3 class="pathway-card-title">Volunteer & Care</h3>
+            <div class="pathway-card-sub">Hosts • Tea Brewers • Sound</div>
+            <p class="pathway-card-desc">
+              Help welcome neighborhood guests, pour organic botanical tea, manage acoustic sound, and hold grounded sanctuary presence.
+            </p>
+          </div>
+          <span class="pathway-card-action">Join Volunteer Circle →</span>
+        </div>
+
+        <!-- Pathway 3: Plant $1 Seed -->
+        <div class="pathway-card" onclick="selectIntakeTab('donor')" role="button" tabindex="0">
+          <div>
+            <div class="pathway-card-icon">💚</div>
+            <h3 class="pathway-card-title">Plant a $1 Seed</h3>
+            <div class="pathway-card-sub">Grassroots Micro-Giving</div>
+            <p class="pathway-card-desc">
+              Every single dollar directly funds artist micro-stipends, stage tokens, and ensures all community gatherings remain 100% free.
+            </p>
+          </div>
+          <span class="pathway-card-action">Give Your Seed →</span>
+        </div>
+
+        <!-- Pathway 4: Sponsor / Partner -->
+        <div class="pathway-card" onclick="selectIntakeTab('sponsor')" role="button" tabindex="0">
+          <div>
+            <div class="pathway-card-icon">🏢</div>
+            <h3 class="pathway-card-title">Sponsor & Partner</h3>
+            <div class="pathway-card-sub">CRA Banks • Foundations</div>
+            <p class="pathway-card-desc">
+              Fulfill bank CRA community service requirements or sponsor local wellness showcases with full 501(c)(3) due diligence.
+            </p>
+          </div>
+          <span class="pathway-card-action">Partner With Us →</span>
+        </div>
+
+      </div>
+
+      <!-- Upgraded Intake Card with 6 Distinct Tabs -->
       <div class="contact-card">
         
         <!-- Interactive Tabs -->
         <div class="intake-tab-bar">
           <button class="intake-tab active" data-role="artist">🎨 Artist / Performer</button>
+          <button class="intake-tab" data-role="volunteer">🌿 Volunteer / Care</button>
           <button class="intake-tab" data-role="donor">💚 $1 Seed Donor</button>
-          <button class="intake-tab" data-role="sponsor">🏢 Sponsor / CRA</button>
-          <button class="intake-tab" data-role="raffle">🎁 Raffle Donor</button>
+          <button class="intake-tab" data-role="sponsor">🏢 Corporate / CRA</button>
+          <button class="intake-tab" data-role="grantmaker">📋 Grantmaker / Foundation</button>
+          <button class="intake-tab" data-role="raffle">🎁 Raffle & In-Kind</button>
         </div>
 
         <form id="circle-intake-form" action="https://formsubmit.co/hello@innersanctuarywellnessfoundation.org" method="POST">
@@ -961,10 +1392,13 @@
               <label for="role-select">I Am Reaching Out As *</label>
               <select id="role-select" name="role" required>
                 <option value="Artist / Performer">Artist / Performer (Open Mic & Showcase)</option>
+                <option value="General Volunteer / Community Care">General Volunteer / Community Care</option>
                 <option value="$1 Community Seed Donor">$1 Community Seed Donor</option>
-                <option value="Corporate / Business Sponsor">Corporate / Business Sponsor ($500 or $100 Tier)</option>
+                <option value="Corporate Sponsor / Bank CRA Partner">Corporate Sponsor / Bank CRA Partner ($1,000–$2,500 Tier)</option>
+                <option value="Institutional Grantmaker / Foundation RFP">Institutional Grantmaker / Foundation RFP</option>
+                <option value="Community Neighbor / Local Business">Community Neighbor / Local Business ($250–$500 Tier)</option>
+                <option value="Foundational Impact Underwriter">Foundational Impact Underwriter ($5,000+ Tier)</option>
                 <option value="Raffle & In-Kind Donor">Raffle & In-Kind Donor (Gift cards, tea, refreshments)</option>
-                <option value="General Volunteer / Inquiry">General Volunteer / Inquiry</option>
               </select>
             </div>
 
@@ -1036,9 +1470,10 @@
             <li><a href="#open-mic">Community Open Mic & Pause</a></li>
             <li><a href="#horizons">Sanctuary Horizons</a></li>
             <li><a href="#dollar-campaign-anchor">The $1 Community Seed</a></li>
-            <li><a href="#sponsorship">Sponsorship Packages</a></li>
+            <li><a href="#sponsorship">Institutional Grants & Partnerships</a></li>
             <li><a href="#stay-in-loop">Stay in the Loop</a></li>
-            <li><a href="#connect">Drop Into The Circle</a></li>
+            <li><a href="#breath">Sacred Breathwork Reset</a></li>
+            <li><a href="#connect">Get Involved With Us</a></li>
           </ul>
         </div>
 
