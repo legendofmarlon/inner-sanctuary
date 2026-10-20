@@ -1759,13 +1759,139 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================================================================
-  // 7. INNER SANCTUARY 2-BREATH SACRED GEOMETRY GROUNDING WIDGET (60FPS Canvas)
+  // 7. SOLID 2-COUNT SACRED GEOMETRY GROUNDING ENGINE (ZERO PAUSES)
   // Palette: Deep Obsidian (#0B0F17), Golden Hour Amber (#F5AF19), Prism Cyan (#00F2FE)
   // =========================================================================
+
+  // -------------------------------------------------------------------------
+  // SOOTHING PROCEDURAL BREATH AUDIO SYNTHESIZER (Web Audio API)
+  // Organic, whisper-soft pink-noise formant filter (Zero ringing, zero harshness)
+  // -------------------------------------------------------------------------
+  class SoothingBreathAudioEngine {
+    constructor() {
+      this.ctx = null;
+      this.isEnabled = true;
+      this.volume = 0.42;
+      this.noiseBuffer = null;
+    }
+
+    init() {
+      if (this.ctx) return;
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      this.ctx = new AudioCtx();
+
+      // Generate 5 seconds of organic pink noise
+      const sampleRate = this.ctx.sampleRate;
+      const bufferSize = sampleRate * 5;
+      this.noiseBuffer = this.ctx.createBuffer(1, bufferSize, sampleRate);
+      const data = this.noiseBuffer.getChannelData(0);
+      let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+      for (let i = 0; i < bufferSize; i++) {
+        const white = Math.random() * 2 - 1;
+        b0 = 0.99886 * b0 + white * 0.0555179;
+        b1 = 0.99332 * b1 + white * 0.0750759;
+        b2 = 0.96900 * b2 + white * 0.1538520;
+        b3 = 0.86650 * b3 + white * 0.3104856;
+        b4 = 0.55000 * b4 + white * 0.5329522;
+        b5 = -0.7616 * b5 - white * 0.0168980;
+        data[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362) * 0.045;
+        b6 = white * 0.115926;
+      }
+    }
+
+    playInhale(durationSec) {
+      if (!this.isEnabled) return;
+      this.init();
+      if (!this.ctx) return;
+      if (this.ctx.state === 'suspended') this.ctx.resume();
+
+      const now = this.ctx.currentTime;
+      const src = this.ctx.createBufferSource();
+      src.buffer = this.noiseBuffer;
+      src.loop = true;
+
+      // Resonant formant filter for gentle nasal/throat inhalation
+      const bandpass = this.ctx.createBiquadFilter();
+      bandpass.type = 'bandpass';
+      bandpass.frequency.setValueAtTime(380, now);
+      bandpass.frequency.exponentialRampToValueAtTime(720, now + durationSec);
+      bandpass.Q.value = 1.7;
+
+      const lowpass = this.ctx.createBiquadFilter();
+      lowpass.type = 'lowpass';
+      lowpass.frequency.setValueAtTime(800, now);
+      lowpass.frequency.exponentialRampToValueAtTime(1250, now + durationSec * 0.8);
+
+      const gain = this.ctx.createGain();
+      gain.gain.setValueAtTime(0.0001, now);
+      // Gentle, smooth swell
+      gain.gain.exponentialRampToValueAtTime(0.32 * this.volume, now + durationSec * 0.8);
+      gain.gain.linearRampToValueAtTime(0.0001, now + durationSec);
+
+      src.connect(bandpass);
+      bandpass.connect(lowpass);
+      lowpass.connect(gain);
+      gain.connect(this.ctx.destination);
+
+      src.start(now);
+      src.stop(now + durationSec + 0.05);
+    }
+
+    playExhale(durationSec) {
+      if (!this.isEnabled) return;
+      this.init();
+      if (!this.ctx) return;
+      if (this.ctx.state === 'suspended') this.ctx.resume();
+
+      const now = this.ctx.currentTime;
+      const src = this.ctx.createBufferSource();
+      src.buffer = this.noiseBuffer;
+      src.loop = true;
+
+      // Deep, soothing warm mouth sigh
+      const bandpass = this.ctx.createBiquadFilter();
+      bandpass.type = 'bandpass';
+      bandpass.frequency.setValueAtTime(600, now);
+      bandpass.frequency.exponentialRampToValueAtTime(260, now + durationSec);
+      bandpass.Q.value = 1.3;
+
+      const lowpass = this.ctx.createBiquadFilter();
+      lowpass.type = 'lowpass';
+      lowpass.frequency.setValueAtTime(1050, now);
+      lowpass.frequency.exponentialRampToValueAtTime(500, now + durationSec);
+
+      const gain = this.ctx.createGain();
+      gain.gain.setValueAtTime(0.0001, now);
+      // Soft gentle onset, long soothing release
+      gain.gain.exponentialRampToValueAtTime(0.38 * this.volume, now + 0.35);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + durationSec);
+
+      src.connect(bandpass);
+      bandpass.connect(lowpass);
+      lowpass.connect(gain);
+      gain.connect(this.ctx.destination);
+
+      src.start(now);
+      src.stop(now + durationSec + 0.05);
+    }
+
+    toggle() {
+      this.isEnabled = !this.isEnabled;
+      return this.isEnabled;
+    }
+  }
+
+  const breathAudio = new SoothingBreathAudioEngine();
+
+  // DOM Elements
   const lotusCanvas = document.getElementById('sacred-lotus-canvas');
   const orbBtn = document.getElementById('orb-toggle-btn');
   const orbLabel = document.getElementById('orb-btn-label');
   const btnCtrlIcon = document.getElementById('btn-ctrl-icon');
+  const breathSoundBtn = document.getElementById('breath-sound-toggle-btn');
+  const breathSoundIcon = document.getElementById('breath-sound-icon');
+  const breathSoundLabel = document.getElementById('breath-sound-label');
   const guideText = document.getElementById('breathing-guide-text');
   const sacredGuideSubtext = document.getElementById('sacred-guide-subtext');
   const sacredPhaseEyebrow = document.getElementById('sacred-phase-eyebrow');
@@ -1774,12 +1900,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const breathCycleTracker = document.getElementById('breath-cycle-tracker');
   const cycleCountLabel = document.getElementById('cycle-count-label');
   const breathModeDesc = document.getElementById('breath-mode-desc');
-  const btnModeDouble = document.getElementById('btn-mode-double');
-  const btnModeTwoCount = document.getElementById('btn-mode-twocount');
+  const btnPaceGrounding = document.getElementById('btn-pace-grounding');
+  const btnPaceSteady = document.getElementById('btn-pace-steady');
   const breathWorkshopCtaBtn = document.getElementById('breath-workshop-cta-btn');
 
-  // State Machine Configuration
-  let currentBreathMode = 'double-inhale'; // 'double-inhale' (13.0s) or 'two-count' (4.0s)
+  // State Configuration
+  let currentPace = 'grounding'; // 'grounding' (3s In / 3s Out = 6s cycle) or 'steady' (2s In / 2s Out = 4s cycle)
   let isBreathingActive = false;
   let breathStartTime = null;
   let breathAnimId = null;
@@ -1787,40 +1913,49 @@ document.addEventListener('DOMContentLoaded', () => {
   const TARGET_CYCLES = 5;
   let hasFiredGA4_3Cycles = false;
   let lastReportedCycleIndex = -1;
+  let lastTriggeredPhase = -1;
 
-  // Real-time animation physics metrics passed to Sacred Canvas Renderer
+  // Real-time animation metrics
   let currentGeometryScale = 0.15;      // Layer 1 & 2 scale (0.15 to 1.00)
   let currentLayer3Scale = 0.15;        // Layer 3 Metatron Star scale (0.15 to 1.00)
   let currentRotationAngle = 0;         // Geometry rotation angle in radians
   let currentCyanGlowIntensity = 0;     // Bioluminescent cyan glow (0.0 to 1.0)
   let currentCycleProgress = 0;         // Progress within current cycle (0.0 to 1.0)
-  let currentPhaseIndex = -1;
+  let currentPhaseIndex = -1;           // 0: Inhale, 1: Exhale
 
-  // Check Accessibility prefers-reduced-motion
+  // Accessibility prefers-reduced-motion
   const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Mode Descriptions
-  const MODE_DESCRIPTIONS = {
-    'double-inhale': 'Double-Inhale Physiological Sigh • 13.0s Cycle • Rapidly activates the parasympathetic vagal brake',
-    'two-count': 'Coherent 2-Count Pulse • 4.0s Rhythm • Rapid centering for stage presence, focus & balance'
+  // Pace durations in milliseconds (strictly 2-count, ZERO PAUSES)
+  const PACE_CONFIGS = {
+    'grounding': {
+      phaseMs: 3000,
+      cycleMs: 6000,
+      desc: 'Soothing 2-Count Flow • 3.0s Inhale (Count 1, 2) • 3.0s Exhale (Count 1, 2) • Zero Pauses'
+    },
+    'steady': {
+      phaseMs: 2000,
+      cycleMs: 4000,
+      desc: 'Active 2-Count Pulse • 2.0s Inhale (Count 1, 2) • 2.0s Exhale (Count 1, 2) • Zero Pauses'
+    }
   };
 
-  // Google Ad Grants & GA4 Engagement Hook
+  // Google Ad Grants / GA4 Hook
   function fireGA4WidgetEngagement(source) {
     if (typeof gtag === 'function') {
       try {
         gtag('event', 'wellness_widget_engaged', {
           event_category: 'somatic_breathwork',
-          event_label: source || 'wellness_widget_interaction',
-          mode: currentBreathMode,
-          cycles_completed: completedCycles,
+          event_label: source || 'user_interaction',
+          pace: currentPace,
+          completed_cycles: completedCycles,
           value: 1
         });
-      } catch (err) {
-        console.warn('[GA4] Event dispatch error:', err);
+      } catch (e) {
+        console.warn('[GA4] Event dispatch error:', e);
       }
     }
-    console.log('[Inner Sanctuary GA4] Event fired: wellness_widget_engaged | Source:', source, '| Mode:', currentBreathMode);
+    console.log('[Inner Sanctuary GA4] Event fired: wellness_widget_engaged | Source:', source, '| Pace:', currentPace);
   }
 
   // Update Cycle Counter HUD
@@ -1839,7 +1974,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Floating Stardust Motes
   const stardustParticles = [];
-  const NUM_STARDUST = 24;
+  const NUM_STARDUST = 22;
   for (let i = 0; i < NUM_STARDUST; i++) {
     stardustParticles.push({
       angle: (i / NUM_STARDUST) * Math.PI * 2,
@@ -1852,171 +1987,84 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // -------------------------------------------------------------------------
-  // BREATHING STATE MACHINE UPDATE LOOP
+  // CONTINUOUS 2-COUNT BREATHING UPDATE LOOP (ZERO PAUSES)
+  // Inhale (Counts 1 & 2) -> Exhale (Counts 1 & 2) -> Seamlessly loops!
   // -------------------------------------------------------------------------
   function updateSacredBreathLoop(now) {
     if (!isBreathingActive) return;
     if (!breathStartTime) breathStartTime = now;
 
+    const config = PACE_CONFIGS[currentPace] || PACE_CONFIGS['grounding'];
     const totalElapsed = now - breathStartTime;
+    const cycleTime = totalElapsed % config.cycleMs;
+    currentCycleProgress = cycleTime / config.cycleMs;
 
-    if (currentBreathMode === 'double-inhale') {
-      // MODE A: "2-Breath Sanctuary Reset" (Double-Inhale Physiological Sigh — 13.0s Cycle)
-      const CYCLE_DURATION = 13000;
-      const cycleTime = totalElapsed % CYCLE_DURATION;
-      currentCycleProgress = cycleTime / CYCLE_DURATION;
+    // Track cycle completions
+    const cycleIdx = Math.floor(totalElapsed / config.cycleMs);
+    if (cycleIdx > lastReportedCycleIndex) {
+      if (lastReportedCycleIndex !== -1) {
+        completedCycles++;
+        updateCycleTrackerUI();
 
-      // Track completed cycles
-      const cycleIdx = Math.floor(totalElapsed / CYCLE_DURATION);
-      if (cycleIdx > lastReportedCycleIndex) {
-        if (lastReportedCycleIndex !== -1) {
-          completedCycles++;
-          updateCycleTrackerUI();
-
-          if (completedCycles === 3 && !hasFiredGA4_3Cycles) {
-            hasFiredGA4_3Cycles = true;
-            fireGA4WidgetEngagement('completed_3_cycles');
-            showToast('✨ Nervous System Grounded! 3 Breath Cycles Complete.');
-          } else if (completedCycles === TARGET_CYCLES) {
-            showToast('🏆 Full 5-Cycle Somatic Reset Complete! Deep peace is with you.');
-          }
+        if (completedCycles === 3 && !hasFiredGA4_3Cycles) {
+          hasFiredGA4_3Cycles = true;
+          fireGA4WidgetEngagement('completed_3_cycles');
+          showToast('✨ Nervous System Grounded! 3 Cycles Complete.');
+        } else if (completedCycles === TARGET_CYCLES) {
+          showToast('🏆 Full 5-Cycle Reset Complete! Inner peace achieved.');
         }
-        lastReportedCycleIndex = cycleIdx;
       }
+      lastReportedCycleIndex = cycleIdx;
+    }
 
-      // Phase Timing Windows:
-      // 1. INHALE 1: 0ms -> 2500ms (2.5s)
-      // 2. MICRO-PAUSE: 2500ms -> 3000ms (0.5s)
-      // 3. INHALE 2: 3000ms -> 4500ms (1.5s)
-      // 4. APEX HOLD: 4500ms -> 5500ms (1.0s)
-      // 5. LONG EXHALE: 5500ms -> 11500ms (6.0s)
-      // 6. CORE STILLNESS: 11500ms -> 13000ms (1.5s)
+    // Phase determination (0: INHALE, 1: EXHALE - ZERO PAUSES)
+    const phaseIndex = Math.floor(cycleTime / config.phaseMs);
+    const phaseElapsed = cycleTime % config.phaseMs;
+    const p = phaseElapsed / config.phaseMs; // 0.0 to 1.0
+    const ease = (1 - Math.cos(p * Math.PI)) / 2;
 
-      if (cycleTime < 2500) {
-        // Phase 1: Inhale 1 (Deep Belly Breath)
-        currentPhaseIndex = 0;
-        const p = cycleTime / 2500;
-        const ease = (1 - Math.cos(p * Math.PI)) / 2;
-        currentGeometryScale = 0.15 + 0.60 * ease; // 0.15 -> 0.75
-        currentLayer3Scale = 0.15 + 0.15 * ease;   // 0.15 -> 0.30 (subtle)
-        currentRotationAngle = prefersReducedMotion ? 0 : ease * 0.35;
-        currentCyanGlowIntensity = 0.05 * ease;
-
-        const countSec = Math.min(2, Math.floor(p * 2.5) + 1);
-        setHUD('INHALE (1 OF 2)', 'BELLY INHALE', `${countSec}s`, 'Breathe In (1 of 2)... Fill the Belly');
-      } else if (cycleTime < 3000) {
-        // Phase 2: Micro-Pause (0.5s)
-        currentPhaseIndex = 1;
-        const p = (cycleTime - 2500) / 500;
-        const pulse = Math.sin(p * Math.PI) * 0.02;
-        currentGeometryScale = 0.75 + pulse;
-        currentLayer3Scale = 0.30;
-        currentRotationAngle = prefersReducedMotion ? 0 : 0.35;
-        currentCyanGlowIntensity = 0.1;
-
-        setHUD('MICRO-PAUSE', 'HOLD', 'HOLD', 'Soft pause... prepare for the sip');
-      } else if (cycleTime < 4500) {
-        // Phase 3: Inhale 2 (Top-Off Sip of Air - 1.5s)
-        // Layer 3 (Metatron's Star) snaps open from 0.75 to 1.00 scale with bioluminescent cyan glow!
-        currentPhaseIndex = 2;
-        const p = (cycleTime - 3000) / 1500;
-        const ease = (1 - Math.cos(p * Math.PI)) / 2;
-        currentGeometryScale = 0.75 + 0.25 * ease; // 0.75 -> 1.00
-        currentLayer3Scale = 0.30 + 0.70 * ease;   // Snaps open to 1.00 full scale!
-        currentRotationAngle = prefersReducedMotion ? 0 : 0.35 + ease * 0.30;
-        currentCyanGlowIntensity = ease;          // Bioluminescent cyan glow blooms to 1.0
-
-        setHUD('SIP AIR (2 OF 2)', 'TOP-OFF SIP', 'SIP', 'Sip More Air In (2 of 2)... Top It Off');
-      } else if (cycleTime < 5500) {
-        // Phase 4: Apex Hold (1.0s)
-        currentPhaseIndex = 3;
-        const p = (cycleTime - 4500) / 1000;
-        const pulse = Math.sin(p * Math.PI) * 0.02;
-        currentGeometryScale = 1.00 + pulse;
-        currentLayer3Scale = 1.00;
-        currentRotationAngle = prefersReducedMotion ? 0 : 0.65;
-        currentCyanGlowIntensity = 1.0;
-
-        setHUD('STILLNESS', 'HOLD RESONANCE', 'HOLD', 'Hold & Feel the Resonance');
-      } else if (cycleTime < 11500) {
-        // Phase 5: Long Exhale (Collapse into Center - 6.0s)
-        // Geometry counter-rotates and folds inward from 1.00 back to 0.15 scale
-        currentPhaseIndex = 4;
-        const p = (cycleTime - 5500) / 6000;
-        const ease = (1 - Math.cos(p * Math.PI)) / 2;
-        currentGeometryScale = 1.00 - 0.85 * ease; // 1.00 -> 0.15
-        currentLayer3Scale = 1.00 - 0.85 * ease;   // 1.00 -> 0.15
-        currentRotationAngle = prefersReducedMotion ? 0 : 0.65 * (1 - ease);
-        currentCyanGlowIntensity = 1.0 * (1 - ease);
-
-        const secLeft = Math.max(1, 6 - Math.floor(p * 6));
-        setHUD('RELEASE', 'SLOW EXHALE', `${secLeft}s`, 'Slow Exhale Out the Mouth... Let It Fold Inward');
+    // Trigger soothing breath sounds right at phase transition
+    if (phaseIndex !== lastTriggeredPhase) {
+      lastTriggeredPhase = phaseIndex;
+      const phaseDurationSec = config.phaseMs / 1000;
+      if (phaseIndex === 0) {
+        breathAudio.playInhale(phaseDurationSec);
       } else {
-        // Phase 6: Core Stillness (1.5s)
-        currentPhaseIndex = 5;
-        const p = (cycleTime - 11500) / 1500;
-        const pulse = Math.sin(p * Math.PI * 2) * 0.015;
-        currentGeometryScale = 0.15 + pulse;
-        currentLayer3Scale = 0.15;
-        currentRotationAngle = 0;
-        currentCyanGlowIntensity = 0;
-
-        setHUD('THE SEED', 'CORE STILLNESS', 'REST', 'Rest at the glowing seed... grounding');
+        breathAudio.playExhale(phaseDurationSec);
       }
+    }
 
+    currentPhaseIndex = phaseIndex;
+
+    // Determine Count 1 or Count 2 (divided evenly across the phase)
+    const countNumber = p < 0.5 ? '1' : '2';
+
+    if (phaseIndex === 0) {
+      // INHALE (2 Counts): Mandala blooms outward smoothly from 0.15 to 1.00 scale
+      currentGeometryScale = 0.15 + 0.85 * ease;
+      currentLayer3Scale = 0.15 + 0.85 * ease;
+      currentRotationAngle = prefersReducedMotion ? 0 : ease * 0.45;
+      currentCyanGlowIntensity = 0.85 * ease;
+
+      setHUD(
+        '✦ 2-COUNT FLOW (NO PAUSE) ✦',
+        'INHALE',
+        `COUNT ${countNumber}`,
+        `Breathe In... ${countNumber === '1' ? '1...' : '1... 2'}`
+      );
     } else {
-      // MODE B: "2-Count Stage Pulse" (4.0s Coherent Rhythm for Performers)
-      const CYCLE_DURATION = 4000;
-      const cycleTime = totalElapsed % CYCLE_DURATION;
-      currentCycleProgress = cycleTime / CYCLE_DURATION;
+      // EXHALE (2 Counts): Mandala counter-rotates and collapses inward from 1.00 to 0.15 scale
+      currentGeometryScale = 1.00 - 0.85 * ease;
+      currentLayer3Scale = 1.00 - 0.85 * ease;
+      currentRotationAngle = prefersReducedMotion ? 0 : 0.45 * (1 - ease);
+      currentCyanGlowIntensity = 0.85 * (1 - ease);
 
-      // Track completed cycles
-      const cycleIdx = Math.floor(totalElapsed / CYCLE_DURATION);
-      if (cycleIdx > lastReportedCycleIndex) {
-        if (lastReportedCycleIndex !== -1) {
-          completedCycles++;
-          updateCycleTrackerUI();
-
-          if (completedCycles === 3 && !hasFiredGA4_3Cycles) {
-            hasFiredGA4_3Cycles = true;
-            fireGA4WidgetEngagement('completed_3_cycles');
-            showToast('✨ Stage Presence Centered! 3 Cycles Complete.');
-          } else if (completedCycles === TARGET_CYCLES) {
-            showToast('🏆 5-Cycle Rhythm Achieved! You are centered and ready.');
-          }
-        }
-        lastReportedCycleIndex = cycleIdx;
-      }
-
-      // Phase Timing:
-      // 1. INHALE (2 Counts): 0ms -> 2000ms
-      // 2. EXHALE (2 Counts): 2000ms -> 4000ms
-
-      if (cycleTime < 2000) {
-        // Inhale 2 Counts
-        currentPhaseIndex = 0;
-        const p = cycleTime / 2000;
-        const ease = (1 - Math.cos(p * Math.PI)) / 2;
-        currentGeometryScale = 0.15 + 0.85 * ease; // 0.15 -> 1.00
-        currentLayer3Scale = 0.15 + 0.85 * ease;   // 0.15 -> 1.00
-        currentRotationAngle = prefersReducedMotion ? 0 : ease * 0.50;
-        currentCyanGlowIntensity = 0.8 * ease;
-
-        const countNum = p < 0.5 ? '1' : '2';
-        setHUD('STAGE INHALE', 'INHALE', `COUNT ${countNum}`, `Inhale... 1... 2`);
-      } else {
-        // Exhale 2 Counts
-        currentPhaseIndex = 1;
-        const p = (cycleTime - 2000) / 2000;
-        const ease = (1 - Math.cos(p * Math.PI)) / 2;
-        currentGeometryScale = 1.00 - 0.85 * ease; // 1.00 -> 0.15
-        currentLayer3Scale = 1.00 - 0.85 * ease;   // 1.00 -> 0.15
-        currentRotationAngle = prefersReducedMotion ? 0 : 0.50 * (1 - ease);
-        currentCyanGlowIntensity = 0.8 * (1 - ease);
-
-        const countNum = p < 0.5 ? '1' : '2';
-        setHUD('STAGE EXHALE', 'EXHALE', `COUNT ${countNum}`, `Exhale... 1... 2`);
-      }
+      setHUD(
+        '✦ 2-COUNT FLOW (NO PAUSE) ✦',
+        'EXHALE',
+        `COUNT ${countNumber}`,
+        `Breathe Out... ${countNumber === '1' ? '1...' : '1... 2 (collapse inward)'}`
+      );
     }
 
     // Sync ambient background canvas breathing aura
@@ -2050,7 +2098,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // -------------------------------------------------------------------------
-  // SESSION CONTROLS: START / PAUSE / MODE SWITCH
+  // SESSION CONTROLS: START / PAUSE / PACE SWITCH / SOUND TOGGLE
   // -------------------------------------------------------------------------
   function startSomaticBreath() {
     if (isBreathingActive) {
@@ -2061,6 +2109,7 @@ document.addEventListener('DOMContentLoaded', () => {
     isBreathingActive = true;
     breathStartTime = performance.now();
     lastReportedCycleIndex = -1;
+    lastTriggeredPhase = -1;
 
     if (orbBtn) {
       orbBtn.classList.add('active');
@@ -2072,19 +2121,15 @@ document.addEventListener('DOMContentLoaded', () => {
       btnCtrlIcon.textContent = '⏸';
     }
 
-    // Start natural ambient soundscape if loaded and user hasn't muted
-    if (soundscape && !soundscape.isPlaying) {
-      soundscape.start();
-    }
-
     cancelAnimationFrame(breathAnimId);
     breathAnimId = requestAnimationFrame(updateSacredBreathLoop);
-    showToast('🍃 Sacred Geometry Grounding active. Breathe with the mandala...');
+    showToast('🍃 2-Count Sacred Breath active. Follow the flowing rhythm...');
   }
 
   function stopSomaticBreath() {
     isBreathingActive = false;
     breathStartTime = null;
+    lastTriggeredPhase = -1;
     cancelAnimationFrame(breathAnimId);
 
     if (window.sanctuaryBreathSync) {
@@ -2095,7 +2140,7 @@ document.addEventListener('DOMContentLoaded', () => {
       orbBtn.classList.remove('active');
     }
     if (orbLabel) {
-      orbLabel.textContent = 'Begin Breath Session';
+      orbLabel.textContent = 'Begin 2-Count Breath';
     }
     if (btnCtrlIcon) {
       btnCtrlIcon.textContent = '▶';
@@ -2106,50 +2151,69 @@ document.addEventListener('DOMContentLoaded', () => {
     showToast('🕊️ Breathwork paused. Resting at center.');
   }
 
-  // Mode Switcher Handlers
-  function switchBreathMode(newMode) {
-    if (currentBreathMode === newMode) return;
-    currentBreathMode = newMode;
+  // Pace Switcher
+  function switchPace(newPace) {
+    if (currentPace === newPace) return;
+    currentPace = newPace;
 
-    if (btnModeDouble && btnModeTwoCount) {
-      if (newMode === 'double-inhale') {
-        btnModeDouble.classList.add('active');
-        btnModeDouble.setAttribute('aria-selected', 'true');
-        btnModeTwoCount.classList.remove('active');
-        btnModeTwoCount.setAttribute('aria-selected', 'false');
+    if (btnPaceGrounding && btnPaceSteady) {
+      if (newPace === 'grounding') {
+        btnPaceGrounding.classList.add('active');
+        btnPaceGrounding.setAttribute('aria-selected', 'true');
+        btnPaceSteady.classList.remove('active');
+        btnPaceSteady.setAttribute('aria-selected', 'false');
       } else {
-        btnModeTwoCount.classList.add('active');
-        btnModeTwoCount.setAttribute('aria-selected', 'true');
-        btnModeDouble.classList.remove('active');
-        btnModeDouble.setAttribute('aria-selected', 'false');
+        btnPaceSteady.classList.add('active');
+        btnPaceSteady.setAttribute('aria-selected', 'true');
+        btnPaceGrounding.classList.remove('active');
+        btnPaceGrounding.setAttribute('aria-selected', 'false');
       }
     }
 
-    if (breathModeDesc) {
+    const config = PACE_CONFIGS[newPace];
+    if (breathModeDesc && config) {
       breathModeDesc.style.opacity = '0';
       setTimeout(() => {
-        breathModeDesc.textContent = MODE_DESCRIPTIONS[newMode] || '';
+        breathModeDesc.textContent = config.desc;
         breathModeDesc.style.opacity = '1';
       }, 150);
     }
 
-    // Reset cycle timer smoothly for new mode
     if (isBreathingActive) {
       breathStartTime = performance.now();
       lastReportedCycleIndex = -1;
+      lastTriggeredPhase = -1;
     }
 
-    showToast(newMode === 'double-inhale'
-      ? '🌱 Mode: 2-Breath Reset (Double Inhale Sigh)'
-      : '⚡ Mode: 2-Count Stage Pulse (Coherent Rhythm)'
+    showToast(newPace === 'grounding'
+      ? '🌿 Tempo: Soothing Flow (3s In • 3s Out)'
+      : '⚡ Tempo: Active Pulse (2s In • 2s Out)'
     );
   }
 
-  if (btnModeDouble) {
-    btnModeDouble.addEventListener('click', () => switchBreathMode('double-inhale'));
+  if (btnPaceGrounding) {
+    btnPaceGrounding.addEventListener('click', () => switchPace('grounding'));
   }
-  if (btnModeTwoCount) {
-    btnModeTwoCount.addEventListener('click', () => switchBreathMode('two-count'));
+  if (btnPaceSteady) {
+    btnPaceSteady.addEventListener('click', () => switchPace('steady'));
+  }
+
+  // Breath Sound Toggle
+  if (breathSoundBtn) {
+    breathSoundBtn.addEventListener('click', () => {
+      const isSoundOn = breathAudio.toggle();
+      if (isSoundOn) {
+        breathSoundBtn.classList.remove('muted');
+        if (breathSoundIcon) breathSoundIcon.textContent = '🔊';
+        if (breathSoundLabel) breathSoundLabel.textContent = 'Breath Sound: ON';
+        showToast('🔊 Soothing breath sounds enabled');
+      } else {
+        breathSoundBtn.classList.add('muted');
+        if (breathSoundIcon) breathSoundIcon.textContent = '🔇';
+        if (breathSoundLabel) breathSoundLabel.textContent = 'Breath Sound: OFF';
+        showToast('🔇 Breath sounds muted');
+      }
+    });
   }
 
   if (orbBtn) {
@@ -2169,9 +2233,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // -------------------------------------------------------------------------
   // 60FPS SACRED GEOMETRY CANVAS RENDERER (#sacred-lotus-canvas)
   // Multi-layered Sacred Geometry:
-  // Layer 1: Core Seed (glowing golden-amber orb)
+  // Layer 1: Core Seed (glowing golden-amber orb that never disappears)
   // Layer 2: 6-Fold Flower of Life Petals (expand outward, collapse into center)
-  // Layer 3: 12-Fold Metatron's Star / Sri Yantra (snaps open on 2nd inhale with cyan glow, collapses inward on exhale)
+  // Layer 3: 12-Fold Metatron's Star (blooms on inhale, collapses inward on exhale)
   // Layer 4: Outer Orbit Track & Traveling Starlight Pearl
   // Layer 5: Drifting Sacred Stardust Motes
   // -------------------------------------------------------------------------
@@ -2264,15 +2328,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // ---------------------------------------------------------------------
       // LAYER 3: 12-Fold Metatron's Star / Sri Yantra Polygon
-      // 12 radial vertices spaced at 30-degree intervals (0° through 330°)
-      // Connected by chords (every 4th vertex for 3 triangles, every 5th for star lattice)
-      // Snaps open on 2nd inhale with bioluminescent golden-cyan glow!
-      // Folds inward toward center on exhale!
+      // Interlocking triangles & star lattice:
+      // Blooms outward on Inhale, collapses inward into center on Exhale!
       // ---------------------------------------------------------------------
       const STAR_MAX_R = 124;
       const starR = STAR_MAX_R * starScale;
 
-      if (starR > 6) {
+      if (starR > 5) {
         lctx.save();
         const vertices = [];
         for (let i = 0; i < 12; i++) {
@@ -2283,7 +2345,6 @@ document.addEventListener('DOMContentLoaded', () => {
           });
         }
 
-        // Chord stroke styling
         const isCyanPeak = cyanIntensity > 0.35;
         lctx.strokeStyle = isCyanPeak
           ? `rgba(0, 242, 254, ${0.45 + cyanIntensity * 0.45})`
@@ -2338,9 +2399,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // ---------------------------------------------------------------------
       // LAYER 2: 6-Fold Flower of Life Petals
-      // 6 overlapping circles at 60-degree intervals (0°, 60°, 120°, 180°, 240°, 300°)
-      // As breath progresses, distance of each circle's center from origin expands & rotates;
-      // On exhale, counter-rotates and collapses inward until merging into center circle!
+      // Expands outward on Inhale; collapses inward and counter-rotates on Exhale!
       // ---------------------------------------------------------------------
       lctx.save();
       const FLOWER_MAX_DIST = 46;
@@ -2379,7 +2438,6 @@ document.addEventListener('DOMContentLoaded', () => {
       lctx.save();
       const coreSeedRadius = 12 + 8 * scale + Math.sin(ambientTime * 2.5) * 1.5;
 
-      // Center multi-stop luminous glow
       const seedGrad = lctx.createRadialGradient(CX, CY, 0, CX, CY, coreSeedRadius * 2.0);
       seedGrad.addColorStop(0, '#FFFFFF');
       seedGrad.addColorStop(0.25, '#FFF2A8');
@@ -2409,61 +2467,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Tap/Click on Canvas to toggle breathwork
     lotusCanvas.addEventListener('click', startSomaticBreath);
-  }
-
-  // =========================================================================
-  // ECHO SANCTUARY WISDOM REFLECTION (Interactive Somatic Companion)
-  // =========================================================================
-  const echoStamp = document.querySelector('.echo-sanctuary-stamp');
-  const echoWisdomQuotes = [
-    "Take a breath, friend. You don't have to carry the whole forest on your shoulders today.",
-    "Sanctuary isn't a place we have to search for; it has been resting inside you all along.",
-    "Feel how unconditionally the earth holds you in this very moment. You are safe to let go.",
-    "Your breath is your anchor. Whenever the world is loud, return to your four sacred counts.",
-    "Give yourself permission to feel without judgment. Tears and laughter both belong here.",
-    "Root down deeply into who you are, so your branches can sway freely in the wind."
-  ];
-
-  let echoQuoteIdx = 0;
-  if (echoStamp) {
-    echoStamp.style.cursor = 'pointer';
-    echoStamp.setAttribute('role', 'button');
-    echoStamp.setAttribute('tabindex', '0');
-    echoStamp.setAttribute('title', "Click to receive Echo's Sanctuary Reflection ✦");
-
-    const triggerEchoWisdom = () => {
-      playHarmonicTone(432, 2.8, 0.045);
-      createHeartFlourish();
-      const quote = echoWisdomQuotes[echoQuoteIdx % echoWisdomQuotes.length];
-      echoQuoteIdx++;
-      showToast(`🦉 Echo: "${quote}"`);
-
-      // Switch into Echo Living Guide mode so her video guide appears
-      if (typeof switchPortalMode === 'function' && portalVisualMode !== 'echo') {
-        switchPortalMode('echo');
-      }
-
-      // Avatar frame pulse animation
-      const avatar = echoStamp.querySelector('.echo-avatar-frame');
-      if (avatar) {
-        avatar.style.transform = 'scale(1.18)';
-        avatar.style.boxShadow = '0 0 24px rgba(248, 217, 140, 0.95)';
-        avatar.style.borderColor = '#FFF3A8';
-        setTimeout(() => {
-          avatar.style.transform = '';
-          avatar.style.boxShadow = '';
-          avatar.style.borderColor = '';
-        }, 800);
-      }
-    };
-
-    echoStamp.addEventListener('click', triggerEchoWisdom);
-    echoStamp.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        triggerEchoWisdom();
-      }
-    });
   }
 
   // =========================================================================
