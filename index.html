@@ -145,12 +145,12 @@
 
       <ul class="nav-links">
         <li><a href="#remember">Home</a></li>
-        <li><a href="#medicine">About Us</a></li>
+        <li><a href="#breath">Sacred Breath</a></li>
+        <li><a href="#medicine">About Us (LSD)</a></li>
         <li><a href="#open-mic">Our Programs</a></li>
         <li><a href="#horizons">Our Vision</a></li>
         <li><a href="#sponsorship">Partner With Us</a></li>
         <li><a href="#stay-in-loop">Events & Updates</a></li>
-        <li><a href="#breath">Sacred Breath</a></li>
         <li><a href="#connect">Get Involved</a></li>
       </ul>
 
@@ -170,12 +170,12 @@
     <div id="mobile-nav-drawer" class="hidden" style="display: none; padding: 20px 24px; background: #F6F3EC; border-bottom: 1px solid var(--sunburst-gold);">
       <ul style="list-style: none; display: flex; flex-direction: column; gap: 14px; font-weight: 600; text-transform: uppercase; font-size: 0.85rem;">
         <li><a href="#remember">Home</a></li>
-        <li><a href="#medicine">About Us</a></li>
+        <li><a href="#breath">Sacred Breath</a></li>
+        <li><a href="#medicine">About Us (LSD)</a></li>
         <li><a href="#open-mic">Our Programs</a></li>
         <li><a href="#horizons">Our Vision</a></li>
         <li><a href="#sponsorship">Partner With Us</a></li>
         <li><a href="#stay-in-loop">Events & Updates</a></li>
-        <li><a href="#breath">Sacred Breath</a></li>
         <li><a href="#connect">Get Involved</a></li>
         <li><button type="button" onclick="openZeffyModal(event)" class="btn btn-gold btn-liquid-gold pulse-gold" style="display: inline-block; width: 100%; text-align: center; margin-top: 6px; padding: 10px 18px; cursor: pointer;">Donate $1</button></li>
         <li><a href="https://www.instagram.com/ourinnersanctuary/" target="_blank" rel="noopener noreferrer" style="color: var(--sunburst-gold); display: flex; align-items: center; gap: 8px;">📸 Instagram: @ourinnersanctuary</a></li>
@@ -293,8 +293,8 @@
         <div class="hero-cta-group" style="margin-top: 28px;">
           <button type="button" onclick="openZeffyModal(event)" class="btn btn-gold btn-liquid-gold pulse-gold" style="cursor: pointer;">🌱 Donate $1</button>
           <a href="#open-mic" class="btn btn-gold">Community Gathering</a>
-          <a href="#medicine" class="btn btn-forest">Our Medicine: LSD</a>
           <a href="#breath" class="btn btn-outline">Sacred Breathwork ✦</a>
+          <a href="#medicine" class="btn btn-forest">Our Medicine: LSD</a>
           <a href="#connect" class="btn btn-gold">Get Involved</a>
         </div>
       </div>
@@ -321,6 +321,65 @@
         <span class="trust-icon">✦</span>
         <span>Alcohol-Free Creative Safe Spaces</span>
       </div>
+    </div>
+  </section>
+
+  <!-- ==================== SACRED SOMATIC BREATHWORK INTEGRATION (HERO GROUNDING) ==================== -->
+  <section id="breath" class="section-padding sacred-breath-section">
+    <div class="container" style="text-align: center;">
+      
+      <div class="section-header" style="max-width: 620px; margin: 0 auto 16px; text-align: center;">
+        <div class="section-subtitle" style="color: #F5AF19;">Somatic Reset • Unhurried Presence</div>
+        <h2 class="section-title" style="color: #FFFFFF;">Pause &amp; Breathe</h2>
+        <div class="flourish-divider">✦</div>
+        <p style="color: #CBD7D0; font-size: 1.02rem; line-height: 1.7; margin-bottom: 0;">
+          Soften your shoulders. Tap the orb and breathe with its gentle expansion and release.
+        </p>
+      </div>
+
+      <!-- Living Breath Orb Card (Simple, Minimal, Zen) -->
+      <div class="sanctuary-orb-card" id="sacred-breathing-portal">
+        
+        <!-- The Living Breathing Orb Stage -->
+        <div class="breathing-orb-wrapper" id="breathing-orb-stage" role="button" tabindex="0" title="Click or tap the Orb to breathe" aria-label="Interactive Breathing Orb">
+          <div class="breathing-pulse-ring"></div>
+          <div class="breathing-halo-aura" id="somatic-halo"></div>
+          <div class="breathing-orb" id="somatic-orb" style="background: radial-gradient(circle at 32% 28%, #FFFDF0 0%, #FFE57F 16%, #F5AF19 40%, #E69500 68%, #C67D00 88%, #9E6300 100%) !important;">
+            <div class="orb-inner-glow" id="orb-inner-glow"></div>
+            <div class="orb-center-content">
+              <span class="orb-breath-word" id="orb-breath-word">Breathe</span>
+            </div>
+          </div>
+        </div>
+
+        <div id="orb-status-prompt" class="orb-status-prompt">
+          Tap the orb or press begin below
+        </div>
+
+        <!-- Minimal Action Controls -->
+        <div class="orb-actions-bar">
+          <button id="orb-toggle-btn" class="breath-primary-toggle" type="button" aria-label="Start or Pause Breath Session">
+            <span class="btn-ctrl-icon" id="btn-ctrl-icon">▶</span>
+            <span id="orb-btn-label">Begin</span>
+          </button>
+
+          <!-- Soothing Breath Sound Toggle -->
+          <button id="breath-sound-toggle-btn" class="breath-audio-toggle" type="button" aria-label="Toggle Soothing Breath Sound" title="Toggle natural breath sounds">
+            <span id="breath-sound-icon">🔊</span>
+            <span id="breath-sound-label">Sound: ON</span>
+          </button>
+        </div>
+
+        <!-- Google Ad Grants / GA4 Engagement CTA Hook -->
+        <div class="breath-workshop-cta-wrap" style="margin-top: 14px; padding-top: 10px; border-top: 1px solid rgba(245, 175, 25, 0.15);">
+          <a href="#connect" class="breath-workshop-cta-btn" id="breath-workshop-cta-btn">
+            <span>Join Our Next Live Wellness Workshop</span>
+            <span class="cta-arrow">→</span>
+          </a>
+        </div>
+
+      </div>
+
     </div>
   </section>
 
@@ -1379,65 +1438,6 @@
     </div>
   </section>
 
-  <!-- ==================== SACRED SOMATIC BREATHWORK INTEGRATION (BOTTOM GROUNDING) ==================== -->
-  <section id="breath" class="section-padding sacred-breath-section">
-    <div class="container" style="text-align: center;">
-      
-      <div class="section-header" style="max-width: 620px; margin: 0 auto 16px; text-align: center;">
-        <div class="section-subtitle" style="color: #F5AF19;">Somatic Reset • Unhurried Presence</div>
-        <h2 class="section-title" style="color: #FFFFFF;">Pause &amp; Breathe</h2>
-        <div class="flourish-divider">✦</div>
-        <p style="color: #CBD7D0; font-size: 1.02rem; line-height: 1.7; margin-bottom: 0;">
-          Soften your shoulders. Tap the orb and breathe with its gentle expansion and release.
-        </p>
-      </div>
-
-      <!-- Living Breath Orb Card (Simple, Minimal, Zen) -->
-      <div class="sanctuary-orb-card" id="sacred-breathing-portal">
-        
-        <!-- The Living Breathing Orb Stage -->
-        <div class="breathing-orb-wrapper" id="breathing-orb-stage" role="button" tabindex="0" title="Click or tap the Orb to breathe" aria-label="Interactive Breathing Orb">
-          <div class="breathing-pulse-ring"></div>
-          <div class="breathing-halo-aura" id="somatic-halo"></div>
-          <div class="breathing-orb" id="somatic-orb" style="background: radial-gradient(circle at 32% 28%, #FFFDF0 0%, #FFE57F 16%, #F5AF19 40%, #E69500 68%, #C67D00 88%, #9E6300 100%) !important;">
-            <div class="orb-inner-glow" id="orb-inner-glow"></div>
-            <div class="orb-center-content">
-              <span class="orb-breath-word" id="orb-breath-word">Breathe</span>
-            </div>
-          </div>
-        </div>
-
-        <div id="orb-status-prompt" class="orb-status-prompt">
-          Tap the orb or press begin below
-        </div>
-
-        <!-- Minimal Action Controls -->
-        <div class="orb-actions-bar">
-          <button id="orb-toggle-btn" class="breath-primary-toggle" type="button" aria-label="Start or Pause Breath Session">
-            <span class="btn-ctrl-icon" id="btn-ctrl-icon">▶</span>
-            <span id="orb-btn-label">Begin</span>
-          </button>
-
-          <!-- Soothing Breath Sound Toggle -->
-          <button id="breath-sound-toggle-btn" class="breath-audio-toggle" type="button" aria-label="Toggle Soothing Breath Sound" title="Toggle natural breath sounds">
-            <span id="breath-sound-icon">🔊</span>
-            <span id="breath-sound-label">Sound: ON</span>
-          </button>
-        </div>
-
-        <!-- Google Ad Grants / GA4 Engagement CTA Hook -->
-        <div class="breath-workshop-cta-wrap" style="margin-top: 14px; padding-top: 10px; border-top: 1px solid rgba(245, 175, 25, 0.15);">
-          <a href="#connect" class="breath-workshop-cta-btn" id="breath-workshop-cta-btn">
-            <span>Join Our Next Live Wellness Workshop</span>
-            <span class="cta-arrow">→</span>
-          </a>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
   <footer>
     <div class="container">
       
@@ -1468,13 +1468,13 @@
           <h5>Quick Navigation</h5>
           <ul class="footer-links">
             <li><a href="#remember">Pause. Breathe. Remember.</a></li>
+            <li><a href="#breath">Sacred Breathwork Reset</a></li>
             <li><a href="#medicine">Our Medicine: LSD</a></li>
             <li><a href="#open-mic">Community Open Mic & Pause</a></li>
             <li><a href="#horizons">Sanctuary Horizons</a></li>
             <li><a href="#dollar-campaign-anchor">The $1 Community Seed</a></li>
             <li><a href="#sponsorship">Institutional Grants & Partnerships</a></li>
             <li><a href="#stay-in-loop">Stay in the Loop</a></li>
-            <li><a href="#breath">Sacred Breathwork Reset</a></li>
             <li><a href="#connect">Get Involved With Us</a></li>
           </ul>
         </div>
