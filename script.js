@@ -2789,14 +2789,14 @@ document.addEventListener('DOMContentLoaded', () => {
     inkind: {
       name: 'In-Kind Community Partner',
       onetime: {
-        priceHtml: 'Starting at $25 <span>One-Time</span>',
+        priceHtml: '$25+ <span style="font-size: 0.82rem; font-weight: 600; color: var(--charcoal-muted);">Est. Value • One-Time</span>',
         desc: '<strong>One-Time Contribution:</strong> Donate goods or services for one event, with an estimated value starting at $25.',
-        btnText: 'Pledge One-Time In-Kind →',
+        btnText: 'Pledge In-Kind ($25+) →',
         roleVal: 'In-Kind Partner — One-Time ($25+ value)',
         message: 'I would like to contribute as an In-Kind Community Partner (One-Time, est. $25+ value) for an upcoming community gathering. Details of goods, refreshments, supplies, or services we wish to provide:'
       },
       quarterly: {
-        priceHtml: 'Starting at $25 <span>/ quarter</span>',
+        priceHtml: '$25+ <span style="font-size: 0.82rem; font-weight: 600; color: var(--charcoal-muted);">/ qtr • 4 Events</span>',
         desc: '<strong>Quarterly Contribution:</strong> Provide goods or services for each of our four quarterly events, with an estimated value starting at $25 per quarter (once every 3 months).',
         btnText: 'Pledge Quarterly In-Kind →',
         roleVal: 'In-Kind Partner — Quarterly ($25+/qtr value)',

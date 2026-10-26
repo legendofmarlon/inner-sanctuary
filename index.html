@@ -760,11 +760,61 @@
       <!-- 4-Column Sponsorship & Partnership Tiers -->
       <div class="sponsor-tiers-grid sponsor-four-col">
         
-        <!-- Package 1: Community Friend — $250 -->
+        <!-- Package 1: In-Kind Community Partner — Starting at $25 (Revamped & Attractive) -->
+        <div class="tier-box" id="tier-card-inkind" style="border: 1.5px solid rgba(46, 125, 50, 0.35); background: linear-gradient(180deg, #FFFFFF 0%, #FBFBF9 100%);">
+          <div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 2px;">
+              <span class="badge badge-sage" style="background: rgba(46, 125, 50, 0.12); color: #1E3A2B; border: 1px solid rgba(46, 125, 50, 0.28); font-weight: 700;">🎁 Grassroots &amp; Goods</span>
+              <span style="font-size: 0.72rem; font-weight: 700; color: #6C7A72; text-transform: uppercase; letter-spacing: 0.05em;">Tier 01</span>
+            </div>
+            
+            <h3 style="margin-top: 12px; font-size: 1.25rem;">In-Kind Partner</h3>
+            
+            <div class="tier-freq-switcher" role="group" aria-label="In-Kind Partner Frequency">
+              <button type="button" class="tier-freq-btn active" onclick="setTierFrequency('inkind', 'onetime')">One-Time</button>
+              <button type="button" class="tier-freq-btn" onclick="setTierFrequency('inkind', 'quarterly')">Quarterly</button>
+            </div>
+
+            <div class="tier-price" id="tier-price-inkind" style="font-size: 1.95rem; color: var(--forest-green); margin: 10px 0 12px;">
+              $25+ <span style="font-size: 0.82rem; font-weight: 600; color: var(--charcoal-muted);">Est. Value • One-Time</span>
+            </div>
+            
+            <div class="tier-freq-desc" id="tier-desc-inkind" style="background: rgba(46, 125, 50, 0.08); border-left: 3px solid #2E7D32;">
+              <strong>One-Time:</strong> Donate goods or services for 1 event (est. starting at $25).
+            </div>
+
+            <!-- Attractive In-Kind Category Chips -->
+            <div style="display: flex; flex-wrap: wrap; gap: 5px; margin: 10px 0 14px;">
+              <span style="font-size: 0.72rem; background: rgba(30, 58, 43, 0.07); padding: 3px 8px; border-radius: 999px; color: var(--forest-green); font-weight: 600;">🍵 Herbal Tea &amp; Nourishment</span>
+              <span style="font-size: 0.72rem; background: rgba(30, 58, 43, 0.07); padding: 3px 8px; border-radius: 999px; color: var(--forest-green); font-weight: 600;">🎁 Raffle Cards ($5–$25)</span>
+              <span style="font-size: 0.72rem; background: rgba(30, 58, 43, 0.07); padding: 3px 8px; border-radius: 999px; color: var(--forest-green); font-weight: 600;">🎨 Art Supplies &amp; Space</span>
+            </div>
+
+            <p style="font-size: 0.86rem; color: var(--charcoal-muted); line-height: 1.55; margin-bottom: 8px;">
+              Generosity comes in many forms. Support our community gatherings by donating goods, services, supplies, refreshments, event space, or professional expertise.
+            </p>
+            <p style="font-size: 0.78rem; color: var(--forest-green); font-weight: 600; font-style: italic; margin-bottom: 14px; line-height: 1.4;">
+              In-kind contributions will be reviewed and coordinated with our team.
+            </p>
+
+            <ul class="benefit-list" style="margin-bottom: 24px;">
+              <li>Name recognition on community sponsor roll</li>
+              <li>Live verbal shout-out during community raffle &amp; gathering</li>
+              <li>501(c)(3) in-kind contribution tax receipt</li>
+            </ul>
+          </div>
+          <button type="button" class="btn btn-outline tier-action-btn" id="tier-btn-inkind" onclick="selectSponsorshipPackage('inkind')" style="width: 100%; cursor: pointer;">Pledge In-Kind ($25+) →</button>
+        </div>
+
+        <!-- Package 2: Community Friend — $250 -->
         <div class="tier-box" id="tier-card-friend">
           <div>
-            <span class="badge badge-sage">Grassroots Support</span>
-            <h3 style="margin-top: 14px; font-size: 1.25rem;">Community Friend</h3>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 2px;">
+              <span class="badge badge-sage">🌱 Community Tier</span>
+              <span style="font-size: 0.72rem; font-weight: 700; color: #6C7A72; text-transform: uppercase; letter-spacing: 0.05em;">Tier 02</span>
+            </div>
+
+            <h3 style="margin-top: 12px; font-size: 1.25rem;">Community Friend</h3>
             
             <div class="tier-freq-switcher" role="group" aria-label="Community Friend Frequency">
               <button type="button" class="tier-freq-btn active" onclick="setTierFrequency('friend', 'onetime')">One-Time</button>
@@ -790,11 +840,15 @@
           <button type="button" class="btn btn-outline tier-action-btn" id="tier-btn-friend" onclick="selectSponsorshipPackage('friend')" style="width: 100%; cursor: pointer;">Select One-Time ($250) →</button>
         </div>
 
-        <!-- Package 2: Community Builder — $500 -->
+        <!-- Package 3: Community Builder — $500 -->
         <div class="tier-box" id="tier-card-builder">
           <div>
-            <span class="badge badge-sage">Neighborhood Tier</span>
-            <h3 style="margin-top: 14px; font-size: 1.25rem;">Community Builder</h3>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 2px;">
+              <span class="badge badge-sage">🌿 Neighborhood Tier</span>
+              <span style="font-size: 0.72rem; font-weight: 700; color: #6C7A72; text-transform: uppercase; letter-spacing: 0.05em;">Tier 03</span>
+            </div>
+
+            <h3 style="margin-top: 12px; font-size: 1.25rem;">Community Builder</h3>
             
             <div class="tier-freq-switcher" role="group" aria-label="Community Builder Frequency">
               <button type="button" class="tier-freq-btn active" onclick="setTierFrequency('builder', 'onetime')">One-Time</button>
@@ -820,12 +874,16 @@
           <button type="button" class="btn btn-outline tier-action-btn" id="tier-btn-builder" onclick="selectSponsorshipPackage('builder')" style="width: 100%; cursor: pointer;">Select One-Time ($500) →</button>
         </div>
 
-        <!-- Package 3: Community Champion — $1,000 (Featured / Top Tier with Booth) -->
+        <!-- Package 4: Community Champion — $1,000 (Featured / Highest Tier with Booth) -->
         <div class="tier-box featured" id="tier-card-champion">
           <div class="tier-ribbon">Top Partner Tier</div>
           <div>
-            <span class="badge badge-gold">Highest Tier</span>
-            <h3 style="margin-top: 14px; font-size: 1.25rem;">Community Champion</h3>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 2px;">
+              <span class="badge badge-gold">⭐ Highest Tier</span>
+              <span style="font-size: 0.72rem; font-weight: 700; color: #9A6F1A; text-transform: uppercase; letter-spacing: 0.05em;">Tier 04</span>
+            </div>
+
+            <h3 style="margin-top: 12px; font-size: 1.25rem;">Community Champion</h3>
             
             <div class="tier-freq-switcher" role="group" aria-label="Community Champion Frequency">
               <button type="button" class="tier-freq-btn active" onclick="setTierFrequency('champion', 'onetime')">One-Time</button>
@@ -849,38 +907,6 @@
             </ul>
           </div>
           <button type="button" class="btn btn-gold tier-action-btn" id="tier-btn-champion" onclick="selectSponsorshipPackage('champion')" style="width: 100%; cursor: pointer;">Select One-Time ($1,000) →</button>
-        </div>
-
-        <!-- Package 4: In-Kind Community Partner — Starting at $25 -->
-        <div class="tier-box" id="tier-card-inkind">
-          <div>
-            <span class="badge badge-sage">In-Kind Partnership</span>
-            <h3 style="margin-top: 14px; font-size: 1.25rem;">In-Kind Community Partner</h3>
-            
-            <div class="tier-freq-switcher" role="group" aria-label="In-Kind Partner Frequency">
-              <button type="button" class="tier-freq-btn active" onclick="setTierFrequency('inkind', 'onetime')">One-Time</button>
-              <button type="button" class="tier-freq-btn" onclick="setTierFrequency('inkind', 'quarterly')">Quarterly</button>
-            </div>
-
-            <div class="tier-price" id="tier-price-inkind" style="font-size: 1.65rem;">Starting at $25 <span>One-Time</span></div>
-            
-            <div class="tier-freq-desc" id="tier-desc-inkind">
-              <strong>One-Time Contribution:</strong> Donate goods or services for one event, with an estimated value starting at $25.
-            </div>
-
-            <p style="font-size: 0.88rem; color: var(--charcoal-muted); line-height: 1.6; margin-bottom: 8px;">
-              Generosity comes in many forms. Support our community gatherings by donating goods, services, supplies, refreshments, event space, or professional expertise.
-            </p>
-            <p style="font-size: 0.80rem; color: var(--forest-green); font-weight: 600; font-style: italic; margin-bottom: 14px;">
-              In-kind contributions will be reviewed and coordinated with our team.
-            </p>
-            <ul class="benefit-list" style="margin-bottom: 24px;">
-              <li>Name recognition on community sponsor roll</li>
-              <li>Live verbal shout-out during community raffle &amp; gathering</li>
-              <li>501(c)(3) in-kind contribution tax receipt</li>
-            </ul>
-          </div>
-          <button type="button" class="btn btn-outline tier-action-btn" id="tier-btn-inkind" onclick="selectSponsorshipPackage('inkind')" style="width: 100%; cursor: pointer;">Pledge One-Time In-Kind →</button>
         </div>
 
       </div>
