@@ -908,43 +908,256 @@
 
         </div>
 
-        <!-- Sleek 2-Column Institutional Bottom Row: Workplace Giving + Non-Discrimination -->
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px;">
+        <!-- Section Divider: Institutional Trust & Due Diligence -->
+        <div style="border-top: 1px solid rgba(197, 154, 63, 0.3); margin: 34px 0 24px; padding-top: 26px; text-align: center;">
+          <div style="font-size: 0.74rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: #F8D98C; margin-bottom: 6px;">
+            ✦ Institutional Verification &amp; Due Diligence
+          </div>
+          <h3 class="serif-brand" style="font-size: 1.55rem; color: #FFFFFF; margin-bottom: 6px;">
+            Fiduciary Transparency &amp; Grantmaker Assurance
+          </h3>
+          <p style="font-size: 0.84rem; color: #CBD7D0; max-width: 740px; margin: 0 auto; line-height: 1.55;">
+            Official tax exemption, bank CRA community development qualifications, state entity standings, and governance standards for foundation program officers, corporate CSR directors, and bank compliance leads.
+          </p>
+        </div>
+
+        <!-- 6 Institutional Verification & Governance Cards -->
+        <div class="fiduciary-badge-grid">
           
-          <!-- Workplace Giving & Matching Gifts Card -->
-          <div style="background: rgba(255, 255, 255, 0.08); border: 1.5px solid rgba(197, 154, 63, 0.35); border-radius: 12px; padding: 16px 20px; backdrop-filter: blur(8px); color: #F6F3EC; display: flex; flex-direction: column; justify-content: space-between;">
+          <!-- Fact 1: Federal Exemption -->
+          <div class="fiduciary-card">
             <div>
-              <div style="color: #F8D98C; font-weight: 700; font-size: 0.86rem; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
-                <span>✦</span> <span>Double Impact with Employer Match</span>
+              <div class="fiduciary-header">
+                <span class="fiduciary-icon">🏛️</span>
+                <span class="fiduciary-title">Federal Exemption</span>
               </div>
-              <p style="color: #CBD7D0; font-size: 0.80rem; line-height: 1.5; margin-bottom: 10px;">
-                Search for <strong>Inner Sanctuary Wellness Foundation</strong> (EIN: <strong>39-3757168</strong>) on your corporate giving portal.
+              <div class="fiduciary-value">501(c)(3) Public Charity</div>
+              <p class="fiduciary-desc">
+                Affirmed under Internal Revenue Code § 501(c)(3). Contributions are fully tax-deductible to the extent allowed by law under IRC § 170(b)(1)(A)(vi).
+              </p>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 6px; flex-wrap: wrap;">
+              <span class="fiduciary-badge-pill">✦ EIN: 39-3757168</span>
+              <button type="button" class="copy-ein-btn" onclick="navigator.clipboard.writeText('39-3757168'); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy EIN', 2000)">Copy EIN</button>
+            </div>
+          </div>
+
+          <!-- Fact 2: Bank CRA Eligibility -->
+          <div class="fiduciary-card">
+            <div>
+              <div class="fiduciary-header">
+                <span class="fiduciary-icon">📈</span>
+                <span class="fiduciary-title">Bank CRA Eligibility</span>
+              </div>
+              <div class="fiduciary-value">CRA Community Development</div>
+              <p class="fiduciary-desc">
+                Direct community service delivery targeting Low-to-Moderate Income (LMI) creators, workers, and families in Santa Ana and the Inland Empire. Comprehensive CRA audit documentation provided.
+              </p>
+            </div>
+            <span class="fiduciary-badge-pill" style="align-self: flex-start;">✦ CRA Qualified Service</span>
+          </div>
+
+          <!-- Fact 3: State Entity Standing -->
+          <div class="fiduciary-card">
+            <div>
+              <div class="fiduciary-header">
+                <span class="fiduciary-icon">🌴</span>
+                <span class="fiduciary-title">State Entity Standing</span>
+              </div>
+              <div class="fiduciary-value">California Public Benefit Corp</div>
+              <p class="fiduciary-desc">
+                Registered in active good standing with the California Attorney General Registry of Charitable Trusts (CA DOJ), California Secretary of State, and Franchise Tax Board.
+              </p>
+            </div>
+            <span class="fiduciary-badge-pill" style="align-self: flex-start;">✦ CA DOJ Registry Verified</span>
+          </div>
+
+          <!-- Fact 4: IRS Foundation Taxonomy -->
+          <div class="fiduciary-card">
+            <div>
+              <div class="fiduciary-header">
+                <span class="fiduciary-icon">🏷️</span>
+                <span class="fiduciary-title">IRS Foundation Taxonomy</span>
+              </div>
+              <div class="fiduciary-value">NTEE Codes E20 &amp; A20</div>
+              <p class="fiduciary-desc">
+                Standardized classification under National Taxonomy of Exempt Entities: <strong>E20</strong> (Community Mental Health &amp; Somatic Wellness) and <strong>A20</strong> (Arts, Culture &amp; Humanities).
+              </p>
+            </div>
+            <span class="fiduciary-badge-pill" style="align-self: flex-start;">✦ Aligned RFP Criteria</span>
+          </div>
+
+          <!-- Fact 5: Fiduciary Transparency -->
+          <div class="fiduciary-card">
+            <div>
+              <div class="fiduciary-header">
+                <span class="fiduciary-icon">🛡️</span>
+                <span class="fiduciary-title">Fiduciary Transparency</span>
+              </div>
+              <div class="fiduciary-value">100% Program Allocation</div>
+              <p class="fiduciary-desc">
+                Form 990 available for public inspection. Powered by 0% platform fee infrastructure (Zeffy), ensuring 100% of community gifts reach program operations. Zero data selling or sharing.
+              </p>
+            </div>
+            <span class="fiduciary-badge-pill" style="align-self: flex-start;">✦ AFP Donor Bill of Rights</span>
+          </div>
+
+          <!-- Fact 6: Workplace Giving -->
+          <div class="fiduciary-card">
+            <div>
+              <div class="fiduciary-header">
+                <span class="fiduciary-icon">💼</span>
+                <span class="fiduciary-title">Workplace Giving</span>
+              </div>
+              <div class="fiduciary-value">Corporate Matching Ready</div>
+              <p class="fiduciary-desc">
+                Eligible on major enterprise corporate giving platforms including Benevity, CyberGrants, YourCause, Blackbaud, Deed, and United Way.
               </p>
             </div>
             <div style="display: flex; flex-wrap: wrap; gap: 4px;">
-              <span class="workplace-badge" style="background: rgba(197, 154, 63, 0.18); color: #F8D98C; border: 1px solid rgba(197, 154, 63, 0.3); font-size: 0.70rem; padding: 2px 8px;">Benevity</span>
-              <span class="workplace-badge" style="background: rgba(197, 154, 63, 0.18); color: #F8D98C; border: 1px solid rgba(197, 154, 63, 0.3); font-size: 0.70rem; padding: 2px 8px;">CyberGrants</span>
-              <span class="workplace-badge" style="background: rgba(197, 154, 63, 0.18); color: #F8D98C; border: 1px solid rgba(197, 154, 63, 0.3); font-size: 0.70rem; padding: 2px 8px;">YourCause</span>
-              <span class="workplace-badge" style="background: rgba(197, 154, 63, 0.18); color: #F8D98C; border: 1px solid rgba(197, 154, 63, 0.3); font-size: 0.70rem; padding: 2px 8px;">Blackbaud</span>
-              <span class="workplace-badge" style="background: rgba(197, 154, 63, 0.18); color: #F8D98C; border: 1px solid rgba(197, 154, 63, 0.3); font-size: 0.70rem; padding: 2px 8px;">United Way</span>
+              <span class="workplace-badge" style="background: rgba(197, 154, 63, 0.18); color: #F8D98C; border: 1px solid rgba(197, 154, 63, 0.3); font-size: 0.65rem; padding: 2px 6px;">Benevity</span>
+              <span class="workplace-badge" style="background: rgba(197, 154, 63, 0.18); color: #F8D98C; border: 1px solid rgba(197, 154, 63, 0.3); font-size: 0.65rem; padding: 2px 6px;">CyberGrants</span>
+              <span class="workplace-badge" style="background: rgba(197, 154, 63, 0.18); color: #F8D98C; border: 1px solid rgba(197, 154, 63, 0.3); font-size: 0.65rem; padding: 2px 6px;">YourCause</span>
+              <span class="workplace-badge" style="background: rgba(197, 154, 63, 0.18); color: #F8D98C; border: 1px solid rgba(197, 154, 63, 0.3); font-size: 0.65rem; padding: 2px 6px;">Blackbaud</span>
             </div>
           </div>
 
-          <!-- Non-Discrimination Policy & Equal Access Card -->
-          <div style="background: rgba(255, 255, 255, 0.08); border: 1.5px solid rgba(197, 154, 63, 0.35); border-radius: 12px; padding: 16px 20px; backdrop-filter: blur(8px); color: #F6F3EC; display: flex; flex-direction: column; justify-content: space-between;">
+        </div>
+
+        <!-- Grantmaker & Corporate Due Diligence Kit Banner -->
+        <div class="funder-action-banner" style="background: radial-gradient(circle at 45% 20%, rgba(32, 54, 43, 0.98) 0%, rgba(14, 26, 20, 1) 100%); border: 1.5px solid var(--sunburst-gold); border-radius: 16px; padding: 24px 26px; margin: 0 0 18px; box-shadow: 0 12px 36px rgba(0, 0, 0, 0.28);">
+          <div class="funder-banner-grid" style="display: grid; grid-template-columns: 1.35fr 0.85fr; gap: 24px; align-items: center;">
             <div>
-              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; flex-wrap: wrap; gap: 6px;">
-                <div style="color: #F8D98C; font-weight: 700; font-size: 0.86rem; display: flex; align-items: center; gap: 6px;">
-                  <span>⚖️</span> <span>Non-Discrimination Policy</span>
-                </div>
-                <span style="font-size: 0.65rem; font-weight: 700; text-transform: uppercase; color: #F8D98C; background: rgba(197, 154, 63, 0.2); border: 1px solid rgba(197, 154, 63, 0.35); padding: 2px 8px; border-radius: 999px;">501(c)(3) Assurance</span>
+              <div class="funder-banner-tag" style="display: inline-flex; align-items: center; gap: 8px; font-size: 0.74rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: #F8D98C; margin-bottom: 6px;">
+                ✦ Grantmaker &amp; Corporate Due Diligence Kit
               </div>
-              <p style="color: #CBD7D0; font-size: 0.78rem; line-height: 1.45; margin-bottom: 0;">
-                Inner Sanctuary does not discriminate on the basis of race, color, ethnicity, religion, creed, sex, gender identity/expression, sexual orientation, age, marital status, disability, or military status in any of its programs, stage access, or volunteer activities. All are welcomed in our circle.
+              <h3 class="funder-banner-title" style="font-family: 'Cinzel', serif; font-size: 1.35rem; color: #FFFFFF; margin-bottom: 8px; letter-spacing: 0.04em;">
+                Institutional Partnership &amp; Verification Packet
+              </h3>
+              <p class="funder-banner-desc" style="font-size: 0.85rem; color: #D3DFD8; line-height: 1.6; margin-bottom: 0;">
+                Are you a corporate social responsibility (CSR) director, foundation program officer, or bank CRA compliance lead? Access our formal verification packet, including our IRS 501(c)(3) determination letter, signed Form W-9, programmatic logic model, and CRA community development narrative.
               </p>
             </div>
+            <div class="funder-action-buttons" style="display: flex; flex-direction: column; gap: 10px;">
+              <a href="mailto:hello@innersanctuarywellnessfoundation.org?cc=innersanctuary0@gmail.com&subject=Due%20Diligence%20Request%3A%20IRS%20501(c)(3)%20Letter%20%26%20W-9%20-%20Inner%20Sanctuary&body=Hello%20Inner%20Sanctuary%20Leadership%2C%0A%0AWe%20are%20reviewing%20community%20partnerships%20%2F%20grant%20opportunities%20and%20would%20like%20to%20request%20your%20official%20due%20diligence%20packet%20(IRS%20Letter%2C%20Form%20W-9%2C%20Logic%20Model).%0A%0AOrganization%3A%20%0AName%20%2F%20Title%3A%20%0AContact%20Email%3A%20" class="btn-funder-primary" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 18px; font-size: 0.82rem;">
+                <span>📄 Request IRS Letter &amp; W-9 (.pdf)</span>
+              </a>
+              <button type="button" class="btn-funder-outline" id="toggle-logic-model-btn" onclick="toggleLogicModel()" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 11px 18px; font-size: 0.80rem; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(248, 217, 140, 0.4); color: #F8D98C; border-radius: 8px; cursor: pointer; text-transform: uppercase; font-weight: 600;">
+                <span>📊 View Program Logic Model (Steps 1–4) ▾</span>
+              </button>
+              <a href="#connect" onclick="selectIntakeTab('sponsor')" style="color: #F8D98C; font-size: 0.78rem; text-align: center; text-decoration: underline; font-weight: 600; padding-top: 2px;">
+                🤝 Submit Corporate Partnership / RFP →
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Theory of Change & Impact Logic Model (Collapsible / Expandable) -->
+        <div id="logic-model-drawer" class="logic-model-container" style="display: none;">
+          <div class="logic-model-header" style="text-align: center; max-width: 760px; margin: 0 auto 20px;">
+            <div style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: #F8D98C; margin-bottom: 4px;">
+              ✦ Theory of Change &amp; Logic Model
+            </div>
+            <h3 class="serif-brand" style="font-size: 1.45rem; color: #FFFFFF; margin-bottom: 6px;">
+              Community Health Equity &amp; Impact Architecture
+            </h3>
+            <p style="font-size: 0.84rem; color: #CBD7D0; line-height: 1.5; margin-bottom: 0;">
+              How our somatic and creative safe space interventions translate into measurable resilience, stress reduction, and grassroots community stability.
+            </p>
           </div>
 
+          <!-- 4 Steps Horizontal Flow -->
+          <div class="logic-model-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;">
+            
+            <!-- Step 01 -->
+            <div class="logic-step-card">
+              <div class="logic-step-num" style="font-size: 0.70rem; letter-spacing: 0.14em; font-weight: 700; color: #F8D98C; text-transform: uppercase; margin-bottom: 4px;">
+                Step 01 • Target Need
+              </div>
+              <h4 class="logic-step-title" style="font-family: 'Cinzel', serif; font-size: 0.98rem; font-weight: 700; color: #FFFFFF; margin-bottom: 10px; line-height: 1.35;">
+                The Burnout &amp; Stigma Gap
+              </h4>
+              <p style="font-size: 0.76rem; color: #CBD7D0; line-height: 1.4; margin-bottom: 10px;">
+                High-stress environments, isolation, and lack of affordable, non-stigmatized, alcohol-free healing spaces for frontline community members.
+              </p>
+              <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.76rem; color: #CBD7D0; line-height: 1.45;">
+                <li style="position: relative; padding-left: 14px; margin-bottom: 6px;"><span style="position: absolute; left: 0; color: #F8D98C;">•</span> <strong>76%</strong> of emerging artists report acute stress &amp; burnout</li>
+                <li style="position: relative; padding-left: 14px; margin-bottom: 6px;"><span style="position: absolute; left: 0; color: #F8D98C;">•</span> Prohibitive costs for private clinical somatic therapy</li>
+                <li style="position: relative; padding-left: 14px; margin-bottom: 0;"><span style="position: absolute; left: 0; color: #F8D98C;">•</span> Scarcity of substance-free creative sanctuaries</li>
+              </ul>
+            </div>
+
+            <!-- Step 02 -->
+            <div class="logic-step-card">
+              <div class="logic-step-num" style="font-size: 0.70rem; letter-spacing: 0.14em; font-weight: 700; color: #F8D98C; text-transform: uppercase; margin-bottom: 4px;">
+                Step 02 • Somatic Intervention
+              </div>
+              <h4 class="logic-step-title" style="font-family: 'Cinzel', serif; font-size: 0.98rem; font-weight: 700; color: #FFFFFF; margin-bottom: 10px; line-height: 1.35;">
+                Unhurried Somatic Spaces
+              </h4>
+              <p style="font-size: 0.76rem; color: #CBD7D0; line-height: 1.4; margin-bottom: 10px;">
+                Accessible, non-clinical gatherings combining The Four Releases (Breath, Vocal Resonance, Embodied Motion, Rest) &amp; Somatic Medicine.
+              </p>
+              <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.76rem; color: #CBD7D0; line-height: 1.45;">
+                <li style="position: relative; padding-left: 14px; margin-bottom: 6px;"><span style="position: absolute; left: 0; color: #F8D98C;">•</span> Guided 4x4 Box Breathing &amp; nervous system resets</li>
+                <li style="position: relative; padding-left: 14px; margin-bottom: 6px;"><span style="position: absolute; left: 0; color: #F8D98C;">•</span> Supportive Community Open Mic &amp; expressive stages</li>
+                <li style="position: relative; padding-left: 14px; margin-bottom: 0;"><span style="position: absolute; left: 0; color: #F8D98C;">•</span> Botanical tea sanctuary &amp; peer connection circles</li>
+              </ul>
+            </div>
+
+            <!-- Step 03 -->
+            <div class="logic-step-card">
+              <div class="logic-step-num" style="font-size: 0.70rem; letter-spacing: 0.14em; font-weight: 700; color: #F8D98C; text-transform: uppercase; margin-bottom: 4px;">
+                Step 03 • Measurable Outputs
+              </div>
+              <h4 class="logic-step-title" style="font-family: 'Cinzel', serif; font-size: 0.98rem; font-weight: 700; color: #FFFFFF; margin-bottom: 10px; line-height: 1.35;">
+                Grassroots Delivery &amp; Scale
+              </h4>
+              <p style="font-size: 0.76rem; color: #CBD7D0; line-height: 1.4; margin-bottom: 10px;">
+                Direct, quantifiable outputs documented at each gathering to verify equitable community benefit for grantmakers and CRA officers.
+              </p>
+              <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.76rem; color: #CBD7D0; line-height: 1.45;">
+                <li style="position: relative; padding-left: 14px; margin-bottom: 6px;"><span style="position: absolute; left: 0; color: #F8D98C;">•</span> <strong>100%</strong> Free or low-barrier access for all participants</li>
+                <li style="position: relative; padding-left: 14px; margin-bottom: 6px;"><span style="position: absolute; left: 0; color: #F8D98C;">•</span> <strong>40+</strong> Local BIPOC &amp; emerging artists spotlit &amp; paid</li>
+                <li style="position: relative; padding-left: 14px; margin-bottom: 0;"><span style="position: absolute; left: 0; color: #F8D98C;">•</span> <strong>500+</strong> Hours of somatic regulation delivered annually</li>
+              </ul>
+            </div>
+
+            <!-- Step 04 -->
+            <div class="logic-step-card">
+              <div class="logic-step-num" style="font-size: 0.70rem; letter-spacing: 0.14em; font-weight: 700; color: #F8D98C; text-transform: uppercase; margin-bottom: 4px;">
+                Step 04 • Long-Term Impact
+              </div>
+              <h4 class="logic-step-title" style="font-family: 'Cinzel', serif; font-size: 0.98rem; font-weight: 700; color: #FFFFFF; margin-bottom: 10px; line-height: 1.35;">
+                Generational Healing Equity
+              </h4>
+              <p style="font-size: 0.76rem; color: #CBD7D0; line-height: 1.4; margin-bottom: 10px;">
+                Sustainable emotional self-regulation, reduced isolation, strengthened civic fabric, and a replicable model for public wellness.
+              </p>
+              <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.76rem; color: #CBD7D0; line-height: 1.45;">
+                <li style="position: relative; padding-left: 14px; margin-bottom: 6px;"><span style="position: absolute; left: 0; color: #F8D98C;">•</span> <strong>94%</strong> report immediate nervous system deceleration</li>
+                <li style="position: relative; padding-left: 14px; margin-bottom: 6px;"><span style="position: absolute; left: 0; color: #F8D98C;">•</span> Strengthened neighborhood resilience &amp; trust</li>
+                <li style="position: relative; padding-left: 14px; margin-bottom: 0;"><span style="position: absolute; left: 0; color: #F8D98C;">•</span> Scalable framework across Orange County &amp; Inland Empire</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Non-Discrimination Policy & Equal Access Assurance Card -->
+        <div style="background: rgba(255, 255, 255, 0.08); border: 1.5px solid rgba(197, 154, 63, 0.35); border-radius: 12px; padding: 18px 22px; backdrop-filter: blur(8px); color: #F6F3EC; margin-top: 14px;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
+            <div style="color: #F8D98C; font-weight: 700; font-size: 0.88rem; display: flex; align-items: center; gap: 8px;">
+              <span>⚖️</span> <span>Non-Discrimination Policy &amp; Equal Access Assurance</span>
+            </div>
+            <span style="font-size: 0.65rem; font-weight: 700; text-transform: uppercase; color: #F8D98C; background: rgba(197, 154, 63, 0.2); border: 1px solid rgba(197, 154, 63, 0.35); padding: 3px 10px; border-radius: 999px;">501(c)(3) &amp; Grantmaker Compliance</span>
+          </div>
+          <p style="color: #CBD7D0; font-size: 0.78rem; line-height: 1.5; margin-bottom: 6px;">
+            Inner Sanctuary Wellness Foundation operates with radical inclusion, compassion, and equal access at its core. Inner Sanctuary does not and shall not discriminate on the basis of race, color, ethnicity, national origin, ancestry, religion, creed, sex, gender identity or expression, sexual orientation, age, marital status, physical or mental disability, medical condition, genetic information, or military/veteran status in any of its community programs, stage access, volunteer activities, or operations.
+          </p>
+          <p style="color: #CBD7D0; font-size: 0.74rem; line-height: 1.45; margin-bottom: 0; opacity: 0.9;">
+            This policy affirms open, dignified, and judgment-free participation across Santa Ana, Orange County, and the Inland Empire. All are welcomed in our circle.
+          </p>
         </div>
 
       </div>

@@ -4749,6 +4749,130 @@ body[data-element="earth"] {
   border-radius: 12px;
 }
 
+/* Scoped Institutional Due Diligence & Fiduciary Styles */
+.sponsorship-campaign-wrapper .fiduciary-badge-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 0 0 24px;
+}
+
+@media (max-width: 940px) {
+  .sponsorship-campaign-wrapper .fiduciary-badge-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .sponsorship-campaign-wrapper .fiduciary-badge-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.sponsorship-campaign-wrapper .fiduciary-card {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1.5px solid rgba(197, 154, 63, 0.35);
+  border-radius: 14px;
+  padding: 18px 16px;
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.sponsorship-campaign-wrapper .fiduciary-card:hover {
+  transform: translateY(-3px);
+  border-color: #F8D98C;
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.sponsorship-campaign-wrapper .fiduciary-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.sponsorship-campaign-wrapper .fiduciary-icon {
+  font-size: 1.2rem;
+}
+
+.sponsorship-campaign-wrapper .fiduciary-title {
+  color: #F8D98C;
+  font-size: 0.80rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.sponsorship-campaign-wrapper .fiduciary-value {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: 6px;
+}
+
+.sponsorship-campaign-wrapper .fiduciary-desc {
+  color: #CBD7D0;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  margin-bottom: 12px;
+}
+
+.sponsorship-campaign-wrapper .fiduciary-badge-pill {
+  background: rgba(197, 154, 63, 0.18);
+  color: #F8D98C;
+  border: 1px solid rgba(197, 154, 63, 0.35);
+  font-size: 0.70rem;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+.sponsorship-campaign-wrapper .copy-ein-btn {
+  background: transparent;
+  border: 1px solid rgba(248, 217, 140, 0.45);
+  color: #F8D98C;
+  font-size: 0.65rem;
+  padding: 2px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.sponsorship-campaign-wrapper .copy-ein-btn:hover {
+  background: rgba(197, 154, 63, 0.25);
+  border-color: #F8D98C;
+  color: #FFFFFF;
+}
+
+/* Collapsible Logic Model Styling inside Wrapper */
+.sponsorship-campaign-wrapper .logic-model-container {
+  background: rgba(14, 26, 20, 0.88);
+  border: 1.5px solid rgba(197, 154, 63, 0.45);
+  border-radius: 16px;
+  padding: 28px 24px;
+  margin: 0 0 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.sponsorship-campaign-wrapper .logic-step-card {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 18px 14px;
+  border-top: 3.5px solid #C59A3F;
+  border-left: 1px solid rgba(197, 154, 63, 0.25);
+  border-right: 1px solid rgba(197, 154, 63, 0.25);
+  border-bottom: 1px solid rgba(197, 154, 63, 0.25);
+  display: flex;
+  flex-direction: column;
+}
+
 @media (max-width: 860px) {
   .sponsorship-campaign-wrapper > div:last-child {
     grid-template-columns: 1fr !important;

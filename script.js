@@ -2876,4 +2876,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
+  // Toggle Theory of Change & Program Logic Model Drawer
+  window.toggleLogicModel = function() {
+    const drawer = document.getElementById('logic-model-drawer');
+    const btn = document.getElementById('toggle-logic-model-btn');
+    if (!drawer) return;
+
+    const isHidden = drawer.style.display === 'none' || !drawer.style.display;
+    if (isHidden) {
+      drawer.style.display = 'block';
+      if (btn) btn.innerHTML = '<span>▴ Hide Program Logic Model</span>';
+      drawer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      drawer.style.display = 'none';
+      if (btn) btn.innerHTML = '<span>📊 View Program Logic Model (Steps 1–4) ▾</span>';
+    }
+  };
+
 });
