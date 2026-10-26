@@ -1026,7 +1026,7 @@
 
         <!-- Grantmaker & Corporate Due Diligence Kit Banner -->
         <div class="funder-action-banner" style="background: radial-gradient(circle at 45% 20%, rgba(32, 54, 43, 0.98) 0%, rgba(14, 26, 20, 1) 100%); border: 1.5px solid var(--sunburst-gold); border-radius: 16px; padding: 24px 26px; margin: 0 0 18px; box-shadow: 0 12px 36px rgba(0, 0, 0, 0.28);">
-          <div class="funder-banner-grid" style="display: grid; grid-template-columns: 1.35fr 0.85fr; gap: 24px; align-items: center;">
+          <div class="funder-banner-grid" style="display: grid; grid-template-columns: 1.25fr 0.95fr; gap: 24px; align-items: center;">
             <div>
               <div class="funder-banner-tag" style="display: inline-flex; align-items: center; gap: 8px; font-size: 0.74rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: #F8D98C; margin-bottom: 6px;">
                 ✦ Grantmaker &amp; Corporate Due Diligence Kit
@@ -1034,18 +1034,44 @@
               <h3 class="funder-banner-title" style="font-family: 'Cinzel', serif; font-size: 1.35rem; color: #FFFFFF; margin-bottom: 8px; letter-spacing: 0.04em;">
                 Institutional Partnership &amp; Verification Packet
               </h3>
-              <p class="funder-banner-desc" style="font-size: 0.85rem; color: #D3DFD8; line-height: 1.6; margin-bottom: 0;">
+              <p class="funder-banner-desc" style="font-size: 0.85rem; color: #D3DFD8; line-height: 1.6; margin-bottom: 12px;">
                 Are you a corporate social responsibility (CSR) director, foundation program officer, or bank CRA compliance lead? Access our formal verification packet, including our IRS 501(c)(3) determination letter, signed Form W-9, programmatic logic model, and CRA community development narrative.
               </p>
+
+              <!-- Direct Leadership Inboxes Display & Copy Bar -->
+              <div style="background: rgba(0, 0, 0, 0.35); border: 1px solid rgba(197, 154, 63, 0.4); border-radius: 10px; padding: 8px 12px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+                <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap; font-size: 0.78rem;">
+                  <span style="color: #F8D98C; font-weight: 700;">📬 Direct Inboxes:</span>
+                  <a href="mailto:hello@innersanctuarywellnessfoundation.org" style="color: #FFFFFF; text-decoration: underline; font-weight: 500;">hello@innersanctuarywellnessfoundation.org</a>
+                  <span style="color: #F8D98C;">•</span>
+                  <a href="mailto:innersanctuary0@gmail.com" style="color: #CBD7D0; text-decoration: underline;">innersanctuary0@gmail.com</a>
+                </div>
+                <button type="button" class="copy-ein-btn" onclick="navigator.clipboard.writeText('hello@innersanctuarywellnessfoundation.org, innersanctuary0@gmail.com'); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy Inboxes', 2000)">Copy Inboxes</button>
+              </div>
             </div>
+
             <div class="funder-action-buttons" style="display: flex; flex-direction: column; gap: 10px;">
+              <!-- Primary 1-Click Mailto -->
               <a href="mailto:hello@innersanctuarywellnessfoundation.org?cc=innersanctuary0@gmail.com&subject=Due%20Diligence%20Request%3A%20IRS%20501(c)(3)%20Letter%20%26%20W-9%20-%20Inner%20Sanctuary&body=Hello%20Inner%20Sanctuary%20Leadership%2C%0A%0AWe%20are%20reviewing%20community%20partnerships%20%2F%20grant%20opportunities%20and%20would%20like%20to%20request%20your%20official%20due%20diligence%20packet%20(IRS%20Letter%2C%20Form%20W-9%2C%20Logic%20Model).%0A%0AOrganization%3A%20%0AName%20%2F%20Title%3A%20%0AContact%20Email%3A%20" class="btn-funder-primary" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 18px; font-size: 0.82rem;">
-                <span>📄 Request IRS Letter &amp; W-9 (.pdf)</span>
+                <span>✉️ Email Us Directly for W-9 &amp; IRS Letter</span>
               </a>
-              <button type="button" class="btn-funder-outline" id="toggle-logic-model-btn" onclick="toggleLogicModel()" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 11px 18px; font-size: 0.80rem; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(248, 217, 140, 0.4); color: #F8D98C; border-radius: 8px; cursor: pointer; text-transform: uppercase; font-weight: 600;">
+
+              <!-- Webmail & Quick Form Split Row -->
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=hello@innersanctuarywellnessfoundation.org&cc=innersanctuary0@gmail.com&su=Due%20Diligence%20Request%3A%20IRS%20501(c)(3)%20Letter%20%26%20W-9%20-%20Inner%20Sanctuary&body=Hello%20Inner%20Sanctuary%20Leadership%2C%0A%0AWe%20are%20reviewing%20community%20partnerships%20%2F%20grant%20opportunities%20and%20would%20like%20to%20request%20your%20official%20due%20diligence%20packet%20(IRS%20Letter%2C%20Form%20W-9%2C%20Logic%20Model).%0A%0AOrganization%3A%0AName%20%2F%20Title%3A%0AContact%20Email%3A" target="_blank" rel="noopener noreferrer" class="btn-funder-outline" style="font-size: 0.74rem; padding: 9px 8px; text-align: center; justify-content: center;">
+                  <span>🌐 Open in Gmail</span>
+                </a>
+                <button type="button" class="btn-funder-outline" onclick="requestDueDiligenceForm()" style="font-size: 0.74rem; padding: 9px 8px; text-align: center; justify-content: center; cursor: pointer;">
+                  <span>📝 Request via Form ↓</span>
+                </button>
+              </div>
+
+              <!-- View Logic Model Toggle Button -->
+              <button type="button" class="btn-funder-outline" id="toggle-logic-model-btn" onclick="toggleLogicModel()" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 16px; font-size: 0.78rem; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(248, 217, 140, 0.4); color: #F8D98C; border-radius: 8px; cursor: pointer; text-transform: uppercase; font-weight: 600;">
                 <span>📊 View Program Logic Model (Steps 1–4) ▾</span>
               </button>
-              <a href="#connect" onclick="selectIntakeTab('sponsor')" style="color: #F8D98C; font-size: 0.78rem; text-align: center; text-decoration: underline; font-weight: 600; padding-top: 2px;">
+
+              <a href="#connect" onclick="selectIntakeTab('sponsor')" style="color: #F8D98C; font-size: 0.76rem; text-align: center; text-decoration: underline; font-weight: 600;">
                 🤝 Submit Corporate Partnership / RFP →
               </a>
             </div>

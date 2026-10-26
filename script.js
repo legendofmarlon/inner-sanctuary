@@ -2893,4 +2893,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
+  // Direct On-Site Due Diligence Request via Contact Form (routes to both leadership emails)
+  window.requestDueDiligenceForm = function() {
+    if (typeof selectIntakeTab === 'function') {
+      selectIntakeTab('grantmaker');
+    }
+    const roleSelect = document.getElementById('role-select');
+    if (roleSelect) {
+      roleSelect.value = 'Institutional Grantmaker / Foundation RFP';
+    }
+    const msgEl = document.getElementById('form-message');
+    if (msgEl) {
+      msgEl.value = 'Due Diligence Request: Please send our team your official IRS 501(c)(3) Determination Letter, signed Form W-9 (.pdf), and CRA Community Development Packet.\n\nOrganization:\nContact Name & Title:\nDirect Email / Phone:';
+      msgEl.focus();
+    }
+    const formSection = document.getElementById('connect');
+    if (formSection) {
+      formSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
 });
