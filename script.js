@@ -2363,8 +2363,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // ------------------------------------------------------------------------
   const modal = document.getElementById('ZeffyQuickDonateModal');
   const modalIframe = document.getElementById('zeffy-modal-iframe');
-  const ZEFFY_FORM_EMBED = 'https://www.zeffy.com/en-US/embed/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation';
+  const ZEFFY_FORM_EMBED = 'https://www.zeffy.com/embed/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation';
   const ZEFFY_THERMO_EMBED = 'https://www.zeffy.com/en-US/live/thermometer/donate-to-make-a-difference-inner-sanctuary-wellness-foundation';
+  const ZEFFY_DIRECT_URL = 'https://www.zeffy.com/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation';
 
   function openZeffyModal(e) {
     if (e && typeof e.preventDefault === 'function') {
@@ -2375,7 +2376,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!targetModal) return;
 
     const iframe = document.getElementById('zeffy-modal-iframe');
-    if (iframe && (!iframe.src || iframe.src === 'about:blank' || !iframe.src.includes('zeffy.com/en-US/embed/donation-form/'))) {
+    if (iframe && (!iframe.src || iframe.src === 'about:blank' || !iframe.src.includes('zeffy.com/embed/donation-form/'))) {
       iframe.src = ZEFFY_FORM_EMBED;
     }
 
@@ -2419,11 +2420,16 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ------------------------------------------------------------------------
-  // 2. FORCE-REWIRE EVERY EXISTING ZEFFY / DONATE / $1 BUTTON (ZERO REDIRECT)
+  // 2. FORCE-REWIRE EXISTING DONATE BUTTONS (EXCEPT DIRECT OUTBOUND LINKS)
   // ------------------------------------------------------------------------
   document.addEventListener('click', (e) => {
     const trigger = e.target.closest('a, button');
     if (!trigger) return;
+
+    // Never intercept direct outbound checkout links or explicitly bypassed controls
+    if (trigger.classList.contains('zeffy-direct-link')) return;
+    if (trigger.getAttribute('target') === '_blank') return;
+    if (trigger.classList.contains('zeffy-bypass-modal')) return;
 
     // Skip intake tabs, form submits, soundscape/breath controls, close buttons, tab switchers
     if (trigger.classList.contains('intake-tab')) return;
@@ -2434,6 +2440,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (trigger.classList.contains('donate-tab-btn') || trigger.closest('.donate-tab-switcher')) return;
     if (trigger.classList.contains('zeffy-modal-close') || trigger.closest('.zeffy-modal-close')) return;
     if (trigger.classList.contains('preset-chip')) return;
+    if (trigger.classList.contains('seed-chip-btn') || trigger.classList.contains('seed-freq-btn')) return;
     if (trigger.id === 'breath-workshop-cta-btn') return;
 
     const href = trigger.getAttribute('href') || '';
@@ -2452,13 +2459,86 @@ document.addEventListener('DOMContentLoaded', () => {
   }, true);
 
   // ------------------------------------------------------------------------
+  // 2B. NATIVE SEED KEYPAD LOGIC (100% RELIABLE, ZERO BROKEN IFRAMES)
+  // ------------------------------------------------------------------------
+  let currentSeedFreq = 'monthly';
+  let currentSeedAmount = 1;
+
+  window.selectSeedFreq = function(freq) {
+    currentSeedFreq = freq;
+    const btnMonthly = document.getElementById('seed-freq-monthly');
+    const btnOnce = document.getElementById('seed-freq-once');
+    if (btnMonthly && btnOnce) {
+      if (freq === 'monthly') {
+        btnMonthly.classList.add('active');
+        btnOnce.classList.remove('active');
+      } else {
+        btnOnce.classList.add('active');
+        btnMonthly.classList.remove('active');
+      }
+    }
+    updateSeedPayButton();
+  };
+
+  window.selectSeedAmount = function(amount) {
+    currentSeedAmount = amount;
+    [1, 5, 10, 25].forEach(amt => {
+      const chip = document.getElementById('chip-' + amt);
+      if (chip) {
+        if (amt === amount) chip.classList.add('active');
+        else chip.classList.remove('active');
+      }
+    });
+
+    const impactText = document.getElementById('seed-impact-text');
+    if (impactText) {
+      if (amount === 1) {
+        impactText.innerHTML = '✨ <strong>100% Community Pass-Through:</strong> $1/month covers 1 free trauma-informed youth healing journal and subsidizes community somatic seats. 0% deducted by Zeffy.';
+      } else if (amount === 5) {
+        impactText.innerHTML = '✨ <strong>Supporter Impact:</strong> $5 provides trauma-informed reflection kits and sound healing equipment upkeep for our monthly community open mic.';
+      } else if (amount === 10) {
+        impactText.innerHTML = '✨ <strong>Caregiver Impact:</strong> $10 funds full somatic workshop materials and unhurried meditation supplies for vulnerable creatives.';
+      } else {
+        impactText.innerHTML = '✨ <strong>Sanctuary Pillar:</strong> $25 anchors our venue safety, artist travel subsidies, and community wellness stipends with 100% fiduciary transparency.';
+      }
+    }
+    updateSeedPayButton();
+  };
+
+  function updateSeedPayButton() {
+    const payLabel = document.getElementById('seed-pay-btn-label');
+    if (!payLabel) return;
+    const freqLabel = currentSeedFreq === 'monthly' ? 'Monthly Seed' : 'Gift';
+    payLabel.textContent = `🌱 Plant $${currentSeedAmount} ${freqLabel} (Apple Pay • Google Pay)`;
+  }
+
+  window.toggleEmbeddedZeffy = function() {
+    const wrap = document.getElementById('zeffy-inline-embed-wrap');
+    const iframe = document.getElementById('inpage-zeffy-iframe');
+    const toggleText = document.getElementById('embed-toggle-text');
+    if (!wrap) return;
+
+    if (wrap.style.display === 'none' || !wrap.style.display) {
+      wrap.style.display = 'block';
+      if (toggleText) toggleText.textContent = '▴ Hide embedded checkout frame';
+      if (iframe && iframe.getAttribute('data-src') && (!iframe.src || iframe.src === 'about:blank')) {
+        iframe.src = iframe.getAttribute('data-src');
+      }
+    } else {
+      wrap.style.display = 'none';
+      if (toggleText) toggleText.textContent = '▾ Or preview embedded checkout frame directly in-card';
+    }
+  };
+
+  // ------------------------------------------------------------------------
   // 3. 2-TAB SWITCHER IN #donate (KEYPAD vs THERMOMETER)
   // ------------------------------------------------------------------------
   window.switchDonateTab = function(tabName) {
     const btnKeypad = document.getElementById('tab-btn-keypad');
     const btnThermo = document.getElementById('tab-btn-thermometer');
-    const inpageIframe = document.getElementById('inpage-zeffy-iframe');
-    if (!inpageIframe) return;
+    const paneKeypad = document.getElementById('donate-pane-keypad');
+    const paneThermo = document.getElementById('donate-pane-thermometer');
+    const thermoIframe = document.getElementById('inpage-thermometer-iframe');
 
     if (tabName === 'thermometer') {
       if (btnKeypad) {
@@ -2469,7 +2549,13 @@ document.addEventListener('DOMContentLoaded', () => {
         btnThermo.classList.add('active');
         btnThermo.setAttribute('aria-selected', 'true');
       }
-      inpageIframe.src = ZEFFY_THERMO_EMBED;
+      if (paneKeypad) paneKeypad.style.display = 'none';
+      if (paneThermo) {
+        paneThermo.style.display = 'block';
+        if (thermoIframe && (!thermoIframe.src || thermoIframe.src === 'about:blank')) {
+          thermoIframe.src = ZEFFY_THERMO_EMBED;
+        }
+      }
     } else {
       if (btnThermo) {
         btnThermo.classList.remove('active');
@@ -2479,7 +2565,8 @@ document.addEventListener('DOMContentLoaded', () => {
         btnKeypad.classList.add('active');
         btnKeypad.setAttribute('aria-selected', 'true');
       }
-      inpageIframe.src = ZEFFY_FORM_EMBED;
+      if (paneThermo) paneThermo.style.display = 'none';
+      if (paneKeypad) paneKeypad.style.display = 'block';
     }
   };
 

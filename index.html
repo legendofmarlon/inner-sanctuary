@@ -741,35 +741,105 @@
                 💡 1-Tap Pro Tip: Choose $1/Monthly, tap <strong>'Other → $0'</strong> on the optional Zeffy tip so you pay <strong>$1.00 flat</strong>, and double-click Apple Pay or Google Pay!
               </div>
 
-              <!-- Zeffy Embed Container (Properly Sized to Fit Form with Zero Empty Space) -->
-              <div style="position:relative; width:100%; min-height:540px; height:540px; background:#FFFFFF;">
-                <div data-zeffy-embed data-form-url="https://www.zeffy.com/en-US/embed/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation"></div>
-                <div data-zeffy-embed-fallback style="display:block; width:100%; height:100%;">
-                  <div style="position:relative; overflow:hidden; height:540px; width:100%;">
-                    <iframe
-                      id="inpage-zeffy-iframe"
-                      title="Inner Sanctuary Wellness Foundation 2-Tap Giving &amp; Live Thermometer"
-                      style="position:absolute; border:0; top:0; left:0; bottom:0; right:0; width:100%; height:100%;"
-                      src="https://www.zeffy.com/en-US/embed/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation"
-                      data-zeffy-embed-src="https://www.zeffy.com/en-US/embed/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation"
-                      allow="payment *"
-                      allowpaymentrequest="true"
-                      allowtransparency="true"
-                      loading="eager">
-                    </iframe>
+              <!-- Tab Pane 1: 1-Step Payment Keypad (Fail-safe, Zero Black Space Guarantee) -->
+              <div id="donate-pane-keypad" class="donate-tab-pane active" style="background:#F6F2E9;">
+                
+                <!-- Native Sanctuary Giving Keypad -->
+                <div class="sanctuary-native-keypad">
+                  
+                  <!-- Frequency Switcher -->
+                  <div class="seed-freq-switcher">
+                    <button type="button" class="seed-freq-btn active" id="seed-freq-monthly" onclick="selectSeedFreq('monthly')">
+                      <span>🌱 Monthly Seed ($1/Mo)</span>
+                    </button>
+                    <button type="button" class="seed-freq-btn" id="seed-freq-once" onclick="selectSeedFreq('once')">
+                      <span>One-Time Gift</span>
+                    </button>
                   </div>
+
+                  <!-- Amount Chips -->
+                  <div class="seed-amount-grid">
+                    <button type="button" class="seed-chip-btn active" id="chip-1" onclick="selectSeedAmount(1)">
+                      <span class="seed-chip-val">$1</span>
+                      <span class="seed-chip-lbl">The Seed</span>
+                    </button>
+                    <button type="button" class="seed-chip-btn" id="chip-5" onclick="selectSeedAmount(5)">
+                      <span class="seed-chip-val">$5</span>
+                      <span class="seed-chip-lbl">Supporter</span>
+                    </button>
+                    <button type="button" class="seed-chip-btn" id="chip-10" onclick="selectSeedAmount(10)">
+                      <span class="seed-chip-val">$10</span>
+                      <span class="seed-chip-lbl">Caregiver</span>
+                    </button>
+                    <button type="button" class="seed-chip-btn" id="chip-25" onclick="selectSeedAmount(25)">
+                      <span class="seed-chip-val">$25</span>
+                      <span class="seed-chip-lbl">Pillar</span>
+                    </button>
+                  </div>
+
+                  <!-- Impact Notice -->
+                  <div class="seed-impact-notice" id="seed-impact-text">
+                    ✨ <strong>100% Community Pass-Through:</strong> $1/month covers 1 free trauma-informed youth healing journal and subsidizes community somatic seats. 0% deducted by Zeffy.
+                  </div>
+
+                  <!-- Direct 1-Tap Giving Button -->
+                  <a id="seed-direct-pay-btn" href="https://www.zeffy.com/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation" target="_blank" rel="noopener noreferrer" class="btn btn-gold btn-liquid-gold pulse-gold zeffy-direct-link" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 15px 22px; font-size: 1.02rem; font-weight: 700; border-radius: 999px; text-decoration: none; margin: 14px 0 10px; box-sizing: border-box; box-shadow: 0 8px 24px rgba(154, 111, 26, 0.35);">
+                    <span id="seed-pay-btn-label">🌱 Plant $1 Monthly Seed (Apple Pay • Google Pay)</span>
+                    <span style="font-size: 1.15rem;">↗</span>
+                  </a>
+
+                  <!-- Payment Trust Badges -->
+                  <div class="seed-pay-badges">
+                    <span> Apple Pay</span>
+                    <span>•</span>
+                    <span>G Pay Google Pay</span>
+                    <span>•</span>
+                    <span>💳 Zero Fees</span>
+                    <span>•</span>
+                    <span>🔒 256-Bit SSL</span>
+                  </div>
+
+                  <!-- Optional In-Card Embed Collapsible -->
+                  <div class="zeffy-embed-collapsible">
+                    <button type="button" class="zeffy-embed-toggle-btn" onclick="toggleEmbeddedZeffy()">
+                      <span id="embed-toggle-text">▾ Or preview embedded checkout frame directly in-card</span>
+                    </button>
+                    <div id="zeffy-inline-embed-wrap" style="display: none; margin-top: 14px; position: relative; width: 100%; min-height: 520px; background: #F6F2E9; border-radius: 12px; overflow: hidden; border: 1.5px solid rgba(154, 111, 26, 0.3);">
+                      <iframe
+                        id="inpage-zeffy-iframe"
+                        title="Inner Sanctuary Wellness Foundation 2-Tap Giving"
+                        style="border:0; width:100%; height:520px; background:#F6F2E9; display:block;"
+                        src="about:blank"
+                        data-src="https://www.zeffy.com/embed/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation"
+                        allow="payment *"
+                        allowpaymentrequest="true"
+                        allowtransparency="true"
+                        loading="lazy">
+                      </iframe>
+                    </div>
+                  </div>
+
                 </div>
-                <script
-                  src="https://www.zeffy.com/embed/v2/zeffy-embed.js"
-                  onerror="document.querySelectorAll('[data-zeffy-embed-fallback]').forEach(function(el){el.style.display='block';el.querySelectorAll('iframe[data-zeffy-embed-src]').forEach(function(f){f.src=f.getAttribute('data-zeffy-embed-src');});});">
-                </script>
+
+              </div>
+
+              <!-- Tab Pane 2: Live Stage Thermometer (Stage Projector Ready) -->
+              <div id="donate-pane-thermometer" class="donate-tab-pane" style="display: none; position:relative; width:100%; min-height:540px; height:540px; background:#F6F2E9;">
+                <iframe
+                  id="inpage-thermometer-iframe"
+                  title="Inner Sanctuary Wellness Foundation Live Stage Thermometer"
+                  style="border:0; width:100%; height:100%; background:#F6F2E9; display:block;"
+                  src="https://www.zeffy.com/en-US/live/thermometer/donate-to-make-a-difference-inner-sanctuary-wellness-foundation"
+                  allowtransparency="true"
+                  loading="lazy">
+                </iframe>
               </div>
 
               <!-- Card Bottom Direct Fallback -->
-              <div style="background:#F6F2E9; padding:10px 16px; text-align:center; font-size:12px; color:#241C15; border-top:1px solid rgba(154,111,26,0.3);">
-                Trouble viewing the keypad inside Instagram/TikTok browser?
-                <a href="https://www.zeffy.com/en-US/embed/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation" target="_blank" rel="noopener noreferrer" style="color:#1E3A2B; font-weight:700; text-decoration:underline;">
-                  Open Direct 1-Tap Checkout →
+              <div style="background:#F6F2E9; padding:12px 18px; text-align:center; font-size:12.5px; color:#241C15; border-top:1px solid rgba(154,111,26,0.3); display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap;">
+                <span>Verified 501(c)(3) Zero-Fee Portal:</span>
+                <a href="https://www.zeffy.com/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation" target="_blank" rel="noopener noreferrer" class="zeffy-direct-link" style="color:#1E3A2B; font-weight:700; text-decoration:underline;">
+                  Open Direct 1-Tap Checkout ↗
                 </a>
               </div>
 
@@ -926,7 +996,7 @@
             </div>
             <div class="fiduciary-value">W-9 &amp; Form 990 Verified</div>
             <p class="fiduciary-desc">
-              Formal board oversight led by Executive Director Teshia Campbell and President Marlon "Jag" Smith II. Signed Form W-9, conflict of interest policy, and IRS determination packet provided upon request.
+              Formal board oversight led by Executive Director Teshia Campbell and President Marlon Smith. Signed Form W-9, conflict of interest policy, and IRS determination packet provided upon request.
             </p>
           </div>
           <span class="fiduciary-badge-pill">✦ Audit-Ready Fiduciary</span>
@@ -1456,7 +1526,7 @@
             Founder &amp; Executive Director
           </p>
           <p style="font-size: 0.88rem; color: #CBD7D0; margin-bottom: 12px;">
-            <strong>Marlon "Jag" Smith II</strong><br>
+            <strong>Marlon Smith</strong><br>
             President &amp; Primary MC
           </p>
           <p style="font-size: 0.88rem; margin-bottom: 12px;">
@@ -1477,7 +1547,7 @@
       <!-- Footer Bottom -->
       <div class="footer-bottom">
         <div style="font-size: 0.82rem; line-height: 1.6; color: #CBD7D0; max-width: 780px;">
-          Inner Sanctuary Wellness Foundation is a registered 501(c)(3) public charity (Federal EIN: 39-3757168). Founder &amp; Executive Director: Teshia Campbell | President &amp; Primary MC: Marlon "Jag" Smith II.
+          Inner Sanctuary Wellness Foundation is a registered 501(c)(3) public charity (Federal EIN: 39-3757168). Founder &amp; Executive Director: Teshia Campbell | President &amp; Primary MC: Marlon Smith.
         </div>
         <div style="display: flex; align-items: center; gap: 16px; margin-top: 8px;">
           <span>EIN: 39-3757168</span>
@@ -1510,11 +1580,20 @@
         💡 1-Tap Pro Tip: Choose $1/Monthly, tap <strong>'Other → $0'</strong> on the optional Zeffy tip so you pay <strong>$1.00 flat</strong>, and double-click Apple Pay or Google Pay!
       </div>
 
-      <div class="zeffy-modal-frame-wrap">
+      <!-- Quick Direct 1-Tap Giving Bar (Zero-Risk Instant Checkout) -->
+      <div style="background:#F6F2E9; padding:12px 18px; text-align:center; border-bottom:1px solid rgba(154,111,26,0.25);">
+        <a id="modal-direct-launch-btn" href="https://www.zeffy.com/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation" target="_blank" rel="noopener noreferrer" class="btn btn-gold btn-liquid-gold pulse-gold zeffy-direct-link" style="display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:12px 24px; font-size:0.95rem; border-radius:999px; text-decoration:none; width:100%; max-width:440px; margin:0 auto; box-sizing:border-box;">
+          <span>🌱 Plant $1 Seed with 1-Tap (Apple Pay • Google Pay)</span>
+          <span style="font-size:1.15rem;">↗</span>
+        </a>
+      </div>
+
+      <div class="zeffy-modal-frame-wrap" style="background:#F6F2E9;">
         <iframe
           id="zeffy-modal-iframe"
           title="Inner Sanctuary Wellness Foundation 1-Tap Giving"
-          src="https://www.zeffy.com/en-US/embed/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation"
+          src="https://www.zeffy.com/embed/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation"
+          style="border:0; width:100%; height:100%; background:#F6F2E9;"
           allow="payment *"
           allowpaymentrequest="true"
           allowtransparency="true"
@@ -1524,8 +1603,8 @@
 
       <div class="zeffy-modal-footer">
         <span>Trouble viewing inside mobile browser?</span>
-        <a href="https://www.zeffy.com/en-US/embed/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation" target="_blank" rel="noopener noreferrer">
-          Open Direct Zeffy Window →
+        <a href="https://www.zeffy.com/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation" target="_blank" rel="noopener noreferrer" class="zeffy-direct-link">
+          Open Direct Zeffy Window ↗
         </a>
       </div>
     </div>
