@@ -2738,14 +2738,14 @@ document.addEventListener('DOMContentLoaded', () => {
     friend: {
       name: 'Community Friend',
       onetime: {
-        priceHtml: '$250 <span>One-Time</span>',
+        priceHtml: '$250 <span style="font-size: 0.78rem; font-weight: 600; color: #526359;">One-Time • 1 Event</span>',
         desc: '<strong>One-Time — $250:</strong> Sponsor one community event.',
         btnText: 'Select One-Time ($250) →',
         roleVal: 'Community Friend — One-Time ($250)',
         message: 'I would like to sponsor as a Community Friend (One-Time — $250) to sponsor one community gathering. Please send partnership agreement and invoice details.'
       },
       quarterly: {
-        priceHtml: '$250 <span>/ quarter</span>',
+        priceHtml: '$250 <span style="font-size: 0.78rem; font-weight: 600; color: #526359;">/ qtr • $1,000/yr</span>',
         desc: '<strong>Quarterly — $250/qtr:</strong> Sponsor all four quarterly events throughout the year ($1,000 annually). Once every 3 months.',
         btnText: 'Select Quarterly ($250/qtr) →',
         roleVal: 'Community Friend — Quarterly ($250/qtr)',
@@ -2755,14 +2755,14 @@ document.addEventListener('DOMContentLoaded', () => {
     builder: {
       name: 'Community Builder',
       onetime: {
-        priceHtml: '$500 <span>One-Time</span>',
+        priceHtml: '$500 <span style="font-size: 0.78rem; font-weight: 600; color: #526359;">One-Time • 1 Event</span>',
         desc: '<strong>One-Time — $500:</strong> Sponsor one community event.',
         btnText: 'Select One-Time ($500) →',
         roleVal: 'Community Builder — One-Time ($500)',
         message: 'I would like to sponsor as a Community Builder (One-Time — $500) to sponsor one community gathering. Please send partnership agreement and invoice details.'
       },
       quarterly: {
-        priceHtml: '$500 <span>/ quarter</span>',
+        priceHtml: '$500 <span style="font-size: 0.78rem; font-weight: 600; color: #526359;">/ qtr • $2,000/yr</span>',
         desc: '<strong>Quarterly — $500/qtr:</strong> Sponsor all four quarterly events throughout the year ($2,000 annually). Once every 3 months.',
         btnText: 'Select Quarterly ($500/qtr) →',
         roleVal: 'Community Builder — Quarterly ($500/qtr)',
@@ -2772,14 +2772,14 @@ document.addEventListener('DOMContentLoaded', () => {
     champion: {
       name: 'Community Champion',
       onetime: {
-        priceHtml: '$1,000 <span>One-Time</span>',
+        priceHtml: '$1,000 <span style="font-size: 0.78rem; font-weight: 600; color: #526359;">One-Time • 1 Event</span>',
         desc: '<strong>One-Time — $1,000:</strong> Sponsor one community event.',
         btnText: 'Select One-Time ($1,000) →',
         roleVal: 'Community Champion — One-Time ($1,000)',
         message: 'I would like to sponsor as a Community Champion (One-Time — $1,000) to sponsor one community gathering. Please send our corporate / CRA due diligence packet and invoice details.'
       },
       quarterly: {
-        priceHtml: '$1,000 <span>/ quarter</span>',
+        priceHtml: '$1,000 <span style="font-size: 0.78rem; font-weight: 600; color: #526359;">/ qtr • $4,000/yr</span>',
         desc: '<strong>Quarterly — $1,000/qtr:</strong> Sponsor all four quarterly events throughout the year ($4,000 annually). Once every 3 months.',
         btnText: 'Select Quarterly ($1,000/qtr) →',
         roleVal: 'Community Champion — Quarterly ($1,000/qtr)',
@@ -2789,14 +2789,14 @@ document.addEventListener('DOMContentLoaded', () => {
     inkind: {
       name: 'In-Kind Community Partner',
       onetime: {
-        priceHtml: '$25+ <span style="font-size: 0.82rem; font-weight: 600; color: var(--charcoal-muted);">Est. Value • One-Time</span>',
+        priceHtml: '$25+ <span style="font-size: 0.78rem; font-weight: 600; color: #526359;">Est. Value • 1 Event</span>',
         desc: '<strong>One-Time Contribution:</strong> Donate goods or services for one event, with an estimated value starting at $25.',
         btnText: 'Pledge In-Kind ($25+) →',
         roleVal: 'In-Kind Partner — One-Time ($25+ value)',
         message: 'I would like to contribute as an In-Kind Community Partner (One-Time, est. $25+ value) for an upcoming community gathering. Details of goods, refreshments, supplies, or services we wish to provide:'
       },
       quarterly: {
-        priceHtml: '$25+ <span style="font-size: 0.82rem; font-weight: 600; color: var(--charcoal-muted);">/ qtr • 4 Events</span>',
+        priceHtml: '$25+ <span style="font-size: 0.78rem; font-weight: 600; color: #526359;">/ qtr • 4 Events</span>',
         desc: '<strong>Quarterly Contribution:</strong> Provide goods or services for each of our four quarterly events, with an estimated value starting at $25 per quarter (once every 3 months).',
         btnText: 'Pledge Quarterly In-Kind →',
         roleVal: 'In-Kind Partner — Quarterly ($25+/qtr value)',

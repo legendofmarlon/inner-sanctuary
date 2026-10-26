@@ -4719,3 +4719,38 @@ body[data-element="earth"] {
     border-radius: 18px;
   }
 }
+
+/* Compact Benefit List for Tiers */
+.benefit-list-compact {
+  list-style: none;
+  padding-left: 0;
+  margin: 0 0 16px;
+}
+
+.benefit-list-compact li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 8px;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: var(--charcoal-muted);
+}
+
+.benefit-list-compact li::before {
+  content: "✦";
+  position: absolute;
+  left: 0;
+  color: var(--sunburst-gold);
+  font-size: 0.75rem;
+  top: 1px;
+}
+
+.tier-box-compact {
+  border-radius: 12px;
+}
+
+@media (max-width: 860px) {
+  .sponsorship-campaign-wrapper > div:last-child {
+    grid-template-columns: 1fr !important;
+  }
+}
