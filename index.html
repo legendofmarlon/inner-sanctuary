@@ -1222,10 +1222,10 @@
       
       <div class="section-header" style="max-width: 820px; margin: 0 auto 20px; text-align: center;">
         <div class="section-subtitle" style="color: #F5AF19;">Deep Unhurried Flow • 2 Slow Counts • Zero Pauses</div>
-        <h2 class="section-title" style="color: #FFFFFF;">Pause & Center: Sacred Breathwork</h2>
+        <h2 class="section-title" style="color: #FFFFFF;">Pause & Center: Sacred Breath Orb</h2>
         <div class="flourish-divider">✦</div>
         <p style="color: #CBD7D0; font-size: 1.04rem; line-height: 1.8; margin-bottom: 0;">
-          Before you continue your day or connect with our circle, ground your nervous system in an unhurried 2-count rhythm. Watch the sacred geometry bloom outward on the inhale and fold into the single glowing Seed on the exhale with soothing organic breath soundscapes.
+          Before you continue your day or connect with our circle, ground your nervous system with our soothing 2-count breath orb. Watch the orb breathe deeply in and out, follow the unhurried rhythm, and relax into center.
         </p>
       </div>
 
@@ -1235,7 +1235,7 @@
         <!-- Header & 2-Count Flow Subtitle -->
         <div class="breath-widget-top">
           <div class="breath-widget-title-bar">
-            <span class="breath-widget-eyebrow">✦ SOLID 2-COUNT SACRED GROUNDING ✦</span>
+            <span class="breath-widget-eyebrow">✦ 2-COUNT SOMATIC BREATH ORB ✦</span>
             
             <!-- Tempo Pill Selector (Zero Pauses) -->
             <div class="breath-mode-toggle" role="tablist" aria-label="Breathing Tempo">
@@ -1254,17 +1254,22 @@
           </p>
         </div>
 
-        <!-- Sacred Canvas Stage with 60fps Geometry & Centered HUD -->
-        <div class="sacred-stage-wrap">
-          <canvas id="sacred-lotus-canvas" width="420" height="420" title="Click to start or pause breath session"></canvas>
-
-          <!-- Centered Real-Time HUD Overlay -->
-          <div class="sacred-phase-overlay" aria-live="polite">
-            <div class="sacred-phase-eyebrow" id="sacred-phase-eyebrow">READY</div>
-            <div class="sacred-phase-word" id="box-phase-title">BREATHE</div>
-            <div class="sacred-phase-timer" id="box-phase-countdown">✦</div>
-            <div class="sacred-guide-subtext" id="sacred-guide-subtext">Tap anywhere on the mandala or click Begin below</div>
+        <!-- The Living Breathing Orb Stage (Tap the Orb to Breathe) -->
+        <div class="breathing-orb-wrapper" id="breathing-orb-stage" title="Click or tap the Orb to start breathing">
+          <div class="breathing-pulse-ring"></div>
+          <div class="breathing-halo-aura" id="somatic-halo"></div>
+          <div class="breathing-orb" id="somatic-orb" role="button" tabindex="0" aria-label="Interactive Breathing Orb">
+            <span class="orb-sacred-icon" id="orb-sacred-icon">🌿</span>
           </div>
+        </div>
+
+        <!-- Real-Time HUD Overlay Display -->
+        <div class="orb-phase-display" aria-live="polite">
+          <div class="sacred-phase-eyebrow" id="sacred-phase-eyebrow">READY</div>
+          <div class="sacred-phase-word" id="box-phase-title">BREATHE</div>
+          <div class="sacred-phase-timer" id="box-phase-countdown">✦</div>
+          <div class="sacred-guide-subtext" id="sacred-guide-subtext">Click Begin or tap the orb to breathe</div>
+        </div>
         </div>
 
         <!-- Widget Control Bar: Start/Pause, Breath Sound Toggle, Cycles Tracker -->
@@ -1287,7 +1292,7 @@
         </div>
 
         <div id="breathing-guide-text" class="breathing-status-text" style="color: #94A3B8; font-size: 0.80rem; margin: 4px 0 8px;">
-          Deep unhurried 2-count flow • Inhale blooms outward • Exhale collapses inward into the Seed
+          Deep unhurried 2-count flow • Inhale expands • Exhale gently releases • Zero pauses
         </div>
 
         <!-- Google Ad Grants / GA4 Engagement CTA Hook -->

@@ -1759,7 +1759,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================================================================
-  // 7. SOLID 2-COUNT SACRED GEOMETRY GROUNDING ENGINE (ZERO PAUSES)
+  // 7. SOMATIC BREATH ORB ENGINE (2-COUNT SACRED FLOW - ZERO PAUSES)
   // Palette: Deep Obsidian (#0B0F17), Golden Hour Amber (#F5AF19), Prism Cyan (#00F2FE)
   // =========================================================================
 
@@ -1811,7 +1811,7 @@ document.addEventListener('DOMContentLoaded', () => {
       src.buffer = this.noiseBuffer;
       src.loop = true;
 
-      // Resonant formant filter for gentle nasal/throat inhalation
+      // Resonant formant filter for gentle inhalation
       const bandpass = this.ctx.createBiquadFilter();
       bandpass.type = 'bandpass';
       bandpass.frequency.setValueAtTime(380, now);
@@ -1884,8 +1884,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const breathAudio = new SoothingBreathAudioEngine();
 
-  // DOM Elements
-  const lotusCanvas = document.getElementById('sacred-lotus-canvas');
+  // DOM Elements for the Living Breath Orb
+  const somaticOrb = document.getElementById('somatic-orb');
+  const somaticHalo = document.getElementById('somatic-halo');
+  const orbSacredIcon = document.getElementById('orb-sacred-icon');
   const orbBtn = document.getElementById('orb-toggle-btn');
   const orbLabel = document.getElementById('orb-btn-label');
   const btnCtrlIcon = document.getElementById('btn-ctrl-icon');
@@ -1914,17 +1916,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let hasFiredGA4_3Cycles = false;
   let lastReportedCycleIndex = -1;
   let lastTriggeredPhase = -1;
-
-  // Real-time animation metrics
-  let currentGeometryScale = 0.15;      // Layer 1 & 2 scale (0.15 to 1.00)
-  let currentLayer3Scale = 0.15;        // Layer 3 Metatron Star scale (0.15 to 1.00)
-  let currentRotationAngle = 0;         // Geometry rotation angle in radians
-  let currentCyanGlowIntensity = 0;     // Bioluminescent cyan glow (0.0 to 1.0)
-  let currentCycleProgress = 0;         // Progress within current cycle (0.0 to 1.0)
-  let currentPhaseIndex = -1;           // 0: Inhale, 1: Exhale
-
-  // Accessibility prefers-reduced-motion
-  const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let currentCycleProgress = 0;
+  let currentPhaseIndex = -1;
 
   // Pace durations in milliseconds (Deep unhurried 2-count, ZERO PAUSES)
   const PACE_CONFIGS = {
@@ -1972,29 +1965,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Floating Stardust Motes
-  const stardustParticles = [];
-  const NUM_STARDUST = 22;
-  for (let i = 0; i < NUM_STARDUST; i++) {
-    stardustParticles.push({
-      angle: (i / NUM_STARDUST) * Math.PI * 2,
-      baseDist: 70 + Math.random() * 80,
-      size: Math.random() * 2.2 + 1.0,
-      speed: (Math.random() * 0.003 + 0.0015) * (Math.random() > 0.5 ? 1 : -1),
-      alpha: Math.random() * 0.55 + 0.35,
-      isCyan: Math.random() > 0.5
-    });
-  }
-
   // -------------------------------------------------------------------------
-  // CONTINUOUS 2-COUNT BREATHING UPDATE LOOP (ZERO PAUSES)
-  // Inhale (Counts 1 & 2) -> Exhale (Counts 1 & 2) -> Seamlessly loops!
+  // LIVING BREATH ORB UPDATE LOOP (2-COUNT ZERO PAUSES)
+  // The Orb physically breathes in and out in real-time at 60fps
   // -------------------------------------------------------------------------
   function updateSacredBreathLoop(now) {
     if (!isBreathingActive) return;
     if (!breathStartTime) breathStartTime = now;
 
-    const config = PACE_CONFIGS[currentPace] || PACE_CONFIGS['grounding'];
+    const config = PACE_CONFIGS[currentPace] || PACE_CONFIGS['deep'];
     const totalElapsed = now - breathStartTime;
     const cycleTime = totalElapsed % config.cycleMs;
     currentCycleProgress = cycleTime / config.cycleMs;
@@ -2040,30 +2019,46 @@ document.addEventListener('DOMContentLoaded', () => {
     const countNumber = p < 0.5 ? '1' : '2';
 
     if (phaseIndex === 0) {
-      // INHALE (2 Counts): Mandala blooms outward smoothly from 0.15 to 1.00 scale
-      currentGeometryScale = 0.15 + 0.85 * ease;
-      currentLayer3Scale = 0.15 + 0.85 * ease;
-      currentRotationAngle = prefersReducedMotion ? 0 : ease * 0.45;
-      currentCyanGlowIntensity = 0.85 * ease;
+      // INHALE (2 Counts): Orb smoothly expands deeply outward (1.00 -> 1.48)
+      const orbScale = 1.00 + ease * 0.48;
+      const haloScale = 1.00 + ease * 0.85;
+      const haloOpacity = 0.35 + ease * 0.55;
+
+      if (somaticOrb) {
+        somaticOrb.style.transform = `scale(${orbScale.toFixed(3)})`;
+        somaticOrb.style.boxShadow = `0 ${(14 + ease * 14).toFixed(1)}px ${(40 + ease * 35).toFixed(1)}px rgba(0,0,0,0.75), 0 0 ${(45 + ease * 45).toFixed(1)}px rgba(245, 175, 25, ${(0.55 + ease * 0.35).toFixed(2)}), inset 0 2px 10px rgba(255,255,255,0.85)`;
+      }
+      if (somaticHalo) {
+        somaticHalo.style.transform = `scale(${haloScale.toFixed(3)})`;
+        somaticHalo.style.opacity = haloOpacity.toFixed(2);
+      }
 
       setHUD(
-        '✦ 2-COUNT FLOW (NO PAUSE) ✦',
-        'INHALE',
+        `✦ INHALE (COUNT ${countNumber}) ✦`,
+        'BREATHE IN',
         `COUNT ${countNumber}`,
-        `Breathe In Slowly... ${countNumber === '1' ? '1...' : '1... 2'}`
+        `Breathe In Deeply... ${countNumber === '1' ? '1...' : '1... 2'}`
       );
     } else {
-      // EXHALE (2 Counts): Mandala counter-rotates and collapses inward from 1.00 to 0.15 scale
-      currentGeometryScale = 1.00 - 0.85 * ease;
-      currentLayer3Scale = 1.00 - 0.85 * ease;
-      currentRotationAngle = prefersReducedMotion ? 0 : 0.45 * (1 - ease);
-      currentCyanGlowIntensity = 0.85 * (1 - ease);
+      // EXHALE (2 Counts): Orb smoothly contracts back to resting center (1.48 -> 1.00)
+      const orbScale = 1.48 - ease * 0.48;
+      const haloScale = 1.85 - ease * 0.85;
+      const haloOpacity = 0.90 - ease * 0.55;
+
+      if (somaticOrb) {
+        somaticOrb.style.transform = `scale(${orbScale.toFixed(3)})`;
+        somaticOrb.style.boxShadow = `0 ${(28 - ease * 14).toFixed(1)}px ${(75 - ease * 35).toFixed(1)}px rgba(0,0,0,0.75), 0 0 ${(90 - ease * 45).toFixed(1)}px rgba(245, 175, 25, ${(0.90 - ease * 0.35).toFixed(2)}), inset 0 2px 10px rgba(255,255,255,0.85)`;
+      }
+      if (somaticHalo) {
+        somaticHalo.style.transform = `scale(${haloScale.toFixed(3)})`;
+        somaticHalo.style.opacity = haloOpacity.toFixed(2);
+      }
 
       setHUD(
-        '✦ 2-COUNT FLOW (NO PAUSE) ✦',
-        'EXHALE',
+        `✦ EXHALE (COUNT ${countNumber}) ✦`,
+        'BREATHE OUT',
         `COUNT ${countNumber}`,
-        `Breathe Out Slowly... ${countNumber === '1' ? '1...' : '1... 2 (collapse inward)'}`
+        `Breathe Out Slowly... ${countNumber === '1' ? '1...' : '1... 2'}`
       );
     }
 
@@ -2072,7 +2067,7 @@ document.addEventListener('DOMContentLoaded', () => {
       window.sanctuaryBreathSync.active = true;
       window.sanctuaryBreathSync.step = currentPhaseIndex;
       window.sanctuaryBreathSync.progress = currentCycleProgress;
-      window.sanctuaryBreathSync.scale = currentGeometryScale;
+      window.sanctuaryBreathSync.scale = phaseIndex === 0 ? 1.0 + ease * 0.48 : 1.48 - ease * 0.48;
     }
 
     breathAnimId = requestAnimationFrame(updateSacredBreathLoop);
@@ -2123,7 +2118,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     cancelAnimationFrame(breathAnimId);
     breathAnimId = requestAnimationFrame(updateSacredBreathLoop);
-    showToast('🍃 2-Count Sacred Breath active. Follow the flowing rhythm...');
+    showToast('🍃 Breath Orb active. Follow the deep 2-count rhythm...');
   }
 
   function stopSomaticBreath() {
@@ -2136,6 +2131,15 @@ document.addEventListener('DOMContentLoaded', () => {
       window.sanctuaryBreathSync.active = false;
     }
 
+    if (somaticOrb) {
+      somaticOrb.style.transform = 'scale(1.0)';
+      somaticOrb.style.boxShadow = '';
+    }
+    if (somaticHalo) {
+      somaticHalo.style.transform = 'scale(1.0)';
+      somaticHalo.style.opacity = '0.35';
+    }
+
     if (orbBtn) {
       orbBtn.classList.remove('active');
     }
@@ -2146,9 +2150,20 @@ document.addEventListener('DOMContentLoaded', () => {
       btnCtrlIcon.textContent = '▶';
     }
 
-    setHUD('READY', 'BREATHE', '✦', 'Click Begin or tap the mandala to ground your nervous system');
+    setHUD('READY', 'BREATHE', '✦', 'Click Begin or tap the orb to breathe');
 
     showToast('🕊️ Breathwork paused. Resting at center.');
+  }
+
+  // Tap directly on the Living Breath Orb
+  if (somaticOrb) {
+    somaticOrb.addEventListener('click', startSomaticBreath);
+    somaticOrb.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        startSomaticBreath();
+      }
+    });
   }
 
   // Pace Switcher
@@ -2228,245 +2243,6 @@ document.addEventListener('DOMContentLoaded', () => {
         selectIntakeTab('attendee');
       }
     });
-  }
-
-  // -------------------------------------------------------------------------
-  // 60FPS SACRED GEOMETRY CANVAS RENDERER (#sacred-lotus-canvas)
-  // Multi-layered Sacred Geometry:
-  // Layer 1: Core Seed (glowing golden-amber orb that never disappears)
-  // Layer 2: 6-Fold Flower of Life Petals (expand outward, collapse into center)
-  // Layer 3: 12-Fold Metatron's Star (blooms on inhale, collapses inward on exhale)
-  // Layer 4: Outer Orbit Track & Traveling Starlight Pearl
-  // Layer 5: Drifting Sacred Stardust Motes
-  // -------------------------------------------------------------------------
-  if (lotusCanvas) {
-    const lctx = lotusCanvas.getContext('2d');
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const CANVAS_SIZE = 420;
-
-    lotusCanvas.width = CANVAS_SIZE * dpr;
-    lotusCanvas.height = CANVAS_SIZE * dpr;
-    lctx.scale(dpr, dpr);
-
-    const CX = CANVAS_SIZE / 2; // 210
-    const CY = CANVAS_SIZE / 2; // 210
-    const ORBIT_RADIUS = 158;
-
-    let ambientTime = 0;
-
-    function renderSacredCanvas(timestamp) {
-      lctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
-      ambientTime += 0.016;
-
-      // Base geometry values (smooth idle pulse when not actively guided)
-      let scale = currentGeometryScale;
-      let starScale = currentLayer3Scale;
-      let rotation = currentRotationAngle;
-      let cyanIntensity = currentCyanGlowIntensity;
-
-      if (!isBreathingActive) {
-        const idlePulse = (Math.sin(ambientTime * 1.8) + 1) / 2;
-        scale = 0.28 + idlePulse * 0.12;
-        starScale = 0.22 + idlePulse * 0.08;
-        rotation = ambientTime * 0.15;
-        cyanIntensity = idlePulse * 0.25;
-      }
-
-      // ---------------------------------------------------------------------
-      // LAYER 5: Floating Sacred Stardust Motes
-      // ---------------------------------------------------------------------
-      stardustParticles.forEach(p => {
-        p.angle += p.speed;
-        const driftDist = p.baseDist * (0.8 + scale * 0.6);
-        const px = CX + Math.cos(p.angle) * driftDist;
-        const py = CY + Math.sin(p.angle) * driftDist;
-
-        lctx.beginPath();
-        lctx.arc(px, py, p.size, 0, Math.PI * 2);
-        lctx.fillStyle = p.isCyan
-          ? `rgba(0, 242, 254, ${p.alpha * (0.3 + cyanIntensity * 0.6)})`
-          : `rgba(245, 175, 25, ${p.alpha * (0.35 + scale * 0.45)})`;
-        lctx.fill();
-      });
-
-      // ---------------------------------------------------------------------
-      // LAYER 4: Outer Orbit Track & Traveling Starlight Pearl
-      // ---------------------------------------------------------------------
-      lctx.save();
-      // Orbit Track Ring
-      lctx.beginPath();
-      lctx.arc(CX, CY, ORBIT_RADIUS, 0, Math.PI * 2);
-      lctx.strokeStyle = 'rgba(245, 175, 25, 0.18)';
-      lctx.lineWidth = 1.5;
-      lctx.stroke();
-
-      if (isBreathingActive) {
-        const startAngle = -Math.PI / 2; // 12 o'clock top
-        const endAngle = startAngle + (currentCycleProgress * Math.PI * 2);
-
-        // Active glowing progress arc
-        lctx.beginPath();
-        lctx.arc(CX, CY, ORBIT_RADIUS, startAngle, endAngle);
-        lctx.strokeStyle = cyanIntensity > 0.4 ? '#00F2FE' : '#F5AF19';
-        lctx.lineWidth = 3.2;
-        lctx.shadowColor = cyanIntensity > 0.4 ? '#00F2FE' : '#F5AF19';
-        lctx.shadowBlur = 14;
-        lctx.stroke();
-
-        // Traveling Starlight Pearl
-        const pearlX = CX + Math.cos(endAngle) * ORBIT_RADIUS;
-        const pearlY = CY + Math.sin(endAngle) * ORBIT_RADIUS;
-
-        lctx.beginPath();
-        lctx.arc(pearlX, pearlY, 6.0, 0, Math.PI * 2);
-        lctx.fillStyle = '#FFFFFF';
-        lctx.shadowColor = '#00F2FE';
-        lctx.shadowBlur = 16;
-        lctx.fill();
-      }
-      lctx.restore();
-
-      // ---------------------------------------------------------------------
-      // LAYER 3: 12-Fold Metatron's Star / Sri Yantra Polygon
-      // Interlocking triangles & star lattice:
-      // Blooms outward on Inhale, collapses inward into center on Exhale!
-      // ---------------------------------------------------------------------
-      const STAR_MAX_R = 124;
-      const starR = STAR_MAX_R * starScale;
-
-      if (starR > 5) {
-        lctx.save();
-        const vertices = [];
-        for (let i = 0; i < 12; i++) {
-          const theta = (i * Math.PI) / 6 + (rotation * 1.25);
-          vertices.push({
-            x: CX + Math.cos(theta) * starR,
-            y: CY + Math.sin(theta) * starR
-          });
-        }
-
-        const isCyanPeak = cyanIntensity > 0.35;
-        lctx.strokeStyle = isCyanPeak
-          ? `rgba(0, 242, 254, ${0.45 + cyanIntensity * 0.45})`
-          : `rgba(245, 175, 25, ${0.25 + starScale * 0.45})`;
-        lctx.lineWidth = 1.3;
-        lctx.shadowColor = isCyanPeak ? '#00F2FE' : '#F5AF19';
-        lctx.shadowBlur = (8 + 14 * cyanIntensity) * starScale;
-
-        // Chords: Every 4th vertex (forms 3 interlocking equilateral triangles — 12-point Merkabah)
-        for (let i = 0; i < 12; i++) {
-          const next = (i + 4) % 12;
-          lctx.beginPath();
-          lctx.moveTo(vertices[i].x, vertices[i].y);
-          lctx.lineTo(vertices[next].x, vertices[next].y);
-          lctx.stroke();
-        }
-
-        // Chords: Every 5th vertex (interlocking 12-pointed grand star polygon lattice)
-        if (starScale > 0.3) {
-          lctx.strokeStyle = `rgba(0, 242, 254, ${0.20 * starScale + cyanIntensity * 0.45})`;
-          for (let i = 0; i < 12; i++) {
-            const next = (i + 5) % 12;
-            lctx.beginPath();
-            lctx.moveTo(vertices[i].x, vertices[i].y);
-            lctx.lineTo(vertices[next].x, vertices[next].y);
-            lctx.stroke();
-          }
-        }
-
-        // Outer Bounding Dodecagon
-        lctx.beginPath();
-        for (let i = 0; i < 12; i++) {
-          if (i === 0) lctx.moveTo(vertices[i].x, vertices[i].y);
-          else lctx.lineTo(vertices[i].x, vertices[i].y);
-        }
-        lctx.closePath();
-        lctx.strokeStyle = `rgba(245, 175, 25, ${0.20 * starScale})`;
-        lctx.stroke();
-
-        // Vertex Bioluminescent Seed Nodes
-        vertices.forEach((v, idx) => {
-          lctx.beginPath();
-          lctx.arc(v.x, v.y, 2.2 + 2.2 * starScale, 0, Math.PI * 2);
-          lctx.fillStyle = idx % 2 === 0 ? '#00F2FE' : '#FFF5B8';
-          lctx.shadowColor = '#00F2FE';
-          lctx.shadowBlur = 10 * starScale;
-          lctx.fill();
-        });
-
-        lctx.restore();
-      }
-
-      // ---------------------------------------------------------------------
-      // LAYER 2: 6-Fold Flower of Life Petals
-      // Expands outward on Inhale; collapses inward and counter-rotates on Exhale!
-      // ---------------------------------------------------------------------
-      lctx.save();
-      const FLOWER_MAX_DIST = 46;
-      const flowerDist = FLOWER_MAX_DIST * scale;
-      const petalRadius = 14 + 38 * scale;
-
-      lctx.strokeStyle = '#F5AF19';
-      lctx.lineWidth = 1.35;
-      lctx.shadowColor = '#F5AF19';
-      lctx.shadowBlur = 6 * scale;
-
-      for (let i = 0; i < 6; i++) {
-        const theta = (i * Math.PI) / 3 + rotation;
-        const ox = CX + Math.cos(theta) * flowerDist;
-        const oy = CY + Math.sin(theta) * flowerDist;
-
-        lctx.beginPath();
-        lctx.arc(ox, oy, petalRadius, 0, Math.PI * 2);
-        lctx.fillStyle = `rgba(245, 175, 25, ${0.05 * scale})`;
-        lctx.fill();
-        lctx.stroke();
-      }
-
-      // Concentric Harmonizing Ring around petals
-      lctx.beginPath();
-      lctx.arc(CX, CY, flowerDist + petalRadius, 0, Math.PI * 2);
-      lctx.strokeStyle = `rgba(245, 175, 25, ${0.25 * scale})`;
-      lctx.stroke();
-
-      lctx.restore();
-
-      // ---------------------------------------------------------------------
-      // LAYER 1: The Core Seed
-      // A central pulsing golden-amber orb that never disappears, visual anchor.
-      // ---------------------------------------------------------------------
-      lctx.save();
-      const coreSeedRadius = 12 + 8 * scale + Math.sin(ambientTime * 2.5) * 1.5;
-
-      const seedGrad = lctx.createRadialGradient(CX, CY, 0, CX, CY, coreSeedRadius * 2.0);
-      seedGrad.addColorStop(0, '#FFFFFF');
-      seedGrad.addColorStop(0.25, '#FFF2A8');
-      seedGrad.addColorStop(0.65, '#F5AF19');
-      seedGrad.addColorStop(1, 'rgba(245, 175, 25, 0)');
-
-      lctx.fillStyle = seedGrad;
-      lctx.shadowColor = '#F5AF19';
-      lctx.shadowBlur = 16 + 12 * scale;
-      lctx.beginPath();
-      lctx.arc(CX, CY, coreSeedRadius * 2.0, 0, Math.PI * 2);
-      lctx.fill();
-
-      // Core anchor spark point
-      lctx.beginPath();
-      lctx.arc(CX, CY, 4.0, 0, Math.PI * 2);
-      lctx.fillStyle = '#FFFFFF';
-      lctx.shadowColor = '#00F2FE';
-      lctx.shadowBlur = 10;
-      lctx.fill();
-      lctx.restore();
-
-      requestAnimationFrame(renderSacredCanvas);
-    }
-
-    requestAnimationFrame(renderSacredCanvas);
-
-    // Tap/Click on Canvas to toggle breathwork
-    lotusCanvas.addEventListener('click', startSomaticBreath);
   }
 
   // =========================================================================
