@@ -3843,13 +3843,13 @@ body[data-element="earth"] {
 
 .sanctuary-orb-card .breathing-halo-aura {
   position: absolute;
-  width: 140px;
-  height: 140px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(245, 175, 25, 0.45) 0%, rgba(0, 242, 254, 0.2) 50%, transparent 75%);
-  filter: blur(12px);
+  background: radial-gradient(circle, rgba(248, 217, 140, 0.7) 0%, rgba(212, 168, 79, 0.45) 45%, rgba(154, 111, 26, 0.2) 65%, transparent 80%);
+  filter: blur(14px);
   pointer-events: none;
-  opacity: 0.35;
+  opacity: 0.45;
   will-change: transform, opacity;
   transition: transform 0.08s linear, opacity 0.08s linear;
 }
@@ -3858,9 +3858,9 @@ body[data-element="earth"] {
   width: 126px;
   height: 126px;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #FFF3B0 0%, #F5AF19 32%, #C58A18 60%, #152219 98%);
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.75), 0 0 45px rgba(245, 175, 25, 0.55), inset 0 2px 10px rgba(255, 255, 255, 0.8), inset 0 -6px 18px rgba(0, 0, 0, 0.6);
-  border: 2.5px solid rgba(255, 255, 255, 0.85);
+  background: radial-gradient(circle at 35% 28%, #FFFFFF 0%, #FFF6DB 18%, #F8D98C 38%, #D4A84F 65%, #9A6F1A 88%, #6B4908 100%);
+  box-shadow: 0 14px 44px rgba(0, 0, 0, 0.65), 0 0 55px rgba(212, 168, 79, 0.85), 0 0 95px rgba(248, 217, 140, 0.5), inset 0 3px 14px rgba(255, 255, 255, 0.95), inset 0 -8px 24px rgba(154, 111, 26, 0.75);
+  border: 2.5px solid rgba(255, 246, 219, 0.95);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3875,7 +3875,7 @@ body[data-element="earth"] {
 }
 
 .sanctuary-orb-card .breathing-orb:hover {
-  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.85), 0 0 60px rgba(245, 175, 25, 0.8);
+  box-shadow: 0 18px 55px rgba(0, 0, 0, 0.75), 0 0 75px rgba(212, 168, 79, 0.95), 0 0 120px rgba(248, 217, 140, 0.65);
 }
 
 .orb-inner-glow {
@@ -3903,11 +3903,11 @@ body[data-element="earth"] {
 .orb-breath-word {
   font-family: 'Cinzel', serif;
   font-size: 1.15rem;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 0.16em;
-  color: #FFFFFF;
+  color: #1E3A2B;
   text-transform: uppercase;
-  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.95), 0 0 16px rgba(245, 175, 25, 0.85);
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.95), 0 0 16px rgba(248, 217, 140, 0.95);
   transition: opacity 0.3s ease, transform 0.3s ease;
   user-select: none;
 }

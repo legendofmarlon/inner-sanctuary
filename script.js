@@ -1980,7 +1980,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (somaticOrb) {
         somaticOrb.style.transform = `scale(${orbScale.toFixed(3)})`;
-        somaticOrb.style.boxShadow = `0 ${(14 + ease * 14).toFixed(1)}px ${(40 + ease * 35).toFixed(1)}px rgba(0,0,0,0.75), 0 0 ${(45 + ease * 45).toFixed(1)}px rgba(245, 175, 25, ${(0.55 + ease * 0.35).toFixed(2)}), inset 0 2px 10px rgba(255,255,255,0.85)`;
+        somaticOrb.style.boxShadow = `0 ${(14 + ease * 14).toFixed(1)}px ${(40 + ease * 35).toFixed(1)}px rgba(0,0,0,0.65), 0 0 ${(55 + ease * 50).toFixed(1)}px rgba(212, 168, 79, ${(0.75 + ease * 0.25).toFixed(2)}), 0 0 ${(90 + ease * 60).toFixed(1)}px rgba(248, 217, 140, ${(0.45 + ease * 0.30).toFixed(2)}), inset 0 3px 14px rgba(255,255,255,0.95), inset 0 -8px 24px rgba(154, 111, 26, 0.75)`;
       }
       if (somaticHalo) {
         somaticHalo.style.transform = `scale(${haloScale.toFixed(3)})`;
@@ -2006,7 +2006,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (somaticOrb) {
         somaticOrb.style.transform = `scale(${orbScale.toFixed(3)})`;
-        somaticOrb.style.boxShadow = `0 ${(28 - ease * 14).toFixed(1)}px ${(75 - ease * 35).toFixed(1)}px rgba(0,0,0,0.75), 0 0 ${(90 - ease * 45).toFixed(1)}px rgba(245, 175, 25, ${(0.90 - ease * 0.35).toFixed(2)}), inset 0 2px 10px rgba(255,255,255,0.85)`;
+        somaticOrb.style.boxShadow = `0 ${(28 - ease * 14).toFixed(1)}px ${(75 - ease * 35).toFixed(1)}px rgba(0,0,0,0.65), 0 0 ${(105 - ease * 50).toFixed(1)}px rgba(212, 168, 79, ${(1.00 - ease * 0.25).toFixed(2)}), 0 0 ${(150 - ease * 60).toFixed(1)}px rgba(248, 217, 140, ${(0.75 - ease * 0.30).toFixed(2)}), inset 0 3px 14px rgba(255,255,255,0.95), inset 0 -8px 24px rgba(154, 111, 26, 0.75)`;
       }
       if (somaticHalo) {
         somaticHalo.style.transform = `scale(${haloScale.toFixed(3)})`;
