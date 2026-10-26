@@ -3917,3 +3917,548 @@ body[data-element="earth"] {
   flex-wrap: wrap;
   margin-bottom: 6px;
 }
+
+/* ==========================================================================
+   ARGON 4.0 MAX VISUAL & ANIMATION SUITE
+   Botanical-Gold Palette: #F6F2E9 (Cream), #1E3A2B (Forest Green),
+                           #9A6F1A / #D4A84F (Burnished Gold), #241C15 (Espresso)
+   ========================================================================== */
+
+/* 1. Dedicated Floating Golden Hour Botanical Dust Motes Canvas */
+#argon-dust-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* 2. Smooth Scroll Reveal (cubic-bezier(0.16, 1, 0.3, 1)) */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 3. 3D Hover Lift & Glassmorphic Polish */
+.card-3d-hover,
+.sanctuary-zeffy-card,
+.community-power-slider-wrap,
+.power-metric-card,
+.medicine-card,
+.open-mic-card,
+.horizon-card,
+.tier-card,
+.release-card,
+.soundscape-card {
+  transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.38s ease,
+              border-color 0.38s ease;
+}
+
+.card-3d-hover:hover,
+.power-metric-card:hover,
+.medicine-card:hover,
+.open-mic-card:hover,
+.horizon-card:hover,
+.tier-card:hover,
+.release-card:hover,
+.soundscape-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 38px rgba(30, 58, 43, 0.16) !important;
+}
+
+/* 4. Liquid-Gold Shimmer & Pulsing Gold Aura Rings */
+@keyframes liquidGoldShimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes pulseGold {
+  0% {
+    box-shadow: 0 0 0 0 rgba(212, 168, 79, 0.72), 0 8px 24px rgba(30, 58, 43, 0.2);
+  }
+  70% {
+    box-shadow: 0 0 0 16px rgba(212, 168, 79, 0), 0 10px 30px rgba(30, 58, 43, 0.25);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(212, 168, 79, 0), 0 8px 24px rgba(30, 58, 43, 0.2);
+  }
+}
+
+.btn-liquid-gold {
+  background: linear-gradient(115deg, #9A6F1A 0%, #D4A84F 24%, #FFF6DB 50%, #D4A84F 76%, #9A6F1A 100%) !important;
+  background-size: 220% 100% !important;
+  animation: liquidGoldShimmer 4.5s ease infinite;
+  color: #1E3A2B !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.04em;
+  border: 1.5px solid rgba(255, 246, 219, 0.6) !important;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.45);
+  box-shadow: 0 8px 24px rgba(154, 111, 26, 0.35);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+}
+
+.btn-liquid-gold:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 12px 30px rgba(154, 111, 26, 0.45);
+}
+
+.pulse-gold {
+  animation: pulseGold 2.2s infinite cubic-bezier(0.16, 1, 0.3, 1), liquidGoldShimmer 4.5s ease infinite;
+}
+
+/* 5. Forest-Green Pro-Tip Helper Banner (#1E3A2B) */
+.zeffy-protip-banner {
+  background: #1E3A2B;
+  color: #F6F2E9;
+  border-top: 1px solid rgba(212, 168, 79, 0.35);
+  border-bottom: 2px solid #9A6F1A;
+  padding: 12px 18px;
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.55;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.zeffy-protip-banner strong,
+.zeffy-protip-banner .protip-highlight {
+  color: #F8D98C;
+  text-decoration: underline;
+  text-decoration-color: #D4A84F;
+  text-underline-offset: 2px;
+}
+
+/* 6. In-Page 2-Tab Switcher (Keypad vs Thermometer) */
+.donate-tab-switcher-wrap {
+  background: #F6F2E9;
+  padding: 14px 18px 10px;
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid rgba(154, 111, 26, 0.25);
+}
+
+.donate-tab-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #EAE3D2;
+  padding: 5px;
+  border-radius: 999px;
+  border: 1px solid rgba(154, 111, 26, 0.3);
+  box-shadow: inset 0 2px 4px rgba(30, 58, 43, 0.08);
+}
+
+.donate-tab-btn {
+  background: transparent;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #241C15;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.donate-tab-btn:hover {
+  color: #1E3A2B;
+}
+
+.donate-tab-btn.active {
+  background: #1E3A2B;
+  color: #F6F2E9;
+  box-shadow: 0 4px 12px rgba(30, 58, 43, 0.25);
+}
+
+/* 7. Interactive $1/Month Community Power Slider */
+.community-power-slider-wrap {
+  background: rgba(246, 242, 233, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 2px solid #9A6F1A;
+  border-radius: 16px;
+  padding: 24px 22px;
+  margin-top: 24px;
+  box-shadow: 0 12px 32px rgba(30, 58, 43, 0.12);
+  color: #241C15;
+}
+
+.power-slider-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.power-slider-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1E3A2B;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.power-slider-badge {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #9A6F1A;
+  background: rgba(154, 111, 26, 0.12);
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(154, 111, 26, 0.28);
+}
+
+.power-slider-sub {
+  font-size: 0.86rem;
+  color: #556B5D;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.slider-counter-display {
+  background: #1E3A2B;
+  color: #F6F2E9;
+  border-radius: 12px;
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  border: 1.5px solid #D4A84F;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+.slider-counter-display .label {
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #CBD7D0;
+  font-weight: 600;
+}
+
+.slider-counter-display .value {
+  font-family: 'Cinzel', serif;
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #F8D98C;
+}
+
+/* Custom Range Slider Track & Thumb */
+.argon-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 10px;
+  border-radius: 999px;
+  background: linear-gradient(to right, #9A6F1A 0%, #D4A84F 50%, #C4D3C9 50%, #C4D3C9 100%);
+  outline: none;
+  margin: 8px 0 10px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.argon-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #1E3A2B;
+  border: 3px solid #F8D98C;
+  box-shadow: 0 4px 12px rgba(30, 58, 43, 0.4);
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+}
+
+.argon-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.18);
+  box-shadow: 0 0 0 6px rgba(212, 168, 79, 0.3);
+}
+
+.argon-slider::-moz-range-thumb {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #1E3A2B;
+  border: 3px solid #F8D98C;
+  box-shadow: 0 4px 12px rgba(30, 58, 43, 0.4);
+  cursor: pointer;
+}
+
+.slider-ticks {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: #7A8E82;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.slider-presets {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.preset-chip {
+  background: #EAE3D2;
+  border: 1px solid rgba(154, 111, 26, 0.35);
+  color: #241C15;
+  border-radius: 999px;
+  padding: 5px 13px;
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.preset-chip:hover {
+  background: #DFD5C0;
+  color: #1E3A2B;
+}
+
+.preset-chip.active {
+  background: #9A6F1A;
+  color: #FFFFFF;
+  border-color: #9A6F1A;
+  box-shadow: 0 2px 8px rgba(154, 111, 26, 0.3);
+}
+
+/* 3 Power Metrics Cards */
+.power-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 640px) {
+  .power-metrics-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.power-metric-card {
+  background: #FFFFFF;
+  border: 1.5px solid rgba(154, 111, 26, 0.3);
+  border-radius: 12px;
+  padding: 14px 12px;
+  text-align: center;
+  box-shadow: 0 4px 14px rgba(30, 58, 43, 0.05);
+}
+
+.power-metric-card.highlight {
+  background: #FDF9EE;
+  border-color: #D4A84F;
+  box-shadow: 0 6px 18px rgba(154, 111, 26, 0.14);
+}
+
+.power-metric-card .metric-icon {
+  font-size: 1.25rem;
+  margin-bottom: 4px;
+}
+
+.power-metric-card .metric-num {
+  font-family: 'Cinzel', serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #1E3A2B;
+  line-height: 1.2;
+  margin-bottom: 3px;
+}
+
+.power-metric-card.highlight .metric-num {
+  color: #9A6F1A;
+}
+
+.power-metric-card .metric-label {
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: #63786C;
+  line-height: 1.35;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.power-cta-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 13px 20px;
+  font-size: 0.92rem;
+  border-radius: 999px;
+}
+
+/* 8. Preloaded Zeffy Quick Donate Modal (ZeffyQuickDonateModal) */
+.zeffy-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  background: rgba(14, 27, 20, 0.78);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.zeffy-modal-backdrop.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.zeffy-modal-dialog {
+  background: #F6F2E9;
+  border: 2px solid #9A6F1A;
+  border-radius: 18px;
+  width: 100%;
+  max-width: 660px;
+  max-height: 94vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(212, 168, 79, 0.3);
+  position: relative;
+  transform: translateY(20px) scale(0.96);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.zeffy-modal-backdrop.is-open .zeffy-modal-dialog {
+  transform: translateY(0) scale(1);
+}
+
+.zeffy-modal-close {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(246, 242, 233, 0.9);
+  border: 1px solid #9A6F1A;
+  color: #1E3A2B;
+  font-size: 24px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s ease;
+}
+
+.zeffy-modal-close:hover {
+  background: #1E3A2B;
+  color: #F6F2E9;
+  transform: rotate(90deg);
+}
+
+.zeffy-modal-header {
+  background: #1E3A2B;
+  color: #F6F2E9;
+  padding: 16px 20px 14px;
+  text-align: center;
+  border-bottom: 2px solid #9A6F1A;
+}
+
+.zeffy-modal-badge {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #E6C168;
+  margin-bottom: 4px;
+}
+
+.zeffy-modal-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0 0 3px;
+  color: #FFFFFF;
+}
+
+.zeffy-modal-subtitle {
+  font-size: 12.5px;
+  color: #CBD7D0;
+  margin: 0;
+}
+
+.zeffy-modal-frame-wrap {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  min-height: 520px;
+  max-height: 68vh;
+  background: #FFFFFF;
+  overflow: hidden;
+}
+
+.zeffy-modal-frame-wrap iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.zeffy-modal-footer {
+  background: #F6F2E9;
+  padding: 10px 16px;
+  text-align: center;
+  font-size: 12px;
+  color: #241C15;
+  border-top: 1px solid rgba(154, 111, 26, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.zeffy-modal-footer a {
+  color: #1E3A2B;
+  font-weight: 700;
+  text-decoration: underline;
+}

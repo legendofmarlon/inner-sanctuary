@@ -93,7 +93,9 @@
 </head>
 <body>
 
-  <!-- ==================== ELEMENTAL SANCTUARY IMMERSION CANVAS ==================== -->
+  <!-- Argon 4.0 Golden Hour Botanical Dust Motes Canvas -->
+  <canvas id="argon-dust-canvas"></canvas>
+<!-- ==================== ELEMENTAL SANCTUARY IMMERSION CANVAS ==================== -->
   <canvas id="elemental-sanctuary-bg"></canvas>
   <div id="lantern-aura" class="lantern-aura"></div>
 
@@ -157,7 +159,7 @@
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
           <span class="desktop-only-ig">@ourinnersanctuary</span>
         </a>
-        <a href="#circle-growth" class="btn btn-gold nav-donate-cta" style="padding: 10px 18px; font-size: 0.78rem;">Donate $1</a>
+        <button type="button" onclick="openZeffyModal(event)" class="btn btn-gold nav-donate-cta btn-liquid-gold pulse-gold" style="padding: 10px 18px; font-size: 0.78rem; cursor: pointer;">Donate $1</button>
         <button id="mobile-nav-toggle" style="display: none; background: none; border: 1px solid var(--forest-green); color: var(--forest-green); padding: 8px 12px; border-radius: 6px; cursor: pointer;" aria-label="Toggle Menu">
           ☰
         </button>
@@ -175,7 +177,7 @@
         <li><a href="#stay-in-loop">Events & Updates</a></li>
         <li><a href="#breath">Sacred Breath</a></li>
         <li><a href="#connect">Get Involved</a></li>
-        <li><a href="#circle-growth" class="btn btn-gold" style="display: inline-block; text-align: center; margin-top: 6px; padding: 10px 18px;">Donate $1</a></li>
+        <li><button type="button" onclick="openZeffyModal(event)" class="btn btn-gold btn-liquid-gold pulse-gold" style="display: inline-block; width: 100%; text-align: center; margin-top: 6px; padding: 10px 18px; cursor: pointer;">Donate $1</button></li>
         <li><a href="https://www.instagram.com/ourinnersanctuary/" target="_blank" rel="noopener noreferrer" style="color: var(--sunburst-gold); display: flex; align-items: center; gap: 8px;">📸 Instagram: @ourinnersanctuary</a></li>
       </ul>
     </div>
@@ -289,6 +291,7 @@
 
         <!-- CTA Buttons -->
         <div class="hero-cta-group" style="margin-top: 28px;">
+          <button type="button" onclick="openZeffyModal(event)" class="btn btn-gold btn-liquid-gold pulse-gold" style="cursor: pointer;">🌱 <div class="hero-cta-group" style="margin-top: 28px;">/Month Sanctuary Fam</button>
           <a href="#open-mic" class="btn btn-gold">Community Gathering</a>
           <a href="#medicine" class="btn btn-forest">Our Medicine: LSD</a>
           <a href="#breath" class="btn btn-outline">Sacred Breathwork ✦</a>
@@ -419,7 +422,7 @@
 
           <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
             <a href="#open-mic" class="btn btn-gold">Community Gathering</a>
-            <a href="#circle-growth" class="btn btn-outline-gold">Support The Foundation</a>
+            <button type="button" onclick="openZeffyModal(event)" class="btn btn-outline-gold card-3d-hover" style="cursor: pointer;">Support The Foundation</button>
           </div>
         </div>
       </div>
@@ -575,7 +578,7 @@
             </p>
           </div>
           <div style="margin-top: 24px;">
-            <a href="#circle-growth" class="btn btn-outline" style="width: 100%; font-size: 0.8rem; padding: 10px 16px;">Support This Initiative</a>
+            <button type="button" onclick="openZeffyModal(event)" class="btn btn-outline card-3d-hover" style="width: 100%; font-size: 0.8rem; padding: 10px 16px; cursor: pointer;">Support This Initiative</button>
           </div>
         </div>
 
@@ -585,12 +588,16 @@
   </section>
 
   <!-- ==================== HELP US KEEP THE CIRCLE GROWING (GIVING & SPONSORSHIP) ==================== -->
-  <section id="circle-growth" class="section-padding" style="background: rgba(240, 236, 225, 0.7); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(197, 154, 63, 0.25);">
+  <!-- Anchor for #donate queries -->
+  <div id="donate" style="position: relative; top: -80px; visibility: hidden;"></div>
+
+  <!-- ==================== HELP US KEEP THE CIRCLE GROWING (GIVING & SPONSORSHIP) ==================== -->
+  <section id="circle-growth" data-section="donate" class="section-padding reveal-on-scroll" style="background: rgba(240, 236, 225, 0.7); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(197, 154, 63, 0.25);">
     <div class="container">
       
-      <div class="section-header" style="max-width: 860px; margin: 0 auto 44px;">
+      <div class="section-header" style="max-width: 860px; margin: 0 auto 44px; text-align: center;">
         <div class="section-subtitle">Grassroots & Corporate Care</div>
-        <h2 class="section-title">Help Us Keep The Circle Growing</h2>
+        <h2 class="section-title serif-brand">Help Us Keep The Circle Growing</h2>
         <div class="flourish-divider">✦</div>
         <p style="font-size: 1.2rem; color: var(--forest-green); font-weight: 600; line-height: 1.8; margin-bottom: 14px;">
           "Support spaces where people can pause, express, connect, and remember."
@@ -599,7 +606,7 @@
           Whether you are an everyday neighbor planting a <strong>$1 Community Seed</strong> or a community-minded corporate/banking partner fulfilling <strong>CRA (Community Reinvestment Act)</strong> objectives, your partnership directly sustains unhurried healing spaces and authentic stages.
         </p>
         <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
-          <a href="#dollar-campaign-anchor" class="btn btn-gold">🌱 Donate ($1 Seed Movement)</a>
+          <button type="button" onclick="openZeffyModal(event)" class="btn btn-gold btn-liquid-gold pulse-gold" style="cursor: pointer;">🌱 Donate ($1 Seed Movement)</button>
           <a href="#sponsorship" class="btn btn-forest">🏢 Become a Sponsor</a>
         </div>
       </div>
@@ -607,7 +614,7 @@
       <div id="dollar-campaign-anchor" class="dollar-campaign-wrapper">
         <div class="dollar-grid">
           
-          <!-- Left Column: The Story of $1 -->
+          <!-- Left Column: The Story of $1 & Interactive Community Power Slider -->
           <div>
             <div class="dollar-badge-flair">
               <span>🌱 Grassroots Movement</span>
@@ -624,7 +631,7 @@
             </p>
 
             <!-- Direct Zeffy Verification Box -->
-            <div style="background: rgba(255, 255, 255, 0.08); border: 1.5px solid rgba(197, 154, 63, 0.45); border-radius: 12px; padding: 18px 22px; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+            <div class="card-3d-hover" style="background: rgba(255, 255, 255, 0.12); border: 1.5px solid rgba(197, 154, 63, 0.45); border-radius: 12px; padding: 18px 22px; margin-bottom: 22px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; backdrop-filter: blur(8px);">
               <div style="flex: 1; min-width: 240px;">
                 <div style="display: flex; align-items: center; gap: 8px; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: #F8D98C; margin-bottom: 6px;">
                   <span>🔒 Official Verified Giving Portal</span>
@@ -635,12 +642,13 @@
                   Give directly through our certified <strong>Zeffy</strong> portal. 100% of your tax-deductible gift reaches Inner Sanctuary without processing cuts.
                 </p>
               </div>
-              <a href="https://www.zeffy.com/en-US/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation" target="_blank" rel="noopener noreferrer" class="btn btn-gold" style="padding: 11px 22px; font-size: 0.82rem; white-space: nowrap;">
-                Open Zeffy Portal ↗
-              </a>
+              <button type="button" onclick="openZeffyModal(event)" class="btn btn-gold btn-liquid-gold" style="padding: 11px 22px; font-size: 0.82rem; white-space: nowrap; cursor: pointer;">
+                Open 1-Tap Portal ↗
+              </button>
             </div>
 
-            <div style="display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 10px;">
+            <!-- Quick Impact Stats Trio -->
+            <div style="display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 24px;">
               <div>
                 <div style="font-family: 'Cinzel', serif; font-size: 1.8rem; font-weight: 700; color: #F8D98C;">$1</div>
                 <div style="font-size: 0.8rem; color: #CBD7D0; text-transform: uppercase; letter-spacing: 0.08em;">Minimum Gift</div>
@@ -654,11 +662,79 @@
                 <div style="font-size: 0.8rem; color: #CBD7D0; text-transform: uppercase; letter-spacing: 0.08em;">Direct Impact</div>
               </div>
             </div>
+
+            <!-- Interactive $1/Month Community Power Slider Component -->
+            <div class="community-power-slider-wrap card-3d-hover">
+              <div class="power-slider-title-row">
+                <h3 class="power-slider-title">
+                  <span>✨ $1/Month Community Power</span>
+                </h3>
+                <span class="power-slider-badge">Live Calculator</span>
+              </div>
+              <p class="power-slider-sub">
+                Slide to see how our collective monthly seeds fund authentic healing spaces, sound baths, and youth journals without algorithmic pressure.
+              </p>
+
+              <div class="slider-counter-display">
+                <span class="label">Sanctuary Fam Circle:</span>
+                <span class="value" id="power-slider-count">250 Members</span>
+              </div>
+
+              <input
+                type="range"
+                id="power-members-slider"
+                class="argon-slider"
+                min="50"
+                max="1000"
+                step="10"
+                value="250"
+                aria-label="Community Members Slider">
+
+              <div class="slider-ticks">
+                <span>50 Fam</span>
+                <span>250 Fam</span>
+                <span>500 Fam</span>
+                <span>1,000 Fam</span>
+              </div>
+
+              <div class="slider-presets">
+                <button type="button" class="preset-chip" data-value="100" onclick="setSliderValue(100)">100 Fam</button>
+                <button type="button" class="preset-chip active" data-value="250" onclick="setSliderValue(250)">250 Fam</button>
+                <button type="button" class="preset-chip" data-value="500" onclick="setSliderValue(500)">500 Fam</button>
+                <button type="button" class="preset-chip" data-value="1000" onclick="setSliderValue(1000)">1,000 Fam</button>
+              </div>
+
+              <div class="power-metrics-grid">
+                <div class="power-metric-card">
+                  <div class="metric-icon">🌱</div>
+                  <div class="metric-num" id="metric-monthly-fuel">$250</div>
+                  <div class="metric-label">Monthly Sanctuary Fuel</div>
+                </div>
+                <div class="power-metric-card highlight">
+                  <div class="metric-icon">✨</div>
+                  <div class="metric-num" id="metric-annual-total">$3,000</div>
+                  <div class="metric-label">Annual 0%-Fee Total</div>
+                </div>
+                <div class="power-metric-card">
+                  <div class="metric-icon">📓</div>
+                  <div class="metric-num" id="metric-journals-funded">750</div>
+                  <div class="metric-label">Youth Healing Journals</div>
+                </div>
+              </div>
+
+              <button type="button" class="btn btn-gold btn-liquid-gold pulse-gold power-cta-btn" onclick="openZeffyModal(event)">
+                <span>Join the $1/Month Movement (2 Taps)</span>
+                <span>→</span>
+              </button>
+            </div>
+
           </div>
 
-          <!-- Right Column: Official 2-Tap Zeffy Donation Portal -->
+          <!-- Right Column: Official 2-Tap Zeffy Donation Portal with 2-Tab Switcher & Helper Banner -->
           <div>
-            <div class="sanctuary-zeffy-card" style="background:#F6F2E9; border:2px solid #9A6F1A; border-radius:16px; overflow:hidden; max-width:680px; margin:0 auto; box-shadow:0 12px 32px rgba(30,58,43,0.12);">
+            <div class="sanctuary-zeffy-card card-3d-hover" style="background:#F6F2E9; border:2px solid #9A6F1A; border-radius:16px; overflow:hidden; max-width:680px; margin:0 auto; box-shadow:0 12px 32px rgba(30,58,43,0.12);">
+              
+              <!-- Card Header -->
               <div style="background:#1E3A2B; color:#F6F2E9; padding:14px 20px; text-align:center; border-bottom:2px solid #9A6F1A;">
                 <div style="font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#E6C168; margin-bottom:4px;">
                   IRS 501(c)(3) PUBLIC CHARITY • FEDERAL EIN: 39-3757168 • 100% ZERO FEES
@@ -666,16 +742,32 @@
                 <div style="font-size:16px; font-weight:700;">
                   Join the $1/Month Sanctuary Fam in 2 Taps (Apple Pay &amp; Google Pay)
                 </div>
-                <div style="font-size:12.5px; color:#E8E2D5; margin-top:4px;">
-                  <strong>Insider Pro-Tip:</strong> Where it says <em>"Support Zeffy,"</em> tap <strong>Other → $0</strong> so you pay literally <strong>$1.00 flat</strong> and Inner Sanctuary keeps 100%!
+              </div>
+
+              <!-- 2-Tab Switcher (Keypad vs Live Stage Thermometer) -->
+              <div class="donate-tab-switcher-wrap">
+                <div class="donate-tab-switcher" role="tablist" aria-label="Donation Mode Switcher">
+                  <button type="button" class="donate-tab-btn active" id="tab-btn-keypad" onclick="switchDonateTab('keypad')" role="tab" aria-selected="true">
+                    <span>💳 1-Step Payment Keypad</span>
+                  </button>
+                  <button type="button" class="donate-tab-btn" id="tab-btn-thermometer" onclick="switchDonateTab('thermometer')" role="tab" aria-selected="false">
+                    <span>🌡️ Live Stage Thermometer</span>
+                  </button>
                 </div>
               </div>
+
+              <!-- Forest-Green Helper Banner (#1E3A2B) -->
+              <div class="zeffy-protip-banner">
+                💡 1-Tap Pro Tip: Choose $1/Monthly, tap <strong>'Other → $0'</strong> on the optional Zeffy tip so you pay <strong>$1.00 flat</strong>, and double-click Apple Pay or Google Pay!
+              </div>
+
+              <!-- Zeffy Stripped-Down Embed Container -->
               <div style="position:relative; width:100%; min-height:680px; background:#FFFFFF;">
-                <div data-zeffy-embed data-form-url="https://www.zeffy.com/en-US/embed/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation"></div>
-                <div data-zeffy-embed-fallback style="display:block;">
+                <div data-zeffy-embed-fallback style="display:block; width:100%; height:100%;">
                   <div style="position:relative; overflow:hidden; height:680px; width:100%;">
                     <iframe
-                      title="Inner Sanctuary Wellness Foundation 2-Tap Donation Form"
+                      id="inpage-zeffy-iframe"
+                      title="Inner Sanctuary Wellness Foundation 2-Tap Giving & Live Thermometer"
                       style="position:absolute; border:0; top:0; left:0; bottom:0; right:0; width:100%; height:100%;"
                       src="https://www.zeffy.com/en-US/embed/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation"
                       data-zeffy-embed-src="https://www.zeffy.com/en-US/embed/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation"
@@ -691,12 +783,15 @@
                   onerror="document.querySelectorAll('[data-zeffy-embed-fallback]').forEach(function(el){el.style.display='block';el.querySelectorAll('iframe[data-zeffy-embed-src]').forEach(function(f){f.src=f.getAttribute('data-zeffy-embed-src');});});">
                 </script>
               </div>
+
+              <!-- Card Bottom Direct Fallback -->
               <div style="background:#F6F2E9; padding:10px 16px; text-align:center; font-size:12px; color:#241C15; border-top:1px solid rgba(154,111,26,0.3);">
                 Trouble viewing the keypad inside Instagram/TikTok browser?
-                <a href="https://www.zeffy.com/en-US/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation" target="_blank" rel="noopener noreferrer" style="color:#1E3A2B; font-weight:700; text-decoration:underline;">
+                <a href="https://www.zeffy.com/en-US/embed/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation" target="_blank" rel="noopener noreferrer" style="color:#1E3A2B; font-weight:700; text-decoration:underline;">
                   Open Direct 1-Tap Checkout →
                 </a>
               </div>
+
             </div>
           </div>
 
@@ -705,7 +800,6 @@
 
     </div>
   </section>
-
 
   <!-- ==================== INSTITUTIONAL GIVING, GRANTS & CORPORATE PARTNERSHIPS ==================== -->
   <section id="sponsorship" class="section-padding" style="background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(10px); border-top: 1px solid rgba(197, 154, 63, 0.25); border-bottom: 1px solid rgba(197, 154, 63, 0.25);">
@@ -1319,11 +1413,11 @@
           <h5>Foundation Leadership</h5>
           <p style="font-size: 0.88rem; color: #CBD7D0; margin-bottom: 8px;">
             <strong>Teshia Campbell</strong><br>
-            Executive Director
+            Founder &amp; Executive Director
           </p>
           <p style="font-size: 0.88rem; color: #CBD7D0; margin-bottom: 12px;">
-            <strong>Marlon Smith</strong><br>
-            Community Event Lead & MC
+            <strong>Marlon "Jag" Smith II</strong><br>
+            President &amp; Primary MC
           </p>
           <p style="font-size: 0.88rem; margin-bottom: 12px;">
             <a href="mailto:hello@innersanctuarywellnessfoundation.org" style="color: var(--sunburst-gold); font-weight: 600;">
@@ -1342,10 +1436,10 @@
 
       <!-- Footer Bottom -->
       <div class="footer-bottom">
-        <div>
-          © 2026 Inner Sanctuary Wellness Foundation. A California 501(c)(3) Public Charity (IRC Section 170(b)(1)(A)(vi)).
+        <div style="font-size: 0.82rem; line-height: 1.6; color: #CBD7D0; max-width: 780px;">
+          Inner Sanctuary Wellness Foundation is a registered 501(c)(3) public charity (Federal EIN: 39-3757168). Founder &amp; Executive Director: Teshia Campbell | President &amp; Primary MC: Marlon "Jag" Smith II.
         </div>
-        <div style="display: flex; align-items: center; gap: 16px;">
+        <div style="display: flex; align-items: center; gap: 16px; margin-top: 8px;">
           <span>EIN: 39-3757168</span>
           <span>•</span>
           <a href="https://www.instagram.com/ourinnersanctuary/" target="_blank" rel="noopener noreferrer" style="color: var(--sunburst-gold); display: inline-flex; align-items: center; gap: 5px;">
@@ -1360,5 +1454,43 @@
 
   <!-- Script File -->
   <script src="script.js?v=2.5"></script>
+
+  <!-- ==================== PRELOADED ZEFFY MODAL (ZEFFY QUICK DONATE MODAL) ==================== -->
+  <div id="ZeffyQuickDonateModal" class="zeffy-modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true" style="display: none;">
+    <div class="zeffy-modal-dialog">
+      <button type="button" class="zeffy-modal-close" aria-label="Close modal" onclick="closeZeffyModal()">&times;</button>
+      
+      <div class="zeffy-modal-header">
+        <div class="zeffy-modal-badge">IRS 501(c)(3) PUBLIC CHARITY • FEDERAL EIN: 39-3757168 • 100% ZERO FEES</div>
+        <h3 class="zeffy-modal-title serif-brand">Join the $1/Month Sanctuary Fam</h3>
+        <p class="zeffy-modal-subtitle">2 Taps with Apple Pay &amp; Google Pay • 100% Direct Impact</p>
+      </div>
+
+      <div class="zeffy-protip-banner">
+        💡 1-Tap Pro Tip: Choose $1/Monthly, tap <strong>'Other → $0'</strong> on the optional Zeffy tip so you pay <strong>$1.00 flat</strong>, and double-click Apple Pay or Google Pay!
+      </div>
+
+      <div class="zeffy-modal-frame-wrap">
+        <iframe
+          id="zeffy-modal-iframe"
+          title="Inner Sanctuary Wellness Foundation 1-Tap Giving"
+          src="https://www.zeffy.com/en-US/embed/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation"
+          allow="payment *"
+          allowpaymentrequest="true"
+          allowtransparency="true"
+          loading="eager">
+        </iframe>
+      </div>
+
+      <div class="zeffy-modal-footer">
+        <span>Trouble viewing inside mobile browser?</span>
+        <a href="https://www.zeffy.com/en-US/embed/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation" target="_blank" rel="noopener noreferrer">
+          Open Direct Zeffy Window →
+        </a>
+      </div>
+    </div>
+  </div>
+
+  
 </body>
 </html>

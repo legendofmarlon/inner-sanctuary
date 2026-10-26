@@ -2347,5 +2347,299 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-});
 
+
+  // =========================================================================
+  // ARGON 4.0 MAX VISUAL & ANIMATION SUITE
+  // =========================================================================
+  // ==========================================================================
+// ARGON 4.0 MAX VISUAL & ANIMATION SUITE SCRIPTS
+// ==========================================================================
+
+(function initArgon4Suite() {
+
+  // ------------------------------------------------------------------------
+  // 1. PRELOADED ZEFFY QUICK DONATE MODAL
+  // ------------------------------------------------------------------------
+  const modal = document.getElementById('ZeffyQuickDonateModal');
+  const modalIframe = document.getElementById('zeffy-modal-iframe');
+  const ZEFFY_FORM_EMBED = 'https://www.zeffy.com/en-US/embed/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation';
+  const ZEFFY_THERMO_EMBED = 'https://www.zeffy.com/en-US/live/thermometer/donate-to-make-a-difference-inner-sanctuary-wellness-foundation';
+
+  function openZeffyModal(e) {
+    if (e && typeof e.preventDefault === 'function') {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    const targetModal = document.getElementById('ZeffyQuickDonateModal');
+    if (!targetModal) return;
+
+    const iframe = document.getElementById('zeffy-modal-iframe');
+    if (iframe && (!iframe.src || iframe.src === 'about:blank' || !iframe.src.includes('zeffy.com/en-US/embed/donation-form/'))) {
+      iframe.src = ZEFFY_FORM_EMBED;
+    }
+
+    targetModal.style.display = 'flex';
+    // Trigger reflow for CSS transition
+    void targetModal.offsetWidth;
+    targetModal.classList.add('is-open');
+    targetModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeZeffyModal() {
+    const targetModal = document.getElementById('ZeffyQuickDonateModal');
+    if (!targetModal) return;
+
+    targetModal.classList.remove('is-open');
+    targetModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    setTimeout(() => {
+      if (!targetModal.classList.contains('is-open')) {
+        targetModal.style.display = 'none';
+      }
+    }, 320);
+  }
+
+  window.openZeffyModal = openZeffyModal;
+  window.closeZeffyModal = closeZeffyModal;
+
+  if (modal) {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeZeffyModal();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('is-open')) {
+        closeZeffyModal();
+      }
+    });
+  }
+
+  // ------------------------------------------------------------------------
+  // 2. FORCE-REWIRE EVERY EXISTING ZEFFY / DONATE / $1 BUTTON (ZERO REDIRECT)
+  // ------------------------------------------------------------------------
+  document.addEventListener('click', (e) => {
+    const trigger = e.target.closest('a, button');
+    if (!trigger) return;
+
+    // Skip intake tabs, form submits, soundscape/breath controls, close buttons, tab switchers
+    if (trigger.classList.contains('intake-tab')) return;
+    if (trigger.type === 'submit' && trigger.closest('form')) return;
+    if (trigger.id === 'mobile-nav-toggle' || trigger.closest('#mobile-nav-toggle')) return;
+    if (trigger.closest('.soundscape-controls-wrap') || trigger.closest('.weekly-soundscape-action-wrap')) return;
+    if (trigger.closest('#orb-toggle-btn') || trigger.closest('#breath-sound-toggle-btn')) return;
+    if (trigger.classList.contains('donate-tab-btn') || trigger.closest('.donate-tab-switcher')) return;
+    if (trigger.classList.contains('zeffy-modal-close') || trigger.closest('.zeffy-modal-close')) return;
+    if (trigger.classList.contains('preset-chip')) return;
+    if (trigger.id === 'breath-workshop-cta-btn') return;
+
+    const href = trigger.getAttribute('href') || '';
+    const text = (trigger.textContent || '').trim();
+
+    const isZeffyHref = href.includes('zeffy.com');
+    const isDonateHash = href === '#circle-growth' || href === '#dollar-campaign-anchor' || href === '#donate';
+    const hasDonateKeywords = /\b(donate|support the foundation|support this initiative|\$1 seed movement|\$1\/month|join the \$1\/month)\b/i.test(text);
+    const hasExplicitTrigger = trigger.classList.contains('zeffy-trigger') || trigger.classList.contains('btn-open-zeffy');
+
+    if (isZeffyHref || hasExplicitTrigger || (isDonateHash && hasDonateKeywords)) {
+      e.preventDefault();
+      e.stopPropagation();
+      openZeffyModal();
+    }
+  }, true);
+
+  // ------------------------------------------------------------------------
+  // 3. 2-TAB SWITCHER IN #donate (KEYPAD vs THERMOMETER)
+  // ------------------------------------------------------------------------
+  window.switchDonateTab = function(tabName) {
+    const btnKeypad = document.getElementById('tab-btn-keypad');
+    const btnThermo = document.getElementById('tab-btn-thermometer');
+    const inpageIframe = document.getElementById('inpage-zeffy-iframe');
+    if (!inpageIframe) return;
+
+    if (tabName === 'thermometer') {
+      if (btnKeypad) {
+        btnKeypad.classList.remove('active');
+        btnKeypad.setAttribute('aria-selected', 'false');
+      }
+      if (btnThermo) {
+        btnThermo.classList.add('active');
+        btnThermo.setAttribute('aria-selected', 'true');
+      }
+      inpageIframe.src = ZEFFY_THERMO_EMBED;
+    } else {
+      if (btnThermo) {
+        btnThermo.classList.remove('active');
+        btnThermo.setAttribute('aria-selected', 'false');
+      }
+      if (btnKeypad) {
+        btnKeypad.classList.add('active');
+        btnKeypad.setAttribute('aria-selected', 'true');
+      }
+      inpageIframe.src = ZEFFY_FORM_EMBED;
+    }
+  };
+
+  // ------------------------------------------------------------------------
+  // 4. INTERACTIVE $1/MONTH COMMUNITY POWER SLIDER
+  // ------------------------------------------------------------------------
+  const powerSlider = document.getElementById('power-members-slider');
+  const countEl = document.getElementById('power-slider-count');
+  const monthlyFuelEl = document.getElementById('metric-monthly-fuel');
+  const annualTotalEl = document.getElementById('metric-annual-total');
+  const journalsEl = document.getElementById('metric-journals-funded');
+  const presetChips = document.querySelectorAll('.preset-chip');
+
+  function updateCommunityPower(members) {
+    const num = parseInt(members, 10) || 50;
+    if (countEl) countEl.textContent = `${num.toLocaleString()} Members`;
+    if (monthlyFuelEl) monthlyFuelEl.textContent = `$${num.toLocaleString()}`;
+    if (annualTotalEl) annualTotalEl.textContent = `$${(num * 12).toLocaleString()}`;
+    if (journalsEl) journalsEl.textContent = `${(num * 3).toLocaleString()}`;
+
+    if (powerSlider) {
+      powerSlider.value = num;
+      const min = parseInt(powerSlider.min, 10) || 50;
+      const max = parseInt(powerSlider.max, 10) || 1000;
+      const percent = ((num - min) / (max - min)) * 100;
+      powerSlider.style.background = `linear-gradient(to right, #9A6F1A 0%, #D4A84F ${percent}%, #D5DFD8 ${percent}%, #D5DFD8 100%)`;
+    }
+
+    presetChips.forEach(chip => {
+      const chipVal = parseInt(chip.getAttribute('data-value'), 10);
+      if (chipVal === num) {
+        chip.classList.add('active');
+      } else {
+        chip.classList.remove('active');
+      }
+    });
+  }
+
+  window.setSliderValue = function(val) {
+    updateCommunityPower(val);
+  };
+
+  if (powerSlider) {
+    powerSlider.addEventListener('input', (e) => {
+      updateCommunityPower(e.target.value);
+    });
+    powerSlider.addEventListener('change', (e) => {
+      updateCommunityPower(e.target.value);
+    });
+    // Initial run
+    updateCommunityPower(powerSlider.value || 250);
+  }
+
+  // ------------------------------------------------------------------------
+  // 5. FIXED GOLDEN HOUR BOTANICAL DUST MOTES CANVAS (#argon-dust-canvas)
+  // ------------------------------------------------------------------------
+  const dustCanvas = document.getElementById('argon-dust-canvas');
+  if (dustCanvas) {
+    const dctx = dustCanvas.getContext('2d');
+    let dWidth = dustCanvas.width = window.innerWidth;
+    let dHeight = dustCanvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+      dWidth = dustCanvas.width = window.innerWidth;
+      dHeight = dustCanvas.height = window.innerHeight;
+    });
+
+    const moteCount = Math.min(65, Math.floor((dWidth * dHeight) / 22000));
+    const motes = [];
+    const colors = [
+      'rgba(212, 168, 79, ',  // Burnished gold
+      'rgba(248, 217, 140, ', // Sunburst gold
+      'rgba(154, 111, 26, ',  // Deep bronze gold
+      'rgba(255, 246, 219, '  // Golden cream
+    ];
+
+    for (let i = 0; i < moteCount; i++) {
+      motes.push({
+        x: Math.random() * dWidth,
+        y: Math.random() * dHeight,
+        radius: 1.2 + Math.random() * 2.8,
+        baseAlpha: 0.15 + Math.random() * 0.45,
+        alpha: 0.2,
+        colorPrefix: colors[Math.floor(Math.random() * colors.length)],
+        vy: -(0.25 + Math.random() * 0.55), // Drift upward
+        vx: (Math.random() - 0.5) * 0.35,
+        pulseSpeed: 0.015 + Math.random() * 0.03,
+        pulseOffset: Math.random() * Math.PI * 2,
+        swaySpeed: 0.008 + Math.random() * 0.015,
+        swayOffset: Math.random() * Math.PI * 2
+      });
+    }
+
+    let lastTime = performance.now();
+    function animateDust(now) {
+      const dt = (now - lastTime) / 1000;
+      lastTime = now;
+
+      dctx.clearRect(0, 0, dWidth, dHeight);
+
+      for (let i = 0; i < motes.length; i++) {
+        const m = motes[i];
+        m.y += m.vy;
+        m.x += m.vx + Math.sin(now * m.swaySpeed + m.swayOffset) * 0.3;
+
+        // Wrap around borders
+        if (m.y < -10) {
+          m.y = dHeight + 10;
+          m.x = Math.random() * dWidth;
+        }
+        if (m.x < -10) m.x = dWidth + 10;
+        if (m.x > dWidth + 10) m.x = -10;
+
+        // Pulsing glow
+        const currentAlpha = m.baseAlpha * (0.65 + 0.35 * Math.sin(now * m.pulseSpeed + m.pulseOffset));
+
+        dctx.beginPath();
+        dctx.arc(m.x, m.y, m.radius, 0, Math.PI * 2);
+        dctx.fillStyle = m.colorPrefix + currentAlpha + ')';
+        dctx.fill();
+
+        // Subtle soft halo
+        if (m.radius > 2.0) {
+          dctx.beginPath();
+          dctx.arc(m.x, m.y, m.radius * 2.2, 0, Math.PI * 2);
+          dctx.fillStyle = m.colorPrefix + (currentAlpha * 0.25) + ')';
+          dctx.fill();
+        }
+      }
+
+      requestAnimationFrame(animateDust);
+    }
+    requestAnimationFrame(animateDust);
+  }
+
+  // ------------------------------------------------------------------------
+  // 6. SCROLL REVEAL (cubic-bezier(0.16, 1, 0.3, 1))
+  // ------------------------------------------------------------------------
+  if ('IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.12,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+      revealObserver.observe(el);
+    });
+  } else {
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+      el.classList.add('is-visible');
+    });
+  }
+
+})();
+
+});
