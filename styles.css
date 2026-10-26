@@ -3789,3 +3789,131 @@ body[data-element="earth"] {
   text-align: center;
   margin: 8px auto 14px;
 }
+
+
+/* ==================== SANCTUARY ZEN BREATH ORB (MINIMAL & BEAUTIFUL) ==================== */
+.sanctuary-orb-card {
+  position: relative;
+  max-width: 440px;
+  margin: 18px auto 8px;
+  padding: 26px 22px 20px;
+  border-radius: 28px;
+  background: radial-gradient(circle at 50% 30%, rgba(16, 24, 38, 0.96) 0%, rgba(11, 15, 23, 0.99) 100%);
+  border: 1.5px solid rgba(245, 175, 25, 0.35);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75), 0 0 35px rgba(245, 175, 25, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  color: #F8FAFC;
+  text-align: center;
+  overflow: hidden;
+}
+
+.sanctuary-orb-card .breathing-orb-wrapper {
+  position: relative;
+  width: 210px;
+  height: 210px;
+  margin: 14px auto 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.sanctuary-orb-card .breathing-pulse-ring {
+  position: absolute;
+  width: 196px;
+  height: 196px;
+  border-radius: 50%;
+  border: 1.5px dashed rgba(245, 175, 25, 0.45);
+  animation: rotateRing 30s linear infinite;
+  pointer-events: none;
+}
+
+.sanctuary-orb-card .breathing-halo-aura {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245, 175, 25, 0.45) 0%, rgba(0, 242, 254, 0.2) 50%, transparent 75%);
+  filter: blur(12px);
+  pointer-events: none;
+  opacity: 0.35;
+  will-change: transform, opacity;
+  transition: transform 0.08s linear, opacity 0.08s linear;
+}
+
+.sanctuary-orb-card .breathing-orb {
+  width: 126px;
+  height: 126px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #FFF3B0 0%, #F5AF19 32%, #C58A18 60%, #152219 98%);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.75), 0 0 45px rgba(245, 175, 25, 0.55), inset 0 2px 10px rgba(255, 255, 255, 0.8), inset 0 -6px 18px rgba(0, 0, 0, 0.6);
+  border: 2.5px solid rgba(255, 255, 255, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  z-index: 2;
+  position: relative;
+  will-change: transform, box-shadow;
+  transition: box-shadow 0.3s ease;
+  touch-action: manipulation;
+  overflow: hidden;
+}
+
+.sanctuary-orb-card .breathing-orb:hover {
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.85), 0 0 60px rgba(245, 175, 25, 0.8);
+}
+
+.orb-inner-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.6) 0%, rgba(245, 175, 25, 0.35) 45%, transparent 70%);
+  pointer-events: none;
+  opacity: 0.3;
+  will-change: transform, opacity;
+  transition: transform 0.08s linear, opacity 0.08s linear;
+}
+
+.orb-center-content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.orb-breath-word {
+  font-family: 'Cinzel', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.95), 0 0 16px rgba(245, 175, 25, 0.85);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  user-select: none;
+}
+
+.orb-status-prompt {
+  font-size: 0.80rem;
+  color: #94A3B8;
+  margin: 6px 0 12px;
+  letter-spacing: 0.04em;
+  min-height: 18px;
+  transition: color 0.3s ease;
+}
+
+.orb-actions-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}

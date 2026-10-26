@@ -656,49 +656,47 @@
             </div>
           </div>
 
-          <!-- Right Column: Interactive Donation Box -->
-          <div class="dollar-card-box">
-            <div style="text-align: center; margin-bottom: 18px;">
-              <span class="badge badge-sage" style="margin-bottom: 8px;">Select Your Seed</span>
-              <h3 style="font-size: 1.25rem; margin-bottom: 4px;">Choose an Amount</h3>
-              <p style="font-size: 0.85rem; color: var(--charcoal-muted); margin-bottom: 0;">No gift is too small to matter to the circle.</p>
-            </div>
-
-            <!-- Preset Chips -->
-            <div class="donation-presets">
-              <button class="preset-chip featured active" data-amount="1">$1</button>
-              <button class="preset-chip" data-amount="5">$5</button>
-              <button class="preset-chip" data-amount="10">$10</button>
-              <button class="preset-chip" data-amount="25">$25</button>
-            </div>
-
-            <!-- Custom Amount Field -->
-            <div style="margin-bottom: 18px;">
-              <label for="custom-donation-amount" style="font-size: 0.72rem; color: var(--forest-green); font-weight: 700;">Or Enter Custom Amount ($)</label>
-              <input type="number" id="custom-donation-amount" min="1" placeholder="e.g. 50" style="padding: 10px 14px; font-size: 0.95rem; margin-top: 4px;">
-            </div>
-
-            <!-- Dynamic Impact Display -->
-            <div class="impact-display">
-              <div class="impact-label">Direct Community Impact:</div>
-              <p id="impact-text" class="impact-text">
-                Spawns 1 community stage token, organic herbal tea & welcoming presence for a grassroots artist.
-              </p>
-            </div>
-
-            <!-- Action Button Linked to Zeffy -->
-            <a id="btn-donate-action" 
-               href="https://www.zeffy.com/en-US/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation" 
-               target="_blank" 
-               rel="noopener noreferrer" 
-               class="btn btn-gold seed-pulse-btn" 
-               style="width: 100%; padding: 14px 20px; font-size: 0.92rem; text-decoration: none;">
-              <span>Plant Your $1 Seed</span>
-              <span>🌿</span>
-            </a>
-
-            <div style="text-align: center; margin-top: 14px; font-size: 0.75rem; color: var(--charcoal-muted); line-height: 1.6;">
-              🔒 Securely processed via <strong style="color: var(--forest-green);">Zeffy</strong> (0% fees) • Instant 501(c)(3) tax receipt sent to your email
+          <!-- Right Column: Official 2-Tap Zeffy Donation Portal -->
+          <div>
+            <div class="sanctuary-zeffy-card" style="background:#F6F2E9; border:2px solid #9A6F1A; border-radius:16px; overflow:hidden; max-width:680px; margin:0 auto; box-shadow:0 12px 32px rgba(30,58,43,0.12);">
+              <div style="background:#1E3A2B; color:#F6F2E9; padding:14px 20px; text-align:center; border-bottom:2px solid #9A6F1A;">
+                <div style="font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#E6C168; margin-bottom:4px;">
+                  IRS 501(c)(3) PUBLIC CHARITY • FEDERAL EIN: 39-3757168 • 100% ZERO FEES
+                </div>
+                <div style="font-size:16px; font-weight:700;">
+                  Join the $1/Month Sanctuary Fam in 2 Taps (Apple Pay &amp; Google Pay)
+                </div>
+                <div style="font-size:12.5px; color:#E8E2D5; margin-top:4px;">
+                  <strong>Insider Pro-Tip:</strong> Where it says <em>"Support Zeffy,"</em> tap <strong>Other → $0</strong> so you pay literally <strong>$1.00 flat</strong> and Inner Sanctuary keeps 100%!
+                </div>
+              </div>
+              <div style="position:relative; width:100%; min-height:680px; background:#FFFFFF;">
+                <div data-zeffy-embed data-form-url="https://www.zeffy.com/en-US/embed/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation"></div>
+                <div data-zeffy-embed-fallback style="display:block;">
+                  <div style="position:relative; overflow:hidden; height:680px; width:100%;">
+                    <iframe
+                      title="Inner Sanctuary Wellness Foundation 2-Tap Donation Form"
+                      style="position:absolute; border:0; top:0; left:0; bottom:0; right:0; width:100%; height:100%;"
+                      src="https://www.zeffy.com/en-US/embed/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation"
+                      data-zeffy-embed-src="https://www.zeffy.com/en-US/embed/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation"
+                      allow="payment *"
+                      allowpaymentrequest="true"
+                      allowtransparency="true"
+                      loading="eager">
+                    </iframe>
+                  </div>
+                </div>
+                <script
+                  src="https://www.zeffy.com/embed/v2/zeffy-embed.js"
+                  onerror="document.querySelectorAll('[data-zeffy-embed-fallback]').forEach(function(el){el.style.display='block';el.querySelectorAll('iframe[data-zeffy-embed-src]').forEach(function(f){f.src=f.getAttribute('data-zeffy-embed-src');});});">
+                </script>
+              </div>
+              <div style="background:#F6F2E9; padding:10px 16px; text-align:center; font-size:12px; color:#241C15; border-top:1px solid rgba(154,111,26,0.3);">
+                Trouble viewing the keypad inside Instagram/TikTok browser?
+                <a href="https://www.zeffy.com/en-US/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation" target="_blank" rel="noopener noreferrer" style="color:#1E3A2B; font-weight:700; text-decoration:underline;">
+                  Open Direct 1-Tap Checkout →
+                </a>
+              </div>
             </div>
           </div>
 
@@ -1220,90 +1218,54 @@
   <section id="breath" class="section-padding sacred-breath-section">
     <div class="container" style="text-align: center;">
       
-      <div class="section-header" style="max-width: 820px; margin: 0 auto 20px; text-align: center;">
-        <div class="section-subtitle" style="color: #F5AF19;">Deep Unhurried Flow • 2 Slow Counts • Zero Pauses</div>
-        <h2 class="section-title" style="color: #FFFFFF;">Pause & Center: Sacred Breath Orb</h2>
+      <div class="section-header" style="max-width: 620px; margin: 0 auto 16px; text-align: center;">
+        <div class="section-subtitle" style="color: #F5AF19;">Somatic Reset • Unhurried Presence</div>
+        <h2 class="section-title" style="color: #FFFFFF;">Pause &amp; Breathe</h2>
         <div class="flourish-divider">✦</div>
-        <p style="color: #CBD7D0; font-size: 1.04rem; line-height: 1.8; margin-bottom: 0;">
-          Before you continue your day or connect with our circle, ground your nervous system with our soothing 2-count breath orb. Watch the orb breathe deeply in and out, follow the unhurried rhythm, and relax into center.
+        <p style="color: #CBD7D0; font-size: 1.02rem; line-height: 1.7; margin-bottom: 0;">
+          Soften your shoulders. Tap the orb and breathe with its gentle expansion and release.
         </p>
       </div>
 
-      <!-- Inner Sanctuary Solid 2-Breath Sacred Geometry Grounding Widget -->
-      <div class="sacred-geometry-widget" id="sacred-breathing-portal">
+      <!-- Living Breath Orb Card (Simple, Minimal, Zen) -->
+      <div class="sanctuary-orb-card" id="sacred-breathing-portal">
         
-        <!-- Header & 2-Count Flow Subtitle -->
-        <div class="breath-widget-top">
-          <div class="breath-widget-title-bar">
-            <span class="breath-widget-eyebrow">✦ 2-COUNT SOMATIC BREATH ORB ✦</span>
-            
-            <!-- Tempo Pill Selector (Zero Pauses) -->
-            <div class="breath-mode-toggle" role="tablist" aria-label="Breathing Tempo">
-              <button type="button" class="breath-mode-btn active" id="btn-pace-deep" role="tab" aria-selected="true" data-pace="deep">
-                <span class="mode-icon">🌿</span>
-                <span>Deep Sanctuary Pace (5s In • 5s Out)</span>
-              </button>
-              <button type="button" class="breath-mode-btn" id="btn-pace-gentle" role="tab" aria-selected="false" data-pace="gentle">
-                <span class="mode-icon">🍃</span>
-                <span>Gentle Flow (4s In • 4s Out)</span>
-              </button>
-            </div>
-          </div>
-          <p class="breath-mode-desc" id="breath-mode-desc">
-            Deep Unhurried Rhythm • Inhale 2 Slow Counts (5s) • Exhale 2 Slow Counts (5s) • Zero Pauses
-          </p>
-        </div>
-
-        <!-- The Living Breathing Orb Stage (Tap the Orb to Breathe) -->
-        <div class="breathing-orb-wrapper" id="breathing-orb-stage" title="Click or tap the Orb to start breathing">
+        <!-- The Living Breathing Orb Stage -->
+        <div class="breathing-orb-wrapper" id="breathing-orb-stage" role="button" tabindex="0" title="Click or tap the Orb to breathe" aria-label="Interactive Breathing Orb">
           <div class="breathing-pulse-ring"></div>
           <div class="breathing-halo-aura" id="somatic-halo"></div>
-          <div class="breathing-orb" id="somatic-orb" role="button" tabindex="0" aria-label="Interactive Breathing Orb">
-            <span class="orb-sacred-icon" id="orb-sacred-icon">🌿</span>
+          <div class="breathing-orb" id="somatic-orb">
+            <div class="orb-inner-glow" id="orb-inner-glow"></div>
+            <div class="orb-center-content">
+              <span class="orb-breath-word" id="orb-breath-word">Breathe</span>
+            </div>
           </div>
         </div>
 
-        <!-- Real-Time HUD Overlay Display -->
-        <div class="orb-phase-display" aria-live="polite">
-          <div class="sacred-phase-eyebrow" id="sacred-phase-eyebrow">READY</div>
-          <div class="sacred-phase-word" id="box-phase-title">BREATHE</div>
-          <div class="sacred-phase-timer" id="box-phase-countdown">✦</div>
-          <div class="sacred-guide-subtext" id="sacred-guide-subtext">Click Begin or tap the orb to breathe</div>
-        </div>
+        <div id="orb-status-prompt" class="orb-status-prompt">
+          Tap the orb or press begin below
         </div>
 
-        <!-- Widget Control Bar: Start/Pause, Breath Sound Toggle, Cycles Tracker -->
-        <div class="breath-widget-controls">
+        <!-- Minimal Action Controls -->
+        <div class="orb-actions-bar">
           <button id="orb-toggle-btn" class="breath-primary-toggle" type="button" aria-label="Start or Pause Breath Session">
             <span class="btn-ctrl-icon" id="btn-ctrl-icon">▶</span>
-            <span id="orb-btn-label">Begin 2-Count Breath</span>
+            <span id="orb-btn-label">Begin</span>
           </button>
 
           <!-- Soothing Breath Sound Toggle -->
           <button id="breath-sound-toggle-btn" class="breath-audio-toggle" type="button" aria-label="Toggle Soothing Breath Sound" title="Toggle natural breath sounds">
             <span id="breath-sound-icon">🔊</span>
-            <span id="breath-sound-label">Breath Sound: ON</span>
+            <span id="breath-sound-label">Sound: ON</span>
           </button>
-
-          <div class="breath-cycle-tracker" id="breath-cycle-tracker" title="Completed breathing cycles">
-            <span class="cycle-leaf">🌿</span>
-            <span id="cycle-count-label">Cycles Completed: 0 / 5</span>
-          </div>
-        </div>
-
-        <div id="breathing-guide-text" class="breathing-status-text" style="color: #94A3B8; font-size: 0.80rem; margin: 4px 0 8px;">
-          Deep unhurried 2-count flow • Inhale expands • Exhale gently releases • Zero pauses
         </div>
 
         <!-- Google Ad Grants / GA4 Engagement CTA Hook -->
-        <div class="breath-workshop-cta-wrap">
+        <div class="breath-workshop-cta-wrap" style="margin-top: 14px; padding-top: 10px; border-top: 1px solid rgba(245, 175, 25, 0.15);">
           <a href="#connect" class="breath-workshop-cta-btn" id="breath-workshop-cta-btn">
             <span>Join Our Next Live Wellness Workshop</span>
             <span class="cta-arrow">→</span>
           </a>
-          <div class="breath-sub-compliance">
-            <span>✨ 501(c)(3) Nonprofit Initiative • Free, trauma-informed unhurried care</span>
-          </div>
         </div>
 
       </div>

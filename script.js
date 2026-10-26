@@ -1759,7 +1759,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================================================================
-  // 7. SOMATIC BREATH ORB ENGINE (2-COUNT SACRED FLOW - ZERO PAUSES)
+  // 7. ZEN LIVING BREATH ORB ENGINE (SIMPLE, CONTINUOUS, ZERO PAUSES)
   // Palette: Deep Obsidian (#0B0F17), Golden Hour Amber (#F5AF19), Prism Cyan (#00F2FE)
   // =========================================================================
 
@@ -1887,51 +1887,27 @@ document.addEventListener('DOMContentLoaded', () => {
   // DOM Elements for the Living Breath Orb
   const somaticOrb = document.getElementById('somatic-orb');
   const somaticHalo = document.getElementById('somatic-halo');
-  const orbSacredIcon = document.getElementById('orb-sacred-icon');
+  const orbInnerGlow = document.getElementById('orb-inner-glow');
+  const orbBreathWord = document.getElementById('orb-breath-word');
+  const orbStatusPrompt = document.getElementById('orb-status-prompt');
   const orbBtn = document.getElementById('orb-toggle-btn');
   const orbLabel = document.getElementById('orb-btn-label');
   const btnCtrlIcon = document.getElementById('btn-ctrl-icon');
   const breathSoundBtn = document.getElementById('breath-sound-toggle-btn');
   const breathSoundIcon = document.getElementById('breath-sound-icon');
   const breathSoundLabel = document.getElementById('breath-sound-label');
-  const guideText = document.getElementById('breathing-guide-text');
-  const sacredGuideSubtext = document.getElementById('sacred-guide-subtext');
-  const sacredPhaseEyebrow = document.getElementById('sacred-phase-eyebrow');
-  const boxPhaseTitle = document.getElementById('box-phase-title');
-  const boxPhaseCountdown = document.getElementById('box-phase-countdown');
-  const breathCycleTracker = document.getElementById('breath-cycle-tracker');
-  const cycleCountLabel = document.getElementById('cycle-count-label');
-  const breathModeDesc = document.getElementById('breath-mode-desc');
-  const btnPaceDeep = document.getElementById('btn-pace-deep');
-  const btnPaceGentle = document.getElementById('btn-pace-gentle');
   const breathWorkshopCtaBtn = document.getElementById('breath-workshop-cta-btn');
 
-  // State Configuration
-  let currentPace = 'deep'; // 'deep' (5s In / 5s Out = 10s cycle) or 'gentle' (4s In / 4s Out = 8s cycle)
+  // State Configuration: Calm, Unhurried 4.5s Inhale / 4.5s Exhale (Zero Pauses)
+  const PHASE_DURATION_MS = 4500; // 4.5 seconds per phase (9.0s cycle)
+  const CYCLE_DURATION_MS = 9000;
   let isBreathingActive = false;
   let breathStartTime = null;
   let breathAnimId = null;
   let completedCycles = 0;
-  const TARGET_CYCLES = 5;
   let hasFiredGA4_3Cycles = false;
   let lastReportedCycleIndex = -1;
   let lastTriggeredPhase = -1;
-  let currentCycleProgress = 0;
-  let currentPhaseIndex = -1;
-
-  // Pace durations in milliseconds (Deep unhurried 2-count, ZERO PAUSES)
-  const PACE_CONFIGS = {
-    'deep': {
-      phaseMs: 5000,
-      cycleMs: 10000,
-      desc: 'Deep Unhurried Rhythm • Inhale 2 Slow Counts (5s) • Exhale 2 Slow Counts (5s) • Zero Pauses'
-    },
-    'gentle': {
-      phaseMs: 4000,
-      cycleMs: 8000,
-      desc: 'Gentle Calming Flow • Inhale 2 Slow Counts (4s) • Exhale 2 Slow Counts (4s) • Zero Pauses'
-    }
-  };
 
   // Google Ad Grants / GA4 Hook
   function fireGA4WidgetEngagement(source) {
@@ -1939,8 +1915,7 @@ document.addEventListener('DOMContentLoaded', () => {
       try {
         gtag('event', 'wellness_widget_engaged', {
           event_category: 'somatic_breathwork',
-          event_label: source || 'user_interaction',
-          pace: currentPace,
+          event_label: source || 'zen_breath_orb',
           completed_cycles: completedCycles,
           value: 1
         });
@@ -1948,64 +1923,46 @@ document.addEventListener('DOMContentLoaded', () => {
         console.warn('[GA4] Event dispatch error:', e);
       }
     }
-    console.log('[Inner Sanctuary GA4] Event fired: wellness_widget_engaged | Source:', source, '| Pace:', currentPace);
-  }
-
-  // Update Cycle Counter HUD
-  function updateCycleTrackerUI() {
-    if (cycleCountLabel) {
-      cycleCountLabel.textContent = `Cycles Completed: ${completedCycles} / ${TARGET_CYCLES}`;
-    }
-    if (breathCycleTracker) {
-      if (completedCycles >= TARGET_CYCLES) {
-        breathCycleTracker.classList.add('completed-goal');
-      } else {
-        breathCycleTracker.classList.remove('completed-goal');
-      }
-    }
+    console.log('[Inner Sanctuary GA4] Event fired: wellness_widget_engaged | Source:', source);
   }
 
   // -------------------------------------------------------------------------
-  // LIVING BREATH ORB UPDATE LOOP (2-COUNT ZERO PAUSES)
-  // The Orb physically breathes in and out in real-time at 60fps
+  // LIVING BREATH ORB UPDATE LOOP (ZERO PAUSES)
+  // Animate the breath in and out directly within and upon the Orb
   // -------------------------------------------------------------------------
   function updateSacredBreathLoop(now) {
     if (!isBreathingActive) return;
     if (!breathStartTime) breathStartTime = now;
 
-    const config = PACE_CONFIGS[currentPace] || PACE_CONFIGS['deep'];
     const totalElapsed = now - breathStartTime;
-    const cycleTime = totalElapsed % config.cycleMs;
-    currentCycleProgress = cycleTime / config.cycleMs;
+    const cycleTime = totalElapsed % CYCLE_DURATION_MS;
 
     // Track cycle completions
-    const cycleIdx = Math.floor(totalElapsed / config.cycleMs);
+    const cycleIdx = Math.floor(totalElapsed / CYCLE_DURATION_MS);
     if (cycleIdx > lastReportedCycleIndex) {
       if (lastReportedCycleIndex !== -1) {
         completedCycles++;
-        updateCycleTrackerUI();
-
         if (completedCycles === 3 && !hasFiredGA4_3Cycles) {
           hasFiredGA4_3Cycles = true;
           fireGA4WidgetEngagement('completed_3_cycles');
           showToast('✨ Nervous System Grounded! 3 Cycles Complete.');
-        } else if (completedCycles === TARGET_CYCLES) {
-          showToast('🏆 Full 5-Cycle Reset Complete! Inner peace achieved.');
+        } else if (completedCycles === 5) {
+          showToast('🏆 Full Reset Complete! Deep stillness is with you.');
         }
       }
       lastReportedCycleIndex = cycleIdx;
     }
 
     // Phase determination (0: INHALE, 1: EXHALE - ZERO PAUSES)
-    const phaseIndex = Math.floor(cycleTime / config.phaseMs);
-    const phaseElapsed = cycleTime % config.phaseMs;
-    const p = phaseElapsed / config.phaseMs; // 0.0 to 1.0
+    const phaseIndex = Math.floor(cycleTime / PHASE_DURATION_MS);
+    const phaseElapsed = cycleTime % PHASE_DURATION_MS;
+    const p = phaseElapsed / PHASE_DURATION_MS; // 0.0 to 1.0
     const ease = (1 - Math.cos(p * Math.PI)) / 2;
 
     // Trigger soothing breath sounds right at phase transition
     if (phaseIndex !== lastTriggeredPhase) {
       lastTriggeredPhase = phaseIndex;
-      const phaseDurationSec = config.phaseMs / 1000;
+      const phaseDurationSec = PHASE_DURATION_MS / 1000;
       if (phaseIndex === 0) {
         breathAudio.playInhale(phaseDurationSec);
       } else {
@@ -2013,16 +1970,13 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    currentPhaseIndex = phaseIndex;
-
-    // Determine Count 1 or Count 2 (divided evenly across the phase)
-    const countNumber = p < 0.5 ? '1' : '2';
-
     if (phaseIndex === 0) {
-      // INHALE (2 Counts): Orb smoothly expands deeply outward (1.00 -> 1.48)
-      const orbScale = 1.00 + ease * 0.48;
-      const haloScale = 1.00 + ease * 0.85;
+      // INHALE: Orb smoothly expands (1.00 -> 1.46) with warm inner glow
+      const orbScale = 1.00 + ease * 0.46;
+      const haloScale = 1.00 + ease * 0.80;
       const haloOpacity = 0.35 + ease * 0.55;
+      const glowScale = 1.00 + ease * 0.60;
+      const glowOpacity = 0.30 + ease * 0.60;
 
       if (somaticOrb) {
         somaticOrb.style.transform = `scale(${orbScale.toFixed(3)})`;
@@ -2032,18 +1986,23 @@ document.addEventListener('DOMContentLoaded', () => {
         somaticHalo.style.transform = `scale(${haloScale.toFixed(3)})`;
         somaticHalo.style.opacity = haloOpacity.toFixed(2);
       }
-
-      setHUD(
-        `✦ INHALE (COUNT ${countNumber}) ✦`,
-        'BREATHE IN',
-        `COUNT ${countNumber}`,
-        `Breathe In Deeply... ${countNumber === '1' ? '1...' : '1... 2'}`
-      );
+      if (orbInnerGlow) {
+        orbInnerGlow.style.transform = `scale(${glowScale.toFixed(3)})`;
+        orbInnerGlow.style.opacity = glowOpacity.toFixed(2);
+      }
+      if (orbBreathWord) {
+        orbBreathWord.textContent = 'Inhale';
+      }
+      if (orbStatusPrompt) {
+        orbStatusPrompt.textContent = 'Breathe in deeply...';
+      }
     } else {
-      // EXHALE (2 Counts): Orb smoothly contracts back to resting center (1.48 -> 1.00)
-      const orbScale = 1.48 - ease * 0.48;
-      const haloScale = 1.85 - ease * 0.85;
+      // EXHALE: Orb smoothly releases and contracts (1.46 -> 1.00)
+      const orbScale = 1.46 - ease * 0.46;
+      const haloScale = 1.80 - ease * 0.80;
       const haloOpacity = 0.90 - ease * 0.55;
+      const glowScale = 1.60 - ease * 0.60;
+      const glowOpacity = 0.90 - ease * 0.60;
 
       if (somaticOrb) {
         somaticOrb.style.transform = `scale(${orbScale.toFixed(3)})`;
@@ -2053,47 +2012,31 @@ document.addEventListener('DOMContentLoaded', () => {
         somaticHalo.style.transform = `scale(${haloScale.toFixed(3)})`;
         somaticHalo.style.opacity = haloOpacity.toFixed(2);
       }
-
-      setHUD(
-        `✦ EXHALE (COUNT ${countNumber}) ✦`,
-        'BREATHE OUT',
-        `COUNT ${countNumber}`,
-        `Breathe Out Slowly... ${countNumber === '1' ? '1...' : '1... 2'}`
-      );
+      if (orbInnerGlow) {
+        orbInnerGlow.style.transform = `scale(${glowScale.toFixed(3)})`;
+        orbInnerGlow.style.opacity = glowOpacity.toFixed(2);
+      }
+      if (orbBreathWord) {
+        orbBreathWord.textContent = 'Exhale';
+      }
+      if (orbStatusPrompt) {
+        orbStatusPrompt.textContent = 'Breathe out slowly...';
+      }
     }
 
     // Sync ambient background canvas breathing aura
     if (window.sanctuaryBreathSync) {
       window.sanctuaryBreathSync.active = true;
-      window.sanctuaryBreathSync.step = currentPhaseIndex;
-      window.sanctuaryBreathSync.progress = currentCycleProgress;
-      window.sanctuaryBreathSync.scale = phaseIndex === 0 ? 1.0 + ease * 0.48 : 1.48 - ease * 0.48;
+      window.sanctuaryBreathSync.step = phaseIndex;
+      window.sanctuaryBreathSync.progress = cycleTime / CYCLE_DURATION_MS;
+      window.sanctuaryBreathSync.scale = phaseIndex === 0 ? 1.0 + ease * 0.46 : 1.46 - ease * 0.46;
     }
 
     breathAnimId = requestAnimationFrame(updateSacredBreathLoop);
   }
 
-  // Update HUD Helper
-  function setHUD(eyebrow, title, countdown, subtext) {
-    if (sacredPhaseEyebrow && sacredPhaseEyebrow.textContent !== eyebrow) {
-      sacredPhaseEyebrow.textContent = eyebrow;
-    }
-    if (boxPhaseTitle && boxPhaseTitle.textContent !== title) {
-      boxPhaseTitle.textContent = title;
-    }
-    if (boxPhaseCountdown && boxPhaseCountdown.textContent !== countdown) {
-      boxPhaseCountdown.textContent = countdown;
-    }
-    if (sacredGuideSubtext && sacredGuideSubtext.textContent !== subtext) {
-      sacredGuideSubtext.textContent = subtext;
-    }
-    if (guideText && guideText.textContent !== subtext) {
-      guideText.textContent = subtext;
-    }
-  }
-
   // -------------------------------------------------------------------------
-  // SESSION CONTROLS: START / PAUSE / PACE SWITCH / SOUND TOGGLE
+  // SESSION CONTROLS: START / PAUSE / SOUND TOGGLE
   // -------------------------------------------------------------------------
   function startSomaticBreath() {
     if (isBreathingActive) {
@@ -2110,7 +2053,7 @@ document.addEventListener('DOMContentLoaded', () => {
       orbBtn.classList.add('active');
     }
     if (orbLabel) {
-      orbLabel.textContent = 'Pause Session';
+      orbLabel.textContent = 'Pause';
     }
     if (btnCtrlIcon) {
       btnCtrlIcon.textContent = '⏸';
@@ -2118,7 +2061,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     cancelAnimationFrame(breathAnimId);
     breathAnimId = requestAnimationFrame(updateSacredBreathLoop);
-    showToast('🍃 Breath Orb active. Follow the deep 2-count rhythm...');
+    showToast('🍃 Breath Orb active. Follow the gentle in and out...');
   }
 
   function stopSomaticBreath() {
@@ -2139,20 +2082,28 @@ document.addEventListener('DOMContentLoaded', () => {
       somaticHalo.style.transform = 'scale(1.0)';
       somaticHalo.style.opacity = '0.35';
     }
+    if (orbInnerGlow) {
+      orbInnerGlow.style.transform = 'scale(1.0)';
+      orbInnerGlow.style.opacity = '0.3';
+    }
+    if (orbBreathWord) {
+      orbBreathWord.textContent = 'Breathe';
+    }
+    if (orbStatusPrompt) {
+      orbStatusPrompt.textContent = 'Tap the orb or press begin below';
+    }
 
     if (orbBtn) {
       orbBtn.classList.remove('active');
     }
     if (orbLabel) {
-      orbLabel.textContent = 'Begin 2-Count Breath';
+      orbLabel.textContent = 'Begin';
     }
     if (btnCtrlIcon) {
       btnCtrlIcon.textContent = '▶';
     }
 
-    setHUD('READY', 'BREATHE', '✦', 'Click Begin or tap the orb to breathe');
-
-    showToast('🕊️ Breathwork paused. Resting at center.');
+    showToast('🕊️ Breath paused. Resting at center.');
   }
 
   // Tap directly on the Living Breath Orb
@@ -2166,53 +2117,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Pace Switcher
-  function switchPace(newPace) {
-    if (currentPace === newPace) return;
-    currentPace = newPace;
-
-    if (btnPaceDeep && btnPaceGentle) {
-      if (newPace === 'deep') {
-        btnPaceDeep.classList.add('active');
-        btnPaceDeep.setAttribute('aria-selected', 'true');
-        btnPaceGentle.classList.remove('active');
-        btnPaceGentle.setAttribute('aria-selected', 'false');
-      } else {
-        btnPaceGentle.classList.add('active');
-        btnPaceGentle.setAttribute('aria-selected', 'true');
-        btnPaceDeep.classList.remove('active');
-        btnPaceDeep.setAttribute('aria-selected', 'false');
-      }
-    }
-
-    const config = PACE_CONFIGS[newPace];
-    if (breathModeDesc && config) {
-      breathModeDesc.style.opacity = '0';
-      setTimeout(() => {
-        breathModeDesc.textContent = config.desc;
-        breathModeDesc.style.opacity = '1';
-      }, 150);
-    }
-
-    if (isBreathingActive) {
-      breathStartTime = performance.now();
-      lastReportedCycleIndex = -1;
-      lastTriggeredPhase = -1;
-    }
-
-    showToast(newPace === 'deep'
-      ? '🌿 Tempo: Deep Sanctuary Pace (5s In • 5s Out)'
-      : '🍃 Tempo: Gentle Flow (4s In • 4s Out)'
-    );
-  }
-
-  if (btnPaceDeep) {
-    btnPaceDeep.addEventListener('click', () => switchPace('deep'));
-  }
-  if (btnPaceGentle) {
-    btnPaceGentle.addEventListener('click', () => switchPace('gentle'));
-  }
-
   // Breath Sound Toggle
   if (breathSoundBtn) {
     breathSoundBtn.addEventListener('click', () => {
@@ -2220,12 +2124,12 @@ document.addEventListener('DOMContentLoaded', () => {
       if (isSoundOn) {
         breathSoundBtn.classList.remove('muted');
         if (breathSoundIcon) breathSoundIcon.textContent = '🔊';
-        if (breathSoundLabel) breathSoundLabel.textContent = 'Breath Sound: ON';
+        if (breathSoundLabel) breathSoundLabel.textContent = 'Sound: ON';
         showToast('🔊 Soothing breath sounds enabled');
       } else {
         breathSoundBtn.classList.add('muted');
         if (breathSoundIcon) breathSoundIcon.textContent = '🔇';
-        if (breathSoundLabel) breathSoundLabel.textContent = 'Breath Sound: OFF';
+        if (breathSoundLabel) breathSoundLabel.textContent = 'Sound: OFF';
         showToast('🔇 Breath sounds muted');
       }
     });
