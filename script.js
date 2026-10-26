@@ -2729,4 +2729,151 @@ document.addEventListener('DOMContentLoaded', () => {
 
 })();
 
+
+
+  // =========================================================================
+  // PARTNER WITH US: TIER FREQUENCY SELECTION & SPONSORSHIP INTAKE
+  // =========================================================================
+  const tierConfigData = {
+    friend: {
+      name: 'Community Friend',
+      onetime: {
+        priceHtml: '$250 <span>One-Time</span>',
+        desc: '<strong>One-Time — $250:</strong> Sponsor one community event.',
+        btnText: 'Select One-Time ($250) →',
+        roleVal: 'Community Friend — One-Time ($250)',
+        message: 'I would like to sponsor as a Community Friend (One-Time — $250) to sponsor one community gathering. Please send partnership agreement and invoice details.'
+      },
+      quarterly: {
+        priceHtml: '$250 <span>/ quarter</span>',
+        desc: '<strong>Quarterly — $250/qtr:</strong> Sponsor all four quarterly events throughout the year ($1,000 annually). Once every 3 months.',
+        btnText: 'Select Quarterly ($250/qtr) →',
+        roleVal: 'Community Friend — Quarterly ($250/qtr)',
+        message: 'I would like to partner as a quarterly Community Friend ($250 per quarter / $1,000 annually, billed once every three months) sponsoring all four quarterly community events throughout the year. Please send partnership agreement and coordination details.'
+      }
+    },
+    builder: {
+      name: 'Community Builder',
+      onetime: {
+        priceHtml: '$500 <span>One-Time</span>',
+        desc: '<strong>One-Time — $500:</strong> Sponsor one community event.',
+        btnText: 'Select One-Time ($500) →',
+        roleVal: 'Community Builder — One-Time ($500)',
+        message: 'I would like to sponsor as a Community Builder (One-Time — $500) to sponsor one community gathering. Please send partnership agreement and invoice details.'
+      },
+      quarterly: {
+        priceHtml: '$500 <span>/ quarter</span>',
+        desc: '<strong>Quarterly — $500/qtr:</strong> Sponsor all four quarterly events throughout the year ($2,000 annually). Once every 3 months.',
+        btnText: 'Select Quarterly ($500/qtr) →',
+        roleVal: 'Community Builder — Quarterly ($500/qtr)',
+        message: 'I would like to partner as a quarterly Community Builder ($500 per quarter / $2,000 annually, billed once every three months) sponsoring all four quarterly community events throughout the year. Please send partnership agreement and coordination details.'
+      }
+    },
+    champion: {
+      name: 'Community Champion',
+      onetime: {
+        priceHtml: '$1,000 <span>One-Time</span>',
+        desc: '<strong>One-Time — $1,000:</strong> Sponsor one community event.',
+        btnText: 'Select One-Time ($1,000) →',
+        roleVal: 'Community Champion — One-Time ($1,000)',
+        message: 'I would like to sponsor as a Community Champion (One-Time — $1,000) to sponsor one community gathering. Please send our corporate / CRA due diligence packet and invoice details.'
+      },
+      quarterly: {
+        priceHtml: '$1,000 <span>/ quarter</span>',
+        desc: '<strong>Quarterly — $1,000/qtr:</strong> Sponsor all four quarterly events throughout the year ($4,000 annually). Once every 3 months.',
+        btnText: 'Select Quarterly ($1,000/qtr) →',
+        roleVal: 'Community Champion — Quarterly ($1,000/qtr)',
+        message: 'I would like to partner as a quarterly Community Champion ($1,000 per quarter / $4,000 annually, billed once every three months) sponsoring all four quarterly community events throughout the year. Please send our corporate / CRA due diligence packet and coordination details.'
+      }
+    },
+    inkind: {
+      name: 'In-Kind Community Partner',
+      onetime: {
+        priceHtml: 'Starting at $25 <span>One-Time</span>',
+        desc: '<strong>One-Time Contribution:</strong> Donate goods or services for one event, with an estimated value starting at $25.',
+        btnText: 'Pledge One-Time In-Kind →',
+        roleVal: 'In-Kind Partner — One-Time ($25+ value)',
+        message: 'I would like to contribute as an In-Kind Community Partner (One-Time, est. $25+ value) for an upcoming community gathering. Details of goods, refreshments, supplies, or services we wish to provide:'
+      },
+      quarterly: {
+        priceHtml: 'Starting at $25 <span>/ quarter</span>',
+        desc: '<strong>Quarterly Contribution:</strong> Provide goods or services for each of our four quarterly events, with an estimated value starting at $25 per quarter (once every 3 months).',
+        btnText: 'Pledge Quarterly In-Kind →',
+        roleVal: 'In-Kind Partner — Quarterly ($25+/qtr value)',
+        message: 'I would like to contribute as an In-Kind Community Partner (Quarterly, est. $25+ value per quarter across all 4 quarterly gatherings). Details of goods, refreshments, supplies, or services we wish to provide:'
+      }
+    }
+  };
+
+  const activeTierFrequencies = {
+    friend: 'onetime',
+    builder: 'onetime',
+    champion: 'onetime',
+    inkind: 'onetime'
+  };
+
+  window.setTierFrequency = function(tierKey, freqKey) {
+    if (!tierConfigData[tierKey] || !tierConfigData[tierKey][freqKey]) return;
+    activeTierFrequencies[tierKey] = freqKey;
+
+    const card = document.getElementById('tier-card-' + tierKey);
+    if (card) {
+      const btns = card.querySelectorAll('.tier-freq-btn');
+      btns.forEach(btn => {
+        const isTarget = btn.textContent.trim().toLowerCase().includes(freqKey === 'onetime' ? 'one-time' : 'quarterly');
+        btn.classList.toggle('active', isTarget);
+      });
+    }
+
+    const priceEl = document.getElementById('tier-price-' + tierKey);
+    if (priceEl) priceEl.innerHTML = tierConfigData[tierKey][freqKey].priceHtml;
+
+    const descEl = document.getElementById('tier-desc-' + tierKey);
+    if (descEl) descEl.innerHTML = tierConfigData[tierKey][freqKey].desc;
+
+    const btnEl = document.getElementById('tier-btn-' + tierKey);
+    if (btnEl) btnEl.innerHTML = tierConfigData[tierKey][freqKey].btnText;
+  };
+
+  window.selectSponsorshipPackage = function(tierKey) {
+    const freqKey = activeTierFrequencies[tierKey] || 'onetime';
+    const config = tierConfigData[tierKey] && tierConfigData[tierKey][freqKey];
+    if (!config) return;
+
+    // 1. Select the appropriate intake tab
+    if (typeof selectIntakeTab === 'function') {
+      selectIntakeTab(tierKey === 'inkind' ? 'raffle' : 'sponsor');
+    }
+
+    // 2. Select matching role in dropdown
+    const roleSelect = document.getElementById('role-select');
+    if (roleSelect) {
+      let found = false;
+      for (let i = 0; i < roleSelect.options.length; i++) {
+        if (roleSelect.options[i].value === config.roleVal || roleSelect.options[i].text.includes(config.roleVal)) {
+          roleSelect.selectedIndex = i;
+          found = true;
+          break;
+        }
+      }
+      if (!found) {
+        const newOpt = new Option(config.roleVal, config.roleVal, true, true);
+        roleSelect.add(newOpt);
+      }
+    }
+
+    // 3. Prefill message
+    const msgEl = document.getElementById('form-message');
+    if (msgEl) {
+      msgEl.value = config.message;
+      msgEl.focus();
+    }
+
+    // 4. Smooth scroll to form
+    const formSection = document.getElementById('connect');
+    if (formSection) {
+      formSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
 });
