@@ -626,7 +626,7 @@
             </h2>
             
             <p class="dollar-desc">
-              True community thrives from the ground up. It isn’t built from afar—it is held by the collective care of everyday people, local artists, and purposeful community partners working side by side. When a thousand of us come together to give just <strong>$1</strong>, we cultivate a living sanctuary: opening judgment-free stages, providing warm herbal tea, and protecting unhurried spaces where our local poets, musicians, and youth can exhale.
+              True community thrives from the ground up. It isn't built from afar—it is held by the collective care of everyday people, local artists, and purposeful community partners working side by side. When a thousand of us come together to give just <strong>$1</strong>, we cultivate a living sanctuary: opening judgment-free stages, providing warm herbal tea, and protecting unhurried spaces where our local poets, musicians, and youth can exhale.
             </p>
 
             <!-- Direct Zeffy Verification Box -->
@@ -647,7 +647,7 @@
             </div>
 
             <!-- Quick Impact Stats Trio -->
-            <div style="display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 22px;">
+            <div style="display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 24px;">
               <div>
                 <div style="font-family: 'Cinzel', serif; font-size: 1.8rem; font-weight: 700; color: #F8D98C;">$1</div>
                 <div style="font-size: 0.8rem; color: #CBD7D0; text-transform: uppercase; letter-spacing: 0.08em;">Minimum Gift</div>
@@ -662,6 +662,16 @@
               </div>
             </div>
 
+            <button type="button" class="btn btn-gold btn-liquid-gold pulse-gold" onclick="openZeffyModal(event)" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 15px 24px; font-size: 1.02rem; font-weight: 700; border-radius: 999px; cursor: pointer; box-shadow: 0 8px 24px rgba(154, 111, 26, 0.35);">
+              <span>🌱 Plant Your $1 Community Seed (Apple Pay &amp; Google Pay)</span>
+              <span style="font-size: 1.15rem;">→</span>
+            </button>
+
+          </div>
+
+          <!-- Right Column: What Every $1 Seed Sustains & Fiduciary Trust -->
+          <div style="display: flex; flex-direction: column; gap: 18px;">
+            
             <!-- What Every $1 Seed Sustains Card -->
             <div class="card-3d-hover" style="background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1.5px solid rgba(197, 154, 63, 0.4); border-radius: 16px; padding: 22px 20px; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2); color: #F6F3EC;">
               <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
@@ -706,147 +716,8 @@
               </button>
             </div>
 
-          </div>
-
-          <!-- Right Column: Official 2-Tap Zeffy Donation Portal + Fiduciary Trust Seal (No Blank Space!) -->
-          <div style="display: flex; flex-direction: column; justify-content: space-between;">
-            
-            <!-- 1. The Official Zeffy Keypad & Stage Thermometer Card -->
-            <div class="sanctuary-zeffy-card card-3d-hover" style="background:#F6F2E9; border:2px solid #9A6F1A; border-radius:16px; overflow:hidden; width:100%; max-width:640px; margin:0 auto; box-shadow:0 12px 32px rgba(0,0,0,0.25);">
-              
-              <!-- Card Header -->
-              <div style="background:#1E3A2B; color:#F6F2E9; padding:14px 20px; text-align:center; border-bottom:2px solid #9A6F1A;">
-                <div style="font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#E6C168; margin-bottom:4px;">
-                  IRS 501(c)(3) PUBLIC CHARITY • FEDERAL EIN: 39-3757168 • 100% ZERO FEES
-                </div>
-                <div style="font-size:16px; font-weight:700;">
-                  Plant a $1 Seed in 2 Taps (Apple Pay &amp; Google Pay)
-                </div>
-              </div>
-
-              <!-- 2-Tab Switcher (Keypad vs Live Stage Thermometer) -->
-              <div class="donate-tab-switcher-wrap">
-                <div class="donate-tab-switcher" role="tablist" aria-label="Donation Mode Switcher">
-                  <button type="button" class="donate-tab-btn active" id="tab-btn-keypad" onclick="switchDonateTab('keypad')" role="tab" aria-selected="true">
-                    <span>💳 1-Step Payment Keypad</span>
-                  </button>
-                  <button type="button" class="donate-tab-btn" id="tab-btn-thermometer" onclick="switchDonateTab('thermometer')" role="tab" aria-selected="false">
-                    <span>🌡️ Live Stage Thermometer</span>
-                  </button>
-                </div>
-              </div>
-
-              <!-- Forest-Green Helper Banner (#1E3A2B) -->
-              <div class="zeffy-protip-banner">
-                💡 1-Tap Pro Tip: Choose $1/Monthly, tap <strong>'Other → $0'</strong> on the optional Zeffy tip so you pay <strong>$1.00 flat</strong>, and double-click Apple Pay or Google Pay!
-              </div>
-
-              <!-- Tab Pane 1: 1-Step Payment Keypad (Fail-safe, Zero Black Space Guarantee) -->
-              <div id="donate-pane-keypad" class="donate-tab-pane active" style="background:#F6F2E9;">
-                
-                <!-- Native Sanctuary Giving Keypad -->
-                <div class="sanctuary-native-keypad">
-                  
-                  <!-- Frequency Switcher -->
-                  <div class="seed-freq-switcher">
-                    <button type="button" class="seed-freq-btn active" id="seed-freq-monthly" onclick="selectSeedFreq('monthly')">
-                      <span>🌱 Monthly Seed ($1/Mo)</span>
-                    </button>
-                    <button type="button" class="seed-freq-btn" id="seed-freq-once" onclick="selectSeedFreq('once')">
-                      <span>One-Time Gift</span>
-                    </button>
-                  </div>
-
-                  <!-- Amount Chips -->
-                  <div class="seed-amount-grid">
-                    <button type="button" class="seed-chip-btn active" id="chip-1" onclick="selectSeedAmount(1)">
-                      <span class="seed-chip-val">$1</span>
-                      <span class="seed-chip-lbl">The Seed</span>
-                    </button>
-                    <button type="button" class="seed-chip-btn" id="chip-5" onclick="selectSeedAmount(5)">
-                      <span class="seed-chip-val">$5</span>
-                      <span class="seed-chip-lbl">Supporter</span>
-                    </button>
-                    <button type="button" class="seed-chip-btn" id="chip-10" onclick="selectSeedAmount(10)">
-                      <span class="seed-chip-val">$10</span>
-                      <span class="seed-chip-lbl">Caregiver</span>
-                    </button>
-                    <button type="button" class="seed-chip-btn" id="chip-25" onclick="selectSeedAmount(25)">
-                      <span class="seed-chip-val">$25</span>
-                      <span class="seed-chip-lbl">Pillar</span>
-                    </button>
-                  </div>
-
-                  <!-- Impact Notice -->
-                  <div class="seed-impact-notice" id="seed-impact-text">
-                    ✨ <strong>100% Community Pass-Through:</strong> $1/month covers 1 free trauma-informed youth healing journal and subsidizes community somatic seats. 0% deducted by Zeffy.
-                  </div>
-
-                  <!-- Direct 1-Tap Giving Button -->
-                  <a id="seed-direct-pay-btn" href="https://www.zeffy.com/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation" target="_blank" rel="noopener noreferrer" class="btn btn-gold btn-liquid-gold pulse-gold zeffy-direct-link" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 15px 22px; font-size: 1.02rem; font-weight: 700; border-radius: 999px; text-decoration: none; margin: 14px 0 10px; box-sizing: border-box; box-shadow: 0 8px 24px rgba(154, 111, 26, 0.35);">
-                    <span id="seed-pay-btn-label">🌱 Plant $1 Monthly Seed (Apple Pay • Google Pay)</span>
-                    <span style="font-size: 1.15rem;">↗</span>
-                  </a>
-
-                  <!-- Payment Trust Badges -->
-                  <div class="seed-pay-badges">
-                    <span> Apple Pay</span>
-                    <span>•</span>
-                    <span>G Pay Google Pay</span>
-                    <span>•</span>
-                    <span>💳 Zero Fees</span>
-                    <span>•</span>
-                    <span>🔒 256-Bit SSL</span>
-                  </div>
-
-                  <!-- Optional In-Card Embed Collapsible -->
-                  <div class="zeffy-embed-collapsible">
-                    <button type="button" class="zeffy-embed-toggle-btn" onclick="toggleEmbeddedZeffy()">
-                      <span id="embed-toggle-text">▾ Or preview embedded checkout frame directly in-card</span>
-                    </button>
-                    <div id="zeffy-inline-embed-wrap" style="display: none; margin-top: 14px; position: relative; width: 100%; min-height: 520px; background: #F6F2E9; border-radius: 12px; overflow: hidden; border: 1.5px solid rgba(154, 111, 26, 0.3);">
-                      <iframe
-                        id="inpage-zeffy-iframe"
-                        title="Inner Sanctuary Wellness Foundation 2-Tap Giving"
-                        style="border:0; width:100%; height:520px; background:#F6F2E9; display:block;"
-                        src="about:blank"
-                        data-src="https://www.zeffy.com/embed/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation"
-                        allow="payment *"
-                        allowpaymentrequest="true"
-                        allowtransparency="true"
-                        loading="lazy">
-                      </iframe>
-                    </div>
-                  </div>
-
-                </div>
-
-              </div>
-
-              <!-- Tab Pane 2: Live Stage Thermometer (Stage Projector Ready) -->
-              <div id="donate-pane-thermometer" class="donate-tab-pane" style="display: none; position:relative; width:100%; min-height:540px; height:540px; background:#F6F2E9;">
-                <iframe
-                  id="inpage-thermometer-iframe"
-                  title="Inner Sanctuary Wellness Foundation Live Stage Thermometer"
-                  style="border:0; width:100%; height:100%; background:#F6F2E9; display:block;"
-                  src="https://www.zeffy.com/en-US/live/thermometer/donate-to-make-a-difference-inner-sanctuary-wellness-foundation"
-                  allowtransparency="true"
-                  loading="lazy">
-                </iframe>
-              </div>
-
-              <!-- Card Bottom Direct Fallback -->
-              <div style="background:#F6F2E9; padding:12px 18px; text-align:center; font-size:12.5px; color:#241C15; border-top:1px solid rgba(154,111,26,0.3); display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap;">
-                <span>Verified 501(c)(3) Zero-Fee Portal:</span>
-                <a href="https://www.zeffy.com/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation" target="_blank" rel="noopener noreferrer" class="zeffy-direct-link" style="color:#1E3A2B; font-weight:700; text-decoration:underline;">
-                  Open Direct 1-Tap Checkout ↗
-                </a>
-              </div>
-
-            </div>
-
-            <!-- 2. Verified Fiduciary Trust & Sponsor Link Card (Completely Fills the Right Side!) -->
-            <div class="card-3d-hover" style="background: rgba(255, 255, 255, 0.08); border: 1.5px solid rgba(197, 154, 63, 0.4); border-radius: 16px; padding: 18px 20px; margin-top: 18px; color: #F6F3EC; backdrop-filter: blur(8px);">
+            <!-- Verified Fiduciary Trust & Sponsor Link Card -->
+            <div class="card-3d-hover" style="background: rgba(255, 255, 255, 0.08); border: 1.5px solid rgba(197, 154, 63, 0.4); border-radius: 16px; padding: 18px 20px; color: #F6F3EC; backdrop-filter: blur(8px);">
               <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
                 <span style="font-size: 0.80rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #F8D98C; display: flex; align-items: center; gap: 6px;">
                   <span>🔒 Fiduciary &amp; Tax Deductibility Guarantee</span>
@@ -874,7 +745,6 @@
             </div>
 
           </div>
-
         </div>
       </div>
 
