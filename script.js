@@ -2,6 +2,19 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+  // Floating $1 Seed Action Button on Scroll
+  const floatingSeedPill = document.getElementById('floating-seed-pill');
+  if (floatingSeedPill) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 340) {
+        floatingSeedPill.classList.add('is-visible');
+      } else {
+        floatingSeedPill.classList.remove('is-visible');
+      }
+    }, { passive: true });
+  }
+
+
   let soundscape = null;
 
   // =========================================================================
