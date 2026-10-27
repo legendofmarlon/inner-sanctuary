@@ -89,7 +89,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Custom Stylesheet -->
-  <link rel="stylesheet" href="styles.css?v=2.5">
+  <link rel="stylesheet" href="styles.css?v=3.0">
 </head>
 <body>
 
@@ -126,15 +126,22 @@
 
   <!-- ==================== TOP ANNOUNCEMENT BAR ==================== -->
   <div class="announcement-bar">
-    <span>✦ Inner Sanctuary Wellness Foundation • A 501(c)(3) Space for Raw Authenticity, Somatic Healing & Radical Self-Expression</span>
-    <a href="#medicine">Explore Our Medicine: LSD →</a>
+    <div class="container" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+      <span>✦ Inner Sanctuary Wellness Foundation • A 501(c)(3) Space for Raw Authenticity, Somatic Healing &amp; Radical Self-Expression</span>
+      <div style="display: inline-flex; align-items: center; gap: 10px;">
+        <a href="#method" style="color: #FFFFFF; font-weight: 600; text-decoration: underline; font-size: 0.78rem;">Our Method: Laugh • Sing • Dance →</a>
+        <button type="button" onclick="openZeffyModal(event)" class="btn-liquid-gold pulse-gold" style="background: var(--sunburst-gold); color: #1C1B18; font-weight: 700; font-size: 0.75rem; padding: 4px 12px; border-radius: 999px; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 2px 8px rgba(197, 154, 63, 0.4);">
+          <span>🌱 Give $1 Seed</span>
+        </button>
+      </div>
+    </div>
   </div>
 
   <!-- ==================== NAVIGATION ==================== -->
-  <nav>
+  <nav id="sanctuary-nav">
     <div class="container nav-inner">
       <div class="brand-group">
-        <a href="#" class="brand-group">
+        <a href="#remember" class="brand-group" style="text-decoration: none;">
           <img class="nav-emblem" src="emblem.png" alt="Inner Sanctuary Emblem Logo" onerror="this.src='emblem.jpg'">
           <div class="brand-text-block">
             <span class="nav-title serif-brand">INNER SANCTUARY</span>
@@ -144,41 +151,104 @@
       </div>
 
       <ul class="nav-links">
-        <li><a href="#remember">Home</a></li>
-        <li><a href="#breath">Sacred Breath</a></li>
-        <li><a href="#medicine">About Us (LSD)</a></li>
-        <li><a href="#open-mic">Our Programs</a></li>
-        <li><a href="#horizons">Our Vision</a></li>
-        <li><a href="#sponsorship">Partner With Us</a></li>
-        <li><a href="#stay-in-loop">Events & Updates</a></li>
-        <li><a href="#connect">Get Involved</a></li>
+        <li>
+          <a href="#remember" class="nav-link-dual">
+            <span class="nav-link-main">Pause &amp; Remember</span>
+            <span class="nav-link-sub">Home</span>
+          </a>
+        </li>
+        <li>
+          <a href="#method" class="nav-link-dual">
+            <span class="nav-link-main">Our Method</span>
+            <span class="nav-link-sub">About Us</span>
+          </a>
+        </li>
+        <li>
+          <a href="#open-mic" class="nav-link-dual">
+            <span class="nav-link-main">Community Open Mic</span>
+            <span class="nav-link-sub">Our Programs</span>
+          </a>
+        </li>
+        <li>
+          <a href="#horizons" class="nav-link-dual">
+            <span class="nav-link-main">Future Horizons</span>
+            <span class="nav-link-sub">Our Vision</span>
+          </a>
+        </li>
+        <li>
+          <a href="#sponsorship" class="nav-link-dual">
+            <span class="nav-link-main">Give &amp; Sponsor</span>
+            <span class="nav-link-sub">Partner With Us</span>
+          </a>
+        </li>
+        <li>
+          <a href="#stay-in-loop" class="nav-link-dual">
+            <span class="nav-link-main">Stay in the Loop</span>
+            <span class="nav-link-sub">Events &amp; Updates</span>
+          </a>
+        </li>
       </ul>
 
       <div style="display: flex; align-items: center; gap: 10px;">
-        <a href="https://www.instagram.com/ourinnersanctuary/" target="_blank" rel="noopener noreferrer" class="btn-outline-gold" style="padding: 8px 14px; border-radius: 6px; display: inline-flex; align-items: center; gap: 6px; font-size: 0.76rem; text-decoration: none;" title="Follow @ourinnersanctuary on Instagram">
+        <a href="https://www.instagram.com/ourinnersanctuary/" target="_blank" rel="noopener noreferrer" class="btn-outline-gold" style="padding: 8px 12px; border-radius: 8px; display: inline-flex; align-items: center; gap: 6px; font-size: 0.74rem; text-decoration: none;" title="Follow @ourinnersanctuary on Instagram">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
           <span class="desktop-only-ig">@ourinnersanctuary</span>
         </a>
-        <button type="button" onclick="openZeffyModal(event)" class="btn btn-gold nav-donate-cta btn-liquid-gold pulse-gold" style="padding: 10px 18px; font-size: 0.78rem; cursor: pointer;">Donate $1</button>
-        <button id="mobile-nav-toggle" style="display: none; background: none; border: 1px solid var(--forest-green); color: var(--forest-green); padding: 8px 12px; border-radius: 6px; cursor: pointer;" aria-label="Toggle Menu">
+        <button type="button" onclick="openZeffyModal(event)" class="btn btn-gold nav-donate-cta btn-liquid-gold pulse-gold weekly-shimmer-cta" style="padding: 10px 20px; font-size: 0.82rem; font-weight: 700; cursor: pointer; border-radius: 999px; display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; box-shadow: 0 4px 16px rgba(197, 154, 63, 0.45); letter-spacing: 0.04em;" title="Plant Your $1 Seed in the Sanctuary">
+          <span>🌱 Give $1 Seed</span>
+        </button>
+        <button id="mobile-nav-toggle" style="display: none; background: none; border: 1.5px solid var(--forest-green); color: var(--forest-green); padding: 8px 12px; border-radius: 6px; cursor: pointer; font-size: 1.15rem;" aria-label="Toggle Menu">
           ☰
         </button>
       </div>
     </div>
 
     <!-- Mobile Navigation Drawer -->
-    <div id="mobile-nav-drawer" class="hidden" style="display: none; padding: 20px 24px; background: #F6F3EC; border-bottom: 1px solid var(--sunburst-gold);">
-      <ul style="list-style: none; display: flex; flex-direction: column; gap: 14px; font-weight: 600; text-transform: uppercase; font-size: 0.85rem;">
-        <li><a href="#remember">Home</a></li>
-        <li><a href="#breath">Sacred Breath</a></li>
-        <li><a href="#medicine">About Us (LSD)</a></li>
-        <li><a href="#open-mic">Our Programs</a></li>
-        <li><a href="#horizons">Our Vision</a></li>
-        <li><a href="#sponsorship">Partner With Us</a></li>
-        <li><a href="#stay-in-loop">Events & Updates</a></li>
-        <li><a href="#connect">Get Involved</a></li>
-        <li><button type="button" onclick="openZeffyModal(event)" class="btn btn-gold btn-liquid-gold pulse-gold" style="display: inline-block; width: 100%; text-align: center; margin-top: 6px; padding: 10px 18px; cursor: pointer;">Donate $1</button></li>
-        <li><a href="https://www.instagram.com/ourinnersanctuary/" target="_blank" rel="noopener noreferrer" style="color: var(--sunburst-gold); display: flex; align-items: center; gap: 8px;">📸 Instagram: @ourinnersanctuary</a></li>
+    <div id="mobile-nav-drawer" class="hidden" style="display: none; padding: 22px 24px; background: #F6F3EC; border-bottom: 2px solid var(--sunburst-gold);">
+      <ul style="list-style: none; display: flex; flex-direction: column; gap: 14px; margin: 0; padding: 0;">
+        <li>
+          <a href="#remember" class="mobile-nav-item">
+            <span class="mobile-nav-main">Pause &amp; Remember</span>
+            <span class="mobile-nav-sub">Home</span>
+          </a>
+        </li>
+        <li>
+          <a href="#method" class="mobile-nav-item">
+            <span class="mobile-nav-main">Our Method</span>
+            <span class="mobile-nav-sub">About Us</span>
+          </a>
+        </li>
+        <li>
+          <a href="#open-mic" class="mobile-nav-item">
+            <span class="mobile-nav-main">Community Open Mic</span>
+            <span class="mobile-nav-sub">Our Programs</span>
+          </a>
+        </li>
+        <li>
+          <a href="#horizons" class="mobile-nav-item">
+            <span class="mobile-nav-main">Future Horizons</span>
+            <span class="mobile-nav-sub">Our Vision</span>
+          </a>
+        </li>
+        <li>
+          <a href="#sponsorship" class="mobile-nav-item">
+            <span class="mobile-nav-main">Give &amp; Sponsor</span>
+            <span class="mobile-nav-sub">Partner With Us</span>
+          </a>
+        </li>
+        <li>
+          <a href="#stay-in-loop" class="mobile-nav-item">
+            <span class="mobile-nav-main">Stay in the Loop</span>
+            <span class="mobile-nav-sub">Events &amp; Updates</span>
+          </a>
+        </li>
+        <li style="margin-top: 8px;">
+          <button type="button" onclick="openZeffyModal(event)" class="btn btn-gold btn-liquid-gold pulse-gold" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; text-align: center; padding: 12px 18px; cursor: pointer; border-radius: 999px;">
+            <span style="font-size: 0.90rem; font-weight: 700;">Give $1 Seed</span>
+            <span style="font-size: 0.70rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.9;">Donate $1</span>
+          </button>
+        </li>
+        <li><a href="https://www.instagram.com/ourinnersanctuary/" target="_blank" rel="noopener noreferrer" style="color: var(--sunburst-gold); display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 0.85rem; padding-top: 6px;">📸 Instagram: @ourinnersanctuary</a></li>
       </ul>
     </div>
   </nav>
@@ -291,11 +361,11 @@
 
         <!-- CTA Buttons -->
         <div class="hero-cta-group" style="margin-top: 28px;">
-          <button type="button" onclick="openZeffyModal(event)" class="btn btn-gold btn-liquid-gold pulse-gold" style="cursor: pointer;">🌱 Donate $1</button>
+          <button type="button" onclick="openZeffyModal(event)" class="btn btn-gold btn-liquid-gold pulse-gold" style="cursor: pointer;">🌱 Give $1 Seed</button>
           <a href="#open-mic" class="btn btn-gold">Community Gathering</a>
+          <a href="#method" class="btn btn-forest">Our Method: Laugh • Sing • Dance</a>
           <a href="#breath" class="btn btn-outline">Sacred Breathwork ✦</a>
-          <a href="#medicine" class="btn btn-forest">Our Medicine: LSD</a>
-          <a href="#connect" class="btn btn-gold">Get Involved</a>
+          <a href="#connect" class="btn btn-outline-gold">Get Involved</a>
         </div>
       </div>
 
@@ -324,78 +394,18 @@
     </div>
   </section>
 
-  <!-- ==================== SACRED SOMATIC BREATHWORK INTEGRATION (HERO GROUNDING) ==================== -->
-  <section id="breath" class="section-padding sacred-breath-section">
-    <div class="container" style="text-align: center;">
-      
-      <div class="section-header" style="max-width: 620px; margin: 0 auto 16px; text-align: center;">
-        <div class="section-subtitle" style="color: #F5AF19;">Somatic Reset • Unhurried Presence</div>
-        <h2 class="section-title" style="color: #FFFFFF;">Pause &amp; Breathe</h2>
-        <div class="flourish-divider">✦</div>
-        <p style="color: #CBD7D0; font-size: 1.02rem; line-height: 1.7; margin-bottom: 0;">
-          Soften your shoulders. Tap the orb and breathe with its gentle expansion and release.
-        </p>
-      </div>
+  
 
-      <!-- Living Breath Orb Card (Simple, Minimal, Zen) -->
-      <div class="sanctuary-orb-card" id="sacred-breathing-portal">
-        
-        <!-- The Living Breathing Orb Stage -->
-        <div class="breathing-orb-wrapper" id="breathing-orb-stage" role="button" tabindex="0" title="Click or tap the Orb to breathe" aria-label="Interactive Breathing Orb">
-          <div class="breathing-pulse-ring"></div>
-          <div class="breathing-halo-aura" id="somatic-halo"></div>
-          <div class="breathing-orb" id="somatic-orb" style="background: radial-gradient(circle at 32% 28%, #FFFDF0 0%, #FFE57F 16%, #F5AF19 40%, #E69500 68%, #C67D00 88%, #9E6300 100%) !important;">
-            <div class="orb-inner-glow" id="orb-inner-glow"></div>
-            <div class="orb-center-content">
-              <span class="orb-breath-word" id="orb-breath-word">Breathe</span>
-            </div>
-          </div>
-        </div>
-
-        <div id="orb-status-prompt" class="orb-status-prompt">
-          Tap the orb or press begin below
-        </div>
-
-        <!-- Minimal Action Controls -->
-        <div class="orb-actions-bar">
-          <button id="orb-toggle-btn" class="breath-primary-toggle" type="button" aria-label="Start or Pause Breath Session">
-            <span class="btn-ctrl-icon" id="btn-ctrl-icon">▶</span>
-            <span id="orb-btn-label">Begin</span>
-          </button>
-
-          <!-- Soothing Breath Sound Toggle -->
-          <button id="breath-sound-toggle-btn" class="breath-audio-toggle" type="button" aria-label="Toggle Soothing Breath Sound" title="Toggle natural breath sounds">
-            <span id="breath-sound-icon">🔊</span>
-            <span id="breath-sound-label">Sound: ON</span>
-          </button>
-        </div>
-
-        <!-- Google Ad Grants / GA4 Engagement CTA Hook -->
-        <div class="breath-workshop-cta-wrap" style="margin-top: 14px; padding-top: 10px; border-top: 1px solid rgba(245, 175, 25, 0.15);">
-          <a href="#connect" class="breath-workshop-cta-btn" id="breath-workshop-cta-btn">
-            <span>Join Our Next Live Wellness Workshop</span>
-            <span class="cta-arrow">→</span>
-          </a>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ==================== OUR MEDICINE: LSD ==================== -->
-  <section id="medicine" class="section-padding" style="background: rgba(250, 248, 243, 0.7); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(197, 154, 63, 0.2);">
+  <!-- ==================== OUR METHOD: THE THREEFOLD RELEASE ==================== -->
+  <section id="method" class="section-padding method-section" style="background: rgba(250, 248, 243, 0.7); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(197, 154, 63, 0.2);">
+    <!-- Anchor alias for legacy #medicine bookmarks -->
+    <div id="medicine" style="position: relative; top: -90px; visibility: hidden;"></div>
     <div class="container">
       
       <div class="section-header" style="max-width: 860px; margin: 0 auto 36px; text-align: center;">
-        <div class="section-subtitle">Somatic Alchemy & Nature’s Prescription</div>
-        <h2 class="section-title">Our Medicine? LSD.</h2>
+        <div class="section-subtitle">Somatic Alchemy &amp; Nature’s Prescription</div>
+        <h2 class="section-title">Our Method: The Threefold Release</h2>
         
-        <!-- Playful Humor Pill -->
-        <div style="margin: 10px 0 16px;">
-          <span class="lsd-humor-pill">*(No, not that kind of LSD, silly!)* 😄</span>
-        </div>
-
         <div class="flourish-divider">✦</div>
         
         <div style="font-family: 'Cinzel', serif; font-size: 1.25rem; color: var(--forest-green); letter-spacing: 0.16em; font-weight: 700; margin-bottom: 16px;">
@@ -403,22 +413,22 @@
         </div>
 
         <p style="font-size: 1.08rem; color: var(--charcoal-muted); line-height: 1.85; margin-bottom: 12px;">
-          Before anyone calls the wellness authorities... around here, healing isn't clinical, stiff, or complicated. Sometimes healing looks like deep belly laughter that shakes your ribs until you're gasping for air. A song you didn't know you needed to belt out. Or moving your body freely until whatever you've been holding onto finally shakes loose.
+          Around here, healing isn't clinical, stiff, or complicated. Sometimes healing looks like deep belly laughter that shakes your ribs until you're gasping for air. A song you didn't know you needed to belt out. Or moving your body freely until whatever you've been holding onto finally shakes loose.
         </p>
         <p style="font-size: 1.02rem; color: var(--forest-dark); font-weight: 600; line-height: 1.8; margin-bottom: 0;">
-          Our medicine is simply giving ourselves permission to be human.<br>
+          Our method is simply giving ourselves permission to be human.<br>
           <span style="color: var(--forest-green);">To feel it all, express it all, and remember who we were before the rush.</span>
         </p>
       </div>
 
       <div class="lsdc-flow-container">
-        <!-- 3 Prominent Focused LSD Cards -->
+        <!-- 3 Prominent Focused Release Cards -->
         <div class="lsd-trio-grid">
           
-          <!-- L: Laughing -->
-          <div class="lsd-focus-card" data-element="laughing">
+          <!-- Card 1: Laughing -->
+          <div class="lsd-focus-card method-focus-card" data-element="laughing">
             <div class="lsd-card-header">
-              <span class="lsd-letter-badge">L</span>
+              <span class="lsd-letter-badge">🌿</span>
               <div>
                 <h3 class="lsd-focus-title">Laughing</h3>
                 <span class="lsd-focus-subtitle">Nervous System Reset</span>
@@ -430,10 +440,10 @@
             <div class="lsd-vibe-tag">✦ Joy Medicine</div>
           </div>
 
-          <!-- S: Singing -->
-          <div class="lsd-focus-card" data-element="singing">
+          <!-- Card 2: Singing -->
+          <div class="lsd-focus-card method-focus-card" data-element="singing">
             <div class="lsd-card-header">
-              <span class="lsd-letter-badge">S</span>
+              <span class="lsd-letter-badge">🎶</span>
               <div>
                 <h3 class="lsd-focus-title">Singing</h3>
                 <span class="lsd-focus-subtitle">Vibrational Sound Release</span>
@@ -445,10 +455,10 @@
             <div class="lsd-vibe-tag">✦ Voice Medicine</div>
           </div>
 
-          <!-- D: Dancing -->
-          <div class="lsd-focus-card" data-element="dancing">
+          <!-- Card 3: Dancing -->
+          <div class="lsd-focus-card method-focus-card" data-element="dancing">
             <div class="lsd-card-header">
-              <span class="lsd-letter-badge">D</span>
+              <span class="lsd-letter-badge">💃</span>
               <div>
                 <h3 class="lsd-focus-title">Dancing</h3>
                 <span class="lsd-focus-subtitle">Embodied Somatic Motion</span>
@@ -686,7 +696,7 @@
               </h2>
               
               <p class="dollar-desc">
-                True community thrives from the ground up. It isn't built from afar—it is held by the collective care of everyday people, local artists, and purposeful community partners working side by side. When a thousand of us come together to give just <strong>$1</strong>, we cultivate a living sanctuary: opening judgment-free stages, providing warm herbal tea, and protecting unhurried spaces where our local poets, musicians, and youth can exhale.
+                True community thrives from the ground up. It isn't built from afar—it is held by the collective care of everyday people, local artists, and purposeful community partners working side by side. When a thousand of us come together to give just <strong>$1</strong>, we cultivate a living sanctuary: opening judgment-free stages, fostering grounded community connection, and protecting unhurried spaces where our local poets, musicians, and youth can exhale.
               </p>
 
               <!-- Quick Impact Stats Trio -->
@@ -722,45 +732,45 @@
 
           </div>
 
-          <!-- Right Column: What Every $1 Seed Sustains & Fiduciary Trust -->
+          <!-- Right Column: Clean Inline Zeffy Giving Box & Fiduciary Trust -->
           <div style="display: flex; flex-direction: column; gap: 18px;">
             
-            <!-- What Every $1 Seed Sustains Card -->
-            <div class="card-3d-hover" style="background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1.5px solid rgba(197, 154, 63, 0.4); border-radius: 16px; padding: 22px 20px; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2); color: #F6F3EC;">
+            <!-- Live Inline Zeffy Giving Box -->
+            <div class="card-3d-hover zeffy-live-box-card" style="background: rgba(255, 255, 255, 0.09); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1.5px solid rgba(197, 154, 63, 0.45); border-radius: 16px; padding: 22px 20px; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22); color: #F6F3EC;">
               <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
-                <h3 style="font-family: 'Cinzel', serif; font-size: 1.12rem; font-weight: 700; color: #F8D98C; margin: 0; display: flex; align-items: center; gap: 8px;">
-                  <span>✦ What Every $1 Seed Sustains</span>
+                <h3 style="font-family: 'Cinzel', serif; font-size: 1.15rem; font-weight: 700; color: #F8D98C; margin: 0; display: flex; align-items: center; gap: 8px;">
+                  <span>✦ Plant Your $1 Seed</span>
                 </h3>
                 <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #E6C168; background: rgba(197, 154, 63, 0.2); padding: 3px 10px; border-radius: 999px; border: 1px solid rgba(197, 154, 63, 0.35);">
-                  100% Direct
+                  100% Direct • 0% Fees
                 </span>
               </div>
-              <p style="font-size: 0.86rem; color: #CBD7D0; line-height: 1.55; margin-bottom: 16px;">
-                No huge donations required. When everyday people unite with single $1 seeds, we fund healing spaces without corporate strings:
+              <p style="font-size: 0.86rem; color: #CBD7D0; line-height: 1.5; margin-bottom: 14px;">
+                Every single dollar directly powers unhurried healing spaces and creative community stages. Give securely right here:
               </p>
 
-              <div style="display: flex; flex-direction: column; gap: 10px;">
-                <div style="display: flex; align-items: flex-start; gap: 12px; background: rgba(0, 0, 0, 0.2); padding: 11px 13px; border-radius: 10px; border: 1px solid rgba(197, 154, 63, 0.22);">
-                  <span style="font-size: 1.2rem; line-height: 1;">🎤</span>
-                  <div>
-                    <div style="font-size: 0.86rem; font-weight: 700; color: #FFFFFF;">Unhurried Creative Stages</div>
-                    <div style="font-size: 0.78rem; color: #CBD7D0; line-height: 1.4;">Safe, judgment-free microphones for local poets, musicians &amp; youth.</div>
-                  </div>
-                </div>
-                <div style="display: flex; align-items: flex-start; gap: 12px; background: rgba(0, 0, 0, 0.2); padding: 11px 13px; border-radius: 10px; border: 1px solid rgba(197, 154, 63, 0.22);">
-                  <span style="font-size: 1.2rem; line-height: 1;">🍵</span>
-                  <div>
-                    <div style="font-size: 0.86rem; font-weight: 700; color: #FFFFFF;">Warm Herbal Tea &amp; Nourishment</div>
-                    <div style="font-size: 0.78rem; color: #CBD7D0; line-height: 1.4;">Organic calming botanical infusions offered free to all attendees.</div>
-                  </div>
-                </div>
-                <div style="display: flex; align-items: flex-start; gap: 12px; background: rgba(0, 0, 0, 0.2); padding: 11px 13px; border-radius: 10px; border: 1px solid rgba(197, 154, 63, 0.22);">
-                  <span style="font-size: 1.2rem; line-height: 1;">📓</span>
-                  <div>
-                    <div style="font-size: 0.86rem; font-weight: 700; color: #FFFFFF;">Youth &amp; Artist Healing Journals</div>
-                    <div style="font-size: 0.78rem; color: #CBD7D0; line-height: 1.4;">Guided physical journals gifted to creators processing life and emotions.</div>
-                  </div>
-                </div>
+              <!-- Live Embedded Zeffy Giving Box -->
+              <div class="zeffy-inline-frame-wrap" style="border-radius: 12px; overflow: hidden; border: 1px solid rgba(197, 154, 63, 0.35); background: #F6F2E9; box-shadow: inset 0 2px 8px rgba(0,0,0,0.12); margin-bottom: 12px;">
+                <iframe
+                  title="Inner Sanctuary Wellness Foundation Direct Donation"
+                  src="https://www.zeffy.com/embed/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation"
+                  style="border: 0; width: 100%; height: 440px; background: #F6F2E9; display: block;"
+                  allow="payment *"
+                  allowpaymentrequest="true"
+                  allowtransparency="true"
+                  loading="lazy">
+                </iframe>
+              </div>
+
+              <!-- Quick Action & Fallback Row -->
+              <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; border-top: 1px solid rgba(197, 154, 63, 0.22); padding-top: 12px;">
+                <a href="https://www.zeffy.com/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation" target="_blank" rel="noopener noreferrer" class="btn btn-gold btn-liquid-gold pulse-gold" style="font-size: 0.80rem; padding: 9px 18px; border-radius: 999px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; cursor: pointer;">
+                  <span>🌱 Open Direct Zeffy Window</span>
+                  <span>↗</span>
+                </a>
+                <span style="font-size: 0.74rem; color: #CBD7D0; display: inline-flex; align-items: center; gap: 4px;">
+                  <span>🔒 Apple &amp; Google Pay Ready</span>
+                </span>
               </div>
             </div>
 
@@ -1250,6 +1260,66 @@
     </div>
   </section>
 
+  <!-- ==================== SACRED SOMATIC BREATHWORK INTEGRATION (GROUNDING SANCTUARY) ==================== -->
+  <section id="breath" class="section-padding sacred-breath-section" style="border-top: 1px solid rgba(197, 154, 63, 0.25); border-bottom: 1px solid rgba(197, 154, 63, 0.25);">
+    <div class="container" style="text-align: center;">
+      
+      <div class="section-header" style="max-width: 680px; margin: 0 auto 20px; text-align: center;">
+        <div class="section-subtitle" style="color: #F5AF19;">Somatic Reset • Unhurried Presence</div>
+        <h2 class="section-title" style="color: #FFFFFF;">Pause &amp; Breathe</h2>
+        <div class="flourish-divider">✦</div>
+        <p style="color: #CBD7D0; font-size: 1.05rem; line-height: 1.7; margin-bottom: 0;">
+          Before stepping into our community circle, soften your shoulders.<br>
+          Tap the living orb below and breathe with its gentle expansion and release.
+        </p>
+      </div>
+
+      <!-- Living Breath Orb Card (Simple, Minimal, Zen) -->
+      <div class="sanctuary-orb-card" id="sacred-breathing-portal">
+        
+        <!-- The Living Breathing Orb Stage -->
+        <div class="breathing-orb-wrapper" id="breathing-orb-stage" role="button" tabindex="0" title="Click or tap the Orb to breathe" aria-label="Interactive Breathing Orb">
+          <div class="breathing-pulse-ring"></div>
+          <div class="breathing-halo-aura" id="somatic-halo"></div>
+          <div class="breathing-orb" id="somatic-orb" style="background: radial-gradient(circle at 32% 28%, #FFFDF0 0%, #FFE57F 16%, #F5AF19 40%, #E69500 68%, #C67D00 88%, #9E6300 100%) !important;">
+            <div class="orb-inner-glow" id="orb-inner-glow"></div>
+            <div class="orb-center-content">
+              <span class="orb-breath-word" id="orb-breath-word">Breathe</span>
+            </div>
+          </div>
+        </div>
+
+        <div id="orb-status-prompt" class="orb-status-prompt">
+          Tap the orb or press begin below
+        </div>
+
+        <!-- Minimal Action Controls -->
+        <div class="orb-actions-bar">
+          <button id="orb-toggle-btn" class="breath-primary-toggle" type="button" aria-label="Start or Pause Breath Session">
+            <span class="btn-ctrl-icon" id="btn-ctrl-icon">▶</span>
+            <span id="orb-btn-label">Begin</span>
+          </button>
+
+          <!-- Soothing Breath Sound Toggle -->
+          <button id="breath-sound-toggle-btn" class="breath-audio-toggle" type="button" aria-label="Toggle Soothing Breath Sound" title="Toggle natural breath sounds">
+            <span id="breath-sound-icon">🔊</span>
+            <span id="breath-sound-label">Sound: ON</span>
+          </button>
+        </div>
+
+        <!-- Google Ad Grants / GA4 Engagement CTA Hook -->
+        <div class="breath-workshop-cta-wrap" style="margin-top: 14px; padding-top: 10px; border-top: 1px solid rgba(245, 175, 25, 0.15);">
+          <a href="#connect" class="breath-workshop-cta-btn" id="breath-workshop-cta-btn">
+            <span>Join Our Next Live Wellness Workshop</span>
+            <span class="cta-arrow">→</span>
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
   <!-- ==================== STAY IN THE LOOP ==================== -->
   <section id="stay-in-loop" class="section-padding" style="background: rgba(250, 248, 243, 0.75); backdrop-filter: blur(8px); border-top: 1px solid rgba(197, 154, 63, 0.2);">
     <div class="container">
@@ -1318,9 +1388,9 @@
           <div>
             <div class="pathway-card-icon">🌿</div>
             <h3 class="pathway-card-title">Volunteer & Care</h3>
-            <div class="pathway-card-sub">Hosts • Tea Brewers • Sound</div>
+            <div class="pathway-card-sub">Hosts • Welcomers • Acoustic Sound</div>
             <p class="pathway-card-desc">
-              Help welcome neighborhood guests, pour organic botanical tea, manage acoustic sound, and hold grounded sanctuary presence.
+              Help welcome neighborhood guests, support local creators, manage acoustic sound, and hold grounded sanctuary presence.
             </p>
           </div>
           <span class="pathway-card-action">Join Volunteer Circle →</span>
@@ -1469,7 +1539,7 @@
           <ul class="footer-links">
             <li><a href="#remember">Pause. Breathe. Remember.</a></li>
             <li><a href="#breath">Sacred Breathwork Reset</a></li>
-            <li><a href="#medicine">Our Medicine: LSD</a></li>
+            <li><a href="#method">Our Method: Laugh • Sing • Dance</a></li>
             <li><a href="#open-mic">Community Open Mic & Pause</a></li>
             <li><a href="#horizons">Sanctuary Horizons</a></li>
             <li><a href="#dollar-campaign-anchor">The $1 Community Seed</a></li>
@@ -1527,7 +1597,7 @@
   </footer>
 
   <!-- Script File -->
-  <script src="script.js?v=2.5"></script>
+  <script src="script.js?v=3.0"></script>
 
   <!-- ==================== PRELOADED ZEFFY MODAL (ZEFFY QUICK DONATE MODAL) ==================== -->
   <div id="ZeffyQuickDonateModal" class="zeffy-modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true" style="display: none;">

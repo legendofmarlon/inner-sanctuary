@@ -2150,7 +2150,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================================================================
-  // 8. OUR MEDICINE: LSD INTERACTIVE FREQUENCY RESONANCE
+  // 8. OUR METHOD: THE THREEFOLD RELEASE INTERACTIVE RESONANCE
   // =========================================================================
   const lsdCards = document.querySelectorAll('.lsd-focus-card, .lsdc-card');
   const frequencyMap = {
@@ -2171,7 +2171,7 @@ document.addEventListener('DOMContentLoaded', () => {
         playHarmonicTone(freq, 0.9);
         createHeartFlourish();
         const titleElem = card.querySelector('.lsd-focus-title') || card.querySelector('.lsdc-title-clean') || card.querySelector('.lsdc-title');
-        const title = titleElem ? titleElem.textContent.trim() : 'LSD Medicine';
+        const title = titleElem ? titleElem.textContent.trim() : 'The Threefold Release';
         showToast(`✨ Tuning into ${title}: Giving ourselves permission to be human.`);
       }
     });
