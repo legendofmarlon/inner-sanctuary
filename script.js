@@ -2927,3 +2927,157 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
 });
+
+
+  // =========================================================================
+  // COMMUNITY PHOTO WHEEL & LIGHTBOX MODAL LOGIC
+  // =========================================================================
+  window.currentPhotoWheelIndex = 0;
+  const photoWheelData = [
+    {
+      src: "images/openmic/openmic-vocalist-yellow.jpg",
+      caption: "Raw Vocal Resonance • Community Singer Pouring Heart into Song at Cafe 86",
+      alt: "Solo vocalist singing at microphone"
+    },
+    {
+      src: "images/openmic/openmic-audience-cafe86.jpg",
+      caption: "Attentive Sanctuary • ~40 Neighbors & Creators Gathered in Grounded Presence",
+      alt: "Attentive audience at Cafe 86"
+    },
+    {
+      src: "images/openmic/openmic-acoustic-band.jpg",
+      caption: "Acoustic Strings & Rhythm • Local Instrumental Duo in Flow",
+      alt: "Acoustic duo performing"
+    },
+    {
+      src: "images/openmic/openmic-community-joy.jpg",
+      caption: "Authentic Connection & Joy • MC Marlon Smith with Community Members",
+      alt: "Marlon Smith smiling with community"
+    },
+    {
+      src: "images/openmic/openmic-performer-singing.jpg",
+      caption: "Unhurried Creative Stages • Every Voice Feels Truly Heard & Valued",
+      alt: "Female vocalist singing with emotion"
+    }
+  ];
+
+  let photoWheelTimer = null;
+
+  function updatePhotoWheelUI(idx) {
+    const slides = document.querySelectorAll('.photo-wheel-slide');
+    const dots = document.querySelectorAll('.wheel-dot');
+    if (!slides.length) return;
+
+    window.currentPhotoWheelIndex = (idx + slides.length) % slides.length;
+
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('active', i === window.currentPhotoWheelIndex);
+    });
+
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === window.currentPhotoWheelIndex);
+    });
+  }
+
+  window.nextPhotoSlide = function(e) {
+    if (e) e.stopPropagation();
+    updatePhotoWheelUI(window.currentPhotoWheelIndex + 1);
+  };
+
+  window.prevPhotoSlide = function(e) {
+    if (e) e.stopPropagation();
+    updatePhotoWheelUI(window.currentPhotoWheelIndex - 1);
+  };
+
+  window.goToPhotoSlide = function(idx) {
+    updatePhotoWheelUI(idx);
+  };
+
+  // Auto-advance every 5 seconds
+  function startPhotoWheelAuto() {
+    stopPhotoWheelAuto();
+    photoWheelTimer = setInterval(() => {
+      updatePhotoWheelUI(window.currentPhotoWheelIndex + 1);
+    }, 5000);
+  }
+
+  function stopPhotoWheelAuto() {
+    if (photoWheelTimer) clearInterval(photoWheelTimer);
+  }
+
+  const wheelCard = document.getElementById('openmic-photo-wheel');
+  if (wheelCard) {
+    wheelCard.addEventListener('mouseenter', stopPhotoWheelAuto);
+    wheelCard.addEventListener('mouseleave', startPhotoWheelAuto);
+    wheelCard.addEventListener('touchstart', stopPhotoWheelAuto, { passive: true });
+    startPhotoWheelAuto();
+  }
+
+  // Fullscreen Photo Wheel Modal Window
+  window.openPhotoWheelModal = function(idx = 0) {
+    stopPhotoWheelAuto();
+    window.currentPhotoWheelIndex = idx;
+    const modal = document.getElementById('PhotoWheelModal');
+    if (!modal) return;
+
+    updateModalPhotoDisplay();
+    modal.style.display = 'flex';
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  };
+
+  window.closePhotoWheelModal = function() {
+    const modal = document.getElementById('PhotoWheelModal');
+    if (!modal) return;
+
+    modal.style.display = 'none';
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    startPhotoWheelAuto();
+  };
+
+  function updateModalPhotoDisplay() {
+    const data = photoWheelData[window.currentPhotoWheelIndex];
+    if (!data) return;
+
+    const img = document.getElementById('wheelModalImg');
+    const caption = document.getElementById('wheelModalCaption');
+    const counter = document.getElementById('wheelModalCounter');
+
+    if (img) {
+      img.src = data.src;
+      img.alt = data.alt;
+    }
+    if (caption) caption.textContent = data.caption;
+    if (counter) counter.textContent = `Photo ${window.currentPhotoWheelIndex + 1} of ${photoWheelData.length}`;
+  }
+
+  window.modalNextPhoto = function() {
+    window.currentPhotoWheelIndex = (window.currentPhotoWheelIndex + 1) % photoWheelData.length;
+    updateModalPhotoDisplay();
+    updatePhotoWheelUI(window.currentPhotoWheelIndex);
+  };
+
+  window.modalPrevPhoto = function() {
+    window.currentPhotoWheelIndex = (window.currentPhotoWheelIndex - 1 + photoWheelData.length) % photoWheelData.length;
+    updateModalPhotoDisplay();
+    updatePhotoWheelUI(window.currentPhotoWheelIndex);
+  };
+
+  // Keyboard navigation
+  window.addEventListener('keydown', (e) => {
+    const modal = document.getElementById('PhotoWheelModal');
+    if (modal && modal.style.display === 'flex') {
+      if (e.key === 'ArrowRight') window.modalNextPhoto();
+      if (e.key === 'ArrowLeft') window.modalPrevPhoto();
+      if (e.key === 'Escape') window.closePhotoWheelModal();
+    }
+  });
+
+  // Modal backdrop click to close
+  const modalElem = document.getElementById('PhotoWheelModal');
+  if (modalElem) {
+    modalElem.addEventListener('click', (e) => {
+      if (e.target === modalElem) window.closePhotoWheelModal();
+    });
+  }

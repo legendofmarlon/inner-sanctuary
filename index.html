@@ -89,7 +89,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Custom Stylesheet -->
-  <link rel="stylesheet" href="styles.css?v=3.0">
+  <link rel="stylesheet" href="styles.css?v=3.5">
 </head>
 <body>
 
@@ -189,8 +189,8 @@
         </li>
       </ul>
 
-      <div style="display: flex; align-items: center; gap: 10px;">
-        <a href="https://www.instagram.com/ourinnersanctuary/" target="_blank" rel="noopener noreferrer" class="btn-outline-gold" style="padding: 8px 12px; border-radius: 8px; display: inline-flex; align-items: center; gap: 6px; font-size: 0.74rem; text-decoration: none;" title="Follow @ourinnersanctuary on Instagram">
+      <div class="nav-actions-group">
+        <a href="https://www.instagram.com/ourinnersanctuary/" target="_blank" rel="noopener noreferrer" class="btn-outline-gold nav-ig-btn" style="padding: 8px 12px; border-radius: 8px; display: inline-flex; align-items: center; gap: 6px; font-size: 0.74rem; text-decoration: none;" title="Follow @ourinnersanctuary on Instagram">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
           <span class="desktop-only-ig">@ourinnersanctuary</span>
         </a>
@@ -543,6 +543,108 @@
           <div style="border-left: 1px solid rgba(255,255,255,0.25); padding-left: 20px;">
             <div style="font-size: 0.95rem; font-weight: 700; color: #FFFFFF;">The Experience</div>
             <div style="font-size: 0.88rem; color: #CBD7D0;">Open Mic Stage & Creative Sanctuary</div>
+          </div>
+        </div>
+
+        <!-- Community Impact Metrics Bar -->
+        <div class="community-impact-metrics-bar">
+          <div class="impact-metric-card">
+            <div class="impact-metric-num">~40</div>
+            <div class="impact-metric-label">Average Community Attendees</div>
+            <div class="impact-metric-sub">Neighbors, artists &amp; seekers per circle</div>
+          </div>
+          <div class="impact-metric-card">
+            <div class="impact-metric-num">15+</div>
+            <div class="impact-metric-label">Featured Performers Per Gathering</div>
+            <div class="impact-metric-sub">Poets, singers, acoustic sets, comedians &amp; bands</div>
+          </div>
+          <div class="impact-metric-card">
+            <div class="impact-metric-num">100%</div>
+            <div class="impact-metric-label">Substance-Free Safe Space</div>
+            <div class="impact-metric-sub">Alcohol-free, trauma-informed sanctuary</div>
+          </div>
+          <div class="impact-metric-card">
+            <div class="impact-metric-num">$0</div>
+            <div class="impact-metric-label">Barrier to Entry</div>
+            <div class="impact-metric-sub">100% free community admission for all</div>
+          </div>
+        </div>
+
+        <!-- Space-Saving Compact Community Photo Wheel (Cafe 86 Live Moments) -->
+        <div class="photo-wheel-card" id="openmic-photo-wheel">
+          <div class="photo-wheel-header">
+            <div>
+              <span class="photo-wheel-tag">✦ Living Sanctuary Gallery</span>
+              <h4 class="photo-wheel-title">Real Moments from Cafe 86 Community Open Mic</h4>
+            </div>
+            <button type="button" class="btn-open-wheel-modal" onclick="openPhotoWheelModal(currentPhotoWheelIndex)">
+              <span>🎡 Launch Fullscreen Photo Wheel</span>
+              <span>↗</span>
+            </button>
+          </div>
+
+          <div class="photo-wheel-viewport">
+            <div class="photo-wheel-slides" id="photoWheelSlides">
+              
+              <!-- Slide 1 -->
+              <div class="photo-wheel-slide active" onclick="openPhotoWheelModal(0)">
+                <img src="images/openmic/openmic-vocalist-yellow.jpg" alt="Vocalist singing with heart at vintage chrome microphone">
+                <div class="slide-caption-bar">
+                  <span class="slide-caption-text">Raw Vocal Resonance • Community Singer at Cafe 86</span>
+                  <span class="slide-counter">Photo 1 of 5</span>
+                </div>
+              </div>
+
+              <!-- Slide 2 -->
+              <div class="photo-wheel-slide" onclick="openPhotoWheelModal(1)">
+                <img src="images/openmic/openmic-audience-cafe86.jpg" alt="Attentive community audience gathered at Cafe 86">
+                <div class="slide-caption-bar">
+                  <span class="slide-caption-text">Attentive Sanctuary • ~40 Neighbors &amp; Creators in Grounded Space</span>
+                  <span class="slide-counter">Photo 2 of 5</span>
+                </div>
+              </div>
+
+              <!-- Slide 3 -->
+              <div class="photo-wheel-slide" onclick="openPhotoWheelModal(2)">
+                <img src="images/openmic/openmic-acoustic-band.jpg" alt="Acoustic guitar and bass duo performing live">
+                <div class="slide-caption-bar">
+                  <span class="slide-caption-text">Acoustic Strings &amp; Rhythm • Local Instrumental Duo in Flow</span>
+                  <span class="slide-counter">Photo 3 of 5</span>
+                </div>
+              </div>
+
+              <!-- Slide 4 -->
+              <div class="photo-wheel-slide" onclick="openPhotoWheelModal(3)">
+                <img src="images/openmic/openmic-community-joy.jpg" alt="Marlon Smith smiling with community members">
+                <div class="slide-caption-bar">
+                  <span class="slide-caption-text">Authentic Connection &amp; Joy • MC Marlon Smith with Community Members</span>
+                  <span class="slide-counter">Photo 4 of 5</span>
+                </div>
+              </div>
+
+              <!-- Slide 5 -->
+              <div class="photo-wheel-slide" onclick="openPhotoWheelModal(4)">
+                <img src="images/openmic/openmic-performer-singing.jpg" alt="Powerhouse female vocalist singing with emotion">
+                <div class="slide-caption-bar">
+                  <span class="slide-caption-text">Unhurried Creative Stages • Every Voice Feels Truly Heard</span>
+                  <span class="slide-counter">Photo 5 of 5</span>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Carousel Controls -->
+            <button type="button" class="wheel-nav-arrow wheel-arrow-prev" onclick="prevPhotoSlide(event)" aria-label="Previous Photo">‹</button>
+            <button type="button" class="wheel-nav-arrow wheel-arrow-next" onclick="nextPhotoSlide(event)" aria-label="Next Photo">›</button>
+          </div>
+
+          <!-- Dot Indicators -->
+          <div class="photo-wheel-dots" id="photoWheelDots">
+            <button type="button" class="wheel-dot active" onclick="goToPhotoSlide(0)" aria-label="Slide 1"></button>
+            <button type="button" class="wheel-dot" onclick="goToPhotoSlide(1)" aria-label="Slide 2"></button>
+            <button type="button" class="wheel-dot" onclick="goToPhotoSlide(2)" aria-label="Slide 3"></button>
+            <button type="button" class="wheel-dot" onclick="goToPhotoSlide(3)" aria-label="Slide 4"></button>
+            <button type="button" class="wheel-dot" onclick="goToPhotoSlide(4)" aria-label="Slide 5"></button>
           </div>
         </div>
 
@@ -1135,10 +1237,7 @@
                 </button>
               </div>
 
-              <!-- View Logic Model Toggle Button -->
-              <button type="button" class="btn-funder-outline" id="toggle-logic-model-btn" onclick="toggleLogicModel()" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 16px; font-size: 0.78rem; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(248, 217, 140, 0.4); color: #F8D98C; border-radius: 8px; cursor: pointer; text-transform: uppercase; font-weight: 600;">
-                <span>📊 View Program Logic Model (Steps 1–4) ▾</span>
-              </button>
+              
 
               <a href="#connect" onclick="selectIntakeTab('sponsor')" style="color: #F8D98C; font-size: 0.76rem; text-align: center; text-decoration: underline; font-weight: 600;">
                 🤝 Submit Corporate Partnership / RFP →
@@ -1147,97 +1246,7 @@
           </div>
         </div>
 
-        <!-- Theory of Change & Impact Logic Model (Collapsible / Expandable) -->
-        <div id="logic-model-drawer" class="logic-model-container" style="display: none;">
-          <div class="logic-model-header" style="text-align: center; max-width: 760px; margin: 0 auto 20px;">
-            <div style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: #F8D98C; margin-bottom: 4px;">
-              ✦ Theory of Change &amp; Logic Model
-            </div>
-            <h3 class="serif-brand" style="font-size: 1.45rem; color: #FFFFFF; margin-bottom: 6px;">
-              Community Health Equity &amp; Impact Architecture
-            </h3>
-            <p style="font-size: 0.84rem; color: #CBD7D0; line-height: 1.5; margin-bottom: 0;">
-              How our somatic and creative safe space interventions translate into measurable resilience, stress reduction, and grassroots community stability.
-            </p>
-          </div>
-
-          <!-- 4 Steps Horizontal Flow -->
-          <div class="logic-model-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;">
-            
-            <!-- Step 01 -->
-            <div class="logic-step-card">
-              <div class="logic-step-num" style="font-size: 0.70rem; letter-spacing: 0.14em; font-weight: 700; color: #F8D98C; text-transform: uppercase; margin-bottom: 4px;">
-                Step 01 • Target Need
-              </div>
-              <h4 class="logic-step-title" style="font-family: 'Cinzel', serif; font-size: 0.98rem; font-weight: 700; color: #FFFFFF; margin-bottom: 10px; line-height: 1.35;">
-                The Burnout &amp; Stigma Gap
-              </h4>
-              <p style="font-size: 0.76rem; color: #CBD7D0; line-height: 1.4; margin-bottom: 10px;">
-                High-stress environments, isolation, and lack of affordable, non-stigmatized, alcohol-free healing spaces for frontline community members.
-              </p>
-              <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.76rem; color: #CBD7D0; line-height: 1.45;">
-                <li style="position: relative; padding-left: 14px; margin-bottom: 6px;"><span style="position: absolute; left: 0; color: #F8D98C;">•</span> <strong>76%</strong> of emerging artists report acute stress &amp; burnout</li>
-                <li style="position: relative; padding-left: 14px; margin-bottom: 6px;"><span style="position: absolute; left: 0; color: #F8D98C;">•</span> Prohibitive costs for private clinical somatic therapy</li>
-                <li style="position: relative; padding-left: 14px; margin-bottom: 0;"><span style="position: absolute; left: 0; color: #F8D98C;">•</span> Scarcity of substance-free creative sanctuaries</li>
-              </ul>
-            </div>
-
-            <!-- Step 02 -->
-            <div class="logic-step-card">
-              <div class="logic-step-num" style="font-size: 0.70rem; letter-spacing: 0.14em; font-weight: 700; color: #F8D98C; text-transform: uppercase; margin-bottom: 4px;">
-                Step 02 • Somatic Intervention
-              </div>
-              <h4 class="logic-step-title" style="font-family: 'Cinzel', serif; font-size: 0.98rem; font-weight: 700; color: #FFFFFF; margin-bottom: 10px; line-height: 1.35;">
-                Unhurried Somatic Spaces
-              </h4>
-              <p style="font-size: 0.76rem; color: #CBD7D0; line-height: 1.4; margin-bottom: 10px;">
-                Accessible, non-clinical gatherings combining The Four Releases (Breath, Vocal Resonance, Embodied Motion, Rest) &amp; Somatic Medicine.
-              </p>
-              <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.76rem; color: #CBD7D0; line-height: 1.45;">
-                <li style="position: relative; padding-left: 14px; margin-bottom: 6px;"><span style="position: absolute; left: 0; color: #F8D98C;">•</span> Guided 4x4 Box Breathing &amp; nervous system resets</li>
-                <li style="position: relative; padding-left: 14px; margin-bottom: 6px;"><span style="position: absolute; left: 0; color: #F8D98C;">•</span> Supportive Community Open Mic &amp; expressive stages</li>
-                <li style="position: relative; padding-left: 14px; margin-bottom: 0;"><span style="position: absolute; left: 0; color: #F8D98C;">•</span> Botanical tea sanctuary &amp; peer connection circles</li>
-              </ul>
-            </div>
-
-            <!-- Step 03 -->
-            <div class="logic-step-card">
-              <div class="logic-step-num" style="font-size: 0.70rem; letter-spacing: 0.14em; font-weight: 700; color: #F8D98C; text-transform: uppercase; margin-bottom: 4px;">
-                Step 03 • Measurable Outputs
-              </div>
-              <h4 class="logic-step-title" style="font-family: 'Cinzel', serif; font-size: 0.98rem; font-weight: 700; color: #FFFFFF; margin-bottom: 10px; line-height: 1.35;">
-                Grassroots Delivery &amp; Scale
-              </h4>
-              <p style="font-size: 0.76rem; color: #CBD7D0; line-height: 1.4; margin-bottom: 10px;">
-                Direct, quantifiable outputs documented at each gathering to verify equitable community benefit for grantmakers and CRA officers.
-              </p>
-              <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.76rem; color: #CBD7D0; line-height: 1.45;">
-                <li style="position: relative; padding-left: 14px; margin-bottom: 6px;"><span style="position: absolute; left: 0; color: #F8D98C;">•</span> <strong>100%</strong> Free or low-barrier access for all participants</li>
-                <li style="position: relative; padding-left: 14px; margin-bottom: 6px;"><span style="position: absolute; left: 0; color: #F8D98C;">•</span> <strong>40+</strong> Local BIPOC &amp; emerging artists spotlit &amp; paid</li>
-                <li style="position: relative; padding-left: 14px; margin-bottom: 0;"><span style="position: absolute; left: 0; color: #F8D98C;">•</span> <strong>500+</strong> Hours of somatic regulation delivered annually</li>
-              </ul>
-            </div>
-
-            <!-- Step 04 -->
-            <div class="logic-step-card">
-              <div class="logic-step-num" style="font-size: 0.70rem; letter-spacing: 0.14em; font-weight: 700; color: #F8D98C; text-transform: uppercase; margin-bottom: 4px;">
-                Step 04 • Long-Term Impact
-              </div>
-              <h4 class="logic-step-title" style="font-family: 'Cinzel', serif; font-size: 0.98rem; font-weight: 700; color: #FFFFFF; margin-bottom: 10px; line-height: 1.35;">
-                Generational Healing Equity
-              </h4>
-              <p style="font-size: 0.76rem; color: #CBD7D0; line-height: 1.4; margin-bottom: 10px;">
-                Sustainable emotional self-regulation, reduced isolation, strengthened civic fabric, and a replicable model for public wellness.
-              </p>
-              <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.76rem; color: #CBD7D0; line-height: 1.45;">
-                <li style="position: relative; padding-left: 14px; margin-bottom: 6px;"><span style="position: absolute; left: 0; color: #F8D98C;">•</span> <strong>94%</strong> report immediate nervous system deceleration</li>
-                <li style="position: relative; padding-left: 14px; margin-bottom: 6px;"><span style="position: absolute; left: 0; color: #F8D98C;">•</span> Strengthened neighborhood resilience &amp; trust</li>
-                <li style="position: relative; padding-left: 14px; margin-bottom: 0;"><span style="position: absolute; left: 0; color: #F8D98C;">•</span> Scalable framework across Orange County &amp; Inland Empire</li>
-              </ul>
-            </div>
-
-          </div>
-        </div>
+        
 
         <!-- Non-Discrimination Policy & Equal Access Assurance Card -->
         <div style="background: rgba(255, 255, 255, 0.08); border: 1.5px solid rgba(197, 154, 63, 0.35); border-radius: 12px; padding: 18px 22px; backdrop-filter: blur(8px); color: #F6F3EC; margin-top: 14px;">
@@ -1597,7 +1606,7 @@
   </footer>
 
   <!-- Script File -->
-  <script src="script.js?v=3.0"></script>
+  <script src="script.js?v=3.5"></script>
 
   <!-- ==================== PRELOADED ZEFFY MODAL (ZEFFY QUICK DONATE MODAL) ==================== -->
   <div id="ZeffyQuickDonateModal" class="zeffy-modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true" style="display: none;">
@@ -1650,6 +1659,30 @@
   <button id="floating-seed-pill" type="button" onclick="openZeffyModal(event)" class="floating-seed-pill btn-liquid-gold pulse-gold weekly-shimmer-cta" aria-label="Plant Your $1 Seed in the Sanctuary" title="Plant Your $1 Seed in the Sanctuary">
     <span>🌱 Give $1 Seed</span>
   </button>
+
+
+  <!-- ==================== FULLSCREEN PHOTO WHEEL WINDOW MODAL ==================== -->
+  <div id="PhotoWheelModal" class="photo-wheel-modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true" style="display: none;">
+    <div class="photo-wheel-modal-dialog">
+      <button type="button" class="wheel-modal-close" aria-label="Close photo window" onclick="closePhotoWheelModal()">&times;</button>
+      
+      <div class="wheel-modal-header">
+        <span class="wheel-modal-badge">✦ INNER SANCTUARY COMMUNITY GALLERY • CAFE 86</span>
+        <h3 class="wheel-modal-title serif-brand">Community Open Mic Moments</h3>
+      </div>
+
+      <div class="wheel-modal-stage">
+        <img id="wheelModalImg" src="images/openmic/openmic-vocalist-yellow.jpg" alt="Featured Community Photo">
+        <button type="button" class="modal-arrow modal-arrow-prev" onclick="modalPrevPhoto()" aria-label="Previous">‹</button>
+        <button type="button" class="modal-arrow modal-arrow-next" onclick="modalNextPhoto()" aria-label="Next">›</button>
+      </div>
+
+      <div class="wheel-modal-footer">
+        <div id="wheelModalCaption" class="wheel-modal-caption">Raw Vocal Resonance • Community Singer at Cafe 86</div>
+        <div id="wheelModalCounter" class="wheel-modal-counter">Photo 1 of 5</div>
+      </div>
+    </div>
+  </div>
 
 </body>
 </html>
