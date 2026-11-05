@@ -5872,3 +5872,727 @@ body[data-element="ether"] nav::after {
     width: 100% !important;
   }
 }
+
+
+/* ==========================================================================
+   FEATURE SUITE: AMBIENT SWALLOWS, SOLFEGGIO AUDIO, REFLECTION CARDS,
+   OPEN MIC COUNTDOWN & SEED-TO-CANOPY VISUAL SLIDER
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. AMBIENT LIVING SKY SWALLOWS (PURE CSS / GPU ACCELERATED)
+   -------------------------------------------------------------------------- */
+.ambient-swallows-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.swallow {
+  position: absolute;
+  width: 38px;
+  height: 25px;
+  color: #26392D;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.15));
+  will-change: transform;
+}
+
+.swallow svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Swallow 1: Graceful sweep from left to upper right */
+.swallow-1 {
+  top: 18%;
+  left: -60px;
+  opacity: 0.72;
+  animation: swallowGlide1 54s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
+  animation-delay: 2s;
+}
+
+/* Swallow 2: Gentle dipping follower at medium distance */
+.swallow-2 {
+  top: 28%;
+  left: -60px;
+  transform: scale(0.75);
+  opacity: 0.60;
+  animation: swallowGlide2 68s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
+  animation-delay: 20s;
+}
+
+/* Swallow 3: High altitude distant drifter */
+.swallow-3 {
+  top: 12%;
+  left: -60px;
+  transform: scale(0.55);
+  opacity: 0.48;
+  animation: swallowGlide3 82s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
+  animation-delay: 38s;
+}
+
+@keyframes swallowGlide1 {
+  0% {
+    transform: translate3d(-60px, 0, 0) rotate(8deg);
+  }
+  25% {
+    transform: translate3d(28vw, 4vh, 0) rotate(2deg);
+  }
+  50% {
+    transform: translate3d(58vw, -2vh, 0) rotate(-6deg);
+  }
+  75% {
+    transform: translate3d(85vw, 2vh, 0) rotate(-2deg);
+  }
+  100% {
+    transform: translate3d(108vw, -8vh, 0) rotate(-10deg);
+  }
+}
+
+@keyframes swallowGlide2 {
+  0% {
+    transform: translate3d(-60px, 0, 0) scale(0.75) rotate(12deg);
+  }
+  30% {
+    transform: translate3d(32vw, 6vh, 0) scale(0.75) rotate(4deg);
+  }
+  60% {
+    transform: translate3d(65vw, 1vh, 0) scale(0.75) rotate(-5deg);
+  }
+  100% {
+    transform: translate3d(110vw, -4vh, 0) scale(0.75) rotate(-8deg);
+  }
+}
+
+@keyframes swallowGlide3 {
+  0% {
+    transform: translate3d(-60px, 0, 0) scale(0.55) rotate(5deg);
+  }
+  40% {
+    transform: translate3d(45vw, -3vh, 0) scale(0.55) rotate(-3deg);
+  }
+  80% {
+    transform: translate3d(88vw, 1vh, 0) scale(0.55) rotate(-1deg);
+  }
+  100% {
+    transform: translate3d(110vw, -5vh, 0) scale(0.55) rotate(-6deg);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   2. SOLFEGGIO HARMONIC FREQUENCY SELECTOR
+   -------------------------------------------------------------------------- */
+.solfeggio-selector-wrap {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(197, 154, 63, 0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.solfeggio-heading {
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--forest-green);
+}
+
+.solfeggio-btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.solfeggio-btn {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1.5px solid rgba(197, 154, 63, 0.35);
+  color: var(--forest-green);
+  font-size: 0.80rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.22s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.solfeggio-btn:hover {
+  background: rgba(255, 255, 255, 0.98);
+  border-color: var(--sunburst-gold);
+  transform: translateY(-1px);
+}
+
+.solfeggio-btn.active {
+  background: linear-gradient(135deg, #2B4436 0%, #1E3127 100%);
+  color: #F8D98C;
+  border-color: var(--sunburst-gold);
+  box-shadow: 0 4px 12px rgba(43, 68, 54, 0.32);
+  transform: translateY(-1px);
+}
+
+.solfeggio-btn.active .freq-name {
+  color: #F8D98C;
+  font-weight: 700;
+}
+
+/* --------------------------------------------------------------------------
+   3. DAILY SANCTUARY REFLECTION CARD (INTERACTIVE 3D FLIP)
+   -------------------------------------------------------------------------- */
+.sanctuary-reflection-widget {
+  margin: 34px auto 0;
+  max-width: 620px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.reflection-widget-header {
+  margin-bottom: 18px;
+}
+
+.reflection-widget-pill {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8C6212;
+  background: rgba(197, 154, 63, 0.2);
+  border: 1px solid rgba(197, 154, 63, 0.45);
+  padding: 4px 14px;
+  border-radius: 999px;
+  margin-bottom: 8px;
+}
+
+.reflection-widget-title {
+  font-size: clamp(1.4rem, 2.8vw, 1.85rem);
+  color: var(--forest-green);
+  margin: 6px 0 8px;
+  font-weight: 700;
+}
+
+.reflection-widget-sub {
+  font-size: 0.95rem;
+  color: var(--charcoal-muted);
+  line-height: 1.6;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.reflection-card-stage {
+  perspective: 1200px;
+  width: 100%;
+  max-width: 540px;
+  margin: 0 auto 16px;
+  min-height: 230px;
+}
+
+.reflection-card-3d {
+  position: relative;
+  width: 100%;
+  min-height: 230px;
+  transform-style: preserve-3d;
+  transition: transform 0.65s cubic-bezier(0.23, 1, 0.32, 1);
+  cursor: pointer;
+  outline: none;
+}
+
+.reflection-card-3d.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.reflection-card-face {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 26px 24px;
+  box-sizing: border-box;
+}
+
+.card-face-front {
+  background: linear-gradient(135deg, rgba(43, 68, 54, 0.95) 0%, rgba(28, 45, 36, 0.98) 100%);
+  border: 1.5px solid rgba(197, 154, 63, 0.55);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.22);
+  color: #F8D98C;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-front-halo {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(197, 154, 63, 0.3) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.card-front-emblem {
+  font-size: 2.2rem;
+  color: var(--sunburst-gold);
+  margin-bottom: 12px;
+  animation: pulseDot 3s ease-in-out infinite;
+}
+
+.card-front-text {
+  font-family: 'Cinzel', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #FFFFFF;
+  margin-bottom: 6px;
+}
+
+.card-front-sub {
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #F8D98C;
+  opacity: 0.9;
+}
+
+.card-face-back {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1.5px solid rgba(197, 154, 63, 0.45);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.16);
+  transform: rotateY(180deg);
+  text-align: center;
+}
+
+.card-back-badge {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8C6212;
+  background: rgba(197, 154, 63, 0.2);
+  border: 1px solid rgba(197, 154, 63, 0.4);
+  padding: 3px 12px;
+  border-radius: 999px;
+  margin-bottom: 12px;
+}
+
+.card-back-quote {
+  font-family: 'Cinzel', serif;
+  font-style: italic;
+  font-size: 1.10rem;
+  line-height: 1.65;
+  color: #1E3127;
+  font-weight: 600;
+  margin: 0 0 12px;
+}
+
+.card-back-source {
+  font-size: 0.78rem;
+  color: var(--forest-light);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+.reflection-actions-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.btn-reflection-action {
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 8px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.22s ease;
+  text-decoration: none;
+}
+
+.btn-reflection-draw {
+  background: rgba(43, 68, 54, 0.12);
+  color: var(--forest-green);
+  border: 1.5px solid rgba(43, 68, 54, 0.35);
+}
+
+.btn-reflection-draw:hover {
+  background: rgba(43, 68, 54, 0.22);
+  transform: translateY(-1px);
+}
+
+.btn-reflection-copy {
+  background: rgba(197, 154, 63, 0.18);
+  color: #8C6212;
+  border: 1.5px solid var(--sunburst-gold);
+}
+
+.btn-reflection-copy:hover {
+  background: rgba(197, 154, 63, 0.32);
+  transform: translateY(-1px);
+}
+
+.btn-reflection-share {
+  background: linear-gradient(135deg, rgba(197, 154, 63, 0.25) 0%, rgba(197, 154, 63, 0.12) 100%);
+  color: #8C6212;
+  border: 1.5px solid var(--sunburst-gold);
+}
+
+.btn-reflection-share:hover {
+  background: var(--sunburst-gold);
+  color: #1C1B18;
+  transform: translateY(-1px);
+}
+
+.reflection-copy-toast {
+  display: none;
+  margin-top: 10px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #2B4436;
+  background: rgba(248, 217, 140, 0.35);
+  border: 1px solid var(--sunburst-gold);
+  border-radius: 999px;
+  padding: 6px 16px;
+  animation: fadeInToast 0.3s ease;
+}
+
+.reflection-copy-toast.show {
+  display: inline-block;
+}
+
+@keyframes fadeInToast {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --------------------------------------------------------------------------
+   4. LIVE OPEN MIC COUNTDOWN TIMER
+   -------------------------------------------------------------------------- */
+.openmic-countdown-card {
+  margin: 18px 0 22px;
+  padding: 20px 22px;
+  background: rgba(28, 45, 36, 0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1.5px solid rgba(197, 154, 63, 0.45);
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  color: #FFFFFF;
+}
+
+.countdown-badge-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.countdown-pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #F8D98C;
+  box-shadow: 0 0 10px #F8D98C;
+  animation: pulseDot 2s infinite;
+}
+
+.countdown-badge-text {
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #F8D98C;
+}
+
+.countdown-clock-grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.countdown-unit-box {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(197, 154, 63, 0.35);
+  border-radius: 12px;
+  padding: 10px 16px;
+  min-width: 72px;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.countdown-unit-val {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.8rem, 3.2vw, 2.3rem);
+  font-weight: 800;
+  color: #F8D98C;
+  line-height: 1;
+  text-shadow: 0 2px 8px rgba(197, 154, 63, 0.35);
+}
+
+.countdown-unit-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #CBD7D0;
+  margin-top: 5px;
+}
+
+.countdown-sep {
+  font-family: 'Cinzel', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: rgba(248, 217, 140, 0.65);
+  margin: 0 2px;
+  user-select: none;
+}
+
+.countdown-foot-note {
+  font-size: 0.84rem;
+  color: #CBD7D0;
+  margin-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding-top: 10px;
+}
+
+.countdown-foot-note strong {
+  color: #FFFFFF;
+}
+
+/* --------------------------------------------------------------------------
+   5. TACTILE SEED-TO-CANOPY VISUAL GROWTH SLIDER
+   -------------------------------------------------------------------------- */
+.seed-canopy-slider-container {
+  background: rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1.5px solid rgba(197, 154, 63, 0.42);
+  border-radius: 16px;
+  padding: 20px 18px;
+  margin: 20px 0 24px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.2);
+  color: #F6F3EC;
+}
+
+.slider-header-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.slider-tier-pill {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #F8D98C;
+  background: rgba(197, 154, 63, 0.22);
+  border: 1px solid rgba(197, 154, 63, 0.4);
+  padding: 4px 12px;
+  border-radius: 999px;
+}
+
+.slider-amount-display {
+  font-family: 'Cinzel', serif;
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  text-shadow: 0 2px 8px rgba(197, 154, 63, 0.4);
+}
+
+.seed-visual-stage {
+  height: 84px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.botanical-visual-icon {
+  font-size: 3.4rem;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.35s ease;
+  filter: drop-shadow(0 4px 14px rgba(197, 154, 63, 0.5));
+  z-index: 1;
+}
+
+.canopy-growth-glow {
+  position: absolute;
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(197, 154, 63, 0.5) 0%, transparent 70%);
+  transition: all 0.4s ease;
+  pointer-events: none;
+}
+
+.seed-impact-story {
+  background: rgba(0, 0, 0, 0.32);
+  border-left: 3px solid var(--sunburst-gold);
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: #CBD7D0;
+  margin-bottom: 16px;
+  min-height: 58px;
+}
+
+.seed-impact-story strong {
+  color: #F8D98C;
+}
+
+.seed-range-wrapper {
+  margin-bottom: 16px;
+}
+
+.growth-range-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 10px;
+  border-radius: 999px;
+  background: linear-gradient(to right, #C59A3F 0%, rgba(255, 255, 255, 0.25) 100%);
+  outline: none;
+  transition: background 0.2s ease;
+  cursor: pointer;
+}
+
+.growth-range-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #FFFDF0 0%, #F5AF19 55%, #C67D00 100%);
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4), 0 0 12px rgba(197, 154, 63, 0.8);
+  cursor: grab;
+  transition: transform 0.15s ease;
+}
+
+.growth-range-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+
+.growth-range-slider::-webkit-slider-thumb:active {
+  cursor: grabbing;
+  transform: scale(1.22);
+}
+
+.growth-range-slider::-moz-range-thumb {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #FFFDF0 0%, #F5AF19 55%, #C67D00 100%);
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4), 0 0 12px rgba(197, 154, 63, 0.8);
+  cursor: grab;
+}
+
+.slider-preset-ticks {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.slider-preset-ticks .tick {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(197, 154, 63, 0.3);
+  border-radius: 8px;
+  padding: 6px 4px;
+  color: #F6F3EC;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.slider-preset-ticks .tick:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: var(--sunburst-gold);
+}
+
+.slider-preset-ticks .tick.active {
+  background: rgba(197, 154, 63, 0.35);
+  border-color: var(--sunburst-gold);
+  color: #F8D98C;
+  transform: translateY(-1px);
+}
+
+.slider-preset-ticks .tick small {
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: #CBD7D0;
+  margin-top: 2px;
+}
+
+.seed-give-btn {
+  width: 100%;
+  padding: 13px 20px;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 6px 20px rgba(154, 111, 26, 0.35);
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 600px) {
+  .countdown-unit-box {
+    min-width: 60px;
+    padding: 8px 10px;
+  }
+  .countdown-unit-val {
+    font-size: 1.6rem;
+  }
+  .countdown-sep {
+    font-size: 1.4rem;
+  }
+  .slider-preset-ticks .tick {
+    padding: 6px 2px;
+    font-size: 0.80rem;
+  }
+  .slider-preset-ticks .tick small {
+    font-size: 0.62rem;
+  }
+}

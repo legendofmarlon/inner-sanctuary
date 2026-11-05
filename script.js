@@ -2906,6 +2906,372 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
+  // =========================================================================
+  // DAILY SANCTUARY REFLECTION CARD (INTERACTIVE 3D FLIP)
+  // =========================================================================
+  const SANCTUARY_REFLECTIONS = [
+    {
+      badge: "✦ SOMATIC RELEASE",
+      quote: "Where in your body are you holding yesterday? Soften your jaw, drop your shoulders, and let this breath belong only to right now.",
+      theme: "Somatic Grounding"
+    },
+    {
+      badge: "✦ UNBURDENING",
+      quote: "You don't have to perform peace to deserve it. Let yourself simply exist without explanation for five minutes.",
+      theme: "Permission to Rest"
+    },
+    {
+      badge: "✦ AIR & LETTING GO",
+      quote: "Name one expectation you have permission to put down today. Notice the breath that rushes in to fill the space.",
+      theme: "Breezy Release"
+    },
+    {
+      badge: "✦ GENTLE COMPASSION",
+      quote: "What would feel 5% softer in your chest and shoulders right now? Give yourself that 5%.",
+      theme: "Self Compassion"
+    },
+    {
+      badge: "✦ EMOTIONAL TRUTH",
+      quote: "Raw authenticity isn't loud; it's the quiet relief of no longer pretending to be unbreakable.",
+      theme: "Authentic Healing"
+    },
+    {
+      badge: "✦ NATURE'S TIMING",
+      quote: "Your healing does not have to be hurried. Nature never rushes, yet everything blooms in its own season.",
+      theme: "Unhurried Rhythm"
+    },
+    {
+      badge: "✦ SACRED BREATH",
+      quote: "Breathe in permission. Exhale performance. You are already whole in this exact heartbeat.",
+      theme: "Presence"
+    },
+    {
+      badge: "✦ THE THREEFOLD RELEASE",
+      quote: "Sing when words fail. Laugh when tension crests. Dance when the body needs to remember it is alive.",
+      theme: "Expressive Medicine"
+    },
+    {
+      badge: "✦ STILLNESS WITHIN",
+      quote: "The peace you are searching for is not something to be earned; it is the space underneath the noise.",
+      theme: "Inner Sanctuary"
+    },
+    {
+      badge: "✦ GROUNDING TOUCH",
+      quote: "Place one palm on your chest and one on your belly. Feel that steady rhythm? That is life choosing you, again and again.",
+      theme: "Somatic Presence"
+    },
+    {
+      badge: "✦ COMMUNITY SANCTUARY",
+      quote: "When the world feels loud, return to what is real: the ground under your feet, the cool air in your lungs, and the community standing beside you.",
+      theme: "Collective Connection"
+    },
+    {
+      badge: "✦ SEED OF GROWTH",
+      quote: "A seed does not question the dark soil before it sprouts. Trust the quiet growth happening beneath the surface.",
+      theme: "Quiet Trust"
+    }
+  ];
+
+  let currentReflectionIndex = 0;
+
+  function initSanctuaryReflectionWidget() {
+    const card3D = document.getElementById('reflectionCard3D');
+    const badgeElem = document.getElementById('reflectionCardBadge');
+    const quoteElem = document.getElementById('reflectionCardQuote');
+    const btnDraw = document.getElementById('btnDrawNewReflection');
+    const btnCopy = document.getElementById('btnCopyReflection');
+    const btnShareIG = document.getElementById('btnShareIG');
+    const toast = document.getElementById('reflectionCopyToast');
+
+    if (!card3D || !badgeElem || !quoteElem) return;
+
+    function applyReflection(index) {
+      currentReflectionIndex = index;
+      const item = SANCTUARY_REFLECTIONS[index];
+      badgeElem.textContent = item.badge;
+      quoteElem.textContent = `"${item.quote}"`;
+    }
+
+    // Initialize with first reflection
+    applyReflection(0);
+
+    // Tapping the card flips it
+    card3D.addEventListener('click', () => {
+      card3D.classList.toggle('is-flipped');
+      playHarmonicTone(528, 0.8, 0.015);
+    });
+
+    card3D.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card3D.classList.toggle('is-flipped');
+        playHarmonicTone(528, 0.8, 0.015);
+      }
+    });
+
+    // Draw another card
+    if (btnDraw) {
+      btnDraw.addEventListener('click', (e) => {
+        e.stopPropagation();
+        card3D.classList.remove('is-flipped');
+        playHarmonicTone(432, 0.6, 0.015);
+
+        setTimeout(() => {
+          let nextIndex;
+          do {
+            nextIndex = Math.floor(Math.random() * SANCTUARY_REFLECTIONS.length);
+          } while (nextIndex === currentReflectionIndex && SANCTUARY_REFLECTIONS.length > 1);
+
+          applyReflection(nextIndex);
+          card3D.classList.add('is-flipped');
+          playHarmonicTone(528, 1.0, 0.02);
+        }, 300);
+      });
+    }
+
+    // Copy Reflection to clipboard
+    if (btnCopy) {
+      btnCopy.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const currentItem = SANCTUARY_REFLECTIONS[currentReflectionIndex];
+        const shareText = `"${currentItem.quote}"\n\n— Inner Sanctuary Wellness Foundation ✦ @ourinnersanctuary\nhttps://ourinnersanctuary.org`;
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(shareText).then(() => {
+            showCopyFeedback();
+          }).catch(() => {
+            fallbackCopy(shareText);
+          });
+        } else {
+          fallbackCopy(shareText);
+        }
+      });
+    }
+
+    // Share to Instagram
+    if (btnShareIG) {
+      btnShareIG.addEventListener('click', () => {
+        const currentItem = SANCTUARY_REFLECTIONS[currentReflectionIndex];
+        const shareText = `"${currentItem.quote}"\n\n— Inner Sanctuary Wellness Foundation ✦ @ourinnersanctuary`;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(shareText).catch(() => {});
+        }
+        showToast('📸 Reflection copied to clipboard! Opening Instagram to share on Story...');
+      });
+    }
+
+    function fallbackCopy(text) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand('copy');
+        showCopyFeedback();
+      } catch (err) {
+        showToast('Copied reflection to clipboard!');
+      }
+      document.body.removeChild(textarea);
+    }
+
+    function showCopyFeedback() {
+      if (toast) {
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 3500);
+      }
+      showToast('✓ Reflection copied to clipboard! Ready to paste into Instagram Story or journal.');
+    }
+  }
+
+  // =========================================================================
+  // LIVE OPEN MIC COUNTDOWN TIMER (CAFE 86 GATHERING)
+  // =========================================================================
+  function initOpenMicCountdown() {
+    const daysEl = document.getElementById('countdownDays');
+    const hoursEl = document.getElementById('countdownHours');
+    const minutesEl = document.getElementById('countdownMinutes');
+    const secondsEl = document.getElementById('countdownSeconds');
+
+    if (!daysEl || !hoursEl || !minutesEl || !secondsEl) return;
+
+    // Anchor: Sunday, November 15, 2026, 2:00 PM PST
+    let targetTime = new Date('2026-11-15T14:00:00-08:00').getTime();
+
+    function updateTimer() {
+      const now = Date.now();
+      let diff = targetTime - now;
+
+      // Resilient fallback: If the date has passed, advance target so countdown stays live
+      if (diff <= 0) {
+        const nextCycle = new Date(now + 1000 * 60 * 60 * 24 * 14);
+        nextCycle.setHours(14, 0, 0, 0);
+        targetTime = nextCycle.getTime();
+        diff = targetTime - now;
+      }
+
+      const totalSeconds = Math.max(0, Math.floor(diff / 1000));
+      const days = Math.floor(totalSeconds / (3600 * 24));
+      const hours = Math.floor((totalSeconds % (3600 * 24)) / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
+
+      daysEl.textContent = String(days).padStart(2, '0');
+      hoursEl.textContent = String(hours).padStart(2, '0');
+      minutesEl.textContent = String(minutes).padStart(2, '0');
+      secondsEl.textContent = String(seconds).padStart(2, '0');
+    }
+
+    updateTimer();
+    setInterval(updateTimer, 1000);
+  }
+
+  // =========================================================================
+  // TACTILE SEED-TO-CANOPY VISUAL GROWTH SLIDER
+  // =========================================================================
+  function initSeedToCanopySlider() {
+    const slider = document.getElementById('growthSlider');
+    const tierPill = document.getElementById('sliderTierPill');
+    const amountDisplay = document.getElementById('sliderAmountDisplay');
+    const visualIcon = document.getElementById('botanicalVisualIcon');
+    const visualGlow = document.getElementById('canopyGrowthGlow');
+    const storyElem = document.getElementById('seedImpactStory');
+    const giveBtn = document.getElementById('seedGiveBtn');
+    const giveBtnLabel = document.getElementById('seedGiveBtnLabel');
+    const ticks = document.querySelectorAll('.slider-preset-ticks .tick');
+
+    if (!slider || !amountDisplay) return;
+
+    const stages = [
+      {
+        min: 1,
+        max: 4,
+        icon: '🌱',
+        scale: 1.0,
+        glowSize: 75,
+        glowOpacity: 0.45,
+        tierName: '🌱 Stage 1: The Sprout',
+        nameTemplate: (v) => `$${v} Seed`,
+        impactText: (v) => `<strong>Your $${v} Sprout:</strong> Directly covers ${v} free trauma-informed youth healing journal${v > 1 ? 's' : ''} and subsidizes community somatic workshop seats. 100% direct, 0% fees via Zeffy.`,
+        btnText: (v) => `🌱 Plant Your $${v} Seed`
+      },
+      {
+        min: 5,
+        max: 14,
+        icon: '🌿',
+        scale: 1.2,
+        glowSize: 100,
+        glowOpacity: 0.65,
+        tierName: '🌿 Stage 2: The Seedling',
+        nameTemplate: (v) => `$${v} Seedling`,
+        impactText: (v) => `<strong>Your $${v} Seedling:</strong> Supplies organic herbal grounding tea, art materials, and somatic reflection workbooks for ${Math.floor(v)} local community seekers.`,
+        btnText: (v) => `🌿 Cultivate Your $${v} Seedling`
+      },
+      {
+        min: 15,
+        max: 34,
+        icon: '🌳',
+        scale: 1.35,
+        glowSize: 130,
+        glowOpacity: 0.82,
+        tierName: '🌳 Stage 3: The Sapling',
+        nameTemplate: (v) => `$${v} Sapling`,
+        impactText: (v) => `<strong>Your $${v} Sapling:</strong> Sponsors live open mic sound engineering, staging, and acoustic setup for an authentic, unhurried community gathering.`,
+        btnText: (v) => `🌳 Grow Your $${v} Sapling`
+      },
+      {
+        min: 35,
+        max: 50,
+        icon: '🌲',
+        scale: 1.5,
+        glowSize: 160,
+        glowOpacity: 1.0,
+        tierName: '🌲 Stage 4: Ancient Oak Canopy',
+        nameTemplate: (v) => `$${v} Forest Canopy`,
+        impactText: (v) => `<strong>Your $${v} Oak Canopy:</strong> Underwrites an entire evening of alcohol-free creative safe sanctuary for ~40 local neighbors, poets, and musicians.`,
+        btnText: (v) => `🌲 Stand as an Ancient Oak ($${v})`
+      }
+    ];
+
+    function updateSliderState(val) {
+      val = parseInt(val, 10) || 1;
+      const stage = stages.find(s => val >= s.min && val <= s.max) || stages[0];
+
+      if (tierPill) tierPill.textContent = stage.tierName;
+      if (amountDisplay) amountDisplay.textContent = stage.nameTemplate(val);
+      if (visualIcon) {
+        visualIcon.textContent = stage.icon;
+        visualIcon.style.transform = `scale(${stage.scale})`;
+      }
+      if (visualGlow) {
+        visualGlow.style.width = `${stage.glowSize}px`;
+        visualGlow.style.height = `${stage.glowSize}px`;
+        visualGlow.style.opacity = stage.glowOpacity;
+      }
+      if (storyElem) {
+        storyElem.innerHTML = stage.impactText(val);
+      }
+      if (giveBtnLabel) {
+        giveBtnLabel.textContent = stage.btnText(val);
+      }
+
+      // Update slider fill track
+      const percent = ((val - 1) / (50 - 1)) * 100;
+      slider.style.background = `linear-gradient(to right, #C59A3F 0%, #F8D98C ${percent}%, rgba(255, 255, 255, 0.25) ${percent}%, rgba(255, 255, 255, 0.25) 100%)`;
+
+      // Update active tick button
+      ticks.forEach(tick => {
+        const tickVal = parseInt(tick.dataset.val, 10);
+        if (tickVal === 1 && val < 5) tick.classList.add('active');
+        else if (tickVal === 5 && val >= 5 && val < 15) tick.classList.add('active');
+        else if (tickVal === 15 && val >= 15 && val < 35) tick.classList.add('active');
+        else if (tickVal === 35 && val >= 35) tick.classList.add('active');
+        else tick.classList.remove('active');
+      });
+    }
+
+    slider.addEventListener('input', (e) => {
+      updateSliderState(e.target.value);
+    });
+
+    ticks.forEach(tick => {
+      tick.addEventListener('click', () => {
+        const val = tick.dataset.val;
+        slider.value = val;
+        updateSliderState(val);
+        playHarmonicTone(432, 0.5, 0.012);
+      });
+    });
+
+    updateSliderState(slider.value);
+  }
+
+  window.handleSeedSliderGive = function(e) {
+    if (e && e.preventDefault) e.preventDefault();
+    const slider = document.getElementById('growthSlider');
+    const val = slider ? slider.value : '1';
+    
+    // Smooth scroll down to the embedded inline Zeffy giving card
+    const targetBox = document.getElementById('zeffy-inline-box');
+    if (targetBox) {
+      targetBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      targetBox.style.boxShadow = '0 0 35px rgba(248, 217, 140, 0.8), 0 0 15px rgba(197, 154, 63, 0.9)';
+      setTimeout(() => {
+        targetBox.style.boxShadow = '';
+      }, 2500);
+      showToast(`🌱 Giving $${val} Seed: 100% direct community care on-site.`);
+    } else if (typeof openZeffyModal === 'function') {
+      openZeffyModal(e);
+    }
+  };
+
+  // Initialize all feature suites
+  initSanctuaryReflectionWidget();
+  initOpenMicCountdown();
+  initSeedToCanopySlider();
+
+
   // Toggle Theory of Change & Program Logic Model Drawer
   window.toggleLogicModel = function() {
     const drawer = document.getElementById('logic-model-drawer');
