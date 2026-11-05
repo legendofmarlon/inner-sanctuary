@@ -95,7 +95,8 @@
 
   <!-- Argon 4.0 Golden Hour Botanical Dust Motes Canvas -->
   <canvas id="argon-dust-canvas"></canvas>
-<!-- ==================== ELEMENTAL SANCTUARY IMMERSION CANVAS ==================== -->
+<!-- ==================== ELEMENTAL SANCTUARY IMMERSION CANVASES ==================== -->
+  <canvas id="sanctuary-3d-canvas"></canvas>
   <canvas id="elemental-sanctuary-bg"></canvas>
   <div id="lantern-aura" class="lantern-aura"></div>
 
@@ -269,19 +270,38 @@
         </div>
       </div>
 
-      <!-- Weekly Immersion Action & Audio Controls (Earth Only for Now) -->
+      <!-- Weekly Immersion Action, 3D Sky Mode & Audio Controls -->
       <div class="weekly-soundscape-action-wrap">
         
-        <!-- Active Earth Badge Pill -->
-        <div class="active-element-pill-badge" id="active-weekly-pill" title="This Week's Active Element: Earth & Forest Sanctuary">
-          <span class="pill-icon">🌲</span>
-          <span class="pill-title" id="active-pill-title">Earth & Forest</span>
-          <span class="pill-vibe-tag">Forest</span>
+        <!-- Weekly Cycle Journey Dots: Click to explore any element in 3D -->
+        <div class="weekly-cycle-indicator" role="tablist" aria-label="Elemental Cycle Selector">
+          <button type="button" class="cycle-dot" data-element="earth" role="tab" title="Earth & Forest Sanctuary">🌿 Earth</button>
+          <span class="cycle-arrow">›</span>
+          <button type="button" class="cycle-dot" data-element="water" role="tab" title="Water & Creek Sanctuary">🌊 Water</button>
+          <span class="cycle-arrow">›</span>
+          <button type="button" class="cycle-dot active" data-element="air" role="tab" title="Air & Mountain Breeze Sky Sanctuary" aria-selected="true">🌬️ Air</button>
+          <span class="cycle-arrow">›</span>
+          <button type="button" class="cycle-dot" data-element="fire" role="tab" title="Fire & Hearth Sanctuary">🔥 Fire</button>
+          <span class="cycle-arrow">›</span>
+          <button type="button" class="cycle-dot" data-element="ether" role="tab" title="Ether & Celestial Sanctuary">🌌 Ether</button>
+        </div>
+
+        <!-- 3D Sky Atmosphere Mode Toggle -->
+        <button id="btn-toggle-3d" class="btn-sanctuary-3d-toggle active" type="button" onclick="if(window.sanctuary3D) window.sanctuary3D.toggle3D();" title="Toggle between 3D Sky Atmosphere and Classic 2D View" aria-pressed="true">
+          <span class="mode-icon">☁️</span>
+          <span class="mode-text">3D Sky: <strong id="mode-state-label">ON</strong></span>
+        </button>
+
+        <!-- Active Element Badge Pill -->
+        <div class="active-element-pill-badge" id="active-weekly-pill" title="This Week's Active Element: Air & Mountain Breeze Sky Sanctuary">
+          <span class="pill-icon">🌬️</span>
+          <span class="pill-title" id="active-pill-title">Air & Mountain Breeze</span>
+          <span class="pill-vibe-tag">Breeze</span>
         </div>
 
         <!-- Soundscape Audio Toggle & Volume -->
         <div class="soundscape-controls-wrap">
-          <button id="soundscape-toggle-btn" class="soundscape-toggle-btn" type="button" aria-pressed="false" title="Click to immerse with this week's natural forest soundscape">
+          <button id="soundscape-toggle-btn" class="soundscape-toggle-btn" type="button" aria-pressed="false" title="Click to immerse with this week's natural soundscape">
             <span id="soundscape-icon">🔈</span>
             <span id="soundscape-label">Tune In</span>
             <span class="sound-wave-bars" aria-hidden="true">
@@ -1605,8 +1625,11 @@
     </div>
   </footer>
 
-  <!-- Script File -->
-  <script src="script.js?v=3.5"></script>
+  <!-- Three.js 3D Engine & Elemental Sanctuary Worlds -->
+  <script src="js/three.min.js"></script>
+  <script src="js/sanctuary-3d.js?v=1.0"></script>
+  <!-- Main Script File -->
+  <script src="script.js?v=3.6"></script>
 
   <!-- ==================== PRELOADED ZEFFY MODAL (ZEFFY QUICK DONATE MODAL) ==================== -->
   <div id="ZeffyQuickDonateModal" class="zeffy-modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true" style="display: none;">

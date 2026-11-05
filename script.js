@@ -1350,6 +1350,7 @@ document.addEventListener('DOMContentLoaded', () => {
       };
     }
 
+    window.switchElementTheme = function(elKey, userTriggered) { return switchElementTheme(elKey, userTriggered); };
     function switchElementTheme(elKey, userTriggered = true) {
       if (!elementThemes[elKey]) return;
       currentElement = elKey;
@@ -1374,6 +1375,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Update Body Theme attribute for smooth background shift
       document.body.setAttribute('data-element', elKey);
+
+      // Notify 3D Sanctuary Engine
+      if (window.sanctuary3D && typeof window.sanctuary3D.setElement === 'function') {
+        window.sanctuary3D.setElement(elKey);
+      }
+
+      // Update Active Weekly Pill Icon & Subtitle
+      const activePill = document.getElementById('active-weekly-pill');
+      if (activePill) {
+        const iconSpan = activePill.querySelector('.pill-icon');
+        const vibeSpan = activePill.querySelector('.pill-vibe-tag');
+        if (iconSpan) iconSpan.textContent = theme.icon;
+        if (vibeSpan) vibeSpan.textContent = theme.shortName;
+        activePill.title = "Active Element: " + theme.name;
+      }
 
       // Smoothly crossfade natural field recording soundscape
       soundscape.setElement(elKey);
@@ -1725,6 +1741,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // =========================================================================
   // 6. TOAST NOTIFICATION SYSTEM
   // =========================================================================
+  window.showToast = showToast;
   function showToast(message) {
     let toast = document.getElementById('sanctuary-toast');
     if (!toast) {

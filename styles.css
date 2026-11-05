@@ -43,7 +43,18 @@ body {
   position: relative;
 }
 
-/* ==================== ELEMENTAL SANCTUARY IMMERSION CANVAS ==================== */
+/* ==================== ELEMENTAL SANCTUARY IMMERSION CANVASES ==================== */
+#sanctuary-3d-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 1;
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 #elemental-sanctuary-bg,
 #forest-canvas {
   position: fixed;
@@ -53,6 +64,7 @@ body {
   pointer-events: none;
   z-index: -1;
   opacity: 1;
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Lantern Light Glow following cursor */
@@ -2518,6 +2530,40 @@ body[data-element="ether"] .breathing-orb {
   box-shadow: 0 0 14px rgba(114, 192, 149, 0.35);
 }
 
+
+/* 3D Sky Atmosphere Mode Toggle */
+.btn-sanctuary-3d-toggle {
+  background: rgba(197, 154, 63, 0.18);
+  border: 1px solid rgba(197, 154, 63, 0.55);
+  color: #F8D98C;
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 5px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.25s ease;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.btn-sanctuary-3d-toggle:hover {
+  background: var(--sunburst-gold);
+  color: #1A2E23;
+  border-color: #F8D98C;
+  transform: translateY(-1px);
+}
+
+.btn-sanctuary-3d-toggle.active {
+  background: linear-gradient(135deg, rgba(70, 115, 140, 0.5) 0%, rgba(197, 154, 63, 0.4) 100%);
+  border-color: #A9D9E8;
+  color: #E2F2FB;
+  box-shadow: 0 0 12px rgba(169, 217, 232, 0.4);
+}
 /* Sound Wave Bars Animation */
 .sound-wave-bars {
   display: inline-flex;
@@ -5578,6 +5624,34 @@ body[data-element="ether"] nav::after {
     gap: 10px !important;
     width: 100% !important;
   }
+  /* 3D Elemental Canvas & Mobile Bar */
+  #sanctuary-3d-canvas {
+    width: 100% !important;
+  }
+
+  .weekly-soundscape-action-wrap {
+    gap: 8px !important;
+    width: 100% !important;
+  }
+
+  .weekly-cycle-indicator {
+    padding: 3px 6px !important;
+    gap: 3px !important;
+    overflow-x: auto !important;
+    max-width: 100% !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .cycle-dot {
+    font-size: 0.68rem !important;
+    padding: 2px 6px !important;
+  }
+
+  .btn-sanctuary-3d-toggle {
+    font-size: 0.68rem !important;
+    padding: 4px 10px !important;
+  }
+
 
   .hero-cta-group .btn, 
   .hero-cta-group button, 
