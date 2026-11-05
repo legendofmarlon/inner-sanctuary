@@ -47,19 +47,21 @@ body {
 /* ==================== REALISTIC 8K ELEMENT SKY ATMOSPHERE ==================== */
 .realistic-sky-bg {
   position: fixed;
-  inset: -4%;
-  width: 108vw;
-  height: 108vh;
+  top: -2%;
+  left: -2%;
+  width: 104vw;
+  height: 104vh;
   pointer-events: none;
-  z-index: -2;
+  z-index: -1;
   background-image: 
-    linear-gradient(180deg, rgba(237, 243, 247, 0.45) 0%, rgba(246, 243, 236, 0.22) 40%, rgba(246, 243, 236, 0.78) 85%, #F6F3EC 100%),
+    linear-gradient(180deg, rgba(237, 243, 247, 0.35) 0%, rgba(246, 243, 236, 0.15) 35%, rgba(246, 243, 236, 0.72) 80%, #F6F3EC 100%),
     url('images/sky-air-8k.jpg');
   background-size: cover;
   background-position: center top;
   background-repeat: no-repeat;
-  opacity: 0.88;
-  animation: gentleBreezeSway 36s ease-in-out infinite alternate;
+  opacity: 1 !important;
+  display: block !important;
+  animation: gentleBreezeSway 45s ease-in-out infinite alternate;
   will-change: transform;
 }
 
@@ -83,17 +85,6 @@ body {
 }
 
 /* ==================== ELEMENTAL SANCTUARY IMMERSION CANVASES ==================== */
-#sanctuary-3d-canvas {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: -1;
-  opacity: 1;
-  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
 #elemental-sanctuary-bg,
 #forest-canvas {
   position: fixed;
@@ -101,9 +92,9 @@ body {
   width: 100vw;
   height: 100vh;
   pointer-events: none;
-  z-index: -1;
-  opacity: 1;
-  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 0;
+  opacity: 1 !important;
+  display: block !important;
 }
 
 /* Lantern Light Glow following cursor */
@@ -2664,21 +2655,14 @@ body[data-element="ether"] .breathing-orb {
   cursor: pointer;
 }
 
-/* Dynamic Body Theme Accents */
-body[data-element="water"] {
-  background-color: #EDF3F5;
-}
-body[data-element="air"] {
-  background-color: #F2F5F8;
-}
-body[data-element="fire"] {
-  background-color: #FAF2EC;
-}
-body[data-element="ether"] {
-  background-color: #F3EEF8;
-}
+/* Dynamic Body Theme Accents (Transparent so realistic background always stays visible) */
+body,
+body[data-element="water"],
+body[data-element="air"],
+body[data-element="fire"],
+body[data-element="ether"],
 body[data-element="earth"] {
-  background-color: #F6F3EC;
+  background-color: transparent !important;
 }
 
 /* ==================== OPEN MIC CARD STYLING ==================== */
