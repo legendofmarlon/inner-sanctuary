@@ -3127,6 +3127,184 @@ document.addEventListener('DOMContentLoaded', () => {
   initSanctuaryReflectionWidget();
   initOpenMicCountdown();
 
+  // =========================================================================
+  // DIGITAL INTENTION BRACELET CREATOR (PAUSE ACTIVATIONS)
+  // =========================================================================
+  function initDigitalBraceletCreator() {
+    const beadBtns = document.querySelectorAll('.bead-btn');
+    const slots = [
+      document.getElementById('slot0'),
+      document.getElementById('slot1'),
+      document.getElementById('slot2')
+    ];
+    const revealedContainer = document.getElementById('revealedSpark');
+    const beadSummary = document.getElementById('sparkBeadSummary');
+    const quoteElem = document.getElementById('sparkQuote');
+    const btnReset = document.getElementById('btnResetBracelet');
+    const btnCopy = document.getElementById('btnCopySpark');
+    const toast = document.getElementById('sparkToast');
+
+    if (!beadBtns.length || !slots[0]) return;
+
+    let selectedBeads = [];
+
+    const sparkMessages = [
+      "Rooted in grace, held in softness, glowing from within. You don't have to carry the whole mountain today. Breathe in permission.",
+      "Your heart knows the rhythm when you stop rushing. Trust the quiet growth happening beneath the surface.",
+      "Tension is who you think you should be. Relaxation is who you are. Soften your jaw and let today be enough.",
+      "Wear this intention as an unhurried anchor: You are worthy of peace, exactly as you are, in this exact heartbeat.",
+      "When the world feels loud, return to what is real: the ground under your feet, the breath in your lungs, and the community standing beside you."
+    ];
+
+    function updateBraceletStage() {
+      // Update slots
+      slots.forEach((slot, idx) => {
+        if (!slot) return;
+        const beadData = selectedBeads[idx];
+        if (beadData) {
+          slot.className = 'bead-slot filled';
+          slot.innerHTML = `<span class="bead-circle" style="width: 100%; height: 100%; margin: 0; background: ${beadData.bg}"></span>`;
+        } else {
+          slot.className = 'bead-slot empty';
+          slot.innerHTML = `<span class="slot-placeholder">+ Bead ${idx + 1}</span>`;
+        }
+      });
+
+      // Update button active states
+      beadBtns.forEach(btn => {
+        const beadType = btn.dataset.bead;
+        const isSelected = selectedBeads.some(b => b.type === beadType);
+        if (isSelected) {
+          btn.classList.add('selected');
+        } else {
+          btn.classList.remove('selected');
+        }
+      });
+
+      // Check if 3 beads are selected
+      if (selectedBeads.length === 3) {
+        if (revealedContainer) {
+          revealedContainer.style.display = 'block';
+          if (beadSummary) {
+            beadSummary.textContent = selectedBeads.map(b => b.name).join(' • ');
+          }
+          if (quoteElem) {
+            const quoteIdx = (selectedBeads[0].name.length + selectedBeads[1].name.length) % sparkMessages.length;
+            quoteElem.textContent = `"${sparkMessages[quoteIdx]}"`;
+          }
+          revealedContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      } else {
+        if (revealedContainer) {
+          revealedContainer.style.display = 'none';
+        }
+      }
+    }
+
+    beadBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const beadType = btn.dataset.bead;
+        const beadName = btn.dataset.name;
+        const circleElem = btn.querySelector('.bead-circle');
+        const bg = circleElem ? circleElem.style.background : btn.dataset.color;
+
+        const existingIdx = selectedBeads.findIndex(b => b.type === beadType);
+        if (existingIdx !== -1) {
+          selectedBeads.splice(existingIdx, 1);
+        } else {
+          if (selectedBeads.length < 3) {
+            selectedBeads.push({ type: beadType, name: beadName, bg });
+          } else {
+            selectedBeads[2] = { type: beadType, name: beadName, bg };
+          }
+        }
+        updateBraceletStage();
+      });
+    });
+
+    if (btnReset) {
+      btnReset.addEventListener('click', () => {
+        selectedBeads = [];
+        updateBraceletStage();
+      });
+    }
+
+    if (btnCopy) {
+      btnCopy.addEventListener('click', () => {
+        const quote = quoteElem ? quoteElem.textContent : '';
+        const summary = beadSummary ? beadSummary.textContent : '';
+        const shareText = `${quote}\n\n— Weaved with ${summary}\nInner Sanctuary Wellness Foundation ✦ @ourinnersanctuary\nhttps://ourinnersanctuary.org`;
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(shareText).then(showToastFeedback).catch(() => fallbackCopy(shareText));
+        } else {
+          fallbackCopy(shareText);
+        }
+      });
+    }
+
+    function fallbackCopy(text) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand('copy');
+        showToastFeedback();
+      } catch (err) {
+        showToast('✓ Copied intention to clipboard!');
+      }
+      document.body.removeChild(textarea);
+    }
+
+    function showToastFeedback() {
+      if (toast) {
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 3500);
+      }
+      showToast('✓ Sanctuary Spark copied to clipboard! Ready to paste into IG Story.');
+    }
+  }
+
+  // =========================================================================
+  // ACCORDION FAQ CONTROLS
+  // =========================================================================
+  function initFAQAccordion() {
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+      const trigger = item.querySelector('.faq-trigger');
+      if (!trigger) return;
+
+      trigger.addEventListener('click', () => {
+        const isActive = item.classList.contains('active');
+        
+        // Optional: close other items for clean accordion
+        faqItems.forEach(other => {
+          if (other !== item) {
+            other.classList.remove('active');
+            const otherTrigger = other.querySelector('.faq-trigger');
+            if (otherTrigger) otherTrigger.setAttribute('aria-expanded', 'false');
+          }
+        });
+
+        if (isActive) {
+          item.classList.remove('active');
+          trigger.setAttribute('aria-expanded', 'false');
+        } else {
+          item.classList.add('active');
+          trigger.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+  }
+
+  // Initialize new expansion features
+  initDigitalBraceletCreator();
+  initFAQAccordion();
+
+
 
   // Toggle Theory of Change & Program Logic Model Drawer
   window.toggleLogicModel = function() {
