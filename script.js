@@ -1994,19 +1994,7 @@ document.addEventListener('DOMContentLoaded', () => {
       lastTriggeredPhase = phaseIndex;
     }
 
-    // Visual air pacer number countdown (4... 3... 2... 1)
-    const secondsRemaining = Math.max(1, Math.ceil((PHASE_DURATION_MS - phaseElapsed) / 1000));
-    const orbBreathCounter = document.getElementById('orb-breath-counter');
-    const orbBreathPhase = document.getElementById('orb-breath-phase');
-    const orbBreathSub = document.getElementById('orb-breath-sub');
-
-    if (orbBreathCounter && orbBreathCounter.textContent !== String(secondsRemaining)) {
-      orbBreathCounter.textContent = String(secondsRemaining);
-      orbBreathCounter.classList.add('tick');
-      setTimeout(() => {
-        if (orbBreathCounter) orbBreathCounter.classList.remove('tick');
-      }, 160);
-    }
+    
 
     if (phaseIndex === 0) {
       // INHALE: Orb smoothly expands (1.00 -> 1.46) with warm inner glow
