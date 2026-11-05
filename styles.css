@@ -6401,3 +6401,193 @@ body[data-element="ether"] nav::after {
     font-size: 1.4rem;
   }
 }
+
+
+/* ==========================================================================
+   ENHANCEMENTS: METHOD STOCK PHOTOS, HERO REFLECTION CARD & SILENT AIR PACER
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. METHOD CARDS STOCK PHOTOS (LAUGHING, SINGING, DANCING)
+   -------------------------------------------------------------------------- */
+.method-focus-card {
+  padding: 0 !important;
+  overflow: hidden !important;
+  border-radius: 18px !important;
+}
+
+.method-card-media {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  background: #1C2B22;
+}
+
+.method-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.method-focus-card:hover .method-card-img {
+  transform: scale(1.08);
+}
+
+.method-media-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 0%, rgba(20, 32, 25, 0.55) 70%, rgba(20, 32, 25, 0.88) 100%);
+  pointer-events: none;
+}
+
+.method-media-badge {
+  position: absolute;
+  bottom: 12px;
+  left: 16px;
+  background: rgba(18, 30, 24, 0.78);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(197, 154, 63, 0.55);
+  color: #F8D98C;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: 999px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+}
+
+.method-focus-card .lsd-card-content {
+  padding: 22px 24px 26px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+}
+
+/* --------------------------------------------------------------------------
+   2. HERO SANCTUARY REFLECTION CARD (CENTERPIECE UNDERNEATH MEDALLION)
+   -------------------------------------------------------------------------- */
+.hero-reflection-widget {
+  margin: 16px auto 36px !important;
+  max-width: 580px !important;
+  background: rgba(255, 255, 255, 0.16) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  border: 1.5px solid rgba(197, 154, 63, 0.4) !important;
+  border-radius: 20px !important;
+  padding: 22px 20px !important;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.15) !important;
+}
+
+.hero-reflection-widget .reflection-widget-title {
+  color: var(--forest-green);
+}
+
+/* --------------------------------------------------------------------------
+   3. SILENT VISUAL BREATH PACER WITH AIR RIPPLES & NUMBER COUNTDOWN
+   -------------------------------------------------------------------------- */
+.air-breeze-ripple-layer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 290px;
+  height: 290px;
+  pointer-events: none;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.air-ripple {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.35;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.air-ripple-1 {
+  width: 215px;
+  height: 215px;
+  border: 1.5px dashed rgba(248, 217, 140, 0.5);
+  animation: airSpin 18s linear infinite;
+}
+
+.air-ripple-2 {
+  width: 255px;
+  height: 255px;
+  border: 1px dashed rgba(197, 154, 63, 0.35);
+  animation: airSpinReverse 24s linear infinite;
+}
+
+.air-ripple-3 {
+  width: 295px;
+  height: 295px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  animation: airPulseGently 4s ease-in-out infinite;
+}
+
+.breathing-orb-wrapper.is-breathing .air-ripple {
+  opacity: 0.85;
+}
+
+@keyframes airSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes airSpinReverse {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+@keyframes airPulseGently {
+  0%, 100% { transform: scale(1.0); opacity: 0.25; }
+  50% { transform: scale(1.04); opacity: 0.55; }
+}
+
+.orb-breath-phase {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #1E3127;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
+  line-height: 1;
+  margin-bottom: 2px;
+}
+
+.orb-breath-counter {
+  font-family: 'Cinzel', serif;
+  font-size: 2.85rem;
+  font-weight: 800;
+  line-height: 1;
+  color: #15241C;
+  text-shadow: 0 2px 8px rgba(255, 255, 255, 0.9);
+  margin: 3px 0;
+  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.orb-breath-counter.tick {
+  transform: scale(1.18);
+}
+
+.orb-breath-sub {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #2B4436;
+  opacity: 0.88;
+  line-height: 1.2;
+  max-width: 140px;
+}

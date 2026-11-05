@@ -354,6 +354,59 @@
         </a>
       </div>
 
+      <!-- ==================== DAILY SANCTUARY REFLECTION CARD (INTERACTIVE GROUNDING HERO CENTERPIECE) ==================== -->
+      <div class="sanctuary-reflection-widget hero-reflection-widget" id="sanctuary-reflection">
+        <div class="reflection-widget-header">
+          <span class="reflection-widget-pill">✦ Daily Somatic Pause</span>
+          <h3 class="reflection-widget-title serif-brand">Draw Today's Sanctuary Reflection</h3>
+          <p class="reflection-widget-sub">Receive an unhurried reminder to ground your nervous system, soften tension, and remember who you are.</p>
+        </div>
+
+        <!-- 3D Flippable Card Stage -->
+        <div class="reflection-card-stage" id="reflectionCardStage">
+          <div class="reflection-card-3d is-flipped" id="reflectionCard3D" role="button" tabindex="0" aria-label="Tap to draw and flip your daily sanctuary reflection card">
+            
+            <!-- Card Front (Sealed Cover) -->
+            <div class="reflection-card-face card-face-front">
+              <div class="card-front-halo"></div>
+              <div class="card-front-emblem">✦</div>
+              <div class="card-front-text">TAP TO DRAW YOUR CARD</div>
+              <div class="card-front-sub">Unhurried • Somatic • Grounded</div>
+            </div>
+
+            <!-- Card Back (Revealed Living Reflection) -->
+            <div class="reflection-card-face card-face-back" id="reflectionCardBack">
+              <div class="card-back-badge" id="reflectionCardBadge">✦ SOMATIC RELEASE</div>
+              <blockquote class="card-back-quote" id="reflectionCardQuote">
+                "Where in your body are you holding yesterday? Soften your jaw, drop your shoulders, and let this breath belong only to right now."
+              </blockquote>
+              <div class="card-back-source">— Inner Sanctuary Daily Reflection</div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Interactive Card Action Controls -->
+        <div class="reflection-actions-wrap">
+          <button type="button" class="btn-reflection-action btn-reflection-draw" id="btnDrawNewReflection" title="Draw another grounding reflection">
+            <span>🔄 Draw Another</span>
+          </button>
+          <button type="button" class="btn-reflection-action btn-reflection-copy" id="btnCopyReflection" title="Copy reflection quote to clipboard">
+            <span id="btnCopyReflectionIcon">📋</span>
+            <span id="btnCopyReflectionLabel">Copy Reflection</span>
+          </button>
+          <a href="https://www.instagram.com/ourinnersanctuary/" target="_blank" rel="noopener noreferrer" class="btn-reflection-action btn-reflection-share" id="btnShareIG" title="Share reflection on Instagram">
+            <span>📸 Share to Instagram</span>
+          </a>
+        </div>
+        
+        <!-- Copy Toast Notification -->
+        <div class="reflection-copy-toast" id="reflectionCopyToast" role="status" aria-live="polite">
+          ✓ Copied to clipboard! Ready to paste into Instagram Story or journal.
+        </div>
+      </div>
+
+
       <!-- Main Headline -->
       <h1 class="hero-h1">INNER SANCTUARY</h1>
       <div class="hero-tagline-motto">WELLNESS FOUNDATION</div>
@@ -446,10 +499,20 @@
         <div class="breathing-orb-wrapper" id="breathing-orb-stage" role="button" tabindex="0" title="Click or tap the Orb to breathe" aria-label="Interactive Breathing Orb">
           <div class="breathing-pulse-ring"></div>
           <div class="breathing-halo-aura" id="somatic-halo"></div>
+          
+          <!-- Ethereal Breezy Mountain Air Waves & Ripples -->
+          <div class="air-breeze-ripple-layer" id="airBreezeRippleLayer" aria-hidden="true">
+            <span class="air-ripple air-ripple-1"></span>
+            <span class="air-ripple air-ripple-2"></span>
+            <span class="air-ripple air-ripple-3"></span>
+          </div>
+
           <div class="breathing-orb" id="somatic-orb" style="background: radial-gradient(circle at 32% 28%, #FFFDF0 0%, #FFE57F 16%, #F5AF19 40%, #E69500 68%, #C67D00 88%, #9E6300 100%) !important;">
             <div class="orb-inner-glow" id="orb-inner-glow"></div>
             <div class="orb-center-content">
-              <span class="orb-breath-word" id="orb-breath-word">Breathe</span>
+              <span class="orb-breath-phase" id="orb-breath-phase">Inhale</span>
+              <span class="orb-breath-counter" id="orb-breath-counter">4</span>
+              <span class="orb-breath-sub" id="orb-breath-sub">Breathe in gently</span>
             </div>
           </div>
         </div>
@@ -458,37 +521,12 @@
           Tap the orb or press begin below
         </div>
 
-        <!-- Minimal Action Controls -->
-        <div class="orb-actions-bar">
+        <!-- Minimal Action Controls (Silent Pacer - Zero Sound Buttons) -->
+        <div class="orb-actions-bar" style="justify-content: center;">
           <button id="orb-toggle-btn" class="breath-primary-toggle" type="button" aria-label="Start or Pause Breath Session">
             <span class="btn-ctrl-icon" id="btn-ctrl-icon">▶</span>
             <span id="orb-btn-label">Begin</span>
           </button>
-
-          <!-- Soothing Breath Sound Toggle -->
-          <button id="breath-sound-toggle-btn" class="breath-audio-toggle" type="button" aria-label="Toggle Soothing Breath Sound" title="Toggle natural breath sounds">
-            <span id="breath-sound-icon">🔊</span>
-            <span id="breath-sound-label">Sound: ON</span>
-          </button>
-        </div>
-
-        <!-- Solfeggio Harmonic Frequency Selector -->
-        <div class="solfeggio-selector-wrap" aria-label="Harmonic Frequency Sound Selection">
-          <span class="solfeggio-heading">Harmonic Sound Frequency:</span>
-          <div class="solfeggio-btn-group" role="radiogroup" aria-label="Frequency selector">
-            <button type="button" class="solfeggio-btn active" data-freq="natural" role="radio" aria-checked="true" title="Natural breath whisper airflow">
-              <span class="freq-icon">🌬️</span>
-              <span class="freq-name">Whisper Air</span>
-            </button>
-            <button type="button" class="solfeggio-btn" data-freq="432" role="radio" aria-checked="false" title="432 Hz: Harmonic frequency for nervous system calming & grounding">
-              <span class="freq-icon">🎵</span>
-              <span class="freq-name">432 Hz Grounding</span>
-            </button>
-            <button type="button" class="solfeggio-btn" data-freq="528" role="radio" aria-checked="false" title="528 Hz: Solfeggio frequency for clarity & emotional transformation">
-              <span class="freq-icon">✨</span>
-              <span class="freq-name">528 Hz Renewal</span>
-            </button>
-          </div>
         </div>
 
         <!-- Google Ad Grants / GA4 Engagement CTA Hook -->
@@ -503,57 +541,7 @@
 
     
 
-      <!-- ==================== DAILY SANCTUARY REFLECTION CARD (INTERACTIVE GROUNDING) ==================== -->
-      <div class="sanctuary-reflection-widget" id="sanctuary-reflection">
-        <div class="reflection-widget-header">
-          <span class="reflection-widget-pill">✦ Daily Somatic Pause</span>
-          <h3 class="reflection-widget-title serif-brand">Draw Today's Sanctuary Reflection</h3>
-          <p class="reflection-widget-sub">Receive an unhurried reminder to ground your nervous system, soften tension, and remember who you are.</p>
-        </div>
-
-        <!-- 3D Flippable Card Stage -->
-        <div class="reflection-card-stage" id="reflectionCardStage">
-          <div class="reflection-card-3d is-flipped" id="reflectionCard3D" role="button" tabindex="0" aria-label="Tap to draw and flip your daily sanctuary reflection card">
-            
-            <!-- Card Front (Sealed Cover) -->
-            <div class="reflection-card-face card-face-front">
-              <div class="card-front-halo"></div>
-              <div class="card-front-emblem">✦</div>
-              <div class="card-front-text">TAP TO DRAW YOUR CARD</div>
-              <div class="card-front-sub">Unhurried • Somatic • Grounded</div>
-            </div>
-
-            <!-- Card Back (Revealed Living Reflection) -->
-            <div class="reflection-card-face card-face-back" id="reflectionCardBack">
-              <div class="card-back-badge" id="reflectionCardBadge">✦ SOMATIC RELEASE</div>
-              <blockquote class="card-back-quote" id="reflectionCardQuote">
-                "Where in your body are you holding yesterday? Soften your jaw, drop your shoulders, and let this breath belong only to right now."
-              </blockquote>
-              <div class="card-back-source">— Inner Sanctuary Daily Reflection</div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- Interactive Card Action Controls -->
-        <div class="reflection-actions-wrap">
-          <button type="button" class="btn-reflection-action btn-reflection-draw" id="btnDrawNewReflection" title="Draw another grounding reflection">
-            <span>🔄 Draw Another</span>
-          </button>
-          <button type="button" class="btn-reflection-action btn-reflection-copy" id="btnCopyReflection" title="Copy reflection quote to clipboard">
-            <span id="btnCopyReflectionIcon">📋</span>
-            <span id="btnCopyReflectionLabel">Copy Reflection</span>
-          </button>
-          <a href="https://www.instagram.com/ourinnersanctuary/" target="_blank" rel="noopener noreferrer" class="btn-reflection-action btn-reflection-share" id="btnShareIG" title="Share reflection on Instagram">
-            <span>📸 Share to Instagram</span>
-          </a>
-        </div>
-        
-        <!-- Copy Toast Notification -->
-        <div class="reflection-copy-toast" id="reflectionCopyToast" role="status" aria-live="polite">
-          ✓ Copied to clipboard! Ready to paste into Instagram Story or journal.
-        </div>
-      </div>
+      
     
 </div>
   </section>
@@ -589,52 +577,73 @@
           
           <!-- Card 1: Laughing -->
           <div class="lsd-focus-card method-focus-card" data-element="laughing">
-            <div class="lsd-card-header">
-              <span class="lsd-letter-badge">🌿</span>
-              <div>
-                <h3 class="lsd-focus-title">Laughing</h3>
-                <span class="lsd-focus-subtitle">Nervous System Reset</span>
-              </div>
+            <div class="method-card-media">
+              <img src="images/method-laughing.jpg" alt="Heartfelt community joy and authentic laughter" class="method-card-img" loading="lazy">
+              <div class="method-media-overlay"></div>
+              <span class="method-media-badge">🌿 Joy Medicine</span>
             </div>
-            <p class="lsd-focus-desc">
-              Shared belly joy that instantly dissolves fight-or-flight survival mode, releases endorphins, and reminds us that lightness is our natural state.
-            </p>
-            <div class="lsd-vibe-tag">✦ Joy Medicine</div>
+            <div class="lsd-card-content">
+              <div class="lsd-card-header">
+                <span class="lsd-letter-badge">🌿</span>
+                <div>
+                  <h3 class="lsd-focus-title">Laughing</h3>
+                  <span class="lsd-focus-subtitle">Nervous System Reset</span>
+                </div>
+              </div>
+              <p class="lsd-focus-desc">
+                Shared belly joy that instantly dissolves fight-or-flight survival mode, releases endorphins, and reminds us that lightness is our natural state.
+              </p>
+              <div class="lsd-vibe-tag">✦ Joy Medicine</div>
+            </div>
           </div>
 
           <!-- Card 2: Singing -->
           <div class="lsd-focus-card method-focus-card" data-element="singing">
-            <div class="lsd-card-header">
-              <span class="lsd-letter-badge">🎶</span>
-              <div>
-                <h3 class="lsd-focus-title">Singing</h3>
-                <span class="lsd-focus-subtitle">Vibrational Sound Release</span>
-              </div>
+            <div class="method-card-media">
+              <img src="images/method-singing.jpg" alt="Soulful community singer sharing raw vocal resonance at vintage microphone" class="method-card-img" loading="lazy">
+              <div class="method-media-overlay"></div>
+              <span class="method-media-badge">🎶 Voice Medicine</span>
             </div>
-            <p class="lsd-focus-desc">
-              Sounding your sacred voice and giving breath to frequencies words alone cannot carry. No choir training needed; just raw, unfiltered vocal resonance.
-            </p>
-            <div class="lsd-vibe-tag">✦ Voice Medicine</div>
+            <div class="lsd-card-content">
+              <div class="lsd-card-header">
+                <span class="lsd-letter-badge">🎶</span>
+                <div>
+                  <h3 class="lsd-focus-title">Singing</h3>
+                  <span class="lsd-focus-subtitle">Vibrational Sound Release</span>
+                </div>
+              </div>
+              <p class="lsd-focus-desc">
+                Sounding your sacred voice and giving breath to frequencies words alone cannot carry. No choir training needed; just raw, unfiltered vocal resonance.
+              </p>
+              <div class="lsd-vibe-tag">✦ Voice Medicine</div>
+            </div>
           </div>
 
           <!-- Card 3: Dancing -->
           <div class="lsd-focus-card method-focus-card" data-element="dancing">
-            <div class="lsd-card-header">
-              <span class="lsd-letter-badge">💃</span>
-              <div>
-                <h3 class="lsd-focus-title">Dancing</h3>
-                <span class="lsd-focus-subtitle">Embodied Somatic Motion</span>
-              </div>
+            <div class="method-card-media">
+              <img src="images/method-dancing.jpg" alt="Embodied somatic dance and expressive movement in sunlit sanctuary" class="method-card-img" loading="lazy">
+              <div class="method-media-overlay"></div>
+              <span class="method-media-badge">💃 Motion Medicine</span>
             </div>
-            <p class="lsd-focus-desc">
-              Moving energy freely without choreography, performance anxiety, or permission. Shaking off heavy weeks and reconnecting your root back to soil.
-            </p>
-            <div class="lsd-vibe-tag">✦ Motion Medicine</div>
+            <div class="lsd-card-content">
+              <div class="lsd-card-header">
+                <span class="lsd-letter-badge">💃</span>
+                <div>
+                  <h3 class="lsd-focus-title">Dancing</h3>
+                  <span class="lsd-focus-subtitle">Embodied Somatic Motion</span>
+                </div>
+              </div>
+              <p class="lsd-focus-desc">
+                Moving energy freely without choreography, performance anxiety, or permission. Shaking off heavy weeks and reconnecting your root back to soil.
+              </p>
+              <div class="lsd-vibe-tag">✦ Motion Medicine</div>
+            </div>
           </div>
 
         </div>
-
-        <!-- Sweet reassurance note for Crying, Connecting, Creating -->
+      </div>
+<!-- Sweet reassurance note for Crying, Connecting, Creating -->
         <div class="lsd-companion-note">
           <span style="color: var(--sunburst-gold); font-size: 1.1rem;">🕊️</span>
           <span><strong>And don't worry — we hold plenty of space for the rest of being human, too:</strong> the tears (Crying), authentic belonging (Connecting), and honest storytelling (Creating). Whatever is in your heart, the circle holds.</span>
@@ -904,15 +913,15 @@
         <!-- 1. Pause Activations -->
         <div class="horizon-card">
           <div>
-            <span class="horizon-status-pill coming-soon">✦ Coming Soon</span>
+            <span class="horizon-status-pill coming-soon">✦ Active Community Pop-Ups</span>
             <h3 class="horizon-title serif-brand">Pause Activations</h3>
             <p class="horizon-desc">
               <strong>A moment to pause, breathe, reflect, and reconnect.</strong><br>
-              Curated pop-up somatic wellness sanctuaries, tea ceremonies, sound meditation lounges, and guided pause stations at local community events, universities, and neighborhood festivals.
+              Curated pop-up somatic wellness spaces at local community gatherings, universities, and festivals. We facilitate gentle breathing exercises that give people permission to step away from the rush and take time to pause, host intentional bracelet-making stations where neighbors craft tactile anchors of peace, and hand out physical "Sanctuary Sparks"—uplifting reflection cards designed to inspire authentic self-compassion and human connection.
             </p>
           </div>
           <div style="margin-top: 24px;">
-            <a href="#stay-in-loop" class="btn btn-outline" style="width: 100%; font-size: 0.8rem; padding: 10px 16px;">Get Early Access</a>
+            <a href="#connect" class="btn btn-outline" style="width: 100%; font-size: 0.8rem; padding: 10px 16px;">Request a Pause Activation</a>
           </div>
         </div>
 

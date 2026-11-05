@@ -1592,7 +1592,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     'volunteer': {
       selectVal: 'General Volunteer / Community Care',
-      placeholder: 'Tell us how you’d like to help (pouring herbal tea, welcoming neighbors, stage/sound setup, community care), and your availability...',
+      placeholder: 'Tell us how you’d like to help (bracelet making station, sharing Sanctuary Sparks, welcoming neighbors, stage setup, community care), and your availability...',
       buttonText: 'Join Volunteer Circle ✉️'
     },
     'donor': {
@@ -1992,12 +1992,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // Trigger soothing breath sounds right at phase transition
     if (phaseIndex !== lastTriggeredPhase) {
       lastTriggeredPhase = phaseIndex;
-      const phaseDurationSec = PHASE_DURATION_MS / 1000;
-      if (phaseIndex === 0) {
-        breathAudio.playInhale(phaseDurationSec);
-      } else {
-        breathAudio.playExhale(phaseDurationSec);
-      }
+    }
+
+    // Visual air pacer number countdown (4... 3... 2... 1)
+    const secondsRemaining = Math.max(1, Math.ceil((PHASE_DURATION_MS - phaseElapsed) / 1000));
+    const orbBreathCounter = document.getElementById('orb-breath-counter');
+    const orbBreathPhase = document.getElementById('orb-breath-phase');
+    const orbBreathSub = document.getElementById('orb-breath-sub');
+
+    if (orbBreathCounter && orbBreathCounter.textContent !== String(secondsRemaining)) {
+      orbBreathCounter.textContent = String(secondsRemaining);
+      orbBreathCounter.classList.add('tick');
+      setTimeout(() => {
+        if (orbBreathCounter) orbBreathCounter.classList.remove('tick');
+      }, 160);
     }
 
     if (phaseIndex === 0) {
