@@ -252,6 +252,73 @@ a {
   border: 1px solid rgba(43, 68, 54, 0.25);
 }
 
+
+/* Hero Trust & Identity Badges (Harmonized with 8K Sky Background) */
+.badge-ein-prominent {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.88) 0%, rgba(246, 243, 236, 0.82) 50%, rgba(237, 243, 247, 0.85) 100%);
+  border: 1.5px solid rgba(197, 154, 63, 0.55);
+  color: #241C15;
+  box-shadow: 0 4px 18px rgba(154, 111, 26, 0.12), 0 1px 4px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: all 0.25s ease;
+}
+
+.badge-bullet {
+  color: rgba(197, 154, 63, 0.65);
+  margin: 0 2px;
+}
+
+.badge-ein-prominent .ein-pill {
+  background: rgba(197, 154, 63, 0.2);
+  border: 1px solid rgba(197, 154, 63, 0.55);
+  color: #7A530A;
+  font-weight: 800;
+  font-size: 0.84rem;
+  letter-spacing: 0.08em;
+  padding: 2px 9px;
+  border-radius: 6px;
+  margin: 0 2px;
+  box-shadow: 0 1px 4px rgba(154, 111, 26, 0.1);
+}
+
+.badge-ig-sky {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.80rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  padding: 8px 20px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.90) 0%, rgba(250, 245, 235, 0.84) 100%);
+  border: 1.5px solid rgba(197, 154, 63, 0.6);
+  color: #241C15;
+  box-shadow: 0 4px 18px rgba(154, 111, 26, 0.14), 0 1px 4px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.badge-ig-sky:hover {
+  background: linear-gradient(135deg, #FFFFFF 0%, rgba(255, 248, 235, 0.96) 100%);
+  border-color: var(--sunburst-gold);
+  color: #1A2E23;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(197, 154, 63, 0.28);
+}
+
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -5598,6 +5665,29 @@ body[data-element="ether"] nav::after {
     padding: 6px 11px !important;
     font-size: 1.1rem !important;
   }
+
+  /* Hero Badges on Mobile */
+  .hero-trust-badges-wrap {
+    gap: 8px !important;
+  }
+
+  .badge-ein-prominent {
+    font-size: 0.72rem !important;
+    padding: 6px 12px !important;
+    max-width: 100% !important;
+    justify-content: center !important;
+  }
+
+  .badge-ein-prominent .ein-pill {
+    font-size: 0.76rem !important;
+    padding: 2px 6px !important;
+  }
+
+  .badge-ig-sky {
+    font-size: 0.74rem !important;
+    padding: 6px 14px !important;
+  }
+
 
   /* Headings: eliminate awkward letter-spacing line-breaks */
   h1, .hero-h1 {
