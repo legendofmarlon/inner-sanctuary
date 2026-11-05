@@ -3380,12 +3380,13 @@ body[data-element="earth"] {
    Palette: Obsidian (#0B0F17), Golden Hour (#F5AF19), Prism Cyan (#00F2FE), Cream (#F8FAFC)
    ========================================================================== */
 .sacred-breath-section {
-  background: radial-gradient(circle at 50% 25%, #0F1724 0%, #0B0F17 100%) !important;
-  color: #F8FAFC !important;
-  border-top: 1.5px solid rgba(245, 175, 25, 0.35) !important;
-  border-bottom: 1.5px solid rgba(245, 175, 25, 0.35) !important;
+  background: transparent !important;
+  color: var(--earth-charcoal) !important;
+  border-top: none !important;
+  border-bottom: none !important;
   position: relative;
   z-index: 1;
+  padding: 55px 0 65px !important;
 }
 
 .sacred-geometry-widget {
@@ -3686,9 +3687,9 @@ body[data-element="earth"] {
 }
 
 .breath-workshop-cta-btn {
-  background: rgba(0, 242, 254, 0.08);
-  border: 1.5px solid rgba(0, 242, 254, 0.6);
-  color: #00F2FE;
+  background: rgba(43, 68, 54, 0.08);
+  border: 1.5px solid var(--forest-green);
+  color: var(--forest-green);
   border-radius: 999px;
   padding: 10px 22px;
   font-family: 'Montserrat', sans-serif;
@@ -3761,14 +3762,14 @@ body[data-element="earth"] {
 
 /* Soothing Breath Audio Toggle Button */
 .breath-audio-toggle {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(0, 242, 254, 0.45);
+  background: rgba(43, 68, 54, 0.08);
+  border: 1px solid rgba(43, 68, 54, 0.35);
   border-radius: 999px;
   padding: 8px 16px;
   font-family: 'Montserrat', sans-serif;
   font-size: 0.78rem;
-  font-weight: 600;
-  color: #00F2FE;
+  font-weight: 700;
+  color: var(--forest-green);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -3877,12 +3878,12 @@ body[data-element="earth"] {
   margin: 18px auto 8px;
   padding: 26px 22px 20px;
   border-radius: 28px;
-  background: radial-gradient(circle at 50% 30%, rgba(16, 24, 38, 0.96) 0%, rgba(11, 15, 23, 0.99) 100%);
-  border: 1.5px solid rgba(245, 175, 25, 0.35);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75), 0 0 35px rgba(245, 175, 25, 0.08);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  color: #F8FAFC;
+  background: rgba(255, 255, 255, 0.16) !important;
+  border: 1.5px solid rgba(197, 154, 63, 0.45) !important;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.10), 0 0 35px rgba(197, 154, 63, 0.15) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  color: var(--forest-green) !important;
   text-align: center;
   overflow: hidden;
 }
@@ -3985,8 +3986,9 @@ body[data-element="earth"] {
 }
 
 .orb-status-prompt {
-  font-size: 0.80rem;
-  color: #94A3B8;
+  font-size: 0.86rem;
+  color: var(--forest-green);
+  font-weight: 700;
   margin: 6px 0 12px;
   letter-spacing: 0.04em;
   min-height: 18px;

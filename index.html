@@ -250,7 +250,11 @@
             <span style="font-size: 0.70rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.9;">Donate $1</span>
           </button>
         </li>
-        <li><a href="https://www.instagram.com/ourinnersanctuary/" target="_blank" rel="noopener noreferrer" style="color: var(--sunburst-gold); display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 0.85rem; padding-top: 6px;">📸 Instagram: @ourinnersanctuary</a></li>
+        <li>
+          <a href="https://www.instagram.com/ourinnersanctuary/" target="_blank" rel="noopener noreferrer" style="color: #F8D98C; display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: 800; font-size: 0.92rem; padding: 12px 18px; background: rgba(197, 154, 63, 0.22); border: 1.5px solid var(--sunburst-gold); border-radius: 12px; margin-top: 10px; text-decoration: none; box-shadow: 0 4px 12px rgba(197, 154, 63, 0.3);">
+            📸 Follow @ourinnersanctuary on Instagram
+          </a>
+        </li>
       </ul>
     </div>
   </nav>
@@ -319,9 +323,9 @@
       <!-- 501(c)(3) Verification & Instagram Badge -->
       <div style="display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 18px;">
         <span class="badge badge-gold">IRS 501(c)(3) Public Charity • EIN: 39-3757168 • California Nonprofit</span>
-        <a href="https://www.instagram.com/ourinnersanctuary/" target="_blank" rel="noopener noreferrer" class="badge badge-sage" style="text-decoration: none; display: inline-flex; align-items: center; gap: 6px;" title="Follow @ourinnersanctuary on Instagram">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
-          <span>@ourinnersanctuary</span>
+        <a href="https://www.instagram.com/ourinnersanctuary/" target="_blank" rel="noopener noreferrer" class="badge badge-ig-hero" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px; font-weight: 800; font-size: 0.84rem; letter-spacing: 0.04em; background: linear-gradient(135deg, rgba(43, 68, 54, 0.95) 0%, rgba(30, 51, 40, 0.98) 100%); color: #F8D98C; border: 1.5px solid #C59A3F; padding: 7px 18px; border-radius: 999px; box-shadow: 0 4px 16px rgba(197, 154, 63, 0.35); text-transform: uppercase;" title="Follow @ourinnersanctuary on Instagram">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#F8D98C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
+          <span>📸 Follow @ourinnersanctuary</span>
         </a>
       </div>
 
@@ -396,7 +400,65 @@
     </div>
   </section>
 
-  
+  <!-- ==================== SACRED SOMATIC BREATHWORK INTEGRATION (GROUNDING SANCTUARY) ==================== -->
+  <section id="breath" class="section-padding sacred-breath-section">
+    <div class="container" style="text-align: center;">
+      
+      <div class="section-header" style="max-width: 680px; margin: 0 auto 20px; text-align: center;">
+        <div class="section-subtitle" style="color: var(--sunburst-gold); font-weight: 700; letter-spacing: 0.12em;">Somatic Reset • Unhurried Presence</div>
+        <h2 class="section-title serif-brand" style="color: var(--forest-green); font-size: 2.3rem;">Pause &amp; Breathe</h2>
+        <div class="flourish-divider">✦</div>
+        <p style="color: var(--charcoal-muted); font-size: 1.05rem; line-height: 1.7; font-weight: 500; margin-bottom: 0;">
+          Before exploring our community circle, soften your shoulders.<br>
+          Tap the living orb below and breathe with its gentle expansion and release.
+        </p>
+      </div>
+
+      <!-- Living Breath Orb Card (Simple, Minimal, Zen, Transparent Glass) -->
+      <div class="sanctuary-orb-card" id="sacred-breathing-portal">
+        
+        <!-- The Living Breathing Orb Stage -->
+        <div class="breathing-orb-wrapper" id="breathing-orb-stage" role="button" tabindex="0" title="Click or tap the Orb to breathe" aria-label="Interactive Breathing Orb">
+          <div class="breathing-pulse-ring"></div>
+          <div class="breathing-halo-aura" id="somatic-halo"></div>
+          <div class="breathing-orb" id="somatic-orb" style="background: radial-gradient(circle at 32% 28%, #FFFDF0 0%, #FFE57F 16%, #F5AF19 40%, #E69500 68%, #C67D00 88%, #9E6300 100%) !important;">
+            <div class="orb-inner-glow" id="orb-inner-glow"></div>
+            <div class="orb-center-content">
+              <span class="orb-breath-word" id="orb-breath-word">Breathe</span>
+            </div>
+          </div>
+        </div>
+
+        <div id="orb-status-prompt" class="orb-status-prompt" style="color: var(--forest-green); font-weight: 700;">
+          Tap the orb or press begin below
+        </div>
+
+        <!-- Minimal Action Controls -->
+        <div class="orb-actions-bar">
+          <button id="orb-toggle-btn" class="breath-primary-toggle" type="button" aria-label="Start or Pause Breath Session">
+            <span class="btn-ctrl-icon" id="btn-ctrl-icon">▶</span>
+            <span id="orb-btn-label">Begin</span>
+          </button>
+
+          <!-- Soothing Breath Sound Toggle -->
+          <button id="breath-sound-toggle-btn" class="breath-audio-toggle" type="button" aria-label="Toggle Soothing Breath Sound" title="Toggle natural breath sounds">
+            <span id="breath-sound-icon">🔊</span>
+            <span id="breath-sound-label">Sound: ON</span>
+          </button>
+        </div>
+
+        <!-- Google Ad Grants / GA4 Engagement CTA Hook -->
+        <div class="breath-workshop-cta-wrap" style="margin-top: 14px; padding-top: 10px; border-top: 1px solid rgba(197, 154, 63, 0.25);">
+          <a href="#connect" class="breath-workshop-cta-btn" id="breath-workshop-cta-btn" style="color: var(--forest-green); font-weight: 700;">
+            <span>Join Our Next Live Wellness Workshop</span>
+            <span class="cta-arrow">→</span>
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
 
   <!-- ==================== OUR METHOD: THE THREEFOLD RELEASE ==================== -->
   <section id="method" class="section-padding method-section" style="background: rgba(250, 248, 243, 0.7); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(197, 154, 63, 0.2);">
@@ -1271,65 +1333,7 @@
     </div>
   </section>
 
-  <!-- ==================== SACRED SOMATIC BREATHWORK INTEGRATION (GROUNDING SANCTUARY) ==================== -->
-  <section id="breath" class="section-padding sacred-breath-section" style="border-top: 1px solid rgba(197, 154, 63, 0.25); border-bottom: 1px solid rgba(197, 154, 63, 0.25);">
-    <div class="container" style="text-align: center;">
-      
-      <div class="section-header" style="max-width: 680px; margin: 0 auto 20px; text-align: center;">
-        <div class="section-subtitle" style="color: #F5AF19;">Somatic Reset • Unhurried Presence</div>
-        <h2 class="section-title" style="color: #FFFFFF;">Pause &amp; Breathe</h2>
-        <div class="flourish-divider">✦</div>
-        <p style="color: #CBD7D0; font-size: 1.05rem; line-height: 1.7; margin-bottom: 0;">
-          Before stepping into our community circle, soften your shoulders.<br>
-          Tap the living orb below and breathe with its gentle expansion and release.
-        </p>
-      </div>
-
-      <!-- Living Breath Orb Card (Simple, Minimal, Zen) -->
-      <div class="sanctuary-orb-card" id="sacred-breathing-portal">
-        
-        <!-- The Living Breathing Orb Stage -->
-        <div class="breathing-orb-wrapper" id="breathing-orb-stage" role="button" tabindex="0" title="Click or tap the Orb to breathe" aria-label="Interactive Breathing Orb">
-          <div class="breathing-pulse-ring"></div>
-          <div class="breathing-halo-aura" id="somatic-halo"></div>
-          <div class="breathing-orb" id="somatic-orb" style="background: radial-gradient(circle at 32% 28%, #FFFDF0 0%, #FFE57F 16%, #F5AF19 40%, #E69500 68%, #C67D00 88%, #9E6300 100%) !important;">
-            <div class="orb-inner-glow" id="orb-inner-glow"></div>
-            <div class="orb-center-content">
-              <span class="orb-breath-word" id="orb-breath-word">Breathe</span>
-            </div>
-          </div>
-        </div>
-
-        <div id="orb-status-prompt" class="orb-status-prompt">
-          Tap the orb or press begin below
-        </div>
-
-        <!-- Minimal Action Controls -->
-        <div class="orb-actions-bar">
-          <button id="orb-toggle-btn" class="breath-primary-toggle" type="button" aria-label="Start or Pause Breath Session">
-            <span class="btn-ctrl-icon" id="btn-ctrl-icon">▶</span>
-            <span id="orb-btn-label">Begin</span>
-          </button>
-
-          <!-- Soothing Breath Sound Toggle -->
-          <button id="breath-sound-toggle-btn" class="breath-audio-toggle" type="button" aria-label="Toggle Soothing Breath Sound" title="Toggle natural breath sounds">
-            <span id="breath-sound-icon">🔊</span>
-            <span id="breath-sound-label">Sound: ON</span>
-          </button>
-        </div>
-
-        <!-- Google Ad Grants / GA4 Engagement CTA Hook -->
-        <div class="breath-workshop-cta-wrap" style="margin-top: 14px; padding-top: 10px; border-top: 1px solid rgba(245, 175, 25, 0.15);">
-          <a href="#connect" class="breath-workshop-cta-btn" id="breath-workshop-cta-btn">
-            <span>Join Our Next Live Wellness Workshop</span>
-            <span class="cta-arrow">→</span>
-          </a>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
+  
 
   <!-- ==================== STAY IN THE LOOP ==================== -->
   <section id="stay-in-loop" class="section-padding" style="background: rgba(250, 248, 243, 0.75); backdrop-filter: blur(8px); border-top: 1px solid rgba(197, 154, 63, 0.2);">
@@ -1577,7 +1581,7 @@
             </a>
           </p>
           <div>
-            <a href="https://www.instagram.com/ourinnersanctuary/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 8px; color: #FFFFFF; font-size: 0.8rem; font-weight: 600; text-decoration: none; padding: 7px 14px; border: 1px solid var(--sunburst-gold); border-radius: 6px; background: rgba(197, 154, 63, 0.16); transition: all 0.2s ease;">
+            <a href="https://www.instagram.com/ourinnersanctuary/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 8px; color: #FFFFFF; font-size: 0.86rem; font-weight: 800; text-decoration: none; padding: 9px 18px; border: 1.5px solid var(--sunburst-gold); border-radius: 8px; background: rgba(197, 154, 63, 0.25); box-shadow: 0 4px 15px rgba(197, 154, 63, 0.25); transition: all 0.2s ease;">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
               <span>Follow @ourinnersanctuary</span>
             </a>
