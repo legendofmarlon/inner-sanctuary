@@ -95,7 +95,9 @@
 
   <!-- Argon 4.0 Golden Hour Botanical Dust Motes Canvas -->
   <canvas id="argon-dust-canvas"></canvas>
-<!-- ==================== ELEMENTAL SANCTUARY IMMERSION CANVASES ==================== -->
+  <!-- Realistic 8K Breezy Sky & Nature Atmosphere Layer (Air Week) -->
+  <div id="realistic-element-sky" class="realistic-sky-bg" aria-hidden="true"></div>
+  <!-- Elemental Sanctuary Ambient Canvas -->
   <canvas id="sanctuary-3d-canvas"></canvas>
   <canvas id="elemental-sanctuary-bg"></canvas>
   <div id="lantern-aura" class="lantern-aura"></div>
@@ -262,46 +264,27 @@
       <div class="element-status-wrap">
         <span class="element-cycle-tag" id="weekly-cycle-badge">✦ Weekly Focus</span>
         <div class="element-active-text-group">
-          <span id="active-element-name" class="element-active-title">Tune into this week's element: <strong>🌿 Earth</strong></span>
+          <span id="active-element-name" class="element-active-title">Tune into this week's element: <strong>🌬️ Air</strong></span>
           <span class="desktop-only" style="color: rgba(197, 154, 63, 0.6); margin: 0 6px;">•</span>
-          <span id="active-element-date" class="element-date-range desktop-only">Oct 19 – Oct 25</span>
+          <span id="active-element-date" class="element-date-range desktop-only">Nov 2 – Nov 8</span>
           <span class="desktop-only" style="color: rgba(197, 154, 63, 0.6); margin: 0 6px;">•</span>
-          <span id="active-element-quote" class="element-quote-short desktop-only">"Root down so your branches may reach without fear. Feel your feet on the soil."</span>
+          <span id="active-element-quote" class="element-quote-short desktop-only">"Unburdening the chest. Deep mountain air opening space for clarity."</span>
         </div>
       </div>
 
-      <!-- Weekly Immersion Action, 3D Sky Mode & Audio Controls -->
+      <!-- Weekly Immersion Action & Audio Controls (Air Week Focus) -->
       <div class="weekly-soundscape-action-wrap">
         
-        <!-- Weekly Cycle Journey Dots: Click to explore any element in 3D -->
-        <div class="weekly-cycle-indicator" role="tablist" aria-label="Elemental Cycle Selector">
-          <button type="button" class="cycle-dot" data-element="earth" role="tab" title="Earth & Forest Sanctuary">🌿 Earth</button>
-          <span class="cycle-arrow">›</span>
-          <button type="button" class="cycle-dot" data-element="water" role="tab" title="Water & Creek Sanctuary">🌊 Water</button>
-          <span class="cycle-arrow">›</span>
-          <button type="button" class="cycle-dot active" data-element="air" role="tab" title="Air & Mountain Breeze Sky Sanctuary" aria-selected="true">🌬️ Air</button>
-          <span class="cycle-arrow">›</span>
-          <button type="button" class="cycle-dot" data-element="fire" role="tab" title="Fire & Hearth Sanctuary">🔥 Fire</button>
-          <span class="cycle-arrow">›</span>
-          <button type="button" class="cycle-dot" data-element="ether" role="tab" title="Ether & Celestial Sanctuary">🌌 Ether</button>
-        </div>
-
-        <!-- 3D Sky Atmosphere Mode Toggle -->
-        <button id="btn-toggle-3d" class="btn-sanctuary-3d-toggle active" type="button" onclick="if(window.sanctuary3D) window.sanctuary3D.toggle3D();" title="Toggle between 3D Sky Atmosphere and Classic 2D View" aria-pressed="true">
-          <span class="mode-icon">☁️</span>
-          <span class="mode-text">3D Sky: <strong id="mode-state-label">ON</strong></span>
-        </button>
-
-        <!-- Active Element Badge Pill -->
+        <!-- Active Air Element Badge Pill -->
         <div class="active-element-pill-badge" id="active-weekly-pill" title="This Week's Active Element: Air & Mountain Breeze Sky Sanctuary">
           <span class="pill-icon">🌬️</span>
-          <span class="pill-title" id="active-pill-title">Air & Mountain Breeze</span>
+          <span class="pill-title" id="active-pill-title">Air &amp; Mountain Breeze</span>
           <span class="pill-vibe-tag">Breeze</span>
         </div>
 
         <!-- Soundscape Audio Toggle & Volume -->
         <div class="soundscape-controls-wrap">
-          <button id="soundscape-toggle-btn" class="soundscape-toggle-btn" type="button" aria-pressed="false" title="Click to immerse with this week's natural soundscape">
+          <button id="soundscape-toggle-btn" class="soundscape-toggle-btn" type="button" aria-pressed="false" title="Click to immerse with this week's natural mountain breeze soundscape">
             <span id="soundscape-icon">🔈</span>
             <span id="soundscape-label">Tune In</span>
             <span class="sound-wave-bars" aria-hidden="true">
@@ -796,7 +779,7 @@
           Whether you are planting a <strong>$1 Community Seed</strong> or a community-minded corporate/banking partner fulfilling <strong>CRA (Community Reinvestment Act)</strong> objectives, your gift directly sustains unhurried healing spaces and authentic stages.
         </p>
         <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
-          <button type="button" onclick="openZeffyModal(event)" class="btn btn-gold btn-liquid-gold pulse-gold" style="cursor: pointer;">🌱 Donate $1 (The Seed Movement)</button>
+          <a href="#dollar-campaign-anchor" class="btn btn-gold btn-liquid-gold pulse-gold" style="text-decoration: none;">🌱 Give $1 Below (Keep It On-Site)</a>
           <a href="#sponsorship" class="btn btn-forest">🏢 Become a Sponsor</a>
         </div>
       </div>
@@ -839,10 +822,10 @@
             </div>
 
             <div style="margin-top: 10px;">
-              <button type="button" class="btn btn-gold btn-liquid-gold pulse-gold" onclick="openZeffyModal(event)" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 24px; font-size: 1.05rem; font-weight: 700; border-radius: 999px; cursor: pointer; box-shadow: 0 8px 24px rgba(154, 111, 26, 0.35);">
-                <span>🌱 Plant Your $1 Community Seed</span>
+              <a href="#zeffy-inline-box" class="btn btn-gold btn-liquid-gold pulse-gold" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 24px; font-size: 1.05rem; font-weight: 700; border-radius: 999px; cursor: pointer; text-decoration: none; box-shadow: 0 8px 24px rgba(154, 111, 26, 0.35);">
+                <span>🌱 Plant Your $1 Seed Right Here</span>
                 <span style="font-size: 1.15rem;">→</span>
-              </button>
+              </a>
               <div style="text-align: center; margin-top: 12px; font-size: 0.82rem; color: #CBD7D0; display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap;">
                 <span>🔒 Verified 501(c)(3) Giving via Zeffy</span>
                 <span>•</span>
@@ -858,7 +841,7 @@
           <div style="display: flex; flex-direction: column; gap: 18px;">
             
             <!-- Live Inline Zeffy Giving Box -->
-            <div class="card-3d-hover zeffy-live-box-card" style="background: rgba(255, 255, 255, 0.09); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1.5px solid rgba(197, 154, 63, 0.45); border-radius: 16px; padding: 22px 20px; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22); color: #F6F3EC;">
+            <div id="zeffy-inline-box" class="card-3d-hover zeffy-live-box-card" style="background: rgba(255, 255, 255, 0.09); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1.5px solid rgba(197, 154, 63, 0.45); border-radius: 16px; padding: 22px 20px; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22); color: #F6F3EC;">
               <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
                 <h3 style="font-family: 'Cinzel', serif; font-size: 1.15rem; font-weight: 700; color: #F8D98C; margin: 0; display: flex; align-items: center; gap: 8px;">
                   <span>✦ Plant Your $1 Seed</span>
@@ -884,14 +867,14 @@
                 </iframe>
               </div>
 
-              <!-- Quick Action & Fallback Row -->
-              <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; border-top: 1px solid rgba(197, 154, 63, 0.22); padding-top: 12px;">
-                <a href="https://www.zeffy.com/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation" target="_blank" rel="noopener noreferrer" class="btn btn-gold btn-liquid-gold pulse-gold" style="font-size: 0.80rem; padding: 9px 18px; border-radius: 999px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; cursor: pointer;">
-                  <span>🌱 Open Direct Zeffy Window</span>
-                  <span>↗</span>
-                </a>
-                <span style="font-size: 0.74rem; color: #CBD7D0; display: inline-flex; align-items: center; gap: 4px;">
-                  <span>🔒 Apple &amp; Google Pay Ready</span>
+              <!-- Direct On-Site Security Guarantee (Keeps people on our site) -->
+              <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; border-top: 1px solid rgba(197, 154, 63, 0.22); padding-top: 12px; font-size: 0.80rem; color: #CBD7D0;">
+                <span style="display: inline-flex; align-items: center; gap: 6px;">
+                  <span>🔒</span>
+                  <span>100% Secure On-Site Giving</span>
+                </span>
+                <span style="font-size: 0.76rem; color: #F8D98C; display: inline-flex; align-items: center; gap: 4px; font-weight: 600;">
+                  <span>✓ 1-Tap Apple Pay &amp; Google Pay</span>
                 </span>
               </div>
             </div>
@@ -1646,13 +1629,7 @@
         💡 1-Tap Pro Tip: Choose $1/Monthly, tap <strong>'Other → $0'</strong> on the optional Zeffy tip so you pay <strong>$1.00 flat</strong>, and double-click Apple Pay or Google Pay!
       </div>
 
-      <!-- Quick Direct 1-Tap Giving Bar (Zero-Risk Instant Checkout) -->
-      <div style="background:#F6F2E9; padding:12px 18px; text-align:center; border-bottom:1px solid rgba(154,111,26,0.25);">
-        <a id="modal-direct-launch-btn" href="https://www.zeffy.com/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation" target="_blank" rel="noopener noreferrer" class="btn btn-gold btn-liquid-gold pulse-gold zeffy-direct-link" style="display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:12px 24px; font-size:0.95rem; border-radius:999px; text-decoration:none; width:100%; max-width:440px; margin:0 auto; box-sizing:border-box;">
-          <span>🌱 Plant $1 Seed with 1-Tap (Apple Pay • Google Pay)</span>
-          <span style="font-size:1.15rem;">↗</span>
-        </a>
-      </div>
+      
 
       <div class="zeffy-modal-frame-wrap" style="background:#F6F2E9;">
         <iframe
