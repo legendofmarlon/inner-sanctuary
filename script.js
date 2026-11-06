@@ -88,10 +88,10 @@ document.addEventListener('DOMContentLoaded', () => {
       air: {
         shortName: "Air",
         icon: "🌬️",
-        name: "🌬️ Air & Mountain Breeze Sanctuary",
-        quote: "Unburdening the chest. Deep mountain air opening space for clarity.",
+        name: "🌬️ Air & Ocean Breeze Sanctuary",
+        quote: "Unburdening the chest. Open ocean breeze creating space for clarity and weightless peace.",
         bg: "#F2F5F8",
-        soundLabel: "Gentle Mountain Wind & Airy Breeze"
+        soundLabel: "Gentle Ocean Wind & Airy Breeze"
       },
       fire: {
         shortName: "Fire",
