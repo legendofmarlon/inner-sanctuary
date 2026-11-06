@@ -3574,3 +3574,363 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
     initInteractiveSky();
   }
+
+  // =========================================================================
+  // REAL INSTAGRAM STORY (9:16) CANVAS SNAPSHOT GENERATOR
+  // =========================================================================
+  window.currentStoryData = {
+    quote: "Where in your body are you holding yesterday? Soften your jaw, drop your shoulders, and let this breath belong only to right now.",
+    badge: "✦ DAILY SANCTUARY REFLECTION ✦",
+    source: "— Inner Sanctuary Daily Reflection",
+    filename: "inner-sanctuary-reflection.png"
+  };
+
+  window.openStorySnapshotFromReflection = function(e) {
+    if (e) e.preventDefault();
+    const currentItem = (typeof SANCTUARY_REFLECTIONS !== 'undefined' && typeof currentReflectionIndex !== 'undefined')
+      ? SANCTUARY_REFLECTIONS[currentReflectionIndex]
+      : null;
+
+    const quote = currentItem ? currentItem.quote : (document.getElementById('reflectionCardQuote')?.textContent?.trim() || "Pause. Breathe. Remember.");
+    const badge = currentItem ? `✦ ${currentItem.category} ✦` : "✦ DAILY SANCTUARY REFLECTION ✦";
+
+    window.currentStoryData = {
+      quote: quote,
+      badge: badge,
+      source: "— Inner Sanctuary Daily Reflection",
+      filename: "inner-sanctuary-daily-reflection.png"
+    };
+
+    renderAndShowStoryModal();
+  };
+
+  window.openStorySnapshotFromSpark = function(e) {
+    if (e) e.preventDefault();
+    const quoteEl = document.getElementById('sparkQuote');
+    const quote = quoteEl ? quoteEl.textContent.trim().replace(/^"|"$/g, '') : "Rooted in grace, held in softness, glowing from within. Breathe in permission.";
+    const summaryEl = document.getElementById('sparkBeadSummary');
+    const summary = summaryEl ? summaryEl.textContent.trim() : "Mindful Intention Weave";
+
+    window.currentStoryData = {
+      quote: quote,
+      badge: "✦ MY SANCTUARY SPARK ✦",
+      source: `— Inner Sanctuary Spark • ${summary}`,
+      filename: "inner-sanctuary-spark.png"
+    };
+
+    renderAndShowStoryModal();
+  };
+
+  function renderAndShowStoryModal() {
+    const modal = document.getElementById('igStoryModal');
+    const canvas = document.getElementById('igStoryCanvas');
+    const previewImg = document.getElementById('igStoryPreviewImg');
+    if (!canvas || !modal) return;
+
+    const ctx = canvas.getContext('2d');
+    const W = 1080;
+    const H = 1920;
+
+    // 1. Draw Deep Forest Gradient Background
+    const bgGrad = ctx.createLinearGradient(0, 0, 0, H);
+    bgGrad.addColorStop(0, '#121F17');
+    bgGrad.addColorStop(0.35, '#1C2E24');
+    bgGrad.addColorStop(0.75, '#263D30');
+    bgGrad.addColorStop(1, '#15241B');
+    ctx.fillStyle = bgGrad;
+    ctx.fillRect(0, 0, W, H);
+
+    // 2. Radial Golden Aura at top and center
+    const topAura = ctx.createRadialGradient(W / 2, 280, 20, W / 2, 280, 480);
+    topAura.addColorStop(0, 'rgba(248, 217, 140, 0.22)');
+    topAura.addColorStop(0.6, 'rgba(197, 154, 63, 0.08)');
+    topAura.addColorStop(1, 'rgba(197, 154, 63, 0)');
+    ctx.fillStyle = topAura;
+    ctx.fillRect(0, 0, W, 800);
+
+    const centerAura = ctx.createRadialGradient(W / 2, H / 2, 50, W / 2, H / 2, 550);
+    centerAura.addColorStop(0, 'rgba(248, 217, 140, 0.12)');
+    centerAura.addColorStop(1, 'rgba(0, 0, 0, 0)');
+    ctx.fillStyle = centerAura;
+    ctx.fillRect(0, 600, W, 900);
+
+    // 3. Stardust Motes
+    ctx.fillStyle = 'rgba(248, 217, 140, 0.4)';
+    const motes = [
+      [120, 320, 3], [940, 260, 2.5], [180, 850, 2], [900, 920, 3],
+      [140, 1550, 3.5], [920, 1620, 2], [320, 180, 2], [760, 210, 2.5],
+      [250, 1400, 2], [820, 1340, 3]
+    ];
+    motes.forEach(([x, y, r]) => {
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    // 4. Elegant Outer Gold Border
+    ctx.strokeStyle = 'rgba(248, 217, 140, 0.45)';
+    ctx.lineWidth = 3;
+    ctx.strokeRect(54, 54, W - 108, H - 108);
+
+    ctx.strokeStyle = 'rgba(197, 154, 63, 0.25)';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(66, 66, W - 132, H - 132);
+
+    // 4 Corner Gold Flourishes
+    ctx.fillStyle = '#F8D98C';
+    ctx.font = '24px Cinzel, serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('✦', 60, 60);
+    ctx.fillText('✦', W - 60, 60);
+    ctx.fillText('✦', 60, H - 60);
+    ctx.fillText('✦', W - 60, H - 60);
+
+    // 5. Load and Draw Emblem Image
+    const emblemImg = new Image();
+    emblemImg.crossOrigin = 'anonymous';
+    emblemImg.onload = function() {
+      drawEmblemAndFinish();
+    };
+    emblemImg.onerror = function() {
+      // If image fails, finish without image
+      drawCardDetails(null);
+    };
+    emblemImg.src = 'emblem.png';
+
+    function drawEmblemAndFinish() {
+      drawCardDetails(emblemImg);
+    }
+
+    function drawCardDetails(img) {
+      // Draw Emblem at top
+      const emblemY = 240;
+      const emblemSize = 170;
+      if (img) {
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(W / 2, emblemY, emblemSize / 2, 0, Math.PI * 2);
+        ctx.closePath();
+        ctx.clip();
+        ctx.drawImage(img, W / 2 - emblemSize / 2, emblemY - emblemSize / 2, emblemSize, emblemSize);
+        ctx.restore();
+
+        // Gold Ring around Emblem
+        ctx.beginPath();
+        ctx.arc(W / 2, emblemY, emblemSize / 2 + 4, 0, Math.PI * 2);
+        ctx.strokeStyle = '#F8D98C';
+        ctx.lineWidth = 4;
+        ctx.stroke();
+      }
+
+      // 6. Header Typography
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = '700 44px Cinzel, serif';
+      ctx.fillText('INNER SANCTUARY', W / 2, 385);
+
+      ctx.fillStyle = '#F8D98C';
+      ctx.font = '800 20px Montserrat, sans-serif';
+      ctx.fillText('W E L L N E S S   F O U N D A T I O N', W / 2, 428);
+
+      // 7. Category Pill Badge
+      const badgeText = window.currentStoryData.badge || '✦ DAILY SANCTUARY REFLECTION ✦';
+      ctx.font = '800 22px Montserrat, sans-serif';
+      const badgeWidth = ctx.measureText(badgeText).width + 50;
+      const badgeY = 505;
+      
+      ctx.fillStyle = 'rgba(248, 217, 140, 0.18)';
+      ctx.beginPath();
+      roundRect(ctx, W / 2 - badgeWidth / 2, badgeY, badgeWidth, 44, 22);
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(248, 217, 140, 0.6)';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      ctx.fillStyle = '#F8D98C';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(badgeText, W / 2, badgeY + 22);
+
+      // 8. Frosted Glass Quote Card Frame
+      const cardX = 90;
+      const cardY = 590;
+      const cardW = W - 180;
+      const cardH = 880;
+
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.07)';
+      ctx.beginPath();
+      roundRect(ctx, cardX, cardY, cardW, cardH, 32);
+      ctx.fill();
+
+      ctx.strokeStyle = 'rgba(248, 217, 140, 0.35)';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // Top flourish divider
+      ctx.fillStyle = '#F8D98C';
+      ctx.font = '22px Cinzel, serif';
+      ctx.fillText('✦  ✦  ✦', W / 2, cardY + 55);
+
+      // Giant decorative quote mark
+      ctx.font = 'italic 140px "Cormorant Garamond", Georgia, serif';
+      ctx.fillStyle = 'rgba(248, 217, 140, 0.28)';
+      ctx.textAlign = 'left';
+      ctx.fillText('“', cardX + 50, cardY + 160);
+
+      // 9. Auto-Wrapped Quote Text
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#FFFDF5';
+      ctx.font = 'italic 46px "Cormorant Garamond", Georgia, serif';
+      
+      const cleanQuote = window.currentStoryData.quote.replace(/^"|"$/g, '');
+      const maxTextWidth = cardW - 140;
+      const lineHeight = 72;
+      const words = cleanQuote.split(' ');
+      const lines = [];
+      let currentLine = words[0];
+
+      for (let i = 1; i < words.length; i++) {
+        const testLine = currentLine + ' ' + words[i];
+        const testWidth = ctx.measureText(testLine).width;
+        if (testWidth < maxTextWidth) {
+          currentLine = testLine;
+        } else {
+          lines.push(currentLine);
+          currentLine = words[i];
+        }
+      }
+      lines.push(currentLine);
+
+      // Center quote vertically within card
+      const totalBlockHeight = lines.length * lineHeight;
+      let startY = cardY + 220 + (cardH - 340 - totalBlockHeight) / 2;
+      if (startY < cardY + 160) startY = cardY + 160;
+
+      lines.forEach((line, idx) => {
+        ctx.fillText(line, W / 2, startY + (idx * lineHeight));
+      });
+
+      // Bottom source attribution inside card
+      ctx.font = '600 24px Montserrat, sans-serif';
+      ctx.fillStyle = '#CBD7D0';
+      ctx.fillText(window.currentStoryData.source || '— Inner Sanctuary Reflection', W / 2, cardY + cardH - 65);
+
+      // 10. Footer Sanctuary Signature & Social Handles
+      ctx.font = '700 30px Cinzel, serif';
+      ctx.fillStyle = '#F8D98C';
+      ctx.fillText('Pause.  Breathe.  Remember.', W / 2, 1560);
+
+      ctx.font = '700 22px Montserrat, sans-serif';
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fillText('@ourinnersanctuary  •  innersanctuarywellnessfoundation.org', W / 2, 1615);
+
+      ctx.font = '500 19px Montserrat, sans-serif';
+      ctx.fillStyle = '#8EA89A';
+      ctx.fillText('501(c)(3) Nonprofit Public Charity  •  Santa Ana, California', W / 2, 1660);
+
+      // 11. Export to Preview Image & Display Modal
+      const dataUrl = canvas.toDataURL('image/png');
+      if (previewImg) previewImg.src = dataUrl;
+      modal.style.display = 'flex';
+      modal.setAttribute('aria-hidden', 'false');
+    }
+
+    function roundRect(c, x, y, w, h, r) {
+      c.beginPath();
+      c.moveTo(x + r, y);
+      c.arcTo(x + w, y, x + w, y + h, r);
+      c.arcTo(x + w, y + h, x, y + h, r);
+      c.arcTo(x, y + h, x, y, r);
+      c.arcTo(x, y, x + w, y, r);
+      c.closePath();
+    }
+  }
+
+  window.closeIgStoryModal = function() {
+    const modal = document.getElementById('igStoryModal');
+    if (modal) {
+      modal.style.display = 'none';
+      modal.setAttribute('aria-hidden', 'true');
+    }
+  };
+
+  window.downloadIgStoryImage = function() {
+    const canvas = document.getElementById('igStoryCanvas');
+    if (!canvas) return;
+
+    canvas.toBlob(blob => {
+      if (!blob) return;
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = window.currentStoryData.filename || 'inner-sanctuary-story.png';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      const toast = document.getElementById('igStoryToast');
+      if (toast) {
+        toast.textContent = '✓ 9:16 Story card downloaded! Open Instagram to share to Story.';
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 3500);
+      }
+    }, 'image/png');
+  };
+
+  window.shareToNativeInstagram = async function() {
+    const canvas = document.getElementById('igStoryCanvas');
+    if (!canvas) return;
+
+    canvas.toBlob(async blob => {
+      if (!blob) return;
+      const filename = window.currentStoryData.filename || 'inner-sanctuary-story.png';
+      const file = new File([blob], filename, { type: 'image/png' });
+
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        try {
+          await navigator.share({
+            files: [file],
+            title: 'Inner Sanctuary Daily Reflection',
+            text: `"${window.currentStoryData.quote}" — @ourinnersanctuary`
+          });
+          return;
+        } catch (err) {
+          // User cancelled or share failed, fallback below
+        }
+      }
+
+      // Desktop fallback: Download image and prompt user
+      window.downloadIgStoryImage();
+      window.open('https://www.instagram.com/', '_blank');
+    }, 'image/png');
+  };
+
+  window.copyStoryQuoteText = function() {
+    const quote = window.currentStoryData ? window.currentStoryData.quote : '';
+    const textToCopy = `"${quote}"\n\n— Inner Sanctuary Wellness Foundation ✦ @ourinnersanctuary`;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(textToCopy).catch(() => {});
+    }
+    const toast = document.getElementById('igStoryToast');
+    if (toast) {
+      toast.textContent = '✓ Quote text copied to clipboard!';
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+  };
+
+  // Close modal when clicking backdrop
+  window.addEventListener('click', (e) => {
+    const modal = document.getElementById('igStoryModal');
+    if (modal && e.target === modal) {
+      window.closeIgStoryModal();
+    }
+  });
+
+  // Close modal on Escape
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      window.closeIgStoryModal();
+    }
+  });

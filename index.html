@@ -433,9 +433,9 @@
             <span id="btnCopyReflectionIcon">📋</span>
             <span id="btnCopyReflectionLabel">Copy Reflection</span>
           </button>
-          <a href="https://www.instagram.com/ourinnersanctuary/" target="_blank" rel="noopener noreferrer" class="btn-reflection-action btn-reflection-share" id="btnShareIG" title="Share reflection on Instagram">
-            <span>📸 Share to Instagram</span>
-          </a>
+          <button type="button" class="btn-reflection-action btn-reflection-share" id="btnShareIG" onclick="openStorySnapshotFromReflection(event)" title="Create 9:16 Instagram Story snapshot card">
+            <span>📸 Share to IG Story</span>
+          </button>
         </div>
         
         <!-- Copy Toast Notification -->
@@ -1089,9 +1089,9 @@
               <span id="btnCopySparkIcon">📋</span>
               <span id="btnCopySparkLabel">Copy My Sanctuary Spark</span>
             </button>
-            <a href="https://www.instagram.com/ourinnersanctuary/" target="_blank" rel="noopener noreferrer" class="btn-spark-action btn-spark-share">
-              <span>📸 Share to Instagram Story</span>
-            </a>
+            <button type="button" class="btn-spark-action btn-spark-share" id="btnShareSparkIG" onclick="openStorySnapshotFromSpark(event)" title="Create 9:16 Instagram Story snapshot card">
+              <span>📸 Share to IG Story</span>
+            </button>
             <button type="button" class="btn-spark-reset" id="btnResetBracelet">
               <span>🔄 Weave Another Bracelet</span>
             </button>
@@ -1963,6 +1963,41 @@
         <div id="wheelModalCaption" class="wheel-modal-caption">Raw Vocal Resonance • Community Singer at Cafe 86</div>
         <div id="wheelModalCounter" class="wheel-modal-counter">Photo 1 of 5</div>
       </div>
+    </div>
+  </div>
+
+
+  <!-- ==================== REAL INSTAGRAM STORY SNAPSHOT MODAL ==================== -->
+  <div id="igStoryModal" class="ig-story-modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true" style="display: none;">
+    <div class="ig-story-modal-dialog">
+      <button type="button" class="ig-story-modal-close" aria-label="Close story preview" onclick="closeIgStoryModal()">&times;</button>
+      
+      <div class="ig-story-modal-header">
+        <span class="ig-story-badge">✦ INSTAGRAM STORY SNAPSHOT</span>
+        <h3 class="ig-story-title serif-brand">Your Sanctuary Story Card</h3>
+        <p class="ig-story-sub">Save this 9:16 high-resolution card directly to your camera roll or share to Instagram Stories.</p>
+      </div>
+
+      <!-- Canvas (Offscreen render) and Live Preview -->
+      <canvas id="igStoryCanvas" width="1080" height="1920" style="display: none;"></canvas>
+      <div class="ig-story-preview-stage">
+        <img id="igStoryPreviewImg" alt="Sanctuary Instagram Story Preview" class="ig-story-preview-img">
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="ig-story-actions">
+        <button type="button" class="btn btn-gold btn-liquid-gold pulse-gold ig-btn-action" id="btnDownloadStory" onclick="downloadIgStoryImage()">
+          <span>💾 Save Image to Photos</span>
+        </button>
+        <button type="button" class="btn btn-outline-gold ig-btn-action" id="btnNativeShareStory" onclick="shareToNativeInstagram()">
+          <span>📱 Share to Stories</span>
+        </button>
+        <button type="button" class="btn-copy-quote-clean ig-btn-action" id="btnCopyStoryText" onclick="copyStoryQuoteText()">
+          <span>📋 Copy Text</span>
+        </button>
+      </div>
+      
+      <div id="igStoryToast" class="ig-story-toast" role="status" aria-live="polite">✓ Story image downloaded! Ready to add to your IG Story.</div>
     </div>
   </div>
 
