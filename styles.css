@@ -6711,24 +6711,35 @@ body[data-element="ether"] nav::after {
 }
 
 .bead-palette-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-  gap: 12px;
-  max-width: 780px;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 10px;
+  max-width: 880px;
   margin: 0 auto 24px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding: 4px 6px 14px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(197, 154, 63, 0.4) transparent;
 }
 
 .bead-btn {
-  background: rgba(250, 248, 243, 0.9);
+  flex: 1 1 0;
+  min-width: 105px;
+  max-width: 140px;
+  background: rgba(250, 248, 243, 0.92);
   border: 1.5px solid rgba(197, 154, 63, 0.3);
   border-radius: 14px;
-  padding: 14px 10px;
+  padding: 14px 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
   cursor: pointer;
   transition: all 0.22s ease;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  user-select: none;
 }
 
 .bead-btn:hover {
@@ -7109,4 +7120,179 @@ body[data-element="ether"] nav::after {
     transform: translate3d(-2vw, 112vh, 0) rotate(14deg);
     opacity: 0;
   }
+}
+
+
+.swallow {
+  position: absolute;
+  width: 44px;
+  height: 28px;
+  color: #FFFFFF;
+  filter: drop-shadow(0 2px 10px rgba(197, 154, 63, 0.65)) drop-shadow(0 0 14px rgba(255, 255, 255, 0.95));
+  will-change: transform;
+  pointer-events: auto;
+  cursor: pointer;
+  transition: filter 0.3s ease;
+}
+
+.swallow:hover {
+  filter: drop-shadow(0 4px 14px rgba(248, 217, 140, 0.9)) drop-shadow(0 0 20px #FFFFFF) scale(1.1);
+}
+
+.swallow svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Seabird 1: Bold sweeping glider in mid-sky, active immediately */
+.swallow-1 {
+  top: 16%;
+  left: -50px;
+  opacity: 0.88;
+  animation: seabirdGlide1 24s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
+  animation-delay: 0.5s;
+}
+
+/* Seabird 2: Companion seabird in gentle lower thermal current */
+.swallow-2 {
+  top: 24%;
+  left: -50px;
+  transform: scale(0.85);
+  opacity: 0.80;
+  animation: seabirdGlide2 29s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
+  animation-delay: 6s;
+}
+
+/* Seabird 3: Higher altitude serene glider */
+.swallow-3 {
+  top: 10%;
+  left: -50px;
+  transform: scale(0.68);
+  opacity: 0.72;
+  animation: seabirdGlide3 34s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
+  animation-delay: 13s;
+}
+
+/* Seabird 4: Graceful follower gliding across horizon */
+.swallow-4 {
+  top: 32%;
+  left: -50px;
+  transform: scale(0.92);
+  opacity: 0.85;
+  animation: seabirdGlide4 26s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
+  animation-delay: 18s;
+}
+
+@keyframes seabirdGlide1 {
+  0% { transform: translate3d(-60px, 0, 0) rotate(7deg); }
+  25% { transform: translate3d(28vw, 3vh, 0) rotate(1deg); }
+  50% { transform: translate3d(58vw, -2vh, 0) rotate(-5deg); }
+  75% { transform: translate3d(85vw, 2vh, 0) rotate(-1deg); }
+  100% { transform: translate3d(108vw, -6vh, 0) rotate(-8deg); }
+}
+
+@keyframes seabirdGlide2 {
+  0% { transform: translate3d(-60px, 0, 0) scale(0.85) rotate(10deg); }
+  30% { transform: translate3d(32vw, 5vh, 0) scale(0.85) rotate(3deg); }
+  65% { transform: translate3d(68vw, 0vh, 0) scale(0.85) rotate(-4deg); }
+  100% { transform: translate3d(110vw, -3vh, 0) scale(0.85) rotate(-6deg); }
+}
+
+@keyframes seabirdGlide3 {
+  0% { transform: translate3d(-60px, 0, 0) scale(0.68) rotate(5deg); }
+  50% { transform: translate3d(52vw, 3vh, 0) scale(0.68) rotate(-3deg); }
+  100% { transform: translate3d(110vw, -2vh, 0) scale(0.68) rotate(-6deg); }
+}
+
+@keyframes seabirdGlide4 {
+  0% { transform: translate3d(-60px, 0, 0) scale(0.92) rotate(8deg); }
+  35% { transform: translate3d(38vw, 4vh, 0) scale(0.92) rotate(-2deg); }
+  70% { transform: translate3d(74vw, 1vh, 0) scale(0.92) rotate(2deg); }
+  100% { transform: translate3d(110vw, -5vh, 0) scale(0.92) rotate(-7deg); }
+}
+
+/* Delicate White Feathers Drifting on Ocean Thermal Currents - Prominent & Interactive */
+.ambient-feather {
+  position: absolute;
+  pointer-events: auto;
+  cursor: pointer;
+  z-index: 1;
+  filter: drop-shadow(0 4px 12px rgba(255, 255, 255, 0.9)) drop-shadow(0 4px 16px rgba(197, 154, 63, 0.45));
+  will-change: transform;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.ambient-feather:hover {
+  filter: drop-shadow(0 0 20px #FFFFFF) drop-shadow(0 0 28px rgba(248, 217, 140, 0.9));
+  transform: scale(1.28) rotate(35deg) !important;
+}
+
+.feather-1 {
+  width: 28px;
+  height: 56px;
+  top: -60px;
+  left: 15%;
+  animation: featherDrift1 26s ease-in-out infinite;
+  animation-delay: 0.5s;
+}
+
+.feather-2 {
+  width: 22px;
+  height: 44px;
+  top: -50px;
+  left: 55%;
+  animation: featherDrift2 32s ease-in-out infinite;
+  animation-delay: 7s;
+}
+
+.feather-3 {
+  width: 20px;
+  height: 40px;
+  top: -45px;
+  left: 82%;
+  animation: featherDrift3 28s ease-in-out infinite;
+  animation-delay: 3s;
+}
+
+.feather-4 {
+  width: 26px;
+  height: 52px;
+  top: -55px;
+  left: 36%;
+  animation: featherDrift4 34s ease-in-out infinite;
+  animation-delay: 14s;
+}
+
+@keyframes featherDrift1 {
+  0% { transform: translate3d(0, 0, 0) rotate(16deg); opacity: 0; }
+  10% { opacity: 0.96; }
+  30% { transform: translate3d(8vw, 28vh, 0) rotate(-16deg); }
+  55% { transform: translate3d(3vw, 58vh, 0) rotate(24deg); }
+  80% { transform: translate3d(12vw, 86vh, 0) rotate(-10deg); opacity: 0.92; }
+  100% { transform: translate3d(16vw, 114vh, 0) rotate(28deg); opacity: 0; }
+}
+
+@keyframes featherDrift2 {
+  0% { transform: translate3d(0, 0, 0) rotate(-14deg); opacity: 0; }
+  12% { opacity: 0.92; }
+  38% { transform: translate3d(-7vw, 34vh, 0) rotate(18deg); }
+  68% { transform: translate3d(4vw, 72vh, 0) rotate(-20deg); opacity: 0.88; }
+  100% { transform: translate3d(-3vw, 114vh, 0) rotate(16deg); opacity: 0; }
+}
+
+@keyframes featherDrift3 {
+  0% { transform: translate3d(0, 0, 0) rotate(12deg); opacity: 0; }
+  15% { opacity: 0.90; }
+  45% { transform: translate3d(-6vw, 42vh, 0) rotate(-14deg); }
+  75% { transform: translate3d(5vw, 80vh, 0) rotate(20deg); opacity: 0.85; }
+  100% { transform: translate3d(2vw, 114vh, 0) rotate(-8deg); opacity: 0; }
+}
+
+@keyframes featherDrift4 {
+  0% { transform: translate3d(0, 0, 0) rotate(-18deg); opacity: 0; }
+  12% { opacity: 0.94; }
+  40% { transform: translate3d(9vw, 38vh, 0) rotate(22deg); }
+  72% { transform: translate3d(-2vw, 76vh, 0) rotate(-16deg); opacity: 0.88; }
+  100% { transform: translate3d(8vw, 114vh, 0) rotate(24deg); opacity: 0; }
 }

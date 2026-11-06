@@ -3498,3 +3498,79 @@ document.addEventListener('DOMContentLoaded', () => {
       if (e.target === modalElem) window.closePhotoWheelModal();
     });
   }
+
+  // =========================================================================
+  // INTERACTIVE BREEZE & SKY SANCTUARY PHYSICS ENGINE
+  // =========================================================================
+  function initInteractiveSky() {
+    const feathers = document.querySelectorAll('.ambient-feather');
+    const seabirds = document.querySelectorAll('.swallow');
+    if (!feathers.length && !seabirds.length) return;
+
+    // Interactive Click / Tap Flurry for Feathers
+    feathers.forEach(feather => {
+      function triggerFeatherGust(e) {
+        if (e) e.stopPropagation();
+        feather.style.transition = 'transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.5s ease';
+        feather.style.filter = 'drop-shadow(0 0 24px #FFFFFF) drop-shadow(0 0 32px rgba(248, 217, 140, 0.95))';
+        feather.style.transform = 'scale(1.4) rotate(380deg) translate3d(0, -40px, 0)';
+        
+        setTimeout(() => {
+          feather.style.transform = '';
+          feather.style.filter = '';
+          setTimeout(() => {
+            feather.style.transition = '';
+          }, 600);
+        }, 850);
+      }
+
+      feather.addEventListener('click', triggerFeatherGust);
+      feather.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          triggerFeatherGust();
+        }
+      });
+    });
+
+    // Interactive Soar for Seabirds
+    seabirds.forEach(bird => {
+      bird.addEventListener('click', (e) => {
+        e.stopPropagation();
+        bird.style.transition = 'transform 1s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.6s ease';
+        bird.style.filter = 'drop-shadow(0 0 24px #FFFFFF) drop-shadow(0 0 36px rgba(248, 217, 140, 1))';
+        bird.style.transform = 'scale(1.3) translateY(-30px) rotate(-14deg)';
+        setTimeout(() => {
+          bird.style.transform = '';
+          bird.style.filter = '';
+          setTimeout(() => {
+            bird.style.transition = '';
+          }, 800);
+        }, 1100);
+      });
+    });
+
+    // Subtle Wind Lift Vector on Mouse Movement
+    let mouseThrottle = 0;
+    window.addEventListener('mousemove', (e) => {
+      const now = performance.now();
+      if (now - mouseThrottle < 40) return;
+      mouseThrottle = now;
+
+      const normX = (e.clientX / window.innerWidth) - 0.5;
+      const normY = (e.clientY / window.innerHeight) - 0.5;
+
+      feathers.forEach((f, idx) => {
+        const factor = (idx + 1) * 6;
+        f.style.setProperty('--cursor-lift-x', normX * factor + 'px');
+        f.style.setProperty('--cursor-lift-y', normY * factor + 'px');
+      });
+    }, { passive: true });
+  }
+
+  // Auto-init interactive sky
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initInteractiveSky);
+  } else {
+    initInteractiveSky();
+  }
