@@ -86,6 +86,7 @@ body {
 
 /* ==================== ELEMENTAL SANCTUARY IMMERSION CANVASES ==================== */
 #elemental-sanctuary-bg,
+#sanctuary-3d-canvas,
 #forest-canvas {
   position: fixed;
   inset: 0;

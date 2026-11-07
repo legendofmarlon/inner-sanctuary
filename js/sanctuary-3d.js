@@ -123,7 +123,7 @@
 
   // Updatable items inside elements
   const updatables = {
-    air: { clouds: [], dandelions: [], ribbons: [], terrain: null, trees: [] },
+    air: { clouds: [], dandelions: [], ribbons: [], ocean: null, oceanCrest: null, terrain: null, trees: [] },
     earth: { leaves: [], fireflies: [], ground: null },
     water: { waterMesh: null, ripples: [], mist: [] },
     fire: { embers: [], hearthGlow: null },
@@ -240,56 +240,46 @@
   function buildAirWorld() {
     const group = elementGroups.air;
 
-    // A. DISTANT ROLLING NATURE HILLS & HORIZON
-    const terrainGeo = new THREE.PlaneGeometry(1600, 600, 40, 18);
-    terrainGeo.rotateX(-Math.PI * 0.44);
+    // A. 3D UNDULATING OCEAN WAVES & SWELL HORIZON (AIR & OCEAN BREEZE)
+    const oceanGeo = new THREE.PlaneGeometry(2400, 950, 72, 36);
+    oceanGeo.rotateX(-Math.PI * 0.46);
 
-    const pos = terrainGeo.attributes.position;
+    // Initial gentle undulating wave displacement
+    const pos = oceanGeo.attributes.position;
     for (let i = 0; i < pos.count; i++) {
       const vx = pos.getX(i);
       const vz = pos.getZ(i);
-      // Gentle natural elevation waves
-      const hill1 = Math.sin(vx * 0.005) * 55;
-      const hill2 = Math.cos(vz * 0.008) * 35;
-      const micro = Math.sin(vx * 0.02 + vz * 0.02) * 8;
-      pos.setY(i, hill1 + hill2 + micro - 120);
+      const initialSwell = Math.sin(vx * 0.009) * 8.0 + Math.cos(vz * 0.013) * 5.0;
+      pos.setY(i, initialSwell - 68);
     }
-    terrainGeo.computeVertexNormals();
+    oceanGeo.computeVertexNormals();
 
-    const terrainMat = new THREE.MeshLambertMaterial({
-      color: 0x547562, // Warm forest sage
-      roughness: 0.9,
-      flatShading: true,
+    const oceanMat = new THREE.MeshPhongMaterial({
+      color: 0x1E707F, // Luminous crystal turquoise
+      emissive: 0x061D24, // Deep sapphire depths
+      specular: 0xF8D98C, // Warm golden sunlight shimmer
+      shininess: 95,
+      flatShading: false,
       transparent: true,
-      opacity: 0.82
+      opacity: 0.64
     });
 
-    const terrain = new THREE.Mesh(terrainGeo, terrainMat);
-    terrain.position.set(0, -60, -380);
-    group.add(terrain);
-    updatables.air.terrain = terrain;
+    const ocean = new THREE.Mesh(oceanGeo, oceanMat);
+    ocean.position.set(0, -78, -260);
+    group.add(ocean);
+    updatables.air.ocean = ocean;
 
-    // B. DISTANT PINE TREES ON RIDGES
-    const treeGeo = new THREE.ConeGeometry(5, 18, 5);
-    const treeMat = new THREE.MeshLambertMaterial({
-      color: 0x365042,
-      flatShading: true,
+    // Crystalline Seafoam Wave Crest Highlights Layer
+    const crestMat = new THREE.MeshBasicMaterial({
+      color: 0xFFFFFF,
+      wireframe: true,
       transparent: true,
-      opacity: 0.8
+      opacity: 0.15
     });
-
-    for (let i = 0; i < 45; i++) {
-      const tree = new THREE.Mesh(treeGeo, treeMat);
-      const tx = (Math.random() - 0.5) * 1100;
-      const tz = -250 - Math.random() * 250;
-      const ty = Math.sin(tx * 0.005) * 45 - 85;
-      tree.position.set(tx, ty, tz);
-      const s = 0.8 + Math.random() * 1.4;
-      tree.scale.set(s, s, s);
-      tree.userData = { initialRotZ: 0, swaySpeed: 1.2 + Math.random() * 1.5, phase: Math.random() * Math.PI * 2 };
-      group.add(tree);
-      updatables.air.trees.push(tree);
-    }
+    const oceanCrest = new THREE.Mesh(oceanGeo, crestMat);
+    oceanCrest.position.set(0, -77.5, -260);
+    group.add(oceanCrest);
+    updatables.air.oceanCrest = oceanCrest;
 
     // C. PROCEDURAL VOLUMETRIC CUMULUS CLOUDS
     const cloudMat = new THREE.MeshLambertMaterial({
@@ -716,10 +706,23 @@
         if (d.position.y < -60) d.position.y = 120;
       });
 
-      // 4. Distant Ridge Trees swaying in breeze
-      updatables.air.trees.forEach(t => {
-        t.rotation.z = Math.sin(time * t.userData.swaySpeed + t.userData.phase) * 0.04;
-      });
+            // 4. Dynamic 3D Ocean Waves & Swell Simulation
+      if (updatables.air.ocean) {
+        const pos = updatables.air.ocean.geometry.attributes.position;
+        for (let i = 0; i < pos.count; i++) {
+          const vx = pos.getX(i);
+          const vz = pos.getZ(i);
+          // Rhythmic harmonic rolling swells
+          const swell1 = Math.sin(vx * 0.009 + time * 1.5) * 8.0;
+          const swell2 = Math.cos(vz * 0.013 + time * 1.1) * 5.2;
+          const ripple = Math.sin((vx + vz) * 0.032 + time * 2.4) * 2.2;
+          // Responsive interactive cursor wave currents
+          const cursorCurrent = Math.sin(vx * 0.018 - mouse.x * 3.5) * Math.cos(vz * 0.018 - mouse.y * 3.5) * 3.6;
+          pos.setY(i, swell1 + swell2 + ripple + cursorCurrent - 68);
+        }
+        pos.needsUpdate = true;
+        updatables.air.ocean.geometry.computeVertexNormals();
+      }
 
     } else if (currentElement === 'earth') {
       // 1. Tumbling Botanical Leaves
