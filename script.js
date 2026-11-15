@@ -2156,17 +2156,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const p = phaseElapsed / PHASE_DURATION_MS; // 0.0 to 1.0
     const ease = (1 - Math.cos(p * Math.PI)) / 2;
 
-    // Trigger soothing breath sounds right at phase transition (solid 4.0s)
+    // Trigger soothing breath sounds and update phase copy ONCE right at transition
     if (phaseIndex !== lastTriggeredPhase) {
       lastTriggeredPhase = phaseIndex;
       if (phaseIndex === 0) {
         breathAudio.playInhale(4.0);
+        if (orbBreathWord) orbBreathWord.textContent = 'Inhale';
+        if (orbStatusPrompt) orbStatusPrompt.textContent = 'Breathe in deeply...';
       } else {
         breathAudio.playExhale(4.0);
+        if (orbBreathWord) orbBreathWord.textContent = 'Exhale';
+        if (orbStatusPrompt) orbStatusPrompt.textContent = 'Breathe out slowly...';
       }
     }
-
-    
 
     if (phaseIndex === 0) {
       // INHALE: Orb smoothly expands (1.00 -> 1.46) with warm inner glow
@@ -2177,22 +2179,15 @@ document.addEventListener('DOMContentLoaded', () => {
       const glowOpacity = 0.30 + ease * 0.60;
 
       if (somaticOrb) {
-        somaticOrb.style.transform = `scale(${orbScale.toFixed(3)})`;
-        somaticOrb.style.boxShadow = `0 ${(14 + ease * 14).toFixed(1)}px ${(40 + ease * 35).toFixed(1)}px rgba(0,0,0,0.65), 0 0 ${(55 + ease * 50).toFixed(1)}px rgba(212, 168, 79, ${(0.75 + ease * 0.25).toFixed(2)}), 0 0 ${(90 + ease * 60).toFixed(1)}px rgba(248, 217, 140, ${(0.45 + ease * 0.30).toFixed(2)}), inset 0 3px 14px rgba(255,255,255,0.95), inset 0 -8px 24px rgba(154, 111, 26, 0.75)`;
+        somaticOrb.style.transform = `scale3d(${orbScale.toFixed(3)}, ${orbScale.toFixed(3)}, 1)`;
       }
       if (somaticHalo) {
-        somaticHalo.style.transform = `scale(${haloScale.toFixed(3)})`;
+        somaticHalo.style.transform = `scale3d(${haloScale.toFixed(3)}, ${haloScale.toFixed(3)}, 1)`;
         somaticHalo.style.opacity = haloOpacity.toFixed(2);
       }
       if (orbInnerGlow) {
-        orbInnerGlow.style.transform = `scale(${glowScale.toFixed(3)})`;
+        orbInnerGlow.style.transform = `scale3d(${glowScale.toFixed(3)}, ${glowScale.toFixed(3)}, 1)`;
         orbInnerGlow.style.opacity = glowOpacity.toFixed(2);
-      }
-      if (orbBreathWord) {
-        orbBreathWord.textContent = 'Inhale';
-      }
-      if (orbStatusPrompt) {
-        orbStatusPrompt.textContent = 'Breathe in deeply...';
       }
     } else {
       // EXHALE: Orb smoothly releases and contracts (1.46 -> 1.00)
@@ -2203,30 +2198,19 @@ document.addEventListener('DOMContentLoaded', () => {
       const glowOpacity = 0.90 - ease * 0.60;
 
       if (somaticOrb) {
-        somaticOrb.style.transform = `scale(${orbScale.toFixed(3)})`;
-        somaticOrb.style.boxShadow = `0 ${(28 - ease * 14).toFixed(1)}px ${(75 - ease * 35).toFixed(1)}px rgba(0,0,0,0.65), 0 0 ${(105 - ease * 50).toFixed(1)}px rgba(212, 168, 79, ${(1.00 - ease * 0.25).toFixed(2)}), 0 0 ${(150 - ease * 60).toFixed(1)}px rgba(248, 217, 140, ${(0.75 - ease * 0.30).toFixed(2)}), inset 0 3px 14px rgba(255,255,255,0.95), inset 0 -8px 24px rgba(154, 111, 26, 0.75)`;
+        somaticOrb.style.transform = `scale3d(${orbScale.toFixed(3)}, ${orbScale.toFixed(3)}, 1)`;
       }
       if (somaticHalo) {
-        somaticHalo.style.transform = `scale(${haloScale.toFixed(3)})`;
+        somaticHalo.style.transform = `scale3d(${haloScale.toFixed(3)}, ${haloScale.toFixed(3)}, 1)`;
         somaticHalo.style.opacity = haloOpacity.toFixed(2);
       }
       if (orbInnerGlow) {
-        orbInnerGlow.style.transform = `scale(${glowScale.toFixed(3)})`;
+        orbInnerGlow.style.transform = `scale3d(${glowScale.toFixed(3)}, ${glowScale.toFixed(3)}, 1)`;
         orbInnerGlow.style.opacity = glowOpacity.toFixed(2);
-      }
-      if (orbBreathWord) {
-        orbBreathWord.textContent = 'Exhale';
-      }
-      if (orbStatusPrompt) {
-        orbStatusPrompt.textContent = 'Breathe out slowly...';
       }
     }
 
-    // Whole-Screen Atmospheric Inhale/Exhale Living Scale (1.000 to 1.026)
-    const bgScale = phaseIndex === 0 ? 1.00 + ease * 0.026 : 1.026 - ease * 0.026;
-    document.documentElement.style.setProperty('--breath-bg-scale', bgScale.toFixed(4));
-
-    // Sync ambient background canvas breathing aura
+    // Sync ambient background canvas breathing aura directly (zero DOM recalculations)
     if (window.sanctuaryBreathSync) {
       window.sanctuaryBreathSync.active = true;
       window.sanctuaryBreathSync.step = phaseIndex;
@@ -2252,6 +2236,10 @@ document.addEventListener('DOMContentLoaded', () => {
     lastReportedCycleIndex = -1;
     lastTriggeredPhase = -1;
 
+    const orbCard = document.querySelector('.sanctuary-orb-card');
+    if (orbCard) orbCard.classList.add('active');
+    if (somaticOrb) somaticOrb.classList.add('active');
+
     if (orbBtn) {
       orbBtn.classList.add('active');
     }
@@ -2273,16 +2261,16 @@ document.addEventListener('DOMContentLoaded', () => {
     lastTriggeredPhase = -1;
     cancelAnimationFrame(breathAnimId);
 
-    // Reset Whole-Screen Atmospheric Living Scale
-    document.documentElement.style.setProperty('--breath-bg-scale', '1.0');
+    const orbCard = document.querySelector('.sanctuary-orb-card');
+    if (orbCard) orbCard.classList.remove('active');
+    if (somaticOrb) somaticOrb.classList.remove('active');
 
     if (window.sanctuaryBreathSync) {
       window.sanctuaryBreathSync.active = false;
     }
 
     if (somaticOrb) {
-      somaticOrb.style.transform = 'scale(1.0)';
-      somaticOrb.style.boxShadow = '';
+      somaticOrb.style.transform = 'scale3d(1.0, 1.0, 1)';
     }
     if (somaticHalo) {
       somaticHalo.style.transform = 'scale(1.0)';

@@ -57,8 +57,7 @@ body {
   z-index: -1;
   overflow: hidden;
   will-change: transform;
-  transform: scale(var(--breath-bg-scale, 1.0));
-  transition: transform 0.12s linear;
+  transform: translate3d(0, 0, 0);
   background-image: 
     linear-gradient(180deg, rgba(220, 235, 222, 0.12) 0%, rgba(246, 243, 236, 0.05) 40%, rgba(246, 243, 236, 0.65) 82%, #F6F3EC 100%),
     url('images/nature-earth-8k.jpg');
@@ -4363,6 +4362,15 @@ body[data-element="earth"] {
 
 .sanctuary-orb-card .breathing-orb:hover {
   box-shadow: 0 18px 55px rgba(0, 0, 0, 0.75), 0 0 75px rgba(212, 168, 79, 0.95), 0 0 120px rgba(248, 217, 140, 0.65);
+}
+
+/* Eliminate jitter: Disable conflicting CSS transitions while JavaScript rAF is running */
+.sanctuary-orb-card.active .breathing-orb,
+.sanctuary-orb-card.active .breathing-halo-aura,
+.sanctuary-orb-card.active .orb-inner-glow,
+.sanctuary-orb-card.active #somatic-orb,
+#somatic-orb.active {
+  transition: none !important;
 }
 
 .orb-inner-glow {
