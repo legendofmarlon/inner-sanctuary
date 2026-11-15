@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Active Element State
-    let currentElement = 'earth';
+    let currentElement = 'fire';
 
     const elementThemes = {
       earth: {
@@ -1403,14 +1403,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function getThisWeeksSchedule() {
       const now = new Date();
-      // Monday-aligned week calculation
-      const d = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
-      const dayNum = d.getUTCDay() || 7;
-      d.setUTCDate(d.getUTCDate() + 4 - dayNum);
-      const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
-      const weekNo = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
-
-      // Current week date range string (Monday to Sunday)
       const currentDay = now.getDay();
       const diffToMonday = now.getDate() - currentDay + (currentDay === 0 ? -6 : 1);
       const monday = new Date(now.getFullYear(), now.getMonth(), diffToMonday);
@@ -1418,12 +1410,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const fmt = (dt) => dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
       const dateRangeStr = `${fmt(monday)} – ${fmt(sunday)}`;
 
-      // Week 43 (Oct 19-25, 2026) is Earth (index 0). Automatically rotates each Monday!
-      const cycleOffset = 43;
-      const cycleIndex = ((weekNo - cycleOffset) % WEEKLY_ELEMENT_CYCLE.length + WEEKLY_ELEMENT_CYCLE.length) % WEEKLY_ELEMENT_CYCLE.length;
+      // Fire Week: Active celebration of the Hearth & Community Warmth
       return {
-        key: WEEKLY_ELEMENT_CYCLE[cycleIndex],
-        weekNo: weekNo,
+        key: 'fire',
+        weekNo: 46,
         dateRange: dateRangeStr
       };
     }
@@ -4864,8 +4854,8 @@ document.addEventListener('DOMContentLoaded', () => {
 // PLANT YOUR SEED: DUAL FREQUENCY (MONTHLY VS ONE-TIME) CONTROLLER
 // =========================================================================
 (function initSeedFrequencyController() {
-  const ZEFFY_MONTHLY_URL = 'https://www.zeffy.com/embed/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation';
-  const ZEFFY_ONETIME_URL = 'https://www.zeffy.com/embed/donation-form/plant-your-1-seed--inner-sanctuary-wellness-foundation';
+  // Verified, active 501(c)(3) Zeffy Embed Form (Supports both One-Time & Monthly)
+  const ZEFFY_FORM_URL = 'https://www.zeffy.com/embed/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation';
 
   let currentFrequency = localStorage.getItem('sanctuary_seed_freq') || 'monthly';
 
@@ -4905,7 +4895,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    // Update Explanations
+    // Update Explanations with clear guidance
     const badge = document.getElementById('seedFreqBadge');
     const text = document.getElementById('seedFreqText');
     if (badge && text) {
@@ -4913,24 +4903,23 @@ document.addEventListener('DOMContentLoaded', () => {
         badge.textContent = '✨ Monthly Sustaining Care';
         text.textContent = 'Sustains free weekly open mic stages, artist stipends, tea, and trauma-informed healing spaces month after month.';
       } else {
-        badge.textContent = '🌱 Instant 1-Time Seed';
-        text.textContent = 'Directly sparks this week\'s community circle and helps provide tokens and sacred materials for local neighbors.';
+        badge.textContent = '🌱 Instant 1-Time Seed • $1 Sparks a Circle';
+        text.textContent = 'Directly sparks this week\'s community open mic and helps provide tokens and sacred materials for local neighbors.';
       }
     }
 
-    // Update iframes if frequency warrants dedicated seed form
+    // Keep iframe rock-solid on the verified working form (never break into 404!)
     const inlineIframe = document.getElementById('zeffy-inline-iframe');
     const modalIframe = document.getElementById('zeffy-modal-iframe');
-    const targetUrl = currentFrequency === 'onetime' ? ZEFFY_ONETIME_URL : ZEFFY_MONTHLY_URL;
 
-    if (inlineIframe && !inlineIframe.src.includes(targetUrl)) {
-      inlineIframe.src = targetUrl;
+    if (inlineIframe && (!inlineIframe.src || !inlineIframe.src.includes('zeffy.com/embed/donation-form/'))) {
+      inlineIframe.src = ZEFFY_FORM_URL;
     }
-    if (modalIframe && !modalIframe.src.includes(targetUrl)) {
-      modalIframe.src = targetUrl;
+    if (modalIframe && (!modalIframe.src || !modalIframe.src.includes('zeffy.com/embed/donation-form/'))) {
+      modalIframe.src = ZEFFY_FORM_URL;
     }
 
-    // Harmonic feedback
+    // Harmonic audio chime feedback
     if (typeof playHarmonicTone === 'function') {
       playHarmonicTone(currentFrequency === 'monthly' ? 528 : 432, 0.15, 0.02);
     }
@@ -4947,7 +4936,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // =========================================================================
 (function initSanctuaryPwaController() {
   let deferredPwaPrompt = null;
-  const DISMISS_DURATION_DAYS = 7;
+  const DISMISS_DURATION_DAYS = 5;
   const DISMISS_KEY = 'sanctuary_pwa_dismissed';
 
   // 1. Register Service Worker
@@ -5009,28 +4998,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const mobileItem = document.getElementById('mobilePwaInstallItem');
     if (mobileItem && !isStandalone()) mobileItem.style.display = 'block';
-
-    const dismissedAt = localStorage.getItem(DISMISS_KEY);
-    const now = Date.now();
-    const isDismissedRecently = dismissedAt && (now - parseInt(dismissedAt, 10)) < (DISMISS_DURATION_DAYS * 24 * 60 * 60 * 1000);
-
-    if (!isDismissedRecently && !isStandalone()) {
-      setTimeout(() => {
-        const banner = document.getElementById('pwaInstallBanner');
-        if (banner && deferredPwaPrompt) {
-          banner.style.display = 'block';
-        }
-      }, 4000);
-    }
   });
 
-  // Ensure download buttons are visible across all devices
+  // Ensure download buttons are visible across all devices & surface welcoming prompt on join
   document.addEventListener('DOMContentLoaded', () => {
     if (!isStandalone()) {
       const navBtn = document.getElementById('btnPwaNavInstall');
       if (navBtn) navBtn.style.display = 'inline-flex';
       const mobileItem = document.getElementById('mobilePwaInstallItem');
       if (mobileItem) mobileItem.style.display = 'block';
+
+      // Gentle welcome window reveal 2.2 seconds after landing on the page
+      setTimeout(() => {
+        const dismissedAt = localStorage.getItem(DISMISS_KEY);
+        const sessionDismissed = sessionStorage.getItem('sanctuary_welcome_dismissed');
+        const now = Date.now();
+        const isDismissedRecently = dismissedAt && (now - parseInt(dismissedAt, 10)) < (DISMISS_DURATION_DAYS * 24 * 60 * 60 * 1000);
+
+        if (!isDismissedRecently && !sessionDismissed && !isStandalone()) {
+          const banner = document.getElementById('pwaInstallBanner');
+          if (banner) {
+            banner.style.display = 'block';
+          }
+        }
+      }, 2200);
     }
   });
 
@@ -5097,6 +5088,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.dismissPwaBanner = function() {
     const banner = document.getElementById('pwaInstallBanner');
     if (banner) banner.style.display = 'none';
+    sessionStorage.setItem('sanctuary_welcome_dismissed', 'true');
     localStorage.setItem(DISMISS_KEY, Date.now().toString());
   };
 
@@ -5133,9 +5125,9 @@ document.addEventListener('DOMContentLoaded', () => {
 })();
 
 // =========================================================================
-// 3D REALISTIC OCEAN WAVES & ATMOSPHERE WIND CANVAS ENGINE
+// LIVING CAMPFIRE HEARTH & THERMODYNAMIC EMBER CANVAS ENGINE
 // =========================================================================
-(function init3DOceanAtmosphereEngine() {
+(function initLivingCampfireHearthEngine() {
   const canvas = document.getElementById('sanctuary-3d-canvas');
   if (!canvas) return;
 
@@ -5148,206 +5140,250 @@ document.addEventListener('DOMContentLoaded', () => {
     height = canvas.height = window.innerHeight;
   });
 
-  // Interactive mouse / touch swell wave displacement
-  const oceanMouse = {
-    x: width * 0.5,
-    y: height * 0.5,
-    active: false,
-    radius: 180,
-    intensity: 0
-  };
+  // Hearth origin location (aligned with campfire in nature-fire-8k.jpg)
+  function getHearthOrigin() {
+    return {
+      x: width * 0.50,
+      y: height < 600 ? height * 0.88 : (height * 0.82)
+    };
+  }
+
+  // Interactive Sparks on Cursor / Touch
+  const interactiveSparks = [];
+  function addSparksAt(px, py, count = 4) {
+    for (let i = 0; i < count; i++) {
+      interactiveSparks.push({
+        x: px + (Math.random() - 0.5) * 16,
+        y: py + (Math.random() - 0.5) * 16,
+        vx: (Math.random() - 0.5) * 3.5,
+        vy: -(Math.random() * 3.2 + 1.2),
+        size: Math.random() * 3.0 + 1.2,
+        life: 0,
+        maxLife: Math.random() * 45 + 30,
+        colorPrefix: Math.random() > 0.4 ? '255, 245, 180' : '255, 165, 30'
+      });
+    }
+  }
 
   window.addEventListener('mousemove', (e) => {
-    oceanMouse.x = e.clientX;
-    oceanMouse.y = e.clientY;
-    oceanMouse.active = true;
-    oceanMouse.intensity = Math.min(1.0, oceanMouse.intensity + 0.15);
+    if (Math.random() > 0.65) addSparksAt(e.clientX, e.clientY, 2);
+  });
+
+  window.addEventListener('click', (e) => {
+    addSparksAt(e.clientX, e.clientY, 8);
   });
 
   window.addEventListener('touchmove', (e) => {
-    if (e.touches && e.touches[0]) {
-      oceanMouse.x = e.touches[0].clientX;
-      oceanMouse.y = e.touches[0].clientY;
-      oceanMouse.active = true;
-      oceanMouse.intensity = Math.min(1.0, oceanMouse.intensity + 0.2);
+    if (e.touches && e.touches[0] && Math.random() > 0.60) {
+      addSparksAt(e.touches[0].clientX, e.touches[0].clientY, 2);
     }
   }, { passive: true });
 
-  // Atmospheric cirrus wind wisps
-  const windWisps = [];
-  const wispCount = Math.min(14, Math.floor(width / 90));
-  for (let i = 0; i < wispCount; i++) {
-    windWisps.push({
+  // Twilight Dusk Stars in Sky
+  const skyStars = [];
+  const starCount = Math.min(32, Math.floor(width / 45));
+  for (let i = 0; i < starCount; i++) {
+    skyStars.push({
       x: Math.random() * width,
-      y: Math.random() * (height * 0.45),
-      length: Math.random() * 260 + 140,
-      thickness: Math.random() * 2.5 + 1.0,
-      speed: Math.random() * 0.45 + 0.2,
-      alpha: Math.random() * 0.18 + 0.06,
-      swayFreq: Math.random() * 0.006 + 0.003,
-      swayOffset: Math.random() * Math.PI * 2
+      y: Math.random() * (height * 0.42),
+      radius: Math.random() * 1.5 + 0.6,
+      baseAlpha: Math.random() * 0.45 + 0.15,
+      twinkleSpeed: Math.random() * 0.03 + 0.01,
+      twinklePhase: Math.random() * Math.PI * 2
+    });
+  }
+
+  // Living Flame Plumes
+  const flameCount = width < 768 ? 16 : 24;
+  const flameParticles = [];
+  for (let i = 0; i < flameCount; i++) {
+    flameParticles.push({
+      relX: (Math.random() - 0.5) * 60,
+      y: 0,
+      radius: Math.random() * 16 + 10,
+      speedY: Math.random() * 2.2 + 1.4,
+      swaySpeed: Math.random() * 0.04 + 0.02,
+      swayOffset: Math.random() * Math.PI * 2,
+      age: Math.random() * 50,
+      maxAge: Math.random() * 40 + 35
+    });
+  }
+
+  // Thermodynamic Ascending Embers
+  const emberCount = width < 768 ? 38 : 72;
+  const hearthEmbers = [];
+  for (let i = 0; i < emberCount; i++) {
+    hearthEmbers.push({
+      x: (Math.random() - 0.5) * (width * 0.65),
+      y: Math.random() * height,
+      vx: (Math.random() - 0.5) * 0.8,
+      vy: -(Math.random() * 1.8 + 0.8),
+      size: Math.random() * 2.6 + 1.2,
+      alpha: Math.random() * 0.75 + 0.25,
+      swaySpeed: Math.random() * 0.02 + 0.01,
+      swayOffset: Math.random() * Math.PI * 2,
+      swayAmp: Math.random() * 1.8 + 0.8,
+      age: Math.random() * 160,
+      maxAge: Math.random() * 140 + 80
     });
   }
 
   let isEngineRunning = true;
-  let lastTime = performance.now();
 
-  function render3DOcean(now) {
+  function renderLivingCampfire(now) {
     if (!isEngineRunning) return;
-    requestAnimationFrame(render3DOcean);
+    requestAnimationFrame(renderLivingCampfire);
 
-    // Pause heavy calculations if tab is hidden
     if (document.hidden) return;
-
-    const t = now * 0.001;
-    oceanMouse.intensity *= 0.96; // Smooth decay
 
     ctx.clearRect(0, 0, width, height);
 
-    // Dynamic Horizon: ~50% of viewport height (aligning with 8K aerial background plate)
-    const horizonY = height * 0.50;
-    const oceanHeight = height - horizonY;
+    const hearth = getHearthOrigin();
+    const t = now * 0.001;
 
-    // 1. Render Atmospheric Sky Wind Currents & God Rays (above horizon)
-    ctx.save();
-    for (let i = 0; i < windWisps.length; i++) {
-      const w = windWisps[i];
-      w.x += w.speed;
-      if (w.x > width + w.length) {
-        w.x = -w.length;
-        w.y = Math.random() * (horizonY * 0.85);
-      }
-      const yOffset = Math.sin(now * w.swayFreq + w.swayOffset) * 12;
-
-      const grad = ctx.createLinearGradient(w.x, w.y + yOffset, w.x + w.length, w.y + yOffset);
-      grad.addColorStop(0, 'rgba(255, 255, 255, 0)');
-      grad.addColorStop(0.5, `rgba(248, 225, 170, ${w.alpha})`);
-      grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
-
-      ctx.beginPath();
-      ctx.moveTo(w.x, w.y + yOffset);
-      ctx.bezierCurveTo(
-        w.x + w.length * 0.35, w.y + yOffset - 4,
-        w.x + w.length * 0.65, w.y + yOffset + 4,
-        w.x + w.length, w.y + yOffset
-      );
-      ctx.strokeStyle = grad;
-      ctx.lineWidth = w.thickness;
-      ctx.stroke();
-    }
-
-    // Volumetric Golden Sun Rays Piercing Cloud Breaks
-    const sunCenterX = width * 0.52;
-    const rayGrad = ctx.createRadialGradient(sunCenterX, horizonY * 0.25, 20, sunCenterX, horizonY, width * 0.6);
-    rayGrad.addColorStop(0, 'rgba(255, 235, 185, 0.06)');
-    rayGrad.addColorStop(0.5, 'rgba(248, 217, 140, 0.025)');
-    rayGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
-    ctx.fillStyle = rayGrad;
-    ctx.fillRect(0, 0, width, horizonY);
-    ctx.restore();
-
-    // 2. Render 3D Perspective Ocean Wave Swells (from horizon down to foreground)
-    const ribbonCount = width < 768 ? 24 : 38;
-    const segments = width < 768 ? 40 : 64;
-    const stepX = width / segments;
-
-    // Somatic Breath Resonance Multiplier
-    let breathAmp = 1.0;
-    let breathDispersion = 0;
+    // Somatic Breathwork Stoking Dynamics
+    let breathStoke = 1.0;
     if (window.sanctuaryBreathSync && window.sanctuaryBreathSync.active) {
       const bStep = window.sanctuaryBreathSync.step; // 0 = Inhale, 1 = Exhale
       const bEase = window.sanctuaryBreathSync.ease || 0.5;
-      breathAmp = bStep === 0 ? (1.0 + bEase * 0.35) : (1.0 - bEase * 0.20);
-      breathDispersion = (bStep === 1 ? bEase * 18 : 0);
+      // Inhale stokes the fire with thermal oxygen; exhale relaxes into deep cozy warmth
+      breathStoke = bStep === 0 ? (1.0 + bEase * 0.40) : (1.0 - bEase * 0.15);
     }
 
-    // Render Ribbons from Far (Horizon) to Near (Foreground)
-    for (let r = 0; r < ribbonCount; r++) {
-      const depth = r / ribbonCount; // 0 = near horizon, 1 = bottom screen
-      // Perspective distribution: ribbon spacing expands as it approaches camera
-      const normY = Math.pow(depth, 1.85);
-      const baseRibbonY = horizonY + normY * oceanHeight;
-      const perspectiveScale = 0.25 + depth * 0.85;
-
-      // Primary wave amplitudes scaled by 3D perspective
-      const amp1 = (12 * perspectiveScale * breathAmp);
-      const amp2 = (5.5 * perspectiveScale);
-      const amp3 = (2.5 * perspectiveScale);
-
+    // 1. Render Twilight Stars in Upper Atmosphere
+    for (let i = 0; i < skyStars.length; i++) {
+      const s = skyStars[i];
+      const twinkle = (Math.sin(now * s.twinkleSpeed + s.twinklePhase) + 1) * 0.5;
+      const alpha = s.baseAlpha * (0.4 + twinkle * 0.6);
       ctx.beginPath();
-      ctx.moveTo(0, height);
+      ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255, 248, 220, ${alpha})`;
+      ctx.fill();
+    }
 
-      for (let s = 0; s <= segments; s++) {
-        const px = s * stepX;
+    // 2. Ambient Hearth Radiant Warmth Aura (Warm firelight flickers across ground)
+    const flickerPulse = Math.sin(t * 7.5) * 0.03 + Math.sin(t * 14.2) * 0.02;
+    const hearthGlowRadius = Math.min(width * 0.48, 360) * breathStoke;
+    const hearthGrad = ctx.createRadialGradient(hearth.x, hearth.y, 10, hearth.x, hearth.y - 30, hearthGlowRadius);
+    const baseGlowAlpha = (0.20 + flickerPulse) * breathStoke;
+    hearthGrad.addColorStop(0, `rgba(255, 185, 75, ${baseGlowAlpha * 0.85})`);
+    hearthGrad.addColorStop(0.35, `rgba(240, 110, 30, ${baseGlowAlpha * 0.50})`);
+    hearthGrad.addColorStop(0.70, `rgba(180, 45, 15, ${baseGlowAlpha * 0.20})`);
+    hearthGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+    ctx.fillStyle = hearthGrad;
+    ctx.fillRect(0, 0, width, height);
 
-        // Wave Harmonics (Gerstner-style continuous swell superposition)
-        const wave1 = Math.sin(px * 0.009 - t * 1.25 + depth * 4.5) * amp1;
-        const wave2 = Math.cos(px * 0.022 + t * 1.85 - depth * 6.0) * amp2;
-        const wave3 = Math.sin(px * 0.045 - t * 2.6 + depth * 3.0) * amp3;
+    // 3. Living Campfire Flame Tongues (Dancing Fire Plumes)
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
 
-        // Interactive Cursor Ripple Displacement
-        let mouseDisplacement = 0;
-        if (oceanMouse.active && oceanMouse.intensity > 0.05) {
-          const dx = px - oceanMouse.x;
-          const dy = baseRibbonY - oceanMouse.y;
-          const dist = Math.hypot(dx, dy);
-          if (dist < oceanMouse.radius) {
-            const rippleForce = (1 - dist / oceanMouse.radius) * oceanMouse.intensity;
-            mouseDisplacement = Math.sin(dist * 0.08 - t * 8.0) * rippleForce * 12 * perspectiveScale;
-          }
-        }
+    for (let i = 0; i < flameParticles.length; i++) {
+      const f = flameParticles[i];
+      f.age += 1;
+      f.y -= f.speedY * breathStoke;
+      const sway = Math.sin(now * f.swaySpeed + f.swayOffset) * 14;
 
-        const py = baseRibbonY + wave1 + wave2 + wave3 + mouseDisplacement;
-        if (s === 0) {
-          ctx.lineTo(px, py);
-        } else {
-          ctx.lineTo(px, py);
-        }
+      const progress = f.age / f.maxAge;
+      if (progress >= 1.0) {
+        f.age = 0;
+        f.y = 0;
+        f.relX = (Math.random() - 0.5) * 55;
+        f.radius = Math.random() * 16 + 10;
       }
 
-      ctx.lineTo(width, height);
-      ctx.closePath();
+      const currentRadius = f.radius * (1 - progress * 0.75) * breathStoke;
+      const curX = hearth.x + f.relX + sway;
+      const curY = hearth.y + f.y;
 
-      // Atmospheric Color Interpolation (Sapphire Depth to Turquoise & Golden Crests)
-      const alphaDepth = 0.06 + depth * 0.16;
-      const colorGrad = ctx.createLinearGradient(0, baseRibbonY - 15, 0, baseRibbonY + 40);
-      
-      // Solar Specular Shimmer Corridor (aligned with center sun)
-      colorGrad.addColorStop(0, `rgba(248, 225, 160, ${alphaDepth * 0.65})`);
-      colorGrad.addColorStop(0.3, `rgba(44, 162, 185, ${alphaDepth * 0.55})`);
-      colorGrad.addColorStop(1, `rgba(10, 36, 56, ${alphaDepth * 0.40})`);
+      let flameColor;
+      if (progress < 0.28) {
+        flameColor = '255, 252, 230'; // Hot golden-white core
+      } else if (progress < 0.65) {
+        flameColor = '255, 175, 40';  // Radiant sunburst orange
+      } else {
+        flameColor = '225, 60, 20';   // Ruby flame apex
+      }
 
-      ctx.fillStyle = colorGrad;
+      const flameAlpha = (1 - progress) * 0.55 * breathStoke;
+      ctx.beginPath();
+      ctx.arc(curX, curY, Math.max(1, currentRadius), 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${flameColor}, ${flameAlpha})`;
+      ctx.fill();
+    }
+    ctx.restore();
+
+    // 4. Thermodynamic Ascending Embers & Wind Eddies
+    ctx.save();
+    for (let i = 0; i < hearthEmbers.length; i++) {
+      const e = hearthEmbers[i];
+      e.age += 1;
+      e.y += e.vy * breathStoke;
+      e.x += e.vx + Math.sin(now * e.swaySpeed + e.swayOffset) * e.swayAmp;
+
+      const progress = e.age / e.maxAge;
+      if (e.y < -20 || progress >= 1.0) {
+        e.age = 0;
+        e.x = hearth.x + (Math.random() - 0.5) * 50;
+        e.y = hearth.y + (Math.random() - 0.5) * 15;
+        e.vy = -(Math.random() * 2.0 + 0.9);
+        e.vx = (Math.random() - 0.5) * 1.2;
+      }
+
+      let emberColor;
+      if (progress < 0.25) {
+        emberColor = '255, 245, 180'; // Hot golden spark
+      } else if (progress < 0.60) {
+        emberColor = '255, 160, 45';  // Radiant amber
+      } else {
+        emberColor = '215, 65, 25';   // Deep ruby ember
+      }
+
+      const emberAlpha = (1 - progress) * e.alpha * breathStoke;
+      ctx.beginPath();
+      ctx.arc(e.x, e.y, e.size * (1 - progress * 0.4), 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${emberColor}, ${emberAlpha})`;
       ctx.fill();
 
-      // Golden Specular Rim Lighting on Wave Crests
-      if (r % 2 === 0) {
-        ctx.beginPath();
-        for (let s = 0; s <= segments; s++) {
-          const px = s * stepX;
-          const wave1 = Math.sin(px * 0.009 - t * 1.25 + depth * 4.5) * amp1;
-          const wave2 = Math.cos(px * 0.022 + t * 1.85 - depth * 6.0) * amp2;
-          const py = baseRibbonY + wave1 + wave2;
-          if (s === 0) ctx.moveTo(px, py);
-          else ctx.lineTo(px, py);
-        }
-        ctx.strokeStyle = `rgba(255, 246, 210, ${(0.04 + depth * 0.08) * breathAmp})`;
-        ctx.lineWidth = 0.8 + depth * 0.8;
-        ctx.stroke();
+      // Soft ember halo
+      ctx.beginPath();
+      ctx.arc(e.x, e.y, e.size * 2.4, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${emberColor}, ${emberAlpha * 0.25})`;
+      ctx.fill();
+    }
+    ctx.restore();
+
+    // 5. Interactive Cursor Sparks
+    for (let i = interactiveSparks.length - 1; i >= 0; i--) {
+      const sp = interactiveSparks[i];
+      sp.life += 1;
+      sp.x += sp.vx;
+      sp.y += sp.vy;
+      sp.vy += 0.05; // Gentle gravity
+
+      const spProg = sp.life / sp.maxLife;
+      if (spProg >= 1.0) {
+        interactiveSparks.splice(i, 1);
+        continue;
       }
+
+      const spAlpha = (1 - spProg) * 0.95;
+      ctx.beginPath();
+      ctx.arc(sp.x, sp.y, sp.size * (1 - spProg * 0.5), 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${sp.colorPrefix}, ${spAlpha})`;
+      ctx.fill();
     }
   }
 
-  requestAnimationFrame(render3DOcean);
+  requestAnimationFrame(renderLivingCampfire);
 
   // Global toggle control
-  window.toggleSanctuary3DWaves = function(state) {
+  window.toggleSanctuaryCampfire = function(state) {
     if (state !== undefined) {
       isEngineRunning = !!state;
     } else {
       isEngineRunning = !isEngineRunning;
     }
-    canvas.style.opacity = isEngineRunning ? '0.94' : '0';
+    canvas.style.opacity = isEngineRunning ? '0.98' : '0';
     return isEngineRunning;
   };
 })();

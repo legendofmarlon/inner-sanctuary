@@ -9286,3 +9286,25 @@ body[data-element="ether"] nav::after {
     gap: 20px;
   }
 }
+
+
+/* ==================== FIRE WEEK & TOP DOWNLOAD BUTTON ENHANCEMENTS ==================== */
+.btn-top-download-app:hover {
+  background: rgba(255, 255, 255, 0.32) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 165, 30, 0.35) !important;
+}
+
+body[data-element="fire"] #sanctuary-3d-canvas {
+  opacity: 0.98 !important;
+}
+
+body[data-element="fire"] .announcement-bar {
+  background: linear-gradient(90deg, #3A1E0E 0%, #20130A 50%, #3A1E0E 100%) !important;
+  border-bottom: 1.5px solid rgba(255, 165, 30, 0.5) !important;
+}
+
+body[data-element="fire"] .explorer-pulse-dot {
+  background: #FFA51E !important;
+  box-shadow: 0 0 10px #FFA51E, 0 0 20px #FF5500 !important;
+}

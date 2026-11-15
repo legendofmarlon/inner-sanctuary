@@ -150,7 +150,7 @@
   <!-- Custom Stylesheet -->
   <link rel="stylesheet" href="styles.css?v=3.5">
 </head>
-<body>
+<body data-element="fire">
 
   <!-- Argon 4.0 Golden Hour Botanical Dust Motes Canvas -->
   <!-- 3D Ocean Waves & Wind Atmosphere Canvas Engine -->
@@ -159,7 +159,7 @@
   <canvas id="argon-dust-canvas"></canvas>
   <!-- Realistic 8K Elemental Nature Atmosphere Layers (Dynamic Weekly Plate Switcher) -->
   <div id="realistic-element-sky" class="realistic-sky-bg" aria-hidden="true">
-    <div class="sky-plate sky-plate-primary active" id="skyPlatePrimary"></div>
+    <div class="sky-plate sky-plate-primary active plate-fire" id="skyPlatePrimary"></div>
     <div class="sky-plate sky-plate-secondary inactive" id="skyPlateSecondary"></div>
   </div>
   <!-- Ambient Living Sky Swallows (Graceful Silhouettes Gliding on Gentle Breeze) -->
@@ -243,17 +243,24 @@
 
   <!-- Ambient Exploration Status Pill -->
   <div class="explorer-pill">
-    <span class="explorer-pulse-dot"></span>
-    <span>Sanctuary Forest • Exploring</span>
+    <span class="explorer-pulse-dot" style="background: #FFA51E; box-shadow: 0 0 10px #FFA51E;"></span>
+    <span>🔥 Sanctuary Hearth • Fire Week</span>
   </div>
 
   <!-- ==================== TOP ANNOUNCEMENT BAR ==================== -->
   <div class="announcement-bar">
     <div class="container" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
-      <span>✦ Inner Sanctuary Wellness Foundation • A 501(c)(3) Space for Raw Authenticity, Somatic Healing &amp; Radical Self-Expression</span>
-      <div style="display: inline-flex; align-items: center; gap: 10px;">
-        <a href="#method" style="color: #FFFFFF; font-weight: 600; text-decoration: underline; font-size: 0.78rem;">Our Method: Laugh • Sing • Dance →</a>
-        <button type="button" onclick="openZeffyModal(event)" class="btn-liquid-gold pulse-gold" style="background: var(--sunburst-gold); color: #1C1B18; font-weight: 700; font-size: 0.75rem; padding: 4px 12px; border-radius: 999px; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 2px 8px rgba(197, 154, 63, 0.4);">
+      <span style="display: inline-flex; align-items: center; gap: 7px;">
+        <span style="font-size: 1rem;">🔥</span>
+        <strong>Fire Week:</strong>
+        <span>Inner Sanctuary • Warm Hearth &amp; Community Gathering</span>
+      </span>
+      <div style="display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+        <!-- Prominent Top Download App Button -->
+        <button type="button" onclick="triggerPwaInstall(event)" class="btn-top-download-app" style="background: rgba(255, 255, 255, 0.18); color: #FFFFFF; font-weight: 700; font-size: 0.74rem; padding: 4px 12px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.45); cursor: pointer; display: inline-flex; align-items: center; gap: 5px; box-shadow: 0 2px 8px rgba(0,0,0,0.18); transition: all 0.2s ease;" title="Download Inner Sanctuary App to Your Phone">
+          <span>📱 Download App</span>
+        </button>
+        <button type="button" onclick="openZeffyModal(event)" class="btn-liquid-gold pulse-gold" style="background: var(--sunburst-gold); color: #1C1B18; font-weight: 700; font-size: 0.74rem; padding: 4px 12px; border-radius: 999px; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 2px 8px rgba(197, 154, 63, 0.4);">
           <span>🌱 Give $1 Seed</span>
         </button>
       </div>
@@ -2379,9 +2386,9 @@
           <img src="emblem.png" alt="Inner Sanctuary App Icon" class="pwa-app-icon" onerror="this.src='emblem.jpg'" />
         </div>
         <div class="pwa-text-wrap">
-          <div class="pwa-badge">✦ SANCTUARY IN YOUR POCKET</div>
-          <h4 class="pwa-title">Add to Home Screen</h4>
-          <p class="pwa-desc">Instant offline access to mindful soundscapes, open mic stages, and sacred reflections—right from your device.</p>
+          <div class="pwa-badge">🔥 FIRE WEEK • SANCTUARY IN YOUR POCKET</div>
+          <h4 class="pwa-title">Take Sanctuary Wherever You Go</h4>
+          <p class="pwa-desc">Add Inner Sanctuary to your phone's home screen for instant offline 432Hz/528Hz soundscapes, open mic updates, and daily sacred breath resets.</p>
         </div>
       </div>
       <div class="pwa-actions-row">
