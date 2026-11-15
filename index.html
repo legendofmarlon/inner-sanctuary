@@ -445,53 +445,44 @@
         </a>
       </div>
 
-      <!-- ==================== DAILY SANCTUARY REFLECTION CARD (INTERACTIVE GROUNDING HERO CENTERPIECE) ==================== -->
+      <!-- ==================== DAILY SANCTUARY SPARKS CARD (INTERACTIVE GROUNDING HERO CENTERPIECE) ==================== -->
       <div class="sanctuary-reflection-widget hero-reflection-widget" id="sanctuary-reflection">
         <div class="reflection-widget-header">
-          <span class="reflection-widget-pill">✦ Gemini Somatic Oracle</span>
-          <h3 class="reflection-widget-title serif-brand">Sanctuary Somatic Oracle</h3>
-          <p class="reflection-widget-sub">Tune into your body in this breath. Ask Gemini for an unhurried somatic reset, or tap an element below.</p>
+          <span class="reflection-widget-pill">✦ Daily Sanctuary Sparks ✦</span>
+          <h3 class="reflection-widget-title serif-brand">Draw Today's Sanctuary Spark</h3>
+          <p class="reflection-widget-sub">Receive an unhurried reminder to ground your nervous system, soften tension, and remember who you are. Generate with Gemini or draw a spark below.</p>
         </div>
 
         <!-- Sleek Gemini AI Prompt Bar -->
         <div class="somatic-oracle-custom-bar">
           <div class="somatic-oracle-input-wrap">
             <span class="oracle-input-icon">✨</span>
-            <input type="text" id="somaticCustomInput" class="somatic-oracle-input" placeholder="How does your body feel? (e.g. tight chest, tired, anxious, seeking joy)" aria-label="Type how you feel">
-            <button type="button" id="btnOracleGenerate" class="btn-oracle-generate" title="Generate somatic reset with Gemini">
+            <input type="text" id="somaticCustomInput" class="somatic-oracle-input" placeholder="How does your body feel? (e.g. tight chest, tired, anxious, seeking joy)" aria-label="Generate a Sanctuary Spark with Gemini">
+            <button type="button" id="btnOracleGenerate" class="btn-oracle-generate" title="Generate Sanctuary Spark with Gemini">
               <span id="oracleBtnText">✨ Generate with Gemini</span>
             </button>
           </div>
         </div>
 
-        <!-- Clean Minimalist Element Micro-Chips -->
-        <div class="somatic-oracle-chips" id="somaticOracleCheckin" role="radiogroup" aria-label="Select an element">
-          <button type="button" class="somatic-chip active" data-element="earth" data-theme="Root Me" data-freq="432" title="Earth • Rooting">🌿 Earth</button>
-          <button type="button" class="somatic-chip" data-element="water" data-theme="Wash Clean" data-freq="528" title="Water • Washing Clean">🌊 Water</button>
-          <button type="button" class="somatic-chip" data-element="air" data-theme="Clear Chest" data-freq="639" title="Air • Clearing Chest">🌬️ Air</button>
-          <button type="button" class="somatic-chip" data-element="fire" data-theme="Ignite Joy" data-freq="741" title="Fire • Igniting Joy">🔥 Fire</button>
-          <button type="button" class="somatic-chip" data-element="ether" data-theme="Infinite Space" data-freq="852" title="Ether • Infinite Space">🌌 Ether</button>
-        </div>
-
         <!-- 3D Flippable Card Stage -->
         <div class="reflection-card-stage" id="reflectionCardStage">
-          <div class="reflection-card-3d is-flipped" id="reflectionCard3D" role="button" tabindex="0" aria-label="Tap to draw and flip your daily sanctuary reflection card">
+          <div class="reflection-card-3d is-flipped" id="reflectionCard3D" role="button" tabindex="0" aria-label="Tap to draw and flip your daily sanctuary spark reflection card">
             
             <!-- Card Front (Sealed Cover) -->
             <div class="reflection-card-face card-face-front">
               <div class="card-front-halo"></div>
               <div class="card-front-emblem">✦</div>
-              <div class="card-front-text">TAP TO DRAW YOUR CARD</div>
-              <div class="card-front-sub">Unhurried • Somatic • Grounded</div>
+              <div class="card-front-text">TAP TO DRAW YOUR SPARK</div>
+              <div class="card-front-sub">Sanctuary Sparks • Somatic • Grounded</div>
             </div>
 
             <!-- Card Back (Revealed Living Reflection) -->
             <div class="reflection-card-face card-face-back" id="reflectionCardBack">
-              <div class="card-back-badge" id="reflectionCardBadge">✦ SOMATIC RELEASE</div>
+              <div class="card-back-badge" id="reflectionCardBadge">✦ SANCTUARY SPARK ✦</div>
               <blockquote class="card-back-quote" id="reflectionCardQuote">
                 "Where in your body are you holding yesterday? Soften your jaw, drop your shoulders, and let this breath belong only to right now."
               </blockquote>
-              <div class="card-back-source">— Inner Sanctuary Daily Reflection</div>
+              <div class="card-back-source" id="reflectionCardSource">— Inner Sanctuary Sparks</div>
             </div>
 
           </div>
@@ -499,12 +490,12 @@
 
         <!-- Interactive Card Action Controls -->
         <div class="reflection-actions-wrap">
-          <button type="button" class="btn-reflection-action btn-reflection-draw" id="btnDrawNewReflection" title="Draw another grounding reflection">
-            <span>🔄 Draw Another</span>
+          <button type="button" class="btn-reflection-action btn-reflection-draw" id="btnDrawNewReflection" title="Draw another Sanctuary Spark">
+            <span>🔄 Draw Another Spark</span>
           </button>
-          <button type="button" class="btn-reflection-action btn-reflection-copy" id="btnCopyReflection" title="Copy reflection quote to clipboard">
+          <button type="button" class="btn-reflection-action btn-reflection-copy" id="btnCopyReflection" title="Copy Sanctuary Spark to clipboard">
             <span id="btnCopyReflectionIcon">📋</span>
-            <span id="btnCopyReflectionLabel">Copy Reflection</span>
+            <span id="btnCopyReflectionLabel">Copy Sanctuary Spark</span>
           </button>
           <button type="button" class="btn-reflection-action btn-reflection-share" id="btnShareIG" onclick="openStorySnapshotFromReflection(event)" title="Create 9:16 Instagram Story snapshot card">
             <span>📸 Share to IG Story</span>
@@ -1105,39 +1096,6 @@
           </div>
         </div>
 
-        <!-- ==================== COMMUNITY VIDEO REEL & STORIES (CAFE 86 MOMENTS) ==================== -->
-        <div class="community-video-reel-card" id="openmic-video-showcase">
-          <div class="reel-header">
-            <div>
-              <span class="reel-badge">✦ Sanctuary Video Stories</span>
-              <h4 class="reel-title serif-brand">Living Moments from the Mic</h4>
-              <p class="reel-sub">Feel the reverberation of real laughter, unhurried breath, and acoustic harmony captured live at Cafe 86.</p>
-            </div>
-            <div class="reel-tabs">
-              <button type="button" class="reel-tab active" data-filter="all" onclick="filterVideoReels('all')">✦ All</button>
-              <button type="button" class="reel-tab" data-filter="vocal" onclick="filterVideoReels('vocal')">🎤 Acoustic Soul</button>
-              <button type="button" class="reel-tab" data-filter="poetry" onclick="filterVideoReels('poetry')">📜 Spoken Word</button>
-              <button type="button" class="reel-tab" data-filter="somatic" onclick="filterVideoReels('somatic')">🌿 Somatic Breath</button>
-            </div>
-          </div>
-
-          <!-- Video Reel Stage -->
-          <div class="reel-stage-wrap">
-            <div class="reel-stage-frame">
-              <img id="reelPreviewImage" src="images/openmic/openmic-vocalist-yellow.jpg" alt="Inner Sanctuary Community Open Mic Highlight Reel" class="reel-preview-image">
-              <div class="reel-stage-overlay">
-                <button type="button" class="reel-play-btn" onclick="playCommunityReelModal()" aria-label="Play Sanctuary Community Highlight Reel">
-                  <span class="play-icon">▶</span>
-                </button>
-                <div class="reel-caption-overlay">
-                  <span class="reel-caption-badge" id="reelActiveBadge">✦ ACOUSTIC SOUL HIGHLIGHT</span>
-                  <div class="reel-caption-title" id="reelActiveTitle">"The song we didn't know we needed to sing."</div>
-                  <div class="reel-caption-meta">Cafe 86 Gathering • Irvine, CA • 100% Substance-Free Creative Sanctuary</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
 
         <!-- Streamlined Sanctuary Stage Pillars (Clean & Spacious) -->
         <div class="openmic-pillars-banner">
@@ -1486,57 +1444,6 @@
           </div>
         </div>
 
-        <!-- ==================== LIVING COMMUNITY SEED GARDEN & INTENTION WALL ==================== -->
-        <div class="community-seed-garden-box" id="communitySeedGarden">
-          <div class="seed-garden-header">
-            <span class="seed-garden-pill">✦ Interactive Community Intention Wall</span>
-            <h3 class="seed-garden-title serif-brand">The Living Sanctuary Garden</h3>
-            <p class="seed-garden-sub">
-              Every seed planted here represents an intention held by our community. Tap any glowing lotus sprout to read a neighbor's intention, or plant your own seed below to watch our collective garden bloom.
-            </p>
-          </div>
-
-          <!-- Interactive Garden Canvas Stage -->
-          <div class="seed-garden-canvas-wrap" id="seedGardenCanvasWrap">
-            <canvas id="seedGardenCanvas" class="seed-garden-canvas" width="960" height="320" aria-label="Interactive Community Seed Garden with glowing intentions"></canvas>
-            
-            <!-- Garden Hover/Active Tooltip -->
-            <div id="seedGardenTooltip" class="seed-garden-tooltip" style="display: none;" role="tooltip">
-              <div class="seed-tooltip-name" id="seedTooltipName">Teshia &amp; Marlon</div>
-              <div class="seed-tooltip-intention" id="seedTooltipIntention">"May every weary heart find safe harbor and deep breath here."</div>
-              <div class="seed-tooltip-badge" id="seedTooltipBadge">✦ SEED OF SANCTUARY</div>
-            </div>
-
-            <!-- Garden Stats Counter -->
-            <div class="seed-garden-stats">
-              <span class="seed-stat-item">🌱 <strong id="seedGardenCount">8</strong> Seeds Blossoming</span>
-              <span class="seed-stat-divider">•</span>
-              <span class="seed-stat-item">✨ <span id="seedGardenActiveElement">Living Breath Resonance</span></span>
-              <span class="seed-stat-divider">•</span>
-              <span class="seed-stat-item">🕊️ 100% Held in Collective Care</span>
-            </div>
-          </div>
-
-          <!-- Interactive Seed Planting Input Row -->
-          <div class="seed-planting-action-bar">
-            <form id="seedPlantingForm" class="seed-planting-form">
-              <div class="seed-input-fields">
-                <input type="text" id="seedDonorName" class="seed-input-text" placeholder="Your Name or 'Anonymous Neighbor'" maxlength="36">
-                <input type="text" id="seedIntentionText" class="seed-input-text seed-intention-input" placeholder="Your Sacred Intention (e.g. Peace in my family, courage to create...)" required maxlength="120">
-                <select id="seedElementType" class="seed-input-select" aria-label="Choose intention element">
-                  <option value="earth">🌿 Earth (Grounding)</option>
-                  <option value="water">🌊 Water (Emotional Flow)</option>
-                  <option value="air" selected>🌬️ Air (Spacious Ease)</option>
-                  <option value="fire">🔥 Fire (Vital Joy)</option>
-                  <option value="ether">🌌 Ether (Inner Peace)</option>
-                </select>
-              </div>
-              <button type="submit" class="btn btn-gold seed-plant-btn" id="btnPlantSeed">
-                <span>🌱 Plant Your Seed</span>
-              </button>
-            </form>
-          </div>
-        </div>
 
       </div>
 
@@ -2111,6 +2018,65 @@
     </div>
   </section>
 
+  <!-- ==================== LIVING COMMUNITY SEED GARDEN & INTENTION WALL ==================== -->
+  <section id="community-seed-garden" class="section-padding living-garden-section" style="background: rgba(239, 236, 227, 0.95); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-top: 1px solid rgba(197, 154, 63, 0.25);">
+    <div class="container">
+      
+      <div class="section-header" style="max-width: 860px; margin: 0 auto 30px; text-align: center;">
+        <span class="seed-garden-pill">✦ Sacred Community Intention Wall ✦</span>
+        <h2 class="section-title serif-brand" style="margin-top: 10px;">The Living Sanctuary Garden</h2>
+        <div class="flourish-divider">✦</div>
+        <p style="font-size: 1.05rem; color: var(--charcoal-muted); line-height: 1.8; margin-bottom: 0;">
+          Every seed planted here represents an intention held by our community. Tap any glowing lotus bloom to read a neighbor's intention, or plant your own seed below to watch our collective garden bloom.
+        </p>
+      </div>
+
+      <div class="community-seed-garden-box" id="communitySeedGarden">
+        <!-- Interactive Garden Canvas Stage -->
+        <div class="seed-garden-canvas-wrap" id="seedGardenCanvasWrap">
+          <canvas id="seedGardenCanvas" class="seed-garden-canvas" width="960" height="300" aria-label="Interactive Community Seed Garden with glowing intentions"></canvas>
+          
+          <!-- Garden Hover/Active Tooltip -->
+          <div id="seedGardenTooltip" class="seed-garden-tooltip" style="display: none;" role="tooltip">
+            <div class="seed-tooltip-name" id="seedTooltipName">Teshia &amp; Marlon</div>
+            <div class="seed-tooltip-intention" id="seedTooltipIntention">"May every weary heart find safe harbor and deep breath here."</div>
+            <div class="seed-tooltip-badge" id="seedTooltipBadge">✦ SEED OF SANCTUARY</div>
+          </div>
+
+          <!-- Garden Stats Counter -->
+          <div class="seed-garden-stats">
+            <span class="seed-stat-item">🌱 <strong id="seedGardenCount">8</strong> Intentions Blossoming</span>
+            <span class="seed-stat-divider">•</span>
+            <span class="seed-stat-item">✨ <span id="seedGardenActiveElement">Living Breath Resonance</span></span>
+            <span class="seed-stat-divider">•</span>
+            <span class="seed-stat-item">🕊️ 100% Held in Collective Care</span>
+          </div>
+        </div>
+
+        <!-- Streamlined Artistic Seed Planting Row -->
+        <div class="seed-planting-action-bar">
+          <form id="seedPlantingForm" class="seed-planting-form">
+            <div class="seed-input-fields">
+              <input type="text" id="seedDonorName" class="seed-input-text seed-donor-field" placeholder="Your Name or 'Neighbor'" maxlength="36">
+              <input type="text" id="seedIntentionText" class="seed-input-text seed-intention-input" placeholder="Share your sacred intention (e.g. Peace in my family, courage to create...)" required maxlength="120">
+              <select id="seedElementType" class="seed-input-select" aria-label="Choose intention element">
+                <option value="earth">🌿 Earth</option>
+                <option value="water">🌊 Water</option>
+                <option value="air" selected>🌬️ Air</option>
+                <option value="fire">🔥 Fire</option>
+                <option value="ether">🌌 Ether</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-gold seed-plant-btn" id="btnPlantSeed">
+              <span>🌱 Plant Your Seed</span>
+            </button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
   <footer>
     <div class="container">
       
@@ -2149,6 +2115,7 @@
             <li><a href="#sponsorship">Institutional Grants & Partnerships</a></li>
             <li><a href="#stay-in-loop">Stay in the Loop</a></li>
             <li><a href="#connect">Get Involved With Us</a></li>
+            <li><a href="#community-seed-garden">The Living Community Garden</a></li>
           </ul>
         </div>
 

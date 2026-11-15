@@ -3341,8 +3341,8 @@ document.addEventListener('DOMContentLoaded', () => {
       window.currentStoryData = {
         quote: item.quote,
         badge: item.badge,
-        source: "— Inner Sanctuary Gemini Oracle",
-        filename: "inner-sanctuary-gemini-oracle.png"
+        source: "— Inner Sanctuary Sparks",
+        filename: "inner-sanctuary-sparks.png"
       };
     }
 
@@ -3355,7 +3355,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize with first reflection
     applyReflection(0);
 
-    // Wire Elemental Pills/Chips (1-Tap Somatic Check-In)
+    // Wire Elemental Pills/Chips if present
     pills.forEach((pill) => {
       pill.addEventListener('click', () => {
         pills.forEach((p) => p.classList.remove('active'));
@@ -3382,7 +3382,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function handleCustomConsult() {
       const val = customInput ? customInput.value.trim() : '';
       if (!val) {
-        showToast('🌿 Please share how your body feels to generate with Gemini.');
+        showToast('🌿 Please share how your body feels to generate your Sanctuary Spark.');
         if (customInput) customInput.focus();
         return;
       }
@@ -3392,15 +3392,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       setTimeout(() => {
         const synthesized = synthesizeSomaticReflection(val);
-        
-        // Update active chip to match synthesized element
-        pills.forEach((p) => {
-          if (p.getAttribute('data-element') === synthesized.element) {
-            p.classList.add('active');
-          } else {
-            p.classList.remove('active');
-          }
-        });
         activeSomaticElement = synthesized.element;
 
         // Play matching solfeggio tone
@@ -3411,7 +3402,7 @@ document.addEventListener('DOMContentLoaded', () => {
         applyReflectionItem(synthesized);
 
         createHeartFlourish();
-        showToast('✨ Gemini Somatic Oracle generated. Take a deep breath with your reflection.');
+        showToast('✨ Gemini Sanctuary Spark generated. Take a deep breath with your reflection.');
         if (customInput) customInput.value = '';
         if (btnText) btnText.textContent = '✨ Generate with Gemini';
       }, 300);
@@ -3443,7 +3434,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Draw another card (draws from active element)
+    // Draw another Sanctuary Spark from curated deck
     if (btnDraw) {
       btnDraw.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -3451,11 +3442,11 @@ document.addEventListener('DOMContentLoaded', () => {
         playHarmonicTone(432, 0.6, 0.015);
 
         setTimeout(() => {
-          const pool = SOMATIC_ORACLE_DB[activeSomaticElement] || SANCTUARY_REFLECTIONS;
-          const nextItem = pool[Math.floor(Math.random() * pool.length)];
+          const nextItem = SANCTUARY_REFLECTIONS[Math.floor(Math.random() * SANCTUARY_REFLECTIONS.length)];
           applyReflectionItem(nextItem);
           card3D.classList.add('is-flipped');
           playHarmonicTone(nextItem.freq || 528, 1.0, 0.02);
+          showToast('✨ Drew another Sanctuary Spark.');
         }, 300);
       });
     }
@@ -3466,7 +3457,7 @@ document.addEventListener('DOMContentLoaded', () => {
         e.stopPropagation();
         const activeQuote = quoteElem.textContent.replace(/^"|"$/g, '').trim();
         const activeBadge = badgeElem.textContent.trim();
-        const shareText = `"${activeQuote}"\n\n${activeBadge}\n— Inner Sanctuary Wellness Foundation ✦ @ourinnersanctuary\nhttps://ourinnersanctuary.org`;
+        const shareText = `"${activeQuote}"\n\n${activeBadge}\n— Inner Sanctuary Sparks • @ourinnersanctuary\nhttps://ourinnersanctuary.org`;
 
         if (navigator.clipboard && navigator.clipboard.writeText) {
           navigator.clipboard.writeText(shareText).then(() => {
