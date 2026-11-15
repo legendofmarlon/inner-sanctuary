@@ -4861,7 +4861,89 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 // =========================================================================
-// SANCTUARY IN YOUR POCKET: PWA & ADD TO HOME SCREEN CONTROLLER
+// PLANT YOUR SEED: DUAL FREQUENCY (MONTHLY VS ONE-TIME) CONTROLLER
+// =========================================================================
+(function initSeedFrequencyController() {
+  const ZEFFY_MONTHLY_URL = 'https://www.zeffy.com/embed/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation';
+  const ZEFFY_ONETIME_URL = 'https://www.zeffy.com/embed/donation-form/plant-your-1-seed--inner-sanctuary-wellness-foundation';
+
+  let currentFrequency = localStorage.getItem('sanctuary_seed_freq') || 'monthly';
+
+  window.setSeedFrequency = function(freq) {
+    currentFrequency = freq === 'onetime' ? 'onetime' : 'monthly';
+    try {
+      localStorage.setItem('sanctuary_seed_freq', currentFrequency);
+    } catch(err) {}
+
+    // Update Inline Box Buttons
+    const btnMonthly = document.getElementById('btnSeedFreqMonthly');
+    const btnOnetime = document.getElementById('btnSeedFreqOnetime');
+    if (btnMonthly && btnOnetime) {
+      if (currentFrequency === 'monthly') {
+        btnMonthly.classList.add('active');
+        btnMonthly.setAttribute('aria-selected', 'true');
+        btnOnetime.classList.remove('active');
+        btnOnetime.setAttribute('aria-selected', 'false');
+      } else {
+        btnOnetime.classList.add('active');
+        btnOnetime.setAttribute('aria-selected', 'true');
+        btnMonthly.classList.remove('active');
+        btnMonthly.setAttribute('aria-selected', 'false');
+      }
+    }
+
+    // Update Modal Buttons
+    const modalBtnMonthly = document.getElementById('modalBtnSeedFreqMonthly');
+    const modalBtnOnetime = document.getElementById('modalBtnSeedFreqOnetime');
+    if (modalBtnMonthly && modalBtnOnetime) {
+      if (currentFrequency === 'monthly') {
+        modalBtnMonthly.classList.add('active');
+        modalBtnOnetime.classList.remove('active');
+      } else {
+        modalBtnOnetime.classList.add('active');
+        modalBtnMonthly.classList.remove('active');
+      }
+    }
+
+    // Update Explanations
+    const badge = document.getElementById('seedFreqBadge');
+    const text = document.getElementById('seedFreqText');
+    if (badge && text) {
+      if (currentFrequency === 'monthly') {
+        badge.textContent = '✨ Monthly Sustaining Care';
+        text.textContent = 'Sustains free weekly open mic stages, artist stipends, tea, and trauma-informed healing spaces month after month.';
+      } else {
+        badge.textContent = '🌱 Instant 1-Time Seed';
+        text.textContent = 'Directly sparks this week\'s community circle and helps provide tokens and sacred materials for local neighbors.';
+      }
+    }
+
+    // Update iframes if frequency warrants dedicated seed form
+    const inlineIframe = document.getElementById('zeffy-inline-iframe');
+    const modalIframe = document.getElementById('zeffy-modal-iframe');
+    const targetUrl = currentFrequency === 'onetime' ? ZEFFY_ONETIME_URL : ZEFFY_MONTHLY_URL;
+
+    if (inlineIframe && !inlineIframe.src.includes(targetUrl)) {
+      inlineIframe.src = targetUrl;
+    }
+    if (modalIframe && !modalIframe.src.includes(targetUrl)) {
+      modalIframe.src = targetUrl;
+    }
+
+    // Harmonic feedback
+    if (typeof playHarmonicTone === 'function') {
+      playHarmonicTone(currentFrequency === 'monthly' ? 528 : 432, 0.15, 0.02);
+    }
+  };
+
+  // Initialize on load
+  document.addEventListener('DOMContentLoaded', () => {
+    window.setSeedFrequency(currentFrequency);
+  });
+})();
+
+// =========================================================================
+// SANCTUARY IN YOUR POCKET: UNIVERSAL PWA CONTROLLER (ALL PHONE TYPES)
 // =========================================================================
 (function initSanctuaryPwaController() {
   let deferredPwaPrompt = null;
@@ -4871,7 +4953,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // 1. Register Service Worker
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-      // Only register on http/https to avoid file:// protocol errors
       if (window.location.protocol.startsWith('http')) {
         navigator.serviceWorker.register('./sw.js')
           .then((registration) => {
@@ -4884,38 +4965,56 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Helper: Detect iOS Safari
-  function isIosSafari() {
-    const ua = window.navigator.userAgent;
-    const isIos = /iphone|ipad|ipod/i.test(ua);
-    const isWebview = navigator.standalone || window.matchMedia('(display-mode: standalone)').matches;
-    return isIos && !isWebview;
+  // Device Detectors
+  function isIosDevice() {
+    const ua = window.navigator.userAgent.toLowerCase();
+    return /iphone|ipad|ipod/.test(ua);
   }
 
-  // Helper: Check if already installed / standalone
+  function isAndroidDevice() {
+    const ua = window.navigator.userAgent.toLowerCase();
+    return /android/.test(ua);
+  }
+
   function isStandalone() {
     return window.matchMedia('(display-mode: standalone)').matches || ('standalone' in navigator && navigator.standalone);
   }
+
+  // Universal Modal Tab Switcher
+  window.switchPwaModalTab = function(targetOs) {
+    const tabs = ['ios', 'android', 'desktop'];
+    tabs.forEach((os) => {
+      const btn = document.getElementById('pwaTabBtn' + os.charAt(0).toUpperCase() + os.slice(1));
+      const pane = document.getElementById('pwaPane' + os.charAt(0).toUpperCase() + os.slice(1));
+      if (btn && pane) {
+        if (os === targetOs) {
+          btn.classList.add('active');
+          pane.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+          pane.classList.remove('active');
+        }
+      }
+    });
+    if (typeof playHarmonicTone === 'function') playHarmonicTone(587, 0.1, 0.015);
+  };
 
   // 2. Capture install prompt on Chromium / Android / Desktop
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPwaPrompt = e;
 
-    // Show nav and mobile install buttons
     const navBtn = document.getElementById('btnPwaNavInstall');
-    if (navBtn) navBtn.style.display = 'inline-flex';
+    if (navBtn && !isStandalone()) navBtn.style.display = 'inline-flex';
 
     const mobileItem = document.getElementById('mobilePwaInstallItem');
-    if (mobileItem) mobileItem.style.display = 'block';
+    if (mobileItem && !isStandalone()) mobileItem.style.display = 'block';
 
-    // Check if dismissed recently
     const dismissedAt = localStorage.getItem(DISMISS_KEY);
     const now = Date.now();
     const isDismissedRecently = dismissedAt && (now - parseInt(dismissedAt, 10)) < (DISMISS_DURATION_DAYS * 24 * 60 * 60 * 1000);
 
     if (!isDismissedRecently && !isStandalone()) {
-      // Gentle delayed reveal after 4 seconds
       setTimeout(() => {
         const banner = document.getElementById('pwaInstallBanner');
         if (banner && deferredPwaPrompt) {
@@ -4925,53 +5024,72 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Handle iOS Safari visibility of install triggers
+  // Ensure download buttons are visible across all devices
   document.addEventListener('DOMContentLoaded', () => {
-    if (isIosSafari() && !isStandalone()) {
+    if (!isStandalone()) {
       const navBtn = document.getElementById('btnPwaNavInstall');
       if (navBtn) navBtn.style.display = 'inline-flex';
-
       const mobileItem = document.getElementById('mobilePwaInstallItem');
       if (mobileItem) mobileItem.style.display = 'block';
     }
   });
 
-  // 3. User Trigger: Clicked Install Button anywhere (Nav, Footer, or Banner)
-  window.triggerPwaInstall = function(e) {
-    if (e && e.preventDefault) e.preventDefault();
-
+  // Direct trigger prompt for Android button inside modal
+  window.triggerPwaPromptDirect = function() {
     if (deferredPwaPrompt) {
-      // Trigger native browser prompt
       deferredPwaPrompt.prompt();
       deferredPwaPrompt.userChoice.then((choiceResult) => {
         if (choiceResult.outcome === 'accepted') {
-          console.log('[Sanctuary PWA] User accepted the install prompt');
           if (typeof playHarmonicTone === 'function') playHarmonicTone(528, 1.2, 0.03);
           if (typeof showToast === 'function') showToast('✨ Sanctuary installed to your Home Screen! Welcome home.');
-        } else {
-          console.log('[Sanctuary PWA] User dismissed the install prompt');
+          window.closePwaIosModal();
         }
         deferredPwaPrompt = null;
-        window.dismissPwaBanner();
       });
-    } else if (isIosSafari()) {
-      // Open iOS modal guidance
-      const iosModal = document.getElementById('pwaIosModal');
-      if (iosModal) iosModal.style.display = 'flex';
-      if (typeof playHarmonicTone === 'function') playHarmonicTone(659, 0.2, 0.02);
     } else {
-      // General feedback if browser doesn't support deferred prompt or is already installed
-      if (isStandalone()) {
-        if (typeof showToast === 'function') showToast('✨ Sanctuary is already installed and running on your device!');
-      } else {
-        const banner = document.getElementById('pwaInstallBanner');
-        if (banner) banner.style.display = 'block';
-        if (typeof showToast === 'function') showToast('✦ Tap your browser menu (⋮) and select "Add to Home Screen" or "Install App".');
+      if (typeof showToast === 'function') {
+        showToast('📱 Tap your browser menu (⋮) and tap "Install App" or "Add to Home screen"');
       }
     }
   };
 
-  // 4. Banner Action Buttons
+  // Universal User Trigger: Clicked Install anywhere
+  window.triggerPwaInstall = function(e) {
+    if (e && e.preventDefault) e.preventDefault();
+
+    if (isStandalone()) {
+      if (typeof showToast === 'function') showToast('✨ Inner Sanctuary is already installed and active on your device!');
+      return;
+    }
+
+    if (deferredPwaPrompt) {
+      deferredPwaPrompt.prompt();
+      deferredPwaPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          if (typeof playHarmonicTone === 'function') playHarmonicTone(528, 1.2, 0.03);
+          if (typeof showToast === 'function') showToast('✨ Inner Sanctuary installed to your Home Screen!');
+        }
+        deferredPwaPrompt = null;
+        window.dismissPwaBanner();
+      });
+      return;
+    }
+
+    // Open Universal Modal with OS tab preselected
+    const modal = document.getElementById('pwaIosModal');
+    if (modal) {
+      modal.style.display = 'flex';
+      if (isIosDevice()) {
+        window.switchPwaModalTab('ios');
+      } else if (isAndroidDevice()) {
+        window.switchPwaModalTab('android');
+      } else {
+        window.switchPwaModalTab('desktop');
+      }
+      if (typeof playHarmonicTone === 'function') playHarmonicTone(659, 0.2, 0.02);
+    }
+  };
+
   window.acceptPwaInstall = function() {
     window.triggerPwaInstall();
   };
@@ -4983,11 +5101,10 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   window.closePwaIosModal = function() {
-    const iosModal = document.getElementById('pwaIosModal');
-    if (iosModal) iosModal.style.display = 'none';
+    const modal = document.getElementById('pwaIosModal');
+    if (modal) modal.style.display = 'none';
   };
 
-  // 5. Celebration on successful install
   window.addEventListener('appinstalled', () => {
     deferredPwaPrompt = null;
     const banner = document.getElementById('pwaInstallBanner');
@@ -5007,11 +5124,230 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Close iOS modal when clicking outside
   window.addEventListener('click', (e) => {
-    const iosModal = document.getElementById('pwaIosModal');
-    if (iosModal && e.target === iosModal) {
+    const modal = document.getElementById('pwaIosModal');
+    if (modal && e.target === modal) {
       window.closePwaIosModal();
     }
   });
+})();
+
+// =========================================================================
+// 3D REALISTIC OCEAN WAVES & ATMOSPHERE WIND CANVAS ENGINE
+// =========================================================================
+(function init3DOceanAtmosphereEngine() {
+  const canvas = document.getElementById('sanctuary-3d-canvas');
+  if (!canvas) return;
+
+  const ctx = canvas.getContext('2d', { alpha: true });
+  let width = canvas.width = window.innerWidth;
+  let height = canvas.height = window.innerHeight;
+
+  window.addEventListener('resize', () => {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+  });
+
+  // Interactive mouse / touch swell wave displacement
+  const oceanMouse = {
+    x: width * 0.5,
+    y: height * 0.5,
+    active: false,
+    radius: 180,
+    intensity: 0
+  };
+
+  window.addEventListener('mousemove', (e) => {
+    oceanMouse.x = e.clientX;
+    oceanMouse.y = e.clientY;
+    oceanMouse.active = true;
+    oceanMouse.intensity = Math.min(1.0, oceanMouse.intensity + 0.15);
+  });
+
+  window.addEventListener('touchmove', (e) => {
+    if (e.touches && e.touches[0]) {
+      oceanMouse.x = e.touches[0].clientX;
+      oceanMouse.y = e.touches[0].clientY;
+      oceanMouse.active = true;
+      oceanMouse.intensity = Math.min(1.0, oceanMouse.intensity + 0.2);
+    }
+  }, { passive: true });
+
+  // Atmospheric cirrus wind wisps
+  const windWisps = [];
+  const wispCount = Math.min(14, Math.floor(width / 90));
+  for (let i = 0; i < wispCount; i++) {
+    windWisps.push({
+      x: Math.random() * width,
+      y: Math.random() * (height * 0.45),
+      length: Math.random() * 260 + 140,
+      thickness: Math.random() * 2.5 + 1.0,
+      speed: Math.random() * 0.45 + 0.2,
+      alpha: Math.random() * 0.18 + 0.06,
+      swayFreq: Math.random() * 0.006 + 0.003,
+      swayOffset: Math.random() * Math.PI * 2
+    });
+  }
+
+  let isEngineRunning = true;
+  let lastTime = performance.now();
+
+  function render3DOcean(now) {
+    if (!isEngineRunning) return;
+    requestAnimationFrame(render3DOcean);
+
+    // Pause heavy calculations if tab is hidden
+    if (document.hidden) return;
+
+    const t = now * 0.001;
+    oceanMouse.intensity *= 0.96; // Smooth decay
+
+    ctx.clearRect(0, 0, width, height);
+
+    // Dynamic Horizon: ~50% of viewport height (aligning with 8K aerial background plate)
+    const horizonY = height * 0.50;
+    const oceanHeight = height - horizonY;
+
+    // 1. Render Atmospheric Sky Wind Currents & God Rays (above horizon)
+    ctx.save();
+    for (let i = 0; i < windWisps.length; i++) {
+      const w = windWisps[i];
+      w.x += w.speed;
+      if (w.x > width + w.length) {
+        w.x = -w.length;
+        w.y = Math.random() * (horizonY * 0.85);
+      }
+      const yOffset = Math.sin(now * w.swayFreq + w.swayOffset) * 12;
+
+      const grad = ctx.createLinearGradient(w.x, w.y + yOffset, w.x + w.length, w.y + yOffset);
+      grad.addColorStop(0, 'rgba(255, 255, 255, 0)');
+      grad.addColorStop(0.5, `rgba(248, 225, 170, ${w.alpha})`);
+      grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+
+      ctx.beginPath();
+      ctx.moveTo(w.x, w.y + yOffset);
+      ctx.bezierCurveTo(
+        w.x + w.length * 0.35, w.y + yOffset - 4,
+        w.x + w.length * 0.65, w.y + yOffset + 4,
+        w.x + w.length, w.y + yOffset
+      );
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = w.thickness;
+      ctx.stroke();
+    }
+
+    // Volumetric Golden Sun Rays Piercing Cloud Breaks
+    const sunCenterX = width * 0.52;
+    const rayGrad = ctx.createRadialGradient(sunCenterX, horizonY * 0.25, 20, sunCenterX, horizonY, width * 0.6);
+    rayGrad.addColorStop(0, 'rgba(255, 235, 185, 0.06)');
+    rayGrad.addColorStop(0.5, 'rgba(248, 217, 140, 0.025)');
+    rayGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+    ctx.fillStyle = rayGrad;
+    ctx.fillRect(0, 0, width, horizonY);
+    ctx.restore();
+
+    // 2. Render 3D Perspective Ocean Wave Swells (from horizon down to foreground)
+    const ribbonCount = width < 768 ? 24 : 38;
+    const segments = width < 768 ? 40 : 64;
+    const stepX = width / segments;
+
+    // Somatic Breath Resonance Multiplier
+    let breathAmp = 1.0;
+    let breathDispersion = 0;
+    if (window.sanctuaryBreathSync && window.sanctuaryBreathSync.active) {
+      const bStep = window.sanctuaryBreathSync.step; // 0 = Inhale, 1 = Exhale
+      const bEase = window.sanctuaryBreathSync.ease || 0.5;
+      breathAmp = bStep === 0 ? (1.0 + bEase * 0.35) : (1.0 - bEase * 0.20);
+      breathDispersion = (bStep === 1 ? bEase * 18 : 0);
+    }
+
+    // Render Ribbons from Far (Horizon) to Near (Foreground)
+    for (let r = 0; r < ribbonCount; r++) {
+      const depth = r / ribbonCount; // 0 = near horizon, 1 = bottom screen
+      // Perspective distribution: ribbon spacing expands as it approaches camera
+      const normY = Math.pow(depth, 1.85);
+      const baseRibbonY = horizonY + normY * oceanHeight;
+      const perspectiveScale = 0.25 + depth * 0.85;
+
+      // Primary wave amplitudes scaled by 3D perspective
+      const amp1 = (12 * perspectiveScale * breathAmp);
+      const amp2 = (5.5 * perspectiveScale);
+      const amp3 = (2.5 * perspectiveScale);
+
+      ctx.beginPath();
+      ctx.moveTo(0, height);
+
+      for (let s = 0; s <= segments; s++) {
+        const px = s * stepX;
+
+        // Wave Harmonics (Gerstner-style continuous swell superposition)
+        const wave1 = Math.sin(px * 0.009 - t * 1.25 + depth * 4.5) * amp1;
+        const wave2 = Math.cos(px * 0.022 + t * 1.85 - depth * 6.0) * amp2;
+        const wave3 = Math.sin(px * 0.045 - t * 2.6 + depth * 3.0) * amp3;
+
+        // Interactive Cursor Ripple Displacement
+        let mouseDisplacement = 0;
+        if (oceanMouse.active && oceanMouse.intensity > 0.05) {
+          const dx = px - oceanMouse.x;
+          const dy = baseRibbonY - oceanMouse.y;
+          const dist = Math.hypot(dx, dy);
+          if (dist < oceanMouse.radius) {
+            const rippleForce = (1 - dist / oceanMouse.radius) * oceanMouse.intensity;
+            mouseDisplacement = Math.sin(dist * 0.08 - t * 8.0) * rippleForce * 12 * perspectiveScale;
+          }
+        }
+
+        const py = baseRibbonY + wave1 + wave2 + wave3 + mouseDisplacement;
+        if (s === 0) {
+          ctx.lineTo(px, py);
+        } else {
+          ctx.lineTo(px, py);
+        }
+      }
+
+      ctx.lineTo(width, height);
+      ctx.closePath();
+
+      // Atmospheric Color Interpolation (Sapphire Depth to Turquoise & Golden Crests)
+      const alphaDepth = 0.06 + depth * 0.16;
+      const colorGrad = ctx.createLinearGradient(0, baseRibbonY - 15, 0, baseRibbonY + 40);
+      
+      // Solar Specular Shimmer Corridor (aligned with center sun)
+      colorGrad.addColorStop(0, `rgba(248, 225, 160, ${alphaDepth * 0.65})`);
+      colorGrad.addColorStop(0.3, `rgba(44, 162, 185, ${alphaDepth * 0.55})`);
+      colorGrad.addColorStop(1, `rgba(10, 36, 56, ${alphaDepth * 0.40})`);
+
+      ctx.fillStyle = colorGrad;
+      ctx.fill();
+
+      // Golden Specular Rim Lighting on Wave Crests
+      if (r % 2 === 0) {
+        ctx.beginPath();
+        for (let s = 0; s <= segments; s++) {
+          const px = s * stepX;
+          const wave1 = Math.sin(px * 0.009 - t * 1.25 + depth * 4.5) * amp1;
+          const wave2 = Math.cos(px * 0.022 + t * 1.85 - depth * 6.0) * amp2;
+          const py = baseRibbonY + wave1 + wave2;
+          if (s === 0) ctx.moveTo(px, py);
+          else ctx.lineTo(px, py);
+        }
+        ctx.strokeStyle = `rgba(255, 246, 210, ${(0.04 + depth * 0.08) * breathAmp})`;
+        ctx.lineWidth = 0.8 + depth * 0.8;
+        ctx.stroke();
+      }
+    }
+  }
+
+  requestAnimationFrame(render3DOcean);
+
+  // Global toggle control
+  window.toggleSanctuary3DWaves = function(state) {
+    if (state !== undefined) {
+      isEngineRunning = !!state;
+    } else {
+      isEngineRunning = !isEngineRunning;
+    }
+    canvas.style.opacity = isEngineRunning ? '0.94' : '0';
+    return isEngineRunning;
+  };
 })();

@@ -153,6 +153,9 @@
 <body>
 
   <!-- Argon 4.0 Golden Hour Botanical Dust Motes Canvas -->
+  <!-- 3D Ocean Waves & Wind Atmosphere Canvas Engine -->
+  <canvas id="sanctuary-3d-canvas" class="sanctuary-3d-canvas" aria-hidden="true"></canvas>
+  <!-- Argon 4.0 Golden Hour Botanical Dust Motes Canvas -->
   <canvas id="argon-dust-canvas"></canvas>
   <!-- Realistic 8K Elemental Nature Atmosphere Layers (Dynamic Weekly Plate Switcher) -->
   <div id="realistic-element-sky" class="realistic-sky-bg" aria-hidden="true">
@@ -1468,13 +1471,33 @@
                   100% Direct • 0% Fees
                 </span>
               </div>
-              <p style="font-size: 0.86rem; color: #CBD7D0; line-height: 1.5; margin-bottom: 14px;">
-                Every single dollar directly powers unhurried healing spaces and creative community stages. Give securely right here:
+              <p style="font-size: 0.86rem; color: #CBD7D0; line-height: 1.5; margin-bottom: 12px;">
+                Every single dollar directly powers unhurried healing spaces and creative community stages. Choose your gift frequency:
               </p>
+
+              <!-- Monthly vs One-Time Seed Frequency Toggle -->
+              <div class="seed-frequency-toggle-wrap">
+                <div class="seed-frequency-segmented-control" role="tablist" aria-label="Donation Frequency">
+                  <button type="button" class="seed-freq-btn active" id="btnSeedFreqMonthly" data-frequency="monthly" role="tab" aria-selected="true" onclick="setSeedFrequency('monthly')">
+                    <span class="freq-icon">🌿</span>
+                    <span class="freq-label">Monthly Sustainer</span>
+                    <span class="freq-tag">Most Popular</span>
+                  </button>
+                  <button type="button" class="seed-freq-btn" id="btnSeedFreqOnetime" data-frequency="onetime" role="tab" aria-selected="false" onclick="setSeedFrequency('onetime')">
+                    <span class="freq-icon">🌱</span>
+                    <span class="freq-label">One-Time Seed</span>
+                  </button>
+                </div>
+                <div class="seed-freq-explanation" id="seedFreqExplanation">
+                  <span class="seed-freq-pill-badge" id="seedFreqBadge">✨ Monthly Sustaining Care</span>
+                  <span class="seed-freq-text" id="seedFreqText">Sustains free weekly open mic stages, artist stipends, tea, and trauma-informed healing spaces month after month.</span>
+                </div>
+              </div>
 
               <!-- Live Embedded Zeffy Giving Box -->
               <div class="zeffy-inline-frame-wrap" style="border-radius: 12px; overflow: hidden; border: 1px solid rgba(197, 154, 63, 0.35); background: #F6F2E9; box-shadow: inset 0 2px 8px rgba(0,0,0,0.12); margin-bottom: 12px;">
                 <iframe
+                  id="zeffy-inline-iframe"
                   title="Inner Sanctuary Wellness Foundation Direct Donation"
                   src="https://www.zeffy.com/embed/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation"
                   style="border: 0; width: 100%; height: 440px; background: #F6F2E9; display: block;"
@@ -1485,14 +1508,24 @@
                 </iframe>
               </div>
 
-              <!-- Direct On-Site Security Guarantee (Keeps people on our site) -->
-              <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; border-top: 1px solid rgba(197, 154, 63, 0.22); padding-top: 12px; font-size: 0.80rem; color: #CBD7D0;">
-                <span style="display: inline-flex; align-items: center; gap: 6px;">
-                  <span>🔒</span>
-                  <span>100% Secure On-Site Giving</span>
-                </span>
-                <span style="font-size: 0.76rem; color: #F8D98C; display: inline-flex; align-items: center; gap: 4px; font-weight: 600;">
-                  <span>✓ 1-Tap Apple Pay &amp; Google Pay</span>
+              <!-- Prominent Apple Pay & Google Pay Badges -->
+              <div class="donation-payment-pill-row">
+                <div class="pay-badge-group">
+                  <span class="pay-method-badge apple-pay-badge" title="Instant 1-Tap Apple Pay">
+                    <svg width="14" height="14" viewBox="0 0 170 170" fill="currentColor" style="display:inline-block;vertical-align:middle;margin-right:2px;">
+                      <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.69-3.04-7.69-7.85-12-14.42-6.19-9.35-11.05-20.22-14.58-32.61-3.53-12.39-5.3-24.08-5.3-35.08 0-14.89 3.81-27.42 11.44-37.59 7.63-10.16 17.15-15.35 28.56-15.57 4.58 0 9.84 1.25 15.78 3.75 5.94 2.5 9.84 3.86 11.7 4.08 2.07-.33 6.09-1.74 12.06-4.24 5.98-2.5 11.23-3.64 15.78-3.43 11.2.65 20.33 4.89 27.4 12.72-9.79 5.87-14.57 14.13-14.35 24.78.22 8.26 3.48 15.33 9.78 21.2 6.3 5.87 13.91 9.24 22.83 10.11-2.07 6.3-4.57 12.5-7.5 18.6zM119.22 31.85c0-7.17 2.61-13.91 7.83-20.22 5.22-6.3 11.85-10.43 19.89-12.4 1.09 7.39-1.09 14.46-6.52 21.2-5.43 6.74-12.17 10.76-20.22 12.06-.33-.22-.65-.43-.98-.64z"/>
+                    </svg>
+                     Pay
+                  </span>
+                  <span class="pay-method-badge google-pay-badge" title="Instant Google Pay">
+                    <span style="font-weight:900;letter-spacing:-0.05em;color:#4285F4;">G</span><span style="font-weight:700;color:#5F6368;margin-left:2px;">Pay</span>
+                  </span>
+                  <span class="pay-method-badge card-pay-badge" title="Debit and Credit Cards">
+                    💳 Card
+                  </span>
+                </div>
+                <span class="pay-guarantee-note">
+                  ⚡ 1-Tap Guest Checkout • 0% Fees
                 </span>
               </div>
             </div>
@@ -2102,6 +2135,37 @@
     </div>
   </section>
 
+  <!-- ==================== SANCTUARY IN YOUR POCKET: UNIVERSAL APP DOWNLOAD ==================== -->
+  <section class="container" style="margin-top: 20px; margin-bottom: 24px;">
+    <div class="sanctuary-app-card card-3d-hover">
+      <div>
+        <div class="sanctuary-app-card-tag">
+          <span>📱 SANCTUARY IN YOUR POCKET • ALL DEVICES</span>
+        </div>
+        <h3 class="sanctuary-app-card-title">
+          Download the Inner Sanctuary App
+        </h3>
+        <p class="sanctuary-app-card-desc">
+          Carry your digital sanctuary wherever you go. Instant offline access to 432Hz/528Hz soundscapes, community open mic schedules, somatic breathing circles, and personal reflections — zero App Store login needed, 100% free.
+        </p>
+        <div class="sanctuary-device-pills">
+          <span class="device-badge-pill">🍏 Apple iPhone &amp; iPad</span>
+          <span class="device-badge-pill">🤖 Android &amp; Samsung</span>
+          <span class="device-badge-pill">💻 Mac &amp; PC Desktop</span>
+        </div>
+      </div>
+      <div class="sanctuary-app-card-actions">
+        <button type="button" onclick="triggerPwaInstall(event)" class="btn btn-gold btn-liquid-gold pulse-gold" style="width: 100%; max-width: 280px; padding: 16px 24px; font-size: 1rem; font-weight: 700; border-radius: 999px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 8px 24px rgba(197, 154, 63, 0.45);">
+          <span>📱 Download App Now</span>
+          <span>→</span>
+        </button>
+        <span style="font-size: 0.78rem; color: #CBD7D0; text-align: center;">
+          ⚡ 1-Tap Home Screen Install • Works Completely Offline
+        </span>
+      </div>
+    </div>
+  </section>
+
   <footer>
     <div class="container">
       
@@ -2201,8 +2265,18 @@
       <div class="zeffy-modal-header compact-zeffy-header">
         <div class="zeffy-compact-row">
           <span class="zeffy-modal-badge">✦ 501(c)(3) PUBLIC CHARITY • ZERO PLATFORM FEES ✦</span>
-          <h3 class="zeffy-modal-title serif-brand">🌱 Plant Your $1 Community Seed</h3>
-          <span class="zeffy-pay-pill">⚡ Instant Apple Pay &amp; Google Pay</span>
+          <h3 class="zeffy-modal-title serif-brand">🌱 Plant Your Community Seed</h3>
+          <span class="zeffy-pay-pill">⚡ 1-Tap Apple Pay &amp; Google Pay</span>
+        </div>
+        <div class="modal-seed-frequency">
+          <div class="seed-frequency-segmented-control" role="tablist" aria-label="Modal Donation Frequency">
+            <button type="button" class="seed-freq-btn active modal-freq-monthly" id="modalBtnSeedFreqMonthly" data-frequency="monthly" onclick="setSeedFrequency('monthly')">
+              <span class="freq-icon">🌿</span> Monthly Sustainer
+            </button>
+            <button type="button" class="seed-freq-btn modal-freq-onetime" id="modalBtnSeedFreqOnetime" data-frequency="onetime" onclick="setSeedFrequency('onetime')">
+              <span class="freq-icon">🌱</span> One-Time Seed
+            </button>
+          </div>
         </div>
       </div>
 
@@ -2322,25 +2396,111 @@
   </aside>
 
   <!-- ==================== APPLE IOS SAFARI INSTALL GUIDE MODAL ==================== -->
-  <div id="pwaIosModal" class="pwa-ios-modal-backdrop" style="display: none;" role="dialog" aria-modal="true" aria-label="How to install on iOS">
+  <div id="pwaIosModal" class="pwa-ios-modal-backdrop" style="display: none;" role="dialog" aria-modal="true" aria-label="How to install Inner Sanctuary App">
     <div class="pwa-ios-modal-card">
       <button type="button" class="pwa-ios-close" id="btnPwaIosClose" aria-label="Close modal" onclick="closePwaIosModal()">✕</button>
       <div class="pwa-ios-header">
         <img src="emblem.png" alt="Inner Sanctuary App Icon" class="pwa-ios-icon" onerror="this.src='emblem.jpg'" />
-        <div class="pwa-badge">✦ APPLE IOS SANCTUARY ✦</div>
-        <h3 class="serif-brand pwa-ios-title">Add Sanctuary to Your iPhone or iPad</h3>
+        <div class="pwa-badge">✦ SANCTUARY FOR ALL DEVICES ✦</div>
+        <h3 class="serif-brand pwa-ios-title">Add Sanctuary to Your Phone</h3>
         <p class="pwa-ios-sub">Install Inner Sanctuary directly to your home screen for unhurried, one-tap peace.</p>
       </div>
-      <div class="pwa-ios-steps">
-        <div class="pwa-ios-step">
-          <div class="pwa-step-badge">1</div>
-          <div class="pwa-step-info">
-            Tap the <strong>Share</strong> button in Safari's toolbar:
-            <span class="pwa-ios-icon-inline">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
-            </span>
+
+      <!-- Device Tab Switcher: iPhone vs Android vs Desktop -->
+      <div class="pwa-universal-tabs" role="tablist">
+        <button type="button" class="pwa-tab-btn active" id="pwaTabBtnIos" onclick="switchPwaModalTab('ios')">
+          <span>🍏 iPhone / iPad</span>
+        </button>
+        <button type="button" class="pwa-tab-btn" id="pwaTabBtnAndroid" onclick="switchPwaModalTab('android')">
+          <span>🤖 Android / Samsung</span>
+        </button>
+        <button type="button" class="pwa-tab-btn" id="pwaTabBtnDesktop" onclick="switchPwaModalTab('desktop')">
+          <span>💻 Mac &amp; PC</span>
+        </button>
+      </div>
+
+      <!-- Tab Pane 1: Apple iOS (Safari & Chrome on iPhone/iPad) -->
+      <div class="pwa-tab-pane active" id="pwaPaneIos">
+        <div class="pwa-ios-steps">
+          <div class="pwa-ios-step">
+            <div class="pwa-step-badge">1</div>
+            <div class="pwa-step-info">
+              Tap the <strong>Share</strong> button in Safari's toolbar:
+              <span class="pwa-ios-icon-inline">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
+              </span>
+            </div>
+          </div>
+          <div class="pwa-ios-step">
+            <div class="pwa-step-badge">2</div>
+            <div class="pwa-step-info">
+              Scroll down the menu and tap <strong>"Add to Home Screen"</strong>:
+              <span class="pwa-ios-icon-inline">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+              </span>
+            </div>
+          </div>
+          <div class="pwa-ios-step">
+            <div class="pwa-step-badge">3</div>
+            <div class="pwa-step-info">
+              Tap <strong>"Add"</strong> in the top-right corner. Your sanctuary is now on your screen!
+            </div>
           </div>
         </div>
+      </div>
+
+      <!-- Tab Pane 2: Android & Samsung Devices -->
+      <div class="pwa-tab-pane" id="pwaPaneAndroid">
+        <div class="pwa-ios-steps">
+          <div class="pwa-ios-step">
+            <div class="pwa-step-badge">1</div>
+            <div class="pwa-step-info">
+              Tap the <strong>Menu (⋮ or ⋯)</strong> icon in Chrome, Edge, or Samsung Internet.
+            </div>
+          </div>
+          <div class="pwa-ios-step">
+            <div class="pwa-step-badge">2</div>
+            <div class="pwa-step-info">
+              Select <strong>"Install App"</strong> or <strong>"Add to Home screen"</strong>.
+            </div>
+          </div>
+          <div class="pwa-ios-step">
+            <div class="pwa-step-badge">3</div>
+            <div class="pwa-step-info">
+              Tap <strong>"Install"</strong> to confirm. The app will launch with instant offline support!
+            </div>
+          </div>
+        </div>
+        <div style="text-align: center; margin-top: 10px;">
+          <button type="button" class="btn btn-gold btn-liquid-gold" onclick="triggerPwaPromptDirect()" style="padding: 10px 20px; font-size: 0.82rem; font-weight: 700; border-radius: 999px;">
+            ⚡ Tap to Trigger 1-Click Install
+          </button>
+        </div>
+      </div>
+
+      <!-- Tab Pane 3: Desktop (Mac, Windows, Chromebook) -->
+      <div class="pwa-tab-pane" id="pwaPaneDesktop">
+        <div class="pwa-ios-steps">
+          <div class="pwa-ios-step">
+            <div class="pwa-step-badge">1</div>
+            <div class="pwa-step-info">
+              Look for the <strong>Install Icon (⊕ or 💻)</strong> on the right side of your browser address bar.
+            </div>
+          </div>
+          <div class="pwa-ios-step">
+            <div class="pwa-step-badge">2</div>
+            <div class="pwa-step-info">
+              Click <strong>"Install Inner Sanctuary"</strong> to add it to your desktop or taskbar dock.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-gold pwa-ios-done-btn" onclick="closePwaIosModal()" style="margin-top: 16px;">
+        <span>✨ Got It, Thank You</span>
+      </button>
+    </div>
+  </div>
         <div class="pwa-ios-step">
           <div class="pwa-step-badge">2</div>
           <div class="pwa-step-info">
