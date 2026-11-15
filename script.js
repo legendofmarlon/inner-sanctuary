@@ -3272,39 +3272,39 @@ document.addEventListener('DOMContentLoaded', () => {
     const lower = clean.toLowerCase();
 
     let targetElement = 'earth';
-    let badgeTheme = 'SOMATIC GROUNDING';
+    let badgeTheme = 'ROOT ME';
     let freq = 432;
     let quote = '';
 
     if (lower.includes('water') || lower.includes('cry') || lower.includes('grief') || lower.includes('sad') || lower.includes('heart') || lower.includes('tear') || lower.includes('soft') || lower.includes('emotional') || lower.includes('hurt')) {
       targetElement = 'water';
-      badgeTheme = 'WATER • WASH CLEAN';
+      badgeTheme = 'WASH CLEAN';
       freq = 528;
       quote = `Holding ${clean || 'this tender feeling'} takes immense courage. Soften the muscles behind your eyes, unclench your jaw, and let the waters of your breath wash through you without resistance.`;
     } else if (lower.includes('air') || lower.includes('breath') || lower.includes('anxi') || lower.includes('rush') || lower.includes('busy') || lower.includes('overwhelm') || lower.includes('mind') || lower.includes('think') || lower.includes('worry')) {
       targetElement = 'air';
-      badgeTheme = 'AIR • CLEAR CHEST';
+      badgeTheme = 'CLEAR CHEST';
       freq = 639;
       quote = `When carrying ${clean || 'a busy mind'}, your chest forgets its natural expansion. Lift your chin, inhale spacious sky into your collarbones, and exhale the pressure to solve everything right now.`;
     } else if (lower.includes('fire') || lower.includes('tired') || lower.includes('exhaust') || lower.includes('burnout') || lower.includes('numb') || lower.includes('stuck') || lower.includes('spark') || lower.includes('joy') || lower.includes('creative') || lower.includes('passion')) {
       targetElement = 'fire';
-      badgeTheme = 'FIRE • IGNITE JOY';
+      badgeTheme = 'IGNITE JOY';
       freq = 741;
       quote = `Even underneath ${clean || 'deep fatigue'}, your sacred inner ember is never extinguished. Place a warm hand over your solar plexus, breathe in vitality, and remember that your joy is sovereign.`;
     } else if (lower.includes('ether') || lower.includes('lost') || lower.includes('spirit') || lower.includes('peace') || lower.includes('alone') || lower.includes('space') || lower.includes('silent') || lower.includes('still')) {
       targetElement = 'ether';
-      badgeTheme = 'ETHER • INFINITE SPACE';
+      badgeTheme = 'INFINITE SPACE';
       freq = 852;
       quote = `In the presence of ${clean || 'this quiet space'}, remind yourself that you are not separate from the silence. Drop into the stillness between your thoughts; you are held by the infinite cosmos.`;
     } else {
       targetElement = 'earth';
-      badgeTheme = 'EARTH • ROOT ME';
+      badgeTheme = 'ROOT ME';
       freq = 432;
       quote = `Meeting ${clean || 'this moment'} requires no force. Feel the floor beneath your feet, let your shoulders drop into the steady pull of gravity, and let your body remember its natural sanctuary.`;
     }
 
     return {
-      badge: `✦ ${badgeTheme} ✦`,
+      badge: `✦ GEMINI • ${badgeTheme} ✦`,
       theme: badgeTheme,
       element: targetElement,
       quote: quote,
@@ -3320,7 +3320,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnCopy = document.getElementById('btnCopyReflection');
     const btnShareIG = document.getElementById('btnShareIG');
     const toast = document.getElementById('reflectionCopyToast');
-    const pills = document.querySelectorAll('.somatic-pill');
+    const pills = document.querySelectorAll('.somatic-pill, .somatic-chip');
     const customInput = document.getElementById('somaticCustomInput');
     const btnConsult = document.getElementById('btnOracleGenerate');
 
@@ -3341,8 +3341,8 @@ document.addEventListener('DOMContentLoaded', () => {
       window.currentStoryData = {
         quote: item.quote,
         badge: item.badge,
-        source: "— Inner Sanctuary Somatic Oracle",
-        filename: "inner-sanctuary-somatic-oracle.png"
+        source: "— Inner Sanctuary Gemini Oracle",
+        filename: "inner-sanctuary-gemini-oracle.png"
       };
     }
 
@@ -3355,7 +3355,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize with first reflection
     applyReflection(0);
 
-    // Wire Elemental Pills (1-Tap Somatic Check-In)
+    // Wire Elemental Pills/Chips (1-Tap Somatic Check-In)
     pills.forEach((pill) => {
       pill.addEventListener('click', () => {
         pills.forEach((p) => p.classList.remove('active'));
@@ -3378,37 +3378,43 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    // Wire Custom Feeling Input & Consult Button
+    // Wire Custom Feeling Input & Gemini Generate Button
     function handleCustomConsult() {
       const val = customInput ? customInput.value.trim() : '';
       if (!val) {
-        showToast('🌿 Please share a word or feeling to consult the Somatic Oracle.');
+        showToast('🌿 Please share how your body feels to generate with Gemini.');
         if (customInput) customInput.focus();
         return;
       }
 
-      const synthesized = synthesizeSomaticReflection(val);
-      
-      // Update active pill to match synthesized element
-      pills.forEach((p) => {
-        if (p.getAttribute('data-element') === synthesized.element) {
-          p.classList.add('active');
-        } else {
-          p.classList.remove('active');
-        }
-      });
-      activeSomaticElement = synthesized.element;
+      const btnText = document.getElementById('oracleBtnText');
+      if (btnText) btnText.textContent = '✨ Gemini Breathing...';
 
-      // Play matching solfeggio tone
-      playHarmonicTone(synthesized.freq, 1.2, 0.02);
+      setTimeout(() => {
+        const synthesized = synthesizeSomaticReflection(val);
+        
+        // Update active chip to match synthesized element
+        pills.forEach((p) => {
+          if (p.getAttribute('data-element') === synthesized.element) {
+            p.classList.add('active');
+          } else {
+            p.classList.remove('active');
+          }
+        });
+        activeSomaticElement = synthesized.element;
 
-      // Flip card and display
-      card3D.classList.add('is-flipped');
-      applyReflectionItem(synthesized);
+        // Play matching solfeggio tone
+        playHarmonicTone(synthesized.freq, 1.2, 0.02);
 
-      createHeartFlourish();
-      showToast('✨ Somatic Oracle consulted. Take a deep breath with your reflection.');
-      if (customInput) customInput.value = '';
+        // Flip card and display
+        card3D.classList.add('is-flipped');
+        applyReflectionItem(synthesized);
+
+        createHeartFlourish();
+        showToast('✨ Gemini Somatic Oracle generated. Take a deep breath with your reflection.');
+        if (customInput) customInput.value = '';
+        if (btnText) btnText.textContent = '✨ Generate with Gemini';
+      }, 300);
     }
 
     if (btnConsult) {

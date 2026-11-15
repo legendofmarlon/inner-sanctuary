@@ -448,41 +448,29 @@
       <!-- ==================== DAILY SANCTUARY REFLECTION CARD (INTERACTIVE GROUNDING HERO CENTERPIECE) ==================== -->
       <div class="sanctuary-reflection-widget hero-reflection-widget" id="sanctuary-reflection">
         <div class="reflection-widget-header">
-          <span class="reflection-widget-pill">✦ Somatic Oracle • Daily Grounding</span>
+          <span class="reflection-widget-pill">✦ Gemini Somatic Oracle</span>
           <h3 class="reflection-widget-title serif-brand">Sanctuary Somatic Oracle</h3>
-          <p class="reflection-widget-sub">Tune into your body in this breath. Tap what your nervous system needs, or speak what you carry, to reveal an unhurried somatic reset.</p>
+          <p class="reflection-widget-sub">Tune into your body in this breath. Ask Gemini for an unhurried somatic reset, or tap an element below.</p>
         </div>
 
-        <!-- 1-Tap Somatic State Selector -->
-        <div class="somatic-oracle-checkin" id="somaticOracleCheckin">
-          <div class="somatic-oracle-pills" role="radiogroup" aria-label="Select what your nervous system needs">
-            <button type="button" class="somatic-pill active" data-element="earth" data-theme="Root Me" data-freq="432" title="Earth • Heavy thoughts, restlessness, anxiety">
-              <span class="pill-icon">🌿</span> <span class="pill-label">Root Me</span>
-            </button>
-            <button type="button" class="somatic-pill" data-element="water" data-theme="Wash Clean" data-freq="528" title="Water • Emotional tension, grief, softening">
-              <span class="pill-icon">🌊</span> <span class="pill-label">Wash Clean</span>
-            </button>
-            <button type="button" class="somatic-pill" data-element="air" data-theme="Clear Chest" data-freq="639" title="Air • Racing thoughts, shallow breath, hurry">
-              <span class="pill-icon">🌬️</span> <span class="pill-label">Clear Chest</span>
-            </button>
-            <button type="button" class="somatic-pill" data-element="fire" data-theme="Ignite Joy" data-freq="741" title="Fire • Numbness, low vitality, lost spark">
-              <span class="pill-icon">🔥</span> <span class="pill-label">Ignite Joy</span>
-            </button>
-            <button type="button" class="somatic-pill" data-element="ether" data-theme="Infinite Space" data-freq="852" title="Ether • Spiritual stillness, cosmic peace, quiet">
-              <span class="pill-icon">🌌</span> <span class="pill-label">Infinite Space</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Optional Custom Intention / Feeling Oracle Input Bar -->
+        <!-- Sleek Gemini AI Prompt Bar -->
         <div class="somatic-oracle-custom-bar">
           <div class="somatic-oracle-input-wrap">
             <span class="oracle-input-icon">✨</span>
-            <input type="text" id="somaticCustomInput" class="somatic-oracle-input" placeholder="Or speak what you carry today... (e.g. overwhelmed, heavy heart, seeking peace)" aria-label="Type what you feel or need">
-            <button type="button" id="btnOracleGenerate" class="btn-oracle-generate" title="Synthesize custom somatic reset">
-              <span>✦ Consult Oracle</span>
+            <input type="text" id="somaticCustomInput" class="somatic-oracle-input" placeholder="How does your body feel? (e.g. tight chest, tired, anxious, seeking joy)" aria-label="Type how you feel">
+            <button type="button" id="btnOracleGenerate" class="btn-oracle-generate" title="Generate somatic reset with Gemini">
+              <span id="oracleBtnText">✨ Generate with Gemini</span>
             </button>
           </div>
+        </div>
+
+        <!-- Clean Minimalist Element Micro-Chips -->
+        <div class="somatic-oracle-chips" id="somaticOracleCheckin" role="radiogroup" aria-label="Select an element">
+          <button type="button" class="somatic-chip active" data-element="earth" data-theme="Root Me" data-freq="432" title="Earth • Rooting">🌿 Earth</button>
+          <button type="button" class="somatic-chip" data-element="water" data-theme="Wash Clean" data-freq="528" title="Water • Washing Clean">🌊 Water</button>
+          <button type="button" class="somatic-chip" data-element="air" data-theme="Clear Chest" data-freq="639" title="Air • Clearing Chest">🌬️ Air</button>
+          <button type="button" class="somatic-chip" data-element="fire" data-theme="Ignite Joy" data-freq="741" title="Fire • Igniting Joy">🔥 Fire</button>
+          <button type="button" class="somatic-chip" data-element="ether" data-theme="Infinite Space" data-freq="852" title="Ether • Infinite Space">🌌 Ether</button>
         </div>
 
         <!-- 3D Flippable Card Stage -->
@@ -981,118 +969,138 @@
           <div class="roster-header">
             <div>
               <span class="roster-badge">✦ Gathering Lineup • Sunday, Nov 15</span>
-              <h4 class="roster-title serif-brand">Community Open Mic Stage Roster</h4>
-              <p class="roster-sub">10 unhurried 5-minute slots for spoken word, acoustic music, comedy, and personal reflections. Zero judgment, reverent listeners.</p>
+              <h4 class="roster-title serif-brand">Community Stage Roster</h4>
+              <p class="roster-sub">10 unhurried 5-minute stage spots. Spoken word, acoustic music, or personal reflections.</p>
             </div>
             <div class="roster-status-indicator">
               <span class="roster-dot-live"></span>
-              <span><strong>2</strong> Open Slots Available</span>
+              <span><strong>2</strong> Open Spots Available</span>
             </div>
           </div>
 
           <div class="roster-slots-grid">
-            <!-- Slot 1 -->
+            <!-- Spot 01 -->
             <div class="roster-slot claimed">
-              <div class="slot-num">01</div>
-              <div class="slot-details">
-                <div class="slot-role">Opening Grounding &amp; Vocal Tone</div>
-                <div class="slot-artist">Marlon Smith <span class="slot-tag">Host / MC</span></div>
+              <div class="slot-left">
+                <span class="slot-num">01</span>
+                <div class="slot-main">
+                  <div class="slot-title">Opening Grounding</div>
+                  <div class="slot-performer">Marlon Smith <span class="slot-tag">MC</span></div>
+                </div>
               </div>
-              <div class="slot-badge confirmed">Confirmed</div>
+              <span class="slot-status confirmed">Confirmed</span>
             </div>
 
-            <!-- Slot 2 -->
+            <!-- Spot 02 -->
             <div class="roster-slot claimed">
-              <div class="slot-num">02</div>
-              <div class="slot-details">
-                <div class="slot-role">Somatic Pause &amp; Breathwork Verse</div>
-                <div class="slot-artist">Teshia Campbell <span class="slot-tag">Founder</span></div>
+              <div class="slot-left">
+                <span class="slot-num">02</span>
+                <div class="slot-main">
+                  <div class="slot-title">Somatic Pause Verse</div>
+                  <div class="slot-performer">Teshia Campbell <span class="slot-tag">Host</span></div>
+                </div>
               </div>
-              <div class="slot-badge confirmed">Confirmed</div>
+              <span class="slot-status confirmed">Confirmed</span>
             </div>
 
-            <!-- Slot 3 -->
+            <!-- Spot 03 -->
             <div class="roster-slot claimed">
-              <div class="slot-num">03</div>
-              <div class="slot-details">
-                <div class="slot-role">Spoken Word Healing Poem</div>
-                <div class="slot-artist">Riverside Youth Collective</div>
+              <div class="slot-left">
+                <span class="slot-num">03</span>
+                <div class="slot-main">
+                  <div class="slot-title">Spoken Word Healing Poem</div>
+                  <div class="slot-performer">Riverside Youth Collective</div>
+                </div>
               </div>
-              <div class="slot-badge confirmed">Confirmed</div>
+              <span class="slot-status confirmed">Confirmed</span>
             </div>
 
-            <!-- Slot 4 -->
+            <!-- Spot 04 -->
             <div class="roster-slot claimed">
-              <div class="slot-num">04</div>
-              <div class="slot-details">
-                <div class="slot-role">Acoustic Soul &amp; Strings</div>
-                <div class="slot-artist">Marcus G. (Irvine)</div>
+              <div class="slot-left">
+                <span class="slot-num">04</span>
+                <div class="slot-main">
+                  <div class="slot-title">Acoustic Soul &amp; Strings</div>
+                  <div class="slot-performer">Marcus G. (Irvine)</div>
+                </div>
               </div>
-              <div class="slot-badge confirmed">Confirmed</div>
+              <span class="slot-status confirmed">Confirmed</span>
             </div>
 
-            <!-- Slot 5 -->
+            <!-- Spot 05 -->
             <div class="roster-slot claimed">
-              <div class="slot-num">05</div>
-              <div class="slot-details">
-                <div class="slot-role">Storytelling &amp; Inner Truth</div>
-                <div class="slot-artist">Elena Garcia</div>
+              <div class="slot-left">
+                <span class="slot-num">05</span>
+                <div class="slot-main">
+                  <div class="slot-title">Storytelling &amp; Inner Truth</div>
+                  <div class="slot-performer">Elena Garcia</div>
+                </div>
               </div>
-              <div class="slot-badge confirmed">Confirmed</div>
+              <span class="slot-status confirmed">Confirmed</span>
             </div>
 
-            <!-- Slot 6 -->
+            <!-- Spot 06 -->
             <div class="roster-slot claimed">
-              <div class="slot-num">06</div>
-              <div class="slot-details">
-                <div class="slot-role">Acoustic Folk Song</div>
-                <div class="slot-artist">Orange County Creative</div>
+              <div class="slot-left">
+                <span class="slot-num">06</span>
+                <div class="slot-main">
+                  <div class="slot-title">Acoustic Folk Song</div>
+                  <div class="slot-performer">Orange County Creative Duo</div>
+                </div>
               </div>
-              <div class="slot-badge confirmed">Confirmed</div>
+              <span class="slot-status confirmed">Confirmed</span>
             </div>
 
-            <!-- Slot 7 -->
+            <!-- Spot 07 -->
             <div class="roster-slot claimed">
-              <div class="slot-num">07</div>
-              <div class="slot-details">
-                <div class="slot-role">Vocal Harmonies &amp; Reflection</div>
-                <div class="slot-artist">Maya R.</div>
+              <div class="slot-left">
+                <span class="slot-num">07</span>
+                <div class="slot-main">
+                  <div class="slot-title">Vocal Harmonies &amp; Reflection</div>
+                  <div class="slot-performer">Maya R.</div>
+                </div>
               </div>
-              <div class="slot-badge confirmed">Confirmed</div>
+              <span class="slot-status confirmed">Confirmed</span>
             </div>
 
-            <!-- Slot 8 - Open -->
+            <!-- Spot 08 - Open -->
             <div class="roster-slot open">
-              <div class="slot-num">08</div>
-              <div class="slot-details">
-                <div class="slot-role">Open Mic Community Slot (5 Min)</div>
-                <div class="slot-artist">Your Voice, Poetry, or Song</div>
+              <div class="slot-left">
+                <span class="slot-num">08</span>
+                <div class="slot-main">
+                  <div class="slot-title">Open Stage Spot (5m)</div>
+                  <div class="slot-performer">Poetry, Song, or Story</div>
+                </div>
               </div>
-              <button type="button" class="btn-claim-slot" onclick="claimOpenMicSlot('08')" title="Claim Slot 08">
-                <span>🌱 Claim Slot →</span>
+              <button type="button" class="btn-claim-slot" onclick="claimOpenMicSlot('08')" title="Claim Spot 08">
+                <span>🌱 Claim Spot →</span>
               </button>
             </div>
 
-            <!-- Slot 9 - Open -->
+            <!-- Spot 09 - Open -->
             <div class="roster-slot open">
-              <div class="slot-num">09</div>
-              <div class="slot-details">
-                <div class="slot-role">Open Mic Community Slot (5 Min)</div>
-                <div class="slot-artist">Your Voice, Poetry, or Song</div>
+              <div class="slot-left">
+                <span class="slot-num">09</span>
+                <div class="slot-main">
+                  <div class="slot-title">Open Stage Spot (5m)</div>
+                  <div class="slot-performer">Poetry, Song, or Story</div>
+                </div>
               </div>
-              <button type="button" class="btn-claim-slot" onclick="claimOpenMicSlot('09')" title="Claim Slot 09">
-                <span>🌱 Claim Slot →</span>
+              <button type="button" class="btn-claim-slot" onclick="claimOpenMicSlot('09')" title="Claim Spot 09">
+                <span>🌱 Claim Spot →</span>
               </button>
             </div>
 
-            <!-- Slot 10 -->
+            <!-- Spot 10 -->
             <div class="roster-slot claimed">
-              <div class="slot-num">10</div>
-              <div class="slot-details">
-                <div class="slot-role">Closing Community Harmony &amp; Release</div>
-                <div class="slot-artist">All Voices Together</div>
+              <div class="slot-left">
+                <span class="slot-num">10</span>
+                <div class="slot-main">
+                  <div class="slot-title">Closing Community Harmony</div>
+                  <div class="slot-performer">All Circle Voices Together</div>
+                </div>
               </div>
-              <div class="slot-badge confirmed">Circle Open</div>
+              <span class="slot-status confirmed">Circle Open</span>
             </div>
           </div>
         </div>
@@ -1103,10 +1111,10 @@
             <div>
               <span class="reel-badge">✦ Sanctuary Video Stories</span>
               <h4 class="reel-title serif-brand">Living Moments from the Mic</h4>
-              <p class="reel-sub">Feel the reverberation of real laughter, unhurried breath, and sovereign acoustics captured live at Cafe 86.</p>
+              <p class="reel-sub">Feel the reverberation of real laughter, unhurried breath, and acoustic harmony captured live at Cafe 86.</p>
             </div>
             <div class="reel-tabs">
-              <button type="button" class="reel-tab active" data-filter="all" onclick="filterVideoReels('all')">✦ All Moments</button>
+              <button type="button" class="reel-tab active" data-filter="all" onclick="filterVideoReels('all')">✦ All</button>
               <button type="button" class="reel-tab" data-filter="vocal" onclick="filterVideoReels('vocal')">🎤 Acoustic Soul</button>
               <button type="button" class="reel-tab" data-filter="poetry" onclick="filterVideoReels('poetry')">📜 Spoken Word</button>
               <button type="button" class="reel-tab" data-filter="somatic" onclick="filterVideoReels('somatic')">🌿 Somatic Breath</button>
@@ -1131,26 +1139,11 @@
           </div>
         </div>
 
-        <div class="openmic-single-wrap">
-          <div class="openmic-facet-card openmic-full-width">
-            <div class="facet-icon-tag">
-              <span>🎤</span>
-              <span>The Open Mic Stage</span>
-            </div>
-            <h4 class="facet-headline">Raw Expression & True Listeners</h4>
-            <p class="facet-desc">
-              Come laugh, sing, share, listen, cry, create, or simply be. No performance necessary. Just come as you are.
-            </p>
-            <ul class="facet-list">
-              <li><strong>All creative mediums welcomed:</strong> Spoken word, poetry, acoustic music, storytelling, comedy, or personal reflections.</li>
-              <li><strong>Zero judgment, zero performance pressure:</strong> You don't have to be "polished" or famous. Share from the heart.</li>
-              <li><strong>Attentive community:</strong> A room that actually listens, cheers, and holds space without algorithmic rush.</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="event-invitation-quote">
-          "Because sometimes healing looks like laughter that comes from deep within. Sometimes it's a song we didn't know we needed to sing. Or tears we've finally given ourselves permission to cry."
+        <!-- Streamlined Sanctuary Stage Pillars (Clean & Spacious) -->
+        <div class="openmic-pillars-banner">
+          <div class="pillar-pill"><span>🎤</span> All Creative Mediums Welcome</div>
+          <div class="pillar-pill"><span>🕊️</span> 100% Zero Performance Pressure</div>
+          <div class="pillar-pill"><span>🌿</span> Attentive Community Listeners</div>
         </div>
 
         <div class="event-cta-bar">
