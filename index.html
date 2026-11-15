@@ -3,82 +3,141 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Inner Sanctuary Wellness Foundation | Heal. Create. Connect.</title>
-  <meta name="description" content="Inner Sanctuary is a 501(c)(3) public charity dedicated to somatic healing, creative expression without algorithmic rush, and grassroots community care." />
-  <meta name="keywords" content="Inner Sanctuary Wellness Foundation, nonprofit wellness, somatic healing California, creative safe space, artist mental health, 501c3 charity, CRA community partner, open mic Orange County Riverside, The Four Releases" />
+  <title>Inner Sanctuary Wellness Foundation | Somatic Wellness, Community Open Mic &amp; Creative Healing</title>
+  <meta name="description" content="Inner Sanctuary is a California 501(c)(3) public charity hosting substance-free community open mics, trauma-informed somatic breathwork, and creative healing circles across Orange County &amp; the Inland Empire." />
+  <meta name="keywords" content="Inner Sanctuary Wellness Foundation, community open mic Orange County, somatic wellness Irvine, Santa Ana nonprofit, Riverside poetry circle, substance-free open mic, trauma-informed wellness California, artist mental health, 501c3 charity, CRA bank community partner, Sanctuary Clubhouse open mic, Our Sanctuary Clubhouse, somatic breathwork" />
   <meta name="author" content="Inner Sanctuary Wellness Foundation" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://innersanctuarywellnessfoundation.org/" />
 
+  <!-- Geographic Meta Tags for Local Orange County & Inland Empire SEO -->
+  <meta name="geo.region" content="US-CA" />
+  <meta name="geo.placename" content="Orange County, California" />
+  <meta name="geo.position" content="33.7455;-117.8677" />
+  <meta name="ICBM" content="33.7455, -117.8677" />
+
   <!-- Open Graph / Facebook / LinkedIn / iMessage Previews -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Inner Sanctuary Wellness Foundation" />
-  <meta property="og:title" content="Inner Sanctuary Wellness Foundation | Heal. Create. Connect." />
-  <meta property="og:description" content="A 501(c)(3) public charity creating unhurried spaces for somatic healing, raw creative expression, and grassroots community reinvestment." />
-  <meta property="og:image" content="emblem.png" />
+  <meta property="og:title" content="Inner Sanctuary Wellness Foundation | Somatic Wellness, Community Open Mic &amp; Creative Healing" />
+  <meta property="og:description" content="A 501(c)(3) public charity creating unhurried spaces for somatic healing, raw creative expression, and grassroots community reinvestment in Orange County." />
+  <meta property="og:image" content="https://innersanctuarywellnessfoundation.org/emblem.png" />
   <meta property="og:url" content="https://innersanctuarywellnessfoundation.org/" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Inner Sanctuary Wellness Foundation | Heal. Create. Connect." />
-  <meta name="twitter:description" content="Where raw voices find grounded space. Somatic healing, creator spotlight, and community wellness." />
-  <meta name="twitter:image" content="emblem.png" />
+  <meta name="twitter:title" content="Inner Sanctuary Wellness Foundation | Somatic Wellness, Community Open Mic &amp; Creative Healing" />
+  <meta name="twitter:description" content="Where raw voices find grounded space. Somatic healing, creator spotlight, and community wellness in Orange County &amp; Inland Empire." />
+  <meta name="twitter:image" content="https://innersanctuarywellnessfoundation.org/emblem.png" />
 
-  <!-- JSON-LD Structured Data Schema for Google Knowledge Graph & Rich Snippets -->
+  <!-- Progressive Web App (PWA) Manifest & Meta Tags (Sanctuary in Your Pocket) -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#2B4436" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Inner Sanctuary" />
+  <link rel="apple-touch-icon" href="emblem.png" />
+  <link rel="icon" type="image/png" href="emblem.png" />
+
+  <!-- JSON-LD Structured Data Schema Graph for Google Knowledge Graph, Event Snippets & Rich Results -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "NGO",
-    "name": "Inner Sanctuary Wellness Foundation",
-    "alternateName": "Inner Sanctuary",
-    "url": "https://innersanctuarywellnessfoundation.org",
-    "logo": "emblem.png",
-    "description": "Inner Sanctuary is a California 501(c)(3) public charity dedicated to creating accessible spaces where people can slow down, express themselves freely, process life's journey, and reconnect with who they are through somatic healing and authentic creative expression.",
-    "taxID": "39-3757168",
-    "nonprofitStatus": "Nonprofit501c3",
-    "foundingDate": "2025-08-09",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "1601 W MacArthur Blvd Apt 4J",
-      "addressLocality": "Santa Ana",
-      "addressRegion": "CA",
-      "postalCode": "92704",
-      "addressCountry": "US"
-    },
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "email": "hello@innersanctuarywellnessfoundation.org",
-      "contactType": "Community Inquiries"
-    },
-    "sameAs": [
-      "https://www.instagram.com/ourinnersanctuary/",
-      "https://www.zeffy.com/en-US/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation",
-      "https://github.com/legendofmarlon/inner-sanctuary"
-    ],
-    "founder": {
-      "@type": "Person",
-      "name": "Teshia Campbell",
-      "jobTitle": "Executive Director"
-    },
-    "member": {
-      "@type": "Person",
-      "name": "Marlon Smith",
-      "jobTitle": "Community Event Lead & MC"
-    },
-    "areaServed": [
-      "Santa Ana",
-      "Riverside",
-      "Orange County",
-      "Inland Empire",
-      "California"
-    ],
-    "knowsAbout": [
-      "Somatic Healing",
-      "Mental and Emotional Wellness",
-      "The Four Releases",
-      "Artist Mental Health",
-      "Grassroots Community Reinvestment",
-      "501(c)(3) Public Charity"
+    "@graph": [
+      {
+        "@type": "NGO",
+        "@id": "https://innersanctuarywellnessfoundation.org/#organization",
+        "name": "Inner Sanctuary Wellness Foundation",
+        "alternateName": ["Inner Sanctuary", "Inner Sanctuary Foundation"],
+        "url": "https://innersanctuarywellnessfoundation.org",
+        "logo": "https://innersanctuarywellnessfoundation.org/emblem.png",
+        "description": "California 501(c)(3) public charity dedicated to creating accessible spaces where people slow down, express themselves freely, process life's journey, and reconnect through somatic healing, unhurried breathwork, and community creative expression.",
+        "taxID": "39-3757168",
+        "nonprofitStatus": "Nonprofit501c3",
+        "foundingDate": "2025-08-09",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "1601 W MacArthur Blvd Apt 4J",
+          "addressLocality": "Santa Ana",
+          "addressRegion": "CA",
+          "postalCode": "92704",
+          "addressCountry": "US"
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "email": "hello@innersanctuarywellnessfoundation.org",
+          "contactType": "Community Inquiries & Leadership"
+        },
+        "sameAs": [
+          "https://www.instagram.com/ourinnersanctuary/",
+          "https://www.zeffy.com/en-US/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation",
+          "https://github.com/legendofmarlon/inner-sanctuary"
+        ],
+        "founder": {
+          "@type": "Person",
+          "name": "Teshia Campbell",
+          "jobTitle": "Founder & Executive Director"
+        },
+        "member": {
+          "@type": "Person",
+          "name": "Marlon Smith",
+          "jobTitle": "President & Primary MC"
+        },
+        "areaServed": [
+          { "@type": "City", "name": "Santa Ana" },
+          { "@type": "City", "name": "Irvine" },
+          { "@type": "City", "name": "Riverside" },
+          { "@type": "AdministrativeArea", "name": "Orange County" },
+          { "@type": "AdministrativeArea", "name": "Inland Empire" },
+          { "@type": "AdministrativeArea", "name": "California" }
+        ],
+        "knowsAbout": [
+          "Somatic Healing & Breathwork",
+          "Trauma-Informed Community Care",
+          "Substance-Free Creative Sanctuaries",
+          "Community Open Mic Gatherings",
+          "Grassroots Micro-Giving & The $1 Seed",
+          "CRA Bank Reinvestment Compliance"
+        ]
+      },
+      {
+        "@type": "Event",
+        "@id": "https://innersanctuarywellnessfoundation.org/#openmic-event",
+        "name": "Community Open Mic & Creative Connection Gathering",
+        "description": "An unhurried, alcohol-free community open mic gathering for local artists, poets, musicians, and neighbors to share space, breathe together, and process life's journey without performance pressure.",
+        "startDate": "2026-11-15T14:00:00-08:00",
+        "endDate": "2026-11-15T16:00:00-08:00",
+        "eventStatus": "https://schema.org/EventScheduled",
+        "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+        "location": {
+          "@type": "Place",
+          "name": "Our Sanctuary Clubhouse",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Our Sanctuary Clubhouse",
+            "addressLocality": "Orange County",
+            "addressRegion": "CA",
+            "addressCountry": "US"
+          }
+        },
+        "organizer": {
+          "@id": "https://innersanctuarywellnessfoundation.org/#organization"
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+          "url": "https://innersanctuarywellnessfoundation.org/#open-mic",
+          "validFrom": "2026-10-01"
+        },
+        "performer": [
+          { "@type": "Person", "name": "Marlon Smith" },
+          { "@type": "Person", "name": "Teshia Campbell" }
+        ],
+        "isAccessibleForFree": true
+      }
     ]
   }
   </script>
@@ -95,8 +154,11 @@
 
   <!-- Argon 4.0 Golden Hour Botanical Dust Motes Canvas -->
   <canvas id="argon-dust-canvas"></canvas>
-  <!-- Realistic 8K Breezy Sky & Nature Atmosphere Layer (Air Week) -->
-  <div id="realistic-element-sky" class="realistic-sky-bg" aria-hidden="true"></div>
+  <!-- Realistic 8K Elemental Nature Atmosphere Layers (Dynamic Weekly Plate Switcher) -->
+  <div id="realistic-element-sky" class="realistic-sky-bg" aria-hidden="true">
+    <div class="sky-plate sky-plate-primary active" id="skyPlatePrimary"></div>
+    <div class="sky-plate sky-plate-secondary inactive" id="skyPlateSecondary"></div>
+  </div>
   <!-- Ambient Living Sky Swallows (Graceful Silhouettes Gliding on Gentle Breeze) -->
   <div class="ambient-swallows-layer" id="ambientSkyLayer" aria-hidden="true">
     <!-- Prominent Gliding White Seabirds Catching Golden Rim Light -->
@@ -228,6 +290,12 @@
           </a>
         </li>
         <li>
+          <a href="#sanctuary-echo" class="nav-link-dual">
+            <span class="nav-link-main">Sanctuary Echo</span>
+            <span class="nav-link-sub">Voice &amp; Gratitude</span>
+          </a>
+        </li>
+        <li>
           <a href="#horizons" class="nav-link-dual">
             <span class="nav-link-main">Future Horizons</span>
             <span class="nav-link-sub">Our Vision</span>
@@ -248,10 +316,17 @@
       </ul>
 
       <div class="nav-actions-group">
+        <button type="button" id="btnNavPresence" class="nav-presence-badge" onclick="openPulsePresenceModal(event)" title="Live Sanctuary Presence">
+          <span class="nav-presence-dot"></span>
+          <span class="nav-presence-text"><strong id="navPresenceCount">4</strong> Breathing</span>
+        </button>
         <a href="https://www.instagram.com/ourinnersanctuary/" target="_blank" rel="noopener noreferrer" class="btn-outline-gold nav-ig-btn" style="padding: 8px 12px; border-radius: 8px; display: inline-flex; align-items: center; gap: 6px; font-size: 0.74rem; text-decoration: none;" title="Follow @ourinnersanctuary on Instagram">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
           <span class="desktop-only-ig">@ourinnersanctuary</span>
         </a>
+        <button type="button" id="btnPwaNavInstall" class="btn-outline-gold pwa-nav-btn" style="display: none; padding: 8px 14px; border-radius: 999px; align-items: center; gap: 6px; font-size: 0.74rem; font-weight: 700; cursor: pointer; letter-spacing: 0.04em;" title="Add Inner Sanctuary App to Home Screen" onclick="triggerPwaInstall(event)">
+          <span>📱 Install App</span>
+        </button>
         <button type="button" onclick="openZeffyModal(event)" class="btn btn-gold nav-donate-cta btn-liquid-gold pulse-gold weekly-shimmer-cta" style="padding: 10px 20px; font-size: 0.82rem; font-weight: 700; cursor: pointer; border-radius: 999px; display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; box-shadow: 0 4px 16px rgba(197, 154, 63, 0.45); letter-spacing: 0.04em;" title="Plant Your $1 Seed in the Sanctuary">
           <span>🌱 Give $1 Seed</span>
         </button>
@@ -264,6 +339,11 @@
     <!-- Mobile Navigation Drawer -->
     <div id="mobile-nav-drawer" class="hidden" style="display: none; padding: 22px 24px; background: #F6F3EC; border-bottom: 2px solid var(--sunburst-gold);">
       <ul style="list-style: none; display: flex; flex-direction: column; gap: 14px; margin: 0; padding: 0;">
+        <li id="mobilePwaInstallItem" style="display: none;">
+          <button type="button" id="btnPwaMobileInstall" class="mobile-nav-pwa-btn" onclick="triggerPwaInstall(event)" style="width: 100%; text-align: left; background: rgba(197, 154, 63, 0.12); border: 1px dashed var(--sunburst-gold); border-radius: 8px; padding: 10px 14px; color: var(--forest-green); font-size: 0.95rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px;">
+            <span>📱 Add to Home Screen</span>
+          </button>
+        </li>
         <li>
           <a href="#remember" class="mobile-nav-item">
             <span class="mobile-nav-main">Pause &amp; Remember</span>
@@ -280,6 +360,12 @@
           <a href="#open-mic" class="mobile-nav-item">
             <span class="mobile-nav-main">Community Open Mic</span>
             <span class="mobile-nav-sub">Our Programs</span>
+          </a>
+        </li>
+        <li>
+          <a href="#sanctuary-echo" class="mobile-nav-item">
+            <span class="mobile-nav-main">The Sanctuary Echo</span>
+            <span class="mobile-nav-sub">Voice &amp; Gratitude Wave</span>
           </a>
         </li>
         <li>
@@ -307,7 +393,7 @@
           </button>
         </li>
         <li>
-          <a href="https://www.instagram.com/ourinnersanctuary/" target="_blank" rel="noopener noreferrer" style="color: #F8D98C; display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: 800; font-size: 0.92rem; padding: 12px 18px; background: rgba(197, 154, 63, 0.22); border: 1.5px solid var(--sunburst-gold); border-radius: 12px; margin-top: 10px; text-decoration: none; box-shadow: 0 4px 12px rgba(197, 154, 63, 0.3);">
+          <a href="https://www.instagram.com/ourinnersanctuary/" target="_blank" rel="noopener noreferrer" style="color: #1E3328; display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: 800; font-size: 0.92rem; padding: 12px 18px; background: rgba(197, 154, 63, 0.22); border: 1.5px solid var(--sunburst-gold); border-radius: 12px; margin-top: 10px; text-decoration: none; box-shadow: 0 4px 12px rgba(197, 154, 63, 0.3);">
             📸 Follow @ourinnersanctuary on Instagram
           </a>
         </li>
@@ -392,33 +478,44 @@
         </a>
       </div>
 
-      <!-- ==================== DAILY SANCTUARY REFLECTION CARD (INTERACTIVE GROUNDING HERO CENTERPIECE) ==================== -->
+      <!-- ==================== DAILY SANCTUARY SPARKS CARD (INTERACTIVE GROUNDING HERO CENTERPIECE) ==================== -->
       <div class="sanctuary-reflection-widget hero-reflection-widget" id="sanctuary-reflection">
         <div class="reflection-widget-header">
-          <span class="reflection-widget-pill">✦ Daily Somatic Pause</span>
-          <h3 class="reflection-widget-title serif-brand">Draw Today's Sanctuary Reflection</h3>
-          <p class="reflection-widget-sub">Receive an unhurried reminder to ground your nervous system, soften tension, and remember who you are.</p>
+          <span class="reflection-widget-pill">✦ Daily Sanctuary Sparks ✦</span>
+          <h3 class="reflection-widget-title serif-brand">Draw Today's Sanctuary Spark</h3>
+          <p class="reflection-widget-sub">Receive an unhurried reminder to ground your nervous system, soften tension, and remember who you are. Generate with Gemini or draw a spark below.</p>
+        </div>
+
+        <!-- Sleek Gemini AI Prompt Bar -->
+        <div class="somatic-oracle-custom-bar">
+          <div class="somatic-oracle-input-wrap">
+            <span class="oracle-input-icon">✨</span>
+            <input type="text" id="somaticCustomInput" class="somatic-oracle-input" placeholder="How does your body feel? (e.g. tight chest, tired, anxious, seeking joy)" aria-label="Generate a Sanctuary Spark with Gemini">
+            <button type="button" id="btnOracleGenerate" class="btn-oracle-generate" title="Generate Sanctuary Spark with Gemini">
+              <span id="oracleBtnText">✨ Generate with Gemini</span>
+            </button>
+          </div>
         </div>
 
         <!-- 3D Flippable Card Stage -->
         <div class="reflection-card-stage" id="reflectionCardStage">
-          <div class="reflection-card-3d is-flipped" id="reflectionCard3D" role="button" tabindex="0" aria-label="Tap to draw and flip your daily sanctuary reflection card">
+          <div class="reflection-card-3d is-flipped" id="reflectionCard3D" role="button" tabindex="0" aria-label="Tap to draw and flip your daily sanctuary spark reflection card">
             
             <!-- Card Front (Sealed Cover) -->
             <div class="reflection-card-face card-face-front">
               <div class="card-front-halo"></div>
               <div class="card-front-emblem">✦</div>
-              <div class="card-front-text">TAP TO DRAW YOUR CARD</div>
-              <div class="card-front-sub">Unhurried • Somatic • Grounded</div>
+              <div class="card-front-text">TAP TO DRAW YOUR SPARK</div>
+              <div class="card-front-sub">Sanctuary Sparks • Somatic • Grounded</div>
             </div>
 
             <!-- Card Back (Revealed Living Reflection) -->
             <div class="reflection-card-face card-face-back" id="reflectionCardBack">
-              <div class="card-back-badge" id="reflectionCardBadge">✦ SOMATIC RELEASE</div>
+              <div class="card-back-badge" id="reflectionCardBadge">✦ SANCTUARY SPARK ✦</div>
               <blockquote class="card-back-quote" id="reflectionCardQuote">
                 "Where in your body are you holding yesterday? Soften your jaw, drop your shoulders, and let this breath belong only to right now."
               </blockquote>
-              <div class="card-back-source">— Inner Sanctuary Daily Reflection</div>
+              <div class="card-back-source" id="reflectionCardSource">— Inner Sanctuary Sparks</div>
             </div>
 
           </div>
@@ -426,12 +523,12 @@
 
         <!-- Interactive Card Action Controls -->
         <div class="reflection-actions-wrap">
-          <button type="button" class="btn-reflection-action btn-reflection-draw" id="btnDrawNewReflection" title="Draw another grounding reflection">
-            <span>🔄 Draw Another</span>
+          <button type="button" class="btn-reflection-action btn-reflection-draw" id="btnDrawNewReflection" title="Draw another Sanctuary Spark">
+            <span>🔄 Draw Another Spark</span>
           </button>
-          <button type="button" class="btn-reflection-action btn-reflection-copy" id="btnCopyReflection" title="Copy reflection quote to clipboard">
+          <button type="button" class="btn-reflection-action btn-reflection-copy" id="btnCopyReflection" title="Copy Sanctuary Spark to clipboard">
             <span id="btnCopyReflectionIcon">📋</span>
-            <span id="btnCopyReflectionLabel">Copy Reflection</span>
+            <span id="btnCopyReflectionLabel">Copy Sanctuary Spark</span>
           </button>
           <button type="button" class="btn-reflection-action btn-reflection-share" id="btnShareIG" onclick="openStorySnapshotFromReflection(event)" title="Create 9:16 Instagram Story snapshot card">
             <span>📸 Share to IG Story</span>
@@ -583,7 +680,7 @@
   </section>
 
   <!-- ==================== OUR METHOD: THE THREEFOLD RELEASE ==================== -->
-  <section id="method" class="section-padding method-section" style="background: rgba(250, 248, 243, 0.7); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(197, 154, 63, 0.2);">
+  <section id="method" class="section-padding method-section" style="background: rgba(250, 248, 243, 0.90); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid rgba(197, 154, 63, 0.2);">
     <!-- Anchor alias for legacy #medicine bookmarks -->
     <div id="medicine" style="position: relative; top: -90px; visibility: hidden;"></div>
     <div class="container">
@@ -701,13 +798,14 @@
             <button type="button" onclick="openZeffyModal(event)" class="btn btn-outline-gold card-3d-hover" style="cursor: pointer;">Support The Foundation</button>
           </div>
         </div>
+
       </div>
 
     </div>
   </section>
 
   <!-- ==================== UPCOMING COMMUNITY OPEN MIC & PAUSE ACTIVATIONS ==================== -->
-  <section id="open-mic" class="section-padding" style="background: rgba(240, 236, 225, 0.7); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(197, 154, 63, 0.25);">
+  <section id="open-mic" class="section-padding" style="background: rgba(240, 236, 225, 0.90); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid rgba(197, 154, 63, 0.25);">
     <div class="container">
       
       <div class="section-header" style="max-width: 860px; margin: 0 auto 20px;">
@@ -745,7 +843,7 @@
           </div>
           <div style="border-left: 1px solid rgba(255,255,255,0.25); padding-left: 20px;">
             <div style="font-size: 0.95rem; font-weight: 700; color: #FFFFFF;">Location & Venue</div>
-            <div style="font-size: 0.88rem; color: #CBD7D0;">Cafe 86 • 2423 Park Ave, Irvine, CA</div>
+            <div style="font-size: 0.88rem; color: #CBD7D0;">Our Sanctuary Clubhouse • Orange County, CA</div>
           </div>
           <div style="border-left: 1px solid rgba(255,255,255,0.25); padding-left: 20px;">
             <div style="font-size: 0.95rem; font-weight: 700; color: #FFFFFF;">The Experience</div>
@@ -753,11 +851,11 @@
           </div>
         </div>
 
-        <!-- Live Gathering Real-Time Countdown Timer (Cafe 86 Gathering) -->
-        <div class="openmic-countdown-card" id="openmic-countdown" aria-label="Real-time countdown to next Cafe 86 Community Open Mic gathering">
+        <!-- Live Gathering Real-Time Countdown Timer (Our Sanctuary Clubhouse Gathering) -->
+        <div class="openmic-countdown-card" id="openmic-countdown" aria-label="Real-time countdown to next Community Open Mic gathering at Our Sanctuary Clubhouse">
           <div class="countdown-badge-row">
             <span class="countdown-pulse-dot"></span>
-            <span class="countdown-badge-text">✦ LIVE GATHERING COUNTDOWN • CAFE 86, IRVINE</span>
+            <span class="countdown-badge-text">✦ LIVE GATHERING COUNTDOWN • OUR SANCTUARY CLUBHOUSE</span>
           </div>
 
           <div class="countdown-clock-grid">
@@ -783,7 +881,7 @@
           </div>
 
           <div class="countdown-foot-note">
-            Next Gathering: <strong>Sunday, November 15, 2026 at 2:00 PM PST</strong> • Cafe 86, Irvine • 100% Free Community Admission
+            Next Gathering: <strong>Sunday, November 15, 2026 at 2:00 PM PST</strong> • Our Sanctuary Clubhouse • 100% Free Community Admission
           </div>
         </div>
     
@@ -812,12 +910,12 @@
           </div>
         </div>
 
-        <!-- Space-Saving Compact Community Photo Wheel (Cafe 86 Live Moments) -->
+        <!-- Space-Saving Compact Community Photo Wheel (Our Sanctuary Clubhouse Moments) -->
         <div class="photo-wheel-card" id="openmic-photo-wheel">
           <div class="photo-wheel-header">
             <div>
               <span class="photo-wheel-tag">✦ Living Sanctuary Gallery</span>
-              <h4 class="photo-wheel-title">Real Moments from Cafe 86 Community Open Mic</h4>
+              <h4 class="photo-wheel-title">Real Moments from Our Sanctuary Clubhouse Open Mic</h4>
             </div>
             <button type="button" class="btn-open-wheel-modal" onclick="openPhotoWheelModal(currentPhotoWheelIndex)">
               <span>🎡 Launch Fullscreen Photo Wheel</span>
@@ -832,14 +930,14 @@
               <div class="photo-wheel-slide active" onclick="openPhotoWheelModal(0)">
                 <img src="images/openmic/openmic-vocalist-yellow.jpg" alt="Vocalist singing with heart at vintage chrome microphone">
                 <div class="slide-caption-bar">
-                  <span class="slide-caption-text">Raw Vocal Resonance • Community Singer at Cafe 86</span>
+                  <span class="slide-caption-text">Raw Vocal Resonance • Community Singer at Our Sanctuary Clubhouse</span>
                   <span class="slide-counter">Photo 1 of 5</span>
                 </div>
               </div>
 
               <!-- Slide 2 -->
               <div class="photo-wheel-slide" onclick="openPhotoWheelModal(1)">
-                <img src="images/openmic/openmic-audience-cafe86.jpg" alt="Attentive community audience gathered at Cafe 86">
+                <img src="images/openmic/openmic-audience-cafe86.jpg" alt="Attentive community audience gathered at Our Sanctuary Clubhouse">
                 <div class="slide-caption-bar">
                   <span class="slide-caption-text">Attentive Sanctuary • ~40 Neighbors &amp; Creators in Grounded Space</span>
                   <span class="slide-counter">Photo 2 of 5</span>
@@ -890,26 +988,153 @@
           </div>
         </div>
 
-        <div class="openmic-single-wrap">
-          <div class="openmic-facet-card openmic-full-width">
-            <div class="facet-icon-tag">
-              <span>🎤</span>
-              <span>The Open Mic Stage</span>
+        <!-- ==================== LIVE OPEN MIC STAGE ROSTER (10-SLOT GATHERING PIPELINE) ==================== -->
+        <div class="openmic-roster-card" id="openmic-roster-stage">
+          <div class="roster-header">
+            <div>
+              <span class="roster-badge">✦ Gathering Lineup • Sunday, Nov 15</span>
+              <h4 class="roster-title serif-brand">Community Stage Roster</h4>
+              <p class="roster-sub">10 unhurried 5-minute stage spots. Spoken word, acoustic music, or personal reflections.</p>
             </div>
-            <h4 class="facet-headline">Raw Expression & True Listeners</h4>
-            <p class="facet-desc">
-              Come laugh, sing, share, listen, cry, create, or simply be. No performance necessary. Just come as you are.
-            </p>
-            <ul class="facet-list">
-              <li><strong>All creative mediums welcomed:</strong> Spoken word, poetry, acoustic music, storytelling, comedy, or personal reflections.</li>
-              <li><strong>Zero judgment, zero performance pressure:</strong> You don't have to be "polished" or famous. Share from the heart.</li>
-              <li><strong>Attentive community:</strong> A room that actually listens, cheers, and holds space without algorithmic rush.</li>
-            </ul>
+            <div class="roster-status-indicator">
+              <span class="roster-dot-live"></span>
+              <span><strong>2</strong> Open Spots Available</span>
+            </div>
+          </div>
+
+          <div class="roster-slots-grid">
+            <!-- Spot 01 -->
+            <div class="roster-slot claimed">
+              <div class="slot-left">
+                <span class="slot-num">01</span>
+                <div class="slot-main">
+                  <div class="slot-title">Opening Grounding</div>
+                  <div class="slot-performer">Marlon Smith <span class="slot-tag">MC</span></div>
+                </div>
+              </div>
+              <span class="slot-status confirmed">Confirmed</span>
+            </div>
+
+            <!-- Spot 02 -->
+            <div class="roster-slot claimed">
+              <div class="slot-left">
+                <span class="slot-num">02</span>
+                <div class="slot-main">
+                  <div class="slot-title">Somatic Pause Verse</div>
+                  <div class="slot-performer">Teshia Campbell <span class="slot-tag">Host</span></div>
+                </div>
+              </div>
+              <span class="slot-status confirmed">Confirmed</span>
+            </div>
+
+            <!-- Spot 03 -->
+            <div class="roster-slot claimed">
+              <div class="slot-left">
+                <span class="slot-num">03</span>
+                <div class="slot-main">
+                  <div class="slot-title">Spoken Word Healing Poem</div>
+                  <div class="slot-performer">Riverside Youth Collective</div>
+                </div>
+              </div>
+              <span class="slot-status confirmed">Confirmed</span>
+            </div>
+
+            <!-- Spot 04 -->
+            <div class="roster-slot claimed">
+              <div class="slot-left">
+                <span class="slot-num">04</span>
+                <div class="slot-main">
+                  <div class="slot-title">Acoustic Soul &amp; Strings</div>
+                  <div class="slot-performer">Marcus G. (Irvine)</div>
+                </div>
+              </div>
+              <span class="slot-status confirmed">Confirmed</span>
+            </div>
+
+            <!-- Spot 05 -->
+            <div class="roster-slot claimed">
+              <div class="slot-left">
+                <span class="slot-num">05</span>
+                <div class="slot-main">
+                  <div class="slot-title">Storytelling &amp; Inner Truth</div>
+                  <div class="slot-performer">Elena Garcia</div>
+                </div>
+              </div>
+              <span class="slot-status confirmed">Confirmed</span>
+            </div>
+
+            <!-- Spot 06 -->
+            <div class="roster-slot claimed">
+              <div class="slot-left">
+                <span class="slot-num">06</span>
+                <div class="slot-main">
+                  <div class="slot-title">Acoustic Folk Song</div>
+                  <div class="slot-performer">Orange County Creative Duo</div>
+                </div>
+              </div>
+              <span class="slot-status confirmed">Confirmed</span>
+            </div>
+
+            <!-- Spot 07 -->
+            <div class="roster-slot claimed">
+              <div class="slot-left">
+                <span class="slot-num">07</span>
+                <div class="slot-main">
+                  <div class="slot-title">Vocal Harmonies &amp; Reflection</div>
+                  <div class="slot-performer">Maya R.</div>
+                </div>
+              </div>
+              <span class="slot-status confirmed">Confirmed</span>
+            </div>
+
+            <!-- Spot 08 - Open -->
+            <div class="roster-slot open">
+              <div class="slot-left">
+                <span class="slot-num">08</span>
+                <div class="slot-main">
+                  <div class="slot-title">Open Stage Spot (5m)</div>
+                  <div class="slot-performer">Poetry, Song, or Story</div>
+                </div>
+              </div>
+              <button type="button" class="btn-claim-slot" onclick="claimOpenMicSlot('08')" title="Claim Spot 08">
+                <span>🌱 Claim Spot →</span>
+              </button>
+            </div>
+
+            <!-- Spot 09 - Open -->
+            <div class="roster-slot open">
+              <div class="slot-left">
+                <span class="slot-num">09</span>
+                <div class="slot-main">
+                  <div class="slot-title">Open Stage Spot (5m)</div>
+                  <div class="slot-performer">Poetry, Song, or Story</div>
+                </div>
+              </div>
+              <button type="button" class="btn-claim-slot" onclick="claimOpenMicSlot('09')" title="Claim Spot 09">
+                <span>🌱 Claim Spot →</span>
+              </button>
+            </div>
+
+            <!-- Spot 10 -->
+            <div class="roster-slot claimed">
+              <div class="slot-left">
+                <span class="slot-num">10</span>
+                <div class="slot-main">
+                  <div class="slot-title">Closing Community Harmony</div>
+                  <div class="slot-performer">All Circle Voices Together</div>
+                </div>
+              </div>
+              <span class="slot-status confirmed">Circle Open</span>
+            </div>
           </div>
         </div>
 
-        <div class="event-invitation-quote">
-          "Because sometimes healing looks like laughter that comes from deep within. Sometimes it's a song we didn't know we needed to sing. Or tears we've finally given ourselves permission to cry."
+
+        <!-- Streamlined Sanctuary Stage Pillars (Clean & Spacious) -->
+        <div class="openmic-pillars-banner">
+          <div class="pillar-pill"><span>🎤</span> All Creative Mediums Welcome</div>
+          <div class="pillar-pill"><span>🕊️</span> 100% Zero Performance Pressure</div>
+          <div class="pillar-pill"><span>🌿</span> Attentive Community Listeners</div>
         </div>
 
         <div class="event-cta-bar">
@@ -932,7 +1157,7 @@
   </section>
 
   <!-- ==================== MORE WAYS TO CONNECT (FUTURE HORIZONS) ==================== -->
-  <section id="horizons" class="section-padding" style="background: rgba(255, 255, 255, 0.88); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(197, 154, 63, 0.2);">
+  <section id="horizons" class="section-padding" style="background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid rgba(197, 154, 63, 0.2);">
     <div class="container">
       
       <div class="section-header" style="max-width: 820px; margin: 0 auto 16px;">
@@ -1073,32 +1298,83 @@
           </div>
         </div>
 
-        <!-- Revealed Sanctuary Spark Card -->
-        <div class="revealed-spark-container" id="revealedSpark" style="display: none;">
-          <div class="spark-card-preview">
-            <span class="spark-emblem">✦</span>
-            <div class="spark-bead-summary" id="sparkBeadSummary">Cedar Wood • Rose Quartz • Sunburst Gold</div>
-            <blockquote class="spark-quote" id="sparkQuote">
-              "Rooted in grace, held in softness, glowing from within. You don't have to carry the whole mountain today. Breathe in permission."
-            </blockquote>
-            <div class="spark-source">— Inner Sanctuary Sparks • Pause Activations</div>
-          </div>
+        <!-- Keepsake Modal Trigger Button (Shows when 3 beads are strung) -->
+        <div style="text-align: center;">
+          <button type="button" class="btn btn-gold btn-liquid-gold pulse-gold btn-open-bracelet-modal" id="btnOpenBraceletModal" onclick="openBraceletKeepsakeModal()" style="display: none;">
+            <span>✨ View Your Keepsake Pop-Up Window ↗</span>
+          </button>
+        </div>
 
-          <div class="spark-actions-row">
-            <button type="button" class="btn-spark-action" id="btnCopySpark">
-              <span id="btnCopySparkIcon">📋</span>
-              <span id="btnCopySparkLabel">Copy My Sanctuary Spark</span>
-            </button>
-            <button type="button" class="btn-spark-action btn-spark-share" id="btnShareSparkIG" onclick="openStorySnapshotFromSpark(event)" title="Create 9:16 Instagram Story snapshot card">
-              <span>📸 Share to IG Story</span>
-            </button>
-            <button type="button" class="btn-spark-reset" id="btnResetBracelet">
-              <span>🔄 Weave Another Bracelet</span>
-            </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== SACRED BRACELET KEEPSAKE POP-UP MODAL ==================== -->
+  <div id="braceletKeepsakeModal" class="bracelet-modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true" style="display: none;">
+    <div class="bracelet-modal-dialog">
+      <button type="button" class="bracelet-modal-close" aria-label="Close bracelet window" onclick="closeBraceletKeepsakeModal()">&times;</button>
+      
+      <div class="bracelet-modal-header">
+        <span class="bracelet-modal-badge">✦ WEAVED WITH LOVE • OUR SANCTUARY CLUBHOUSE ✦</span>
+        <h3 class="bracelet-modal-title serif-brand">Your Sacred Intention Bracelet</h3>
+        <p class="bracelet-modal-sub">Completed keepsake circle infused with your 3 chosen intentions.</p>
+      </div>
+
+      <!-- Completed Circular Bracelet Visualizer Inside Modal -->
+      <div class="bracelet-circle-visualizer" id="braceletCircleVisualizer" style="display: flex;">
+        <div class="circle-string-ring">
+          <svg class="bracelet-ring-svg" viewBox="0 0 280 280" width="280" height="280">
+            <defs>
+              <linearGradient id="goldCordGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#C59A3F" />
+                <stop offset="50%" stop-color="#F8D98C" />
+                <stop offset="100%" stop-color="#9E7623" />
+              </linearGradient>
+            </defs>
+            <!-- Golden Elastic Cord Loop -->
+            <circle cx="140" cy="140" r="105" fill="none" stroke="url(#goldCordGrad)" stroke-width="2.5" stroke-dasharray="5,3" filter="drop-shadow(0 0 6px rgba(197, 154, 63, 0.45))" />
+          </svg>
+          <!-- 12 Beads Container around the circle -->
+          <div class="ring-beads-layer" id="ringBeadsLayer"></div>
+          <!-- Center Medallion Charm -->
+          <div class="ring-center-charm">
+            <span class="ring-charm-emblem">✦</span>
+            <div class="ring-charm-title">INNER SANCTUARY</div>
+            <div class="ring-charm-venue">SANCTUARY CLUBHOUSE</div>
           </div>
-          <div class="spark-copy-toast" id="sparkToast">✓ Copied to clipboard! Ready to paste into IG Stories or notes.</div>
+        </div>
+        <div class="bracelet-ring-caption">
+          <span>✨ The Circle is Completed • 3 Intentions Strung</span>
         </div>
       </div>
+
+      <!-- Revealed Sanctuary Spark Keepsake Card -->
+      <div class="revealed-spark-container" id="revealedSpark" style="display: block; margin: 12px auto 0;">
+        <div class="spark-card-preview">
+          <div class="spark-bead-summary" id="sparkBeadSummary">Cedar Wood • Rose Quartz • Sunburst Gold</div>
+          <blockquote class="spark-quote" id="sparkQuote">
+            "Rooted in grace, held in softness, glowing from within. You don't have to carry the whole mountain today. Breathe in permission."
+          </blockquote>
+          <div class="spark-source" id="sparkSource">— Inner Sanctuary Sparks • Weaved at Our Sanctuary Clubhouse</div>
+        </div>
+
+        <div class="spark-actions-row">
+          <button type="button" class="btn-spark-action" id="btnCopySpark">
+            <span id="btnCopySparkIcon">📋</span>
+            <span id="btnCopySparkLabel">Copy Keepsake Reflection</span>
+          </button>
+          <button type="button" class="btn-spark-action btn-spark-share" id="btnShareSparkIG" onclick="openStorySnapshotFromSpark(event)" title="Create 9:16 Instagram Story snapshot card">
+            <span>📸 Share Keepsake to IG Story</span>
+          </button>
+          <button type="button" class="btn-spark-reset" id="btnResetBracelet" onclick="resetBraceletAndCloseModal()">
+            <span>🔄 Weave Another Bracelet</span>
+          </button>
+        </div>
+        <div class="spark-copy-toast" id="sparkToast">✓ Copied to clipboard! Ready to paste into IG Stories or notes.</div>
+      </div>
+    </div>
+  </div>
 
     </div>
   </section>
@@ -1107,7 +1383,7 @@
   <div id="donate" style="position: relative; top: -80px; visibility: hidden;"></div>
 
   <!-- ==================== HELP US KEEP THE CIRCLE GROWING (GIVING & SPONSORSHIP) ==================== -->
-  <section id="circle-growth" data-section="donate" class="section-padding reveal-on-scroll" style="background: rgba(240, 236, 225, 0.7); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(197, 154, 63, 0.25);">
+  <section id="circle-growth" data-section="donate" class="section-padding reveal-on-scroll" style="background: rgba(240, 236, 225, 0.90); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid rgba(197, 154, 63, 0.25);">
     <div class="container">
       
       <div class="section-header" style="max-width: 860px; margin: 0 auto 40px; text-align: center;">
@@ -1251,13 +1527,15 @@
 
           </div>
         </div>
+
+
       </div>
 
     </div>
   </section>
 
   <!-- ==================== INSTITUTIONAL GIVING, GRANTS & CORPORATE PARTNERSHIPS ==================== -->
-  <section id="sponsorship" class="section-padding" style="background: rgba(240, 236, 225, 0.7); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(197, 154, 63, 0.25);">
+  <section id="sponsorship" class="section-padding" style="background: rgba(240, 236, 225, 0.90); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid rgba(197, 154, 63, 0.25);">
     <div class="container">
       
       <!-- Luminous Sanctuary Forest Green & Gold Outlined Sponsorship Container -->
@@ -1619,7 +1897,7 @@
   
 
   <!-- ==================== STAY IN THE LOOP ==================== -->
-  <section id="stay-in-loop" class="section-padding" style="background: rgba(250, 248, 243, 0.75); backdrop-filter: blur(8px); border-top: 1px solid rgba(197, 154, 63, 0.2);">
+  <section id="stay-in-loop" class="section-padding" style="background: rgba(250, 248, 243, 0.92); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-top: 1px solid rgba(197, 154, 63, 0.2);">
     <div class="container">
       <div class="stay-loop-card">
         <span class="badge badge-gold" style="margin-bottom: 12px;">✦ The Living Community</span>
@@ -1633,17 +1911,26 @@
           Receive unhurried invitations, Open Mic updates, Pause Activations, and community reflections.
         </p>
 
-        <form id="stay-loop-form" class="stay-loop-form" action="https://formsubmit.co/hello@innersanctuarywellnessfoundation.org" method="POST">
+        <form id="stay-loop-form" class="stay-loop-form" name="community-loop" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/?subscribed=true">
+          <input type="hidden" name="form-name" value="community-loop">
+          <p class="hidden" style="display:none;" aria-hidden="true">
+            <label>Don’t fill this out if you're human: <input name="bot-field"></label>
+          </p>
           <input type="hidden" name="_cc" value="innersanctuary0@gmail.com">
           <input type="hidden" name="_subject" value="New Community Member • Inner Sanctuary">
-          <input type="hidden" name="_template" value="table">
-          <input type="hidden" name="_captcha" value="false">
           <input type="text" id="loop-name" name="name" class="stay-loop-input" placeholder="Your Name" required>
           <input type="email" id="loop-email" name="email" class="stay-loop-input" placeholder="Your Email Address" required>
-          <button type="submit" class="btn btn-gold stay-loop-btn">
+          <button type="submit" class="btn btn-gold stay-loop-btn" id="stay-loop-submit-btn">
             <span>Join Our Community</span> <span>🌿</span>
           </button>
         </form>
+
+        <!-- Inline Optimistic Confirmation -->
+        <div id="stay-loop-success" class="stay-loop-success-box" style="display: none; padding: 22px; background: rgba(43, 68, 54, 0.08); border: 1.5px solid var(--sunburst-gold); border-radius: 12px; margin-top: 18px; text-align: center;">
+          <div style="font-size: 1.8rem; margin-bottom: 6px;">🌿</div>
+          <div style="font-family: 'Cinzel', serif; font-size: 1.15rem; font-weight: 700; color: var(--forest-green); margin-bottom: 4px;">Welcome to the Sanctuary Circle</div>
+          <p style="font-size: 0.95rem; color: var(--charcoal-muted); margin: 0; line-height: 1.6;">Thank you for holding space with us. We've received your connection and look forward to breathing with you.</p>
+        </div>
 
         <div style="margin-top: 20px; font-size: 0.8rem; color: var(--charcoal-muted); display: flex; align-items: center; justify-content: center; gap: 8px;">
           <span>🔒 We honor your peace. Direct updates sent to leadership & your inbox.</span>
@@ -1653,7 +1940,7 @@
   </section>
 
   <!-- ==================== GET INVOLVED: COMMUNITY CONNECTION & INTAKE ==================== -->
-  <section id="connect" class="section-padding contact-section" style="background: rgba(239, 236, 227, 0.78); backdrop-filter: blur(10px); border-top: 1px solid rgba(197, 154, 63, 0.2);">
+  <section id="connect" class="section-padding contact-section" style="background: rgba(239, 236, 227, 0.92); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-top: 1px solid rgba(197, 154, 63, 0.2);">
     <div class="container">
       
       <div class="section-header" style="max-width: 860px; margin: 0 auto 36px; text-align: center;">
@@ -1735,12 +2022,14 @@
           <button class="intake-tab" data-role="raffle">🎁 Raffle & In-Kind</button>
         </div>
 
-        <form id="circle-intake-form" action="https://formsubmit.co/hello@innersanctuarywellnessfoundation.org" method="POST">
+        <form id="circle-intake-form" name="sanctuary-intake" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/?connected=true">
+          <input type="hidden" name="form-name" value="sanctuary-intake">
+          <p class="hidden" style="display:none;" aria-hidden="true">
+            <label>Don’t fill this out if you're human: <input name="bot-field"></label>
+          </p>
           <!-- Dual Leadership Email Routing -->
           <input type="hidden" name="_cc" value="innersanctuary0@gmail.com">
           <input type="hidden" name="_subject" value="New Community Message • Inner Sanctuary Wellness Foundation">
-          <input type="hidden" name="_template" value="table">
-          <input type="hidden" name="_captcha" value="false">
 
           <div class="form-grid">
             
@@ -1801,6 +2090,13 @@
           </div>
         </form>
 
+        <!-- Inline Optimistic Intake Confirmation -->
+        <div id="circle-intake-success" class="circle-intake-success-box" style="display: none; padding: 28px 24px; background: rgba(43, 68, 54, 0.08); border: 2px solid var(--sunburst-gold); border-radius: 14px; margin-top: 20px; text-align: center;">
+          <div style="font-size: 2.2rem; margin-bottom: 8px;">🕊️</div>
+          <div style="font-family: 'Cinzel', serif; font-size: 1.35rem; font-weight: 700; color: var(--forest-green); margin-bottom: 6px;">Message Received with Reverence</div>
+          <p style="font-size: 1.02rem; color: var(--charcoal-muted); margin: 0 auto; max-width: 640px; line-height: 1.7;">Your message has been directly delivered to our community leadership (Teshia &amp; Marlon). We will review your craft and connect with you shortly.</p>
+        </div>
+
       </div>
 
     </div>
@@ -1844,6 +2140,7 @@
             <li><a href="#sponsorship">Institutional Grants & Partnerships</a></li>
             <li><a href="#stay-in-loop">Stay in the Loop</a></li>
             <li><a href="#connect">Get Involved With Us</a></li>
+            <li><a href="javascript:void(0)" id="btnPwaFooterInstall" onclick="triggerPwaInstall(event)">📱 Add Sanctuary to Home Screen</a></li>
           </ul>
         </div>
 
@@ -1901,17 +2198,13 @@
     <div class="zeffy-modal-dialog">
       <button type="button" class="zeffy-modal-close" aria-label="Close modal" onclick="closeZeffyModal()">&times;</button>
       
-      <div class="zeffy-modal-header">
-        <div class="zeffy-modal-badge">IRS 501(c)(3) PUBLIC CHARITY • FEDERAL EIN: 39-3757168 • 100% ZERO FEES</div>
-        <h3 class="zeffy-modal-title serif-brand">Plant Your $1 Community Seed</h3>
-        <p class="zeffy-modal-subtitle">2 Taps with Apple Pay &amp; Google Pay • 100% Zero Platform Fees • Tax-Deductible</p>
+      <div class="zeffy-modal-header compact-zeffy-header">
+        <div class="zeffy-compact-row">
+          <span class="zeffy-modal-badge">✦ 501(c)(3) PUBLIC CHARITY • ZERO PLATFORM FEES ✦</span>
+          <h3 class="zeffy-modal-title serif-brand">🌱 Plant Your $1 Community Seed</h3>
+          <span class="zeffy-pay-pill">⚡ Instant Apple Pay &amp; Google Pay</span>
+        </div>
       </div>
-
-      <div class="zeffy-protip-banner">
-        💡 1-Tap Pro Tip: Choose $1/Monthly, tap <strong>'Other → $0'</strong> on the optional Zeffy tip so you pay <strong>$1.00 flat</strong>, and double-click Apple Pay or Google Pay!
-      </div>
-
-      
 
       <div class="zeffy-modal-frame-wrap" style="background:#F6F2E9;">
         <iframe
@@ -1927,9 +2220,11 @@
       </div>
 
       <div class="zeffy-modal-footer">
-        <span>Trouble viewing inside mobile browser?</span>
+        <div class="zeffy-footer-tip">
+          💡 <strong>1-Tap Pro-Tip:</strong> Select $1, tap <em>'Other → $0'</em> on optional tip to pay <strong>$1.00 flat</strong>.
+        </div>
         <a href="https://www.zeffy.com/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation" target="_blank" rel="noopener noreferrer" class="zeffy-direct-link">
-          Open Direct Zeffy Window ↗
+          Direct Window ↗
         </a>
       </div>
     </div>
@@ -1949,7 +2244,7 @@
       <button type="button" class="wheel-modal-close" aria-label="Close photo window" onclick="closePhotoWheelModal()">&times;</button>
       
       <div class="wheel-modal-header">
-        <span class="wheel-modal-badge">✦ INNER SANCTUARY COMMUNITY GALLERY • CAFE 86</span>
+        <span class="wheel-modal-badge">✦ INNER SANCTUARY COMMUNITY GALLERY • OUR SANCTUARY CLUBHOUSE</span>
         <h3 class="wheel-modal-title serif-brand">Community Open Mic Moments</h3>
       </div>
 
@@ -1960,7 +2255,7 @@
       </div>
 
       <div class="wheel-modal-footer">
-        <div id="wheelModalCaption" class="wheel-modal-caption">Raw Vocal Resonance • Community Singer at Cafe 86</div>
+        <div id="wheelModalCaption" class="wheel-modal-caption">Raw Vocal Resonance • Community Singer at Our Sanctuary Clubhouse</div>
         <div id="wheelModalCounter" class="wheel-modal-counter">Photo 1 of 5</div>
       </div>
     </div>
@@ -1998,6 +2293,73 @@
       </div>
       
       <div id="igStoryToast" class="ig-story-toast" role="status" aria-live="polite">✓ Story image downloaded! Ready to add to your IG Story.</div>
+    </div>
+  </div>
+
+  <!-- ==================== SANCTUARY IN YOUR POCKET: PWA INSTALL BANNER ==================== -->
+  <aside id="pwaInstallBanner" class="pwa-install-banner" role="region" aria-label="Add Inner Sanctuary to Home Screen" style="display: none;">
+    <div class="pwa-banner-card">
+      <button type="button" class="pwa-close-btn" id="btnPwaClose" aria-label="Close install prompt" onclick="dismissPwaBanner()">✕</button>
+      <div class="pwa-banner-content">
+        <div class="pwa-icon-wrap">
+          <img src="emblem.png" alt="Inner Sanctuary App Icon" class="pwa-app-icon" onerror="this.src='emblem.jpg'" />
+        </div>
+        <div class="pwa-text-wrap">
+          <div class="pwa-badge">✦ SANCTUARY IN YOUR POCKET</div>
+          <h4 class="pwa-title">Add to Home Screen</h4>
+          <p class="pwa-desc">Instant offline access to mindful soundscapes, open mic stages, and sacred reflections—right from your device.</p>
+        </div>
+      </div>
+      <div class="pwa-actions-row">
+        <button type="button" class="btn btn-gold btn-liquid-gold pwa-install-action" id="btnPwaInstallAction" onclick="acceptPwaInstall()">
+          <span>📲 Add Sanctuary App</span>
+        </button>
+        <button type="button" class="pwa-dismiss-action" id="btnPwaDismiss" onclick="dismissPwaBanner()">
+          <span>Not right now</span>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ==================== APPLE IOS SAFARI INSTALL GUIDE MODAL ==================== -->
+  <div id="pwaIosModal" class="pwa-ios-modal-backdrop" style="display: none;" role="dialog" aria-modal="true" aria-label="How to install on iOS">
+    <div class="pwa-ios-modal-card">
+      <button type="button" class="pwa-ios-close" id="btnPwaIosClose" aria-label="Close modal" onclick="closePwaIosModal()">✕</button>
+      <div class="pwa-ios-header">
+        <img src="emblem.png" alt="Inner Sanctuary App Icon" class="pwa-ios-icon" onerror="this.src='emblem.jpg'" />
+        <div class="pwa-badge">✦ APPLE IOS SANCTUARY ✦</div>
+        <h3 class="serif-brand pwa-ios-title">Add Sanctuary to Your iPhone or iPad</h3>
+        <p class="pwa-ios-sub">Install Inner Sanctuary directly to your home screen for unhurried, one-tap peace.</p>
+      </div>
+      <div class="pwa-ios-steps">
+        <div class="pwa-ios-step">
+          <div class="pwa-step-badge">1</div>
+          <div class="pwa-step-info">
+            Tap the <strong>Share</strong> button in Safari's toolbar:
+            <span class="pwa-ios-icon-inline">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
+            </span>
+          </div>
+        </div>
+        <div class="pwa-ios-step">
+          <div class="pwa-step-badge">2</div>
+          <div class="pwa-step-info">
+            Scroll down the share menu and select <strong>"Add to Home Screen"</strong>:
+            <span class="pwa-ios-icon-inline">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+            </span>
+          </div>
+        </div>
+        <div class="pwa-ios-step">
+          <div class="pwa-step-badge">3</div>
+          <div class="pwa-step-info">
+            Tap <strong>"Add"</strong> in the top-right corner. The Sanctuary icon is now on your screen!
+          </div>
+        </div>
+      </div>
+      <button type="button" class="btn btn-gold pwa-ios-done-btn" onclick="closePwaIosModal()">
+        <span>✨ Got It, Thank You</span>
+      </button>
     </div>
   </div>
 

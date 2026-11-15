@@ -115,6 +115,33 @@ document.addEventListener('DOMContentLoaded', () => {
     // ELEMENT ANIMATION ENGINES (UNIQUE FOR EACH ELEMENT)
     // -------------------------------------------------------------
 
+    // Somatic Breathwork Universal Particle Physics Synchronizer
+    function applySomaticBreathPhysics(particle) {
+      if (!window.sanctuaryBreathSync || !window.sanctuaryBreathSync.active) return;
+      const step = window.sanctuaryBreathSync.step; // 0: Inhale (solid 4s), 1: Exhale (solid 4s)
+      const ease = window.sanctuaryBreathSync.ease || 0.5;
+      const centerX = width / 2;
+      const centerY = height * 0.42;
+
+      const dx = centerX - particle.x;
+      const dy = centerY - particle.y;
+      const dist = Math.hypot(dx, dy) || 1;
+      const nx = dx / dist;
+      const ny = dy / dist;
+
+      if (step === 0) {
+        // INHALE: Gentle somatic gravitational pull drawing inward toward sanctuary center
+        const force = ease * 0.22;
+        particle.vx += nx * force;
+        particle.vy += ny * force;
+      } else {
+        // EXHALE: Gentle expansive dispersion wave radiating outward
+        const force = ease * 0.25;
+        particle.vx -= nx * force;
+        particle.vy -= ny * force;
+      }
+    }
+
     // 1. EARTH: Fireflies & Floating Botanical Leaves
     class Firefly {
       constructor(startX, startY, isBurst = false) {
@@ -138,6 +165,9 @@ document.addEventListener('DOMContentLoaded', () => {
         this.pulsePhase += this.pulseSpeed;
         this.vx += (Math.random() - 0.5) * 0.03;
         this.vy += (Math.random() - 0.5) * 0.03 - 0.003;
+
+        // Synchronize with whole-page somatic breath pulse
+        applySomaticBreathPhysics(this);
 
         const dx = this.x - mouse.x;
         const dy = this.y - mouse.y;
@@ -219,6 +249,14 @@ document.addEventListener('DOMContentLoaded', () => {
         this.x = this.startX + Math.sin(this.time) * this.oscAmp;
         this.angleZ += this.rotSpeedZ;
         this.angleY += this.rotSpeedY;
+
+        // Breathwork sync: leaves gently float upward on inhale, drift softly down on exhale
+        if (window.sanctuaryBreathSync && window.sanctuaryBreathSync.active) {
+          const bStep = window.sanctuaryBreathSync.step;
+          const bEase = window.sanctuaryBreathSync.ease || 0.5;
+          this.y += (bStep === 0 ? -0.45 : 0.40) * bEase;
+        }
+
         if (this.y > height + 40) this.reset();
       }
 
@@ -284,6 +322,14 @@ document.addEventListener('DOMContentLoaded', () => {
           this.speedX *= 0.98;
         }
         this.x = this.startX + Math.sin(this.time) * this.oscAmp;
+
+        // Breathwork sync: rising aquatic buoyancy on inhale, calm dispersion on exhale
+        if (window.sanctuaryBreathSync && window.sanctuaryBreathSync.active) {
+          const bStep = window.sanctuaryBreathSync.step;
+          const bEase = window.sanctuaryBreathSync.ease || 0.5;
+          this.y += (bStep === 0 ? -0.55 : 0.25) * bEase;
+        }
+
         if (this.isBurst && (this.age > this.lifespan || this.y < -30)) return false;
         if (this.y < -30) this.reset();
         return true;
@@ -365,6 +411,14 @@ document.addEventListener('DOMContentLoaded', () => {
           this.y += (dy / dist) * 2;
         }
 
+        // Breathwork sync: seeds drift inward toward center on inhale, swirl outward on exhale
+        if (window.sanctuaryBreathSync && window.sanctuaryBreathSync.active) {
+          const bStep = window.sanctuaryBreathSync.step;
+          const bEase = window.sanctuaryBreathSync.ease || 0.5;
+          const cDx = (width / 2) - this.x;
+          this.x += (bStep === 0 ? (cDx > 0 ? 0.35 : -0.35) : (cDx > 0 ? -0.45 : 0.45)) * bEase;
+        }
+
         this.x += this.speedX;
         this.y += this.speedY;
         this.angle += 0.02;
@@ -422,6 +476,14 @@ document.addEventListener('DOMContentLoaded', () => {
         this.y -= this.speedY;
         this.x += this.speedX + Math.sin(this.y * 0.015) * 0.35;
         this.phase += 0.025;
+
+        // Breathwork sync: motes lift subtly on inhale, float down gently on exhale
+        if (window.sanctuaryBreathSync && window.sanctuaryBreathSync.active) {
+          const bStep = window.sanctuaryBreathSync.step;
+          const bEase = window.sanctuaryBreathSync.ease || 0.5;
+          this.y += (bStep === 0 ? -0.42 : 0.35) * bEase;
+        }
+
         if (this.isBurst && (this.age > this.lifespan || this.y < -20)) return false;
         if (this.y < -20) this.reset();
         return true;
@@ -469,6 +531,13 @@ document.addEventListener('DOMContentLoaded', () => {
         this.age++;
         this.y -= this.speedY;
         this.x += this.speedX + Math.sin(this.y * 0.025) * this.wobbleAmp;
+
+        // Breathwork sync: Inhale stokes and draws embers with rising thermal draft; exhale lets them drift gently
+        if (window.sanctuaryBreathSync && window.sanctuaryBreathSync.active) {
+          const bStep = window.sanctuaryBreathSync.step;
+          const bEase = window.sanctuaryBreathSync.ease || 0.5;
+          this.y -= (bStep === 0 ? 0.55 : -0.22) * bEase;
+        }
 
         const lifeProgress = this.age / this.maxLife;
         this.alpha = (1 - lifeProgress) * 0.85;
@@ -522,6 +591,13 @@ document.addEventListener('DOMContentLoaded', () => {
       update() {
         this.age++;
         this.phase += this.speed;
+
+        // Breathwork sync: synchronize starlight pulse and shimmering with the sacred breath
+        if (window.sanctuaryBreathSync && window.sanctuaryBreathSync.active) {
+          const bEase = window.sanctuaryBreathSync.ease || 0.5;
+          this.phase += bEase * 0.035;
+        }
+
         if (this.isBurst) {
           this.x += this.vx;
           this.y += this.vy;
@@ -571,6 +647,15 @@ document.addEventListener('DOMContentLoaded', () => {
       update() {
         this.age++;
         this.angle += this.speed;
+
+        // Breathwork sync: Inhale contracts orbit radius softly inward; exhale expands outward
+        if (window.sanctuaryBreathSync && window.sanctuaryBreathSync.active) {
+          const bStep = window.sanctuaryBreathSync.step;
+          const bEase = window.sanctuaryBreathSync.ease || 0.5;
+          this.radius += (bStep === 0 ? -0.18 : 0.20) * bEase;
+          this.radius = Math.max(15, Math.min(190, this.radius));
+        }
+
         if (this.isBurst) {
           this.radius += 0.4;
           return this.age < this.lifespan;
@@ -675,40 +760,33 @@ document.addEventListener('DOMContentLoaded', () => {
     function animate() {
       ctx.clearRect(0, 0, width, height);
 
-      // Render Dynamic Somatic Breathwork Canvas Aura when 4x4 breathing is active
+      // Render Dynamic Somatic Breathwork Canvas Aura when solid 4s breathing is active
       if (window.sanctuaryBreathSync && window.sanctuaryBreathSync.active) {
-        const step = window.sanctuaryBreathSync.step;
-        const prog = window.sanctuaryBreathSync.progress;
+        const step = window.sanctuaryBreathSync.step; // 0: Inhale (solid 4s), 1: Exhale (solid 4s)
+        const ease = window.sanctuaryBreathSync.ease || 0.5;
         const centerX = width / 2;
-        const centerY = height * 0.40;
+        const centerY = height * 0.42;
 
-        let auraRadius = 240;
-        let auraColorInner = 'rgba(197, 154, 63, 0.12)';
-        let auraColorMid = 'rgba(197, 154, 63, 0.04)';
+        const maxAura = Math.min(width, height) * 0.52;
+        const auraRadius = step === 0 ? (maxAura * (0.65 + ease * 0.35)) : (maxAura * (1.00 - ease * 0.35));
 
-        if (step === 0) {
-          // AIR (Inhale): Soft rising golden-white luminescence expanding outward
-          const expand = 1.0 + prog * 0.5;
-          auraRadius = Math.min(width, height) * 0.48 * expand;
-          auraColorInner = `rgba(255, 248, 225, ${0.12 + prog * 0.08})`;
-          auraColorMid = `rgba(197, 154, 63, ${0.05 + prog * 0.04})`;
-        } else if (step === 1) {
-          // FIRE / SOLAR GOLD (Hold): Warm radiant golden-amber aura expansion & solar shimmer
-          const shimmer = (Math.sin(Date.now() * 0.003) + 1) / 2;
-          auraRadius = Math.min(width, height) * 0.65;
-          auraColorInner = `rgba(216, 170, 73, ${0.16 + shimmer * 0.07})`;
-          auraColorMid = `rgba(235, 125, 45, ${0.07 + shimmer * 0.04})`;
-        } else if (step === 2) {
-          // WATER (Exhale): Smooth liquid undertones contracting gently
-          const contract = 1.45 - prog * 0.45;
-          auraRadius = Math.min(width, height) * 0.48 * contract;
-          auraColorInner = `rgba(92, 168, 185, ${0.14 - prog * 0.05})`;
-          auraColorMid = `rgba(142, 204, 218, ${0.06 - prog * 0.02})`;
+        let auraColorInner, auraColorMid;
+        if (currentElement === 'water') {
+          auraColorInner = step === 0 ? `rgba(142, 204, 218, ${0.12 + ease * 0.08})` : `rgba(92, 168, 185, ${0.20 - ease * 0.08})`;
+          auraColorMid = `rgba(180, 225, 235, ${0.04 + ease * 0.03})`;
+        } else if (currentElement === 'fire') {
+          auraColorInner = step === 0 ? `rgba(245, 175, 25, ${0.14 + ease * 0.09})` : `rgba(235, 125, 45, ${0.23 - ease * 0.09})`;
+          auraColorMid = `rgba(255, 220, 140, ${0.05 + ease * 0.03})`;
+        } else if (currentElement === 'ether') {
+          auraColorInner = step === 0 ? `rgba(180, 150, 220, ${0.13 + ease * 0.08})` : `rgba(140, 105, 195, ${0.21 - ease * 0.08})`;
+          auraColorMid = `rgba(215, 195, 245, ${0.04 + ease * 0.03})`;
+        } else if (currentElement === 'air') {
+          auraColorInner = step === 0 ? `rgba(255, 248, 225, ${0.14 + ease * 0.09})` : `rgba(220, 240, 250, ${0.23 - ease * 0.09})`;
+          auraColorMid = `rgba(197, 154, 63, ${0.05 + ease * 0.03})`;
         } else {
-          // EARTH (Rest): Deep forest-obsidian & warm terracotta/gold settled stillness
-          auraRadius = Math.min(width, height) * 0.35;
-          auraColorInner = 'rgba(95, 123, 107, 0.09)';
-          auraColorMid = 'rgba(197, 154, 63, 0.03)';
+          // Earth
+          auraColorInner = step === 0 ? `rgba(248, 217, 140, ${0.13 + ease * 0.08})` : `rgba(95, 123, 107, ${0.21 - ease * 0.08})`;
+          auraColorMid = `rgba(197, 154, 63, ${0.05 + ease * 0.03})`;
         }
 
         const breathAura = ctx.createRadialGradient(centerX, centerY, 30, centerX, centerY, Math.max(50, auraRadius));
@@ -1350,6 +1428,77 @@ document.addEventListener('DOMContentLoaded', () => {
       };
     }
 
+    // =========================================================================
+    // 1D. REALISTIC 8K NATURE BACKGROUND PLATE CROSSFADER
+    // =========================================================================
+    let currentPlateElement = null;
+    let activePlateIndex = 0; // 0: primary, 1: secondary
+    const ELEMENTAL_CLASSES = ['plate-earth', 'plate-water', 'plate-air', 'plate-fire', 'plate-ether'];
+
+    function crossfadeNatureSkyPlate(elKey) {
+      const platePrimary = document.getElementById('skyPlatePrimary');
+      const plateSecondary = document.getElementById('skyPlateSecondary');
+      if (!platePrimary || !plateSecondary) return;
+
+      if (currentPlateElement === elKey) return;
+
+      // On initial run or if no plate is initialized yet
+      if (!currentPlateElement) {
+        currentPlateElement = elKey;
+        platePrimary.className = `sky-plate sky-plate-primary active plate-${elKey}`;
+        plateSecondary.className = 'sky-plate sky-plate-secondary inactive';
+        return;
+      }
+
+      currentPlateElement = elKey;
+      const targetClass = `plate-${elKey}`;
+
+      // Pick incoming and outgoing plates
+      const incomingPlate = activePlateIndex === 0 ? plateSecondary : platePrimary;
+      const outgoingPlate = activePlateIndex === 0 ? platePrimary : plateSecondary;
+
+      // Prepare incoming plate with new element artwork & animation
+      incomingPlate.classList.remove('active', 'inactive', ...ELEMENTAL_CLASSES);
+      incomingPlate.classList.add(targetClass);
+
+      // Force layout reflow so transition is seamless and guaranteed
+      void incomingPlate.offsetWidth;
+
+      // Execute cinematic crossfade
+      incomingPlate.classList.add('active');
+      outgoingPlate.classList.remove('active');
+      outgoingPlate.classList.add('inactive');
+
+      // Toggle active plate index
+      activePlateIndex = activePlateIndex === 0 ? 1 : 0;
+    }
+
+    // Preload all 5 realistic 8K environmental plates in background for instant switching
+    const ELEMENTAL_8K_PLATES = [
+      'images/nature-earth-8k.jpg',
+      'images/nature-water-8k.jpg',
+      'images/sky-air-8k.jpg',
+      'images/nature-fire-8k.jpg',
+      'images/nature-ether-8k.jpg'
+    ];
+    if (typeof window !== 'undefined') {
+      if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(() => {
+          ELEMENTAL_8K_PLATES.forEach(src => {
+            const img = new Image();
+            img.src = src;
+          });
+        });
+      } else {
+        setTimeout(() => {
+          ELEMENTAL_8K_PLATES.forEach(src => {
+            const img = new Image();
+            img.src = src;
+          });
+        }, 800);
+      }
+    }
+
     window.switchElementTheme = function(elKey, userTriggered) { return switchElementTheme(elKey, userTriggered); };
     function switchElementTheme(elKey, userTriggered = true) {
       if (!elementThemes[elKey]) return;
@@ -1375,6 +1524,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Update Body Theme attribute for smooth background shift
       document.body.setAttribute('data-element', elKey);
+
+      // Crossfade Realistic 8K Environmental Nature Plates
+      crossfadeNatureSkyPlate(elKey);
 
       // Notify 3D Sanctuary Engine
       if (window.sanctuary3D && typeof window.sanctuary3D.setElement === 'function') {
@@ -1682,30 +1834,33 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       try {
-        await fetch('https://formsubmit.co/ajax/hello@innersanctuarywellnessfoundation.org', {
+        const formData = new FormData(intakeForm);
+        formData.set('form-name', 'sanctuary-intake');
+        await fetch('/', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify({
-            name,
-            email,
-            role,
-            contact_info: handle,
-            message,
-            _cc: 'innersanctuary0@gmail.com',
-            _subject: `New Community Message from ${name} (${role}) • Inner Sanctuary`
-          })
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(formData).toString()
         });
-
-        playHarmonicTone(528, 1.2);
-        createHeartFlourish();
-        showToast(`✨ Thank you, ${name}! Your message has been sent to hello@innersanctuarywellnessfoundation.org and innersanctuary0@gmail.com. We will be in touch soon!`);
-        intakeForm.reset();
       } catch (err) {
-        playHarmonicTone(432, 0.8);
-        showToast(`🌿 Message recorded! We are also directly reachable at hello@innersanctuarywellnessfoundation.org & innersanctuary0@gmail.com.`);
+        // Fallback to formsubmit.co if running on local file system
+        try {
+          await fetch('https://formsubmit.co/ajax/hello@innersanctuarywellnessfoundation.org', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+              name,
+              email,
+              role,
+              contact_info: handle,
+              message,
+              _cc: 'innersanctuary0@gmail.com',
+              _subject: `New Community Message from ${name} (${role}) • Inner Sanctuary`
+            })
+          });
+        } catch (e) {}
       } finally {
         if (currentSubmitBtn) {
           currentSubmitBtn.disabled = false;
@@ -1713,6 +1868,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         const firstTab = document.querySelector('.intake-tab');
         if (firstTab) firstTab.click();
+      }
+
+      playHarmonicTone(528, 1.2);
+      createHeartFlourish();
+      showToast(`✨ Thank you, ${name}! Your message has been received with reverence.`);
+      intakeForm.reset();
+
+      // Show inline success state
+      const successBox = document.getElementById('circle-intake-success');
+      if (successBox) {
+        intakeForm.style.display = 'none';
+        successBox.style.display = 'block';
       }
     });
   }
@@ -1928,9 +2095,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const breathSoundLabel = document.getElementById('breath-sound-label');
   const breathWorkshopCtaBtn = document.getElementById('breath-workshop-cta-btn');
 
-  // State Configuration: Calm, Unhurried 4.5s Inhale / 4.5s Exhale (Zero Pauses)
-  const PHASE_DURATION_MS = 4500; // 4.5 seconds per phase (9.0s cycle)
-  const CYCLE_DURATION_MS = 9000;
+  // State Configuration: Calm, Solid 4.0s Inhale / 4.0s Exhale (Zero Pauses)
+  const PHASE_DURATION_MS = 4000; // Solid 4.0 seconds per phase (8.0s cycle)
+  const CYCLE_DURATION_MS = 8000;
   let isBreathingActive = false;
   let breathStartTime = null;
   let breathAnimId = null;
@@ -1989,15 +2156,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const p = phaseElapsed / PHASE_DURATION_MS; // 0.0 to 1.0
     const ease = (1 - Math.cos(p * Math.PI)) / 2;
 
-    // Trigger soothing breath sounds right at phase transition
+    // Trigger soothing breath sounds and update phase copy ONCE right at transition
     if (phaseIndex !== lastTriggeredPhase) {
       lastTriggeredPhase = phaseIndex;
+      if (phaseIndex === 0) {
+        breathAudio.playInhale(4.0);
+        if (orbBreathWord) orbBreathWord.textContent = 'Inhale';
+        if (orbStatusPrompt) orbStatusPrompt.textContent = 'Breathe in deeply...';
+      } else {
+        breathAudio.playExhale(4.0);
+        if (orbBreathWord) orbBreathWord.textContent = 'Exhale';
+        if (orbStatusPrompt) orbStatusPrompt.textContent = 'Breathe out slowly...';
+      }
     }
 
-    
-
     if (phaseIndex === 0) {
-      // INHALE: Orb smoothly expands (1.00 -> 1.46) with warm inner glow
+      // INHALE: Orb smoothly expands (1.00 -> 1.46) with warm inner glow & flame sparks
       const orbScale = 1.00 + ease * 0.46;
       const haloScale = 1.00 + ease * 0.80;
       const haloOpacity = 0.35 + ease * 0.55;
@@ -2005,22 +2179,16 @@ document.addEventListener('DOMContentLoaded', () => {
       const glowOpacity = 0.30 + ease * 0.60;
 
       if (somaticOrb) {
-        somaticOrb.style.transform = `scale(${orbScale.toFixed(3)})`;
+        somaticOrb.style.transform = `scale3d(${orbScale.toFixed(3)}, ${orbScale.toFixed(3)}, 1)`;
         somaticOrb.style.boxShadow = `0 ${(14 + ease * 14).toFixed(1)}px ${(40 + ease * 35).toFixed(1)}px rgba(0,0,0,0.65), 0 0 ${(55 + ease * 50).toFixed(1)}px rgba(212, 168, 79, ${(0.75 + ease * 0.25).toFixed(2)}), 0 0 ${(90 + ease * 60).toFixed(1)}px rgba(248, 217, 140, ${(0.45 + ease * 0.30).toFixed(2)}), inset 0 3px 14px rgba(255,255,255,0.95), inset 0 -8px 24px rgba(154, 111, 26, 0.75)`;
       }
       if (somaticHalo) {
-        somaticHalo.style.transform = `scale(${haloScale.toFixed(3)})`;
+        somaticHalo.style.transform = `scale3d(${haloScale.toFixed(3)}, ${haloScale.toFixed(3)}, 1)`;
         somaticHalo.style.opacity = haloOpacity.toFixed(2);
       }
       if (orbInnerGlow) {
-        orbInnerGlow.style.transform = `scale(${glowScale.toFixed(3)})`;
+        orbInnerGlow.style.transform = `scale3d(${glowScale.toFixed(3)}, ${glowScale.toFixed(3)}, 1)`;
         orbInnerGlow.style.opacity = glowOpacity.toFixed(2);
-      }
-      if (orbBreathWord) {
-        orbBreathWord.textContent = 'Inhale';
-      }
-      if (orbStatusPrompt) {
-        orbStatusPrompt.textContent = 'Breathe in deeply...';
       }
     } else {
       // EXHALE: Orb smoothly releases and contracts (1.46 -> 1.00)
@@ -2031,30 +2199,29 @@ document.addEventListener('DOMContentLoaded', () => {
       const glowOpacity = 0.90 - ease * 0.60;
 
       if (somaticOrb) {
-        somaticOrb.style.transform = `scale(${orbScale.toFixed(3)})`;
+        somaticOrb.style.transform = `scale3d(${orbScale.toFixed(3)}, ${orbScale.toFixed(3)}, 1)`;
         somaticOrb.style.boxShadow = `0 ${(28 - ease * 14).toFixed(1)}px ${(75 - ease * 35).toFixed(1)}px rgba(0,0,0,0.65), 0 0 ${(105 - ease * 50).toFixed(1)}px rgba(212, 168, 79, ${(1.00 - ease * 0.25).toFixed(2)}), 0 0 ${(150 - ease * 60).toFixed(1)}px rgba(248, 217, 140, ${(0.75 - ease * 0.30).toFixed(2)}), inset 0 3px 14px rgba(255,255,255,0.95), inset 0 -8px 24px rgba(154, 111, 26, 0.75)`;
       }
       if (somaticHalo) {
-        somaticHalo.style.transform = `scale(${haloScale.toFixed(3)})`;
+        somaticHalo.style.transform = `scale3d(${haloScale.toFixed(3)}, ${haloScale.toFixed(3)}, 1)`;
         somaticHalo.style.opacity = haloOpacity.toFixed(2);
       }
       if (orbInnerGlow) {
-        orbInnerGlow.style.transform = `scale(${glowScale.toFixed(3)})`;
+        orbInnerGlow.style.transform = `scale3d(${glowScale.toFixed(3)}, ${glowScale.toFixed(3)}, 1)`;
         orbInnerGlow.style.opacity = glowOpacity.toFixed(2);
-      }
-      if (orbBreathWord) {
-        orbBreathWord.textContent = 'Exhale';
-      }
-      if (orbStatusPrompt) {
-        orbStatusPrompt.textContent = 'Breathe out slowly...';
       }
     }
 
-    // Sync ambient background canvas breathing aura
+    // Whole-Screen Atmospheric Inhale/Exhale Living Scale (1.000 to 1.026)
+    const bgScale = phaseIndex === 0 ? 1.00 + ease * 0.026 : 1.026 - ease * 0.026;
+    document.documentElement.style.setProperty('--breath-bg-scale', bgScale.toFixed(4));
+
+    // Sync ambient background canvas breathing aura directly
     if (window.sanctuaryBreathSync) {
       window.sanctuaryBreathSync.active = true;
       window.sanctuaryBreathSync.step = phaseIndex;
-      window.sanctuaryBreathSync.progress = cycleTime / CYCLE_DURATION_MS;
+      window.sanctuaryBreathSync.progress = p;
+      window.sanctuaryBreathSync.ease = ease;
       window.sanctuaryBreathSync.scale = phaseIndex === 0 ? 1.0 + ease * 0.46 : 1.46 - ease * 0.46;
     }
 
@@ -2074,6 +2241,10 @@ document.addEventListener('DOMContentLoaded', () => {
     breathStartTime = performance.now();
     lastReportedCycleIndex = -1;
     lastTriggeredPhase = -1;
+
+    const orbCard = document.querySelector('.sanctuary-orb-card');
+    if (orbCard) orbCard.classList.add('active');
+    if (somaticOrb) somaticOrb.classList.add('active');
 
     if (orbBtn) {
       orbBtn.classList.add('active');
@@ -2095,6 +2266,13 @@ document.addEventListener('DOMContentLoaded', () => {
     breathStartTime = null;
     lastTriggeredPhase = -1;
     cancelAnimationFrame(breathAnimId);
+
+    const orbCard = document.querySelector('.sanctuary-orb-card');
+    if (orbCard) orbCard.classList.remove('active');
+    if (somaticOrb) somaticOrb.classList.remove('active');
+
+    // Reset Whole-Screen Atmospheric Living Scale
+    document.documentElement.style.setProperty('--breath-bg-scale', '1.0');
 
     if (window.sanctuaryBreathSync) {
       window.sanctuaryBreathSync.active = false;
@@ -2272,7 +2450,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'DTEND:20261116T000000Z',
         'SUMMARY:Community Open Mic & Pause Activations • Inner Sanctuary & SoCal Creatives',
         'DESCRIPTION:Come laugh\\, sing\\, share\\, listen\\, cry\\, create\\, or simply be. Open Mic stage + Somatic Pause Activations (botanical herbal tea\\, guided 4-4-4 breath intervals\\, 432 Hz sound bowls). No performance necessary. Just come as you are.\\n\\nMeetup Details & RSVP: https://www.meetup.com/socal-creatives-collective/events/316432286/',
-        'LOCATION:Cafe 86\\, 2423 Park Ave\\, Irvine\\, CA 92606',
+        'LOCATION:Our Sanctuary Clubhouse\\, Orange County\\, CA',
         'STATUS:CONFIRMED',
         'END:VEVENT',
         'END:VCALENDAR'
@@ -2288,7 +2466,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       playHarmonicTone(528, 0.7);
       createHeartFlourish();
-      showToast("📅 Added to Calendar! See you on Sunday, November 15, 2026 (2–4 PM) at Cafe 86, Irvine.");
+      showToast("📅 Added to Calendar! See you on Sunday, November 15, 2026 (2–4 PM) at Our Sanctuary Clubhouse.");
     });
   }
 
@@ -2301,7 +2479,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================================================================
-  // 10. "STAY IN THE LOOP" NEWSLETTER / COMMUNITY FORM (DUAL EMAIL ROUTING)
+  // 10. "STAY IN THE LOOP" NEWSLETTER / COMMUNITY FORM (NETLIFY + FALLBACK)
   // =========================================================================
   const stayLoopForm = document.getElementById('stay-loop-form');
   if (stayLoopForm) {
@@ -2317,30 +2495,46 @@ document.addEventListener('DOMContentLoaded', () => {
       if (btn) btn.innerHTML = '<span>Joining...</span> <span>🌿</span>';
 
       try {
-        await fetch('https://formsubmit.co/ajax/hello@innersanctuarywellnessfoundation.org', {
+        const formData = new FormData(stayLoopForm);
+        formData.set('form-name', 'community-loop');
+        await fetch('/', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify({
-            name,
-            email,
-            type: 'Stay in the Loop Member',
-            _cc: 'innersanctuary0@gmail.com',
-            _subject: `New Community Member Joined: ${name} (${email}) • Inner Sanctuary`
-          })
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(formData).toString()
         });
       } catch (err) {
-        // Fallback continues smoothly
+        // Fallback to formsubmit.co if running locally outside Netlify
+        try {
+          await fetch('https://formsubmit.co/ajax/hello@innersanctuarywellnessfoundation.org', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+              name,
+              email,
+              type: 'Stay in the Loop Member',
+              _cc: 'innersanctuary0@gmail.com',
+              _subject: `New Community Member Joined: ${name} (${email}) • Inner Sanctuary`
+            })
+          });
+        } catch (e) {}
       } finally {
         if (btn) btn.innerHTML = originalText;
       }
 
       playHarmonicTone(528, 1.2);
       createHeartFlourish();
-      showToast(`🌿 Welcome to our sanctuary community, ${name}! Both hello@innersanctuarywellnessfoundation.org & innersanctuary0@gmail.com have received your email.`);
+      showToast(`🌿 Welcome to our sanctuary community, ${name}!`);
       stayLoopForm.reset();
+
+      // Show inline success state
+      const successBox = document.getElementById('stay-loop-success');
+      if (successBox) {
+        stayLoopForm.style.display = 'none';
+        successBox.style.display = 'block';
+      }
     });
   }
 
@@ -2903,72 +3097,246 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // =========================================================================
-  // DAILY SANCTUARY REFLECTION CARD (INTERACTIVE 3D FLIP)
+  // SANCTUARY SOMATIC ORACLE & REFLECTION CARD (INTERACTIVE 3D FLIP + SYNTHESIS)
   // =========================================================================
+  const SOMATIC_ORACLE_DB = {
+    earth: [
+      {
+        badge: "✦ EARTH • ROOT ME ✦",
+        theme: "Root Me",
+        element: "earth",
+        quote: "Where in your body are you holding yesterday? Soften your jaw, drop your heavy shoulders into gravity, and let this breath belong only to right now.",
+        freq: 432
+      },
+      {
+        badge: "✦ EARTH • GROUNDING TO BONE ✦",
+        theme: "Root Me",
+        element: "earth",
+        quote: "Feel the undeniable support of the floor beneath you. The Earth is not asking you to hold yourself up alone; let your weight settle completely.",
+        freq: 432
+      },
+      {
+        badge: "✦ EARTH • QUIET TRUST ✦",
+        theme: "Root Me",
+        element: "earth",
+        quote: "A seed does not question the dark soil before it sprouts. Trust the quiet, unhurried root system forming beneath what the eye can see.",
+        freq: 432
+      },
+      {
+        badge: "✦ EARTH • UNBURDENING ✦",
+        theme: "Root Me",
+        element: "earth",
+        quote: "You do not have to perform peace to be worthy of it. Let your feet be heavy, your belly soften, and simply exist without explanation for five minutes.",
+        freq: 432
+      }
+    ],
+    water: [
+      {
+        badge: "✦ WATER • WASH CLEAN ✦",
+        theme: "Wash Clean",
+        element: "water",
+        quote: "Water never forces its way through stone; it simply softens, flows, and finds the opening. Soften the walls around your heart and let your breath flow freely.",
+        freq: 528
+      },
+      {
+        badge: "✦ WATER • EMOTIONAL RELEASE ✦",
+        theme: "Wash Clean",
+        element: "water",
+        quote: "Tears and grief are not signs of brokenness; they are the ocean within you returning to equilibrium. Let whatever needs to flow, wash cleanly through you.",
+        freq: 528
+      },
+      {
+        badge: "✦ WATER • GENTLE COMPASSION ✦",
+        theme: "Wash Clean",
+        element: "water",
+        quote: "What would feel 5% softer in your chest and throat right now? Drink a slow sip of cool water and give yourself that gentle 5%.",
+        freq: 528
+      },
+      {
+        badge: "✦ WATER • INNER CLEANSING ✦",
+        theme: "Wash Clean",
+        element: "water",
+        quote: "You do not need to carry the emotional tides of everyone around you. Exhale what was never yours to hold and return to your clear, sacred stream.",
+        freq: 528
+      }
+    ],
+    air: [
+      {
+        badge: "✦ AIR • CLEAR CHEST ✦",
+        theme: "Clear Chest",
+        element: "air",
+        quote: "Name one urgent expectation you have permission to set down today. Notice the wide, breezy breath that rushes in to fill that sacred space.",
+        freq: 639
+      },
+      {
+        badge: "✦ AIR • UNHURRIED RHYTHM ✦",
+        theme: "Clear Chest",
+        element: "air",
+        quote: "Your healing does not have to be hurried. The wind does not rush the changing leaves; everything unfolds in its own effortless season.",
+        freq: 639
+      },
+      {
+        badge: "✦ AIR • EXPANSIVE PRESENCE ✦",
+        theme: "Clear Chest",
+        element: "air",
+        quote: "Breathe in permission. Exhale performance. You are already whole, complete, and welcome in this exact heartbeat.",
+        freq: 639
+      },
+      {
+        badge: "✦ AIR • COLLARBONE RELEASE ✦",
+        theme: "Clear Chest",
+        element: "air",
+        quote: "Lift your chin slightly and feel the air widen across your collarbones. The storm in your thoughts is just weather; you are the vast sky it passes through.",
+        freq: 639
+      }
+    ],
+    fire: [
+      {
+        badge: "✦ FIRE • IGNITE JOY ✦",
+        theme: "Ignite Joy",
+        element: "fire",
+        quote: "Sing when words fail. Laugh when tension crests. Dance when the body needs to remember it is sovereign, vibrant, and alive.",
+        freq: 741
+      },
+      {
+        badge: "✦ FIRE • SOVEREIGN SPARK ✦",
+        theme: "Ignite Joy",
+        element: "fire",
+        quote: "Even beneath deep exhaustion, your inner ember remains unquenched. Fan it not with forceful effort, but with unhurried joy and creative play.",
+        freq: 741
+      },
+      {
+        badge: "✦ FIRE • EMOTIONAL TRUTH ✦",
+        theme: "Ignite Joy",
+        element: "fire",
+        quote: "Raw authenticity is a sacred flame. You do not need to dull your light or pretend to be small to keep the peace of others.",
+        freq: 741
+      },
+      {
+        badge: "✦ FIRE • VITAL WARMTH ✦",
+        theme: "Ignite Joy",
+        element: "fire",
+        quote: "Place your hand over your solar plexus and inhale golden warmth. You have survived every cold winter; your spring fire is stirring.",
+        freq: 741
+      }
+    ],
+    ether: [
+      {
+        badge: "✦ ETHER • INFINITE SPACE ✦",
+        theme: "Infinite Space",
+        element: "ether",
+        quote: "The peace you are searching for is not something to be earned or manufactured; it is the silent, sacred space underneath all the noise.",
+        freq: 852
+      },
+      {
+        badge: "✦ ETHER • SACRED WITNESS ✦",
+        theme: "Infinite Space",
+        element: "ether",
+        quote: "Close your eyes for one deep cycle. You are not just a body surviving a busy world; you are the timeless consciousness experiencing it.",
+        freq: 852
+      },
+      {
+        badge: "✦ ETHER • COLLECTIVE SANCTUARY ✦",
+        theme: "Infinite Space",
+        element: "ether",
+        quote: "When the horizon feels overwhelming, remember: we are all breathing from the very same sky. You are never alone in this sanctuary.",
+        freq: 852
+      },
+      {
+        badge: "✦ ETHER • BOUNDLESS STILLNESS ✦",
+        theme: "Infinite Space",
+        element: "ether",
+        quote: "In the stillness between your inhale and your exhale lies your true home. Step into that gap and rest without time.",
+        freq: 852
+      }
+    ]
+  };
+
+  // Flattened array for backwards compatibility
   const SANCTUARY_REFLECTIONS = [
-    {
-      badge: "✦ SOMATIC RELEASE",
-      quote: "Where in your body are you holding yesterday? Soften your jaw, drop your shoulders, and let this breath belong only to right now.",
-      theme: "Somatic Grounding"
-    },
-    {
-      badge: "✦ UNBURDENING",
-      quote: "You don't have to perform peace to deserve it. Let yourself simply exist without explanation for five minutes.",
-      theme: "Permission to Rest"
-    },
-    {
-      badge: "✦ AIR & LETTING GO",
-      quote: "Name one expectation you have permission to put down today. Notice the breath that rushes in to fill the space.",
-      theme: "Breezy Release"
-    },
-    {
-      badge: "✦ GENTLE COMPASSION",
-      quote: "What would feel 5% softer in your chest and shoulders right now? Give yourself that 5%.",
-      theme: "Self Compassion"
-    },
-    {
-      badge: "✦ EMOTIONAL TRUTH",
-      quote: "Raw authenticity isn't loud; it's the quiet relief of no longer pretending to be unbreakable.",
-      theme: "Authentic Healing"
-    },
-    {
-      badge: "✦ NATURE'S TIMING",
-      quote: "Your healing does not have to be hurried. Nature never rushes, yet everything blooms in its own season.",
-      theme: "Unhurried Rhythm"
-    },
-    {
-      badge: "✦ SACRED BREATH",
-      quote: "Breathe in permission. Exhale performance. You are already whole in this exact heartbeat.",
-      theme: "Presence"
-    },
-    {
-      badge: "✦ THE THREEFOLD RELEASE",
-      quote: "Sing when words fail. Laugh when tension crests. Dance when the body needs to remember it is alive.",
-      theme: "Expressive Medicine"
-    },
-    {
-      badge: "✦ STILLNESS WITHIN",
-      quote: "The peace you are searching for is not something to be earned; it is the space underneath the noise.",
-      theme: "Inner Sanctuary"
-    },
-    {
-      badge: "✦ GROUNDING TOUCH",
-      quote: "Place one palm on your chest and one on your belly. Feel that steady rhythm? That is life choosing you, again and again.",
-      theme: "Somatic Presence"
-    },
-    {
-      badge: "✦ COMMUNITY SANCTUARY",
-      quote: "When the world feels loud, return to what is real: the ground under your feet, the cool air in your lungs, and the community standing beside you.",
-      theme: "Collective Connection"
-    },
-    {
-      badge: "✦ SEED OF GROWTH",
-      quote: "A seed does not question the dark soil before it sprouts. Trust the quiet growth happening beneath the surface.",
-      theme: "Quiet Trust"
-    }
+    ...SOMATIC_ORACLE_DB.earth,
+    ...SOMATIC_ORACLE_DB.water,
+    ...SOMATIC_ORACLE_DB.air,
+    ...SOMATIC_ORACLE_DB.fire,
+    ...SOMATIC_ORACLE_DB.ether
   ];
 
   let currentReflectionIndex = 0;
+  let activeSomaticElement = 'earth';
+  window.activeOracleReflection = null;
+
+  function synthesizeSomaticReflection(input) {
+    const clean = (input || '').trim();
+    const lower = clean.toLowerCase();
+
+    // 1. Circadian / Time-of-Day Somatic Calibration
+    const hour = new Date().getHours();
+    let timeOfDayAnchor = '';
+    let circadianPill = 'TWILIGHT HARBOR';
+
+    if (hour >= 5 && hour < 12) {
+      circadianPill = 'MORNING AWAKENING';
+      timeOfDayAnchor = 'As morning light opens this day, you do not have to rush ahead of your breath.';
+    } else if (hour >= 12 && hour < 17) {
+      circadianPill = 'MIDDAY HARBOR';
+      timeOfDayAnchor = 'In the middle of the world\'s hurry, this pause is your sacred anchor.';
+    } else if (hour >= 17 && hour < 22) {
+      circadianPill = 'EVENING RELEASE';
+      timeOfDayAnchor = 'As twilight settles over Our Sanctuary Clubhouse, let down what was carried today.';
+    } else {
+      circadianPill = 'NIGHT SOLITUDE';
+      timeOfDayAnchor = 'In the quiet stillness of the night, your nervous system is safe to rest deeply.';
+    }
+
+    // 2. Multimodal Somatic Resonance Mapping
+    let targetElement = 'earth';
+    let badgeTheme = 'ROOT ME';
+    let freq = 432;
+    let somaticAction = '';
+    let affirmation = '';
+
+    if (lower.includes('water') || lower.includes('cry') || lower.includes('grief') || lower.includes('sad') || lower.includes('heart') || lower.includes('tear') || lower.includes('soft') || lower.includes('emotional') || lower.includes('hurt')) {
+      targetElement = 'water';
+      badgeTheme = 'HELD IN SOFTNESS';
+      freq = 528;
+      somaticAction = 'Unclench your jaw, soften the muscles behind your eyes, and place both palms gently over your heart.';
+      affirmation = `Tending to ${clean || 'this tender feeling'} is not weakness; it is your soul returning to truth. Breathe out without needing to be strong right now.`;
+    } else if (lower.includes('air') || lower.includes('breath') || lower.includes('anxi') || lower.includes('rush') || lower.includes('busy') || lower.includes('overwhelm') || lower.includes('mind') || lower.includes('think') || lower.includes('worry')) {
+      targetElement = 'air';
+      badgeTheme = 'CLEAR CHEST & SKY';
+      freq = 639;
+      somaticAction = 'Lift your collarbones slightly, drop your tongue from the roof of your mouth, and exhale a long, slow sigh.';
+      affirmation = `Carrying ${clean || 'a racing mind'} makes the world feel narrow. You are not the storm of thoughts—you are the vast, unhurried sky they pass through.`;
+    } else if (lower.includes('fire') || lower.includes('tired') || lower.includes('exhaust') || lower.includes('burnout') || lower.includes('numb') || lower.includes('stuck') || lower.includes('spark') || lower.includes('joy') || lower.includes('creative') || lower.includes('passion')) {
+      targetElement = 'fire';
+      badgeTheme = 'SOVEREIGN EMBER';
+      freq = 741;
+      somaticAction = 'Place a warm palm over your solar plexus and feel your ribs expand like wings with each breath.';
+      affirmation = `Even beneath ${clean || 'deep fatigue'}, your sacred inner ember remains unquenched. You do not need to perform or produce to be worthy of joy.`;
+    } else if (lower.includes('ether') || lower.includes('lost') || lower.includes('spirit') || lower.includes('peace') || lower.includes('alone') || lower.includes('space') || lower.includes('silent') || lower.includes('still')) {
+      targetElement = 'ether';
+      badgeTheme = 'BOUNDLESS SPACE';
+      freq = 852;
+      somaticAction = 'Close your eyes for one complete cycle. Drop into the quiet gap between your inhale and exhale.';
+      affirmation = `Surrendering to ${clean || 'this quiet space'} dissolves the illusion of separation. You are rooted in this community, held by the infinite cosmos.`;
+    } else {
+      targetElement = 'earth';
+      badgeTheme = 'EARTH PRESENCE';
+      freq = 432;
+      somaticAction = 'Feel the solid ground under your feet. Let gravity carry the physical weight of your shoulders.';
+      affirmation = `Meeting ${clean || 'this exact moment'} requires zero force. You are allowed to take up space, slow down, and simply be here.`;
+    }
+
+    const synthesizedQuote = `${timeOfDayAnchor} ${somaticAction} ${affirmation}`;
+
+    return {
+      badge: `✦ GEMINI • ${circadianPill} • ${badgeTheme} ✦`,
+      theme: badgeTheme,
+      element: targetElement,
+      quote: synthesizedQuote,
+      freq: freq
+    };
+  }
 
   function initSanctuaryReflectionWidget() {
     const card3D = document.getElementById('reflectionCard3D');
@@ -2978,18 +3346,106 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnCopy = document.getElementById('btnCopyReflection');
     const btnShareIG = document.getElementById('btnShareIG');
     const toast = document.getElementById('reflectionCopyToast');
+    const pills = document.querySelectorAll('.somatic-pill, .somatic-chip');
+    const customInput = document.getElementById('somaticCustomInput');
+    const btnConsult = document.getElementById('btnOracleGenerate');
 
     if (!card3D || !badgeElem || !quoteElem) return;
+
+    function applyReflectionItem(item) {
+      window.activeOracleReflection = item;
+      badgeElem.textContent = item.badge;
+      quoteElem.textContent = `"${item.quote}"`;
+
+      // Trigger luminous shimmer pulse
+      card3D.classList.remove('shimmer-pulse');
+      void card3D.offsetWidth;
+      card3D.classList.add('shimmer-pulse');
+      setTimeout(() => card3D.classList.remove('shimmer-pulse'), 850);
+
+      // Keep IG Story cache fresh
+      window.currentStoryData = {
+        quote: item.quote,
+        badge: item.badge,
+        source: "— Inner Sanctuary Sparks",
+        filename: "inner-sanctuary-sparks.png"
+      };
+    }
 
     function applyReflection(index) {
       currentReflectionIndex = index;
       const item = SANCTUARY_REFLECTIONS[index];
-      badgeElem.textContent = item.badge;
-      quoteElem.textContent = `"${item.quote}"`;
+      applyReflectionItem(item);
     }
 
-    // Initialize with first reflection
-    applyReflection(0);
+    // Initialize with a fresh, living Sanctuary Spark each time the site is opened
+    const initialRandomIndex = Math.floor(Math.random() * SANCTUARY_REFLECTIONS.length);
+    applyReflection(initialRandomIndex);
+
+    // Wire Elemental Pills/Chips if present
+    pills.forEach((pill) => {
+      pill.addEventListener('click', () => {
+        pills.forEach((p) => p.classList.remove('active'));
+        pill.classList.add('active');
+
+        const elKey = pill.getAttribute('data-element') || 'earth';
+        const freq = parseFloat(pill.getAttribute('data-freq')) || 432;
+        activeSomaticElement = elKey;
+
+        // Play element solfeggio harmonic
+        playHarmonicTone(freq, 1.0, 0.02);
+
+        // Pick reflection from that element
+        const pool = SOMATIC_ORACLE_DB[elKey] || SOMATIC_ORACLE_DB.earth;
+        const randomItem = pool[Math.floor(Math.random() * pool.length)];
+
+        // Flip card smoothly if closed, or flash if open
+        card3D.classList.add('is-flipped');
+        applyReflectionItem(randomItem);
+      });
+    });
+
+    // Wire Custom Feeling Input & Gemini Generate Button
+    function handleCustomConsult() {
+      const val = customInput ? customInput.value.trim() : '';
+      if (!val) {
+        showToast('🌿 Please share how your body feels to generate your Sanctuary Spark.');
+        if (customInput) customInput.focus();
+        return;
+      }
+
+      const btnText = document.getElementById('oracleBtnText');
+      if (btnText) btnText.textContent = '✨ Gemini Breathing...';
+
+      setTimeout(() => {
+        const synthesized = synthesizeSomaticReflection(val);
+        activeSomaticElement = synthesized.element;
+
+        // Play matching solfeggio tone
+        playHarmonicTone(synthesized.freq, 1.2, 0.02);
+
+        // Flip card and display
+        card3D.classList.add('is-flipped');
+        applyReflectionItem(synthesized);
+
+        createHeartFlourish();
+        showToast('✨ Gemini Sanctuary Spark generated. Take a deep breath with your reflection.');
+        if (customInput) customInput.value = '';
+        if (btnText) btnText.textContent = '✨ Generate with Gemini';
+      }, 300);
+    }
+
+    if (btnConsult) {
+      btnConsult.addEventListener('click', handleCustomConsult);
+    }
+    if (customInput) {
+      customInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          handleCustomConsult();
+        }
+      });
+    }
 
     // Tapping the card flips it
     card3D.addEventListener('click', () => {
@@ -3005,7 +3461,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Draw another card
+    // Draw another Sanctuary Spark from curated deck
     if (btnDraw) {
       btnDraw.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -3013,14 +3469,11 @@ document.addEventListener('DOMContentLoaded', () => {
         playHarmonicTone(432, 0.6, 0.015);
 
         setTimeout(() => {
-          let nextIndex;
-          do {
-            nextIndex = Math.floor(Math.random() * SANCTUARY_REFLECTIONS.length);
-          } while (nextIndex === currentReflectionIndex && SANCTUARY_REFLECTIONS.length > 1);
-
-          applyReflection(nextIndex);
+          const nextItem = SANCTUARY_REFLECTIONS[Math.floor(Math.random() * SANCTUARY_REFLECTIONS.length)];
+          applyReflectionItem(nextItem);
           card3D.classList.add('is-flipped');
-          playHarmonicTone(528, 1.0, 0.02);
+          playHarmonicTone(nextItem.freq || 528, 1.0, 0.02);
+          showToast('✨ Drew another Sanctuary Spark.');
         }, 300);
       });
     }
@@ -3029,8 +3482,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnCopy) {
       btnCopy.addEventListener('click', (e) => {
         e.stopPropagation();
-        const currentItem = SANCTUARY_REFLECTIONS[currentReflectionIndex];
-        const shareText = `"${currentItem.quote}"\n\n— Inner Sanctuary Wellness Foundation ✦ @ourinnersanctuary\nhttps://ourinnersanctuary.org`;
+        const activeQuote = quoteElem.textContent.replace(/^"|"$/g, '').trim();
+        const activeBadge = badgeElem.textContent.trim();
+        const shareText = `"${activeQuote}"\n\n${activeBadge}\n— Inner Sanctuary Sparks • @ourinnersanctuary\nhttps://ourinnersanctuary.org`;
 
         if (navigator.clipboard && navigator.clipboard.writeText) {
           navigator.clipboard.writeText(shareText).then(() => {
@@ -3046,13 +3500,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Share to Instagram
     if (btnShareIG) {
-      btnShareIG.addEventListener('click', () => {
-        const currentItem = SANCTUARY_REFLECTIONS[currentReflectionIndex];
-        const shareText = `"${currentItem.quote}"\n\n— Inner Sanctuary Wellness Foundation ✦ @ourinnersanctuary`;
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(shareText).catch(() => {});
+      btnShareIG.addEventListener('click', (e) => {
+        if (typeof window.openStorySnapshotFromReflection === 'function') {
+          window.openStorySnapshotFromReflection(e);
         }
-        showToast('📸 Reflection copied to clipboard! Opening Instagram to share on Story...');
       });
     }
 
@@ -3082,7 +3533,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================================================================
-  // LIVE OPEN MIC COUNTDOWN TIMER (CAFE 86 GATHERING)
+  // LIVE OPEN MIC COUNTDOWN TIMER (OUR SANCTUARY CLUBHOUSE GATHERING)
   // =========================================================================
   function initOpenMicCountdown() {
     const daysEl = document.getElementById('countdownDays');
@@ -3123,9 +3574,374 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(updateTimer, 1000);
   }
 
+  // =========================================================================
+  // LIVING COMMUNITY SEED GARDEN & INTENTION WALL
+  // =========================================================================
+  function initCommunitySeedGarden() {
+    const canvas = document.getElementById('seedGardenCanvas');
+    const wrap = document.getElementById('seedGardenCanvasWrap');
+    const tooltip = document.getElementById('seedGardenTooltip');
+    const tooltipName = document.getElementById('seedTooltipName');
+    const tooltipIntention = document.getElementById('seedTooltipIntention');
+    const tooltipBadge = document.getElementById('seedTooltipBadge');
+    const countEl = document.getElementById('seedGardenCount');
+    const form = document.getElementById('seedPlantingForm');
+    const nameInput = document.getElementById('seedDonorName');
+    const intentionInput = document.getElementById('seedIntentionText');
+    const elementSelect = document.getElementById('seedElementType');
+
+    if (!canvas || !wrap) return;
+
+    const ctx = canvas.getContext('2d');
+    let width = canvas.width = wrap.clientWidth || 960;
+    let height = canvas.height = 300;
+
+    function handleResize() {
+      if (!wrap) return;
+      width = canvas.width = wrap.clientWidth;
+      height = canvas.height = 300;
+    }
+    window.addEventListener('resize', handleResize);
+
+    const DEFAULT_COMMUNITY_SEEDS = [
+      { id: 'seed-1', name: 'Teshia & Marlon', intention: 'May every weary heart find safe harbor, deep breath, and unhurried belonging here.', element: 'earth', x: 0.10, stage: 1.0, heightRatio: 0.72 },
+      { id: 'seed-2', name: 'Riverside Poet Collective', intention: 'To speak our truth without fear, and hear each other with reverent ears.', element: 'fire', x: 0.22, stage: 1.0, heightRatio: 0.85 },
+      { id: 'seed-3', name: 'Maria L. (Santa Ana)', intention: 'Gentle peace for my family and healing for all mothers walking heavy roads.', element: 'water', x: 0.34, stage: 1.0, heightRatio: 0.68 },
+      { id: 'seed-4', name: 'Darius K.', intention: 'Permission to stop rushing. Giving my chest room to breathe after 3 years of burnout.', element: 'air', x: 0.46, stage: 1.0, heightRatio: 0.78 },
+      { id: 'seed-5', name: 'Anonymous Creative', intention: 'That the music I was too afraid to play finally finds a home in someone\'s spirit.', element: 'ether', x: 0.58, stage: 1.0, heightRatio: 0.82 },
+      { id: 'seed-6', name: 'Elena G. (Irvine)', intention: 'Rooting deep in self-compassion so I can hold space for the next generation.', element: 'earth', x: 0.70, stage: 1.0, heightRatio: 0.75 },
+      { id: 'seed-7', name: 'Marcus & Open Mic Circle', intention: 'Let the laughter at our open mics echo louder than the noise of the world.', element: 'fire', x: 0.82, stage: 1.0, heightRatio: 0.88 },
+      { id: 'seed-8', name: 'Inland Empire Youth Circle', intention: 'Safe spaces where we don\'t have to pretend to be tough or perfect.', element: 'water', x: 0.92, stage: 1.0, heightRatio: 0.70 }
+    ];
+
+    let communitySeeds = [];
+    try {
+      const stored = localStorage.getItem('inner_sanctuary_community_seeds');
+      if (stored) {
+        communitySeeds = JSON.parse(stored);
+      }
+    } catch (e) {}
+
+    if (!Array.isArray(communitySeeds) || communitySeeds.length === 0) {
+      communitySeeds = [...DEFAULT_COMMUNITY_SEEDS];
+    }
+
+    if (countEl) countEl.textContent = communitySeeds.length;
+
+    const ELEMENT_PALETTES = {
+      earth: { glow: 'rgba(85, 166, 112, 0.45)', core: '#55A670', flower: '#F8D98C', freq: 432, label: 'EARTH • ROOTED SEED' },
+      water: { glow: 'rgba(74, 184, 199, 0.45)', core: '#4AB8C7', flower: '#BCE7FD', freq: 528, label: 'WATER • EMOTIONAL SEED' },
+      air:   { glow: 'rgba(156, 183, 216, 0.45)', core: '#9CB7D8', flower: '#EAF2FA', freq: 639, label: 'AIR • EXPANSIVE SEED' },
+      fire:  { glow: 'rgba(230, 138, 46, 0.45)', core: '#E68A2E', flower: '#FAD02C', freq: 741, label: 'FIRE • JOYFUL SEED' },
+      ether: { glow: 'rgba(176, 132, 204, 0.45)', core: '#B084CC', flower: '#F3E8FF', freq: 852, label: 'ETHER • SACRED SEED' }
+    };
+
+    let hoveredSeed = null;
+    let gardenParticles = [];
+
+    // Pre-populate ambient garden spores/fireflies
+    for (let i = 0; i < 28; i++) {
+      gardenParticles.push({
+        x: Math.random(),
+        y: Math.random() * 0.8 + 0.1,
+        radius: Math.random() * 1.5 + 0.6,
+        alpha: Math.random() * 0.6 + 0.2,
+        speedX: (Math.random() - 0.5) * 0.0004,
+        speedY: (Math.random() - 0.5) * 0.0003,
+        pulseOffset: Math.random() * Math.PI * 2
+      });
+    }
+
+    let time = 0;
+    function animateGarden() {
+      time += 0.02;
+      ctx.clearRect(0, 0, width, height);
+
+      // 1. Draw Sanctuary Soil Gradient & Ground Horizon
+      const soilGrad = ctx.createLinearGradient(0, height - 45, 0, height);
+      soilGrad.addColorStop(0, 'rgba(25, 42, 32, 0.3)');
+      soilGrad.addColorStop(0.5, 'rgba(15, 26, 20, 0.85)');
+      soilGrad.addColorStop(1, '#080E0A');
+      ctx.fillStyle = soilGrad;
+      ctx.fillRect(0, height - 45, width, 45);
+
+      // Gold baseline hairline
+      ctx.beginPath();
+      ctx.strokeStyle = 'rgba(197, 154, 63, 0.35)';
+      ctx.lineWidth = 1.2;
+      ctx.moveTo(0, height - 36);
+      ctx.lineTo(width, height - 36);
+      ctx.stroke();
+
+      // 2. Render Floating Ambient Spores
+      gardenParticles.forEach(p => {
+        p.x += p.speedX;
+        p.y += p.speedY;
+        if (p.x < 0) p.x = 1;
+        if (p.x > 1) p.x = 0;
+        if (p.y < 0.05) p.y = 0.85;
+        if (p.y > 0.85) p.y = 0.05;
+
+        const pulse = Math.sin(time * 1.5 + p.pulseOffset) * 0.3 + 0.7;
+        ctx.beginPath();
+        ctx.arc(p.x * width, p.y * height, p.radius * pulse, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(248, 217, 140, ${p.alpha * pulse * 0.6})`;
+        ctx.fill();
+      });
+
+      // 3. Render Each Community Seed & Lotus Sprout
+      const baseGroundY = height - 36;
+      communitySeeds.forEach(seed => {
+        if (seed.stage < 1.0) {
+          seed.stage = Math.min(1.0, seed.stage + 0.02);
+        }
+
+        const palette = ELEMENT_PALETTES[seed.element] || ELEMENT_PALETTES.earth;
+        const rootX = seed.x * width;
+        const stemMaxHeight = height * (seed.heightRatio || 0.75) * seed.stage;
+        const isHovered = (hoveredSeed && hoveredSeed.id === seed.id);
+
+        // Organic breath sway
+        const sway = Math.sin(time * 0.9 + seed.x * 6) * (isHovered ? 12 : 7);
+        const headX = rootX + sway;
+        const headY = baseGroundY - stemMaxHeight;
+
+        // Draw Stem
+        ctx.beginPath();
+        ctx.moveTo(rootX, baseGroundY);
+        ctx.quadraticCurveTo(rootX + sway * 0.4, baseGroundY - stemMaxHeight * 0.5, headX, headY);
+        ctx.strokeStyle = isHovered ? '#F8D98C' : 'rgba(197, 154, 63, 0.55)';
+        ctx.lineWidth = isHovered ? 2.5 : 1.6;
+        ctx.stroke();
+
+        // Draw Leaves on stem
+        const leafY = baseGroundY - stemMaxHeight * 0.45;
+        const leafX = rootX + sway * 0.4;
+        ctx.beginPath();
+        ctx.ellipse(leafX - 6, leafY, 6, 3, -0.4, 0, Math.PI * 2);
+        ctx.ellipse(leafX + 6, leafY - 4, 6, 3, 0.4, 0, Math.PI * 2);
+        ctx.fillStyle = isHovered ? '#A4D4B4' : 'rgba(85, 166, 112, 0.65)';
+        ctx.fill();
+
+        // Draw Glowing Bioluminescent Lotus Head
+        const breathPulse = Math.sin(time * 1.8 + seed.x * 4) * 0.2 + 1.0;
+        const auraRadius = (isHovered ? 32 : 22) * breathPulse;
+
+        const auraGrad = ctx.createRadialGradient(headX, headY, 2, headX, headY, auraRadius);
+        auraGrad.addColorStop(0, palette.flower);
+        auraGrad.addColorStop(0.4, palette.glow);
+        auraGrad.addColorStop(1, 'transparent');
+        ctx.fillStyle = auraGrad;
+        ctx.beginPath();
+        ctx.arc(headX, headY, auraRadius, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Petals
+        const petalCount = 5;
+        const petalRadius = isHovered ? 9 : 7;
+        for (let p = 0; p < petalCount; p++) {
+          const angle = (p / petalCount) * Math.PI * 2 + (time * 0.2);
+          const px = headX + Math.cos(angle) * (petalRadius * 0.7);
+          const py = headY + Math.sin(angle) * (petalRadius * 0.7);
+          ctx.beginPath();
+          ctx.arc(px, py, petalRadius * 0.6, 0, Math.PI * 2);
+          ctx.fillStyle = palette.flower;
+          ctx.fill();
+        }
+
+        // Center golden heart
+        ctx.beginPath();
+        ctx.arc(headX, headY, isHovered ? 4.5 : 3.5, 0, Math.PI * 2);
+        ctx.fillStyle = '#FFFFFF';
+        ctx.shadowColor = '#F8D98C';
+        ctx.shadowBlur = isHovered ? 14 : 6;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        // Store active coordinates for hit testing
+        seed._headX = headX;
+        seed._headY = headY;
+      });
+
+      requestAnimationFrame(animateGarden);
+    }
+    requestAnimationFrame(animateGarden);
+
+    // Pointer Interaction (Hover & Tooltip)
+    function handlePointerMove(e) {
+      const rect = canvas.getBoundingClientRect();
+      const clientX = e.clientX || (e.touches && e.touches[0] ? e.touches[0].clientX : 0);
+      const clientY = e.clientY || (e.touches && e.touches[0] ? e.touches[0].clientY : 0);
+      const mouseX = (clientX - rect.left) * (width / rect.width);
+      const mouseY = (clientY - rect.top) * (height / rect.height);
+
+      let found = null;
+      for (let i = communitySeeds.length - 1; i >= 0; i--) {
+        const s = communitySeeds[i];
+        if (s._headX && s._headY) {
+          const dist = Math.hypot(mouseX - s._headX, mouseY - s._headY);
+          if (dist < 28) {
+            found = s;
+            break;
+          }
+        }
+      }
+
+      if (found) {
+        hoveredSeed = found;
+        canvas.style.cursor = 'pointer';
+        if (tooltip && tooltipName && tooltipIntention && tooltipBadge) {
+          tooltipName.textContent = found.name;
+          tooltipIntention.textContent = `"${found.intention}"`;
+          const palette = ELEMENT_PALETTES[found.element] || ELEMENT_PALETTES.earth;
+          tooltipBadge.textContent = `✦ ${palette.label}`;
+
+          // Position tooltip relative to container
+          const screenX = (found._headX / width) * rect.width;
+          const screenY = (found._headY / height) * rect.height;
+          tooltip.style.left = `${Math.max(120, Math.min(rect.width - 120, screenX))}px`;
+          tooltip.style.top = `${screenY - 14}px`;
+          tooltip.style.display = 'block';
+        }
+      } else {
+        hoveredSeed = null;
+        canvas.style.cursor = 'default';
+        if (tooltip) tooltip.style.display = 'none';
+      }
+    }
+
+    canvas.addEventListener('mousemove', handlePointerMove);
+    canvas.addEventListener('mouseleave', () => {
+      hoveredSeed = null;
+      if (tooltip) tooltip.style.display = 'none';
+    });
+    canvas.addEventListener('touchstart', handlePointerMove, { passive: true });
+
+    // Click/Tap on seed plays its solfeggio tone
+    canvas.addEventListener('click', () => {
+      if (hoveredSeed) {
+        const pal = ELEMENT_PALETTES[hoveredSeed.element] || ELEMENT_PALETTES.earth;
+        playHarmonicTone(pal.freq, 1.2, 0.02);
+        createHeartFlourish();
+      }
+    });
+
+    // Form Submission: Plant New Seed
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const intention = intentionInput ? intentionInput.value.trim() : '';
+        if (!intention) {
+          showToast('🌱 Please write a gentle intention before planting.');
+          if (intentionInput) intentionInput.focus();
+          return;
+        }
+
+        const name = (nameInput && nameInput.value.trim()) ? nameInput.value.trim() : 'Anonymous Neighbor';
+        const element = (elementSelect && elementSelect.value) ? elementSelect.value : 'air';
+
+        // Distribute nicely along width avoiding identical x
+        const newX = 0.08 + Math.random() * 0.84;
+        const newSeed = {
+          id: `seed-${Date.now()}`,
+          name: name,
+          intention: intention,
+          element: element,
+          x: newX,
+          stage: 0.05,
+          heightRatio: 0.65 + Math.random() * 0.22
+        };
+
+        communitySeeds.push(newSeed);
+
+        try {
+          localStorage.setItem('inner_sanctuary_community_seeds', JSON.stringify(communitySeeds));
+        } catch (err) {}
+
+        if (countEl) countEl.textContent = communitySeeds.length;
+
+        // Play harmonic chime
+        const pal = ELEMENT_PALETTES[element] || ELEMENT_PALETTES.air;
+        playHarmonicTone(pal.freq, 1.4, 0.02);
+        setTimeout(() => playHarmonicTone(pal.freq * 1.25, 1.0, 0.015), 180);
+
+        createHeartFlourish();
+        showToast(`🌱 Your seed and intention have been planted in the living sanctuary garden!`);
+        form.reset();
+      });
+    }
+  }
+
   // Initialize all feature suites
   initSanctuaryReflectionWidget();
   initOpenMicCountdown();
+
+  // =========================================================================
+  // LIVE OPEN MIC STAGE ROSTER & COMMUNITY REEL
+  // =========================================================================
+  window.claimOpenMicSlot = function(slotNum) {
+    playHarmonicTone(639, 1.2, 0.02);
+    createHeartFlourish();
+    showToast(`🎤 Claiming Stage Slot ${slotNum}! Taking you to artist intake...`);
+
+    // Switch intake tab to artist
+    const artistTab = document.querySelector('.intake-tab[data-role="artist"]');
+    if (artistTab) artistTab.click();
+
+    // Prefill role select & message
+    const roleSelect = document.getElementById('circle-role-select');
+    if (roleSelect) roleSelect.value = 'Artist / Performer';
+
+    const messageInput = document.getElementById('intake-message');
+    if (messageInput) {
+      messageInput.value = `I would like to claim Open Mic Slot #${slotNum} for the upcoming gathering at Our Sanctuary Clubhouse! Medium/genre: `;
+    }
+
+    // Smooth scroll to connect section
+    const connectSec = document.getElementById('connect');
+    if (connectSec) {
+      connectSec.scrollIntoView({ behavior: 'smooth' });
+    }
+    const nameInput = document.getElementById('intake-name');
+    if (nameInput) {
+      setTimeout(() => nameInput.focus(), 600);
+    }
+  };
+
+  const REEL_DATA = {
+    all: { badge: '✦ ALL HIGHLIGHTS', title: '"The song we didn\'t know we needed to sing."', img: 'images/openmic/openmic-vocalist-yellow.jpg' },
+    vocal: { badge: '✦ ACOUSTIC SOUL', title: 'Raw vocal resonance & heart harmonies at Our Sanctuary Clubhouse.', img: 'images/openmic/openmic-vocalist-yellow.jpg' },
+    poetry: { badge: '✦ SPOKEN WORD', title: 'Honest verses shared without fear or pretense.', img: 'images/openmic/openmic-emcee-host.jpg' },
+    somatic: { badge: '✦ SOMATIC BREATH', title: 'A collective pause to soften our shoulders and exhale.', img: 'images/openmic/openmic-crowd-applause.jpg' }
+  };
+
+  window.filterVideoReels = function(filterKey) {
+    const data = REEL_DATA[filterKey] || REEL_DATA.all;
+    const badgeEl = document.getElementById('reelActiveBadge');
+    const titleEl = document.getElementById('reelActiveTitle');
+    const imgEl = document.getElementById('reelPreviewImage');
+    const tabs = document.querySelectorAll('.reel-tab');
+
+    tabs.forEach(t => {
+      if (t.getAttribute('data-filter') === filterKey) t.classList.add('active');
+      else t.classList.remove('active');
+    });
+
+    if (badgeEl) badgeEl.textContent = data.badge;
+    if (titleEl) titleEl.textContent = data.title;
+    if (imgEl) imgEl.src = data.img;
+
+    playHarmonicTone(432, 0.6, 0.015);
+  };
+
+  window.playCommunityReelModal = function() {
+    playHarmonicTone(528, 1.2, 0.02);
+    createHeartFlourish();
+    if (typeof openPhotoWheelModal === 'function') {
+      openPhotoWheelModal(0);
+    }
+    showToast('✨ Experiencing Community Highlight Reel from Our Sanctuary Clubhouse!');
+  };
 
   // =========================================================================
   // DIGITAL INTENTION BRACELET CREATOR (PAUSE ACTIVATIONS)
@@ -3143,6 +3959,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnReset = document.getElementById('btnResetBracelet');
     const btnCopy = document.getElementById('btnCopySpark');
     const toast = document.getElementById('sparkToast');
+    const visualizer = document.getElementById('braceletCircleVisualizer');
+    const ringBeadsLayer = document.getElementById('ringBeadsLayer');
 
     if (!beadBtns.length || !slots[0]) return;
 
@@ -3155,6 +3973,49 @@ document.addEventListener('DOMContentLoaded', () => {
       "Wear this intention as an unhurried anchor: You are worthy of peace, exactly as you are, in this exact heartbeat.",
       "When the world feels loud, return to what is real: the ground under your feet, the breath in your lungs, and the community standing beside you."
     ];
+
+    function renderCompletedRing() {
+      if (!ringBeadsLayer || selectedBeads.length !== 3) return;
+      ringBeadsLayer.innerHTML = '';
+
+      const totalBeads = 12;
+      const R = 105;
+      const cx = 140;
+      const cy = 140;
+
+      const cedarWoodBg = 'radial-gradient(circle at 35% 35%, #C19A6B, #8B5A2B 70%, #5C3A1E)';
+      const goldBg = 'radial-gradient(circle at 35% 35%, #FFF9D2, #FFD700 65%, #C67D00)';
+
+      for (let i = 0; i < totalBeads; i++) {
+        const theta = (i / totalBeads) * Math.PI * 2 - Math.PI / 2;
+        const beadEl = document.createElement('div');
+
+        if (i === 0 || i === 4 || i === 8) {
+          // Chosen Intention Gemstone Beads
+          const chosenIdx = i === 0 ? 0 : (i === 4 ? 1 : 2);
+          const chosen = selectedBeads[chosenIdx];
+          beadEl.className = 'ring-bead main-bead';
+          beadEl.style.background = chosen.bg;
+          beadEl.title = `${chosen.name}: ${chosen.meaning || 'Sacred Intention'}`;
+          const size = 34;
+          const x = cx + R * Math.cos(theta) - size / 2;
+          const y = cy + R * Math.sin(theta) - size / 2;
+          beadEl.style.left = `${x}px`;
+          beadEl.style.top = `${y}px`;
+        } else {
+          // Alternating Cedar Wood & Sunburst Gold Spacers
+          beadEl.className = 'ring-bead spacer-bead';
+          beadEl.style.background = (i % 2 === 0) ? cedarWoodBg : goldBg;
+          const size = 18;
+          const x = cx + R * Math.cos(theta) - size / 2;
+          const y = cy + R * Math.sin(theta) - size / 2;
+          beadEl.style.left = `${x}px`;
+          beadEl.style.top = `${y}px`;
+        }
+
+        ringBeadsLayer.appendChild(beadEl);
+      }
+    }
 
     function updateBraceletStage() {
       // Update slots
@@ -3182,40 +4043,99 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       // Check if 3 beads are selected
+      const openModalBtn = document.getElementById('btnOpenBraceletModal');
       if (selectedBeads.length === 3) {
-        if (revealedContainer) {
-          revealedContainer.style.display = 'block';
-          if (beadSummary) {
-            beadSummary.textContent = selectedBeads.map(b => b.name).join(' • ');
-          }
-          if (quoteElem) {
-            const quoteIdx = (selectedBeads[0].name.length + selectedBeads[1].name.length) % sparkMessages.length;
-            quoteElem.textContent = `"${sparkMessages[quoteIdx]}"`;
-          }
-          revealedContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        if (visualizer) {
+          visualizer.style.display = 'flex';
+          renderCompletedRing();
+        }
+
+        if (beadSummary) {
+          beadSummary.textContent = selectedBeads.map(b => b.name).join(' • ');
+        }
+        if (quoteElem) {
+          const quoteIdx = (selectedBeads[0].name.length + selectedBeads[1].name.length) % sparkMessages.length;
+          quoteElem.textContent = `"${sparkMessages[quoteIdx]}"`;
+        }
+        if (openModalBtn) {
+          openModalBtn.style.display = 'inline-flex';
         }
       } else {
-        if (revealedContainer) {
-          revealedContainer.style.display = 'none';
+        if (openModalBtn) {
+          openModalBtn.style.display = 'none';
         }
       }
     }
+
+    window.openBraceletKeepsakeModal = function() {
+      const modal = document.getElementById('braceletKeepsakeModal');
+      if (modal) {
+        modal.style.display = 'flex';
+        renderCompletedRing();
+        playHarmonicTone(528, 0.8, 0.015);
+      }
+    };
+
+    window.closeBraceletKeepsakeModal = function() {
+      const modal = document.getElementById('braceletKeepsakeModal');
+      if (modal) {
+        modal.style.display = 'none';
+      }
+    };
+
+    window.resetBraceletAndCloseModal = function() {
+      selectedBeads = [];
+      updateBraceletStage();
+      window.closeBraceletKeepsakeModal();
+      playHarmonicTone(432, 0.5, 0.015);
+      showToast('🔄 Weave another bracelet: Choose 3 sacred intentions.');
+    };
+
+    // Close bracelet modal on click outside or Escape
+    window.addEventListener('click', (e) => {
+      const modal = document.getElementById('braceletKeepsakeModal');
+      if (modal && e.target === modal) {
+        window.closeBraceletKeepsakeModal();
+      }
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        window.closeBraceletKeepsakeModal();
+      }
+    });
 
     beadBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         const beadType = btn.dataset.bead;
         const beadName = btn.dataset.name;
+        const beadMeaning = btn.dataset.meaning;
         const circleElem = btn.querySelector('.bead-circle');
         const bg = circleElem ? circleElem.style.background : btn.dataset.color;
 
         const existingIdx = selectedBeads.findIndex(b => b.type === beadType);
         if (existingIdx !== -1) {
           selectedBeads.splice(existingIdx, 1);
+          playHarmonicTone(440, 0.08, 0.02);
         } else {
           if (selectedBeads.length < 3) {
-            selectedBeads.push({ type: beadType, name: beadName, bg });
+            selectedBeads.push({ type: beadType, name: beadName, meaning: beadMeaning, bg });
           } else {
-            selectedBeads[2] = { type: beadType, name: beadName, bg };
+            selectedBeads[2] = { type: beadType, name: beadName, meaning: beadMeaning, bg };
+          }
+
+          if (selectedBeads.length === 3) {
+            // Circle completion harmony!
+            playHarmonicTone(880, 0.12, 0.03);
+            setTimeout(() => playHarmonicTone(528, 1.4, 0.02), 100);
+            createHeartFlourish();
+            showToast('✨ The circle is complete! Opening your keepsake window...');
+            // Automatically open the sacred keepsake pop-up window!
+            setTimeout(() => {
+              window.openBraceletKeepsakeModal();
+            }, 350);
+          } else {
+            playHarmonicTone(selectedBeads.length === 1 ? 659 : 784, 0.09, 0.03);
           }
         }
         updateBraceletStage();
@@ -3225,6 +4145,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnReset) {
       btnReset.addEventListener('click', () => {
         selectedBeads = [];
+        playHarmonicTone(432, 0.5, 0.015);
         updateBraceletStage();
       });
     }
@@ -3233,7 +4154,7 @@ document.addEventListener('DOMContentLoaded', () => {
       btnCopy.addEventListener('click', () => {
         const quote = quoteElem ? quoteElem.textContent : '';
         const summary = beadSummary ? beadSummary.textContent : '';
-        const shareText = `${quote}\n\n— Weaved with ${summary}\nInner Sanctuary Wellness Foundation ✦ @ourinnersanctuary\nhttps://ourinnersanctuary.org`;
+        const shareText = `${quote}\n\n— Weaved with Love at Our Sanctuary Clubhouse • ${summary}\nInner Sanctuary Wellness Foundation ✦ @ourinnersanctuary\nhttps://ourinnersanctuary.org`;
 
         if (navigator.clipboard && navigator.clipboard.writeText) {
           navigator.clipboard.writeText(shareText).then(showToastFeedback).catch(() => fallbackCopy(shareText));
@@ -3353,13 +4274,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const photoWheelData = [
     {
       src: "images/openmic/openmic-vocalist-yellow.jpg",
-      caption: "Raw Vocal Resonance • Community Singer Pouring Heart into Song at Cafe 86",
+      caption: "Raw Vocal Resonance • Community Singer Pouring Heart into Song at Our Sanctuary Clubhouse",
       alt: "Solo vocalist singing at microphone"
     },
     {
       src: "images/openmic/openmic-audience-cafe86.jpg",
       caption: "Attentive Sanctuary • ~40 Neighbors & Creators Gathered in Grounded Presence",
-      alt: "Attentive audience at Cafe 86"
+      alt: "Attentive audience at Our Sanctuary Clubhouse"
     },
     {
       src: "images/openmic/openmic-acoustic-band.jpg",
@@ -3587,18 +4508,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.openStorySnapshotFromReflection = function(e) {
     if (e) e.preventDefault();
-    const currentItem = (typeof SANCTUARY_REFLECTIONS !== 'undefined' && typeof currentReflectionIndex !== 'undefined')
+    const activeItem = window.activeOracleReflection || ((typeof SANCTUARY_REFLECTIONS !== 'undefined' && typeof currentReflectionIndex !== 'undefined')
       ? SANCTUARY_REFLECTIONS[currentReflectionIndex]
-      : null;
+      : null);
 
-    const quote = currentItem ? currentItem.quote : (document.getElementById('reflectionCardQuote')?.textContent?.trim() || "Pause. Breathe. Remember.");
-    const badge = currentItem ? `✦ ${currentItem.category} ✦` : "✦ DAILY SANCTUARY REFLECTION ✦";
+    const quoteEl = document.getElementById('reflectionCardQuote');
+    const badgeEl = document.getElementById('reflectionCardBadge');
+
+    const quote = activeItem ? activeItem.quote : (quoteEl ? quoteEl.textContent.trim().replace(/^"|"$/g, '') : "Pause. Breathe. Remember.");
+    const badge = activeItem ? (activeItem.badge || `✦ ${activeItem.theme || activeItem.category} ✦`) : (badgeEl ? badgeEl.textContent.trim() : "✦ SANCTUARY SOMATIC ORACLE ✦");
 
     window.currentStoryData = {
       quote: quote,
       badge: badge,
-      source: "— Inner Sanctuary Daily Reflection",
-      filename: "inner-sanctuary-daily-reflection.png"
+      source: "— Inner Sanctuary Somatic Oracle",
+      filename: "inner-sanctuary-somatic-oracle.png"
     };
 
     renderAndShowStoryModal();
@@ -3613,9 +4537,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.currentStoryData = {
       quote: quote,
-      badge: "✦ MY SANCTUARY SPARK ✦",
-      source: `— Inner Sanctuary Spark • ${summary}`,
-      filename: "inner-sanctuary-spark.png"
+      badge: "✦ WEAVED WITH LOVE • OUR SANCTUARY CLUBHOUSE ✦",
+      source: `— Inner Sanctuary Bracelet Keepsake • ${summary}`,
+      filename: "inner-sanctuary-clubhouse-keepsake.png"
     };
 
     renderAndShowStoryModal();
@@ -3934,3 +4858,160 @@ document.addEventListener('DOMContentLoaded', () => {
       window.closeIgStoryModal();
     }
   });
+
+
+// =========================================================================
+// SANCTUARY IN YOUR POCKET: PWA & ADD TO HOME SCREEN CONTROLLER
+// =========================================================================
+(function initSanctuaryPwaController() {
+  let deferredPwaPrompt = null;
+  const DISMISS_DURATION_DAYS = 7;
+  const DISMISS_KEY = 'sanctuary_pwa_dismissed';
+
+  // 1. Register Service Worker
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      // Only register on http/https to avoid file:// protocol errors
+      if (window.location.protocol.startsWith('http')) {
+        navigator.serviceWorker.register('./sw.js')
+          .then((registration) => {
+            console.log('[Sanctuary PWA] Service Worker active with scope:', registration.scope);
+          })
+          .catch((err) => {
+            console.warn('[Sanctuary PWA] Service Worker registration failed:', err);
+          });
+      }
+    });
+  }
+
+  // Helper: Detect iOS Safari
+  function isIosSafari() {
+    const ua = window.navigator.userAgent;
+    const isIos = /iphone|ipad|ipod/i.test(ua);
+    const isWebview = navigator.standalone || window.matchMedia('(display-mode: standalone)').matches;
+    return isIos && !isWebview;
+  }
+
+  // Helper: Check if already installed / standalone
+  function isStandalone() {
+    return window.matchMedia('(display-mode: standalone)').matches || ('standalone' in navigator && navigator.standalone);
+  }
+
+  // 2. Capture install prompt on Chromium / Android / Desktop
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPwaPrompt = e;
+
+    // Show nav and mobile install buttons
+    const navBtn = document.getElementById('btnPwaNavInstall');
+    if (navBtn) navBtn.style.display = 'inline-flex';
+
+    const mobileItem = document.getElementById('mobilePwaInstallItem');
+    if (mobileItem) mobileItem.style.display = 'block';
+
+    // Check if dismissed recently
+    const dismissedAt = localStorage.getItem(DISMISS_KEY);
+    const now = Date.now();
+    const isDismissedRecently = dismissedAt && (now - parseInt(dismissedAt, 10)) < (DISMISS_DURATION_DAYS * 24 * 60 * 60 * 1000);
+
+    if (!isDismissedRecently && !isStandalone()) {
+      // Gentle delayed reveal after 4 seconds
+      setTimeout(() => {
+        const banner = document.getElementById('pwaInstallBanner');
+        if (banner && deferredPwaPrompt) {
+          banner.style.display = 'block';
+        }
+      }, 4000);
+    }
+  });
+
+  // Handle iOS Safari visibility of install triggers
+  document.addEventListener('DOMContentLoaded', () => {
+    if (isIosSafari() && !isStandalone()) {
+      const navBtn = document.getElementById('btnPwaNavInstall');
+      if (navBtn) navBtn.style.display = 'inline-flex';
+
+      const mobileItem = document.getElementById('mobilePwaInstallItem');
+      if (mobileItem) mobileItem.style.display = 'block';
+    }
+  });
+
+  // 3. User Trigger: Clicked Install Button anywhere (Nav, Footer, or Banner)
+  window.triggerPwaInstall = function(e) {
+    if (e && e.preventDefault) e.preventDefault();
+
+    if (deferredPwaPrompt) {
+      // Trigger native browser prompt
+      deferredPwaPrompt.prompt();
+      deferredPwaPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('[Sanctuary PWA] User accepted the install prompt');
+          if (typeof playHarmonicTone === 'function') playHarmonicTone(528, 1.2, 0.03);
+          if (typeof showToast === 'function') showToast('✨ Sanctuary installed to your Home Screen! Welcome home.');
+        } else {
+          console.log('[Sanctuary PWA] User dismissed the install prompt');
+        }
+        deferredPwaPrompt = null;
+        window.dismissPwaBanner();
+      });
+    } else if (isIosSafari()) {
+      // Open iOS modal guidance
+      const iosModal = document.getElementById('pwaIosModal');
+      if (iosModal) iosModal.style.display = 'flex';
+      if (typeof playHarmonicTone === 'function') playHarmonicTone(659, 0.2, 0.02);
+    } else {
+      // General feedback if browser doesn't support deferred prompt or is already installed
+      if (isStandalone()) {
+        if (typeof showToast === 'function') showToast('✨ Sanctuary is already installed and running on your device!');
+      } else {
+        const banner = document.getElementById('pwaInstallBanner');
+        if (banner) banner.style.display = 'block';
+        if (typeof showToast === 'function') showToast('✦ Tap your browser menu (⋮) and select "Add to Home Screen" or "Install App".');
+      }
+    }
+  };
+
+  // 4. Banner Action Buttons
+  window.acceptPwaInstall = function() {
+    window.triggerPwaInstall();
+  };
+
+  window.dismissPwaBanner = function() {
+    const banner = document.getElementById('pwaInstallBanner');
+    if (banner) banner.style.display = 'none';
+    localStorage.setItem(DISMISS_KEY, Date.now().toString());
+  };
+
+  window.closePwaIosModal = function() {
+    const iosModal = document.getElementById('pwaIosModal');
+    if (iosModal) iosModal.style.display = 'none';
+  };
+
+  // 5. Celebration on successful install
+  window.addEventListener('appinstalled', () => {
+    deferredPwaPrompt = null;
+    const banner = document.getElementById('pwaInstallBanner');
+    if (banner) banner.style.display = 'none';
+    const navBtn = document.getElementById('btnPwaNavInstall');
+    if (navBtn) navBtn.style.display = 'none';
+    const mobileItem = document.getElementById('mobilePwaInstallItem');
+    if (mobileItem) mobileItem.style.display = 'none';
+
+    if (typeof playHarmonicTone === 'function') {
+      playHarmonicTone(528, 1.5, 0.03);
+      setTimeout(() => playHarmonicTone(880, 1.0, 0.02), 150);
+    }
+    if (typeof createHeartFlourish === 'function') createHeartFlourish();
+    if (typeof showToast === 'function') {
+      showToast('🕊️ Inner Sanctuary successfully installed! Your sanctuary is always one tap away.');
+    }
+  });
+
+  // Close iOS modal when clicking outside
+  window.addEventListener('click', (e) => {
+    const iosModal = document.getElementById('pwaIosModal');
+    if (iosModal && e.target === iosModal) {
+      window.closePwaIosModal();
+    }
+  });
+})();
