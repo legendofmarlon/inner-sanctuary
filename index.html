@@ -1636,17 +1636,26 @@
           Receive unhurried invitations, Open Mic updates, Pause Activations, and community reflections.
         </p>
 
-        <form id="stay-loop-form" class="stay-loop-form" action="https://formsubmit.co/hello@innersanctuarywellnessfoundation.org" method="POST">
+        <form id="stay-loop-form" class="stay-loop-form" name="community-loop" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/?subscribed=true">
+          <input type="hidden" name="form-name" value="community-loop">
+          <p class="hidden" style="display:none;" aria-hidden="true">
+            <label>Don’t fill this out if you're human: <input name="bot-field"></label>
+          </p>
           <input type="hidden" name="_cc" value="innersanctuary0@gmail.com">
           <input type="hidden" name="_subject" value="New Community Member • Inner Sanctuary">
-          <input type="hidden" name="_template" value="table">
-          <input type="hidden" name="_captcha" value="false">
           <input type="text" id="loop-name" name="name" class="stay-loop-input" placeholder="Your Name" required>
           <input type="email" id="loop-email" name="email" class="stay-loop-input" placeholder="Your Email Address" required>
-          <button type="submit" class="btn btn-gold stay-loop-btn">
+          <button type="submit" class="btn btn-gold stay-loop-btn" id="stay-loop-submit-btn">
             <span>Join Our Community</span> <span>🌿</span>
           </button>
         </form>
+
+        <!-- Inline Optimistic Confirmation -->
+        <div id="stay-loop-success" class="stay-loop-success-box" style="display: none; padding: 22px; background: rgba(43, 68, 54, 0.08); border: 1.5px solid var(--sunburst-gold); border-radius: 12px; margin-top: 18px; text-align: center;">
+          <div style="font-size: 1.8rem; margin-bottom: 6px;">🌿</div>
+          <div style="font-family: 'Cinzel', serif; font-size: 1.15rem; font-weight: 700; color: var(--forest-green); margin-bottom: 4px;">Welcome to the Sanctuary Circle</div>
+          <p style="font-size: 0.95rem; color: var(--charcoal-muted); margin: 0; line-height: 1.6;">Thank you for holding space with us. We've received your connection and look forward to breathing with you.</p>
+        </div>
 
         <div style="margin-top: 20px; font-size: 0.8rem; color: var(--charcoal-muted); display: flex; align-items: center; justify-content: center; gap: 8px;">
           <span>🔒 We honor your peace. Direct updates sent to leadership & your inbox.</span>
@@ -1738,12 +1747,14 @@
           <button class="intake-tab" data-role="raffle">🎁 Raffle & In-Kind</button>
         </div>
 
-        <form id="circle-intake-form" action="https://formsubmit.co/hello@innersanctuarywellnessfoundation.org" method="POST">
+        <form id="circle-intake-form" name="sanctuary-intake" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/?connected=true">
+          <input type="hidden" name="form-name" value="sanctuary-intake">
+          <p class="hidden" style="display:none;" aria-hidden="true">
+            <label>Don’t fill this out if you're human: <input name="bot-field"></label>
+          </p>
           <!-- Dual Leadership Email Routing -->
           <input type="hidden" name="_cc" value="innersanctuary0@gmail.com">
           <input type="hidden" name="_subject" value="New Community Message • Inner Sanctuary Wellness Foundation">
-          <input type="hidden" name="_template" value="table">
-          <input type="hidden" name="_captcha" value="false">
 
           <div class="form-grid">
             
@@ -1803,6 +1814,13 @@
 
           </div>
         </form>
+
+        <!-- Inline Optimistic Intake Confirmation -->
+        <div id="circle-intake-success" class="circle-intake-success-box" style="display: none; padding: 28px 24px; background: rgba(43, 68, 54, 0.08); border: 2px solid var(--sunburst-gold); border-radius: 14px; margin-top: 20px; text-align: center;">
+          <div style="font-size: 2.2rem; margin-bottom: 8px;">🕊️</div>
+          <div style="font-family: 'Cinzel', serif; font-size: 1.35rem; font-weight: 700; color: var(--forest-green); margin-bottom: 6px;">Message Received with Reverence</div>
+          <p style="font-size: 1.02rem; color: var(--charcoal-muted); margin: 0 auto; max-width: 640px; line-height: 1.7;">Your message has been directly delivered to our community leadership (Teshia &amp; Marlon). We will review your craft and connect with you shortly.</p>
+        </div>
 
       </div>
 

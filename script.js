@@ -1834,30 +1834,45 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       try {
-        await fetch('https://formsubmit.co/ajax/hello@innersanctuarywellnessfoundation.org', {
+        const formData = new FormData(intakeForm);
+        formData.set('form-name', 'sanctuary-intake');
+        await fetch('/', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify({
-            name,
-            email,
-            role,
-            contact_info: handle,
-            message,
-            _cc: 'innersanctuary0@gmail.com',
-            _subject: `New Community Message from ${name} (${role}) • Inner Sanctuary`
-          })
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(formData).toString()
         });
-
-        playHarmonicTone(528, 1.2);
-        createHeartFlourish();
-        showToast(`✨ Thank you, ${name}! Your message has been sent to hello@innersanctuarywellnessfoundation.org and innersanctuary0@gmail.com. We will be in touch soon!`);
-        intakeForm.reset();
       } catch (err) {
-        playHarmonicTone(432, 0.8);
-        showToast(`🌿 Message recorded! We are also directly reachable at hello@innersanctuarywellnessfoundation.org & innersanctuary0@gmail.com.`);
+        // Fallback to formsubmit.co if running on local file system
+        try {
+          await fetch('https://formsubmit.co/ajax/hello@innersanctuarywellnessfoundation.org', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+              name,
+              email,
+              role,
+              contact_info: handle,
+              message,
+              _cc: 'innersanctuary0@gmail.com',
+              _subject: `New Community Message from ${name} (${role}) • Inner Sanctuary`
+            })
+          });
+        } catch (e) {}
+      }
+
+      playHarmonicTone(528, 1.2);
+      createHeartFlourish();
+      showToast(`✨ Thank you, ${name}! Your message has been received with reverence.`);
+      intakeForm.reset();
+
+      // Show inline success state
+      const successBox = document.getElementById('circle-intake-success');
+      if (successBox) {
+        intakeForm.style.display = 'none';
+        successBox.style.display = 'block';
       } finally {
         if (currentSubmitBtn) {
           currentSubmitBtn.disabled = false;
@@ -2466,7 +2481,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================================================================
-  // 10. "STAY IN THE LOOP" NEWSLETTER / COMMUNITY FORM (DUAL EMAIL ROUTING)
+  // 10. "STAY IN THE LOOP" NEWSLETTER / COMMUNITY FORM (NETLIFY + FALLBACK)
   // =========================================================================
   const stayLoopForm = document.getElementById('stay-loop-form');
   if (stayLoopForm) {
@@ -2482,30 +2497,46 @@ document.addEventListener('DOMContentLoaded', () => {
       if (btn) btn.innerHTML = '<span>Joining...</span> <span>🌿</span>';
 
       try {
-        await fetch('https://formsubmit.co/ajax/hello@innersanctuarywellnessfoundation.org', {
+        const formData = new FormData(stayLoopForm);
+        formData.set('form-name', 'community-loop');
+        await fetch('/', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify({
-            name,
-            email,
-            type: 'Stay in the Loop Member',
-            _cc: 'innersanctuary0@gmail.com',
-            _subject: `New Community Member Joined: ${name} (${email}) • Inner Sanctuary`
-          })
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(formData).toString()
         });
       } catch (err) {
-        // Fallback continues smoothly
+        // Fallback to formsubmit.co if running locally outside Netlify
+        try {
+          await fetch('https://formsubmit.co/ajax/hello@innersanctuarywellnessfoundation.org', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+              name,
+              email,
+              type: 'Stay in the Loop Member',
+              _cc: 'innersanctuary0@gmail.com',
+              _subject: `New Community Member Joined: ${name} (${email}) • Inner Sanctuary`
+            })
+          });
+        } catch (e) {}
       } finally {
         if (btn) btn.innerHTML = originalText;
       }
 
       playHarmonicTone(528, 1.2);
       createHeartFlourish();
-      showToast(`🌿 Welcome to our sanctuary community, ${name}! Both hello@innersanctuarywellnessfoundation.org & innersanctuary0@gmail.com have received your email.`);
+      showToast(`🌿 Welcome to our sanctuary community, ${name}!`);
       stayLoopForm.reset();
+
+      // Show inline success state
+      const successBox = document.getElementById('stay-loop-success');
+      if (successBox) {
+        stayLoopForm.style.display = 'none';
+        successBox.style.display = 'block';
+      }
     });
   }
 
