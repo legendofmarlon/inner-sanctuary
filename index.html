@@ -736,6 +736,7 @@
             <button type="button" onclick="openZeffyModal(event)" class="btn btn-outline-gold card-3d-hover" style="cursor: pointer;">Support The Foundation</button>
           </div>
         </div>
+
       </div>
 
     </div>
@@ -1286,6 +1287,59 @@
 
           </div>
         </div>
+
+        <!-- ==================== LIVING COMMUNITY SEED GARDEN & INTENTION WALL ==================== -->
+        <div class="community-seed-garden-box" id="communitySeedGarden">
+          <div class="seed-garden-header">
+            <span class="seed-garden-pill">✦ Interactive Community Intention Wall</span>
+            <h3 class="seed-garden-title serif-brand">The Living Sanctuary Garden</h3>
+            <p class="seed-garden-sub">
+              Every seed planted here represents an intention held by our community. Tap any glowing lotus sprout to read a neighbor's intention, or plant your own seed below to watch our collective garden bloom.
+            </p>
+          </div>
+
+          <!-- Interactive Garden Canvas Stage -->
+          <div class="seed-garden-canvas-wrap" id="seedGardenCanvasWrap">
+            <canvas id="seedGardenCanvas" class="seed-garden-canvas" width="960" height="320" aria-label="Interactive Community Seed Garden with glowing intentions"></canvas>
+            
+            <!-- Garden Hover/Active Tooltip -->
+            <div id="seedGardenTooltip" class="seed-garden-tooltip" style="display: none;" role="tooltip">
+              <div class="seed-tooltip-name" id="seedTooltipName">Teshia &amp; Marlon</div>
+              <div class="seed-tooltip-intention" id="seedTooltipIntention">"May every weary heart find safe harbor and deep breath here."</div>
+              <div class="seed-tooltip-badge" id="seedTooltipBadge">✦ SEED OF SANCTUARY</div>
+            </div>
+
+            <!-- Garden Stats Counter -->
+            <div class="seed-garden-stats">
+              <span class="seed-stat-item">🌱 <strong id="seedGardenCount">8</strong> Seeds Blossoming</span>
+              <span class="seed-stat-divider">•</span>
+              <span class="seed-stat-item">✨ <span id="seedGardenActiveElement">Living Breath Resonance</span></span>
+              <span class="seed-stat-divider">•</span>
+              <span class="seed-stat-item">🕊️ 100% Held in Collective Care</span>
+            </div>
+          </div>
+
+          <!-- Interactive Seed Planting Input Row -->
+          <div class="seed-planting-action-bar">
+            <form id="seedPlantingForm" class="seed-planting-form">
+              <div class="seed-input-fields">
+                <input type="text" id="seedDonorName" class="seed-input-text" placeholder="Your Name or 'Anonymous Neighbor'" maxlength="36">
+                <input type="text" id="seedIntentionText" class="seed-input-text seed-intention-input" placeholder="Your Sacred Intention (e.g. Peace in my family, courage to create...)" required maxlength="120">
+                <select id="seedElementType" class="seed-input-select" aria-label="Choose intention element">
+                  <option value="earth">🌿 Earth (Grounding)</option>
+                  <option value="water">🌊 Water (Emotional Flow)</option>
+                  <option value="air" selected>🌬️ Air (Spacious Ease)</option>
+                  <option value="fire">🔥 Fire (Vital Joy)</option>
+                  <option value="ether">🌌 Ether (Inner Peace)</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-gold seed-plant-btn" id="btnPlantSeed">
+                <span>🌱 Plant Your Seed</span>
+              </button>
+            </form>
+          </div>
+        </div>
+
       </div>
 
     </div>

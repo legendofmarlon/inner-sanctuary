@@ -3550,9 +3550,308 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(updateTimer, 1000);
   }
 
+  // =========================================================================
+  // LIVING COMMUNITY SEED GARDEN & INTENTION WALL
+  // =========================================================================
+  function initCommunitySeedGarden() {
+    const canvas = document.getElementById('seedGardenCanvas');
+    const wrap = document.getElementById('seedGardenCanvasWrap');
+    const tooltip = document.getElementById('seedGardenTooltip');
+    const tooltipName = document.getElementById('seedTooltipName');
+    const tooltipIntention = document.getElementById('seedTooltipIntention');
+    const tooltipBadge = document.getElementById('seedTooltipBadge');
+    const countEl = document.getElementById('seedGardenCount');
+    const form = document.getElementById('seedPlantingForm');
+    const nameInput = document.getElementById('seedDonorName');
+    const intentionInput = document.getElementById('seedIntentionText');
+    const elementSelect = document.getElementById('seedElementType');
+
+    if (!canvas || !wrap) return;
+
+    const ctx = canvas.getContext('2d');
+    let width = canvas.width = wrap.clientWidth || 960;
+    let height = canvas.height = 300;
+
+    function handleResize() {
+      if (!wrap) return;
+      width = canvas.width = wrap.clientWidth;
+      height = canvas.height = 300;
+    }
+    window.addEventListener('resize', handleResize);
+
+    const DEFAULT_COMMUNITY_SEEDS = [
+      { id: 'seed-1', name: 'Teshia & Marlon', intention: 'May every weary heart find safe harbor, deep breath, and unhurried belonging here.', element: 'earth', x: 0.10, stage: 1.0, heightRatio: 0.72 },
+      { id: 'seed-2', name: 'Riverside Poet Collective', intention: 'To speak our truth without fear, and hear each other with reverent ears.', element: 'fire', x: 0.22, stage: 1.0, heightRatio: 0.85 },
+      { id: 'seed-3', name: 'Maria L. (Santa Ana)', intention: 'Gentle peace for my family and healing for all mothers walking heavy roads.', element: 'water', x: 0.34, stage: 1.0, heightRatio: 0.68 },
+      { id: 'seed-4', name: 'Darius K.', intention: 'Permission to stop rushing. Giving my chest room to breathe after 3 years of burnout.', element: 'air', x: 0.46, stage: 1.0, heightRatio: 0.78 },
+      { id: 'seed-5', name: 'Anonymous Creative', intention: 'That the music I was too afraid to play finally finds a home in someone\'s spirit.', element: 'ether', x: 0.58, stage: 1.0, heightRatio: 0.82 },
+      { id: 'seed-6', name: 'Elena G. (Irvine)', intention: 'Rooting deep in self-compassion so I can hold space for the next generation.', element: 'earth', x: 0.70, stage: 1.0, heightRatio: 0.75 },
+      { id: 'seed-7', name: 'Marcus & Open Mic Circle', intention: 'Let the laughter at our open mics echo louder than the noise of the world.', element: 'fire', x: 0.82, stage: 1.0, heightRatio: 0.88 },
+      { id: 'seed-8', name: 'Inland Empire Youth Circle', intention: 'Safe spaces where we don\'t have to pretend to be tough or perfect.', element: 'water', x: 0.92, stage: 1.0, heightRatio: 0.70 }
+    ];
+
+    let communitySeeds = [];
+    try {
+      const stored = localStorage.getItem('inner_sanctuary_community_seeds');
+      if (stored) {
+        communitySeeds = JSON.parse(stored);
+      }
+    } catch (e) {}
+
+    if (!Array.isArray(communitySeeds) || communitySeeds.length === 0) {
+      communitySeeds = [...DEFAULT_COMMUNITY_SEEDS];
+    }
+
+    if (countEl) countEl.textContent = communitySeeds.length;
+
+    const ELEMENT_PALETTES = {
+      earth: { glow: 'rgba(85, 166, 112, 0.45)', core: '#55A670', flower: '#F8D98C', freq: 432, label: 'EARTH • ROOTED SEED' },
+      water: { glow: 'rgba(74, 184, 199, 0.45)', core: '#4AB8C7', flower: '#BCE7FD', freq: 528, label: 'WATER • EMOTIONAL SEED' },
+      air:   { glow: 'rgba(156, 183, 216, 0.45)', core: '#9CB7D8', flower: '#EAF2FA', freq: 639, label: 'AIR • EXPANSIVE SEED' },
+      fire:  { glow: 'rgba(230, 138, 46, 0.45)', core: '#E68A2E', flower: '#FAD02C', freq: 741, label: 'FIRE • JOYFUL SEED' },
+      ether: { glow: 'rgba(176, 132, 204, 0.45)', core: '#B084CC', flower: '#F3E8FF', freq: 852, label: 'ETHER • SACRED SEED' }
+    };
+
+    let hoveredSeed = null;
+    let gardenParticles = [];
+
+    // Pre-populate ambient garden spores/fireflies
+    for (let i = 0; i < 28; i++) {
+      gardenParticles.push({
+        x: Math.random(),
+        y: Math.random() * 0.8 + 0.1,
+        radius: Math.random() * 1.5 + 0.6,
+        alpha: Math.random() * 0.6 + 0.2,
+        speedX: (Math.random() - 0.5) * 0.0004,
+        speedY: (Math.random() - 0.5) * 0.0003,
+        pulseOffset: Math.random() * Math.PI * 2
+      });
+    }
+
+    let time = 0;
+    function animateGarden() {
+      time += 0.02;
+      ctx.clearRect(0, 0, width, height);
+
+      // 1. Draw Sanctuary Soil Gradient & Ground Horizon
+      const soilGrad = ctx.createLinearGradient(0, height - 45, 0, height);
+      soilGrad.addColorStop(0, 'rgba(25, 42, 32, 0.3)');
+      soilGrad.addColorStop(0.5, 'rgba(15, 26, 20, 0.85)');
+      soilGrad.addColorStop(1, '#080E0A');
+      ctx.fillStyle = soilGrad;
+      ctx.fillRect(0, height - 45, width, 45);
+
+      // Gold baseline hairline
+      ctx.beginPath();
+      ctx.strokeStyle = 'rgba(197, 154, 63, 0.35)';
+      ctx.lineWidth = 1.2;
+      ctx.moveTo(0, height - 36);
+      ctx.lineTo(width, height - 36);
+      ctx.stroke();
+
+      // 2. Render Floating Ambient Spores
+      gardenParticles.forEach(p => {
+        p.x += p.speedX;
+        p.y += p.speedY;
+        if (p.x < 0) p.x = 1;
+        if (p.x > 1) p.x = 0;
+        if (p.y < 0.05) p.y = 0.85;
+        if (p.y > 0.85) p.y = 0.05;
+
+        const pulse = Math.sin(time * 1.5 + p.pulseOffset) * 0.3 + 0.7;
+        ctx.beginPath();
+        ctx.arc(p.x * width, p.y * height, p.radius * pulse, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(248, 217, 140, ${p.alpha * pulse * 0.6})`;
+        ctx.fill();
+      });
+
+      // 3. Render Each Community Seed & Lotus Sprout
+      const baseGroundY = height - 36;
+      communitySeeds.forEach(seed => {
+        if (seed.stage < 1.0) {
+          seed.stage = Math.min(1.0, seed.stage + 0.02);
+        }
+
+        const palette = ELEMENT_PALETTES[seed.element] || ELEMENT_PALETTES.earth;
+        const rootX = seed.x * width;
+        const stemMaxHeight = height * (seed.heightRatio || 0.75) * seed.stage;
+        const isHovered = (hoveredSeed && hoveredSeed.id === seed.id);
+
+        // Organic breath sway
+        const sway = Math.sin(time * 0.9 + seed.x * 6) * (isHovered ? 12 : 7);
+        const headX = rootX + sway;
+        const headY = baseGroundY - stemMaxHeight;
+
+        // Draw Stem
+        ctx.beginPath();
+        ctx.moveTo(rootX, baseGroundY);
+        ctx.quadraticCurveTo(rootX + sway * 0.4, baseGroundY - stemMaxHeight * 0.5, headX, headY);
+        ctx.strokeStyle = isHovered ? '#F8D98C' : 'rgba(197, 154, 63, 0.55)';
+        ctx.lineWidth = isHovered ? 2.5 : 1.6;
+        ctx.stroke();
+
+        // Draw Leaves on stem
+        const leafY = baseGroundY - stemMaxHeight * 0.45;
+        const leafX = rootX + sway * 0.4;
+        ctx.beginPath();
+        ctx.ellipse(leafX - 6, leafY, 6, 3, -0.4, 0, Math.PI * 2);
+        ctx.ellipse(leafX + 6, leafY - 4, 6, 3, 0.4, 0, Math.PI * 2);
+        ctx.fillStyle = isHovered ? '#A4D4B4' : 'rgba(85, 166, 112, 0.65)';
+        ctx.fill();
+
+        // Draw Glowing Bioluminescent Lotus Head
+        const breathPulse = Math.sin(time * 1.8 + seed.x * 4) * 0.2 + 1.0;
+        const auraRadius = (isHovered ? 32 : 22) * breathPulse;
+
+        const auraGrad = ctx.createRadialGradient(headX, headY, 2, headX, headY, auraRadius);
+        auraGrad.addColorStop(0, palette.flower);
+        auraGrad.addColorStop(0.4, palette.glow);
+        auraGrad.addColorStop(1, 'transparent');
+        ctx.fillStyle = auraGrad;
+        ctx.beginPath();
+        ctx.arc(headX, headY, auraRadius, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Petals
+        const petalCount = 5;
+        const petalRadius = isHovered ? 9 : 7;
+        for (let p = 0; p < petalCount; p++) {
+          const angle = (p / petalCount) * Math.PI * 2 + (time * 0.2);
+          const px = headX + Math.cos(angle) * (petalRadius * 0.7);
+          const py = headY + Math.sin(angle) * (petalRadius * 0.7);
+          ctx.beginPath();
+          ctx.arc(px, py, petalRadius * 0.6, 0, Math.PI * 2);
+          ctx.fillStyle = palette.flower;
+          ctx.fill();
+        }
+
+        // Center golden heart
+        ctx.beginPath();
+        ctx.arc(headX, headY, isHovered ? 4.5 : 3.5, 0, Math.PI * 2);
+        ctx.fillStyle = '#FFFFFF';
+        ctx.shadowColor = '#F8D98C';
+        ctx.shadowBlur = isHovered ? 14 : 6;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        // Store active coordinates for hit testing
+        seed._headX = headX;
+        seed._headY = headY;
+      });
+
+      requestAnimationFrame(animateGarden);
+    }
+    requestAnimationFrame(animateGarden);
+
+    // Pointer Interaction (Hover & Tooltip)
+    function handlePointerMove(e) {
+      const rect = canvas.getBoundingClientRect();
+      const clientX = e.clientX || (e.touches && e.touches[0] ? e.touches[0].clientX : 0);
+      const clientY = e.clientY || (e.touches && e.touches[0] ? e.touches[0].clientY : 0);
+      const mouseX = (clientX - rect.left) * (width / rect.width);
+      const mouseY = (clientY - rect.top) * (height / rect.height);
+
+      let found = null;
+      for (let i = communitySeeds.length - 1; i >= 0; i--) {
+        const s = communitySeeds[i];
+        if (s._headX && s._headY) {
+          const dist = Math.hypot(mouseX - s._headX, mouseY - s._headY);
+          if (dist < 28) {
+            found = s;
+            break;
+          }
+        }
+      }
+
+      if (found) {
+        hoveredSeed = found;
+        canvas.style.cursor = 'pointer';
+        if (tooltip && tooltipName && tooltipIntention && tooltipBadge) {
+          tooltipName.textContent = found.name;
+          tooltipIntention.textContent = `"${found.intention}"`;
+          const palette = ELEMENT_PALETTES[found.element] || ELEMENT_PALETTES.earth;
+          tooltipBadge.textContent = `✦ ${palette.label}`;
+
+          // Position tooltip relative to container
+          const screenX = (found._headX / width) * rect.width;
+          const screenY = (found._headY / height) * rect.height;
+          tooltip.style.left = `${Math.max(120, Math.min(rect.width - 120, screenX))}px`;
+          tooltip.style.top = `${screenY - 14}px`;
+          tooltip.style.display = 'block';
+        }
+      } else {
+        hoveredSeed = null;
+        canvas.style.cursor = 'default';
+        if (tooltip) tooltip.style.display = 'none';
+      }
+    }
+
+    canvas.addEventListener('mousemove', handlePointerMove);
+    canvas.addEventListener('mouseleave', () => {
+      hoveredSeed = null;
+      if (tooltip) tooltip.style.display = 'none';
+    });
+    canvas.addEventListener('touchstart', handlePointerMove, { passive: true });
+
+    // Click/Tap on seed plays its solfeggio tone
+    canvas.addEventListener('click', () => {
+      if (hoveredSeed) {
+        const pal = ELEMENT_PALETTES[hoveredSeed.element] || ELEMENT_PALETTES.earth;
+        playHarmonicTone(pal.freq, 1.2, 0.02);
+        createHeartFlourish();
+      }
+    });
+
+    // Form Submission: Plant New Seed
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const intention = intentionInput ? intentionInput.value.trim() : '';
+        if (!intention) {
+          showToast('🌱 Please write a gentle intention before planting.');
+          if (intentionInput) intentionInput.focus();
+          return;
+        }
+
+        const name = (nameInput && nameInput.value.trim()) ? nameInput.value.trim() : 'Anonymous Neighbor';
+        const element = (elementSelect && elementSelect.value) ? elementSelect.value : 'air';
+
+        // Distribute nicely along width avoiding identical x
+        const newX = 0.08 + Math.random() * 0.84;
+        const newSeed = {
+          id: `seed-${Date.now()}`,
+          name: name,
+          intention: intention,
+          element: element,
+          x: newX,
+          stage: 0.05,
+          heightRatio: 0.65 + Math.random() * 0.22
+        };
+
+        communitySeeds.push(newSeed);
+
+        try {
+          localStorage.setItem('inner_sanctuary_community_seeds', JSON.stringify(communitySeeds));
+        } catch (err) {}
+
+        if (countEl) countEl.textContent = communitySeeds.length;
+
+        // Play harmonic chime
+        const pal = ELEMENT_PALETTES[element] || ELEMENT_PALETTES.air;
+        playHarmonicTone(pal.freq, 1.4, 0.02);
+        setTimeout(() => playHarmonicTone(pal.freq * 1.25, 1.0, 0.015), 180);
+
+        createHeartFlourish();
+        showToast(`🌱 Your seed and intention have been planted in the living sanctuary garden!`);
+        form.reset();
+      });
+    }
+  }
+
   // Initialize all feature suites
   initSanctuaryReflectionWidget();
   initOpenMicCountdown();
+  initCommunitySeedGarden();
 
   // =========================================================================
   // DIGITAL INTENTION BRACELET CREATOR (PAUSE ACTIVATIONS)
