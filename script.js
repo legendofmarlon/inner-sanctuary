@@ -2452,7 +2452,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'DTEND:20261116T000000Z',
         'SUMMARY:Community Open Mic & Pause Activations • Inner Sanctuary & SoCal Creatives',
         'DESCRIPTION:Come laugh\\, sing\\, share\\, listen\\, cry\\, create\\, or simply be. Open Mic stage + Somatic Pause Activations (botanical herbal tea\\, guided 4-4-4 breath intervals\\, 432 Hz sound bowls). No performance necessary. Just come as you are.\\n\\nMeetup Details & RSVP: https://www.meetup.com/socal-creatives-collective/events/316432286/',
-        'LOCATION:Cafe 86\\, 2423 Park Ave\\, Irvine\\, CA 92606',
+        'LOCATION:Our Sanctuary Clubhouse\\, Orange County\\, CA',
         'STATUS:CONFIRMED',
         'END:VEVENT',
         'END:VCALENDAR'
@@ -2468,7 +2468,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       playHarmonicTone(528, 0.7);
       createHeartFlourish();
-      showToast("📅 Added to Calendar! See you on Sunday, November 15, 2026 (2–4 PM) at Cafe 86, Irvine.");
+      showToast("📅 Added to Calendar! See you on Sunday, November 15, 2026 (2–4 PM) at Our Sanctuary Clubhouse.");
     });
   }
 
@@ -3506,7 +3506,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================================================================
-  // LIVE OPEN MIC COUNTDOWN TIMER (CAFE 86 GATHERING)
+  // LIVE OPEN MIC COUNTDOWN TIMER (OUR SANCTUARY CLUBHOUSE GATHERING)
   // =========================================================================
   function initOpenMicCountdown() {
     const daysEl = document.getElementById('countdownDays');
@@ -3868,7 +3868,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const messageInput = document.getElementById('intake-message');
     if (messageInput) {
-      messageInput.value = `I would like to claim Open Mic Slot #${slotNum} for the upcoming Cafe 86 gathering! Medium/genre: `;
+      messageInput.value = `I would like to claim Open Mic Slot #${slotNum} for the upcoming gathering at Our Sanctuary Clubhouse! Medium/genre: `;
     }
 
     // Smooth scroll to connect section
@@ -3884,7 +3884,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const REEL_DATA = {
     all: { badge: '✦ ALL HIGHLIGHTS', title: '"The song we didn\'t know we needed to sing."', img: 'images/openmic/openmic-vocalist-yellow.jpg' },
-    vocal: { badge: '✦ ACOUSTIC SOUL', title: 'Raw vocal resonance & heart harmonies at Cafe 86.', img: 'images/openmic/openmic-vocalist-yellow.jpg' },
+    vocal: { badge: '✦ ACOUSTIC SOUL', title: 'Raw vocal resonance & heart harmonies at Our Sanctuary Clubhouse.', img: 'images/openmic/openmic-vocalist-yellow.jpg' },
     poetry: { badge: '✦ SPOKEN WORD', title: 'Honest verses shared without fear or pretense.', img: 'images/openmic/openmic-emcee-host.jpg' },
     somatic: { badge: '✦ SOMATIC BREATH', title: 'A collective pause to soften our shoulders and exhale.', img: 'images/openmic/openmic-crowd-applause.jpg' }
   };
@@ -3914,7 +3914,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (typeof openPhotoWheelModal === 'function') {
       openPhotoWheelModal(0);
     }
-    showToast('✨ Experiencing Community Highlight Reel from Cafe 86!');
+    showToast('✨ Experiencing Community Highlight Reel from Our Sanctuary Clubhouse!');
   };
 
   // =========================================================================
@@ -4143,13 +4143,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const photoWheelData = [
     {
       src: "images/openmic/openmic-vocalist-yellow.jpg",
-      caption: "Raw Vocal Resonance • Community Singer Pouring Heart into Song at Cafe 86",
+      caption: "Raw Vocal Resonance • Community Singer Pouring Heart into Song at Our Sanctuary Clubhouse",
       alt: "Solo vocalist singing at microphone"
     },
     {
       src: "images/openmic/openmic-audience-cafe86.jpg",
       caption: "Attentive Sanctuary • ~40 Neighbors & Creators Gathered in Grounded Presence",
-      alt: "Attentive audience at Cafe 86"
+      alt: "Attentive audience at Our Sanctuary Clubhouse"
     },
     {
       src: "images/openmic/openmic-acoustic-band.jpg",
