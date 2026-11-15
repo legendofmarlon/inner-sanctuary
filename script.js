@@ -2595,29 +2595,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const targetModal = document.getElementById('ZeffyQuickDonateModal');
     if (!targetModal) return;
 
+    const iframe = document.getElementById('zeffy-modal-iframe');
+    if (iframe && (!iframe.src || iframe.src === 'about:blank' || !iframe.src.includes('zeffy.com/embed/donation-form/'))) {
+      iframe.src = ZEFFY_FORM_EMBED;
+    }
+
     targetModal.style.display = 'flex';
     // Trigger reflow for CSS transition
     void targetModal.offsetWidth;
     targetModal.classList.add('is-open');
     targetModal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
-
-    // Refresh option buttons and dynamic impact
-    if (typeof updateSeedState === 'function') {
-      updateSeedState();
-    }
-
-    // Play subtle Solfeggio 528Hz chime on donation intent
-    try {
-      if (typeof playHarmonicTone === 'function') {
-        playHarmonicTone(528, 0.6, 0.02);
-      }
-    } catch (_) {}
-
-    setTimeout(() => {
-      const closeBtn = targetModal.querySelector('.zeffy-modal-close');
-      if (closeBtn) closeBtn.focus();
-    }, 320);
   }
 
   function closeZeffyModal() {
@@ -2658,19 +2646,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const trigger = e.target.closest('a, button');
     if (!trigger) return;
 
-    // Never intercept anything inside the Zeffy modals or inline donation cards!
-    if (trigger.closest('#ZeffyQuickDonateModal') || trigger.closest('#zeffy-inline-box')) return;
-    if (trigger.closest('.modal-seed-controls-wrap') || trigger.closest('.seed-options-container')) return;
-    if (trigger.classList.contains('seed-chip-btn') || trigger.classList.contains('seed-freq-btn')) return;
-    if (trigger.classList.contains('btn-toggle-frame')) return;
-
     // Never intercept direct outbound checkout links or explicitly bypassed controls
     if (trigger.classList.contains('zeffy-direct-link')) return;
     if (trigger.getAttribute('target') === '_blank') return;
     if (trigger.classList.contains('zeffy-bypass-modal')) return;
-
-    // Skip calendar sync buttons
-    if (trigger.classList.contains('btn-cal-sync') || trigger.closest('.countdown-calendar-sync-row')) return;
 
     // Skip intake tabs, form submits, soundscape/breath controls, close buttons, tab switchers
     if (trigger.classList.contains('intake-tab')) return;
@@ -2681,6 +2660,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (trigger.classList.contains('donate-tab-btn') || trigger.closest('.donate-tab-switcher')) return;
     if (trigger.classList.contains('zeffy-modal-close') || trigger.closest('.zeffy-modal-close')) return;
     if (trigger.classList.contains('preset-chip')) return;
+    if (trigger.classList.contains('seed-chip-btn') || trigger.classList.contains('seed-freq-btn')) return;
     if (trigger.id === 'breath-workshop-cta-btn') return;
 
     const href = trigger.getAttribute('href') || '';
@@ -2699,17 +2679,17 @@ document.addEventListener('DOMContentLoaded', () => {
   }, true);
 
   // ------------------------------------------------------------------------
-  // 2B. NATIVE SEED KEYPAD LOGIC (100% RELIABLE, ZERO SCROLLING REQUIRED)
+  // 2B. NATIVE SEED KEYPAD LOGIC (100% RELIABLE, ZERO BROKEN IFRAMES)
   // ------------------------------------------------------------------------
   let currentSeedFreq = 'monthly';
   let currentSeedAmount = 1;
 
-  function updateSeedState() {
-    // 1. Update frequency switcher buttons
+  window.selectSeedFreq = function(freq) {
+    currentSeedFreq = freq;
     const btnMonthly = document.getElementById('seed-freq-monthly');
     const btnOnce = document.getElementById('seed-freq-once');
     if (btnMonthly && btnOnce) {
-      if (currentSeedFreq === 'monthly') {
+      if (freq === 'monthly') {
         btnMonthly.classList.add('active');
         btnOnce.classList.remove('active');
       } else {
@@ -2717,71 +2697,40 @@ document.addEventListener('DOMContentLoaded', () => {
         btnMonthly.classList.remove('active');
       }
     }
-
-    // 2. Update amount chips
-    [1, 5, 10, 25].forEach(amt => {
-      const chip = document.getElementById('chip-' + amt);
-      if (chip) {
-        if (amt === currentSeedAmount) chip.classList.add('active');
-        else chip.classList.remove('active');
-      }
-    });
-
-    // 3. Update dynamic impact statement
-    const impactText = document.getElementById('seed-impact-text');
-    if (impactText) {
-      if (currentSeedAmount === 1) {
-        impactText.innerHTML = '✨ <strong>100% Community Pass-Through:</strong> $1/month covers 1 free trauma-informed youth healing journal and subsidizes community somatic seats. 0% deducted by Zeffy.';
-      } else if (currentSeedAmount === 5) {
-        impactText.innerHTML = '✨ <strong>Community Supporter:</strong> $5 provides trauma-informed reflection kits and sound healing equipment upkeep for our monthly community open mic.';
-      } else if (currentSeedAmount === 10) {
-        impactText.innerHTML = '✨ <strong>Caregiver Seat:</strong> $10 funds full somatic workshop materials, herbal tea, and unhurried meditation supplies for vulnerable creatives.';
-      } else {
-        impactText.innerHTML = '✨ <strong>Sanctuary Pillar:</strong> $25 anchors our venue safety, artist travel subsidies, and community wellness stipends with 100% fiduciary transparency.';
-      }
-    }
-
-    // 4. Update 1-Tap Pay button label
-    const payLabel = document.getElementById('seed-pay-btn-label');
-    if (payLabel) {
-      const freqLabel = currentSeedFreq === 'monthly' ? 'Monthly Seed' : 'One-Time Seed';
-      payLabel.textContent = `⚡ 1-Tap Apple Pay • Google Pay ($${currentSeedAmount} ${freqLabel}) ↗`;
-    }
-  }
-
-  window.selectSeedFreq = function(freq) {
-    currentSeedFreq = freq;
-    try {
-      if (typeof playHarmonicTone === 'function') playHarmonicTone(432, 0.4, 0.02);
-    } catch (_) {}
-    updateSeedState();
+    updateSeedPayButton();
   };
 
   window.selectSeedAmount = function(amount) {
     currentSeedAmount = amount;
-    try {
-      if (typeof playHarmonicTone === 'function') playHarmonicTone(528, 0.5, 0.02);
-    } catch (_) {}
-    updateSeedState();
-  };
-
-  window.toggleModalFrame = function() {
-    const frameWrap = document.getElementById('modalZeffyFrameWrap');
-    const iframe = document.getElementById('zeffy-modal-iframe');
-    const toggleLabel = document.getElementById('frameToggleLabel');
-    if (!frameWrap) return;
-
-    if (frameWrap.style.display === 'none' || !frameWrap.style.display) {
-      frameWrap.style.display = 'block';
-      if (toggleLabel) toggleLabel.textContent = '▴ Hide inside-frame view';
-      if (iframe && (!iframe.src || iframe.src === 'about:blank' || !iframe.src.includes('zeffy.com/embed/donation-form/'))) {
-        iframe.src = ZEFFY_FORM_EMBED;
+    [1, 5, 10, 25].forEach(amt => {
+      const chip = document.getElementById('chip-' + amt);
+      if (chip) {
+        if (amt === amount) chip.classList.add('active');
+        else chip.classList.remove('active');
       }
-    } else {
-      frameWrap.style.display = 'none';
-      if (toggleLabel) toggleLabel.textContent = '▾ Or preview/complete inside this frame';
+    });
+
+    const impactText = document.getElementById('seed-impact-text');
+    if (impactText) {
+      if (amount === 1) {
+        impactText.innerHTML = '✨ <strong>100% Community Pass-Through:</strong> $1/month covers 1 free trauma-informed youth healing journal and subsidizes community somatic seats. 0% deducted by Zeffy.';
+      } else if (amount === 5) {
+        impactText.innerHTML = '✨ <strong>Supporter Impact:</strong> $5 provides trauma-informed reflection kits and sound healing equipment upkeep for our monthly community open mic.';
+      } else if (amount === 10) {
+        impactText.innerHTML = '✨ <strong>Caregiver Impact:</strong> $10 funds full somatic workshop materials and unhurried meditation supplies for vulnerable creatives.';
+      } else {
+        impactText.innerHTML = '✨ <strong>Sanctuary Pillar:</strong> $25 anchors our venue safety, artist travel subsidies, and community wellness stipends with 100% fiduciary transparency.';
+      }
     }
+    updateSeedPayButton();
   };
+
+  function updateSeedPayButton() {
+    const payLabel = document.getElementById('seed-pay-btn-label');
+    if (!payLabel) return;
+    const freqLabel = currentSeedFreq === 'monthly' ? 'Monthly Seed' : 'Gift';
+    payLabel.textContent = `🌱 Plant $${currentSeedAmount} ${freqLabel} (Apple Pay • Google Pay)`;
+  }
 
   window.toggleEmbeddedZeffy = function() {
     const wrap = document.getElementById('zeffy-inline-embed-wrap');
@@ -2798,48 +2747,6 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       wrap.style.display = 'none';
       if (toggleText) toggleText.textContent = '▾ Or preview embedded checkout frame directly in-card';
-    }
-  };
-
-  // 1-Tap Apple Calendar / iCal (.ics) Generator (Feature 4)
-  window.downloadSanctuaryIcs = function() {
-    const icsLines = [
-      'BEGIN:VCALENDAR',
-      'VERSION:2.0',
-      'PRODID:-//Inner Sanctuary Wellness Foundation//Community Gathering//EN',
-      'CALSCALE:GREGORIAN',
-      'METHOD:PUBLISH',
-      'BEGIN:VEVENT',
-      'UID:gathering-20261115T140000-innersanctuary@meetup',
-      'DTSTAMP:20261115T000000Z',
-      'DTSTART:20261115T220000Z',
-      'DTEND:20261116T000000Z',
-      'SUMMARY:Community Open Mic & Creative Connection Gathering | Our Sanctuary Clubhouse',
-      'DESCRIPTION:An unhurried\\, substance-free creative community gathering for local artists\\, poets\\, musicians\\, and neighbors to share space\\, breathe together\\, process life\'s journey\\, and be truly heard. Co-presented by SoCal Creatives Collective & Inner Sanctuary Wellness Foundation.\\n\\nOfficial Meetup RSVP: https://www.meetup.com/socal-creatives-collective/events/316432286/',
-      'LOCATION:Our Sanctuary Clubhouse\\, Orange County\\, CA',
-      'STATUS:CONFIRMED',
-      'BEGIN:VALARM',
-      'TRIGGER:-PT2H',
-      'ACTION:DISPLAY',
-      'DESCRIPTION:Reminder: Community Open Mic at Our Sanctuary Clubhouse starts in 2 hours',
-      'END:VALARM',
-      'END:VEVENT',
-      'END:VCALENDAR'
-    ];
-    try {
-      const blob = new Blob([icsLines.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', 'Our-Sanctuary-Clubhouse-Gathering.ics');
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
-      if (typeof playHarmonicTone === 'function') playHarmonicTone(528, 0.8, 0.02);
-      if (typeof showToast === 'function') showToast('📅 Gathering added! .ics calendar invite downloaded.');
-    } catch (err) {
-      console.warn('ICS generation fallback', err);
     }
   };
 
@@ -3968,106 +3875,37 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize all feature suites
   initSanctuaryReflectionWidget();
   initOpenMicCountdown();
-  initLivingCircadianAtmosphere();
 
   // =========================================================================
-  // LIVING CIRCADIAN ATMOSPHERE ENGINE (FEATURE 5)
-  // Dynamic day-to-night lighting & sky shift harmonized with somatic engine
+  // LIVE OPEN MIC STAGE ROSTER & COMMUNITY REEL
   // =========================================================================
-  const CIRCADIAN_PHASES = {
-    dawn: {
-      name: 'Morning Awakening',
-      icon: '🌅',
-      vibe: 'Golden Dawn Mist • 432Hz Calm'
-    },
-    day: {
-      name: 'Midday Sunburst',
-      icon: '☀️',
-      vibe: 'Sunburst Gold Clarity • Verdant Canopy'
-    },
-    sunset: {
-      name: 'Sunset Amber Hearth',
-      icon: '🌇',
-      vibe: 'Warm Amber Dusk • 528Hz Grounding'
-    },
-    night: {
-      name: 'Celestial Starlight',
-      icon: '🌌',
-      vibe: 'Midnight Emerald Solitude • Deep Rest'
-    }
-  };
-
-  let manualCircadianOverride = null;
-
-  function computeLocalCircadianPhase() {
-    if (manualCircadianOverride) return manualCircadianOverride;
-    const hour = new Date().getHours();
-    if (hour >= 5 && hour < 10) return 'dawn';
-    if (hour >= 10 && hour < 17) return 'day';
-    if (hour >= 17 && hour < 20) return 'sunset';
-    return 'night';
-  }
-
-  function applyCircadianAtmosphere(phaseKey, isManual) {
-    const phase = CIRCADIAN_PHASES[phaseKey] || CIRCADIAN_PHASES.day;
-    document.body.setAttribute('data-circadian', phaseKey);
-
-    const labelEl = document.getElementById('circadianAtmosphereLabel');
-    if (labelEl) {
-      labelEl.textContent = `✦ Living Atmosphere: ${phase.icon} ${phase.name}`;
-    }
-
-    const pillEl = document.getElementById('circadianAtmospherePill');
-    if (pillEl) {
-      pillEl.setAttribute('title', `Living Atmosphere: ${phase.name} (${phase.vibe}). Tap to cycle day phases.`);
-    }
-
-    if (isManual) {
-      try {
-        if (typeof showToast === 'function') {
-          showToast(`${phase.icon} Living Atmosphere: ${phase.name}`);
-        }
-        if (typeof playHarmonicTone === 'function') {
-          playHarmonicTone(phaseKey === 'sunset' ? 528 : phaseKey === 'night' ? 432 : 639, 0.8, 0.02);
-        }
-      } catch (_) {}
-    }
-  }
-
-  window.cycleCircadianAtmosphere = function() {
-    const keys = ['dawn', 'day', 'sunset', 'night'];
-    const current = document.body.getAttribute('data-circadian') || computeLocalCircadianPhase();
-    const nextIdx = (keys.indexOf(current) + 1) % keys.length;
-    manualCircadianOverride = keys[nextIdx];
-    applyCircadianAtmosphere(manualCircadianOverride, true);
-  };
-
-  function initLivingCircadianAtmosphere() {
-    applyCircadianAtmosphere(computeLocalCircadianPhase(), false);
-    setInterval(() => {
-      if (!manualCircadianOverride) {
-        applyCircadianAtmosphere(computeLocalCircadianPhase(), false);
-      }
-    }, 15 * 60 * 1000);
-  }
-
-  // =========================================================================
-  // LIVE OPEN MIC STAGE ROSTER & COMMUNITY REEL (MEETUP REGISTRATION ROUTING)
-  // =========================================================================
-  const MEETUP_EVENT_URL = 'https://www.meetup.com/socal-creatives-collective/events/316432286/?_xtd=gqFyqTExNjA3NjU1MqFwo2FwaQ%253D%253D&from=ref';
-
   window.claimOpenMicSlot = function(slotNum) {
-    try {
-      if (typeof playHarmonicTone === 'function') playHarmonicTone(639, 1.0, 0.02);
-      if (typeof createHeartFlourish === 'function') createHeartFlourish();
-      if (typeof showToast === 'function') {
-        showToast(`🎤 Stage Slot #${slotNum}: Opening official Meetup RSVP & performer registration...`);
-      }
-    } catch (_) {}
+    playHarmonicTone(639, 1.2, 0.02);
+    createHeartFlourish();
+    showToast(`🎤 Claiming Stage Slot ${slotNum}! Taking you to artist intake...`);
 
-    setTimeout(() => {
-      window.open(MEETUP_EVENT_URL, '_blank', 'noopener,noreferrer');
-    }, 450);
+    // Switch intake tab to artist
+    const artistTab = document.querySelector('.intake-tab[data-role="artist"]');
+    if (artistTab) artistTab.click();
+
+    // Prefill role select & message
+    const roleSelect = document.getElementById('circle-role-select');
+    if (roleSelect) roleSelect.value = 'Artist / Performer';
+
+    const messageInput = document.getElementById('intake-message');
+    if (messageInput) {
+      messageInput.value = `I would like to claim Open Mic Slot #${slotNum} for the upcoming gathering at Our Sanctuary Clubhouse! Medium/genre: `;
+    }
+
+    // Smooth scroll to connect section
+    const connectSec = document.getElementById('connect');
+    if (connectSec) {
+      connectSec.scrollIntoView({ behavior: 'smooth' });
+    }
+    const nameInput = document.getElementById('intake-name');
+    if (nameInput) {
+      setTimeout(() => nameInput.focus(), 600);
+    }
   };
 
   const REEL_DATA = {
