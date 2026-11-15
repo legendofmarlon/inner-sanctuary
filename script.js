@@ -3854,6 +3854,73 @@ document.addEventListener('DOMContentLoaded', () => {
   initCommunitySeedGarden();
 
   // =========================================================================
+  // LIVE OPEN MIC STAGE ROSTER & COMMUNITY REEL
+  // =========================================================================
+  window.claimOpenMicSlot = function(slotNum) {
+    playHarmonicTone(639, 1.2, 0.02);
+    createHeartFlourish();
+    showToast(`🎤 Claiming Stage Slot ${slotNum}! Taking you to artist intake...`);
+
+    // Switch intake tab to artist
+    const artistTab = document.querySelector('.intake-tab[data-role="artist"]');
+    if (artistTab) artistTab.click();
+
+    // Prefill role select & message
+    const roleSelect = document.getElementById('circle-role-select');
+    if (roleSelect) roleSelect.value = 'Artist / Performer';
+
+    const messageInput = document.getElementById('intake-message');
+    if (messageInput) {
+      messageInput.value = `I would like to claim Open Mic Slot #${slotNum} for the upcoming Cafe 86 gathering! Medium/genre: `;
+    }
+
+    // Smooth scroll to connect section
+    const connectSec = document.getElementById('connect');
+    if (connectSec) {
+      connectSec.scrollIntoView({ behavior: 'smooth' });
+    }
+    const nameInput = document.getElementById('intake-name');
+    if (nameInput) {
+      setTimeout(() => nameInput.focus(), 600);
+    }
+  };
+
+  const REEL_DATA = {
+    all: { badge: '✦ ALL HIGHLIGHTS', title: '"The song we didn\'t know we needed to sing."', img: 'images/openmic/openmic-vocalist-yellow.jpg' },
+    vocal: { badge: '✦ ACOUSTIC SOUL', title: 'Raw vocal resonance & heart harmonies at Cafe 86.', img: 'images/openmic/openmic-vocalist-yellow.jpg' },
+    poetry: { badge: '✦ SPOKEN WORD', title: 'Honest verses shared without fear or pretense.', img: 'images/openmic/openmic-emcee-host.jpg' },
+    somatic: { badge: '✦ SOMATIC BREATH', title: 'A collective pause to soften our shoulders and exhale.', img: 'images/openmic/openmic-crowd-applause.jpg' }
+  };
+
+  window.filterVideoReels = function(filterKey) {
+    const data = REEL_DATA[filterKey] || REEL_DATA.all;
+    const badgeEl = document.getElementById('reelActiveBadge');
+    const titleEl = document.getElementById('reelActiveTitle');
+    const imgEl = document.getElementById('reelPreviewImage');
+    const tabs = document.querySelectorAll('.reel-tab');
+
+    tabs.forEach(t => {
+      if (t.getAttribute('data-filter') === filterKey) t.classList.add('active');
+      else t.classList.remove('active');
+    });
+
+    if (badgeEl) badgeEl.textContent = data.badge;
+    if (titleEl) titleEl.textContent = data.title;
+    if (imgEl) imgEl.src = data.img;
+
+    playHarmonicTone(432, 0.6, 0.015);
+  };
+
+  window.playCommunityReelModal = function() {
+    playHarmonicTone(528, 1.2, 0.02);
+    createHeartFlourish();
+    if (typeof openPhotoWheelModal === 'function') {
+      openPhotoWheelModal(0);
+    }
+    showToast('✨ Experiencing Community Highlight Reel from Cafe 86!');
+  };
+
+  // =========================================================================
   // DIGITAL INTENTION BRACELET CREATOR (PAUSE ACTIVATIONS)
   // =========================================================================
   function initDigitalBraceletCreator() {

@@ -926,6 +926,161 @@
           </div>
         </div>
 
+        <!-- ==================== LIVE OPEN MIC STAGE ROSTER (10-SLOT GATHERING PIPELINE) ==================== -->
+        <div class="openmic-roster-card" id="openmic-roster-stage">
+          <div class="roster-header">
+            <div>
+              <span class="roster-badge">✦ Gathering Lineup • Sunday, Nov 15</span>
+              <h4 class="roster-title serif-brand">Community Open Mic Stage Roster</h4>
+              <p class="roster-sub">10 unhurried 5-minute slots for spoken word, acoustic music, comedy, and personal reflections. Zero judgment, reverent listeners.</p>
+            </div>
+            <div class="roster-status-indicator">
+              <span class="roster-dot-live"></span>
+              <span><strong>2</strong> Open Slots Available</span>
+            </div>
+          </div>
+
+          <div class="roster-slots-grid">
+            <!-- Slot 1 -->
+            <div class="roster-slot claimed">
+              <div class="slot-num">01</div>
+              <div class="slot-details">
+                <div class="slot-role">Opening Grounding &amp; Vocal Tone</div>
+                <div class="slot-artist">Marlon Smith <span class="slot-tag">Host / MC</span></div>
+              </div>
+              <div class="slot-badge confirmed">Confirmed</div>
+            </div>
+
+            <!-- Slot 2 -->
+            <div class="roster-slot claimed">
+              <div class="slot-num">02</div>
+              <div class="slot-details">
+                <div class="slot-role">Somatic Pause &amp; Breathwork Verse</div>
+                <div class="slot-artist">Teshia Campbell <span class="slot-tag">Founder</span></div>
+              </div>
+              <div class="slot-badge confirmed">Confirmed</div>
+            </div>
+
+            <!-- Slot 3 -->
+            <div class="roster-slot claimed">
+              <div class="slot-num">03</div>
+              <div class="slot-details">
+                <div class="slot-role">Spoken Word Healing Poem</div>
+                <div class="slot-artist">Riverside Youth Collective</div>
+              </div>
+              <div class="slot-badge confirmed">Confirmed</div>
+            </div>
+
+            <!-- Slot 4 -->
+            <div class="roster-slot claimed">
+              <div class="slot-num">04</div>
+              <div class="slot-details">
+                <div class="slot-role">Acoustic Soul &amp; Strings</div>
+                <div class="slot-artist">Marcus G. (Irvine)</div>
+              </div>
+              <div class="slot-badge confirmed">Confirmed</div>
+            </div>
+
+            <!-- Slot 5 -->
+            <div class="roster-slot claimed">
+              <div class="slot-num">05</div>
+              <div class="slot-details">
+                <div class="slot-role">Storytelling &amp; Inner Truth</div>
+                <div class="slot-artist">Elena Garcia</div>
+              </div>
+              <div class="slot-badge confirmed">Confirmed</div>
+            </div>
+
+            <!-- Slot 6 -->
+            <div class="roster-slot claimed">
+              <div class="slot-num">06</div>
+              <div class="slot-details">
+                <div class="slot-role">Acoustic Folk Song</div>
+                <div class="slot-artist">Orange County Creative</div>
+              </div>
+              <div class="slot-badge confirmed">Confirmed</div>
+            </div>
+
+            <!-- Slot 7 -->
+            <div class="roster-slot claimed">
+              <div class="slot-num">07</div>
+              <div class="slot-details">
+                <div class="slot-role">Vocal Harmonies &amp; Reflection</div>
+                <div class="slot-artist">Maya R.</div>
+              </div>
+              <div class="slot-badge confirmed">Confirmed</div>
+            </div>
+
+            <!-- Slot 8 - Open -->
+            <div class="roster-slot open">
+              <div class="slot-num">08</div>
+              <div class="slot-details">
+                <div class="slot-role">Open Mic Community Slot (5 Min)</div>
+                <div class="slot-artist">Your Voice, Poetry, or Song</div>
+              </div>
+              <button type="button" class="btn-claim-slot" onclick="claimOpenMicSlot('08')" title="Claim Slot 08">
+                <span>🌱 Claim Slot →</span>
+              </button>
+            </div>
+
+            <!-- Slot 9 - Open -->
+            <div class="roster-slot open">
+              <div class="slot-num">09</div>
+              <div class="slot-details">
+                <div class="slot-role">Open Mic Community Slot (5 Min)</div>
+                <div class="slot-artist">Your Voice, Poetry, or Song</div>
+              </div>
+              <button type="button" class="btn-claim-slot" onclick="claimOpenMicSlot('09')" title="Claim Slot 09">
+                <span>🌱 Claim Slot →</span>
+              </button>
+            </div>
+
+            <!-- Slot 10 -->
+            <div class="roster-slot claimed">
+              <div class="slot-num">10</div>
+              <div class="slot-details">
+                <div class="slot-role">Closing Community Harmony &amp; Release</div>
+                <div class="slot-artist">All Voices Together</div>
+              </div>
+              <div class="slot-badge confirmed">Circle Open</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== COMMUNITY VIDEO REEL & STORIES (CAFE 86 MOMENTS) ==================== -->
+        <div class="community-video-reel-card" id="openmic-video-showcase">
+          <div class="reel-header">
+            <div>
+              <span class="reel-badge">✦ Sanctuary Video Stories</span>
+              <h4 class="reel-title serif-brand">Living Moments from the Mic</h4>
+              <p class="reel-sub">Feel the reverberation of real laughter, unhurried breath, and sovereign acoustics captured live at Cafe 86.</p>
+            </div>
+            <div class="reel-tabs">
+              <button type="button" class="reel-tab active" data-filter="all" onclick="filterVideoReels('all')">✦ All Moments</button>
+              <button type="button" class="reel-tab" data-filter="vocal" onclick="filterVideoReels('vocal')">🎤 Acoustic Soul</button>
+              <button type="button" class="reel-tab" data-filter="poetry" onclick="filterVideoReels('poetry')">📜 Spoken Word</button>
+              <button type="button" class="reel-tab" data-filter="somatic" onclick="filterVideoReels('somatic')">🌿 Somatic Breath</button>
+            </div>
+          </div>
+
+          <!-- Video Reel Stage -->
+          <div class="reel-stage-wrap">
+            <div class="reel-stage-frame">
+              <img id="reelPreviewImage" src="images/openmic/openmic-vocalist-yellow.jpg" alt="Inner Sanctuary Community Open Mic Highlight Reel" class="reel-preview-image">
+              <div class="reel-stage-overlay">
+                <button type="button" class="reel-play-btn" onclick="playCommunityReelModal()" aria-label="Play Sanctuary Community Highlight Reel">
+                  <span class="play-icon">▶</span>
+                </button>
+                <div class="reel-caption-overlay">
+                  <span class="reel-caption-badge" id="reelActiveBadge">✦ ACOUSTIC SOUL HIGHLIGHT</span>
+                  <div class="reel-caption-title" id="reelActiveTitle">"The song we didn't know we needed to sing."</div>
+                  <div class="reel-caption-meta">Cafe 86 Gathering • Irvine, CA • 100% Substance-Free Creative Sanctuary</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="openmic-single-wrap">
           <div class="openmic-facet-card openmic-full-width">
             <div class="facet-icon-tag">

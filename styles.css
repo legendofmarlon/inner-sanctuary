@@ -6865,6 +6865,373 @@ body[data-element="ether"] nav::after {
   }
 }
 
+/* --------------------------------------------------------------------------
+   5. LIVE OPEN MIC STAGE ROSTER & COMMUNITY VIDEO REEL
+   -------------------------------------------------------------------------- */
+.openmic-roster-card {
+  max-width: 860px;
+  margin: 28px auto 30px;
+  background: rgba(18, 32, 24, 0.94);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1.5px solid var(--sunburst-gold);
+  border-radius: 16px;
+  padding: 26px 22px;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.3);
+  color: #F6F3EC;
+}
+
+.roster-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(197, 154, 63, 0.25);
+  padding-bottom: 14px;
+}
+
+.roster-badge {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #F8D98C;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.roster-title {
+  color: #FFFFFF;
+  font-size: clamp(1.2rem, 2.4vw, 1.6rem);
+  margin: 0 0 4px;
+}
+
+.roster-sub {
+  font-size: 0.86rem;
+  color: #CBD7D0;
+  max-width: 520px;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.roster-status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(197, 154, 63, 0.18);
+  border: 1px solid rgba(197, 154, 63, 0.45);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  color: #F8D98C;
+}
+
+.roster-dot-live {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #55D688;
+  box-shadow: 0 0 10px #55D688;
+  animation: pulseDot 2s infinite ease-in-out;
+}
+
+.roster-slots-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 10px;
+}
+
+@media (max-width: 600px) {
+  .roster-slots-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.roster-slot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(197, 154, 63, 0.25);
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+
+.roster-slot:hover {
+  background: rgba(0, 0, 0, 0.42);
+  border-color: rgba(197, 154, 63, 0.45);
+}
+
+.roster-slot.open {
+  background: rgba(197, 154, 63, 0.08);
+  border: 1px dashed var(--sunburst-gold);
+}
+
+.roster-slot.open:hover {
+  background: rgba(197, 154, 63, 0.16);
+  transform: translateY(-1px);
+}
+
+.slot-num {
+  font-family: 'Cinzel', serif;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--sunburst-gold);
+  width: 24px;
+}
+
+.slot-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.slot-role {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.slot-artist {
+  font-size: 0.74rem;
+  color: #CBD7D0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.slot-tag {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #F8D98C;
+  background: rgba(197, 154, 63, 0.25);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+.slot-badge.confirmed {
+  font-size: 0.70rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #55D688;
+  background: rgba(85, 214, 136, 0.12);
+  border: 1px solid rgba(85, 214, 136, 0.35);
+  padding: 3px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.btn-claim-slot {
+  background: linear-gradient(135deg, var(--sunburst-gold) 0%, #B3862E 100%);
+  color: #1A1A17;
+  font-family: inherit;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  border: none;
+  border-radius: 999px;
+  padding: 6px 14px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 8px rgba(197, 154, 63, 0.3);
+}
+
+.btn-claim-slot:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(197, 154, 63, 0.5);
+}
+
+/* Community Video Stories & Reel */
+.community-video-reel-card {
+  max-width: 860px;
+  margin: 28px auto 30px;
+  background: rgba(18, 32, 24, 0.94);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1.5px solid var(--sunburst-gold);
+  border-radius: 16px;
+  padding: 26px 22px;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.3);
+  color: #F6F3EC;
+}
+
+.reel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.reel-badge {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #F8D98C;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.reel-title {
+  color: #FFFFFF;
+  font-size: clamp(1.2rem, 2.4vw, 1.6rem);
+  margin: 0 0 4px;
+}
+
+.reel-sub {
+  font-size: 0.86rem;
+  color: #CBD7D0;
+  max-width: 500px;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.reel-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.reel-tab {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(197, 154, 63, 0.3);
+  color: #CBD7D0;
+  font-family: inherit;
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.reel-tab:hover {
+  background: rgba(197, 154, 63, 0.2);
+  color: #FFFFFF;
+}
+
+.reel-tab.active {
+  background: var(--sunburst-gold);
+  color: #1C1B18;
+  border-color: var(--sunburst-gold);
+}
+
+.reel-stage-wrap {
+  width: 100%;
+}
+
+.reel-stage-frame {
+  position: relative;
+  width: 100%;
+  height: 320px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(197, 154, 63, 0.35);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+  background: #0D1611;
+}
+
+@media (max-width: 600px) {
+  .reel-stage-frame {
+    height: 220px;
+  }
+}
+
+.reel-preview-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.reel-stage-frame:hover .reel-preview-image {
+  transform: scale(1.02);
+}
+
+.reel-stage-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, rgba(10, 20, 14, 0.88) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.reel-play-btn {
+  align-self: center;
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--sunburst-gold), #B3862E);
+  color: #1C1B18;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 24px rgba(197, 154, 63, 0.65);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.reel-play-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 34px rgba(197, 154, 63, 0.9);
+}
+
+.play-icon {
+  font-size: 1.5rem;
+  margin-left: 4px;
+}
+
+.reel-caption-overlay {
+  margin-top: auto;
+}
+
+.reel-caption-badge {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #F8D98C;
+  background: rgba(197, 154, 63, 0.25);
+  border: 1px solid rgba(197, 154, 63, 0.4);
+  padding: 2px 10px;
+  border-radius: 999px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+
+.reel-caption-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  color: #FFFFFF;
+  font-weight: 700;
+  line-height: 1.35;
+  margin-bottom: 4px;
+}
+
+.reel-caption-meta {
+  font-size: 0.78rem;
+  color: #CBD7D0;
+}
+
 
 /* ==========================================================================
    ENHANCEMENTS: METHOD STOCK PHOTOS, HERO REFLECTION CARD & SILENT AIR PACER
