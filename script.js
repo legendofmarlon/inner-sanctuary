@@ -3849,7 +3849,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize all feature suites
   initSanctuaryReflectionWidget();
   initOpenMicCountdown();
-  initCommunitySeedGarden();
 
   // =========================================================================
   // LIVE OPEN MIC STAGE ROSTER & COMMUNITY REEL
@@ -3934,6 +3933,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnReset = document.getElementById('btnResetBracelet');
     const btnCopy = document.getElementById('btnCopySpark');
     const toast = document.getElementById('sparkToast');
+    const visualizer = document.getElementById('braceletCircleVisualizer');
+    const ringBeadsLayer = document.getElementById('ringBeadsLayer');
 
     if (!beadBtns.length || !slots[0]) return;
 
@@ -3946,6 +3947,49 @@ document.addEventListener('DOMContentLoaded', () => {
       "Wear this intention as an unhurried anchor: You are worthy of peace, exactly as you are, in this exact heartbeat.",
       "When the world feels loud, return to what is real: the ground under your feet, the breath in your lungs, and the community standing beside you."
     ];
+
+    function renderCompletedRing() {
+      if (!ringBeadsLayer || selectedBeads.length !== 3) return;
+      ringBeadsLayer.innerHTML = '';
+
+      const totalBeads = 12;
+      const R = 105;
+      const cx = 140;
+      const cy = 140;
+
+      const cedarWoodBg = 'radial-gradient(circle at 35% 35%, #C19A6B, #8B5A2B 70%, #5C3A1E)';
+      const goldBg = 'radial-gradient(circle at 35% 35%, #FFF9D2, #FFD700 65%, #C67D00)';
+
+      for (let i = 0; i < totalBeads; i++) {
+        const theta = (i / totalBeads) * Math.PI * 2 - Math.PI / 2;
+        const beadEl = document.createElement('div');
+
+        if (i === 0 || i === 4 || i === 8) {
+          // Chosen Intention Gemstone Beads
+          const chosenIdx = i === 0 ? 0 : (i === 4 ? 1 : 2);
+          const chosen = selectedBeads[chosenIdx];
+          beadEl.className = 'ring-bead main-bead';
+          beadEl.style.background = chosen.bg;
+          beadEl.title = `${chosen.name}: ${chosen.meaning || 'Sacred Intention'}`;
+          const size = 34;
+          const x = cx + R * Math.cos(theta) - size / 2;
+          const y = cy + R * Math.sin(theta) - size / 2;
+          beadEl.style.left = `${x}px`;
+          beadEl.style.top = `${y}px`;
+        } else {
+          // Alternating Cedar Wood & Sunburst Gold Spacers
+          beadEl.className = 'ring-bead spacer-bead';
+          beadEl.style.background = (i % 2 === 0) ? cedarWoodBg : goldBg;
+          const size = 18;
+          const x = cx + R * Math.cos(theta) - size / 2;
+          const y = cy + R * Math.sin(theta) - size / 2;
+          beadEl.style.left = `${x}px`;
+          beadEl.style.top = `${y}px`;
+        }
+
+        ringBeadsLayer.appendChild(beadEl);
+      }
+    }
 
     function updateBraceletStage() {
       // Update slots
@@ -3974,6 +4018,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Check if 3 beads are selected
       if (selectedBeads.length === 3) {
+        if (visualizer) {
+          visualizer.style.display = 'flex';
+          renderCompletedRing();
+        }
+
         if (revealedContainer) {
           revealedContainer.style.display = 'block';
           if (beadSummary) {
@@ -3986,6 +4035,9 @@ document.addEventListener('DOMContentLoaded', () => {
           revealedContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
       } else {
+        if (visualizer) {
+          visualizer.style.display = 'none';
+        }
         if (revealedContainer) {
           revealedContainer.style.display = 'none';
         }
@@ -3996,17 +4048,29 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.addEventListener('click', () => {
         const beadType = btn.dataset.bead;
         const beadName = btn.dataset.name;
+        const beadMeaning = btn.dataset.meaning;
         const circleElem = btn.querySelector('.bead-circle');
         const bg = circleElem ? circleElem.style.background : btn.dataset.color;
 
         const existingIdx = selectedBeads.findIndex(b => b.type === beadType);
         if (existingIdx !== -1) {
           selectedBeads.splice(existingIdx, 1);
+          playHarmonicTone(440, 0.08, 0.02);
         } else {
           if (selectedBeads.length < 3) {
-            selectedBeads.push({ type: beadType, name: beadName, bg });
+            selectedBeads.push({ type: beadType, name: beadName, meaning: beadMeaning, bg });
           } else {
-            selectedBeads[2] = { type: beadType, name: beadName, bg };
+            selectedBeads[2] = { type: beadType, name: beadName, meaning: beadMeaning, bg };
+          }
+
+          if (selectedBeads.length === 3) {
+            // Circle completion harmony!
+            playHarmonicTone(880, 0.12, 0.03);
+            setTimeout(() => playHarmonicTone(528, 1.4, 0.02), 100);
+            createHeartFlourish();
+            showToast('✨ The circle is complete! Your bracelet is weaved with love.');
+          } else {
+            playHarmonicTone(selectedBeads.length === 1 ? 659 : 784, 0.09, 0.03);
           }
         }
         updateBraceletStage();
@@ -4016,6 +4080,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnReset) {
       btnReset.addEventListener('click', () => {
         selectedBeads = [];
+        playHarmonicTone(432, 0.5, 0.015);
         updateBraceletStage();
       });
     }
@@ -4024,7 +4089,7 @@ document.addEventListener('DOMContentLoaded', () => {
       btnCopy.addEventListener('click', () => {
         const quote = quoteElem ? quoteElem.textContent : '';
         const summary = beadSummary ? beadSummary.textContent : '';
-        const shareText = `${quote}\n\n— Weaved with ${summary}\nInner Sanctuary Wellness Foundation ✦ @ourinnersanctuary\nhttps://ourinnersanctuary.org`;
+        const shareText = `${quote}\n\n— Weaved with Love at Our Sanctuary Clubhouse • ${summary}\nInner Sanctuary Wellness Foundation ✦ @ourinnersanctuary\nhttps://ourinnersanctuary.org`;
 
         if (navigator.clipboard && navigator.clipboard.writeText) {
           navigator.clipboard.writeText(shareText).then(showToastFeedback).catch(() => fallbackCopy(shareText));
@@ -4407,9 +4472,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.currentStoryData = {
       quote: quote,
-      badge: "✦ MY SANCTUARY SPARK ✦",
-      source: `— Inner Sanctuary Spark • ${summary}`,
-      filename: "inner-sanctuary-spark.png"
+      badge: "✦ WEAVED WITH LOVE • OUR SANCTUARY CLUBHOUSE ✦",
+      source: `— Inner Sanctuary Bracelet Keepsake • ${summary}`,
+      filename: "inner-sanctuary-clubhouse-keepsake.png"
     };
 
     renderAndShowStoryModal();
@@ -4728,3 +4793,160 @@ document.addEventListener('DOMContentLoaded', () => {
       window.closeIgStoryModal();
     }
   });
+
+
+// =========================================================================
+// SANCTUARY IN YOUR POCKET: PWA & ADD TO HOME SCREEN CONTROLLER
+// =========================================================================
+(function initSanctuaryPwaController() {
+  let deferredPwaPrompt = null;
+  const DISMISS_DURATION_DAYS = 7;
+  const DISMISS_KEY = 'sanctuary_pwa_dismissed';
+
+  // 1. Register Service Worker
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      // Only register on http/https to avoid file:// protocol errors
+      if (window.location.protocol.startsWith('http')) {
+        navigator.serviceWorker.register('./sw.js')
+          .then((registration) => {
+            console.log('[Sanctuary PWA] Service Worker active with scope:', registration.scope);
+          })
+          .catch((err) => {
+            console.warn('[Sanctuary PWA] Service Worker registration failed:', err);
+          });
+      }
+    });
+  }
+
+  // Helper: Detect iOS Safari
+  function isIosSafari() {
+    const ua = window.navigator.userAgent;
+    const isIos = /iphone|ipad|ipod/i.test(ua);
+    const isWebview = navigator.standalone || window.matchMedia('(display-mode: standalone)').matches;
+    return isIos && !isWebview;
+  }
+
+  // Helper: Check if already installed / standalone
+  function isStandalone() {
+    return window.matchMedia('(display-mode: standalone)').matches || ('standalone' in navigator && navigator.standalone);
+  }
+
+  // 2. Capture install prompt on Chromium / Android / Desktop
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPwaPrompt = e;
+
+    // Show nav and mobile install buttons
+    const navBtn = document.getElementById('btnPwaNavInstall');
+    if (navBtn) navBtn.style.display = 'inline-flex';
+
+    const mobileItem = document.getElementById('mobilePwaInstallItem');
+    if (mobileItem) mobileItem.style.display = 'block';
+
+    // Check if dismissed recently
+    const dismissedAt = localStorage.getItem(DISMISS_KEY);
+    const now = Date.now();
+    const isDismissedRecently = dismissedAt && (now - parseInt(dismissedAt, 10)) < (DISMISS_DURATION_DAYS * 24 * 60 * 60 * 1000);
+
+    if (!isDismissedRecently && !isStandalone()) {
+      // Gentle delayed reveal after 4 seconds
+      setTimeout(() => {
+        const banner = document.getElementById('pwaInstallBanner');
+        if (banner && deferredPwaPrompt) {
+          banner.style.display = 'block';
+        }
+      }, 4000);
+    }
+  });
+
+  // Handle iOS Safari visibility of install triggers
+  document.addEventListener('DOMContentLoaded', () => {
+    if (isIosSafari() && !isStandalone()) {
+      const navBtn = document.getElementById('btnPwaNavInstall');
+      if (navBtn) navBtn.style.display = 'inline-flex';
+
+      const mobileItem = document.getElementById('mobilePwaInstallItem');
+      if (mobileItem) mobileItem.style.display = 'block';
+    }
+  });
+
+  // 3. User Trigger: Clicked Install Button anywhere (Nav, Footer, or Banner)
+  window.triggerPwaInstall = function(e) {
+    if (e && e.preventDefault) e.preventDefault();
+
+    if (deferredPwaPrompt) {
+      // Trigger native browser prompt
+      deferredPwaPrompt.prompt();
+      deferredPwaPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('[Sanctuary PWA] User accepted the install prompt');
+          if (typeof playHarmonicTone === 'function') playHarmonicTone(528, 1.2, 0.03);
+          if (typeof showToast === 'function') showToast('✨ Sanctuary installed to your Home Screen! Welcome home.');
+        } else {
+          console.log('[Sanctuary PWA] User dismissed the install prompt');
+        }
+        deferredPwaPrompt = null;
+        window.dismissPwaBanner();
+      });
+    } else if (isIosSafari()) {
+      // Open iOS modal guidance
+      const iosModal = document.getElementById('pwaIosModal');
+      if (iosModal) iosModal.style.display = 'flex';
+      if (typeof playHarmonicTone === 'function') playHarmonicTone(659, 0.2, 0.02);
+    } else {
+      // General feedback if browser doesn't support deferred prompt or is already installed
+      if (isStandalone()) {
+        if (typeof showToast === 'function') showToast('✨ Sanctuary is already installed and running on your device!');
+      } else {
+        const banner = document.getElementById('pwaInstallBanner');
+        if (banner) banner.style.display = 'block';
+        if (typeof showToast === 'function') showToast('✦ Tap your browser menu (⋮) and select "Add to Home Screen" or "Install App".');
+      }
+    }
+  };
+
+  // 4. Banner Action Buttons
+  window.acceptPwaInstall = function() {
+    window.triggerPwaInstall();
+  };
+
+  window.dismissPwaBanner = function() {
+    const banner = document.getElementById('pwaInstallBanner');
+    if (banner) banner.style.display = 'none';
+    localStorage.setItem(DISMISS_KEY, Date.now().toString());
+  };
+
+  window.closePwaIosModal = function() {
+    const iosModal = document.getElementById('pwaIosModal');
+    if (iosModal) iosModal.style.display = 'none';
+  };
+
+  // 5. Celebration on successful install
+  window.addEventListener('appinstalled', () => {
+    deferredPwaPrompt = null;
+    const banner = document.getElementById('pwaInstallBanner');
+    if (banner) banner.style.display = 'none';
+    const navBtn = document.getElementById('btnPwaNavInstall');
+    if (navBtn) navBtn.style.display = 'none';
+    const mobileItem = document.getElementById('mobilePwaInstallItem');
+    if (mobileItem) mobileItem.style.display = 'none';
+
+    if (typeof playHarmonicTone === 'function') {
+      playHarmonicTone(528, 1.5, 0.03);
+      setTimeout(() => playHarmonicTone(880, 1.0, 0.02), 150);
+    }
+    if (typeof createHeartFlourish === 'function') createHeartFlourish();
+    if (typeof showToast === 'function') {
+      showToast('🕊️ Inner Sanctuary successfully installed! Your sanctuary is always one tap away.');
+    }
+  });
+
+  // Close iOS modal when clicking outside
+  window.addEventListener('click', (e) => {
+    const iosModal = document.getElementById('pwaIosModal');
+    if (iosModal && e.target === iosModal) {
+      window.closePwaIosModal();
+    }
+  });
+})();

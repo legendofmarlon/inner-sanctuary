@@ -1,0 +1,70 @@
+{
+  "name": "Inner Sanctuary Wellness Foundation",
+  "short_name": "Inner Sanctuary",
+  "description": "A sacred haven for breath, spoken word, somatic movement, and mindful community at Our Sanctuary Clubhouse.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0E1A14",
+  "theme_color": "#2B4436",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "emblem.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "emblem.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": [
+    "health",
+    "lifestyle",
+    "wellness",
+    "community"
+  ],
+  "shortcuts": [
+    {
+      "name": "Spoken Word Roster",
+      "short_name": "Open Mic",
+      "description": "Claim your slot on stage at Our Sanctuary Clubhouse",
+      "url": "./index.html#open-mic-roster",
+      "icons": [
+        {
+          "src": "emblem.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Weave Intention Bracelet",
+      "short_name": "Bracelet",
+      "description": "Weave your 3-bead keepsake bracelet",
+      "url": "./index.html#digital-bracelet-creator",
+      "icons": [
+        {
+          "src": "emblem.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Interactive Soundscapes",
+      "short_name": "Soundscapes",
+      "description": "Listen to 432Hz ambient audio sanctuary",
+      "url": "./index.html#interactive-soundscapes",
+      "icons": [
+        {
+          "src": "emblem.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}

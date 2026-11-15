@@ -30,6 +30,16 @@
   <meta name="twitter:description" content="Where raw voices find grounded space. Somatic healing, creator spotlight, and community wellness in Orange County &amp; Inland Empire." />
   <meta name="twitter:image" content="https://innersanctuarywellnessfoundation.org/emblem.png" />
 
+  <!-- Progressive Web App (PWA) Manifest & Meta Tags (Sanctuary in Your Pocket) -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#2B4436" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Inner Sanctuary" />
+  <link rel="apple-touch-icon" href="emblem.png" />
+  <link rel="icon" type="image/png" href="emblem.png" />
+
   <!-- JSON-LD Structured Data Schema Graph for Google Knowledge Graph, Event Snippets & Rich Results -->
   <script type="application/ld+json">
   {
@@ -304,6 +314,9 @@
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
           <span class="desktop-only-ig">@ourinnersanctuary</span>
         </a>
+        <button type="button" id="btnPwaNavInstall" class="btn-outline-gold pwa-nav-btn" style="display: none; padding: 8px 14px; border-radius: 999px; align-items: center; gap: 6px; font-size: 0.74rem; font-weight: 700; cursor: pointer; letter-spacing: 0.04em;" title="Add Inner Sanctuary App to Home Screen" onclick="triggerPwaInstall(event)">
+          <span>📱 Install App</span>
+        </button>
         <button type="button" onclick="openZeffyModal(event)" class="btn btn-gold nav-donate-cta btn-liquid-gold pulse-gold weekly-shimmer-cta" style="padding: 10px 20px; font-size: 0.82rem; font-weight: 700; cursor: pointer; border-radius: 999px; display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; box-shadow: 0 4px 16px rgba(197, 154, 63, 0.45); letter-spacing: 0.04em;" title="Plant Your $1 Seed in the Sanctuary">
           <span>🌱 Give $1 Seed</span>
         </button>
@@ -316,6 +329,11 @@
     <!-- Mobile Navigation Drawer -->
     <div id="mobile-nav-drawer" class="hidden" style="display: none; padding: 22px 24px; background: #F6F3EC; border-bottom: 2px solid var(--sunburst-gold);">
       <ul style="list-style: none; display: flex; flex-direction: column; gap: 14px; margin: 0; padding: 0;">
+        <li id="mobilePwaInstallItem" style="display: none;">
+          <button type="button" id="btnPwaMobileInstall" class="mobile-nav-pwa-btn" onclick="triggerPwaInstall(event)" style="width: 100%; text-align: left; background: rgba(197, 154, 63, 0.12); border: 1px dashed var(--sunburst-gold); border-radius: 8px; padding: 10px 14px; color: var(--forest-green); font-size: 0.95rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px;">
+            <span>📱 Add to Home Screen</span>
+          </button>
+        </li>
         <li>
           <a href="#remember" class="mobile-nav-item">
             <span class="mobile-nav-main">Pause &amp; Remember</span>
@@ -1264,24 +1282,53 @@
           </div>
         </div>
 
-        <!-- Revealed Sanctuary Spark Card -->
+        <!-- Completed Circular Bracelet Visualizer (Revealed upon 3 beads) -->
+        <div class="bracelet-circle-visualizer" id="braceletCircleVisualizer" style="display: none;">
+          <div class="circle-string-ring">
+            <svg class="bracelet-ring-svg" viewBox="0 0 280 280" width="280" height="280">
+              <defs>
+                <linearGradient id="goldCordGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#C59A3F" />
+                  <stop offset="50%" stop-color="#F8D98C" />
+                  <stop offset="100%" stop-color="#9E7623" />
+                </linearGradient>
+              </defs>
+              <!-- Golden Elastic Cord Loop -->
+              <circle cx="140" cy="140" r="105" fill="none" stroke="url(#goldCordGrad)" stroke-width="2.5" stroke-dasharray="5,3" filter="drop-shadow(0 0 6px rgba(197, 154, 63, 0.45))" />
+            </svg>
+            <!-- 12 Beads Container around the circle -->
+            <div class="ring-beads-layer" id="ringBeadsLayer"></div>
+            <!-- Center Medallion Charm -->
+            <div class="ring-center-charm">
+              <span class="ring-charm-emblem">✦</span>
+              <div class="ring-charm-title">INNER SANCTUARY</div>
+              <div class="ring-charm-venue">SANCTUARY CLUBHOUSE</div>
+            </div>
+          </div>
+          <div class="bracelet-ring-caption">
+            <span>✨ The Circle is Completed • 3 Intentions Strung</span>
+          </div>
+        </div>
+
+        <!-- Revealed Sanctuary Spark Keepsake Card -->
         <div class="revealed-spark-container" id="revealedSpark" style="display: none;">
           <div class="spark-card-preview">
             <span class="spark-emblem">✦</span>
+            <div class="spark-card-header-badge">✦ WEAVED WITH LOVE • OUR SANCTUARY CLUBHOUSE ✦</div>
             <div class="spark-bead-summary" id="sparkBeadSummary">Cedar Wood • Rose Quartz • Sunburst Gold</div>
             <blockquote class="spark-quote" id="sparkQuote">
               "Rooted in grace, held in softness, glowing from within. You don't have to carry the whole mountain today. Breathe in permission."
             </blockquote>
-            <div class="spark-source">— Inner Sanctuary Sparks • Pause Activations</div>
+            <div class="spark-source" id="sparkSource">— Inner Sanctuary Sparks • Weaved at Our Sanctuary Clubhouse</div>
           </div>
 
           <div class="spark-actions-row">
             <button type="button" class="btn-spark-action" id="btnCopySpark">
               <span id="btnCopySparkIcon">📋</span>
-              <span id="btnCopySparkLabel">Copy My Sanctuary Spark</span>
+              <span id="btnCopySparkLabel">Copy Keepsake Reflection</span>
             </button>
             <button type="button" class="btn-spark-action btn-spark-share" id="btnShareSparkIG" onclick="openStorySnapshotFromSpark(event)" title="Create 9:16 Instagram Story snapshot card">
-              <span>📸 Share to IG Story</span>
+              <span>📸 Share Keepsake to IG Story</span>
             </button>
             <button type="button" class="btn-spark-reset" id="btnResetBracelet">
               <span>🔄 Weave Another Bracelet</span>
@@ -2017,65 +2064,6 @@
     </div>
   </section>
 
-  <!-- ==================== LIVING COMMUNITY SEED GARDEN & INTENTION WALL ==================== -->
-  <section id="community-seed-garden" class="section-padding living-garden-section" style="background: rgba(239, 236, 227, 0.95); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-top: 1px solid rgba(197, 154, 63, 0.25);">
-    <div class="container">
-      
-      <div class="section-header" style="max-width: 860px; margin: 0 auto 30px; text-align: center;">
-        <span class="seed-garden-pill">✦ Sacred Community Intention Wall ✦</span>
-        <h2 class="section-title serif-brand" style="margin-top: 10px;">The Living Sanctuary Garden</h2>
-        <div class="flourish-divider">✦</div>
-        <p style="font-size: 1.05rem; color: var(--charcoal-muted); line-height: 1.8; margin-bottom: 0;">
-          Every seed planted here represents an intention held by our community. Tap any glowing lotus bloom to read a neighbor's intention, or plant your own seed below to watch our collective garden bloom.
-        </p>
-      </div>
-
-      <div class="community-seed-garden-box" id="communitySeedGarden">
-        <!-- Interactive Garden Canvas Stage -->
-        <div class="seed-garden-canvas-wrap" id="seedGardenCanvasWrap">
-          <canvas id="seedGardenCanvas" class="seed-garden-canvas" width="960" height="300" aria-label="Interactive Community Seed Garden with glowing intentions"></canvas>
-          
-          <!-- Garden Hover/Active Tooltip -->
-          <div id="seedGardenTooltip" class="seed-garden-tooltip" style="display: none;" role="tooltip">
-            <div class="seed-tooltip-name" id="seedTooltipName">Teshia &amp; Marlon</div>
-            <div class="seed-tooltip-intention" id="seedTooltipIntention">"May every weary heart find safe harbor and deep breath here."</div>
-            <div class="seed-tooltip-badge" id="seedTooltipBadge">✦ SEED OF SANCTUARY</div>
-          </div>
-
-          <!-- Garden Stats Counter -->
-          <div class="seed-garden-stats">
-            <span class="seed-stat-item">🌱 <strong id="seedGardenCount">8</strong> Intentions Blossoming</span>
-            <span class="seed-stat-divider">•</span>
-            <span class="seed-stat-item">✨ <span id="seedGardenActiveElement">Living Breath Resonance</span></span>
-            <span class="seed-stat-divider">•</span>
-            <span class="seed-stat-item">🕊️ 100% Held in Collective Care</span>
-          </div>
-        </div>
-
-        <!-- Streamlined Artistic Seed Planting Row -->
-        <div class="seed-planting-action-bar">
-          <form id="seedPlantingForm" class="seed-planting-form">
-            <div class="seed-input-fields">
-              <input type="text" id="seedDonorName" class="seed-input-text seed-donor-field" placeholder="Your Name or 'Neighbor'" maxlength="36">
-              <input type="text" id="seedIntentionText" class="seed-input-text seed-intention-input" placeholder="Share your sacred intention (e.g. Peace in my family, courage to create...)" required maxlength="120">
-              <select id="seedElementType" class="seed-input-select" aria-label="Choose intention element">
-                <option value="earth">🌿 Earth</option>
-                <option value="water">🌊 Water</option>
-                <option value="air" selected>🌬️ Air</option>
-                <option value="fire">🔥 Fire</option>
-                <option value="ether">🌌 Ether</option>
-              </select>
-            </div>
-            <button type="submit" class="btn btn-gold seed-plant-btn" id="btnPlantSeed">
-              <span>🌱 Plant Your Seed</span>
-            </button>
-          </form>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
   <footer>
     <div class="container">
       
@@ -2114,7 +2102,7 @@
             <li><a href="#sponsorship">Institutional Grants & Partnerships</a></li>
             <li><a href="#stay-in-loop">Stay in the Loop</a></li>
             <li><a href="#connect">Get Involved With Us</a></li>
-            <li><a href="#community-seed-garden">The Living Community Garden</a></li>
+            <li><a href="#install" id="btnPwaFooterInstall" onclick="triggerPwaInstall(event)">📱 Add Sanctuary to Home Screen</a></li>
           </ul>
         </div>
 
@@ -2269,6 +2257,73 @@
       </div>
       
       <div id="igStoryToast" class="ig-story-toast" role="status" aria-live="polite">✓ Story image downloaded! Ready to add to your IG Story.</div>
+    </div>
+  </div>
+
+  <!-- ==================== SANCTUARY IN YOUR POCKET: PWA INSTALL BANNER ==================== -->
+  <aside id="pwaInstallBanner" class="pwa-install-banner" role="region" aria-label="Add Inner Sanctuary to Home Screen" style="display: none;">
+    <div class="pwa-banner-card">
+      <button type="button" class="pwa-close-btn" id="btnPwaClose" aria-label="Close install prompt" onclick="dismissPwaBanner()">✕</button>
+      <div class="pwa-banner-content">
+        <div class="pwa-icon-wrap">
+          <img src="emblem.png" alt="Inner Sanctuary App Icon" class="pwa-app-icon" onerror="this.src='emblem.jpg'" />
+        </div>
+        <div class="pwa-text-wrap">
+          <div class="pwa-badge">✦ SANCTUARY IN YOUR POCKET</div>
+          <h4 class="pwa-title">Add to Home Screen</h4>
+          <p class="pwa-desc">Instant offline access to mindful soundscapes, open mic stages, and sacred reflections—right from your device.</p>
+        </div>
+      </div>
+      <div class="pwa-actions-row">
+        <button type="button" class="btn btn-gold btn-liquid-gold pwa-install-action" id="btnPwaInstallAction" onclick="acceptPwaInstall()">
+          <span>📲 Add Sanctuary App</span>
+        </button>
+        <button type="button" class="pwa-dismiss-action" id="btnPwaDismiss" onclick="dismissPwaBanner()">
+          <span>Not right now</span>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ==================== APPLE IOS SAFARI INSTALL GUIDE MODAL ==================== -->
+  <div id="pwaIosModal" class="pwa-ios-modal-backdrop" style="display: none;" role="dialog" aria-modal="true" aria-label="How to install on iOS">
+    <div class="pwa-ios-modal-card">
+      <button type="button" class="pwa-ios-close" id="btnPwaIosClose" aria-label="Close modal" onclick="closePwaIosModal()">✕</button>
+      <div class="pwa-ios-header">
+        <img src="emblem.png" alt="Inner Sanctuary App Icon" class="pwa-ios-icon" onerror="this.src='emblem.jpg'" />
+        <div class="pwa-badge">✦ APPLE IOS SANCTUARY ✦</div>
+        <h3 class="serif-brand pwa-ios-title">Add Sanctuary to Your iPhone or iPad</h3>
+        <p class="pwa-ios-sub">Install Inner Sanctuary directly to your home screen for unhurried, one-tap peace.</p>
+      </div>
+      <div class="pwa-ios-steps">
+        <div class="pwa-ios-step">
+          <div class="pwa-step-badge">1</div>
+          <div class="pwa-step-info">
+            Tap the <strong>Share</strong> button in Safari's toolbar:
+            <span class="pwa-ios-icon-inline">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
+            </span>
+          </div>
+        </div>
+        <div class="pwa-ios-step">
+          <div class="pwa-step-badge">2</div>
+          <div class="pwa-step-info">
+            Scroll down the share menu and select <strong>"Add to Home Screen"</strong>:
+            <span class="pwa-ios-icon-inline">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+            </span>
+          </div>
+        </div>
+        <div class="pwa-ios-step">
+          <div class="pwa-step-badge">3</div>
+          <div class="pwa-step-info">
+            Tap <strong>"Add"</strong> in the top-right corner. The Sanctuary icon is now on your screen!
+          </div>
+        </div>
+      </div>
+      <button type="button" class="btn btn-gold pwa-ios-done-btn" onclick="closePwaIosModal()">
+        <span>✨ Got It, Thank You</span>
+      </button>
     </div>
   </div>
 
