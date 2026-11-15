@@ -115,6 +115,33 @@ document.addEventListener('DOMContentLoaded', () => {
     // ELEMENT ANIMATION ENGINES (UNIQUE FOR EACH ELEMENT)
     // -------------------------------------------------------------
 
+    // Somatic Breathwork Universal Particle Physics Synchronizer
+    function applySomaticBreathPhysics(particle) {
+      if (!window.sanctuaryBreathSync || !window.sanctuaryBreathSync.active) return;
+      const step = window.sanctuaryBreathSync.step; // 0: Inhale (solid 4s), 1: Exhale (solid 4s)
+      const ease = window.sanctuaryBreathSync.ease || 0.5;
+      const centerX = width / 2;
+      const centerY = height * 0.42;
+
+      const dx = centerX - particle.x;
+      const dy = centerY - particle.y;
+      const dist = Math.hypot(dx, dy) || 1;
+      const nx = dx / dist;
+      const ny = dy / dist;
+
+      if (step === 0) {
+        // INHALE: Gentle somatic gravitational pull drawing inward toward sanctuary center
+        const force = ease * 0.22;
+        particle.vx += nx * force;
+        particle.vy += ny * force;
+      } else {
+        // EXHALE: Gentle expansive dispersion wave radiating outward
+        const force = ease * 0.25;
+        particle.vx -= nx * force;
+        particle.vy -= ny * force;
+      }
+    }
+
     // 1. EARTH: Fireflies & Floating Botanical Leaves
     class Firefly {
       constructor(startX, startY, isBurst = false) {
@@ -138,6 +165,9 @@ document.addEventListener('DOMContentLoaded', () => {
         this.pulsePhase += this.pulseSpeed;
         this.vx += (Math.random() - 0.5) * 0.03;
         this.vy += (Math.random() - 0.5) * 0.03 - 0.003;
+
+        // Synchronize with whole-page somatic breath pulse
+        applySomaticBreathPhysics(this);
 
         const dx = this.x - mouse.x;
         const dy = this.y - mouse.y;
@@ -219,6 +249,14 @@ document.addEventListener('DOMContentLoaded', () => {
         this.x = this.startX + Math.sin(this.time) * this.oscAmp;
         this.angleZ += this.rotSpeedZ;
         this.angleY += this.rotSpeedY;
+
+        // Breathwork sync: leaves gently float upward on inhale, drift softly down on exhale
+        if (window.sanctuaryBreathSync && window.sanctuaryBreathSync.active) {
+          const bStep = window.sanctuaryBreathSync.step;
+          const bEase = window.sanctuaryBreathSync.ease || 0.5;
+          this.y += (bStep === 0 ? -0.45 : 0.40) * bEase;
+        }
+
         if (this.y > height + 40) this.reset();
       }
 
@@ -284,6 +322,14 @@ document.addEventListener('DOMContentLoaded', () => {
           this.speedX *= 0.98;
         }
         this.x = this.startX + Math.sin(this.time) * this.oscAmp;
+
+        // Breathwork sync: rising aquatic buoyancy on inhale, calm dispersion on exhale
+        if (window.sanctuaryBreathSync && window.sanctuaryBreathSync.active) {
+          const bStep = window.sanctuaryBreathSync.step;
+          const bEase = window.sanctuaryBreathSync.ease || 0.5;
+          this.y += (bStep === 0 ? -0.55 : 0.25) * bEase;
+        }
+
         if (this.isBurst && (this.age > this.lifespan || this.y < -30)) return false;
         if (this.y < -30) this.reset();
         return true;
@@ -365,6 +411,14 @@ document.addEventListener('DOMContentLoaded', () => {
           this.y += (dy / dist) * 2;
         }
 
+        // Breathwork sync: seeds drift inward toward center on inhale, swirl outward on exhale
+        if (window.sanctuaryBreathSync && window.sanctuaryBreathSync.active) {
+          const bStep = window.sanctuaryBreathSync.step;
+          const bEase = window.sanctuaryBreathSync.ease || 0.5;
+          const cDx = (width / 2) - this.x;
+          this.x += (bStep === 0 ? (cDx > 0 ? 0.35 : -0.35) : (cDx > 0 ? -0.45 : 0.45)) * bEase;
+        }
+
         this.x += this.speedX;
         this.y += this.speedY;
         this.angle += 0.02;
@@ -422,6 +476,14 @@ document.addEventListener('DOMContentLoaded', () => {
         this.y -= this.speedY;
         this.x += this.speedX + Math.sin(this.y * 0.015) * 0.35;
         this.phase += 0.025;
+
+        // Breathwork sync: motes lift subtly on inhale, float down gently on exhale
+        if (window.sanctuaryBreathSync && window.sanctuaryBreathSync.active) {
+          const bStep = window.sanctuaryBreathSync.step;
+          const bEase = window.sanctuaryBreathSync.ease || 0.5;
+          this.y += (bStep === 0 ? -0.42 : 0.35) * bEase;
+        }
+
         if (this.isBurst && (this.age > this.lifespan || this.y < -20)) return false;
         if (this.y < -20) this.reset();
         return true;
@@ -469,6 +531,13 @@ document.addEventListener('DOMContentLoaded', () => {
         this.age++;
         this.y -= this.speedY;
         this.x += this.speedX + Math.sin(this.y * 0.025) * this.wobbleAmp;
+
+        // Breathwork sync: Inhale stokes and draws embers with rising thermal draft; exhale lets them drift gently
+        if (window.sanctuaryBreathSync && window.sanctuaryBreathSync.active) {
+          const bStep = window.sanctuaryBreathSync.step;
+          const bEase = window.sanctuaryBreathSync.ease || 0.5;
+          this.y -= (bStep === 0 ? 0.55 : -0.22) * bEase;
+        }
 
         const lifeProgress = this.age / this.maxLife;
         this.alpha = (1 - lifeProgress) * 0.85;
@@ -522,6 +591,13 @@ document.addEventListener('DOMContentLoaded', () => {
       update() {
         this.age++;
         this.phase += this.speed;
+
+        // Breathwork sync: synchronize starlight pulse and shimmering with the sacred breath
+        if (window.sanctuaryBreathSync && window.sanctuaryBreathSync.active) {
+          const bEase = window.sanctuaryBreathSync.ease || 0.5;
+          this.phase += bEase * 0.035;
+        }
+
         if (this.isBurst) {
           this.x += this.vx;
           this.y += this.vy;
@@ -571,6 +647,15 @@ document.addEventListener('DOMContentLoaded', () => {
       update() {
         this.age++;
         this.angle += this.speed;
+
+        // Breathwork sync: Inhale contracts orbit radius softly inward; exhale expands outward
+        if (window.sanctuaryBreathSync && window.sanctuaryBreathSync.active) {
+          const bStep = window.sanctuaryBreathSync.step;
+          const bEase = window.sanctuaryBreathSync.ease || 0.5;
+          this.radius += (bStep === 0 ? -0.18 : 0.20) * bEase;
+          this.radius = Math.max(15, Math.min(190, this.radius));
+        }
+
         if (this.isBurst) {
           this.radius += 0.4;
           return this.age < this.lifespan;
@@ -675,40 +760,33 @@ document.addEventListener('DOMContentLoaded', () => {
     function animate() {
       ctx.clearRect(0, 0, width, height);
 
-      // Render Dynamic Somatic Breathwork Canvas Aura when 4x4 breathing is active
+      // Render Dynamic Somatic Breathwork Canvas Aura when solid 4s breathing is active
       if (window.sanctuaryBreathSync && window.sanctuaryBreathSync.active) {
-        const step = window.sanctuaryBreathSync.step;
-        const prog = window.sanctuaryBreathSync.progress;
+        const step = window.sanctuaryBreathSync.step; // 0: Inhale (solid 4s), 1: Exhale (solid 4s)
+        const ease = window.sanctuaryBreathSync.ease || 0.5;
         const centerX = width / 2;
-        const centerY = height * 0.40;
+        const centerY = height * 0.42;
 
-        let auraRadius = 240;
-        let auraColorInner = 'rgba(197, 154, 63, 0.12)';
-        let auraColorMid = 'rgba(197, 154, 63, 0.04)';
+        const maxAura = Math.min(width, height) * 0.52;
+        const auraRadius = step === 0 ? (maxAura * (0.65 + ease * 0.35)) : (maxAura * (1.00 - ease * 0.35));
 
-        if (step === 0) {
-          // AIR (Inhale): Soft rising golden-white luminescence expanding outward
-          const expand = 1.0 + prog * 0.5;
-          auraRadius = Math.min(width, height) * 0.48 * expand;
-          auraColorInner = `rgba(255, 248, 225, ${0.12 + prog * 0.08})`;
-          auraColorMid = `rgba(197, 154, 63, ${0.05 + prog * 0.04})`;
-        } else if (step === 1) {
-          // FIRE / SOLAR GOLD (Hold): Warm radiant golden-amber aura expansion & solar shimmer
-          const shimmer = (Math.sin(Date.now() * 0.003) + 1) / 2;
-          auraRadius = Math.min(width, height) * 0.65;
-          auraColorInner = `rgba(216, 170, 73, ${0.16 + shimmer * 0.07})`;
-          auraColorMid = `rgba(235, 125, 45, ${0.07 + shimmer * 0.04})`;
-        } else if (step === 2) {
-          // WATER (Exhale): Smooth liquid undertones contracting gently
-          const contract = 1.45 - prog * 0.45;
-          auraRadius = Math.min(width, height) * 0.48 * contract;
-          auraColorInner = `rgba(92, 168, 185, ${0.14 - prog * 0.05})`;
-          auraColorMid = `rgba(142, 204, 218, ${0.06 - prog * 0.02})`;
+        let auraColorInner, auraColorMid;
+        if (currentElement === 'water') {
+          auraColorInner = step === 0 ? `rgba(142, 204, 218, ${0.12 + ease * 0.08})` : `rgba(92, 168, 185, ${0.20 - ease * 0.08})`;
+          auraColorMid = `rgba(180, 225, 235, ${0.04 + ease * 0.03})`;
+        } else if (currentElement === 'fire') {
+          auraColorInner = step === 0 ? `rgba(245, 175, 25, ${0.14 + ease * 0.09})` : `rgba(235, 125, 45, ${0.23 - ease * 0.09})`;
+          auraColorMid = `rgba(255, 220, 140, ${0.05 + ease * 0.03})`;
+        } else if (currentElement === 'ether') {
+          auraColorInner = step === 0 ? `rgba(180, 150, 220, ${0.13 + ease * 0.08})` : `rgba(140, 105, 195, ${0.21 - ease * 0.08})`;
+          auraColorMid = `rgba(215, 195, 245, ${0.04 + ease * 0.03})`;
+        } else if (currentElement === 'air') {
+          auraColorInner = step === 0 ? `rgba(255, 248, 225, ${0.14 + ease * 0.09})` : `rgba(220, 240, 250, ${0.23 - ease * 0.09})`;
+          auraColorMid = `rgba(197, 154, 63, ${0.05 + ease * 0.03})`;
         } else {
-          // EARTH (Rest): Deep forest-obsidian & warm terracotta/gold settled stillness
-          auraRadius = Math.min(width, height) * 0.35;
-          auraColorInner = 'rgba(95, 123, 107, 0.09)';
-          auraColorMid = 'rgba(197, 154, 63, 0.03)';
+          // Earth
+          auraColorInner = step === 0 ? `rgba(248, 217, 140, ${0.13 + ease * 0.08})` : `rgba(95, 123, 107, ${0.21 - ease * 0.08})`;
+          auraColorMid = `rgba(197, 154, 63, ${0.05 + ease * 0.03})`;
         }
 
         const breathAura = ctx.createRadialGradient(centerX, centerY, 30, centerX, centerY, Math.max(50, auraRadius));
@@ -2002,9 +2080,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const breathSoundLabel = document.getElementById('breath-sound-label');
   const breathWorkshopCtaBtn = document.getElementById('breath-workshop-cta-btn');
 
-  // State Configuration: Calm, Unhurried 4.5s Inhale / 4.5s Exhale (Zero Pauses)
-  const PHASE_DURATION_MS = 4500; // 4.5 seconds per phase (9.0s cycle)
-  const CYCLE_DURATION_MS = 9000;
+  // State Configuration: Calm, Solid 4.0s Inhale / 4.0s Exhale (Zero Pauses)
+  const PHASE_DURATION_MS = 4000; // Solid 4.0 seconds per phase (8.0s cycle)
+  const CYCLE_DURATION_MS = 8000;
   let isBreathingActive = false;
   let breathStartTime = null;
   let breathAnimId = null;
@@ -2063,9 +2141,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const p = phaseElapsed / PHASE_DURATION_MS; // 0.0 to 1.0
     const ease = (1 - Math.cos(p * Math.PI)) / 2;
 
-    // Trigger soothing breath sounds right at phase transition
+    // Trigger soothing breath sounds right at phase transition (solid 4.0s)
     if (phaseIndex !== lastTriggeredPhase) {
       lastTriggeredPhase = phaseIndex;
+      if (phaseIndex === 0) {
+        breathAudio.playInhale(4.0);
+      } else {
+        breathAudio.playExhale(4.0);
+      }
     }
 
     
@@ -2124,11 +2207,16 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
+    // Whole-Screen Atmospheric Inhale/Exhale Living Scale (1.000 to 1.026)
+    const bgScale = phaseIndex === 0 ? 1.00 + ease * 0.026 : 1.026 - ease * 0.026;
+    document.documentElement.style.setProperty('--breath-bg-scale', bgScale.toFixed(4));
+
     // Sync ambient background canvas breathing aura
     if (window.sanctuaryBreathSync) {
       window.sanctuaryBreathSync.active = true;
       window.sanctuaryBreathSync.step = phaseIndex;
-      window.sanctuaryBreathSync.progress = cycleTime / CYCLE_DURATION_MS;
+      window.sanctuaryBreathSync.progress = p;
+      window.sanctuaryBreathSync.ease = ease;
       window.sanctuaryBreathSync.scale = phaseIndex === 0 ? 1.0 + ease * 0.46 : 1.46 - ease * 0.46;
     }
 
@@ -2169,6 +2257,9 @@ document.addEventListener('DOMContentLoaded', () => {
     breathStartTime = null;
     lastTriggeredPhase = -1;
     cancelAnimationFrame(breathAnimId);
+
+    // Reset Whole-Screen Atmospheric Living Scale
+    document.documentElement.style.setProperty('--breath-bg-scale', '1.0');
 
     if (window.sanctuaryBreathSync) {
       window.sanctuaryBreathSync.active = false;

@@ -9,17 +9,19 @@
   --forest-dark: #1E3328;
   --forest-light: #3A5A48;
   --sunburst-gold: #C59A3F;
+  --gold-text: #8C6212;
   --gold-hover: #D8AA49;
   --gold-glow: rgba(197, 154, 63, 0.25);
   --gold-soft: rgba(197, 154, 63, 0.12);
   --earth-charcoal: #1C1B18;
-  --charcoal-muted: #4A4944;
+  --charcoal-muted: #2C2B27;
   --botanical-sage: #5F7B6B;
   --sage-light: rgba(95, 123, 107, 0.12);
   --white: #FFFFFF;
   --card-shadow: 0 12px 36px rgba(43, 68, 54, 0.08);
   --card-shadow-hover: 0 20px 48px rgba(43, 68, 54, 0.14);
   --border-gold: 1px solid rgba(197, 154, 63, 0.35);
+  --breath-bg-scale: 1.0;
 }
 
 * {
@@ -55,6 +57,8 @@ body {
   z-index: -1;
   overflow: hidden;
   will-change: transform;
+  transform: scale(var(--breath-bg-scale, 1.0));
+  transition: transform 0.12s linear;
   background-image: 
     linear-gradient(180deg, rgba(220, 235, 222, 0.12) 0%, rgba(246, 243, 236, 0.05) 40%, rgba(246, 243, 236, 0.65) 82%, #F6F3EC 100%),
     url('images/nature-earth-8k.jpg');
@@ -798,15 +802,17 @@ nav {
   line-height: 1.15;
   margin-bottom: 12px;
   color: var(--forest-green);
+  text-shadow: 0 2px 20px rgba(255, 255, 255, 0.9), 0 1px 3px rgba(0, 0, 0, 0.12);
 }
 
 .hero-tagline-motto {
   font-size: clamp(0.9rem, 1.8vw, 1.15rem);
   font-weight: 700;
-  color: var(--sunburst-gold);
+  color: var(--gold-text);
   letter-spacing: 0.3em;
   text-transform: uppercase;
   margin-bottom: 24px;
+  text-shadow: 0 1px 12px rgba(255, 255, 255, 0.95);
 }
 
 .sub-banner {
@@ -895,7 +901,7 @@ nav {
 }
 
 .section-subtitle {
-  color: var(--sunburst-gold);
+  color: var(--gold-text);
   font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 0.22em;
@@ -1728,19 +1734,20 @@ footer {
   flex-wrap: wrap;
   gap: 16px;
   font-size: 0.8rem;
-  color: rgba(211, 223, 216, 0.65);
+  color: rgba(211, 223, 216, 0.88);
 }
 
 /* ==================== HERO MANIFESTO & SOMATIC PAUSE ORB ==================== */
 .hero-manifesto-box {
   max-width: 860px;
   margin: 32px auto 0;
-  background: rgba(255, 255, 255, 0.65);
-  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.90);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1.5px solid rgba(197, 154, 63, 0.35);
   border-radius: 20px;
   padding: 40px 36px;
-  box-shadow: 0 16px 48px rgba(43, 68, 54, 0.08);
+  box-shadow: 0 16px 48px rgba(43, 68, 54, 0.12), 0 2px 8px rgba(0, 0, 0, 0.04);
   position: relative;
   overflow: hidden;
 }
@@ -1765,7 +1772,7 @@ footer {
 }
 
 .manifesto-lead-title span {
-  color: var(--sunburst-gold);
+  color: var(--gold-text);
 }
 
 .manifesto-body-text {
@@ -5168,10 +5175,10 @@ body[data-element="earth"] {
   font-family: 'Montserrat', sans-serif;
   font-size: 0.60rem;
   font-weight: 700;
-  color: var(--sunburst-gold);
+  color: var(--gold-text);
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  opacity: 0.88;
+  opacity: 0.95;
   white-space: nowrap;
 }
 
@@ -5826,6 +5833,8 @@ body[data-element="ether"] nav::after {
     font-size: 0.75rem !important;
     letter-spacing: 0.16em !important;
     margin-bottom: 16px !important;
+    color: var(--gold-text) !important;
+    text-shadow: 0 1px 8px rgba(255, 255, 255, 0.95) !important;
   }
 
   /* Body copy contrast & readability */
