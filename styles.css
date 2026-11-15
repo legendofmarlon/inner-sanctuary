@@ -5005,11 +5005,12 @@ body[data-element="earth"] {
   border: 2px solid #9A6F1A;
   border-radius: 18px;
   width: 100%;
-  max-width: 620px;
-  max-height: 96vh;
+  max-width: 660px;
+  max-height: 94vh;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(212, 168, 79, 0.3);
   position: relative;
   transform: translateY(20px) scale(0.96);
@@ -5089,13 +5090,160 @@ body[data-element="earth"] {
   padding: 2px 8px;
 }
 
+/* Modal Seed Controls Wrap */
+.modal-seed-controls-wrap {
+  padding: 14px 18px 10px;
+  background: #F6F2E9;
+  border-bottom: 1px solid rgba(154, 111, 26, 0.25);
+}
+
+.seed-freq-switcher {
+  display: flex;
+  background: rgba(30, 58, 43, 0.08);
+  border: 1px solid rgba(197, 154, 63, 0.35);
+  border-radius: 999px;
+  padding: 3px;
+  margin-bottom: 10px;
+  gap: 4px;
+}
+
+.seed-freq-btn {
+  flex: 1;
+  background: transparent;
+  border: none;
+  border-radius: 999px;
+  padding: 7px 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #2B4436;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  text-align: center;
+}
+
+.seed-freq-btn.active {
+  background: #2B4436;
+  color: #F8D98C;
+  box-shadow: 0 2px 8px rgba(43, 68, 54, 0.25);
+}
+
+.seed-chips-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.seed-chip-btn {
+  background: #FFFFFF;
+  border: 1.5px solid rgba(197, 154, 63, 0.35);
+  border-radius: 12px;
+  padding: 8px 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.seed-chip-btn .chip-amt {
+  font-family: 'Cinzel', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1E3A2B;
+}
+
+.seed-chip-btn .chip-sub {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #8C7B5D;
+  margin-top: 2px;
+}
+
+.seed-chip-btn:hover {
+  border-color: #C59A3F;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(197, 154, 63, 0.25);
+}
+
+.seed-chip-btn.active {
+  background: #C59A3F;
+  border-color: #9A6F1A;
+  box-shadow: 0 4px 14px rgba(154, 111, 26, 0.35);
+  transform: scale(1.03);
+}
+
+.seed-chip-btn.active .chip-amt {
+  color: #1C1B18;
+}
+
+.seed-chip-btn.active .chip-sub {
+  color: #2D2415;
+}
+
+.seed-impact-banner {
+  font-size: 0.77rem;
+  color: #2B4436;
+  line-height: 1.45;
+  background: rgba(197, 154, 63, 0.12);
+  border: 1px solid rgba(197, 154, 63, 0.3);
+  border-radius: 10px;
+  padding: 8px 12px;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.modal-direct-pay-action {
+  margin-bottom: 8px;
+}
+
+.modal-seed-pay-hero {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 13px 20px !important;
+  border-radius: 999px !important;
+  font-size: 0.94rem !important;
+  font-weight: 800 !important;
+  text-decoration: none !important;
+  letter-spacing: 0.02em;
+  box-shadow: 0 6px 20px rgba(154, 111, 26, 0.35);
+  cursor: pointer;
+}
+
+.modal-frame-toggle-divider {
+  text-align: center;
+  margin-top: 4px;
+}
+
+.btn-toggle-frame {
+  background: none;
+  border: none;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #6E5C3D;
+  cursor: pointer;
+  padding: 4px 10px;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+.btn-toggle-frame:hover {
+  color: #1E3A2B;
+}
+
 .zeffy-modal-frame-wrap {
   position: relative;
   flex: 1;
   width: 100%;
-  min-height: 580px;
-  height: 80vh;
-  max-height: 720px;
+  min-height: 540px;
+  height: 60vh;
+  max-height: 680px;
   background: #F6F2E9;
   overflow: hidden;
 }
@@ -5137,15 +5285,26 @@ body[data-element="earth"] {
   .zeffy-modal-dialog {
     max-height: 98vh;
     border-radius: 14px;
+    padding-bottom: 8px;
   }
   .zeffy-modal-frame-wrap {
-    min-height: 520px;
-    height: 82vh;
+    min-height: 480px;
+    height: 65vh;
   }
   .zeffy-compact-row {
     flex-direction: column;
     gap: 3px;
     padding-right: 28px;
+  }
+  .seed-chips-row {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+  }
+  .seed-chip-btn {
+    padding: 6px 2px;
+  }
+  .seed-chip-btn .chip-amt {
+    font-size: 1.02rem;
   }
 }
 
@@ -6956,6 +7115,74 @@ body[data-element="ether"] nav::after {
 
 .countdown-foot-note strong {
   color: #FFFFFF;
+}
+
+/* 1-Tap Calendar Sync Row (Feature 4) */
+.countdown-calendar-sync-row {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.calendar-sync-label {
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #F8D98C;
+}
+
+.calendar-sync-btns {
+  display: inline-flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.btn-cal-sync {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-cal-google {
+  background: rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+}
+
+.btn-cal-google:hover {
+  background: #FFFFFF;
+  color: #1A73E8;
+  border-color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(26, 115, 232, 0.35);
+}
+
+.btn-cal-apple {
+  background: rgba(197, 154, 63, 0.2);
+  color: #F8D98C;
+  border-color: rgba(197, 154, 63, 0.4);
+}
+
+.btn-cal-apple:hover {
+  background: var(--sunburst-gold);
+  color: #1C1B18;
+  border-color: var(--sunburst-gold);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(197, 154, 63, 0.4);
 }
 
 /* Mobile responsive adjustments for countdown */
@@ -8978,4 +9205,74 @@ body[data-element="ether"] nav::after {
 .btn-open-bracelet-modal:hover {
   transform: translateY(-2px);
   box-shadow: 0 10px 28px rgba(197, 154, 63, 0.55);
+}
+
+/* =========================================================================
+   LIVING CIRCADIAN ATMOSPHERE ENGINE (FEATURE 5)
+   Seamless GPU-composited day-to-night lighting & sky shift
+   ========================================================================= */
+.circadian-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(43, 68, 54, 0.12);
+  border: 1.5px solid rgba(197, 154, 63, 0.45);
+  color: var(--forest-green);
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  margin: 12px auto 14px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.circadian-badge-pill:hover {
+  background: rgba(197, 154, 63, 0.22);
+  border-color: var(--sunburst-gold);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(197, 154, 63, 0.3);
+}
+
+.circadian-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--sunburst-gold);
+  box-shadow: 0 0 8px var(--sunburst-gold);
+  animation: pulseGoldGlow 2.5s infinite;
+}
+
+.circadian-badge-cycle-icon {
+  font-size: 0.85rem;
+  opacity: 0.7;
+  transition: transform 0.3s ease;
+  display: inline-block;
+}
+
+.circadian-badge-pill:hover .circadian-badge-cycle-icon {
+  transform: rotate(180deg);
+  opacity: 1;
+}
+
+/* Circadian Sky Overlay Tweaks across Elements */
+body[data-circadian="dawn"] .realistic-sky-bg {
+  filter: sepia(0.12) saturate(1.08) brightness(1.02);
+}
+
+body[data-circadian="day"] .realistic-sky-bg {
+  filter: brightness(1.03) contrast(1.02);
+}
+
+body[data-circadian="sunset"] .realistic-sky-bg {
+  filter: sepia(0.24) saturate(1.22) contrast(1.04);
+}
+
+body[data-circadian="night"] .realistic-sky-bg {
+  filter: brightness(0.90) contrast(1.10) hue-rotate(-8deg);
 }
