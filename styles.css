@@ -57,7 +57,7 @@ body {
   z-index: -1;
   overflow: hidden;
   will-change: transform;
-  transform: translate3d(0, 0, 0);
+  transform: scale(var(--breath-bg-scale, 1.0)) translate3d(0, 0, 0);
   background-image: 
     linear-gradient(180deg, rgba(220, 235, 222, 0.12) 0%, rgba(246, 243, 236, 0.05) 40%, rgba(246, 243, 236, 0.65) 82%, #F6F3EC 100%),
     url('images/nature-earth-8k.jpg');
@@ -5005,8 +5005,8 @@ body[data-element="earth"] {
   border: 2px solid #9A6F1A;
   border-radius: 18px;
   width: 100%;
-  max-width: 660px;
-  max-height: 94vh;
+  max-width: 620px;
+  max-height: 96vh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -5022,15 +5022,15 @@ body[data-element="earth"] {
 
 .zeffy-modal-close {
   position: absolute;
-  top: 10px;
-  right: 14px;
-  width: 36px;
-  height: 36px;
+  top: 8px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   background: rgba(246, 242, 233, 0.9);
   border: 1px solid #9A6F1A;
   color: #1E3A2B;
-  font-size: 24px;
+  font-size: 22px;
   line-height: 1;
   display: flex;
   align-items: center;
@@ -5046,42 +5046,56 @@ body[data-element="earth"] {
   transform: rotate(90deg);
 }
 
-.zeffy-modal-header {
+.zeffy-modal-header.compact-zeffy-header {
   background: #1E3A2B;
   color: #F6F2E9;
-  padding: 16px 20px 14px;
+  padding: 10px 16px;
   text-align: center;
   border-bottom: 2px solid #9A6F1A;
 }
 
-.zeffy-modal-badge {
-  font-size: 11px;
-  font-weight: 700;
+.zeffy-compact-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding-right: 32px;
+}
+
+.zeffy-compact-row .zeffy-modal-badge {
+  font-size: 0.65rem;
+  font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #E6C168;
-  margin-bottom: 4px;
+  margin: 0;
 }
 
-.zeffy-modal-title {
-  font-size: 1.25rem;
+.zeffy-compact-row .zeffy-modal-title {
+  font-size: 1.05rem;
   font-weight: 700;
-  margin: 0 0 3px;
+  margin: 0;
   color: #FFFFFF;
 }
 
-.zeffy-modal-subtitle {
-  font-size: 12.5px;
-  color: #CBD7D0;
-  margin: 0;
+.zeffy-pay-pill {
+  font-size: 0.68rem;
+  font-weight: 700;
+  background: rgba(197, 154, 63, 0.25);
+  border: 1px solid rgba(197, 154, 63, 0.5);
+  color: #F8D98C;
+  border-radius: 999px;
+  padding: 2px 8px;
 }
 
 .zeffy-modal-frame-wrap {
   position: relative;
   flex: 1;
   width: 100%;
-  min-height: 520px;
-  max-height: 68vh;
+  min-height: 580px;
+  height: 80vh;
+  max-height: 720px;
   background: #F6F2E9;
   overflow: hidden;
 }
@@ -5098,16 +5112,41 @@ body[data-element="earth"] {
 
 .zeffy-modal-footer {
   background: #F6F2E9;
-  padding: 10px 16px;
+  padding: 8px 16px;
   text-align: center;
-  font-size: 12px;
+  font-size: 11.5px;
   color: #241C15;
   border-top: 1px solid rgba(154, 111, 26, 0.3);
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   gap: 8px;
   flex-wrap: wrap;
+}
+
+.zeffy-footer-tip {
+  font-size: 0.74rem;
+  color: var(--forest-green);
+}
+
+.zeffy-footer-tip strong {
+  color: #9A6F1A;
+}
+
+@media (max-width: 600px) {
+  .zeffy-modal-dialog {
+    max-height: 98vh;
+    border-radius: 14px;
+  }
+  .zeffy-modal-frame-wrap {
+    min-height: 520px;
+    height: 82vh;
+  }
+  .zeffy-compact-row {
+    flex-direction: column;
+    gap: 3px;
+    padding-right: 28px;
+  }
 }
 
 .zeffy-modal-footer a {
@@ -8830,4 +8869,113 @@ body[data-element="ether"] nav::after {
     left: 16px;
     width: auto;
   }
+}
+
+
+/* =========================================================================
+   SACRED BRACELET KEEPSAKE MODAL POP-UP STYLES
+   ========================================================================= */
+
+.bracelet-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(14, 26, 20, 0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  animation: fadeInPwa 0.3s ease;
+}
+
+.bracelet-modal-dialog {
+  position: relative;
+  background: linear-gradient(135deg, #1C3024 0%, #101F17 100%);
+  border: 2px solid var(--sunburst-gold);
+  border-radius: 24px;
+  max-width: 620px;
+  width: 100%;
+  max-height: 94vh;
+  overflow-y: auto;
+  padding: 30px 24px 26px;
+  color: #FFFFFF;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.65), 0 0 32px rgba(197, 154, 63, 0.3);
+  text-align: center;
+  animation: scaleInBracelet 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.bracelet-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: rgba(248, 217, 140, 0.8);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 6px;
+  transition: transform 0.2s ease, color 0.2s ease;
+  z-index: 10;
+}
+
+.bracelet-modal-close:hover {
+  transform: rotate(90deg) scale(1.15);
+  color: #FFFFFF;
+}
+
+.bracelet-modal-header {
+  margin-bottom: 12px;
+}
+
+.bracelet-modal-badge {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #F8D98C;
+  background: rgba(197, 154, 63, 0.2);
+  border: 1px solid rgba(197, 154, 63, 0.4);
+  border-radius: 999px;
+  padding: 3px 14px;
+  display: inline-block;
+  margin-bottom: 8px;
+}
+
+.bracelet-modal-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0 0 6px;
+  letter-spacing: 0.03em;
+}
+
+.bracelet-modal-sub {
+  font-size: 0.84rem;
+  color: #CBD7D0;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.btn-open-bracelet-modal {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 18px auto 0;
+  padding: 12px 24px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  border-radius: 999px;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 6px 20px rgba(197, 154, 63, 0.4);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.btn-open-bracelet-modal:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(197, 154, 63, 0.55);
 }

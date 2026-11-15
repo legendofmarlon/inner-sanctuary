@@ -2171,7 +2171,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (phaseIndex === 0) {
-      // INHALE: Orb smoothly expands (1.00 -> 1.46) with warm inner glow
+      // INHALE: Orb smoothly expands (1.00 -> 1.46) with warm inner glow & flame sparks
       const orbScale = 1.00 + ease * 0.46;
       const haloScale = 1.00 + ease * 0.80;
       const haloOpacity = 0.35 + ease * 0.55;
@@ -2180,6 +2180,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (somaticOrb) {
         somaticOrb.style.transform = `scale3d(${orbScale.toFixed(3)}, ${orbScale.toFixed(3)}, 1)`;
+        somaticOrb.style.boxShadow = `0 ${(14 + ease * 14).toFixed(1)}px ${(40 + ease * 35).toFixed(1)}px rgba(0,0,0,0.65), 0 0 ${(55 + ease * 50).toFixed(1)}px rgba(212, 168, 79, ${(0.75 + ease * 0.25).toFixed(2)}), 0 0 ${(90 + ease * 60).toFixed(1)}px rgba(248, 217, 140, ${(0.45 + ease * 0.30).toFixed(2)}), inset 0 3px 14px rgba(255,255,255,0.95), inset 0 -8px 24px rgba(154, 111, 26, 0.75)`;
       }
       if (somaticHalo) {
         somaticHalo.style.transform = `scale3d(${haloScale.toFixed(3)}, ${haloScale.toFixed(3)}, 1)`;
@@ -2199,6 +2200,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (somaticOrb) {
         somaticOrb.style.transform = `scale3d(${orbScale.toFixed(3)}, ${orbScale.toFixed(3)}, 1)`;
+        somaticOrb.style.boxShadow = `0 ${(28 - ease * 14).toFixed(1)}px ${(75 - ease * 35).toFixed(1)}px rgba(0,0,0,0.65), 0 0 ${(105 - ease * 50).toFixed(1)}px rgba(212, 168, 79, ${(1.00 - ease * 0.25).toFixed(2)}), 0 0 ${(150 - ease * 60).toFixed(1)}px rgba(248, 217, 140, ${(0.75 - ease * 0.30).toFixed(2)}), inset 0 3px 14px rgba(255,255,255,0.95), inset 0 -8px 24px rgba(154, 111, 26, 0.75)`;
       }
       if (somaticHalo) {
         somaticHalo.style.transform = `scale3d(${haloScale.toFixed(3)}, ${haloScale.toFixed(3)}, 1)`;
@@ -2210,7 +2212,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    // Sync ambient background canvas breathing aura directly (zero DOM recalculations)
+    // Whole-Screen Atmospheric Inhale/Exhale Living Scale (1.000 to 1.026)
+    const bgScale = phaseIndex === 0 ? 1.00 + ease * 0.026 : 1.026 - ease * 0.026;
+    document.documentElement.style.setProperty('--breath-bg-scale', bgScale.toFixed(4));
+
+    // Sync ambient background canvas breathing aura directly
     if (window.sanctuaryBreathSync) {
       window.sanctuaryBreathSync.active = true;
       window.sanctuaryBreathSync.step = phaseIndex;
@@ -2265,12 +2271,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (orbCard) orbCard.classList.remove('active');
     if (somaticOrb) somaticOrb.classList.remove('active');
 
+    // Reset Whole-Screen Atmospheric Living Scale
+    document.documentElement.style.setProperty('--breath-bg-scale', '1.0');
+
     if (window.sanctuaryBreathSync) {
       window.sanctuaryBreathSync.active = false;
     }
 
     if (somaticOrb) {
-      somaticOrb.style.transform = 'scale3d(1.0, 1.0, 1)';
+      somaticOrb.style.transform = 'scale(1.0)';
+      somaticOrb.style.boxShadow = '';
     }
     if (somaticHalo) {
       somaticHalo.style.transform = 'scale(1.0)';
@@ -3259,43 +3269,71 @@ document.addEventListener('DOMContentLoaded', () => {
     const clean = (input || '').trim();
     const lower = clean.toLowerCase();
 
+    // 1. Circadian / Time-of-Day Somatic Calibration
+    const hour = new Date().getHours();
+    let timeOfDayAnchor = '';
+    let circadianPill = 'TWILIGHT HARBOR';
+
+    if (hour >= 5 && hour < 12) {
+      circadianPill = 'MORNING AWAKENING';
+      timeOfDayAnchor = 'As morning light opens this day, you do not have to rush ahead of your breath.';
+    } else if (hour >= 12 && hour < 17) {
+      circadianPill = 'MIDDAY HARBOR';
+      timeOfDayAnchor = 'In the middle of the world\'s hurry, this pause is your sacred anchor.';
+    } else if (hour >= 17 && hour < 22) {
+      circadianPill = 'EVENING RELEASE';
+      timeOfDayAnchor = 'As twilight settles over Our Sanctuary Clubhouse, let down what was carried today.';
+    } else {
+      circadianPill = 'NIGHT SOLITUDE';
+      timeOfDayAnchor = 'In the quiet stillness of the night, your nervous system is safe to rest deeply.';
+    }
+
+    // 2. Multimodal Somatic Resonance Mapping
     let targetElement = 'earth';
     let badgeTheme = 'ROOT ME';
     let freq = 432;
-    let quote = '';
+    let somaticAction = '';
+    let affirmation = '';
 
     if (lower.includes('water') || lower.includes('cry') || lower.includes('grief') || lower.includes('sad') || lower.includes('heart') || lower.includes('tear') || lower.includes('soft') || lower.includes('emotional') || lower.includes('hurt')) {
       targetElement = 'water';
-      badgeTheme = 'WASH CLEAN';
+      badgeTheme = 'HELD IN SOFTNESS';
       freq = 528;
-      quote = `Holding ${clean || 'this tender feeling'} takes immense courage. Soften the muscles behind your eyes, unclench your jaw, and let the waters of your breath wash through you without resistance.`;
+      somaticAction = 'Unclench your jaw, soften the muscles behind your eyes, and place both palms gently over your heart.';
+      affirmation = `Tending to ${clean || 'this tender feeling'} is not weakness; it is your soul returning to truth. Breathe out without needing to be strong right now.`;
     } else if (lower.includes('air') || lower.includes('breath') || lower.includes('anxi') || lower.includes('rush') || lower.includes('busy') || lower.includes('overwhelm') || lower.includes('mind') || lower.includes('think') || lower.includes('worry')) {
       targetElement = 'air';
-      badgeTheme = 'CLEAR CHEST';
+      badgeTheme = 'CLEAR CHEST & SKY';
       freq = 639;
-      quote = `When carrying ${clean || 'a busy mind'}, your chest forgets its natural expansion. Lift your chin, inhale spacious sky into your collarbones, and exhale the pressure to solve everything right now.`;
+      somaticAction = 'Lift your collarbones slightly, drop your tongue from the roof of your mouth, and exhale a long, slow sigh.';
+      affirmation = `Carrying ${clean || 'a racing mind'} makes the world feel narrow. You are not the storm of thoughts—you are the vast, unhurried sky they pass through.`;
     } else if (lower.includes('fire') || lower.includes('tired') || lower.includes('exhaust') || lower.includes('burnout') || lower.includes('numb') || lower.includes('stuck') || lower.includes('spark') || lower.includes('joy') || lower.includes('creative') || lower.includes('passion')) {
       targetElement = 'fire';
-      badgeTheme = 'IGNITE JOY';
+      badgeTheme = 'SOVEREIGN EMBER';
       freq = 741;
-      quote = `Even underneath ${clean || 'deep fatigue'}, your sacred inner ember is never extinguished. Place a warm hand over your solar plexus, breathe in vitality, and remember that your joy is sovereign.`;
+      somaticAction = 'Place a warm palm over your solar plexus and feel your ribs expand like wings with each breath.';
+      affirmation = `Even beneath ${clean || 'deep fatigue'}, your sacred inner ember remains unquenched. You do not need to perform or produce to be worthy of joy.`;
     } else if (lower.includes('ether') || lower.includes('lost') || lower.includes('spirit') || lower.includes('peace') || lower.includes('alone') || lower.includes('space') || lower.includes('silent') || lower.includes('still')) {
       targetElement = 'ether';
-      badgeTheme = 'INFINITE SPACE';
+      badgeTheme = 'BOUNDLESS SPACE';
       freq = 852;
-      quote = `In the presence of ${clean || 'this quiet space'}, remind yourself that you are not separate from the silence. Drop into the stillness between your thoughts; you are held by the infinite cosmos.`;
+      somaticAction = 'Close your eyes for one complete cycle. Drop into the quiet gap between your inhale and exhale.';
+      affirmation = `Surrendering to ${clean || 'this quiet space'} dissolves the illusion of separation. You are rooted in this community, held by the infinite cosmos.`;
     } else {
       targetElement = 'earth';
-      badgeTheme = 'ROOT ME';
+      badgeTheme = 'EARTH PRESENCE';
       freq = 432;
-      quote = `Meeting ${clean || 'this moment'} requires no force. Feel the floor beneath your feet, let your shoulders drop into the steady pull of gravity, and let your body remember its natural sanctuary.`;
+      somaticAction = 'Feel the solid ground under your feet. Let gravity carry the physical weight of your shoulders.';
+      affirmation = `Meeting ${clean || 'this exact moment'} requires zero force. You are allowed to take up space, slow down, and simply be here.`;
     }
 
+    const synthesizedQuote = `${timeOfDayAnchor} ${somaticAction} ${affirmation}`;
+
     return {
-      badge: `✦ GEMINI • ${badgeTheme} ✦`,
+      badge: `✦ GEMINI • ${circadianPill} • ${badgeTheme} ✦`,
       theme: badgeTheme,
       element: targetElement,
-      quote: quote,
+      quote: synthesizedQuote,
       freq: freq
     };
   }
@@ -4005,32 +4043,67 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       // Check if 3 beads are selected
+      const openModalBtn = document.getElementById('btnOpenBraceletModal');
       if (selectedBeads.length === 3) {
         if (visualizer) {
           visualizer.style.display = 'flex';
           renderCompletedRing();
         }
 
-        if (revealedContainer) {
-          revealedContainer.style.display = 'block';
-          if (beadSummary) {
-            beadSummary.textContent = selectedBeads.map(b => b.name).join(' • ');
-          }
-          if (quoteElem) {
-            const quoteIdx = (selectedBeads[0].name.length + selectedBeads[1].name.length) % sparkMessages.length;
-            quoteElem.textContent = `"${sparkMessages[quoteIdx]}"`;
-          }
-          revealedContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        if (beadSummary) {
+          beadSummary.textContent = selectedBeads.map(b => b.name).join(' • ');
+        }
+        if (quoteElem) {
+          const quoteIdx = (selectedBeads[0].name.length + selectedBeads[1].name.length) % sparkMessages.length;
+          quoteElem.textContent = `"${sparkMessages[quoteIdx]}"`;
+        }
+        if (openModalBtn) {
+          openModalBtn.style.display = 'inline-flex';
         }
       } else {
-        if (visualizer) {
-          visualizer.style.display = 'none';
-        }
-        if (revealedContainer) {
-          revealedContainer.style.display = 'none';
+        if (openModalBtn) {
+          openModalBtn.style.display = 'none';
         }
       }
     }
+
+    window.openBraceletKeepsakeModal = function() {
+      const modal = document.getElementById('braceletKeepsakeModal');
+      if (modal) {
+        modal.style.display = 'flex';
+        renderCompletedRing();
+        playHarmonicTone(528, 0.8, 0.015);
+      }
+    };
+
+    window.closeBraceletKeepsakeModal = function() {
+      const modal = document.getElementById('braceletKeepsakeModal');
+      if (modal) {
+        modal.style.display = 'none';
+      }
+    };
+
+    window.resetBraceletAndCloseModal = function() {
+      selectedBeads = [];
+      updateBraceletStage();
+      window.closeBraceletKeepsakeModal();
+      playHarmonicTone(432, 0.5, 0.015);
+      showToast('🔄 Weave another bracelet: Choose 3 sacred intentions.');
+    };
+
+    // Close bracelet modal on click outside or Escape
+    window.addEventListener('click', (e) => {
+      const modal = document.getElementById('braceletKeepsakeModal');
+      if (modal && e.target === modal) {
+        window.closeBraceletKeepsakeModal();
+      }
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        window.closeBraceletKeepsakeModal();
+      }
+    });
 
     beadBtns.forEach(btn => {
       btn.addEventListener('click', () => {
@@ -4056,7 +4129,11 @@ document.addEventListener('DOMContentLoaded', () => {
             playHarmonicTone(880, 0.12, 0.03);
             setTimeout(() => playHarmonicTone(528, 1.4, 0.02), 100);
             createHeartFlourish();
-            showToast('✨ The circle is complete! Your bracelet is weaved with love.');
+            showToast('✨ The circle is complete! Opening your keepsake window...');
+            // Automatically open the sacred keepsake pop-up window!
+            setTimeout(() => {
+              window.openBraceletKeepsakeModal();
+            }, 350);
           } else {
             playHarmonicTone(selectedBeads.length === 1 ? 659 : 784, 0.09, 0.03);
           }

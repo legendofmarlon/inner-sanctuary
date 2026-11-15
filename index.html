@@ -290,6 +290,12 @@
           </a>
         </li>
         <li>
+          <a href="#sanctuary-echo" class="nav-link-dual">
+            <span class="nav-link-main">Sanctuary Echo</span>
+            <span class="nav-link-sub">Voice &amp; Gratitude</span>
+          </a>
+        </li>
+        <li>
           <a href="#horizons" class="nav-link-dual">
             <span class="nav-link-main">Future Horizons</span>
             <span class="nav-link-sub">Our Vision</span>
@@ -310,6 +316,10 @@
       </ul>
 
       <div class="nav-actions-group">
+        <button type="button" id="btnNavPresence" class="nav-presence-badge" onclick="openPulsePresenceModal(event)" title="Live Sanctuary Presence">
+          <span class="nav-presence-dot"></span>
+          <span class="nav-presence-text"><strong id="navPresenceCount">4</strong> Breathing</span>
+        </button>
         <a href="https://www.instagram.com/ourinnersanctuary/" target="_blank" rel="noopener noreferrer" class="btn-outline-gold nav-ig-btn" style="padding: 8px 12px; border-radius: 8px; display: inline-flex; align-items: center; gap: 6px; font-size: 0.74rem; text-decoration: none;" title="Follow @ourinnersanctuary on Instagram">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
           <span class="desktop-only-ig">@ourinnersanctuary</span>
@@ -350,6 +360,12 @@
           <a href="#open-mic" class="mobile-nav-item">
             <span class="mobile-nav-main">Community Open Mic</span>
             <span class="mobile-nav-sub">Our Programs</span>
+          </a>
+        </li>
+        <li>
+          <a href="#sanctuary-echo" class="mobile-nav-item">
+            <span class="mobile-nav-main">The Sanctuary Echo</span>
+            <span class="mobile-nav-sub">Voice &amp; Gratitude Wave</span>
           </a>
         </li>
         <li>
@@ -1282,61 +1298,83 @@
           </div>
         </div>
 
-        <!-- Completed Circular Bracelet Visualizer (Revealed upon 3 beads) -->
-        <div class="bracelet-circle-visualizer" id="braceletCircleVisualizer" style="display: none;">
-          <div class="circle-string-ring">
-            <svg class="bracelet-ring-svg" viewBox="0 0 280 280" width="280" height="280">
-              <defs>
-                <linearGradient id="goldCordGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#C59A3F" />
-                  <stop offset="50%" stop-color="#F8D98C" />
-                  <stop offset="100%" stop-color="#9E7623" />
-                </linearGradient>
-              </defs>
-              <!-- Golden Elastic Cord Loop -->
-              <circle cx="140" cy="140" r="105" fill="none" stroke="url(#goldCordGrad)" stroke-width="2.5" stroke-dasharray="5,3" filter="drop-shadow(0 0 6px rgba(197, 154, 63, 0.45))" />
-            </svg>
-            <!-- 12 Beads Container around the circle -->
-            <div class="ring-beads-layer" id="ringBeadsLayer"></div>
-            <!-- Center Medallion Charm -->
-            <div class="ring-center-charm">
-              <span class="ring-charm-emblem">✦</span>
-              <div class="ring-charm-title">INNER SANCTUARY</div>
-              <div class="ring-charm-venue">SANCTUARY CLUBHOUSE</div>
-            </div>
-          </div>
-          <div class="bracelet-ring-caption">
-            <span>✨ The Circle is Completed • 3 Intentions Strung</span>
-          </div>
+        <!-- Keepsake Modal Trigger Button (Shows when 3 beads are strung) -->
+        <div style="text-align: center;">
+          <button type="button" class="btn btn-gold btn-liquid-gold pulse-gold btn-open-bracelet-modal" id="btnOpenBraceletModal" onclick="openBraceletKeepsakeModal()" style="display: none;">
+            <span>✨ View Your Keepsake Pop-Up Window ↗</span>
+          </button>
         </div>
 
-        <!-- Revealed Sanctuary Spark Keepsake Card -->
-        <div class="revealed-spark-container" id="revealedSpark" style="display: none;">
-          <div class="spark-card-preview">
-            <span class="spark-emblem">✦</span>
-            <div class="spark-card-header-badge">✦ WEAVED WITH LOVE • OUR SANCTUARY CLUBHOUSE ✦</div>
-            <div class="spark-bead-summary" id="sparkBeadSummary">Cedar Wood • Rose Quartz • Sunburst Gold</div>
-            <blockquote class="spark-quote" id="sparkQuote">
-              "Rooted in grace, held in softness, glowing from within. You don't have to carry the whole mountain today. Breathe in permission."
-            </blockquote>
-            <div class="spark-source" id="sparkSource">— Inner Sanctuary Sparks • Weaved at Our Sanctuary Clubhouse</div>
-          </div>
+      </div>
 
-          <div class="spark-actions-row">
-            <button type="button" class="btn-spark-action" id="btnCopySpark">
-              <span id="btnCopySparkIcon">📋</span>
-              <span id="btnCopySparkLabel">Copy Keepsake Reflection</span>
-            </button>
-            <button type="button" class="btn-spark-action btn-spark-share" id="btnShareSparkIG" onclick="openStorySnapshotFromSpark(event)" title="Create 9:16 Instagram Story snapshot card">
-              <span>📸 Share Keepsake to IG Story</span>
-            </button>
-            <button type="button" class="btn-spark-reset" id="btnResetBracelet">
-              <span>🔄 Weave Another Bracelet</span>
-            </button>
+    </div>
+  </section>
+
+  <!-- ==================== SACRED BRACELET KEEPSAKE POP-UP MODAL ==================== -->
+  <div id="braceletKeepsakeModal" class="bracelet-modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true" style="display: none;">
+    <div class="bracelet-modal-dialog">
+      <button type="button" class="bracelet-modal-close" aria-label="Close bracelet window" onclick="closeBraceletKeepsakeModal()">&times;</button>
+      
+      <div class="bracelet-modal-header">
+        <span class="bracelet-modal-badge">✦ WEAVED WITH LOVE • OUR SANCTUARY CLUBHOUSE ✦</span>
+        <h3 class="bracelet-modal-title serif-brand">Your Sacred Intention Bracelet</h3>
+        <p class="bracelet-modal-sub">Completed keepsake circle infused with your 3 chosen intentions.</p>
+      </div>
+
+      <!-- Completed Circular Bracelet Visualizer Inside Modal -->
+      <div class="bracelet-circle-visualizer" id="braceletCircleVisualizer" style="display: flex;">
+        <div class="circle-string-ring">
+          <svg class="bracelet-ring-svg" viewBox="0 0 280 280" width="280" height="280">
+            <defs>
+              <linearGradient id="goldCordGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#C59A3F" />
+                <stop offset="50%" stop-color="#F8D98C" />
+                <stop offset="100%" stop-color="#9E7623" />
+              </linearGradient>
+            </defs>
+            <!-- Golden Elastic Cord Loop -->
+            <circle cx="140" cy="140" r="105" fill="none" stroke="url(#goldCordGrad)" stroke-width="2.5" stroke-dasharray="5,3" filter="drop-shadow(0 0 6px rgba(197, 154, 63, 0.45))" />
+          </svg>
+          <!-- 12 Beads Container around the circle -->
+          <div class="ring-beads-layer" id="ringBeadsLayer"></div>
+          <!-- Center Medallion Charm -->
+          <div class="ring-center-charm">
+            <span class="ring-charm-emblem">✦</span>
+            <div class="ring-charm-title">INNER SANCTUARY</div>
+            <div class="ring-charm-venue">SANCTUARY CLUBHOUSE</div>
           </div>
-          <div class="spark-copy-toast" id="sparkToast">✓ Copied to clipboard! Ready to paste into IG Stories or notes.</div>
+        </div>
+        <div class="bracelet-ring-caption">
+          <span>✨ The Circle is Completed • 3 Intentions Strung</span>
         </div>
       </div>
+
+      <!-- Revealed Sanctuary Spark Keepsake Card -->
+      <div class="revealed-spark-container" id="revealedSpark" style="display: block; margin: 12px auto 0;">
+        <div class="spark-card-preview">
+          <div class="spark-bead-summary" id="sparkBeadSummary">Cedar Wood • Rose Quartz • Sunburst Gold</div>
+          <blockquote class="spark-quote" id="sparkQuote">
+            "Rooted in grace, held in softness, glowing from within. You don't have to carry the whole mountain today. Breathe in permission."
+          </blockquote>
+          <div class="spark-source" id="sparkSource">— Inner Sanctuary Sparks • Weaved at Our Sanctuary Clubhouse</div>
+        </div>
+
+        <div class="spark-actions-row">
+          <button type="button" class="btn-spark-action" id="btnCopySpark">
+            <span id="btnCopySparkIcon">📋</span>
+            <span id="btnCopySparkLabel">Copy Keepsake Reflection</span>
+          </button>
+          <button type="button" class="btn-spark-action btn-spark-share" id="btnShareSparkIG" onclick="openStorySnapshotFromSpark(event)" title="Create 9:16 Instagram Story snapshot card">
+            <span>📸 Share Keepsake to IG Story</span>
+          </button>
+          <button type="button" class="btn-spark-reset" id="btnResetBracelet" onclick="resetBraceletAndCloseModal()">
+            <span>🔄 Weave Another Bracelet</span>
+          </button>
+        </div>
+        <div class="spark-copy-toast" id="sparkToast">✓ Copied to clipboard! Ready to paste into IG Stories or notes.</div>
+      </div>
+    </div>
+  </div>
 
     </div>
   </section>
@@ -2160,17 +2198,13 @@
     <div class="zeffy-modal-dialog">
       <button type="button" class="zeffy-modal-close" aria-label="Close modal" onclick="closeZeffyModal()">&times;</button>
       
-      <div class="zeffy-modal-header">
-        <div class="zeffy-modal-badge">IRS 501(c)(3) PUBLIC CHARITY • FEDERAL EIN: 39-3757168 • 100% ZERO FEES</div>
-        <h3 class="zeffy-modal-title serif-brand">Plant Your $1 Community Seed</h3>
-        <p class="zeffy-modal-subtitle">2 Taps with Apple Pay &amp; Google Pay • 100% Zero Platform Fees • Tax-Deductible</p>
+      <div class="zeffy-modal-header compact-zeffy-header">
+        <div class="zeffy-compact-row">
+          <span class="zeffy-modal-badge">✦ 501(c)(3) PUBLIC CHARITY • ZERO PLATFORM FEES ✦</span>
+          <h3 class="zeffy-modal-title serif-brand">🌱 Plant Your $1 Community Seed</h3>
+          <span class="zeffy-pay-pill">⚡ Instant Apple Pay &amp; Google Pay</span>
+        </div>
       </div>
-
-      <div class="zeffy-protip-banner">
-        💡 1-Tap Pro Tip: Choose $1/Monthly, tap <strong>'Other → $0'</strong> on the optional Zeffy tip so you pay <strong>$1.00 flat</strong>, and double-click Apple Pay or Google Pay!
-      </div>
-
-      
 
       <div class="zeffy-modal-frame-wrap" style="background:#F6F2E9;">
         <iframe
@@ -2186,9 +2220,11 @@
       </div>
 
       <div class="zeffy-modal-footer">
-        <span>Trouble viewing inside mobile browser?</span>
+        <div class="zeffy-footer-tip">
+          💡 <strong>1-Tap Pro-Tip:</strong> Select $1, tap <em>'Other → $0'</em> on optional tip to pay <strong>$1.00 flat</strong>.
+        </div>
         <a href="https://www.zeffy.com/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation" target="_blank" rel="noopener noreferrer" class="zeffy-direct-link">
-          Open Direct Zeffy Window ↗
+          Direct Window ↗
         </a>
       </div>
     </div>
