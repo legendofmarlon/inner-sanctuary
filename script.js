@@ -3352,8 +3352,9 @@ document.addEventListener('DOMContentLoaded', () => {
       applyReflectionItem(item);
     }
 
-    // Initialize with first reflection
-    applyReflection(0);
+    // Initialize with a fresh, living Sanctuary Spark each time the site is opened
+    const initialRandomIndex = Math.floor(Math.random() * SANCTUARY_REFLECTIONS.length);
+    applyReflection(initialRandomIndex);
 
     // Wire Elemental Pills/Chips if present
     pills.forEach((pill) => {
