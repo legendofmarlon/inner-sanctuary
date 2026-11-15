@@ -398,9 +398,41 @@
       <!-- ==================== DAILY SANCTUARY REFLECTION CARD (INTERACTIVE GROUNDING HERO CENTERPIECE) ==================== -->
       <div class="sanctuary-reflection-widget hero-reflection-widget" id="sanctuary-reflection">
         <div class="reflection-widget-header">
-          <span class="reflection-widget-pill">✦ Daily Somatic Pause</span>
-          <h3 class="reflection-widget-title serif-brand">Draw Today's Sanctuary Reflection</h3>
-          <p class="reflection-widget-sub">Receive an unhurried reminder to ground your nervous system, soften tension, and remember who you are.</p>
+          <span class="reflection-widget-pill">✦ Somatic Oracle • Daily Grounding</span>
+          <h3 class="reflection-widget-title serif-brand">Sanctuary Somatic Oracle</h3>
+          <p class="reflection-widget-sub">Tune into your body in this breath. Tap what your nervous system needs, or speak what you carry, to reveal an unhurried somatic reset.</p>
+        </div>
+
+        <!-- 1-Tap Somatic State Selector -->
+        <div class="somatic-oracle-checkin" id="somaticOracleCheckin">
+          <div class="somatic-oracle-pills" role="radiogroup" aria-label="Select what your nervous system needs">
+            <button type="button" class="somatic-pill active" data-element="earth" data-theme="Root Me" data-freq="432" title="Earth • Heavy thoughts, restlessness, anxiety">
+              <span class="pill-icon">🌿</span> <span class="pill-label">Root Me</span>
+            </button>
+            <button type="button" class="somatic-pill" data-element="water" data-theme="Wash Clean" data-freq="528" title="Water • Emotional tension, grief, softening">
+              <span class="pill-icon">🌊</span> <span class="pill-label">Wash Clean</span>
+            </button>
+            <button type="button" class="somatic-pill" data-element="air" data-theme="Clear Chest" data-freq="639" title="Air • Racing thoughts, shallow breath, hurry">
+              <span class="pill-icon">🌬️</span> <span class="pill-label">Clear Chest</span>
+            </button>
+            <button type="button" class="somatic-pill" data-element="fire" data-theme="Ignite Joy" data-freq="741" title="Fire • Numbness, low vitality, lost spark">
+              <span class="pill-icon">🔥</span> <span class="pill-label">Ignite Joy</span>
+            </button>
+            <button type="button" class="somatic-pill" data-element="ether" data-theme="Infinite Space" data-freq="852" title="Ether • Spiritual stillness, cosmic peace, quiet">
+              <span class="pill-icon">🌌</span> <span class="pill-label">Infinite Space</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Optional Custom Intention / Feeling Oracle Input Bar -->
+        <div class="somatic-oracle-custom-bar">
+          <div class="somatic-oracle-input-wrap">
+            <span class="oracle-input-icon">✨</span>
+            <input type="text" id="somaticCustomInput" class="somatic-oracle-input" placeholder="Or speak what you carry today... (e.g. overwhelmed, heavy heart, seeking peace)" aria-label="Type what you feel or need">
+            <button type="button" id="btnOracleGenerate" class="btn-oracle-generate" title="Synthesize custom somatic reset">
+              <span>✦ Consult Oracle</span>
+            </button>
+          </div>
         </div>
 
         <!-- 3D Flippable Card Stage -->

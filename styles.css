@@ -6216,6 +6216,138 @@ body[data-element="ether"] nav::after {
   margin: 0 auto;
 }
 
+/* Somatic Oracle Check-in & Elemental Mood Selectors */
+.somatic-oracle-checkin {
+  margin: 14px auto 10px;
+  max-width: 540px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.somatic-oracle-pills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.somatic-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(43, 68, 54, 0.22);
+  border-radius: 999px;
+  color: var(--forest-green);
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.somatic-pill:hover {
+  background: rgba(197, 154, 63, 0.18);
+  border-color: var(--sunburst-gold);
+  color: #1C1B18;
+  transform: translateY(-1px);
+}
+
+.somatic-pill.active {
+  background: linear-gradient(135deg, #1E3328 0%, #2B4436 100%);
+  color: #F8D98C;
+  border-color: var(--sunburst-gold);
+  box-shadow: 0 4px 14px rgba(197, 154, 63, 0.3);
+  transform: translateY(-1px);
+}
+
+.somatic-pill.active .pill-label {
+  color: #F8D98C;
+  font-weight: 800;
+}
+
+.somatic-oracle-custom-bar {
+  margin: 8px auto 16px;
+  max-width: 520px;
+  width: 100%;
+}
+
+.somatic-oracle-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1.5px solid rgba(197, 154, 63, 0.45);
+  border-radius: 999px;
+  padding: 4px 6px 4px 14px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.somatic-oracle-input-wrap:focus-within {
+  border-color: var(--sunburst-gold);
+  box-shadow: 0 0 0 3px rgba(197, 154, 63, 0.25);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.oracle-input-icon {
+  font-size: 0.95rem;
+  color: #8C6212;
+}
+
+.somatic-oracle-input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 0.84rem;
+  color: #1C1B18;
+  font-family: inherit;
+  flex: 1;
+  min-width: 0;
+}
+
+.somatic-oracle-input::placeholder {
+  color: #6C7A72;
+  font-size: 0.82rem;
+}
+
+.btn-oracle-generate {
+  background: linear-gradient(135deg, #D4A84D 0%, #B3862E 100%);
+  color: #1A1A17;
+  border: none;
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-family: inherit;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-oracle-generate:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(197, 154, 63, 0.35);
+}
+
+@keyframes oracleCardShimmer {
+  0% { box-shadow: 0 14px 34px rgba(0, 0, 0, 0.16); }
+  50% { box-shadow: 0 0 28px rgba(197, 154, 63, 0.65), 0 14px 34px rgba(0, 0, 0, 0.22); }
+  100% { box-shadow: 0 14px 34px rgba(0, 0, 0, 0.16); }
+}
+
+.reflection-card-3d.shimmer-pulse {
+  animation: oracleCardShimmer 0.85s ease;
+}
+
 .reflection-card-stage {
   perspective: 1200px;
   width: 100%;

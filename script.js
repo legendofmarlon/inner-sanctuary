@@ -1861,6 +1861,13 @@ document.addEventListener('DOMContentLoaded', () => {
             })
           });
         } catch (e) {}
+      } finally {
+        if (currentSubmitBtn) {
+          currentSubmitBtn.disabled = false;
+          currentSubmitBtn.innerHTML = originalText;
+        }
+        const firstTab = document.querySelector('.intake-tab');
+        if (firstTab) firstTab.click();
       }
 
       playHarmonicTone(528, 1.2);
@@ -1873,13 +1880,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (successBox) {
         intakeForm.style.display = 'none';
         successBox.style.display = 'block';
-      } finally {
-        if (currentSubmitBtn) {
-          currentSubmitBtn.disabled = false;
-          currentSubmitBtn.innerHTML = originalText;
-        }
-        const firstTab = document.querySelector('.intake-tab');
-        if (firstTab) firstTab.click();
       }
     });
   }
@@ -3099,72 +3099,218 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // =========================================================================
-  // DAILY SANCTUARY REFLECTION CARD (INTERACTIVE 3D FLIP)
+  // SANCTUARY SOMATIC ORACLE & REFLECTION CARD (INTERACTIVE 3D FLIP + SYNTHESIS)
   // =========================================================================
+  const SOMATIC_ORACLE_DB = {
+    earth: [
+      {
+        badge: "✦ EARTH • ROOT ME ✦",
+        theme: "Root Me",
+        element: "earth",
+        quote: "Where in your body are you holding yesterday? Soften your jaw, drop your heavy shoulders into gravity, and let this breath belong only to right now.",
+        freq: 432
+      },
+      {
+        badge: "✦ EARTH • GROUNDING TO BONE ✦",
+        theme: "Root Me",
+        element: "earth",
+        quote: "Feel the undeniable support of the floor beneath you. The Earth is not asking you to hold yourself up alone; let your weight settle completely.",
+        freq: 432
+      },
+      {
+        badge: "✦ EARTH • QUIET TRUST ✦",
+        theme: "Root Me",
+        element: "earth",
+        quote: "A seed does not question the dark soil before it sprouts. Trust the quiet, unhurried root system forming beneath what the eye can see.",
+        freq: 432
+      },
+      {
+        badge: "✦ EARTH • UNBURDENING ✦",
+        theme: "Root Me",
+        element: "earth",
+        quote: "You do not have to perform peace to be worthy of it. Let your feet be heavy, your belly soften, and simply exist without explanation for five minutes.",
+        freq: 432
+      }
+    ],
+    water: [
+      {
+        badge: "✦ WATER • WASH CLEAN ✦",
+        theme: "Wash Clean",
+        element: "water",
+        quote: "Water never forces its way through stone; it simply softens, flows, and finds the opening. Soften the walls around your heart and let your breath flow freely.",
+        freq: 528
+      },
+      {
+        badge: "✦ WATER • EMOTIONAL RELEASE ✦",
+        theme: "Wash Clean",
+        element: "water",
+        quote: "Tears and grief are not signs of brokenness; they are the ocean within you returning to equilibrium. Let whatever needs to flow, wash cleanly through you.",
+        freq: 528
+      },
+      {
+        badge: "✦ WATER • GENTLE COMPASSION ✦",
+        theme: "Wash Clean",
+        element: "water",
+        quote: "What would feel 5% softer in your chest and throat right now? Drink a slow sip of cool water and give yourself that gentle 5%.",
+        freq: 528
+      },
+      {
+        badge: "✦ WATER • INNER CLEANSING ✦",
+        theme: "Wash Clean",
+        element: "water",
+        quote: "You do not need to carry the emotional tides of everyone around you. Exhale what was never yours to hold and return to your clear, sacred stream.",
+        freq: 528
+      }
+    ],
+    air: [
+      {
+        badge: "✦ AIR • CLEAR CHEST ✦",
+        theme: "Clear Chest",
+        element: "air",
+        quote: "Name one urgent expectation you have permission to set down today. Notice the wide, breezy breath that rushes in to fill that sacred space.",
+        freq: 639
+      },
+      {
+        badge: "✦ AIR • UNHURRIED RHYTHM ✦",
+        theme: "Clear Chest",
+        element: "air",
+        quote: "Your healing does not have to be hurried. The wind does not rush the changing leaves; everything unfolds in its own effortless season.",
+        freq: 639
+      },
+      {
+        badge: "✦ AIR • EXPANSIVE PRESENCE ✦",
+        theme: "Clear Chest",
+        element: "air",
+        quote: "Breathe in permission. Exhale performance. You are already whole, complete, and welcome in this exact heartbeat.",
+        freq: 639
+      },
+      {
+        badge: "✦ AIR • COLLARBONE RELEASE ✦",
+        theme: "Clear Chest",
+        element: "air",
+        quote: "Lift your chin slightly and feel the air widen across your collarbones. The storm in your thoughts is just weather; you are the vast sky it passes through.",
+        freq: 639
+      }
+    ],
+    fire: [
+      {
+        badge: "✦ FIRE • IGNITE JOY ✦",
+        theme: "Ignite Joy",
+        element: "fire",
+        quote: "Sing when words fail. Laugh when tension crests. Dance when the body needs to remember it is sovereign, vibrant, and alive.",
+        freq: 741
+      },
+      {
+        badge: "✦ FIRE • SOVEREIGN SPARK ✦",
+        theme: "Ignite Joy",
+        element: "fire",
+        quote: "Even beneath deep exhaustion, your inner ember remains unquenched. Fan it not with forceful effort, but with unhurried joy and creative play.",
+        freq: 741
+      },
+      {
+        badge: "✦ FIRE • EMOTIONAL TRUTH ✦",
+        theme: "Ignite Joy",
+        element: "fire",
+        quote: "Raw authenticity is a sacred flame. You do not need to dull your light or pretend to be small to keep the peace of others.",
+        freq: 741
+      },
+      {
+        badge: "✦ FIRE • VITAL WARMTH ✦",
+        theme: "Ignite Joy",
+        element: "fire",
+        quote: "Place your hand over your solar plexus and inhale golden warmth. You have survived every cold winter; your spring fire is stirring.",
+        freq: 741
+      }
+    ],
+    ether: [
+      {
+        badge: "✦ ETHER • INFINITE SPACE ✦",
+        theme: "Infinite Space",
+        element: "ether",
+        quote: "The peace you are searching for is not something to be earned or manufactured; it is the silent, sacred space underneath all the noise.",
+        freq: 852
+      },
+      {
+        badge: "✦ ETHER • SACRED WITNESS ✦",
+        theme: "Infinite Space",
+        element: "ether",
+        quote: "Close your eyes for one deep cycle. You are not just a body surviving a busy world; you are the timeless consciousness experiencing it.",
+        freq: 852
+      },
+      {
+        badge: "✦ ETHER • COLLECTIVE SANCTUARY ✦",
+        theme: "Infinite Space",
+        element: "ether",
+        quote: "When the horizon feels overwhelming, remember: we are all breathing from the very same sky. You are never alone in this sanctuary.",
+        freq: 852
+      },
+      {
+        badge: "✦ ETHER • BOUNDLESS STILLNESS ✦",
+        theme: "Infinite Space",
+        element: "ether",
+        quote: "In the stillness between your inhale and your exhale lies your true home. Step into that gap and rest without time.",
+        freq: 852
+      }
+    ]
+  };
+
+  // Flattened array for backwards compatibility
   const SANCTUARY_REFLECTIONS = [
-    {
-      badge: "✦ SOMATIC RELEASE",
-      quote: "Where in your body are you holding yesterday? Soften your jaw, drop your shoulders, and let this breath belong only to right now.",
-      theme: "Somatic Grounding"
-    },
-    {
-      badge: "✦ UNBURDENING",
-      quote: "You don't have to perform peace to deserve it. Let yourself simply exist without explanation for five minutes.",
-      theme: "Permission to Rest"
-    },
-    {
-      badge: "✦ AIR & LETTING GO",
-      quote: "Name one expectation you have permission to put down today. Notice the breath that rushes in to fill the space.",
-      theme: "Breezy Release"
-    },
-    {
-      badge: "✦ GENTLE COMPASSION",
-      quote: "What would feel 5% softer in your chest and shoulders right now? Give yourself that 5%.",
-      theme: "Self Compassion"
-    },
-    {
-      badge: "✦ EMOTIONAL TRUTH",
-      quote: "Raw authenticity isn't loud; it's the quiet relief of no longer pretending to be unbreakable.",
-      theme: "Authentic Healing"
-    },
-    {
-      badge: "✦ NATURE'S TIMING",
-      quote: "Your healing does not have to be hurried. Nature never rushes, yet everything blooms in its own season.",
-      theme: "Unhurried Rhythm"
-    },
-    {
-      badge: "✦ SACRED BREATH",
-      quote: "Breathe in permission. Exhale performance. You are already whole in this exact heartbeat.",
-      theme: "Presence"
-    },
-    {
-      badge: "✦ THE THREEFOLD RELEASE",
-      quote: "Sing when words fail. Laugh when tension crests. Dance when the body needs to remember it is alive.",
-      theme: "Expressive Medicine"
-    },
-    {
-      badge: "✦ STILLNESS WITHIN",
-      quote: "The peace you are searching for is not something to be earned; it is the space underneath the noise.",
-      theme: "Inner Sanctuary"
-    },
-    {
-      badge: "✦ GROUNDING TOUCH",
-      quote: "Place one palm on your chest and one on your belly. Feel that steady rhythm? That is life choosing you, again and again.",
-      theme: "Somatic Presence"
-    },
-    {
-      badge: "✦ COMMUNITY SANCTUARY",
-      quote: "When the world feels loud, return to what is real: the ground under your feet, the cool air in your lungs, and the community standing beside you.",
-      theme: "Collective Connection"
-    },
-    {
-      badge: "✦ SEED OF GROWTH",
-      quote: "A seed does not question the dark soil before it sprouts. Trust the quiet growth happening beneath the surface.",
-      theme: "Quiet Trust"
-    }
+    ...SOMATIC_ORACLE_DB.earth,
+    ...SOMATIC_ORACLE_DB.water,
+    ...SOMATIC_ORACLE_DB.air,
+    ...SOMATIC_ORACLE_DB.fire,
+    ...SOMATIC_ORACLE_DB.ether
   ];
 
   let currentReflectionIndex = 0;
+  let activeSomaticElement = 'earth';
+  window.activeOracleReflection = null;
+
+  function synthesizeSomaticReflection(input) {
+    const clean = (input || '').trim();
+    const lower = clean.toLowerCase();
+
+    let targetElement = 'earth';
+    let badgeTheme = 'SOMATIC GROUNDING';
+    let freq = 432;
+    let quote = '';
+
+    if (lower.includes('water') || lower.includes('cry') || lower.includes('grief') || lower.includes('sad') || lower.includes('heart') || lower.includes('tear') || lower.includes('soft') || lower.includes('emotional') || lower.includes('hurt')) {
+      targetElement = 'water';
+      badgeTheme = 'WATER • WASH CLEAN';
+      freq = 528;
+      quote = `Holding ${clean || 'this tender feeling'} takes immense courage. Soften the muscles behind your eyes, unclench your jaw, and let the waters of your breath wash through you without resistance.`;
+    } else if (lower.includes('air') || lower.includes('breath') || lower.includes('anxi') || lower.includes('rush') || lower.includes('busy') || lower.includes('overwhelm') || lower.includes('mind') || lower.includes('think') || lower.includes('worry')) {
+      targetElement = 'air';
+      badgeTheme = 'AIR • CLEAR CHEST';
+      freq = 639;
+      quote = `When carrying ${clean || 'a busy mind'}, your chest forgets its natural expansion. Lift your chin, inhale spacious sky into your collarbones, and exhale the pressure to solve everything right now.`;
+    } else if (lower.includes('fire') || lower.includes('tired') || lower.includes('exhaust') || lower.includes('burnout') || lower.includes('numb') || lower.includes('stuck') || lower.includes('spark') || lower.includes('joy') || lower.includes('creative') || lower.includes('passion')) {
+      targetElement = 'fire';
+      badgeTheme = 'FIRE • IGNITE JOY';
+      freq = 741;
+      quote = `Even underneath ${clean || 'deep fatigue'}, your sacred inner ember is never extinguished. Place a warm hand over your solar plexus, breathe in vitality, and remember that your joy is sovereign.`;
+    } else if (lower.includes('ether') || lower.includes('lost') || lower.includes('spirit') || lower.includes('peace') || lower.includes('alone') || lower.includes('space') || lower.includes('silent') || lower.includes('still')) {
+      targetElement = 'ether';
+      badgeTheme = 'ETHER • INFINITE SPACE';
+      freq = 852;
+      quote = `In the presence of ${clean || 'this quiet space'}, remind yourself that you are not separate from the silence. Drop into the stillness between your thoughts; you are held by the infinite cosmos.`;
+    } else {
+      targetElement = 'earth';
+      badgeTheme = 'EARTH • ROOT ME';
+      freq = 432;
+      quote = `Meeting ${clean || 'this moment'} requires no force. Feel the floor beneath your feet, let your shoulders drop into the steady pull of gravity, and let your body remember its natural sanctuary.`;
+    }
+
+    return {
+      badge: `✦ ${badgeTheme} ✦`,
+      theme: badgeTheme,
+      element: targetElement,
+      quote: quote,
+      freq: freq
+    };
+  }
 
   function initSanctuaryReflectionWidget() {
     const card3D = document.getElementById('reflectionCard3D');
@@ -3174,18 +3320,108 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnCopy = document.getElementById('btnCopyReflection');
     const btnShareIG = document.getElementById('btnShareIG');
     const toast = document.getElementById('reflectionCopyToast');
+    const pills = document.querySelectorAll('.somatic-pill');
+    const customInput = document.getElementById('somaticCustomInput');
+    const btnConsult = document.getElementById('btnOracleGenerate');
 
     if (!card3D || !badgeElem || !quoteElem) return;
+
+    function applyReflectionItem(item) {
+      window.activeOracleReflection = item;
+      badgeElem.textContent = item.badge;
+      quoteElem.textContent = `"${item.quote}"`;
+
+      // Trigger luminous shimmer pulse
+      card3D.classList.remove('shimmer-pulse');
+      void card3D.offsetWidth;
+      card3D.classList.add('shimmer-pulse');
+      setTimeout(() => card3D.classList.remove('shimmer-pulse'), 850);
+
+      // Keep IG Story cache fresh
+      window.currentStoryData = {
+        quote: item.quote,
+        badge: item.badge,
+        source: "— Inner Sanctuary Somatic Oracle",
+        filename: "inner-sanctuary-somatic-oracle.png"
+      };
+    }
 
     function applyReflection(index) {
       currentReflectionIndex = index;
       const item = SANCTUARY_REFLECTIONS[index];
-      badgeElem.textContent = item.badge;
-      quoteElem.textContent = `"${item.quote}"`;
+      applyReflectionItem(item);
     }
 
     // Initialize with first reflection
     applyReflection(0);
+
+    // Wire Elemental Pills (1-Tap Somatic Check-In)
+    pills.forEach((pill) => {
+      pill.addEventListener('click', () => {
+        pills.forEach((p) => p.classList.remove('active'));
+        pill.classList.add('active');
+
+        const elKey = pill.getAttribute('data-element') || 'earth';
+        const freq = parseFloat(pill.getAttribute('data-freq')) || 432;
+        activeSomaticElement = elKey;
+
+        // Play element solfeggio harmonic
+        playHarmonicTone(freq, 1.0, 0.02);
+
+        // Pick reflection from that element
+        const pool = SOMATIC_ORACLE_DB[elKey] || SOMATIC_ORACLE_DB.earth;
+        const randomItem = pool[Math.floor(Math.random() * pool.length)];
+
+        // Flip card smoothly if closed, or flash if open
+        card3D.classList.add('is-flipped');
+        applyReflectionItem(randomItem);
+      });
+    });
+
+    // Wire Custom Feeling Input & Consult Button
+    function handleCustomConsult() {
+      const val = customInput ? customInput.value.trim() : '';
+      if (!val) {
+        showToast('🌿 Please share a word or feeling to consult the Somatic Oracle.');
+        if (customInput) customInput.focus();
+        return;
+      }
+
+      const synthesized = synthesizeSomaticReflection(val);
+      
+      // Update active pill to match synthesized element
+      pills.forEach((p) => {
+        if (p.getAttribute('data-element') === synthesized.element) {
+          p.classList.add('active');
+        } else {
+          p.classList.remove('active');
+        }
+      });
+      activeSomaticElement = synthesized.element;
+
+      // Play matching solfeggio tone
+      playHarmonicTone(synthesized.freq, 1.2, 0.02);
+
+      // Flip card and display
+      card3D.classList.add('is-flipped');
+      applyReflectionItem(synthesized);
+
+      createHeartFlourish();
+      showToast('✨ Somatic Oracle consulted. Take a deep breath with your reflection.');
+      if (customInput) customInput.value = '';
+    }
+
+    if (btnConsult) {
+      btnConsult.addEventListener('click', handleCustomConsult);
+    }
+    if (customInput) {
+      customInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          handleCustomConsult();
+        }
+      });
+    }
 
     // Tapping the card flips it
     card3D.addEventListener('click', () => {
@@ -3201,7 +3437,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Draw another card
+    // Draw another card (draws from active element)
     if (btnDraw) {
       btnDraw.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -3209,14 +3445,11 @@ document.addEventListener('DOMContentLoaded', () => {
         playHarmonicTone(432, 0.6, 0.015);
 
         setTimeout(() => {
-          let nextIndex;
-          do {
-            nextIndex = Math.floor(Math.random() * SANCTUARY_REFLECTIONS.length);
-          } while (nextIndex === currentReflectionIndex && SANCTUARY_REFLECTIONS.length > 1);
-
-          applyReflection(nextIndex);
+          const pool = SOMATIC_ORACLE_DB[activeSomaticElement] || SANCTUARY_REFLECTIONS;
+          const nextItem = pool[Math.floor(Math.random() * pool.length)];
+          applyReflectionItem(nextItem);
           card3D.classList.add('is-flipped');
-          playHarmonicTone(528, 1.0, 0.02);
+          playHarmonicTone(nextItem.freq || 528, 1.0, 0.02);
         }, 300);
       });
     }
@@ -3225,8 +3458,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnCopy) {
       btnCopy.addEventListener('click', (e) => {
         e.stopPropagation();
-        const currentItem = SANCTUARY_REFLECTIONS[currentReflectionIndex];
-        const shareText = `"${currentItem.quote}"\n\n— Inner Sanctuary Wellness Foundation ✦ @ourinnersanctuary\nhttps://ourinnersanctuary.org`;
+        const activeQuote = quoteElem.textContent.replace(/^"|"$/g, '').trim();
+        const activeBadge = badgeElem.textContent.trim();
+        const shareText = `"${activeQuote}"\n\n${activeBadge}\n— Inner Sanctuary Wellness Foundation ✦ @ourinnersanctuary\nhttps://ourinnersanctuary.org`;
 
         if (navigator.clipboard && navigator.clipboard.writeText) {
           navigator.clipboard.writeText(shareText).then(() => {
@@ -3242,13 +3476,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Share to Instagram
     if (btnShareIG) {
-      btnShareIG.addEventListener('click', () => {
-        const currentItem = SANCTUARY_REFLECTIONS[currentReflectionIndex];
-        const shareText = `"${currentItem.quote}"\n\n— Inner Sanctuary Wellness Foundation ✦ @ourinnersanctuary`;
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(shareText).catch(() => {});
+      btnShareIG.addEventListener('click', (e) => {
+        if (typeof window.openStorySnapshotFromReflection === 'function') {
+          window.openStorySnapshotFromReflection(e);
         }
-        showToast('📸 Reflection copied to clipboard! Opening Instagram to share on Story...');
       });
     }
 
@@ -3783,18 +4014,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.openStorySnapshotFromReflection = function(e) {
     if (e) e.preventDefault();
-    const currentItem = (typeof SANCTUARY_REFLECTIONS !== 'undefined' && typeof currentReflectionIndex !== 'undefined')
+    const activeItem = window.activeOracleReflection || ((typeof SANCTUARY_REFLECTIONS !== 'undefined' && typeof currentReflectionIndex !== 'undefined')
       ? SANCTUARY_REFLECTIONS[currentReflectionIndex]
-      : null;
+      : null);
 
-    const quote = currentItem ? currentItem.quote : (document.getElementById('reflectionCardQuote')?.textContent?.trim() || "Pause. Breathe. Remember.");
-    const badge = currentItem ? `✦ ${currentItem.category} ✦` : "✦ DAILY SANCTUARY REFLECTION ✦";
+    const quoteEl = document.getElementById('reflectionCardQuote');
+    const badgeEl = document.getElementById('reflectionCardBadge');
+
+    const quote = activeItem ? activeItem.quote : (quoteEl ? quoteEl.textContent.trim().replace(/^"|"$/g, '') : "Pause. Breathe. Remember.");
+    const badge = activeItem ? (activeItem.badge || `✦ ${activeItem.theme || activeItem.category} ✦`) : (badgeEl ? badgeEl.textContent.trim() : "✦ SANCTUARY SOMATIC ORACLE ✦");
 
     window.currentStoryData = {
       quote: quote,
       badge: badge,
-      source: "— Inner Sanctuary Daily Reflection",
-      filename: "inner-sanctuary-daily-reflection.png"
+      source: "— Inner Sanctuary Somatic Oracle",
+      filename: "inner-sanctuary-somatic-oracle.png"
     };
 
     renderAndShowStoryModal();
