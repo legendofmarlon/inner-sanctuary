@@ -1,6 +1,7 @@
 {
   "name": "Inner Sanctuary Wellness Foundation",
   "short_name": "Inner Sanctuary",
+  "id": "org.innersanctuarywellnessfoundation.app",
   "description": "A sacred haven for breath, spoken word, somatic movement, and mindful community at Our Sanctuary Clubhouse.",
   "start_url": "./index.html",
   "scope": "./",
@@ -14,13 +15,41 @@
       "src": "emblem.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "emblem.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
     },
     {
       "src": "emblem.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "emblem.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "images/horizon-pause.jpg",
+      "sizes": "1200x800",
+      "type": "image/jpeg",
+      "form_factor": "wide",
+      "label": "Inner Sanctuary Somatic Space & Community Circle"
+    },
+    {
+      "src": "images/openmic/openmic-vocalist-yellow.jpg",
+      "sizes": "800x1200",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "Spoken Word & Vocal Stage at Our Sanctuary Clubhouse"
     }
   ],
   "categories": [
