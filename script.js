@@ -1350,6 +1350,77 @@ document.addEventListener('DOMContentLoaded', () => {
       };
     }
 
+    // =========================================================================
+    // 1D. REALISTIC 8K NATURE BACKGROUND PLATE CROSSFADER
+    // =========================================================================
+    let currentPlateElement = null;
+    let activePlateIndex = 0; // 0: primary, 1: secondary
+    const ELEMENTAL_CLASSES = ['plate-earth', 'plate-water', 'plate-air', 'plate-fire', 'plate-ether'];
+
+    function crossfadeNatureSkyPlate(elKey) {
+      const platePrimary = document.getElementById('skyPlatePrimary');
+      const plateSecondary = document.getElementById('skyPlateSecondary');
+      if (!platePrimary || !plateSecondary) return;
+
+      if (currentPlateElement === elKey) return;
+
+      // On initial run or if no plate is initialized yet
+      if (!currentPlateElement) {
+        currentPlateElement = elKey;
+        platePrimary.className = `sky-plate sky-plate-primary active plate-${elKey}`;
+        plateSecondary.className = 'sky-plate sky-plate-secondary inactive';
+        return;
+      }
+
+      currentPlateElement = elKey;
+      const targetClass = `plate-${elKey}`;
+
+      // Pick incoming and outgoing plates
+      const incomingPlate = activePlateIndex === 0 ? plateSecondary : platePrimary;
+      const outgoingPlate = activePlateIndex === 0 ? platePrimary : plateSecondary;
+
+      // Prepare incoming plate with new element artwork & animation
+      incomingPlate.classList.remove('active', 'inactive', ...ELEMENTAL_CLASSES);
+      incomingPlate.classList.add(targetClass);
+
+      // Force layout reflow so transition is seamless and guaranteed
+      void incomingPlate.offsetWidth;
+
+      // Execute cinematic crossfade
+      incomingPlate.classList.add('active');
+      outgoingPlate.classList.remove('active');
+      outgoingPlate.classList.add('inactive');
+
+      // Toggle active plate index
+      activePlateIndex = activePlateIndex === 0 ? 1 : 0;
+    }
+
+    // Preload all 5 realistic 8K environmental plates in background for instant switching
+    const ELEMENTAL_8K_PLATES = [
+      'images/nature-earth-8k.jpg',
+      'images/nature-water-8k.jpg',
+      'images/sky-air-8k.jpg',
+      'images/nature-fire-8k.jpg',
+      'images/nature-ether-8k.jpg'
+    ];
+    if (typeof window !== 'undefined') {
+      if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(() => {
+          ELEMENTAL_8K_PLATES.forEach(src => {
+            const img = new Image();
+            img.src = src;
+          });
+        });
+      } else {
+        setTimeout(() => {
+          ELEMENTAL_8K_PLATES.forEach(src => {
+            const img = new Image();
+            img.src = src;
+          });
+        }, 800);
+      }
+    }
+
     window.switchElementTheme = function(elKey, userTriggered) { return switchElementTheme(elKey, userTriggered); };
     function switchElementTheme(elKey, userTriggered = true) {
       if (!elementThemes[elKey]) return;
@@ -1375,6 +1446,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Update Body Theme attribute for smooth background shift
       document.body.setAttribute('data-element', elKey);
+
+      // Crossfade Realistic 8K Environmental Nature Plates
+      crossfadeNatureSkyPlate(elKey);
 
       // Notify 3D Sanctuary Engine
       if (window.sanctuary3D && typeof window.sanctuary3D.setElement === 'function') {

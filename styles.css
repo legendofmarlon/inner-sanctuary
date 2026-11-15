@@ -53,34 +53,149 @@ body {
   height: 104vh;
   pointer-events: none;
   z-index: -1;
+  overflow: hidden;
+  will-change: transform;
   background-image: 
-    linear-gradient(180deg, rgba(225, 242, 250, 0.12) 0%, rgba(246, 243, 236, 0.04) 40%, rgba(246, 243, 236, 0.62) 82%, #F6F3EC 100%),
-    url('images/sky-air-8k.jpg');
+    linear-gradient(180deg, rgba(220, 235, 222, 0.12) 0%, rgba(246, 243, 236, 0.05) 40%, rgba(246, 243, 236, 0.65) 82%, #F6F3EC 100%),
+    url('images/nature-earth-8k.jpg');
   background-size: cover;
   background-position: center top;
   background-repeat: no-repeat;
-  opacity: 1 !important;
-  display: block !important;
-  animation: gentleBreezeSway 45s ease-in-out infinite alternate;
-  will-change: transform;
 }
 
+/* Individual Dual-Plate Architecture for Silky Cinematic Crossfade */
+.sky-plate {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: opacity, transform;
+  pointer-events: none;
+}
+
+.sky-plate.active {
+  opacity: 1 !important;
+  z-index: 2;
+}
+
+.sky-plate.inactive {
+  opacity: 0 !important;
+  z-index: 1;
+}
+
+/* 1. Earth Plate: Ancient temperate rainforest, redwoods, mossy cedar & ferns */
+.sky-plate.plate-earth {
+  background-image: 
+    linear-gradient(180deg, rgba(220, 235, 222, 0.12) 0%, rgba(246, 243, 236, 0.05) 40%, rgba(246, 243, 236, 0.65) 82%, #F6F3EC 100%),
+    url('images/nature-earth-8k.jpg'),
+    url('images/sky-air-8k-mountains-backup.jpg');
+  animation: forestCanopyBreathing 42s ease-in-out infinite alternate;
+}
+
+/* 2. Water Plate: Pristine cascading mountain creek, caustics, serene pebbles & mist */
+.sky-plate.plate-water {
+  background-image: 
+    linear-gradient(180deg, rgba(210, 235, 245, 0.14) 0%, rgba(237, 243, 245, 0.06) 40%, rgba(237, 243, 245, 0.68) 82%, #EDF3F5 100%),
+    url('images/nature-water-8k.jpg'),
+    url('images/sky-ocean-waves-8k.jpg');
+  animation: waterCausticRipple 38s ease-in-out infinite alternate;
+}
+
+/* 3. Air Plate: High-altitude morning ocean breeze, open atmosphere & gilded cumulus */
+.sky-plate.plate-air {
+  background-image: 
+    linear-gradient(180deg, rgba(225, 242, 250, 0.12) 0%, rgba(246, 243, 236, 0.04) 40%, rgba(246, 243, 236, 0.62) 82%, #F6F3EC 100%),
+    url('images/sky-air-8k.jpg');
+  animation: gentleBreezeSway 45s ease-in-out infinite alternate;
+}
+
+/* 4. Fire Plate: Twilight gathering hearth fire, golden-amber embers & dusk rim light */
+.sky-plate.plate-fire {
+  background-image: 
+    linear-gradient(180deg, rgba(255, 235, 215, 0.16) 0%, rgba(250, 242, 236, 0.06) 40%, rgba(250, 242, 236, 0.68) 82%, #FAF2EC 100%),
+    url('images/nature-fire-8k.jpg'),
+    url('images/sky-breezy-panorama.jpg');
+  animation: hearthEmberGlow 34s ease-in-out infinite alternate;
+}
+
+/* 5. Ether Plate: Infinite celestial starry sky, tranquil alpine lake & luminous nebula */
+.sky-plate.plate-ether {
+  background-image: 
+    linear-gradient(180deg, rgba(230, 220, 245, 0.15) 0%, rgba(243, 238, 248, 0.06) 40%, rgba(243, 238, 248, 0.70) 82%, #F3EEF8 100%),
+    url('images/nature-ether-8k.jpg'),
+    url('images/sky-ocean-infinite-8k.jpg');
+  animation: celestialCosmicDrift 55s ease-in-out infinite alternate;
+}
+
+/* Direct CSS Fallbacks when plates are not used or before script execution */
+body[data-element="earth"] .realistic-sky-bg:not(:has(.sky-plate)) {
+  background-image: linear-gradient(180deg, rgba(220, 235, 222, 0.12) 0%, rgba(246, 243, 236, 0.65) 82%, #F6F3EC 100%), url('images/nature-earth-8k.jpg');
+  background-size: cover;
+  background-position: center top;
+}
+body[data-element="water"] .realistic-sky-bg:not(:has(.sky-plate)) {
+  background-image: linear-gradient(180deg, rgba(210, 235, 245, 0.14) 0%, rgba(237, 243, 245, 0.68) 82%, #EDF3F5 100%), url('images/nature-water-8k.jpg');
+  background-size: cover;
+  background-position: center top;
+}
+body[data-element="air"] .realistic-sky-bg:not(:has(.sky-plate)) {
+  background-image: linear-gradient(180deg, rgba(225, 242, 250, 0.12) 0%, rgba(246, 243, 236, 0.62) 82%, #F6F3EC 100%), url('images/sky-air-8k.jpg');
+  background-size: cover;
+  background-position: center top;
+}
+body[data-element="fire"] .realistic-sky-bg:not(:has(.sky-plate)) {
+  background-image: linear-gradient(180deg, rgba(255, 235, 215, 0.16) 0%, rgba(250, 242, 236, 0.68) 82%, #FAF2EC 100%), url('images/nature-fire-8k.jpg');
+  background-size: cover;
+  background-position: center top;
+}
+body[data-element="ether"] .realistic-sky-bg:not(:has(.sky-plate)) {
+  background-image: linear-gradient(180deg, rgba(230, 220, 245, 0.15) 0%, rgba(243, 238, 248, 0.70) 82%, #F3EEF8 100%), url('images/nature-ether-8k.jpg');
+  background-size: cover;
+  background-position: center top;
+}
+
+/* Animations Tailored to Each Element's Unique Physics */
 @keyframes gentleBreezeSway {
-  0% {
-    transform: scale(1.0) translate(0, 0);
-  }
-  50% {
-    transform: scale(1.025) translate(-6px, -3px);
-  }
-  100% {
-    transform: scale(1.04) translate(5px, 2px);
-  }
+  0% { transform: scale(1.0) translate(0, 0); }
+  50% { transform: scale(1.025) translate(-6px, -3px); }
+  100% { transform: scale(1.04) translate(5px, 2px); }
+}
+
+@keyframes waterCausticRipple {
+  0% { transform: scale(1.0) translate(0, 0); }
+  50% { transform: scale(1.03) translate(4px, -5px); }
+  100% { transform: scale(1.02) translate(-4px, 4px); }
+}
+
+@keyframes forestCanopyBreathing {
+  0% { transform: scale(1.0) translate(0, 0); }
+  50% { transform: scale(1.028) translate(-3px, 4px); }
+  100% { transform: scale(1.015) translate(3px, -2px); }
+}
+
+@keyframes hearthEmberGlow {
+  0% { transform: scale(1.0) translate(0, 0); filter: brightness(1.0); }
+  50% { transform: scale(1.025) translate(2px, -3px); filter: brightness(1.04); }
+  100% { transform: scale(1.01) translate(-3px, 2px); filter: brightness(0.98); }
+}
+
+@keyframes celestialCosmicDrift {
+  0% { transform: scale(1.0) rotate(0deg); }
+  50% { transform: scale(1.035) rotate(0.35deg); }
+  100% { transform: scale(1.02) rotate(-0.25deg); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .realistic-sky-bg {
-    animation: none;
-    transform: none;
+  .realistic-sky-bg,
+  .sky-plate {
+    animation: none !important;
+    transform: none !important;
   }
 }
 
