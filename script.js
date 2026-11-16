@@ -5228,6 +5228,32 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // 3D Atmospheric Wind Streamlines & Wisps in the Sky
+  const windCount = width < 768 ? 14 : 26;
+  const windCurrents = [];
+  for (let i = 0; i < windCount; i++) {
+    windCurrents.push({
+      x: Math.random() * width,
+      y: Math.random() * (height * 0.58),
+      depth: Math.random() * 0.7 + 0.3,
+      speed: Math.random() * 1.8 + 0.8,
+      length: Math.random() * 70 + 35,
+      amp: Math.random() * 14 + 6,
+      freq: Math.random() * 0.006 + 0.003,
+      phase: Math.random() * Math.PI * 2,
+      thickness: Math.random() * 1.8 + 0.7,
+      baseAlpha: Math.random() * 0.35 + 0.12
+    });
+  }
+
+  let interactiveWind = 0;
+  window.addEventListener('mousemove', () => {
+    interactiveWind = Math.min(interactiveWind + 0.04, 1.0);
+  });
+  window.addEventListener('touchmove', () => {
+    interactiveWind = Math.min(interactiveWind + 0.06, 1.0);
+  }, { passive: true });
+
   let isEngineRunning = true;
 
   function renderLivingCampfire(now) {
@@ -5249,6 +5275,85 @@ document.addEventListener('DOMContentLoaded', () => {
       // Inhale stokes the fire with thermal oxygen; exhale relaxes into deep cozy warmth
       breathStoke = bStep === 0 ? (1.0 + bEase * 0.40) : (1.0 - bEase * 0.15);
     }
+
+    // 0. Render 3D Atmospheric Waves & Wind Currents (Sky Swells & Ocean Horizons)
+    interactiveWind *= 0.97;
+    const totalWindSpeed = (1.0 + interactiveWind * 1.2) * breathStoke;
+    const currentElement = document.body.getAttribute('data-element') || 'fire';
+    const isWater = currentElement === 'water';
+
+    function renderWaveRibbon(baseY, amp, freq, speed, phase, c1, c2, alpha, depth) {
+      ctx.save();
+      ctx.beginPath();
+      const step = width < 768 ? 14 : 8;
+      const waveY = (x) => {
+        const s1 = Math.sin(x * freq + t * speed * totalWindSpeed + phase) * amp;
+        const s2 = Math.cos(x * (freq * 0.55) - t * (speed * 0.65) * totalWindSpeed + phase * 1.4) * (amp * 0.45);
+        return baseY + (s1 + s2) * depth * breathStoke;
+      };
+
+      ctx.moveTo(0, waveY(0));
+      for (let x = step; x <= width + step; x += step) {
+        ctx.lineTo(x, waveY(x));
+      }
+      ctx.lineTo(width, height);
+      ctx.lineTo(0, height);
+      ctx.closePath();
+
+      const grad = ctx.createLinearGradient(0, baseY - amp, 0, baseY + amp * 3);
+      grad.addColorStop(0, c1);
+      grad.addColorStop(1, c2);
+      ctx.fillStyle = grad;
+      ctx.globalAlpha = alpha;
+      ctx.fill();
+      ctx.restore();
+    }
+
+    if (isWater) {
+      // 3D Ocean Swell Layers (Depth Perspective)
+      renderWaveRibbon(height * 0.70, 26, 0.0032, 0.42, 0, 'rgba(120, 195, 225, 0.35)', 'rgba(25, 65, 80, 0.08)', 0.45, 0.5);
+      renderWaveRibbon(height * 0.79, 32, 0.0040, 0.68, 2.1, 'rgba(150, 220, 245, 0.45)', 'rgba(15, 45, 65, 0.12)', 0.55, 0.75);
+      renderWaveRibbon(height * 0.88, 40, 0.0048, 0.92, 4.2, 'rgba(190, 240, 255, 0.60)', 'rgba(10, 35, 55, 0.20)', 0.70, 1.0);
+    } else {
+      // High-altitude 3D Atmospheric Wind Swells (Twilight & Fire embers sky)
+      renderWaveRibbon(height * 0.18, 16, 0.0022, 0.25, 0.8, 'rgba(255, 230, 160, 0.14)', 'rgba(255, 140, 40, 0.0)', 0.32, 0.4);
+      renderWaveRibbon(height * 0.34, 22, 0.0030, 0.38, 3.2, 'rgba(255, 210, 120, 0.18)', 'rgba(240, 100, 20, 0.0)', 0.38, 0.65);
+      renderWaveRibbon(height * 0.50, 26, 0.0038, 0.52, 1.7, 'rgba(248, 190, 80, 0.15)', 'rgba(200, 70, 10, 0.0)', 0.32, 0.85);
+    }
+
+    // 3D Wind Current Streamlines (Wisps flowing across sky)
+    ctx.save();
+    for (let i = 0; i < windCurrents.length; i++) {
+      const w = windCurrents[i];
+      w.x += w.speed * w.depth * totalWindSpeed;
+      if (w.x > width + w.length) {
+        w.x = -w.length;
+        w.y = Math.random() * (height * (isWater ? 0.80 : 0.60));
+      }
+
+      const startY = w.y + Math.sin(w.x * w.freq + t * 0.8 + w.phase) * w.amp * breathStoke;
+      const endX = w.x + w.length * w.depth;
+      const endY = w.y + Math.sin(endX * w.freq + t * 0.8 + w.phase) * w.amp * breathStoke;
+
+      const windGrad = ctx.createLinearGradient(w.x, startY, endX, endY);
+      if (isWater) {
+        windGrad.addColorStop(0, 'rgba(255, 255, 255, 0)');
+        windGrad.addColorStop(0.5, `rgba(180, 235, 255, ${w.baseAlpha * w.depth})`);
+        windGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+      } else {
+        windGrad.addColorStop(0, 'rgba(255, 255, 255, 0)');
+        windGrad.addColorStop(0.5, `rgba(255, 240, 190, ${w.baseAlpha * w.depth})`);
+        windGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+      }
+
+      ctx.beginPath();
+      ctx.moveTo(w.x, startY);
+      ctx.lineTo(endX, endY);
+      ctx.strokeStyle = windGrad;
+      ctx.lineWidth = w.thickness * w.depth;
+      ctx.stroke();
+    }
+    ctx.restore();
 
     // 1. Render Twilight Stars in Upper Atmosphere
     for (let i = 0; i < skyStars.length; i++) {
@@ -5387,3 +5492,12 @@ document.addEventListener('DOMContentLoaded', () => {
     return isEngineRunning;
   };
 })();
+
+// Global Pulse Presence Modal Handler
+window.openPulsePresenceModal = function(e) {
+  if (e && typeof e.preventDefault === 'function') e.preventDefault();
+  const breathTarget = document.getElementById('box-breathing-section') || document.querySelector('.box-breathing-container') || document.getElementById('remember');
+  if (breathTarget) {
+    breathTarget.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+};
