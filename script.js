@@ -2,14 +2,28 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  // Floating $1 Seed Action Button on Scroll
+  // Floating $1 Seed Action Button on Scroll (Auto-hides when donation section is in view)
   const floatingSeedPill = document.getElementById('floating-seed-pill');
+  const pwaBanner = document.getElementById('pwaInstallBanner');
   if (floatingSeedPill) {
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 340) {
+      const circleGrowth = document.getElementById('circle-growth');
+      let isOverDonation = false;
+      if (circleGrowth) {
+        const rect = circleGrowth.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 80 && rect.bottom > 80) {
+          isOverDonation = true;
+        }
+      }
+      if (window.scrollY > 340 && !isOverDonation) {
         floatingSeedPill.classList.add('is-visible');
       } else {
         floatingSeedPill.classList.remove('is-visible');
+      }
+      if (pwaBanner && isOverDonation && pwaBanner.style.display !== 'none') {
+        pwaBanner.classList.add('pwa-tuck-away');
+      } else if (pwaBanner) {
+        pwaBanner.classList.remove('pwa-tuck-away');
       }
     }, { passive: true });
   }

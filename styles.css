@@ -1067,12 +1067,12 @@ nav {
 
 /* ==================== $1 COMMUNITY CAMPAIGN HIGHLIGHT (SANCTUARY FOREST GREEN) ==================== */
 .dollar-campaign-wrapper {
-  background: linear-gradient(145deg, #1E3A2B 0%, #15271E 100%);
-  color: #F6F3EC;
-  border-radius: 20px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.96) 0%, rgba(246, 242, 233, 0.98) 100%);
+  color: #1E3328;
+  border-radius: 24px;
   padding: 44px 38px;
-  border: 2px solid #C59A3F;
-  box-shadow: 0 20px 50px rgba(15, 28, 22, 0.32);
+  border: 2px solid var(--sunburst-gold);
+  box-shadow: 0 16px 48px rgba(43, 68, 54, 0.12), 0 0 28px rgba(197, 154, 63, 0.16);
   position: relative;
   overflow: hidden;
 }
@@ -1122,14 +1122,15 @@ nav {
 }
 
 .dollar-title {
-  color: #FFFFFF;
+  color: #1E3328;
   font-size: clamp(2rem, 3.5vw, 2.7rem);
   line-height: 1.2;
   margin-bottom: 16px;
+  font-weight: 700;
 }
 
 .dollar-desc {
-  color: #E2ECE5;
+  color: #2D3831;
   font-size: 1.02rem;
   line-height: 1.8;
   margin-bottom: 22px;
@@ -9021,12 +9022,12 @@ body[data-element="ether"] nav::after {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 6px;
-  background: rgba(14, 26, 20, 0.65);
-  border: 1.5px solid rgba(197, 154, 63, 0.4);
+  background: rgba(43, 68, 54, 0.08);
+  border: 1.5px solid rgba(197, 154, 63, 0.45);
   border-radius: 999px;
   padding: 4px;
   position: relative;
-  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.35);
+  box-shadow: inset 0 2px 6px rgba(43, 68, 54, 0.06);
 }
 
 .seed-freq-btn {
@@ -9034,7 +9035,7 @@ body[data-element="ether"] nav::after {
   border: none;
   border-radius: 999px;
   padding: 8px 12px;
-  color: #CBD7D0;
+  color: #1E3328;
   font-family: 'Montserrat', sans-serif;
   font-size: 0.82rem;
   font-weight: 600;
@@ -9082,10 +9083,10 @@ body[data-element="ether"] nav::after {
   margin-top: 8px;
   padding: 8px 12px;
   background: rgba(197, 154, 63, 0.12);
-  border: 1px solid rgba(197, 154, 63, 0.25);
+  border: 1px solid rgba(197, 154, 63, 0.3);
   border-radius: 10px;
   font-size: 0.78rem;
-  color: #E2ECE5;
+  color: #1E3328;
   line-height: 1.4;
 }
 
@@ -9162,9 +9163,9 @@ body[data-element="ether"] nav::after {
 }
 
 .card-pay-badge {
-  background: rgba(255, 255, 255, 0.12);
-  color: #F6F3EC;
-  border: 1px solid rgba(197, 154, 63, 0.3);
+  background: rgba(43, 68, 54, 0.1);
+  color: #1E3328;
+  border: 1px solid rgba(197, 154, 63, 0.4);
 }
 
 .pay-guarantee-note {
@@ -9350,4 +9351,17 @@ body[data-element="fire"] .explorer-pulse-dot {
     min-height: 620px !important;
     height: 640px !important;
   }
+}
+
+/* Auto-tuck floating banner when viewing donation section */
+.pwa-install-banner.pwa-tuck-away {
+  opacity: 0.15 !important;
+  pointer-events: none !important;
+  transform: translateY(20px) !important;
+  transition: opacity 0.3s ease, transform 0.3s ease !important;
+}
+.pwa-install-banner.pwa-tuck-away:hover {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  transform: translateY(0) !important;
 }
