@@ -1090,9 +1090,9 @@ nav {
 
 .dollar-grid {
   display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: 36px;
-  align-items: stretch;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: start;
 }
 
 @media (max-width: 980px) {
@@ -9399,4 +9399,35 @@ body[data-element="fire"] .explorer-pulse-dot {
   opacity: 1 !important;
   pointer-events: auto !important;
   transform: translateY(0) !important;
+}
+
+/* Balanced Full-Width Fiduciary Trust Strip */
+.dollar-fiduciary-bottom-strip {
+  margin-top: 32px;
+  padding: 18px 28px;
+  background: rgba(10, 24, 16, 0.75);
+  border-top: 1.5px solid rgba(197, 154, 63, 0.35);
+  border-radius: 0 0 24px 24px;
+  margin-left: -38px;
+  margin-right: -38px;
+  margin-bottom: -44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: 0.84rem;
+  color: #DCEEE2;
+}
+
+@media (max-width: 980px) {
+  .dollar-fiduciary-bottom-strip {
+    margin-left: -20px;
+    margin-right: -20px;
+    margin-bottom: -30px;
+    padding: 16px 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
 }
