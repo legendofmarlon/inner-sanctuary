@@ -6463,4 +6463,162 @@ Provide a deeply compassionate, grounded 2-3 sentence reflection. Never use clin
 
   initTwilightConstellation();
 
+  /* ==========================================================================
+     14. DIGITAL LABYRINTH MODAL CONTROLLER
+     ========================================================================== */
+  function initLabyrinthModal() {
+    const modal = document.getElementById('labyrinthModal');
+    const btnOpen = document.getElementById('btnOpenLabyrinth');
+    const btnClose = document.getElementById('btnCloseLabyrinthModal');
+    const travelerOrb = document.getElementById('modalTravelerOrb');
+    const guidePath = document.getElementById('modalGuidePath');
+    const thresholdBadge = document.getElementById('modalThresholdBadge');
+    const thresholdQuote = document.getElementById('modalThresholdQuote');
+    const btnAutoWalk = document.getElementById('btnModalAutoWalk');
+    const btnChime528 = document.getElementById('btnModalChime528');
+    const centerHearth = document.getElementById('modalCenterHearth');
+    const labyrinthSvg = document.getElementById('modalLabyrinthSvg');
+
+    if (!modal || !btnOpen) return;
+
+    let isAutoWalking = false;
+    let walkProgress = 0;
+    let animId = null;
+    let pathLength = 0;
+
+    const thresholds = [
+      { p: 0.0, badge: 'Threshold 1 • The Entry Gate', quote: '"Leave behind what you have been carrying outside the gate. Soften your jaw and let the room hold you."' },
+      { p: 0.35, badge: 'Threshold 2 • The Turn Inward', quote: '"Notice the breath moving through you right now. There is nowhere else you need to be."' },
+      { p: 0.70, badge: 'Threshold 3 • The Surrender', quote: '"You are safe to release the noise of the world. Peace is not found—it is remembered."' },
+      { p: 0.96, badge: 'Threshold 4 • The Hearth Center', quote: '"You have arrived at the center of yourself. As within, so without."' }
+    ];
+
+    function updateTraveler(prg) {
+      if (!guidePath) return;
+      if (!pathLength) pathLength = guidePath.getTotalLength();
+      const clamped = Math.max(0, Math.min(1, prg));
+      const pt = guidePath.getPointAtLength(clamped * pathLength);
+      travelerOrb.setAttribute('cx', pt.x);
+      travelerOrb.setAttribute('cy', pt.y);
+
+      let cur = thresholds[0];
+      for (const t of thresholds) {
+        if (clamped >= t.p) cur = t;
+      }
+      thresholdBadge.textContent = cur.badge;
+      thresholdQuote.textContent = cur.quote;
+
+      if (clamped >= 0.97) {
+        playHealingBellKnock(2); // 528 Hz Silver chime
+      }
+    }
+
+    function openModal() {
+      modal.style.display = 'flex';
+      playHealingBellKnock(1); // 432 Hz Bronze entrance chime
+      setTimeout(() => {
+        if (guidePath) pathLength = guidePath.getTotalLength();
+        updateTraveler(0);
+      }, 50);
+    }
+
+    function closeModal() {
+      modal.style.display = 'none';
+      if (isAutoWalking) {
+        isAutoWalking = false;
+        if (animId) cancelAnimationFrame(animId);
+        btnAutoWalk.textContent = '▶ Begin Guided Walk';
+      }
+    }
+
+    btnOpen.addEventListener('click', openModal);
+    if (btnClose) btnClose.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    // Auto Walk
+    btnAutoWalk.addEventListener('click', () => {
+      if (walkProgress >= 1) walkProgress = 0;
+      if (isAutoWalking) {
+        isAutoWalking = false;
+        btnAutoWalk.textContent = '▶ Resume Walk';
+        if (animId) cancelAnimationFrame(animId);
+      } else {
+        isAutoWalking = true;
+        btnAutoWalk.textContent = '⏸ Pause Walk';
+        playHealingBellKnock(1);
+        const duration = 20000;
+        let start = null;
+        const initial = walkProgress;
+
+        function step(ts) {
+          if (!start) start = ts;
+          const el = ts - start;
+          walkProgress = initial + (el / duration);
+          if (walkProgress >= 1) {
+            walkProgress = 1;
+            updateTraveler(1);
+            isAutoWalking = false;
+            btnAutoWalk.textContent = '↺ Walk Again';
+            return;
+          }
+          updateTraveler(walkProgress);
+          if (isAutoWalking) animId = requestAnimationFrame(step);
+        }
+        animId = requestAnimationFrame(step);
+      }
+    });
+
+    if (btnChime528) {
+      btnChime528.addEventListener('click', () => playHealingBellKnock(2));
+    }
+    if (centerHearth) {
+      centerHearth.addEventListener('click', () => {
+        walkProgress = 1;
+        updateTraveler(1);
+      });
+    }
+
+    // Touch & Mouse Dragging on SVG
+    let isDragging = false;
+    function handleMove(e) {
+      if (!isDragging || !guidePath) return;
+      const rect = labyrinthSvg.getBoundingClientRect();
+      const cx = e.clientX || (e.touches && e.touches[0].clientX);
+      const cy = e.clientY || (e.touches && e.touches[0].clientY);
+      if (!cx || !cy) return;
+
+      const svgX = ((cx - rect.left) / rect.width) * 320;
+      const svgY = ((cy - rect.top) / rect.height) * 320;
+
+      if (!pathLength) pathLength = guidePath.getTotalLength();
+      let bestDist = Infinity;
+      let bestP = walkProgress;
+      for (let i = 0; i <= 50; i++) {
+        const prg = i / 50;
+        const pt = guidePath.getPointAtLength(prg * pathLength);
+        const dist = (pt.x - svgX) ** 2 + (pt.y - svgY) ** 2;
+        if (dist < bestDist) {
+          bestDist = dist;
+          bestP = prg;
+        }
+      }
+      if (bestDist < 1400) {
+        walkProgress = bestP;
+        updateTraveler(walkProgress);
+      }
+    }
+
+    labyrinthSvg.addEventListener('mousedown', () => { isDragging = true; });
+    window.addEventListener('mouseup', () => { isDragging = false; });
+    labyrinthSvg.addEventListener('mousemove', handleMove);
+
+    labyrinthSvg.addEventListener('touchstart', () => { isDragging = true; }, { passive: true });
+    window.addEventListener('touchend', () => { isDragging = false; });
+    labyrinthSvg.addEventListener('touchmove', handleMove, { passive: true });
+  }
+
+  initLabyrinthModal();
+
 })();

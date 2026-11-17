@@ -705,10 +705,14 @@
         </div>
 
         <!-- Minimal Action Controls (Silent Pacer - Zero Sound Buttons) -->
-        <div class="orb-actions-bar" style="justify-content: center;">
+        <div class="orb-actions-bar" style="justify-content: center; flex-wrap: wrap; gap: 10px;">
           <button id="orb-toggle-btn" class="breath-primary-toggle" type="button" aria-label="Start or Pause Breath Session">
             <span class="btn-ctrl-icon" id="btn-ctrl-icon">▶</span>
             <span id="orb-btn-label">Begin</span>
+          </button>
+          <button id="btnOpenLabyrinth" class="btn btn-outline" type="button" style="border-color: rgba(197, 154, 63, 0.45); color: var(--forest-green); padding: 8px 18px; border-radius: 999px; font-size: 0.82rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;" aria-label="Open Digital Labyrinth Pop-up">
+            <span>🌀</span>
+            <span>Walk Sacred Labyrinth</span>
           </button>
         </div>
 
@@ -1740,6 +1744,89 @@
             ✓ Link copied with secret knock! Ready to share with a friend.
           </div>
         </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== DIGITAL LABYRINTH POP-UP MODAL ==================== -->
+  <div id="labyrinthModal" class="labyrinth-modal-backdrop" role="dialog" aria-modal="true" aria-label="Digital Labyrinth Modal" style="display: none; position: fixed; inset: 0; z-index: 10000; background: rgba(10, 18, 14, 0.88); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); align-items: center; justify-content: center; padding: 20px;">
+    <div class="labyrinth-modal-dialog" style="background: rgba(30, 49, 39, 0.96); border: 1.5px solid rgba(197, 154, 63, 0.5); border-radius: 20px; max-width: 480px; width: 100%; box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45); padding: 28px 24px; position: relative; color: #FFFDF7; text-align: center;">
+      
+      <!-- Close Button -->
+      <button type="button" id="btnCloseLabyrinthModal" style="position: absolute; top: 14px; right: 16px; background: none; border: none; color: #FCE6A2; font-size: 26px; cursor: pointer; line-height: 1; padding: 4px;" aria-label="Close Labyrinth Dialog">&times;</button>
+
+      <!-- Header -->
+      <div style="font-size: 0.74rem; font-weight: 700; letter-spacing: 0.12em; color: var(--sunburst-gold); text-transform: uppercase; margin-bottom: 6px;">
+        ✦ Contemplative Somatic Practice ✦
+      </div>
+      <h3 class="serif-brand" style="font-size: 1.6rem; color: #FFFDF7; margin: 0 0 8px; text-shadow: 0 0 12px rgba(250, 230, 170, 0.35);">
+        The Sacred Labyrinth
+      </h3>
+      <p style="font-size: 0.86rem; color: rgba(255, 253, 247, 0.85); line-height: 1.5; margin: 0 auto 14px; max-width: 380px;">
+        A labyrinth has no dead ends. Follow the winding golden path inward with your finger or mouse toward the center hearth.
+      </p>
+
+      <!-- Labyrinth Interactive Canvas / SVG -->
+      <div style="max-width: 290px; margin: 0 auto; position: relative;">
+        <svg id="modalLabyrinthSvg" viewBox="0 0 320 320" style="width: 100%; height: auto; cursor: crosshair;">
+          <circle cx="160" cy="160" r="140" fill="none" stroke="rgba(197, 154, 63, 0.22)" stroke-width="8" stroke-linecap="round" />
+          <circle cx="160" cy="160" r="110" fill="none" stroke="rgba(197, 154, 63, 0.32)" stroke-width="8" stroke-linecap="round" />
+          <circle cx="160" cy="160" r="80" fill="none" stroke="rgba(197, 154, 63, 0.42)" stroke-width="8" stroke-linecap="round" />
+          <circle cx="160" cy="160" r="50" fill="none" stroke="rgba(197, 154, 63, 0.52)" stroke-width="8" stroke-linecap="round" />
+
+          <path id="modalGuidePath" d="
+            M 160 20
+            A 140 140 0 0 1 300 160
+            A 140 140 0 0 1 160 300
+            A 140 140 0 0 1 20 160
+            A 140 140 0 0 1 160 50
+            A 110 110 0 0 1 270 160
+            A 110 110 0 0 1 160 270
+            A 110 110 0 0 1 50 160
+            A 110 110 0 0 1 160 80
+            A 80 80 0 0 1 240 160
+            A 80 80 0 0 1 160 240
+            A 80 80 0 0 1 80 160
+            A 80 80 0 0 1 160 110
+            A 50 50 0 0 1 210 160
+            A 50 50 0 0 1 160 210
+            A 50 50 0 0 1 110 160
+            A 50 50 0 0 1 160 160
+          " fill="none" stroke="transparent" stroke-width="20" stroke-linecap="round" />
+
+          <!-- Entry Marker -->
+          <circle cx="160" cy="20" r="6" fill="#C59A3F" stroke="#FFFDF7" stroke-width="1.5" />
+
+          <!-- Center Hearth Goal -->
+          <g id="modalCenterHearth" style="cursor: pointer;">
+            <circle cx="160" cy="160" r="22" fill="rgba(30, 49, 39, 0.95)" stroke="#C59A3F" stroke-width="2" />
+            <circle cx="160" cy="160" r="18" fill="none" stroke="#FCE6A2" stroke-width="1" stroke-dasharray="2 2" />
+            <text x="160" y="161" text-anchor="middle" dominant-baseline="middle" fill="#FFFDF7" font-size="8.5" font-weight="700">HEARTH</text>
+            <text x="160" y="171" text-anchor="middle" dominant-baseline="middle" fill="#FCE6A2" font-size="6.5" font-weight="600">528 Hz</text>
+          </g>
+
+          <!-- Traveling Orb -->
+          <circle id="modalTravelerOrb" cx="160" cy="20" r="8" fill="#FFFDF7" stroke="#C59A3F" stroke-width="2" />
+        </svg>
+      </div>
+
+      <!-- Threshold Wisdom Box -->
+      <div id="modalThresholdBox" style="background: rgba(18, 30, 24, 0.75); border: 1px solid rgba(197, 154, 63, 0.3); border-radius: 10px; padding: 10px 14px; margin-top: 12px; text-align: center;">
+        <div id="modalThresholdBadge" style="font-size: 0.72rem; font-weight: 700; color: var(--sunburst-gold); letter-spacing: 0.08em; text-transform: uppercase;">Threshold 1 • The Entry Gate</div>
+        <div id="modalThresholdQuote" style="font-size: 0.84rem; color: #FFFDF7; font-style: italic; margin-top: 4px; line-height: 1.4;">
+          "Leave behind what you have been carrying outside the gate. Soften your jaw."
+        </div>
+      </div>
+
+      <!-- Modal Controls -->
+      <div style="display: flex; gap: 10px; justify-content: center; margin-top: 14px;">
+        <button type="button" id="btnModalAutoWalk" class="btn btn-outline" style="border-color: rgba(197, 154, 63, 0.45); color: #FCE6A2; font-size: 0.8rem; padding: 8px 16px; border-radius: 6px; cursor: pointer;">
+          ▶ Begin Guided Walk
+        </button>
+        <button type="button" id="btnModalChime528" class="btn btn-gold" style="font-size: 0.8rem; padding: 8px 16px; border-radius: 6px; cursor: pointer;">
+          🔔 528 Hz Chime
+        </button>
       </div>
 
     </div>
