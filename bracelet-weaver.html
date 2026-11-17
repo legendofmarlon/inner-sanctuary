@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sanctuary Intention Bracelet Weaver</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    @keyframes pulseAura {
+      0%, 100% { transform: scale(1); opacity: 0.4; }
+      50% { transform: scale(1.08); opacity: 0.8; }
+    }
+    .bead-aura {
+      animation: pulseAura 3s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="bg-transparent text-[var(--foreground)] antialiased p-0 m-0 select-none">
+  <div class="max-w-xl mx-auto p-4 space-y-4">
+    
+    <!-- Header Badge -->
+    <div class="flex items-center justify-between border-b border-[var(--card-border)] pb-2 text-xs">
+      <div class="flex items-center gap-2">
+        <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+        <span class="font-bold tracking-wider uppercase text-[var(--muted-foreground)]">Permission to Pause • Intention Weaver</span>
+      </div>
+      <span class="text-[var(--muted-foreground)] text-[11px]">50+ Documented Pauses</span>
+    </div>
+
+    <!-- Interactive Canvas & Bracelet Stage -->
+    <div class="relative w-full aspect-square max-w-[320px] mx-auto flex items-center justify-center p-2">
+      <!-- Ambient Glow Behind Bracelet -->
+      <div id="braceletGlow" class="absolute inset-4 rounded-full bg-amber-500/10 blur-xl bead-aura pointer-events-none transition-all duration-700"></div>
+
+      <!-- SVG Bracelet Rendering Stage -->
+      <svg id="braceletSvg" class="w-full h-full relative z-10 transition-transform duration-500" viewBox="0 0 300 300">
+        <!-- Centerpiece Cord Circle -->
+        <circle cx="150" cy="150" r="105" fill="none" stroke="rgba(197, 154, 63, 0.45)" stroke-width="2.5" stroke-dasharray="4 2" />
+        
+        <!-- Group for rendered beads -->
+        <g id="beadsGroup"></g>
+
+        <!-- Center Sacred Medallion / Focus Charm -->
+        <g id="centerCharm" class="cursor-pointer transform origin-center transition-transform hover:scale-110">
+          <circle cx="150" cy="150" r="42" fill="rgba(30, 49, 39, 0.95)" stroke="#C59A3F" stroke-width="2.5" />
+          <circle cx="150" cy="150" r="37" fill="none" stroke="#FCE6A2" stroke-width="1" stroke-dasharray="3 3" opacity="0.6" />
+          <!-- Anchor Word Display -->
+          <text id="charmWord" x="150" y="148" text-anchor="middle" dominant-baseline="middle" fill="#FFFDF7" font-size="13" font-weight="700" letter-spacing="1.5">PEACE</text>
+          <text x="150" y="166" text-anchor="middle" dominant-baseline="middle" fill="#FCE6A2" font-size="8.5" font-weight="600" letter-spacing="1">528 Hz</text>
+        </g>
+      </svg>
+    </div>
+
+    <!-- Anchor Word Selector & Input -->
+    <div class="space-y-2">
+      <div class="flex items-center justify-between text-xs font-medium text-[var(--muted-foreground)]">
+        <span>1. Choose or type your Sacred Anchor Word:</span>
+        <span id="charCount" class="text-[10px]">5 letters</span>
+      </div>
+      
+      <!-- Preset Word Chips -->
+      <div class="flex flex-wrap gap-1.5 justify-center">
+        <button class="word-chip px-2.5 py-1 text-xs rounded-full border border-[var(--card-border)] bg-[var(--card)] hover:border-amber-400 font-medium transition-all" data-word="PEACE">Peace</button>
+        <button class="word-chip px-2.5 py-1 text-xs rounded-full border border-[var(--card-border)] bg-[var(--card)] hover:border-amber-400 font-medium transition-all" data-word="TRUTH">Truth</button>
+        <button class="word-chip px-2.5 py-1 text-xs rounded-full border border-[var(--card-border)] bg-[var(--card)] hover:border-amber-400 font-medium transition-all" data-word="BELONG">Belong</button>
+        <button class="word-chip px-2.5 py-1 text-xs rounded-full border border-[var(--card-border)] bg-[var(--card)] hover:border-amber-400 font-medium transition-all" data-word="REST">Rest</button>
+        <button class="word-chip px-2.5 py-1 text-xs rounded-full border border-[var(--card-border)] bg-[var(--card)] hover:border-amber-400 font-medium transition-all" data-word="JOY">Joy</button>
+        <button class="word-chip px-2.5 py-1 text-xs rounded-full border border-[var(--card-border)] bg-[var(--card)] hover:border-amber-400 font-medium transition-all" data-word="COURAGE">Courage</button>
+      </div>
+
+      <!-- Custom Word Input -->
+      <div class="relative">
+        <input id="customWordInput" type="text" maxlength="12" placeholder="Or type your anchor word (e.g. GRACE, UNHURRIED)..." class="w-full px-3 py-2 text-xs rounded-lg border border-[var(--card-border)] bg-[var(--card)] text-[var(--foreground)] placeholder-[var(--muted-foreground)] focus:outline-none focus:border-amber-400 text-center font-semibold tracking-wider uppercase transition-colors" />
+      </div>
+    </div>
+
+    <!-- Bead Material Selector -->
+    <div class="space-y-1.5">
+      <div class="text-xs font-medium text-[var(--muted-foreground)]">2. Select Sacred Bead Material:</div>
+      <div class="grid grid-cols-4 gap-2 text-center text-xs">
+        <button class="mat-btn p-2 rounded-lg border-2 border-amber-500 bg-[var(--card)] flex flex-col items-center gap-1 transition-all" data-mat="gold">
+          <span class="w-4 h-4 rounded-full bg-gradient-to-tr from-amber-600 via-amber-300 to-amber-100 shadow-sm"></span>
+          <span class="text-[11px] font-semibold">Brushed Gold</span>
+        </button>
+        <button class="mat-btn p-2 rounded-lg border border-[var(--card-border)] bg-[var(--card)] flex flex-col items-center gap-1 transition-all" data-mat="sandalwood">
+          <span class="w-4 h-4 rounded-full bg-amber-800 shadow-sm"></span>
+          <span class="text-[11px] font-medium">Sandalwood</span>
+        </button>
+        <button class="mat-btn p-2 rounded-lg border border-[var(--card-border)] bg-[var(--card)] flex flex-col items-center gap-1 transition-all" data-mat="jade">
+          <span class="w-4 h-4 rounded-full bg-emerald-700 shadow-sm"></span>
+          <span class="text-[11px] font-medium">Sacred Jade</span>
+        </button>
+        <button class="mat-btn p-2 rounded-lg border border-[var(--card-border)] bg-[var(--card)] flex flex-col items-center gap-1 transition-all" data-mat="lava">
+          <span class="w-4 h-4 rounded-full bg-neutral-800 border border-neutral-600 shadow-sm"></span>
+          <span class="text-[11px] font-medium">Black Lava</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="flex gap-2 pt-2">
+      <button id="blessBtn" class="flex-1 py-2.5 px-4 rounded-lg bg-gradient-to-r from-amber-600 to-amber-500 text-white font-bold text-xs tracking-wider uppercase flex items-center justify-center gap-2 shadow-md hover:from-amber-500 hover:to-amber-400 active:scale-95 transition-all">
+        <span>✦</span>
+        <span>Bless & Weave Bracelet</span>
+        <span>🔔 528 Hz</span>
+      </button>
+    </div>
+
+    <!-- Keepsake Output Card (Hidden by default) -->
+    <div id="keepsakeCard" class="hidden p-3.5 rounded-xl border border-amber-500/40 bg-[var(--card)] space-y-2 animate-fadeIn text-xs">
+      <div class="flex items-center justify-between text-amber-500 font-bold uppercase tracking-wider text-[11px]">
+        <span>✦ Sacred Keepsake Woven</span>
+        <span>As Within, So Without</span>
+      </div>
+      <p id="affirmationText" class="italic text-[var(--foreground)] leading-relaxed">
+        "May this bracelet be your silent tether to peace whenever the world asks you to rush."
+      </p>
+      <div class="flex items-center justify-between pt-1 border-t border-[var(--card-border)] text-[10px] text-[var(--muted-foreground)]">
+        <span>Inner Sanctuary Wellness Foundation</span>
+        <button id="copyAffirmationBtn" class="text-amber-500 font-semibold hover:underline">Copy Affirmation</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // Audio Synthesizer (528 Hz Silver Frequency Tone)
+    function playSolfeggio528() {
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        const ctx = new AudioCtx();
+        const now = ctx.currentTime;
+        const master = ctx.createGain();
+        master.connect(ctx.destination);
+
+        master.gain.setValueAtTime(0.001, now);
+        master.gain.linearRampToValueAtTime(0.35, now + 0.02);
+        master.gain.exponentialRampToValueAtTime(0.0001, now + 3.0);
+
+        // 528 Hz Transformation / Heart Coherence harmonics
+        const partials = [264, 528, 1056, 1584];
+        partials.forEach((f, idx) => {
+          const osc = ctx.createOscillator();
+          const g = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(f, now);
+          const vol = idx === 1 ? 0.6 : 0.2;
+          g.gain.setValueAtTime(vol, now);
+          g.gain.exponentialRampToValueAtTime(0.0001, now + (3.0 - idx * 0.4));
+          osc.connect(g);
+          g.connect(master);
+          osc.start(now);
+          osc.stop(now + 3.0);
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    // Bracelet Rendering Logic
+    const beadsGroup = document.getElementById('beadsGroup');
+    const charmWord = document.getElementById('charmWord');
+    const customWordInput = document.getElementById('customWordInput');
+    const wordChips = document.querySelectorAll('.word-chip');
+    const matBtns = document.querySelectorAll('.mat-btn');
+    const blessBtn = document.getElementById('blessBtn');
+    const keepsakeCard = document.getElementById('keepsakeCard');
+    const affirmationText = document.getElementById('affirmationText');
+    const copyAffirmationBtn = document.getElementById('copyAffirmationBtn');
+    const charCount = document.getElementById('charCount');
+    const braceletSvg = document.getElementById('braceletSvg');
+
+    let currentWord = 'PEACE';
+    let currentMaterial = 'gold';
+
+    const materials = {
+      gold: { fill: 'url(#goldGrad)', stroke: '#8C6212', r: 8.5 },
+      sandalwood: { fill: '#8B4513', stroke: '#5C2E0B', r: 9.0 },
+      jade: { fill: '#2E8B57', stroke: '#1E5E3A', r: 8.5 },
+      lava: { fill: '#222222', stroke: '#444444', r: 9.2 }
+    };
+
+    function renderBracelet() {
+      beadsGroup.innerHTML = '';
+      
+      // Defs for Gold Gradient
+      const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+      defs.innerHTML = `
+        <radialGradient id="goldGrad" cx="35%" cy="35%" r="65%">
+          <stop offset="0%" stop-color="#FFFDF7" />
+          <stop offset="35%" stop-color="#FCE6A2" />
+          <stop offset="70%" stop-color="#C59A3F" />
+          <stop offset="100%" stop-color="#8C6212" />
+        </radialGradient>
+      `;
+      beadsGroup.appendChild(defs);
+
+      const radius = 105;
+      const cx = 150;
+      const cy = 150;
+      const beadCount = 20;
+
+      const mat = materials[currentMaterial];
+
+      for (let i = 0; i < beadCount; i++) {
+        // Skip beads directly behind the center charm (approx bottom 3 beads)
+        const angle = (i / beadCount) * Math.PI * 2 - Math.PI / 2;
+        const x = cx + radius * Math.cos(angle);
+        const y = cy + radius * Math.sin(angle);
+
+        // Distance from center charm
+        const distFromCenter = Math.sqrt((x - cx) ** 2 + (y - cy) ** 2);
+        
+        const bead = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        bead.setAttribute('cx', x);
+        bead.setAttribute('cy', y);
+        bead.setAttribute('r', mat.r);
+        bead.setAttribute('fill', mat.fill);
+        bead.setAttribute('stroke', mat.stroke);
+        bead.setAttribute('stroke-width', '1.5');
+        bead.style.transition = 'all 0.4s ease';
+
+        beadsGroup.appendChild(bead);
+      }
+
+      charmWord.textContent = currentWord;
+      charCount.textContent = `${currentWord.length} letters`;
+    }
+
+    // Material Selection
+    matBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        matBtns.forEach(b => {
+          b.classList.remove('border-amber-500', 'border-2');
+          b.classList.add('border', 'border-[var(--card-border)]');
+        });
+        btn.classList.add('border-amber-500', 'border-2');
+        currentMaterial = btn.dataset.mat;
+        renderBracelet();
+      });
+    });
+
+    // Preset Word Chips
+    wordChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        currentWord = chip.dataset.word;
+        customWordInput.value = '';
+        renderBracelet();
+      });
+    });
+
+    // Custom Word Input
+    customWordInput.addEventListener('input', (e) => {
+      const val = e.target.value.trim().toUpperCase();
+      currentWord = val.length > 0 ? val : 'PEACE';
+      renderBracelet();
+    });
+
+    // Affirmations Map
+    const affirmations = {
+      PEACE: '"May this bracelet be your silent tether to peace whenever the world asks you to rush. Soften your jaw and breathe."',
+      TRUTH: '"Your truth is your compass. In honoring your authentic voice, you give others permission to do the same."',
+      BELONG: '"You do not have to earn your place in this circle. You belong here simply because you exist. As within, so without."',
+      REST: '"Rest is not a reward for burning out; it is the sacred soil from which your creativity blooms."',
+      JOY: '"Sometimes coming home to yourself looks like laughing, singing, and dancing without apology."',
+      COURAGE: '"Courage is not fearlessness; it is taking one deep conscious breath and choosing to stay present."'
+    };
+
+    // Bless Button Event
+    blessBtn.addEventListener('click', () => {
+      playSolfeggio528();
+      
+      // Tactile Bracelet Spin Animation
+      braceletSvg.style.transform = 'rotate(360deg)';
+      setTimeout(() => {
+        braceletSvg.style.transform = 'rotate(0deg)';
+      }, 600);
+
+      const quote = affirmations[currentWord] || `"In holding the intention of ${currentWord}, you plant a seed of healing that blossoms across your entire community."`;
+      affirmationText.textContent = quote;
+      keepsakeCard.classList.remove('hidden');
+      keepsakeCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+
+    copyAffirmationBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(affirmationText.textContent).then(() => {
+        copyAffirmationBtn.textContent = 'Copied! ✓';
+        setTimeout(() => { copyAffirmationBtn.textContent = 'Copy Affirmation'; }, 2000);
+      });
+    });
+
+    // Initial render
+    renderBracelet();
+  </script>
+</body>
+</html>
