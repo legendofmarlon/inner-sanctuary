@@ -230,13 +230,46 @@ body[data-element="ether"] .realistic-sky-bg:not(:has(.sky-plate)) {
   mix-blend-mode: multiply;
 }
 
-/* Botanical Corner Vines & Silhouettes */
+/* Botanical Corner Vines & Silhouettes with Gentle Breeze Floating Animation */
+@keyframes leafBreezeLeft {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  33% {
+    transform: translate(7px, 9px) rotate(1.4deg);
+  }
+  66% {
+    transform: translate(-5px, 14px) rotate(-0.9deg);
+  }
+}
+
+@keyframes leafBreezeRight {
+  0%, 100% {
+    transform: scaleX(-1) translate(0, 0) rotate(0deg);
+  }
+  33% {
+    transform: scaleX(-1) translate(-7px, 11px) rotate(-1.6deg);
+  }
+  66% {
+    transform: scaleX(-1) translate(6px, 7px) rotate(1.1deg);
+  }
+}
+
+@keyframes leafBreezeBottom {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate(9px, -11px) rotate(1.5deg);
+  }
+}
+
 .botanical-canopy {
   position: fixed;
   pointer-events: none;
   z-index: 1;
-  opacity: 0.22;
-  transition: transform 0.2s cubic-bezier(0.1, 0.9, 0.2, 1);
+  opacity: 0.24;
+  transition: opacity 0.4s ease;
 }
 
 .botanical-top-left {
@@ -244,6 +277,8 @@ body[data-element="ether"] .realistic-sky-bg:not(:has(.sky-plate)) {
   left: -20px;
   width: 220px;
   height: auto;
+  animation: leafBreezeLeft 14s ease-in-out infinite;
+  will-change: transform;
 }
 
 .botanical-top-right {
@@ -252,6 +287,8 @@ body[data-element="ether"] .realistic-sky-bg:not(:has(.sky-plate)) {
   width: 240px;
   height: auto;
   transform: scaleX(-1);
+  animation: leafBreezeRight 16s ease-in-out infinite;
+  will-change: transform;
 }
 
 .botanical-bottom-left {
@@ -259,6 +296,8 @@ body[data-element="ether"] .realistic-sky-bg:not(:has(.sky-plate)) {
   left: -20px;
   width: 200px;
   height: auto;
+  animation: leafBreezeBottom 18s ease-in-out infinite;
+  will-change: transform;
 }
 
 /* Ensure all page content is cleanly elevated above the ambient forest layer */
@@ -691,16 +730,20 @@ nav {
 /* Outer Luminous Golden Aura Halo */
 .hero-emblem-halo {
   position: absolute;
-  inset: -22px;
+  inset: -34px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(248, 217, 140, 0.32) 0%, rgba(197, 154, 63, 0.15) 55%, transparent 75%);
-  animation: haloBreath 4s ease-in-out infinite alternate;
+  background: radial-gradient(circle, rgba(248, 217, 140, 0.48) 0%, rgba(197, 154, 63, 0.28) 45%, rgba(197, 154, 63, 0.08) 70%, transparent 85%);
+  animation: haloBreath 5s ease-in-out infinite alternate;
   pointer-events: none;
   z-index: 0;
+  filter: blur(8px);
 }
 
 @keyframes haloBreath {
-  0% { transform: scale(0.94); opacity: 0.6; }
+  0% { transform: scale(0.92); opacity: 0.65; filter: blur(6px); }
+  50% { transform: scale(1.05); opacity: 0.95; filter: blur(10px); }
+  100% { transform: scale(1.15); opacity: 1; filter: blur(14px); }
+}
   100% { transform: scale(1.08); opacity: 1; }
 }
 
@@ -9526,17 +9569,20 @@ body[data-element="fire"] .explorer-pulse-dot {
 /* Modal Dialog */
 .speakeasy-modal-dialog {
   position: relative;
-  background: linear-gradient(145deg, #182C20 0%, #101E16 50%, #0A140F 100%);
+  background: 
+    linear-gradient(180deg, rgba(8, 16, 12, 0.84) 0%, rgba(10, 20, 15, 0.92) 50%, rgba(5, 10, 7, 0.98) 100%),
+    url('images/clubhouse-cabin-speakeasy.jpg') center/cover no-repeat;
   border: 2px solid var(--sunburst-gold);
   border-radius: 26px;
-  max-width: 680px;
+  max-width: 880px;
   width: 100%;
   max-height: 94vh;
   overflow-y: auto;
-  padding: 32px 28px 28px;
+  padding: 36px 32px 32px;
   color: #F6F3EC;
-  box-shadow: 0 28px 72px rgba(0, 0, 0, 0.75), 0 0 45px rgba(197, 154, 63, 0.28);
+  box-shadow: 0 32px 84px rgba(0, 0, 0, 0.85), 0 0 60px rgba(197, 154, 63, 0.38);
   animation: scaleInBracelet 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  backdrop-filter: blur(8px);
 }
 
 .speakeasy-modal-close {
@@ -10273,4 +10319,15 @@ body[data-element="fire"] .explorer-pulse-dot {
   gap: 12px;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+/* Enhanced Card Elevation & Micro-Interactions */
+.lsd-focus-card, .program-spotlight-card, .horizon-card, .pathway-card {
+  transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.38s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.38s ease !important;
+}
+
+.lsd-focus-card:hover, .program-spotlight-card:hover, .horizon-card:hover, .pathway-card:hover {
+  transform: translateY(-8px) scale(1.01) !important;
+  box-shadow: 0 20px 44px rgba(43, 68, 54, 0.14), 0 0 26px rgba(197, 154, 63, 0.24) !important;
+  border-color: var(--sunburst-gold) !important;
 }
