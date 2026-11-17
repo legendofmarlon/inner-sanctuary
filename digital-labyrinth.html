@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Sanctuary Digital Labyrinth</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    @keyframes pulseGlow {
+      0%, 100% { filter: drop-shadow(0 0 6px rgba(197, 154, 63, 0.4)); opacity: 0.85; }
+      50% { filter: drop-shadow(0 0 16px rgba(252, 230, 162, 0.9)); opacity: 1; }
+    }
+    .heart-glow {
+      animation: pulseGlow 3s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="bg-transparent text-[var(--foreground)] antialiased p-0 m-0 select-none">
+  <div class="max-w-xl mx-auto p-4 space-y-4">
+    
+    <!-- Header Badge -->
+    <div class="flex items-center justify-between border-b border-[var(--card-border)] pb-2 text-xs">
+      <div class="flex items-center gap-2">
+        <span class="inline-block w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+        <span class="font-bold tracking-wider uppercase text-[var(--muted-foreground)]">Contemplative Practice • Digital Labyrinth</span>
+      </div>
+      <span class="text-[var(--muted-foreground)] text-[11px]">Somatic Mindful Journey</span>
+    </div>
+
+    <!-- Instructions / Stage Header -->
+    <div class="text-center space-y-1">
+      <h3 class="text-base font-bold tracking-wide text-[var(--foreground)]">Walk the Sacred Pathway</h3>
+      <p class="text-xs text-[var(--muted-foreground)] max-w-sm mx-auto">
+        A labyrinth has no dead ends. Click or drag your finger along the winding golden path inward toward the heart hearth.
+      </p>
+    </div>
+
+    <!-- Labyrinth Interactive Canvas Stage -->
+    <div class="relative w-full aspect-square max-w-[340px] mx-auto flex items-center justify-center p-2">
+      
+      <!-- Ambient Backlight -->
+      <div class="absolute inset-2 rounded-full bg-emerald-900/20 blur-2xl pointer-events-none"></div>
+
+      <!-- Labyrinth SVG -->
+      <svg id="labyrinthSvg" class="w-full h-full relative z-10 cursor-crosshair" viewBox="0 0 320 320">
+        
+        <!-- Concentric Labyrinth Circuits (Single winding contemplative path) -->
+        <!-- Circuit 4 (Outer) -->
+        <circle cx="160" cy="160" r="140" fill="none" stroke="rgba(197, 154, 63, 0.25)" stroke-width="8" stroke-linecap="round" />
+        
+        <!-- Circuit 3 -->
+        <circle cx="160" cy="160" r="110" fill="none" stroke="rgba(197, 154, 63, 0.35)" stroke-width="8" stroke-linecap="round" />
+        
+        <!-- Circuit 2 -->
+        <circle cx="160" cy="160" r="80" fill="none" stroke="rgba(197, 154, 63, 0.45)" stroke-width="8" stroke-linecap="round" />
+        
+        <!-- Circuit 1 (Inner) -->
+        <circle cx="160" cy="160" r="50" fill="none" stroke="rgba(197, 154, 63, 0.55)" stroke-width="8" stroke-linecap="round" />
+
+        <!-- Connecting Walk Path (Guidance track) -->
+        <path id="guidePath" d="
+          M 160 20
+          A 140 140 0 0 1 300 160
+          A 140 140 0 0 1 160 300
+          A 140 140 0 0 1 20 160
+          A 140 140 0 0 1 160 50
+          A 110 110 0 0 1 270 160
+          A 110 110 0 0 1 160 270
+          A 110 110 0 0 1 50 160
+          A 110 110 0 0 1 160 80
+          A 80 80 0 0 1 240 160
+          A 80 80 0 0 1 160 240
+          A 80 80 0 0 1 80 160
+          A 80 80 0 0 1 160 110
+          A 50 50 0 0 1 210 160
+          A 50 50 0 0 1 160 210
+          A 50 50 0 0 1 110 160
+          A 50 50 0 0 1 160 160
+        " fill="none" stroke="transparent" stroke-width="20" stroke-linecap="round" />
+
+        <!-- Tracing Progress Line -->
+        <path id="progressLine" d="M 160 20" fill="none" stroke="#FCE6A2" stroke-width="4" stroke-linecap="round" opacity="0.9" />
+
+        <!-- Threshold Markers -->
+        <!-- Threshold 1: Gate -->
+        <circle cx="160" cy="20" r="7" fill="#C59A3F" stroke="#FFFDF7" stroke-width="2" class="cursor-pointer" />
+        <text x="160" y="38" text-anchor="middle" fill="#C59A3F" font-size="9" font-weight="700">ENTRY</text>
+
+        <!-- Threshold 2: Midway Turn -->
+        <circle cx="50" cy="160" r="6" fill="#C59A3F" stroke="#FFFDF7" stroke-width="1.5" />
+        
+        <!-- Center Hearth (Arrival Goal) -->
+        <g id="labyrinthCenter" class="heart-glow cursor-pointer transition-transform hover:scale-110">
+          <circle cx="160" cy="160" r="24" fill="rgba(30, 49, 39, 0.95)" stroke="#C59A3F" stroke-width="2.5" />
+          <circle cx="160" cy="160" r="20" fill="none" stroke="#FCE6A2" stroke-width="1" stroke-dasharray="2 2" />
+          <text x="160" y="161" text-anchor="middle" dominant-baseline="middle" fill="#FFFDF7" font-size="9" font-weight="800" letter-spacing="1">HEARTH</text>
+          <text x="160" y="172" text-anchor="middle" dominant-baseline="middle" fill="#FCE6A2" font-size="7" font-weight="600">528 Hz</text>
+        </g>
+
+        <!-- Traveler's Traveling Orb -->
+        <circle id="travelerOrb" cx="160" cy="20" r="9" fill="#FFFDF7" stroke="#C59A3F" stroke-width="2.5" filter="drop-shadow(0 0 8px #FCE6A2)" />
+      </svg>
+    </div>
+
+    <!-- Threshold Wisdom Display Card -->
+    <div id="thresholdCard" class="p-3.5 rounded-xl border border-amber-500/30 bg-[var(--card)] space-y-1.5 text-xs text-center transition-all">
+      <div id="thresholdBadge" class="text-[10px] font-bold tracking-widest text-amber-500 uppercase">Threshold 1 • The Entry Gate</div>
+      <p id="thresholdQuote" class="italic text-[var(--foreground)] text-xs leading-relaxed">
+        "Leave behind what you have been carrying outside the gate. Take one slow breath. Soften your jaw."
+      </p>
+    </div>
+
+    <!-- Pacing Controls -->
+    <div class="flex items-center justify-between gap-3 pt-1">
+      <button id="autoWalkBtn" class="flex-1 py-2 px-3 rounded-lg bg-[var(--card)] border border-[var(--card-border)] hover:border-amber-400 text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors">
+        <span>▶</span>
+        <span id="autoWalkLabel">Begin Guided Walk</span>
+      </button>
+
+      <button id="chimeCenterBtn" class="py-2 px-3 rounded-lg bg-gradient-to-r from-amber-600 to-amber-500 text-white font-bold text-xs tracking-wider flex items-center gap-1 shadow-sm hover:from-amber-500 hover:to-amber-400 transition-all">
+        <span>🔔</span>
+        <span>Center Chime</span>
+      </button>
+    </div>
+
+  </div>
+
+  <script>
+    // Audio Frequency Synthesizer (432Hz Entry, 528Hz Center Chime)
+    function playTone(freq = 432, duration = 2.5) {
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        const ctx = new AudioCtx();
+        const now = ctx.currentTime;
+        const master = ctx.createGain();
+        master.connect(ctx.destination);
+
+        master.gain.setValueAtTime(0.001, now);
+        master.gain.linearRampToValueAtTime(0.3, now + 0.02);
+        master.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+        const osc = ctx.createOscillator();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, now);
+        osc.connect(master);
+        osc.start(now);
+        osc.stop(now + duration);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    const travelerOrb = document.getElementById('travelerOrb');
+    const guidePath = document.getElementById('guidePath');
+    const progressLine = document.getElementById('progressLine');
+    const thresholdBadge = document.getElementById('thresholdBadge');
+    const thresholdQuote = document.getElementById('thresholdQuote');
+    const autoWalkBtn = document.getElementById('autoWalkBtn');
+    const autoWalkLabel = document.getElementById('autoWalkLabel');
+    const chimeCenterBtn = document.getElementById('chimeCenterBtn');
+    const labyrinthCenter = document.getElementById('labyrinthCenter');
+
+    const pathLength = guidePath.getTotalLength();
+    let isAutoWalking = false;
+    let walkProgress = 0; // 0 to 1
+    let walkAnimId = null;
+
+    const thresholds = [
+      { progress: 0.0, badge: 'Threshold 1 • The Entry Gate', quote: '"Leave behind what you have been carrying outside the gate. Soften your jaw and let the room hold you."' },
+      { progress: 0.35, badge: 'Threshold 2 • The Turn Inward', quote: '"Notice the breath moving through you right now. There is nowhere else you need to be."' },
+      { progress: 0.70, badge: 'Threshold 3 • The Surrender', quote: '"You are safe to release the noise of the world. Peace is not found—it is remembered."' },
+      { progress: 0.98, badge: 'Threshold 4 • The Hearth Center', quote: '"You have arrived at the center of yourself. Breathe in peace, breathe out belonging. As within, so without."' }
+    ];
+
+    function updateTraveler(progress) {
+      const p = Math.max(0, Math.min(1, progress));
+      const pt = guidePath.getPointAtLength(p * pathLength);
+      travelerOrb.setAttribute('cx', pt.x);
+      travelerOrb.setAttribute('cy', pt.y);
+
+      // Update wisdom message
+      let currentThreshold = thresholds[0];
+      for (const t of thresholds) {
+        if (p >= t.progress) currentThreshold = t;
+      }
+      thresholdBadge.textContent = currentThreshold.badge;
+      thresholdQuote.textContent = currentThreshold.quote;
+
+      // Center arrival celebration
+      if (p >= 0.97) {
+        playTone(528, 3.5);
+      }
+    }
+
+    // Auto Walk Animation
+    function startAutoWalk() {
+      isAutoWalking = true;
+      autoWalkLabel.textContent = 'Pause Walk';
+      const durationMs = 24000; // 24-second unhurried meditation walk
+      let startTime = null;
+      const initialP = walkProgress;
+
+      function step(timestamp) {
+        if (!startTime) startTime = timestamp;
+        const elapsed = timestamp - startTime;
+        walkProgress = initialP + (elapsed / durationMs);
+
+        if (walkProgress >= 1) {
+          walkProgress = 1;
+          updateTraveler(1);
+          isAutoWalking = false;
+          autoWalkLabel.textContent = 'Walk Again';
+          return;
+        }
+
+        updateTraveler(walkProgress);
+        if (isAutoWalking) {
+          walkAnimId = requestAnimationFrame(step);
+        }
+      }
+
+      playTone(432, 2.0);
+      walkAnimId = requestAnimationFrame(step);
+    }
+
+    function stopAutoWalk() {
+      isAutoWalking = false;
+      autoWalkLabel.textContent = 'Resume Walk';
+      if (walkAnimId) cancelAnimationFrame(walkAnimId);
+    }
+
+    autoWalkBtn.addEventListener('click', () => {
+      if (walkProgress >= 1) {
+        walkProgress = 0;
+      }
+      if (isAutoWalking) {
+        stopAutoWalk();
+      } else {
+        startAutoWalk();
+      }
+    });
+
+    chimeCenterBtn.addEventListener('click', () => {
+      playTone(528, 3.2);
+    });
+
+    labyrinthCenter.addEventListener('click', () => {
+      walkProgress = 1;
+      updateTraveler(1);
+      playTone(528, 3.5);
+    });
+
+    // Interactive Drag / Touch along SVG
+    const labyrinthSvg = document.getElementById('labyrinthSvg');
+    let isDragging = false;
+
+    function handlePointerMove(e) {
+      if (!isDragging) return;
+      const rect = labyrinthSvg.getBoundingClientRect();
+      const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+      const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+      if (!clientX || !clientY) return;
+
+      const svgX = ((clientX - rect.left) / rect.width) * 320;
+      const svgY = ((clientY - rect.top) / rect.height) * 320;
+
+      // Find nearest point along guidePath
+      let bestDist = Infinity;
+      let bestProgress = walkProgress;
+      const samples = 60;
+      for (let i = 0; i <= samples; i++) {
+        const prg = i / samples;
+        const pt = guidePath.getPointAtLength(prg * pathLength);
+        const dist = (pt.x - svgX) ** 2 + (pt.y - svgY) ** 2;
+        if (dist < bestDist) {
+          bestDist = dist;
+          bestProgress = prg;
+        }
+      }
+
+      if (bestDist < 1200) { // Near enough to track
+        walkProgress = bestProgress;
+        updateTraveler(walkProgress);
+      }
+    }
+
+    labyrinthSvg.addEventListener('mousedown', () => { isDragging = true; if (isAutoWalking) stopAutoWalk(); });
+    window.addEventListener('mouseup', () => { isDragging = false; });
+    labyrinthSvg.addEventListener('mousemove', handlePointerMove);
+
+    labyrinthSvg.addEventListener('touchstart', () => { isDragging = true; if (isAutoWalking) stopAutoWalk(); }, { passive: true });
+    window.addEventListener('touchend', () => { isDragging = false; });
+    labyrinthSvg.addEventListener('touchmove', handlePointerMove, { passive: true });
+
+    // Initial setup at gate
+    updateTraveler(0);
+  </script>
+</body>
+</html>
