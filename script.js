@@ -6206,4 +6206,155 @@ window.openPulsePresenceModal = function(e) {
     }, 600);
   }
 
+  /* ==========================================================================
+     12. THE HEARTH MIRROR (GEMINI WISDOM COMPANION)
+     ========================================================================== */
+  function initHearthMirror() {
+    const hearthPortal = document.getElementById('hearth-mirror-portal');
+    if (!hearthPortal) return;
+
+    const inputArea = document.getElementById('hearthReflectionInput');
+    const btnReceive = document.getElementById('btnReceiveReflection');
+    const btnChime432 = document.getElementById('btnChime432');
+    const btnChime528 = document.getElementById('btnChime528');
+    const pillBtns = document.querySelectorAll('.hearth-pill-btn');
+    const resultBox = document.getElementById('hearthReflectionResult');
+    const resultTag = document.getElementById('hearthResultTag');
+    const resultQuote = document.getElementById('hearthResultQuote');
+    const resultPractice = document.getElementById('hearthResultPractice');
+    const btnText = document.getElementById('hearthBtnText');
+    const btnSpinner = document.getElementById('hearthBtnSpinner');
+
+    let selectedEmotion = 'seeking-peace';
+
+    const reflectionsDatabase = {
+      'overwhelmed': {
+        tag: 'Release & Soften',
+        quote: '"You have been carrying the sky on your shoulders today. Let this breath belong only to you. You do not have to fix everything right this second. Soften your jaw, drop your hands, and let the room hold you."',
+        practice: '🌿 Grounding Micro-Practice: Unclench your teeth, place one hand on your heart, and take 3 slow breaths with the Living Breath Orb above.'
+      },
+      'heavy-heart': {
+        tag: 'Gentle Witness',
+        quote: '"Grief and heaviness are sacred messengers—they show how deeply you love and feel. You don’t have to rush past this moment or explain it to anyone. In our circle, every heavy heart is met with warmth and belonging."',
+        practice: '🌿 Grounding Micro-Practice: Inhale for 4 seconds, whisper \"I am here\", and exhale for 8 seconds. You are never alone in what you feel.'
+      },
+      'seeking-peace': {
+        tag: 'Unhurried Presence',
+        quote: '"Peace is not the absence of noise; it is the quiet room you build inside yourself in the middle of it all. Pause. Breathe. Remember who you are when the demands of the world fade away."',
+        practice: '🌿 Grounding Micro-Practice: Listen closely to the 432 Hz bronze bell tone until it completely melts into silence.'
+      },
+      'creative-spark': {
+        tag: 'Honor Your Voice',
+        quote: '"That subtle inner tug is your soul asking to play. Whether it is two lines of poetry, a hummingbird melody, or an honest conversation—your truth deserves to take up space. Bring it to the hearth."',
+        practice: '🌿 Grounding Micro-Practice: Jot down the first 3 honest words that come to your mind without editing them. That is your poem for today.'
+      },
+      'lonely': {
+        tag: 'Sacred Belonging',
+        quote: '"Isolation is a trick of the mind. Underneath the surface, we are all navigating the same tender human experience. The journey home to yourself was never meant to be walked alone."',
+        practice: '🌿 Grounding Micro-Practice: Look outside at the open sky or a living leaf. Connect with the breath shared by all of us.'
+      },
+      'grateful': {
+        tag: 'Living Abundance',
+        quote: '"Gratitude turns what we have into enough. In honoring this moment of sweetness, you water the seeds of peace for everyone who crosses your path today. As within, so without."',
+        practice: '🌿 Grounding Micro-Practice: Send a silent blessing of gratitude to someone who held space for you when you needed it most.'
+      }
+    };
+
+    // Emotion Pill Selection
+    pillBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        pillBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selectedEmotion = btn.getAttribute('data-emotion') || 'seeking-peace';
+        
+        const emotionLabel = btn.innerText.replace(/[^\w\s]/gi, '').trim();
+        inputArea.setAttribute('placeholder', `Exploring "${emotionLabel}"... Add your own words or tap "Receive Hearth Reflection"`);
+      });
+    });
+
+    // 432 Hz Bell Button
+    if (btnChime432) {
+      btnChime432.addEventListener('click', () => {
+        playHealingBellKnock(1);
+      });
+    }
+
+    // 528 Hz Bell Button
+    if (btnChime528) {
+      btnChime528.addEventListener('click', () => {
+        playHealingBellKnock(2);
+      });
+    }
+
+    // Receive Reflection Handler
+    if (btnReceive) {
+      btnReceive.addEventListener('click', async () => {
+        const userText = (inputArea.value || '').trim();
+
+        btnSpinner.style.display = 'inline-block';
+        btnText.innerText = 'Listening to the Hearth...';
+        btnReceive.disabled = true;
+
+        // Play 432 Hz grounding chime on reflection request
+        playHealingBellKnock(1);
+
+        try {
+          const apiKey = window.GEMINI_API_KEY || localStorage.getItem('gemini_api_key');
+          let customReflection = null;
+
+          if (apiKey && userText.length > 5) {
+            try {
+              const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  contents: [{
+                    parts: [{
+                      text: `You are the compassionate Hearth Keeper of Inner Sanctuary Wellness Foundation (IRS 501(c)(3)).
+Our pillars: Pause. Breathe. Remember. Come home to yourself. Threefold method: Tune In (witness yourself), Express (honor your voice), Connect (experience belonging).
+The visitor shares: "${userText}".
+Provide a deeply compassionate, grounded 2-3 sentence reflection. Never use clinical medical jargon or robot corporate platitudes. Address them with warmth, poetic presence, and unhurried calm. Remind them they are worthy of rest and belonging. End with one gentle grounding action.`
+                    }]
+                  }]
+                })
+              });
+              const data = await response.json();
+              if (data && data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0].text) {
+                customReflection = data.candidates[0].content.parts[0].text.trim();
+              }
+            } catch (err) {
+              console.warn('Gemini API fetch fallback to curated wisdom:', err);
+            }
+          }
+
+          // Unhurried thoughtful pause (700ms)
+          await new Promise(r => setTimeout(r, 700));
+
+          if (customReflection) {
+            resultTag.innerText = 'Gemini Reflection Spark';
+            resultQuote.innerText = `"${customReflection}"`;
+            resultPractice.innerHTML = '<strong>🌿 Grounding Micro-Practice:</strong> Take 3 conscious breaths with the Living Breath Orb above. As within, so without.';
+          } else {
+            const data = reflectionsDatabase[selectedEmotion] || reflectionsDatabase['seeking-peace'];
+            resultTag.innerText = data.tag;
+            resultQuote.innerText = data.quote;
+            resultPractice.innerHTML = data.practice;
+          }
+
+          resultBox.style.display = 'block';
+          resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+        } catch (e) {
+          console.error(e);
+        } finally {
+          btnSpinner.style.display = 'none';
+          btnText.innerText = '✦ Receive Hearth Reflection';
+          btnReceive.disabled = false;
+        }
+      });
+    }
+  }
+
+  initHearthMirror();
+
 })();

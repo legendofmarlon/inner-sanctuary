@@ -721,6 +721,77 @@
 
       </div>
 
+      <!-- ==================== THE HEARTH MIRROR (GEMINI WISDOM COMPANION) ==================== -->
+      <div class="hearth-mirror-card" id="hearth-mirror-portal" style="max-width: 720px; margin: 38px auto 0; background: rgba(30, 49, 39, 0.94); border: 1.5px solid rgba(197, 154, 63, 0.45); border-radius: 20px; padding: 36px 30px; box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22); color: #FFFDF7; text-align: center; position: relative; overflow: hidden;">
+        
+        <!-- Subtle Golden Backlight Glow -->
+        <div style="position: absolute; top: -50px; left: 50%; transform: translateX(-50%); width: 320px; height: 160px; background: radial-gradient(circle, rgba(197, 154, 63, 0.3) 0%, transparent 70%); pointer-events: none;"></div>
+
+        <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(197, 154, 63, 0.18); border: 1px solid rgba(197, 154, 63, 0.4); padding: 5px 14px; border-radius: 999px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; color: #FCE6A2; text-transform: uppercase; margin-bottom: 16px;">
+          <span>✦ THE HEARTH MIRROR • GEMINI WISDOM COMPANION ✦</span>
+        </div>
+
+        <h3 class="serif-brand" style="color: #FFFDF7; font-size: 1.85rem; margin: 0 0 10px; text-shadow: 0 0 14px rgba(250, 230, 170, 0.4);">
+          What is on your heart right now?
+        </h3>
+        
+        <p style="color: rgba(255, 253, 247, 0.85); font-size: 0.98rem; line-height: 1.6; max-width: 580px; margin: 0 auto 22px;">
+          Whisper what you are carrying or navigating today. The Hearth Mirror reflects back a personalized grounding wisdom spark to help you soften, breathe, and remember.
+        </p>
+
+        <!-- Emotion Anchor Buttons -->
+        <div class="hearth-emotion-pills" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 20px;">
+          <button type="button" class="hearth-pill-btn" data-emotion="overwhelmed">🌪️ Overwhelmed</button>
+          <button type="button" class="hearth-pill-btn" data-emotion="heavy-heart">🌧️ Heavy Heart</button>
+          <button type="button" class="hearth-pill-btn" data-emotion="seeking-peace">🕊️ Seeking Peace</button>
+          <button type="button" class="hearth-pill-btn" data-emotion="creative-spark">🔥 Creative Spark</button>
+          <button type="button" class="hearth-pill-btn" data-emotion="lonely">🕯️ Need Connection</button>
+          <button type="button" class="hearth-pill-btn" data-emotion="grateful">🌿 Grateful</button>
+        </div>
+
+        <!-- Reflection Input Area -->
+        <div style="margin-bottom: 20px;">
+          <textarea id="hearthReflectionInput" placeholder="Whisper what you are carrying or navigating today (or tap a feeling above)..." rows="2" style="width: 100%; box-sizing: border-box; background: rgba(18, 30, 24, 0.75); border: 1.5px solid rgba(197, 154, 63, 0.35); border-radius: 12px; color: #FFFDF7; font-size: 0.95rem; padding: 14px 16px; font-family: inherit; line-height: 1.5; resize: vertical; outline: none; transition: border-color 0.25s ease;"></textarea>
+        </div>
+
+        <!-- Action Row -->
+        <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
+          <button type="button" id="btnReceiveReflection" class="btn btn-gold" style="padding: 12px 24px; font-weight: 700; letter-spacing: 0.05em; font-size: 0.92rem; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
+            <span id="hearthBtnSpinner" style="display: none;">⏳</span>
+            <span id="hearthBtnText">✦ Receive Hearth Reflection</span>
+          </button>
+          <button type="button" id="btnChime432" class="btn btn-outline" style="border-color: rgba(197, 154, 63, 0.5); color: #FCE6A2; padding: 12px 18px; font-size: 0.88rem; border-radius: 8px; cursor: pointer;">
+            🔔 432 Hz Bronze Bell
+          </button>
+        </div>
+
+        <!-- Dynamic Output Container (Hidden by default) -->
+        <div id="hearthReflectionResult" style="display: none; margin-top: 28px; padding-top: 24px; border-top: 1px solid rgba(197, 154, 63, 0.3); text-align: left; animation: fadeIn 0.6s ease;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+            <span style="font-size: 0.76rem; letter-spacing: 0.1em; color: var(--sunburst-gold); font-weight: 700; text-transform: uppercase;">✦ Hearth Reflection Spark</span>
+            <span id="hearthResultTag" style="font-size: 0.74rem; background: rgba(197, 154, 63, 0.2); color: #FCE6A2; padding: 2px 8px; border-radius: 4px; font-weight: 600;">Peace</span>
+          </div>
+          
+          <div id="hearthResultQuote" class="serif-brand" style="font-size: 1.18rem; color: #FFFDF7; line-height: 1.7; font-style: italic; margin-bottom: 16px; text-shadow: 0 0 10px rgba(250, 230, 170, 0.3);">
+            "Take a gentle breath, friend. You have been carrying so much..."
+          </div>
+
+          <div id="hearthResultPractice" style="background: rgba(18, 30, 24, 0.6); border-left: 3px solid var(--sunburst-gold); padding: 12px 16px; border-radius: 6px; font-size: 0.88rem; color: rgba(255, 253, 247, 0.9); margin-bottom: 18px;">
+            <strong>🌿 Grounding Micro-Practice:</strong> Let your jaw unclench and take 3 slow breaths with the Living Breath Orb above.
+          </div>
+
+          <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end;">
+            <button type="button" id="btnChime528" class="btn btn-outline" style="border-color: rgba(197, 154, 63, 0.5); color: #FCE6A2; font-size: 0.8rem; padding: 8px 14px; border-radius: 6px; cursor: pointer;">
+              🔔 528 Hz Healing Bell
+            </button>
+            <a href="#open-mic" class="btn btn-gold" style="font-size: 0.8rem; padding: 8px 14px; border-radius: 6px; text-decoration: none;">
+              Bring This to Friday's Circle →
+            </a>
+          </div>
+        </div>
+
+      </div>
+
     
 
       
@@ -961,7 +1032,7 @@
           </div>
 
           <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-            <a href="#bracelet-creator" class="btn btn-gold" style="flex: 1; text-align: center; font-size: 0.82rem; padding: 10px 14px; text-decoration: none;">Explore Permission to Pause</a>
+            <a href="#breath" class="btn btn-gold" style="flex: 1; text-align: center; font-size: 0.82rem; padding: 10px 14px; text-decoration: none;">Explore Permission to Pause</a>
             <a href="#connect" class="btn btn-outline" style="flex: 1; text-align: center; font-size: 0.82rem; padding: 10px 14px; text-decoration: none;">Bring to Your Community</a>
           </div>
         </div>

@@ -10348,3 +10348,44 @@ body[data-element="fire"] .explorer-pulse-dot {
   box-shadow: 0 20px 44px rgba(43, 68, 54, 0.14), 0 0 26px rgba(197, 154, 63, 0.24) !important;
   border-color: var(--sunburst-gold) !important;
 }
+
+
+/* ==========================================================================
+   THE HEARTH MIRROR (GEMINI WISDOM COMPANION)
+   ========================================================================== */
+.hearth-mirror-card {
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.hearth-mirror-card:hover {
+  border-color: var(--sunburst-gold) !important;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.28), 0 0 28px rgba(197, 154, 63, 0.25) !important;
+}
+
+.hearth-pill-btn {
+  background: rgba(255, 253, 247, 0.08);
+  border: 1px solid rgba(197, 154, 63, 0.38);
+  color: #FFFDF7;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 0.84rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  outline: none;
+  font-family: inherit;
+}
+
+.hearth-pill-btn:hover,
+.hearth-pill-btn.active {
+  background: rgba(197, 154, 63, 0.28) !important;
+  border-color: var(--sunburst-gold) !important;
+  color: #FCE6A2 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(197, 154, 63, 0.22);
+}
+
+#hearthReflectionInput:focus {
+  border-color: var(--sunburst-gold) !important;
+  box-shadow: 0 0 16px rgba(197, 154, 63, 0.3) !important;
+}
