@@ -6357,4 +6357,110 @@ Provide a deeply compassionate, grounded 2-3 sentence reflection. Never use clin
 
   initHearthMirror();
 
+  /* ==========================================================================
+     13. LIVING TWILIGHT CONSTELLATION (ATMOSPHERIC BACKGROUND)
+     ========================================================================== */
+  function initTwilightConstellation() {
+    const canvas = document.getElementById('twilightConstellationCanvas');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let width = 0;
+    let height = 0;
+    let animationId = null;
+
+    function resize() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+    }
+    resize();
+    window.addEventListener('resize', resize, { passive: true });
+
+    // 36 Ambient Living Stars & Hearth Embers
+    const STAR_COUNT = 36;
+    const stars = [];
+    const colors = ['#FFFDF7', '#FCE6A2', '#C59A3F', '#E2C275'];
+
+    for (let i = 0; i < STAR_COUNT; i++) {
+      stars.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        r: Math.random() * 1.6 + 0.8,
+        vx: (Math.random() - 0.5) * 0.15,
+        vy: -Math.random() * 0.18 - 0.04, // Gentle upward drifting hearth breath
+        baseAlpha: Math.random() * 0.45 + 0.35,
+        phase: Math.random() * Math.PI * 2,
+        phaseSpeed: Math.random() * 0.02 + 0.012,
+        color: colors[Math.floor(Math.random() * colors.length)]
+      });
+    }
+
+    function render() {
+      ctx.clearRect(0, 0, width, height);
+
+      // Connective subtle constellation lines
+      for (let i = 0; i < stars.length; i++) {
+        for (let j = i + 1; j < stars.length; j++) {
+          const dx = stars[i].x - stars[j].x;
+          const dy = stars[i].y - stars[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 90) {
+            const lineAlpha = (1 - dist / 90) * 0.16;
+            ctx.strokeStyle = `rgba(197, 154, 63, ${lineAlpha})`;
+            ctx.lineWidth = 0.75;
+            ctx.beginPath();
+            ctx.moveTo(stars[i].x, stars[i].y);
+            ctx.lineTo(stars[j].x, stars[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Draw and update stars
+      for (let i = 0; i < stars.length; i++) {
+        const s = stars[i];
+        s.x += s.vx;
+        s.y += s.vy;
+        s.phase += s.phaseSpeed;
+
+        // Loop boundaries
+        if (s.y < -10) s.y = height + 10;
+        if (s.x < -10) s.x = width + 10;
+        if (s.x > width + 10) s.x = -10;
+
+        const currentAlpha = s.baseAlpha + Math.sin(s.phase) * 0.28;
+        const clampedAlpha = Math.max(0.1, Math.min(1.0, currentAlpha));
+
+        ctx.save();
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = 'rgba(197, 154, 63, 0.4)';
+        ctx.globalAlpha = clampedAlpha;
+        ctx.fillStyle = s.color;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+
+      animationId = requestAnimationFrame(render);
+    }
+
+    // Pause animation when tab is not active to save battery/CPU
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        if (animationId) cancelAnimationFrame(animationId);
+      } else {
+        animationId = requestAnimationFrame(render);
+      }
+    });
+
+    animationId = requestAnimationFrame(render);
+  }
+
+  initTwilightConstellation();
+
 })();
