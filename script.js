@@ -5437,3 +5437,633 @@ window.openPulsePresenceModal = function(e) {
     breathTarget.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 };
+
+
+/* ========================================================
+   THE SANCTUARY GREENROOM (SPEAKEASY & COMMUNITY MIC)
+   ======================================================== */
+
+(function() {
+  // 1. Knock System State
+  let knockCount = 0;
+  let knockTimer = null;
+  let activeTab = 'vinyl';
+
+  // 2. Play wooden knock tone using Web Audio
+  function playWoodenKnock(pitchMultiplier = 1.0) {
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      const ctx = new AudioCtx();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      const filter = ctx.createBiquadFilter();
+
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(380 * pitchMultiplier, ctx.currentTime);
+
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(140 * pitchMultiplier, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(45 * pitchMultiplier, ctx.currentTime + 0.08);
+
+      gain.gain.setValueAtTime(0.001, ctx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.12, ctx.currentTime + 0.008);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.12);
+
+      osc.connect(filter);
+      filter.connect(gain);
+      gain.connect(ctx.destination);
+
+      osc.start();
+      osc.stop(ctx.currentTime + 0.14);
+    } catch (e) {
+      console.warn('Knock audio suppressed:', e);
+    }
+  }
+
+  // 3. Play needle drop crackle sound
+  function playNeedleDrop() {
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      const ctx = new AudioCtx();
+      const bufferSize = ctx.sampleRate * 0.45;
+      const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+      const data = buffer.getChannelData(0);
+
+      for (let i = 0; i < bufferSize; i++) {
+        const t = i / ctx.sampleRate;
+        const pop = Math.random() > 0.985 ? (Math.random() * 0.4 - 0.2) : 0;
+        data[i] = (Math.random() * 0.03 - 0.015 + pop) * (1 - t / 0.45);
+      }
+
+      const noise = ctx.createBufferSource();
+      noise.buffer = buffer;
+      const filter = ctx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.frequency.setValueAtTime(1200, ctx.currentTime);
+
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(0.08, ctx.currentTime);
+
+      noise.connect(filter);
+      filter.connect(gain);
+      gain.connect(ctx.destination);
+
+      noise.start();
+    } catch (e) {}
+  }
+
+  // 4. Handle Knock on Nav Key Badge
+  window.handleSpeakeasyKnock = function(e) {
+    if (e && typeof e.preventDefault === 'function') e.preventDefault();
+
+    knockCount++;
+    const counterEl = document.getElementById('speakeasyKnockCounter');
+    
+    // Clear reset timer
+    if (knockTimer) clearTimeout(knockTimer);
+    knockTimer = setTimeout(() => {
+      knockCount = 0;
+      if (counterEl) counterEl.textContent = '✦';
+    }, 4500);
+
+    // Visual & Audio Feedback
+    if (knockCount === 1) {
+      playWoodenKnock(1.0);
+      if (counterEl) counterEl.textContent = '1/3';
+      showKnockToast('🚪 Knock 1 of 3... Tap again!');
+    } else if (knockCount === 2) {
+      playWoodenKnock(1.18);
+      if (counterEl) counterEl.textContent = '2/3';
+      showKnockToast('🚪 Knock 2 of 3... One more!');
+    } else if (knockCount >= 3) {
+      playWoodenKnock(1.35);
+      if (counterEl) counterEl.textContent = '🔓';
+      showKnockToast('✨ Door Unlocked! Welcome Backstage.');
+      knockCount = 0;
+      setTimeout(() => {
+        if (counterEl) counterEl.textContent = '✦';
+        openSpeakeasyModal();
+      }, 350);
+    }
+  };
+
+  function showKnockToast(msg) {
+    const existing = document.querySelector('.speakeasy-knock-toast');
+    if (existing) existing.remove();
+
+    const toast = document.createElement('div');
+    toast.className = 'speakeasy-knock-toast';
+    toast.textContent = msg;
+    document.body.appendChild(toast);
+
+    setTimeout(() => {
+      toast.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateY(-10px)';
+      setTimeout(() => toast.remove(), 320);
+    }, 1800);
+  }
+
+  // 5. Open / Close Speakeasy Modal
+  window.openSpeakeasyModal = function(e) {
+    if (e && typeof e.preventDefault === 'function') e.preventDefault();
+    const modal = document.getElementById('speakeasyModal');
+    if (!modal) return;
+    
+    playNeedleDrop();
+    modal.style.display = 'flex';
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+
+    // Initialize Guestbook on first open
+    renderGuestbook();
+  };
+
+  window.closeSpeakeasyModal = function() {
+    const modal = document.getElementById('speakeasyModal');
+    if (!modal) return;
+    modal.style.display = 'none';
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+
+    // Stop playback when closed to be respectful
+    stopGreenroomAudio();
+  };
+
+  // Close on Escape or Backdrop Click
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const modal = document.getElementById('speakeasyModal');
+      if (modal && modal.style.display !== 'none') {
+        closeSpeakeasyModal();
+      }
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    const modal = document.getElementById('speakeasyModal');
+    if (modal && e.target === modal) {
+      closeSpeakeasyModal();
+    }
+  });
+
+  // 6. Tab Switching
+  window.switchSpeakeasyTab = function(tabName) {
+    activeTab = tabName;
+    const tabs = ['vinyl', 'mic', 'pass'];
+    tabs.forEach(t => {
+      const btn = document.getElementById('tabBtn' + t.charAt(0).toUpperCase() + t.slice(1));
+      const pane = document.getElementById('tabPane' + t.charAt(0).toUpperCase() + t.slice(1));
+      if (btn) btn.classList.toggle('active', t === tabName);
+      if (pane) {
+        pane.style.display = t === tabName ? (t === 'vinyl' ? 'flex' : 'block') : 'none';
+        pane.classList.toggle('active', t === tabName);
+      }
+    });
+  };
+
+  // 7. Greenroom Web Audio Synthesis Engine (3 Tracks)
+  const TRACKS = [
+    {
+      title: "Midnight Embers & 432Hz Dusk",
+      credits: "Acoustic Guitar, Fire Cracks & Grounding Harmonics • Live Session",
+      badge: "NOW PLAYING • TRACK 01",
+      notes: [146.83, 220.00, 293.66, 369.99, 440.00, 554.37, 587.33] // D-Major pentatonic acoustic guitar arpeggios
+    },
+    {
+      title: "Rain on MacArthur & Cello",
+      credits: "C2/G2 Drone, Singing Bowls & Evening Rain • Live Session",
+      badge: "NOW PLAYING • TRACK 02",
+      notes: [65.41, 98.00, 130.81, 196.00, 261.63, 392.00] // Deep cello resonance
+    },
+    {
+      title: "Sanctuary Exhale & Chimes",
+      credits: "4-4 Somatic Breath Cycle & Bamboo Windchimes • Live Session",
+      badge: "NOW PLAYING • TRACK 03",
+      notes: [659.25, 783.99, 880.00, 987.77, 1174.66, 1318.51] // Pentatonic chimes
+    }
+  ];
+
+  let currentTrackIdx = 0;
+  let isPlaying = false;
+  let audioCtx = null;
+  let masterGain = null;
+  let synthInterval = null;
+  let noiseNode = null;
+
+  function initAudioCtx() {
+    if (!audioCtx) {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      audioCtx = new AudioContext();
+      masterGain = audioCtx.createGain();
+      masterGain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+      masterGain.connect(audioCtx.destination);
+    }
+    if (audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+  }
+
+  // Play a single warm synthesized guitar or chime pluck
+  function playSynthPluck(freq, decay = 1.6) {
+    if (!audioCtx || !isPlaying) return;
+    try {
+      const osc = audioCtx.createOscillator();
+      const oscGain = audioCtx.createGain();
+      const filter = audioCtx.createBiquadFilter();
+
+      // Pluck timbre
+      osc.type = currentTrackIdx === 1 ? 'sawtooth' : 'triangle';
+      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(currentTrackIdx === 1 ? 260 : 780, audioCtx.currentTime);
+
+      const now = audioCtx.currentTime;
+      oscGain.gain.setValueAtTime(0.001, now);
+      oscGain.gain.linearRampToValueAtTime(0.06, now + 0.015);
+      oscGain.gain.exponentialRampToValueAtTime(0.0001, now + decay);
+
+      osc.connect(filter);
+      filter.connect(oscGain);
+      oscGain.connect(masterGain);
+
+      osc.start(now);
+      osc.stop(now + decay);
+    } catch (e) {}
+  }
+
+  // Start the background ambient crackle/rain texture
+  function startAmbientTexture() {
+    if (!audioCtx) return;
+    try {
+      const bufferSize = audioCtx.sampleRate * 2;
+      const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+      const data = buffer.getChannelData(0);
+
+      for (let i = 0; i < bufferSize; i++) {
+        // Soft pink noise with warm random pops
+        const pop = Math.random() > 0.992 ? (Math.random() * 0.15 - 0.075) : 0;
+        data[i] = (Math.random() * 0.02 - 0.01) + pop;
+      }
+
+      noiseNode = audioCtx.createBufferSource();
+      noiseNode.buffer = buffer;
+      noiseNode.loop = true;
+
+      const noiseFilter = audioCtx.createBiquadFilter();
+      noiseFilter.type = 'bandpass';
+      noiseFilter.frequency.setValueAtTime(currentTrackIdx === 1 ? 800 : 1400, audioCtx.currentTime);
+
+      const noiseGain = audioCtx.createGain();
+      noiseGain.gain.setValueAtTime(0.025, audioCtx.currentTime);
+
+      noiseNode.connect(noiseFilter);
+      noiseFilter.connect(noiseGain);
+      noiseGain.connect(masterGain);
+
+      noiseNode.start();
+    } catch (e) {}
+  }
+
+  function startGreenroomAudio() {
+    initAudioCtx();
+    isPlaying = true;
+    startAmbientTexture();
+
+    const track = TRACKS[currentTrackIdx];
+    let noteStep = 0;
+
+    // Pattern arpeggiator
+    synthInterval = setInterval(() => {
+      if (!isPlaying) return;
+      const freq = track.notes[noteStep % track.notes.length];
+      playSynthPluck(freq, currentTrackIdx === 2 ? 2.5 : 1.8);
+      noteStep++;
+    }, currentTrackIdx === 1 ? 950 : (currentTrackIdx === 2 ? 1400 : 480));
+
+    // UI Updates
+    updateVinylUI(true);
+  }
+
+  function stopGreenroomAudio() {
+    isPlaying = false;
+    if (synthInterval) clearInterval(synthInterval);
+    if (noiseNode) {
+      try { noiseNode.stop(); } catch (e) {}
+      noiseNode = null;
+    }
+    updateVinylUI(false);
+  }
+
+  window.toggleGreenroomPlayback = function() {
+    if (isPlaying) {
+      stopGreenroomAudio();
+    } else {
+      startGreenroomAudio();
+    }
+  };
+
+  function updateVinylUI(playing) {
+    const disc = document.getElementById('speakeasyVinylDisc');
+    const arm = document.getElementById('speakeasyToneArm');
+    const playIcon = document.getElementById('speakeasyPlayIcon');
+
+    if (disc) disc.classList.toggle('spinning', playing);
+    if (arm) arm.classList.toggle('playing', playing);
+    if (playIcon) playIcon.textContent = playing ? '⏸' : '▶';
+  }
+
+  window.selectGreenroomTrack = function(idx) {
+    currentTrackIdx = idx;
+    const track = TRACKS[idx];
+
+    // Update track display
+    const titleEl = document.getElementById('speakeasyTrackTitle');
+    const creditsEl = document.getElementById('speakeasyTrackCredits');
+    const badgeEl = document.getElementById('speakeasyTrackBadge');
+
+    if (titleEl) titleEl.textContent = track.title;
+    if (creditsEl) creditsEl.textContent = track.credits;
+    if (badgeEl) badgeEl.textContent = track.badge;
+
+    // Update Pill Buttons
+    for (let i = 0; i < TRACKS.length; i++) {
+      const btn = document.getElementById('btnTrack' + i);
+      if (btn) btn.classList.toggle('active', i === idx);
+    }
+
+    if (isPlaying) {
+      stopGreenroomAudio();
+      startGreenroomAudio();
+    }
+  };
+
+  window.prevGreenroomTrack = function() {
+    const nextIdx = (currentTrackIdx - 1 + TRACKS.length) % TRACKS.length;
+    selectGreenroomTrack(nextIdx);
+  };
+
+  window.nextGreenroomTrack = function() {
+    const nextIdx = (currentTrackIdx + 1) % TRACKS.length;
+    selectGreenroomTrack(nextIdx);
+  };
+
+  // 8. "Pass the Mic" Voice Recorder Logic
+  let mediaRecorder = null;
+  let audioChunks = [];
+  let recordTimerInterval = null;
+  let recordedBlobUrl = null;
+
+  window.toggleVoiceRecording = async function() {
+    const recordBtn = document.getElementById('btnStartVoiceRecord');
+    const activeBar = document.getElementById('voiceRecordingActiveBar');
+    const timerEl = document.getElementById('recordingTimer');
+
+    if (mediaRecorder && mediaRecorder.state === 'recording') {
+      mediaRecorder.stop();
+      return;
+    }
+
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      audioChunks = [];
+      mediaRecorder = new MediaRecorder(stream);
+
+      mediaRecorder.ondataavailable = e => {
+        if (e.data.size > 0) audioChunks.push(e.data);
+      };
+
+      mediaRecorder.onstop = () => {
+        clearInterval(recordTimerInterval);
+        if (activeBar) activeBar.style.display = 'none';
+        if (recordBtn) {
+          recordBtn.style.display = 'inline-flex';
+          const label = document.getElementById('voiceRecordLabel');
+          if (label) label.textContent = 'Record 10s Voice Note';
+        }
+        
+        const blob = new Blob(audioChunks, { type: 'audio/webm' });
+        recordedBlobUrl = URL.createObjectURL(blob);
+        
+        // Show preview card
+        const previewCard = document.getElementById('voicePreviewCard');
+        if (previewCard) previewCard.style.display = 'block';
+
+        // Stop all tracks to release microphone
+        stream.getTracks().forEach(t => t.stop());
+      };
+
+      mediaRecorder.start();
+      if (recordBtn) recordBtn.style.display = 'none';
+      if (activeBar) activeBar.style.display = 'flex';
+
+      let secondsLeft = 10;
+      if (timerEl) timerEl.textContent = '0:10';
+      recordTimerInterval = setInterval(() => {
+        secondsLeft--;
+        if (timerEl) timerEl.textContent = '0:0' + secondsLeft;
+        if (secondsLeft <= 0) {
+          if (mediaRecorder && mediaRecorder.state === 'recording') {
+            mediaRecorder.stop();
+          }
+        }
+      }, 1000);
+
+    } catch (err) {
+      console.warn('Microphone unavailable, switching to written whisper:', err);
+      toggleTextWhisperForm();
+    }
+  };
+
+  window.playVoicePreview = function() {
+    if (!recordedBlobUrl) return;
+    const audio = new Audio(recordedBlobUrl);
+    audio.play();
+  };
+
+  window.discardVoiceRecording = function() {
+    recordedBlobUrl = null;
+    const previewCard = document.getElementById('voicePreviewCard');
+    if (previewCard) previewCard.style.display = 'none';
+    const recordBtn = document.getElementById('btnStartVoiceRecord');
+    if (recordBtn) recordBtn.style.display = 'inline-flex';
+  };
+
+  window.saveVoiceNoteToGuestbook = function() {
+    if (!recordedBlobUrl) return;
+    addWhisperToGuestbook({
+      id: 'voice_' + Date.now(),
+      author: 'A Backstage Soul • Whispered Note',
+      text: '🎙️ [10-Second Voice Keepsake Recorded Live]',
+      time: 'Just now',
+      isVoice: true,
+      audioUrl: recordedBlobUrl,
+      warmth: 1
+    });
+
+    discardVoiceRecording();
+    showWhisperToast('✓ Your voice note is now live in the Greenroom Hearth!');
+  };
+
+  // Written Whisper Form Toggle
+  window.toggleTextWhisperForm = function() {
+    const form = document.getElementById('textWhisperForm');
+    if (!form) return;
+    form.style.display = form.style.display === 'none' ? 'block' : 'none';
+    if (form.style.display === 'block') {
+      const input = document.getElementById('textWhisperInput');
+      if (input) input.focus();
+    }
+  };
+
+  window.submitTextWhisper = function() {
+    const textEl = document.getElementById('textWhisperInput');
+    const authorEl = document.getElementById('textWhisperAuthor');
+    if (!textEl) return;
+
+    const text = textEl.value.trim();
+    if (!text) return;
+    const author = (authorEl && authorEl.value.trim()) || 'A Gentle Soul • Greenroom';
+
+    addWhisperToGuestbook({
+      id: 'text_' + Date.now(),
+      author: author,
+      text: text,
+      time: 'Just now',
+      isVoice: false,
+      warmth: 1
+    });
+
+    textEl.value = '';
+    if (authorEl) authorEl.value = '';
+    document.getElementById('textWhisperForm').style.display = 'none';
+    showWhisperToast('✓ Your whisper was pinned to the Sanctuary Greenroom!');
+  };
+
+  function showWhisperToast(msg) {
+    const toast = document.getElementById('whisperToast');
+    if (toast) {
+      toast.textContent = msg;
+      toast.style.display = 'block';
+      setTimeout(() => { toast.style.display = 'none'; }, 3400);
+    }
+  }
+
+  // 9. Guestbook Management & LocalStorage
+  const DEFAULT_WHISPERS = [
+    { id: 'w1', author: 'Elena S. • Orange County', text: 'Breathe in permission, exhale comparison. You are right on time.', time: '2 hours ago', warmth: 14 },
+    { id: 'w2', author: 'Marcus • Irvine', text: 'Tonight was the first time in years I read my poetry out loud without shaking. Thank you for this space.', time: 'Yesterday', warmth: 28 },
+    { id: 'w3', author: 'Jordan • Santa Ana', text: "To whoever is listening late tonight: you don't have to carry the whole mountain. Rest your spirit.", time: '2 days ago', warmth: 35 }
+  ];
+
+  function getStoredWhispers() {
+    try {
+      const data = localStorage.getItem('sanctuary_greenroom_guestbook');
+      return data ? JSON.parse(data) : DEFAULT_WHISPERS;
+    } catch (e) {
+      return DEFAULT_WHISPERS;
+    }
+  }
+
+  function addWhisperToGuestbook(item) {
+    const list = getStoredWhispers();
+    list.unshift(item);
+    try {
+      localStorage.setItem('sanctuary_greenroom_guestbook', JSON.stringify(list));
+    } catch (e) {}
+    renderGuestbook();
+  }
+
+  function renderGuestbook() {
+    const container = document.getElementById('guestbookCardsList');
+    if (!container) return;
+    const whispers = getStoredWhispers();
+
+    container.innerHTML = whispers.map((w, index) => {
+      return `
+        <div class="guestbook-card" id="whisperCard_${w.id}">
+          <p class="guestbook-card-quote">"${escapeHtml(w.text)}"</p>
+          <div class="guestbook-card-meta">
+            <span><strong>${escapeHtml(w.author)}</strong> • ${w.time}</span>
+            <button type="button" class="guestbook-warmth-btn" onclick="sendWarmthToWhisper('${w.id}')">
+              <span>🕯️</span> <span id="warmthCount_${w.id}">${w.warmth || 1}</span>
+            </button>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  window.sendWarmthToWhisper = function(id) {
+    const countEl = document.getElementById('warmthCount_' + id);
+    if (countEl) {
+      let count = parseInt(countEl.textContent, 10) || 1;
+      countEl.textContent = count + 1;
+      playWoodenKnock(1.8); // Gentle harmonic pop
+    }
+  };
+
+  function escapeHtml(str) {
+    return (str || '').replace(/[&<>"']/g, function(m) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m];
+    });
+  }
+
+  // 10. Instagram Story Snapshot for Backstage Pass
+  window.openBackstagePassSnapshot = function(e) {
+    if (e && typeof e.preventDefault === 'function') e.preventDefault();
+    const today = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+    window.currentStoryData = {
+      badge: "✦ VIP BACKSTAGE GREENROOM PASS ✦",
+      quote: "You have arrived. Unhurried voices, raw acoustics, and late-night community poetry recorded live at Our Sanctuary Clubhouse.",
+      source: `— All-Access Pass #0842 • Admitted on ${today} • innersanctuarywellnessfoundation.org`,
+      filename: "inner-sanctuary-backstage-pass.png"
+    };
+
+    if (typeof renderAndShowStoryModal === 'function') {
+      renderAndShowStoryModal();
+    }
+  };
+
+  // Copy Speakeasy Invite Link
+  window.copySpeakeasyInviteLink = function() {
+    const url = window.location.origin + window.location.pathname + '#greenroom';
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(() => {
+        showInviteToast();
+      }).catch(() => fallbackCopy(url));
+    } else {
+      fallbackCopy(url);
+    }
+  };
+
+  function fallbackCopy(text) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    ta.remove();
+    showInviteToast();
+  }
+
+  function showInviteToast() {
+    const toast = document.getElementById('inviteToast');
+    if (toast) {
+      toast.style.display = 'block';
+      setTimeout(() => { toast.style.display = 'none'; }, 3200);
+    }
+  }
+
+  // 11. Check URL Hash on Load for Direct Link
+  if (window.location.hash === '#greenroom' || window.location.search.includes('greenroom=1')) {
+    setTimeout(() => {
+      openSpeakeasyModal();
+    }, 600);
+  }
+
+})();

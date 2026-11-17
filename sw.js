@@ -1,7 +1,7 @@
 // Inner Sanctuary Wellness Foundation — Progressive Web App Service Worker
 // Version: 1.0.0 (Sanctuary in Your Pocket)
 
-const CACHE_NAME = 'inner-sanctuary-cache-v10';
+const CACHE_NAME = 'inner-sanctuary-cache-v11';
 const PRECACHE_ASSETS = [
   './',
   './index.html',
@@ -41,6 +41,12 @@ self.addEventListener('activate', (event) => {
 // Fetch: Stale-While-Revalidate for fast offline & instant-on performance
 self.addEventListener('fetch', (event) => {
   const req = event.request;
+
+  // On local preview / dev, always fetch fresh from network to prevent stale cache
+  if (self.location.hostname === 'localhost' || self.location.hostname === '127.0.0.1') {
+    event.respondWith(fetch(req));
+    return;
+  }
 
   // Only handle GET requests and valid http/https schemes
   if (req.method !== 'GET' || !req.url.startsWith('http')) {

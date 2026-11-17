@@ -148,7 +148,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Custom Stylesheet -->
-  <link rel="stylesheet" href="styles.css?v=4.4">
+  <link rel="stylesheet" href="styles.css?v=4.5">
 </head>
 <body data-element="fire">
 
@@ -330,6 +330,11 @@
           <span class="nav-presence-dot"></span>
           <span class="nav-presence-text"><strong id="navPresenceCount">4</strong> Breathing</span>
         </button>
+        <button type="button" id="btnSpeakeasyNav" class="nav-speakeasy-badge" onclick="handleSpeakeasyKnock(event)" title="🗝️ The Greenroom • 3 knocks unlock secret sessions">
+          <span class="speakeasy-key-icon">🗝️</span>
+          <span class="speakeasy-nav-text">Greenroom</span>
+          <span class="speakeasy-knock-counter" id="speakeasyKnockCounter">✦</span>
+        </button>
         <a href="https://www.instagram.com/ourinnersanctuary/" target="_blank" rel="noopener noreferrer" class="btn-outline-gold nav-ig-btn" style="padding: 8px 12px; border-radius: 8px; display: inline-flex; align-items: center; gap: 6px; font-size: 0.74rem; text-decoration: none;" title="Follow @ourinnersanctuary on Instagram">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
           <span class="desktop-only-ig">@ourinnersanctuary</span>
@@ -395,6 +400,12 @@
             <span class="mobile-nav-main">Stay in the Loop</span>
             <span class="mobile-nav-sub">Events &amp; Updates</span>
           </a>
+        </li>
+        <li>
+          <button type="button" class="mobile-nav-item mobile-speakeasy-btn" onclick="openSpeakeasyModal(event)" style="width: 100%; text-align: left; background: rgba(197, 154, 63, 0.15); border: 1.5px solid var(--sunburst-gold); border-radius: 12px; padding: 12px 16px; color: var(--forest-green); font-size: 0.95rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
+            <span style="display: flex; align-items: center; gap: 8px;"><span>🗝️</span> <span>The Greenroom</span></span>
+            <span style="font-size: 0.72rem; color: #9A6F1A; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 800;">Secret Sessions →</span>
+          </button>
         </li>
         <li style="margin-top: 8px;">
           <button type="button" onclick="openZeffyModal(event)" class="btn btn-gold btn-liquid-gold pulse-gold" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; text-align: center; padding: 12px 18px; cursor: pointer; border-radius: 999px;">
@@ -1319,6 +1330,225 @@
 
     </div>
   </section>
+
+  <!-- ==================== THE SANCTUARY GREENROOM (SPEAKEASY SESSIONS & COMMUNITY MIC) ==================== -->
+  <div id="speakeasyModal" class="speakeasy-modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true" style="display: none;">
+    <div class="speakeasy-modal-dialog">
+      <button type="button" class="speakeasy-modal-close" aria-label="Close Greenroom window" onclick="closeSpeakeasyModal()">&times;</button>
+      
+      <!-- Speakeasy Header -->
+      <div class="speakeasy-modal-header">
+        <div class="speakeasy-modal-badge">✦ THE SANCTUARY GREENROOM • ALL-ACCESS PASS ✦</div>
+        <h3 class="speakeasy-modal-title serif-brand">Clubhouse Midnight Sessions</h3>
+        <p class="speakeasy-modal-sub">Unhurried voices, raw acoustics, and community whispers recorded live at Our Sanctuary Clubhouse.</p>
+      </div>
+
+      <!-- Segmented Tab Navigation -->
+      <div class="speakeasy-tabs-bar" role="tablist">
+        <button type="button" class="speakeasy-tab-btn active" id="tabBtnVinyl" onclick="switchSpeakeasyTab('vinyl')">
+          <span>💽</span> <span>Midnight Vinyl</span>
+        </button>
+        <button type="button" class="speakeasy-tab-btn" id="tabBtnMic" onclick="switchSpeakeasyTab('mic')">
+          <span>🎙️</span> <span>Pass the Mic</span>
+        </button>
+        <button type="button" class="speakeasy-tab-btn" id="tabBtnPass" onclick="switchSpeakeasyTab('pass')">
+          <span>🎫</span> <span>Backstage Pass</span>
+        </button>
+      </div>
+
+      <!-- Tab 1: Midnight Vinyl Player -->
+      <div class="speakeasy-tab-pane active" id="tabPaneVinyl">
+        <div class="speakeasy-vinyl-stage">
+          <!-- Spinning Sunburst Vinyl Record -->
+          <div class="speakeasy-turntable-wrap">
+            <div class="speakeasy-vinyl-disc" id="speakeasyVinylDisc">
+              <div class="speakeasy-vinyl-grooves"></div>
+              <div class="speakeasy-vinyl-label">
+                <span class="vinyl-label-emblem">✦</span>
+                <span class="vinyl-label-title">INNER SANCTUARY</span>
+                <span class="vinyl-label-sub">GREENROOM ARCHIVES</span>
+                <span class="vinyl-label-rpm">33 ⅓ RPM</span>
+              </div>
+            </div>
+            <!-- Vintage Tone Arm -->
+            <div class="speakeasy-tone-arm" id="speakeasyToneArm">
+              <div class="tone-arm-pivot"></div>
+              <div class="tone-arm-rod"></div>
+              <div class="tone-arm-head"></div>
+            </div>
+          </div>
+
+          <!-- Currently Selected Track Info -->
+          <div class="speakeasy-track-display">
+            <div class="speakeasy-track-badge" id="speakeasyTrackBadge">NOW PLAYING • TRACK 01</div>
+            <h4 class="speakeasy-track-title serif-brand" id="speakeasyTrackTitle">Midnight Embers &amp; 432Hz Dusk</h4>
+            <div class="speakeasy-track-credits" id="speakeasyTrackCredits">Acoustic Guitar, Fire Cracks &amp; Grounding Harmonics • Live Session</div>
+            
+            <!-- Animated Soundwave Frequency Bars -->
+            <div class="speakeasy-equalizer-bars" id="speakeasyEqualizer">
+              <span class="eq-bar"></span>
+              <span class="eq-bar"></span>
+              <span class="eq-bar"></span>
+              <span class="eq-bar"></span>
+              <span class="eq-bar"></span>
+              <span class="eq-bar"></span>
+              <span class="eq-bar"></span>
+              <span class="eq-bar"></span>
+            </div>
+          </div>
+
+          <!-- Playback Controls -->
+          <div class="speakeasy-player-controls">
+            <button type="button" class="speakeasy-ctrl-btn speakeasy-prev-btn" onclick="prevGreenroomTrack()" title="Previous Track">
+              ⏮
+            </button>
+            <button type="button" class="speakeasy-play-btn" id="speakeasyPlayBtn" onclick="toggleGreenroomPlayback()" title="Play / Pause Session">
+              <span id="speakeasyPlayIcon">▶</span>
+            </button>
+            <button type="button" class="speakeasy-ctrl-btn speakeasy-next-btn" onclick="nextGreenroomTrack()" title="Next Track">
+              ⏭
+            </button>
+          </div>
+
+          <!-- Track Selector Pill List -->
+          <div class="speakeasy-track-selector-pills">
+            <button type="button" class="track-pill-btn active" id="btnTrack0" onclick="selectGreenroomTrack(0)">
+              <span class="track-pill-num">01</span>
+              <span class="track-pill-name">Midnight Embers &amp; 432Hz</span>
+            </button>
+            <button type="button" class="track-pill-btn" id="btnTrack1" onclick="selectGreenroomTrack(1)">
+              <span class="track-pill-num">02</span>
+              <span class="track-pill-name">Rain on MacArthur &amp; Cello</span>
+            </button>
+            <button type="button" class="track-pill-btn" id="btnTrack2" onclick="selectGreenroomTrack(2)">
+              <span class="track-pill-num">03</span>
+              <span class="track-pill-name">Sanctuary Exhale &amp; Chimes</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 2: Pass the Mic & Guestbook -->
+      <div class="speakeasy-tab-pane" id="tabPaneMic" style="display: none;">
+        <div class="speakeasy-mic-stage">
+          
+          <!-- Record / Leave Whisper Interactive Banner -->
+          <div class="speakeasy-record-card">
+            <div class="record-card-header">
+              <span class="record-badge">🎙️ PASS THE MIC</span>
+              <h4 class="serif-brand" style="margin: 4px 0 6px; color: #FFFFFF; font-size: 1.25rem;">The Mic is Open to You</h4>
+              <p style="font-size: 0.86rem; color: #CFE3D6; line-height: 1.5; margin: 0 0 14px;">
+                Record a 10-second voice note or leave an anonymous whisper for the next soul who finds this room.
+              </p>
+            </div>
+
+            <!-- Record Actions Row -->
+            <div class="record-actions-wrap" id="recordActionsWrap">
+              <button type="button" class="btn btn-gold btn-liquid-gold speakeasy-record-btn" id="btnStartVoiceRecord" onclick="toggleVoiceRecording()">
+                <span id="voiceRecordIcon">🎙️</span>
+                <span id="voiceRecordLabel">Record 10s Voice Note</span>
+              </button>
+              <button type="button" class="btn-outline-gold speakeasy-type-btn" id="btnOpenTextWhisper" onclick="toggleTextWhisperForm()">
+                <span>✍️ Write a Whisper</span>
+              </button>
+            </div>
+
+            <!-- Active Recording Indicator -->
+            <div class="voice-recording-active-bar" id="voiceRecordingActiveBar" style="display: none;">
+              <div class="recording-pulse-ring"></div>
+              <div class="recording-timer" id="recordingTimer">0:10</div>
+              <span style="font-size: 0.85rem; color: #FAD277; font-weight: 600;">Speaking into the Sanctuary... Tap to Stop</span>
+            </div>
+
+            <!-- Voice Preview Player -->
+            <div class="voice-preview-card" id="voicePreviewCard" style="display: none;">
+              <span style="font-size: 0.82rem; color: #C2DEC9; font-weight: 600;">🎙️ Your 10-Second Recording:</span>
+              <div style="display: flex; gap: 10px; align-items: center; justify-content: center; margin: 10px 0;">
+                <button type="button" class="btn btn-forest" id="btnPlayVoicePreview" onclick="playVoicePreview()" style="padding: 8px 16px; font-size: 0.84rem;">
+                  <span>▶ Play Preview</span>
+                </button>
+                <button type="button" class="btn btn-gold" id="btnSaveVoiceNote" onclick="saveVoiceNoteToGuestbook()" style="padding: 8px 16px; font-size: 0.84rem;">
+                  <span>💾 Pin to Guestbook</span>
+                </button>
+                <button type="button" class="btn-outline-gold" onclick="discardVoiceRecording()" style="padding: 8px 12px; font-size: 0.80rem;">
+                  <span>✕ Retake</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Written Whisper Form -->
+            <div class="text-whisper-form" id="textWhisperForm" style="display: none;">
+              <textarea id="textWhisperInput" class="text-whisper-textarea" placeholder="Leave a word of grace, an exhale, or a poem line..." maxlength="240" rows="3"></textarea>
+              <div style="display: flex; gap: 10px; align-items: center; justify-content: flex-end; margin-top: 8px;">
+                <input type="text" id="textWhisperAuthor" class="text-whisper-author-input" placeholder="Your Name or City (e.g. Maya, Irvine)" maxlength="50" />
+                <button type="button" class="btn btn-gold" onclick="submitTextWhisper()" style="padding: 8px 18px; font-size: 0.84rem; font-weight: 700; border-radius: 999px;">
+                  <span>Post Whisper</span>
+                </button>
+              </div>
+            </div>
+            
+            <div class="whisper-feedback-toast" id="whisperToast" style="display: none;">
+              ✓ Your voice is now part of the Sanctuary Greenroom Hearth!
+            </div>
+          </div>
+
+          <!-- Community Whispers & Guestbook Feed -->
+          <div class="speakeasy-guestbook-feed">
+            <div class="guestbook-feed-title">
+              <span>✦ WHISPERS FROM THE HEARTH ✦</span>
+            </div>
+            <div class="guestbook-cards-list" id="guestbookCardsList">
+              <!-- Dynamically populated, preloaded with 3 authentic community reflections -->
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Tab 3: Backstage Pass (9:16 IG Story) -->
+      <div class="speakeasy-tab-pane" id="tabPanePass" style="display: none;">
+        <div class="speakeasy-pass-stage">
+          <div class="pass-preview-laminate">
+            <div class="pass-hole-punch"></div>
+            <div class="pass-inner-border">
+              <div class="pass-header-top">
+                <span class="pass-top-badge">✦ OFFICIAL SANCTUARY ACCESS ✦</span>
+                <h4 class="pass-main-title serif-brand">BACKSTAGE GREENROOM</h4>
+                <div class="pass-venue">OUR SANCTUARY CLUBHOUSE • ORANGE COUNTY</div>
+              </div>
+              
+              <div class="pass-center-emblem">
+                <span class="pass-emblem-glyph">🗝️</span>
+                <div class="pass-all-access-tag">ALL-ACCESS PASS</div>
+                <div class="pass-number" id="passNumberDisplay">PASS NO. 0842</div>
+              </div>
+
+              <div class="pass-body-reflection">
+                <p>"Where raw voices find grounded space. You don't have to carry the whole mountain today. Breathe in permission."</p>
+              </div>
+
+              <div class="pass-footer-date" id="passFooterDate">
+                ADMITTED: NOVEMBER 2026 • 501(c)(3) SANCTUARY
+              </div>
+            </div>
+          </div>
+
+          <div class="pass-actions-row">
+            <button type="button" class="btn btn-gold btn-liquid-gold" onclick="openBackstagePassSnapshot(event)" style="padding: 14px 24px; font-size: 0.95rem; font-weight: 700; border-radius: 999px; display: inline-flex; align-items: center; gap: 8px;">
+              <span>📸 Share 9:16 Pass to IG Story</span>
+            </button>
+            <button type="button" class="btn-outline-gold" onclick="copySpeakeasyInviteLink()" style="padding: 14px 20px; font-size: 0.88rem; font-weight: 700; border-radius: 999px; display: inline-flex; align-items: center; gap: 6px;">
+              <span id="copyInviteIcon">📋</span> <span id="copyInviteText">Copy Secret Knock Link</span>
+            </button>
+          </div>
+          <div class="invite-copy-toast" id="inviteToast" style="display: none; margin-top: 10px; font-size: 0.82rem; color: #FCE6A2;">
+            ✓ Link copied with secret knock! Ready to share with a friend.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 
   <!-- ==================== SACRED BRACELET KEEPSAKE POP-UP MODAL ==================== -->
   <div id="braceletKeepsakeModal" class="bracelet-modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true" style="display: none;">
@@ -2269,7 +2499,7 @@
     </div>
   </footer>
   <!-- Main Script File -->
-  <script src="script.js?v=4.4"></script>
+  <script src="script.js?v=4.5"></script>
 
   <!-- ==================== PRELOADED ZEFFY MODAL (ZEFFY QUICK DONATE MODAL) ==================== -->
   <div id="ZeffyQuickDonateModal" class="zeffy-modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true" style="display: none;">
