@@ -5514,7 +5514,147 @@ window.openPulsePresenceModal = function(e) {
     } catch (e) {}
   }
 
+  
+  // =========================================================================
+  // SACRED HEALING FREQUENCY BELLS (432Hz • 528Hz • CATHEDRAL TOLL)
+  // =========================================================================
+  function playHealingBellKnock(stage = 1) {
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      const ctx = new AudioCtx();
+      const now = ctx.currentTime;
+
+      const masterGain = ctx.createGain();
+      masterGain.connect(ctx.destination);
+
+      if (stage === 1) {
+        // 🌿 KNOCK 1: 432 Hz Root / Grounding Bronze Bell
+        masterGain.gain.setValueAtTime(0.001, now);
+        masterGain.gain.linearRampToValueAtTime(0.38, now + 0.012);
+        masterGain.gain.exponentialRampToValueAtTime(0.0001, now + 3.2);
+
+        const partials = [
+          { f: 216.0, g: 0.35, d: 3.2 },
+          { f: 432.0, g: 0.60, d: 2.8 },
+          { f: 864.0, g: 0.25, d: 2.0 },
+          { f: 1296.0, g: 0.15, d: 1.4 },
+          { f: 1728.0, g: 0.08, d: 0.9 }
+        ];
+
+        partials.forEach(p => {
+          const osc = ctx.createOscillator();
+          const g = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(p.f, now);
+          g.gain.setValueAtTime(p.g, now);
+          g.gain.exponentialRampToValueAtTime(0.0001, now + p.d);
+          osc.connect(g);
+          g.connect(masterGain);
+          osc.start(now);
+          osc.stop(now + p.d + 0.05);
+        });
+
+      } else if (stage === 2) {
+        // ✨ KNOCK 2: 528 Hz Heart / Miracle Transformation Silver Bell
+        masterGain.gain.setValueAtTime(0.001, now);
+        masterGain.gain.linearRampToValueAtTime(0.42, now + 0.012);
+        masterGain.gain.exponentialRampToValueAtTime(0.0001, now + 3.8);
+
+        const partials = [
+          { f: 264.0, g: 0.30, d: 3.8 },
+          { f: 528.0, g: 0.65, d: 3.4 },
+          { f: 1056.0, g: 0.30, d: 2.4 },
+          { f: 1584.0, g: 0.18, d: 1.6 },
+          { f: 2112.0, g: 0.10, d: 1.0 }
+        ];
+
+        partials.forEach(p => {
+          const osc = ctx.createOscillator();
+          const g = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(p.f + 0.6, now);
+          g.gain.setValueAtTime(p.g, now);
+          g.gain.exponentialRampToValueAtTime(0.0001, now + p.d);
+          osc.connect(g);
+          g.connect(masterGain);
+          osc.start(now);
+          osc.stop(now + p.d + 0.05);
+        });
+
+      } else {
+        // 🔔 KNOCK 3: Resounding Cathedral Sanctuary Bell (Notre Dame Cathedral Toll)
+        masterGain.gain.setValueAtTime(0.001, now);
+        masterGain.gain.linearRampToValueAtTime(0.55, now + 0.02);
+        masterGain.gain.exponentialRampToValueAtTime(0.0001, now + 6.0);
+
+        const partials = [
+          { f: 108.0, g: 0.70, d: 5.8 },
+          { f: 216.0, g: 0.45, d: 5.0 },
+          { f: 432.0, g: 0.50, d: 4.4 },
+          { f: 648.0, g: 0.25, d: 3.6 },
+          { f: 864.0, g: 0.20, d: 3.0 },
+          { f: 963.0, g: 0.18, d: 2.4 },
+          { f: 1296.0, g: 0.12, d: 1.8 }
+        ];
+
+        partials.forEach((p, idx) => {
+          const osc = ctx.createOscillator();
+          const g = ctx.createGain();
+          const detune = (idx % 2 === 0 ? 0.8 : -0.8);
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(p.f + detune, now);
+          g.gain.setValueAtTime(p.g, now);
+          g.gain.exponentialRampToValueAtTime(0.0001, now + p.d);
+          osc.connect(g);
+          g.connect(masterGain);
+          osc.start(now);
+          osc.stop(now + p.d + 0.05);
+        });
+
+        // Clapper strike transient
+        const bufferSize = Math.floor(ctx.sampleRate * 0.04);
+        const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (ctx.sampleRate * 0.008));
+        }
+        const noise = ctx.createBufferSource();
+        noise.buffer = buffer;
+        const noiseFilter = ctx.createBiquadFilter();
+        noiseFilter.type = 'bandpass';
+        noiseFilter.frequency.setValueAtTime(1050, now);
+        noiseFilter.Q.setValueAtTime(2.5, now);
+        const noiseGain = ctx.createGain();
+        noiseGain.gain.setValueAtTime(0.20, now);
+        noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
+        noise.connect(noiseFilter);
+        noiseFilter.connect(noiseGain);
+        noiseGain.connect(masterGain);
+        noise.start(now);
+      }
+
+      // Visual Bell Resonance Shockwave on Medallions
+      const targets = document.querySelectorAll('.hero-emblem, .nav-emblem, .hero-emblem-ring, .hero-emblem-halo');
+      targets.forEach(el => {
+        el.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease';
+        el.style.transform = stage === 3 ? 'scale(1.18)' : 'scale(1.08)';
+        el.style.filter = stage === 3 
+          ? 'drop-shadow(0 0 30px rgba(248, 217, 140, 1)) brightness(1.3)' 
+          : 'drop-shadow(0 0 16px rgba(197, 154, 63, 0.8)) brightness(1.15)';
+        setTimeout(() => {
+          el.style.transform = '';
+          el.style.filter = '';
+        }, stage === 3 ? 1000 : 500);
+      });
+
+    } catch (err) {
+      console.warn('[HealingBell] Audio error:', err);
+    }
+  }
+
   // 4. Handle Knock on Nav Key Badge
+  // 4. Handle Knock on Medallion or Nav Key Badge (Healing Frequency Bells)
   window.handleSpeakeasyKnock = function(e) {
     if (e && typeof e.preventDefault === 'function') e.preventDefault();
 
@@ -5528,24 +5668,24 @@ window.openPulsePresenceModal = function(e) {
       if (counterEl) counterEl.textContent = '✦';
     }, 4500);
 
-    // Visual & Audio Feedback
+    // Visual & Healing Frequency Bell Audio Feedback
     if (knockCount === 1) {
-      playWoodenKnock(1.0);
+      playHealingBellKnock(1);
       if (counterEl) counterEl.textContent = '1/3';
-      showKnockToast('🚪 Knock 1 of 3... Tap again!');
+      showKnockToast('🔔 432 Hz Sanctuary Bell (Knock 1/3) — Grounding & Presence');
     } else if (knockCount === 2) {
-      playWoodenKnock(1.18);
+      playHealingBellKnock(2);
       if (counterEl) counterEl.textContent = '2/3';
-      showKnockToast('🚪 Knock 2 of 3... One more!');
+      showKnockToast('✨ 528 Hz Healing Bell (Knock 2/3) — Transformation & Harmony');
     } else if (knockCount >= 3) {
-      playWoodenKnock(1.35);
+      playHealingBellKnock(3);
       if (counterEl) counterEl.textContent = '🔓';
-      showKnockToast('✨ Door Unlocked! Welcome Backstage.');
+      showKnockToast('🕊️ Cathedral Sanctuary Bell Tolls... Door Unlocked! Welcome Backstage.');
       knockCount = 0;
       setTimeout(() => {
         if (counterEl) counterEl.textContent = '✦';
         openSpeakeasyModal();
-      }, 350);
+      }, 450);
     }
   };
 
