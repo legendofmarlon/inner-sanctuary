@@ -35,14 +35,29 @@ html {
   background-color: var(--bg-cream);
 }
 
+html {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
 body {
   background-color: transparent;
   color: var(--earth-charcoal);
   font-family: 'Montserrat', sans-serif;
   font-size: 16px;
   line-height: 1.75;
+  width: 100%;
+  max-width: 100%;
   overflow-x: hidden;
   position: relative;
+  box-sizing: border-box;
+  -webkit-overflow-scrolling: touch;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
 
@@ -6132,8 +6147,16 @@ body[data-element="ether"] nav::after {
 @media (max-width: 768px) {
   html, body {
     width: 100% !important;
-    max-width: 100vw !important;
-    overflow-x: clip !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+    position: relative !important;
+  }
+
+  .realistic-sky-bg {
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
   }
 
   .container {
@@ -6538,15 +6561,20 @@ body[data-element="ether"] nav::after {
   .zeffy-inline-frame-wrap {
     width: 100% !important;
     max-width: 100% !important;
+    min-width: 0 !important;
     box-sizing: border-box !important;
     overflow: hidden !important;
+    position: relative !important;
+    -webkit-overflow-scrolling: touch !important;
   }
 
   #zeffy-inline-iframe {
-    width: 100% !important;
+    width: 1px !important;
+    min-width: 100% !important;
     max-width: 100% !important;
-    min-width: 0 !important;
     box-sizing: border-box !important;
+    border: 0 !important;
+    display: block !important;
   }
 
   .donation-payment-pill-row {
@@ -9887,14 +9915,16 @@ body[data-element="fire"] .explorer-pulse-dot {
 
 /* Balanced Full-Width Fiduciary Trust Strip */
 .dollar-fiduciary-bottom-strip {
-  margin-top: 32px;
-  padding: 18px 28px;
+  margin-top: 24px;
+  padding: 18px 20px;
   background: rgba(10, 24, 16, 0.75);
   border-top: 1.5px solid rgba(197, 154, 63, 0.35);
-  border-radius: 0 0 24px 24px;
-  margin-left: -38px;
-  margin-right: -38px;
-  margin-bottom: -44px;
+  border-radius: 16px;
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+  width: 100%;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -9906,13 +9936,17 @@ body[data-element="fire"] .explorer-pulse-dot {
 
 @media (max-width: 980px) {
   .dollar-fiduciary-bottom-strip {
-    margin-left: -20px;
-    margin-right: -20px;
-    margin-bottom: -30px;
-    padding: 16px 20px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    margin-bottom: 0 !important;
+    padding: 16px 14px !important;
+    border-radius: 12px !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 10px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
   }
 }
 
@@ -10962,13 +10996,25 @@ body[data-element="fire"] .explorer-pulse-dot {
     max-width: 100% !important;
     min-width: 0 !important;
     margin: 0 auto !important;
-    border-radius: 10px !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    position: relative !important;
+    box-sizing: border-box !important;
+    -webkit-overflow-scrolling: touch !important;
   }
   #zeffy-inline-iframe {
-    width: 100% !important;
+    width: 1px !important;
+    min-width: 100% !important;
     max-width: 100% !important;
-    min-width: 0 !important;
     box-sizing: border-box !important;
+    border: 0 !important;
+    display: block !important;
+  }
+  body.viewing-donation #floating-seed-pill {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
   }
   .dollar-fiduciary-bottom-strip {
     margin-left: 0 !important;
@@ -11085,7 +11131,7 @@ body[data-element="fire"] .explorer-pulse-dot {
 }
 
 /* =============================================================================
-   INNER SANCTUARY 3D DISCOVERY OS — CAMPFIRE HEARTH STYLING (SCENES 1-4)
+   INNER SANCTUARY 3D DISCOVERY OS ï¿½ CAMPFIRE HEARTH STYLING (SCENES 1-4)
    ============================================================================= */
 .sanctuary-discovery-os-section {
   position: relative;

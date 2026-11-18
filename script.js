@@ -11,14 +11,21 @@ document.addEventListener('DOMContentLoaded', () => {
       let isOverDonation = false;
       if (circleGrowth) {
         const rect = circleGrowth.getBoundingClientRect();
-        if (rect.top < window.innerHeight - 80 && rect.bottom > 80) {
+        // Generous buffer so floating pill never covers Zeffy form or payment badges
+        if (rect.top < window.innerHeight + 100 && rect.bottom > -100) {
           isOverDonation = true;
         }
       }
-      if (window.scrollY > 340 && !isOverDonation) {
-        floatingSeedPill.classList.add('is-visible');
-      } else {
+      if (isOverDonation) {
+        document.body.classList.add('viewing-donation');
         floatingSeedPill.classList.remove('is-visible');
+      } else {
+        document.body.classList.remove('viewing-donation');
+        if (window.scrollY > 340) {
+          floatingSeedPill.classList.add('is-visible');
+        } else {
+          floatingSeedPill.classList.remove('is-visible');
+        }
       }
       if (pwaBanner && isOverDonation && pwaBanner.style.display !== 'none') {
         pwaBanner.classList.add('pwa-tuck-away');
