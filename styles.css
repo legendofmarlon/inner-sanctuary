@@ -6387,19 +6387,293 @@ body[data-element="ether"] nav::after {
     text-align: center !important;
   }
 
-  /* Dollar Campaign & Zeffy Giving Box */
+  /* ==================== DONATION & $1 SEED CAMPAIGN MOBILE REFINEMENTS ==================== */
   .dollar-campaign-wrapper {
-    padding: 22px 14px !important;
+    padding: 24px 14px !important;
+    border-radius: 20px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+  }
+
+  .dollar-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .dollar-grid > div {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
   }
 
   .dollar-title {
     font-size: 1.45rem !important;
+    line-height: 1.25 !important;
   }
 
-  /* Funder Banner */
+  /* Quick Impact Stats Trio Responsive Proportions */
+  .dollar-impact-trio {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 6px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .dollar-stat-box {
+    padding: 8px 4px !important;
+    border-radius: 10px !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .dollar-stat-num {
+    font-size: 1.35rem !important;
+    line-height: 1.1 !important;
+  }
+
+  .dollar-stat-label {
+    font-size: 0.62rem !important;
+    letter-spacing: 0.02em !important;
+    margin-top: 3px !important;
+    white-space: normal !important;
+    line-height: 1.2 !important;
+  }
+
+  /* Inline Zeffy Card & Giving Box */
+  #zeffy-inline-box,
+  .zeffy-live-box-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 16px 12px !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+    border-radius: 16px !important;
+  }
+
+  .seed-frequency-toggle-wrap {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .seed-frequency-segmented-control {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    gap: 4px !important;
+    padding: 3px !important;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .seed-freq-btn {
+    padding: 6px 4px !important;
+    font-size: 0.72rem !important;
+    flex-direction: column !important;
+    gap: 2px !important;
+    white-space: normal !important;
+    text-align: center !important;
+    justify-content: center !important;
+    line-height: 1.2 !important;
+  }
+
+  .seed-freq-btn .freq-icon {
+    font-size: 0.88rem !important;
+  }
+
+  .seed-freq-btn .freq-label {
+    font-size: 0.72rem !important;
+    font-weight: 700 !important;
+  }
+
+  .seed-freq-btn .freq-tag {
+    margin-left: 0 !important;
+    font-size: 0.55rem !important;
+    padding: 1px 5px !important;
+  }
+
+  .seed-freq-explanation {
+    padding: 6px 8px !important;
+    font-size: 0.72rem !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 4px !important;
+    box-sizing: border-box !important;
+  }
+
+  .zeffy-seed-helper-bar {
+    padding: 6px 10px !important;
+    font-size: 0.74rem !important;
+    box-sizing: border-box !important;
+  }
+
+  .zeffy-inline-frame-wrap {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+  }
+
+  #zeffy-inline-iframe {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .donation-payment-pill-row {
+    flex-direction: column !important;
+    gap: 8px !important;
+    align-items: center !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .pay-badge-group {
+    width: 100% !important;
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+  }
+
+  .pay-method-badge {
+    padding: 7px 12px !important;
+    font-size: 0.78rem !important;
+  }
+
+  .dollar-fiduciary-bottom-strip {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+    padding-top: 16px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* ==================== SPONSORSHIP & PARTNER WITH US MOBILE REFINEMENTS ==================== */
+  .sponsorship-campaign-wrapper {
+    padding: 24px 14px !important;
+    border-radius: 18px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .sponsor-tiers-grid.sponsor-four-col {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .sponsor-tiers-grid.sponsor-four-col .tier-box {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 20px 16px !important;
+  }
+
+  .sponsor-tiers-grid.sponsor-four-col .tier-box .btn,
+  .sponsor-tiers-grid.sponsor-four-col .tier-box button {
+    width: 100% !important;
+    justify-content: center !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+    font-size: 0.84rem !important;
+    padding: 12px 14px !important;
+  }
+
+  .sponsorship-campaign-wrapper .fiduciary-badge-grid,
+  .fiduciary-badge-grid {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .sponsorship-campaign-wrapper .fiduciary-card,
+  .fiduciary-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .funder-action-banner {
+    padding: 20px 14px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .funder-action-banner .btn,
+  .funder-action-banner button,
+  .funder-action-banner a {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    text-align: center !important;
+    justify-content: center !important;
+  }
+
+  .funder-action-buttons {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .funder-action-buttons > div {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
   .funder-banner-grid {
     grid-template-columns: 1fr !important;
     gap: 18px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* ==================== ZEFFY MODAL DIALOG MOBILE PROPORTIONS ==================== */
+  .zeffy-modal-backdrop {
+    padding: 8px !important;
+  }
+
+  .zeffy-modal-dialog {
+    width: 100% !important;
+    max-width: 374px !important;
+    max-height: 94vh !important;
+    border-radius: 16px !important;
+    margin: auto !important;
+    box-sizing: border-box !important;
+  }
+
+  .zeffy-modal-close {
+    top: 8px !important;
+    right: 8px !important;
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 1.3rem !important;
+  }
+
+  .zeffy-modal-header {
+    padding: 12px 12px 8px !important;
+    box-sizing: border-box !important;
+  }
+
+  .zeffy-modal-frame-wrap {
+    min-height: 420px !important;
+    height: 62vh !important;
+    box-sizing: border-box !important;
   }
 
   /* Forms */
