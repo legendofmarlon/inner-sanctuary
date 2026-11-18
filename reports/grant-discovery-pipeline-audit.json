@@ -1,0 +1,260 @@
+{
+  "auditTimestamp": "2026-11-18T20:06:36.533Z",
+  "organization": "Inner Sanctuary Wellness Foundation",
+  "taxStatus": "IRS 501(c)(3) Public Charity",
+  "ein": "39-3757168",
+  "leadership": {
+    "founderExecutiveDirector": "Teshia Campbell",
+    "presidentPrimaryHost": "Marlon Smith"
+  },
+  "pipelineArchitecture": {
+    "status": "VERIFIED & OPERATIONAL",
+    "intakeChannels": [
+      "State Portfolios (California Arts Council / SmartSimple)",
+      "Public Health Portfolios (CDPH Office of Health Equity / CRDP CDEP)",
+      "Racial Equity & Movement Funds (California Black Freedom Fund, Black Equity Collective, CBHN)",
+      "Rolling Micro-Grant Portfolios (Awesome Foundation, CCI, Pollination Project)",
+      "CRA Bank Sponsorships (U.S. Bank, Chase, Wells Fargo)"
+    ],
+    "scoringMatrix": {
+      "nonprofitEligibility": "Pass (Verified 501(c)(3) / IRC 170(b)(1)(A)(vi))",
+      "budgetMultiplier": "High Priority (<$250k annual budget bonus point tier for CAC & state funds)",
+      "hpiQuartileAlignment": "Max Points (Serves low-to-moderate income & underserved tracts in OC/IE)",
+      "leadershipAlignment": "Max Points (Black-led, trauma-informed grassroots wellness leadership)",
+      "programMetricAlignment": "Documented (50+ somatic pauses, 25-50 monthly attendees, 100% substance-free)"
+    },
+    "dualRoutingPolicy": {
+      "route1": {
+        "recipient": "hello@innersanctuarywellnessfoundation.org",
+        "description": "Filtered strictly for high-priority grants, institutional opportunities, and venue scouts. Protected from automated system logs."
+      },
+      "route2": {
+        "recipients": [
+          "legendofmarlon@gmail.com",
+          "innersanctuary0@gmail.com"
+        ],
+        "description": "Comprehensive executive and operational leadership dispatch (President Marlon Smith & Founder Teshia Campbell)."
+      }
+    }
+  },
+  "scannedOpportunitiesCount": 14,
+  "opportunitiesSummary": {
+    "californiaArtsCouncil": 3,
+    "cdphHealthEquity": 2,
+    "blackLedGrassrootsWellness": 5,
+    "immediateRollingMicroGrants": 4,
+    "totalPipelineFundingPotential": "$225,000 – $640,000+"
+  },
+  "opportunities": [
+    {
+      "id": "cac-impact-projects-2026",
+      "category": "California Arts Council (CAC)",
+      "name": "California Arts Council — Impact Projects",
+      "funder": "State of California / California Arts Council",
+      "amount": "$10,000 – $25,000",
+      "cycle": "Annual State Cycle (Spring Window / Rolling Planning)",
+      "deadline": "Next Window: March – May 2026 (Priority Prep Now)",
+      "alignmentScore": 98,
+      "eligibility": "501(c)(3) California non-profit; operating budget under $3M (Under $250k receives maximum priority weighting); serving lower quartiles of CA Healthy Places Index (HPI).",
+      "strategicFocus": "Community-centered artistic, acoustic, and somatic wellness interventions addressing systemic isolation, racial trauma, and emotional well-being.",
+      "innerSanctuaryFit": "Perfect match for monthly SoCal Creatives Collective Open Mics and Permission to Pause somatic circles. Zero entry fee aligns 100% with CAC equity access mandates.",
+      "actionRequired": "Pre-load project abstract into California Arts Council SmartSimple portal. Budget requested: $20,000.",
+      "portalUrl": "https://arts.ca.gov"
+    },
+    {
+      "id": "cac-cultural-pathways",
+      "category": "California Arts Council (CAC)",
+      "name": "CAC Cultural Pathways Capacity Grant",
+      "funder": "California Arts Council",
+      "amount": "$15,000 – $30,000 / year (Two-Year Commitment: $30,000 – $60,000)",
+      "cycle": "Multi-Year Cohort",
+      "deadline": "Rolling Guidance & Spring RFP Notice",
+      "alignmentScore": 96,
+      "eligibility": "Small, emerging arts and cultural organizations rooted in communities of color, recent immigrant communities, or under-resourced populations.",
+      "strategicFocus": "Institutional stabilization, administrative capacity building, board development, and transition support toward long-term operational sustainability.",
+      "innerSanctuaryFit": "Establishes foundational institutional backing for Inner Sanctuary as a Black-founded cultural and wellness sanctuary in Southern California. Secures first-time applicant priority bonus.",
+      "actionRequired": "Submit organizational profile and 2-year capacity development roadmap focusing on somatic studio expansion.",
+      "portalUrl": "https://arts.ca.gov"
+    },
+    {
+      "id": "cac-general-operating",
+      "category": "California Arts Council (CAC)",
+      "name": "CAC Arts & Cultural Organizations General Operating Support (GOS)",
+      "funder": "California Arts Council",
+      "amount": "Up to $30,000",
+      "cycle": "Annual State Allocation",
+      "deadline": "Spring 2026 RFP Release",
+      "alignmentScore": 94,
+      "eligibility": "California 501(c)(3) arts and cultural non-profits with proven public programming.",
+      "strategicFocus": "Unrestricted operational support to sustain organizational staff, teaching artists, sound healers, and community gathering space leases.",
+      "innerSanctuaryFit": "Covers essential facility overhead, facilitator compensation, and materials for weekly intention bracelet and mindfulness activations.",
+      "actionRequired": "Assemble past year event rosters (25-50 attendees/gathering) and IRS 990-N documentation.",
+      "portalUrl": "https://arts.ca.gov"
+    },
+    {
+      "id": "cdph-crdp-phase2-cdep",
+      "category": "CDPH Health Equity",
+      "name": "CDPH California Reducing Disparities Project (CRDP) — CDEP Grant",
+      "funder": "California Department of Public Health (CDPH) Office of Health Equity (OHE)",
+      "amount": "$50,000 – $250,000+",
+      "cycle": "Multi-Year Mental Health Services Act (Prop 63) Allocation",
+      "deadline": "Rolling Partner RFAs & Implementation Rounds",
+      "alignmentScore": 97,
+      "eligibility": "Community-Based Organizations (CBOs) implementing Community-Defined Evidence Practices (CDEPs) serving African American / Black populations.",
+      "strategicFocus": "Culturally grounded, non-clinical prevention and early intervention mental health practices designed by communities to dismantle behavioral health disparities.",
+      "innerSanctuaryFit": "Inner Sanctuary’s somatic model (\"Permission to Pause\", 432Hz/528Hz sound therapy, breathwork, communal witness circles) is a textbook Community-Defined Evidence Practice (CDEP) for Black nervous system restoration.",
+      "actionRequired": "Package documented somatic outcomes (50+ individual pauses, 100% substance-free circles) into the CDPH OHE CDEP demonstration framework.",
+      "portalUrl": "https://www.cdph.ca.gov/Programs/OHE"
+    },
+    {
+      "id": "cdph-grassroots-wellness",
+      "category": "CDPH Health Equity",
+      "name": "CDPH Community Mental Wellness & Resilience Innovation Grants",
+      "funder": "CDPH Office of Health Equity & Regional Behavioral Health",
+      "amount": "$25,000 – $75,000",
+      "cycle": "Rolling / Semi-Annual Windows",
+      "deadline": "Continuous Demonstration Window",
+      "alignmentScore": 95,
+      "eligibility": "Southern California grassroots community health entities and 501(c)(3) public charities addressing social determinants of health (SDOH).",
+      "strategicFocus": "Upstream community healing, collective grief processing, chronic stress mitigation, and accessible holistic wellness safe spaces.",
+      "innerSanctuaryFit": "Directly validates our alcohol-free, unhurried community spaces as critical mental health preventative infrastructure in Orange County and Inland Empire.",
+      "actionRequired": "Position SoCal Creatives Collective open mics as upstream emotional wellness hubs.",
+      "portalUrl": "https://www.cdph.ca.gov"
+    },
+    {
+      "id": "cbff-healing-justice",
+      "category": "Black-Led Grassroots Wellness",
+      "name": "California Black Freedom Fund (CBFF) — Healing Justice & Infrastructure",
+      "funder": "California Black Freedom Fund",
+      "amount": "$25,000 – $100,000",
+      "cycle": "Multi-Year Core Grantmaking",
+      "deadline": "Rolling Initiative Updates & Periodic Portal Calls",
+      "alignmentScore": 99,
+      "eligibility": "Grassroots, Black-led and Black-serving California 501(c)(3) non-profits with annual operating budgets under $1M.",
+      "strategicFocus": "Shifting systemic power and funding holistic healing justice, trauma-informed care, and frontline wellness infrastructure for Black Californians.",
+      "innerSanctuaryFit": "Co-Founders Teshia Campbell and Marlon Smith embody Black movement leadership prioritizing collective rest, trauma decompression, and unhurried sacred belonging.",
+      "actionRequired": "Register organizational profile on the CBFF portal; align narrative with the movement healing justice framework.",
+      "portalUrl": "https://fundblackfreedom.org"
+    },
+    {
+      "id": "cbff-sabbatical-rest",
+      "category": "Black-Led Grassroots Wellness",
+      "name": "CBFF Chinedu Valentine Okobi Sabbatical & Rest Program",
+      "funder": "California Black Freedom Fund",
+      "amount": "$50,000",
+      "cycle": "Annual Fellowships / Cohort Nominations",
+      "deadline": "Cohort Open Call",
+      "alignmentScore": 95,
+      "eligibility": "Black movement and non-profit leaders, executive directors, and community visionaries dedicated to frontline community uplift.",
+      "strategicFocus": "Direct investment in deep rest, nervous system restoration, and longevity for Black changemakers to combat institutional burnout.",
+      "innerSanctuaryFit": "Directly mirrors the foundational ethos of Inner Sanctuary (\"Permission to Pause\"). Validates our co-founders as leaders deserving sustained wellness.",
+      "actionRequired": "Prepare leadership rest & organizational stamina portfolio for Executive Director Teshia Campbell and President Marlon Smith.",
+      "portalUrl": "https://fundblackfreedom.org"
+    },
+    {
+      "id": "black-equity-collective",
+      "category": "Black-Led Grassroots Wellness",
+      "name": "Black Equity Collective (BEC) Southern California Cohort",
+      "funder": "Black Equity Collective (SoCal Funder Collaborative)",
+      "amount": "$25,000 – $75,000 Multi-Year Operating Support",
+      "cycle": "Cohort Onboarding",
+      "deadline": "Rolling Regional Engagement (Inland Empire, Orange County, Los Angeles)",
+      "alignmentScore": 97,
+      "eligibility": "Black-led community organizations in Southern California driving systemic change, racial equity, and community care.",
+      "strategicFocus": "Long-term sustainability, power-building, capacity strengthening, and holistic wellness for Black-led organizations.",
+      "innerSanctuaryFit": "Inner Sanctuary operates right at the intersection of Orange County and the Inland Empire, providing an essential community wellness anchor.",
+      "actionRequired": "Submit Letter of Introduction to BEC Southern California regional program officers.",
+      "portalUrl": "https://blackequitycollective.org"
+    },
+    {
+      "id": "cbhn-black-health-agenda",
+      "category": "Black-Led Grassroots Wellness",
+      "name": "California Black Health Network (CBHN) — Black Health Agenda Micro-Grants",
+      "funder": "California Black Health Network",
+      "amount": "$5,000 – $15,000",
+      "cycle": "Rolling Community Micro-Grants",
+      "deadline": "Rolling Quarterly Reviews",
+      "alignmentScore": 96,
+      "eligibility": "Black-led community groups and health advocacy non-profits in California.",
+      "strategicFocus": "Grassroots prevention campaigns tackling chronic disease, maternal mortality, mental health stigma, and holistic wellness education.",
+      "innerSanctuaryFit": "Inner Sanctuary’s non-clinical approach removes stigma around seeking emotional support and mindfulness, creating warm, inviting entry points.",
+      "actionRequired": "Submit short 2-page project proposal for quarterly community health micro-grant allocation.",
+      "portalUrl": "https://www.yourcbhn.org"
+    },
+    {
+      "id": "cal-wellness-responsive",
+      "category": "Black-Led Grassroots Wellness",
+      "name": "The California Wellness Foundation — \"Building the Power to Be Well\"",
+      "funder": "The California Wellness Foundation",
+      "amount": "$25,000 – $100,000",
+      "cycle": "Responsive Program Windows",
+      "deadline": "Upcoming Strategic Window Submission",
+      "alignmentScore": 93,
+      "eligibility": "California 501(c)(3) organizations advancing health equity, racial justice, and holistic wellness.",
+      "strategicFocus": "Community power-building, physical/mental wellness of vulnerable populations, and restorative community environments.",
+      "innerSanctuaryFit": "Strong institutional synergy with Cal Wellness’s historic commitment to healing justice and Black community wellness.",
+      "actionRequired": "Monitor exact portal window release for targeted Letter of Interest (LOI) submission.",
+      "portalUrl": "https://www.calwellness.org"
+    },
+    {
+      "id": "awesome-foundation-monthly",
+      "category": "Immediate Rolling Seed & CRA",
+      "name": "The Awesome Foundation — No-Strings Community Grant",
+      "funder": "The Awesome Foundation (LA, OC & Global Trustees)",
+      "amount": "$1,000 Cash",
+      "cycle": "Monthly Rolling (Reviewed Every 30 Days)",
+      "deadline": "Rolling (Current Submission Window Open)",
+      "alignmentScore": 99,
+      "eligibility": "Individuals and grassroots organizations; no 501(c)(3) red tape; 4 short questions.",
+      "strategicFocus": "Immediate joy, creative sparking, and social cohesion in local neighborhoods.",
+      "innerSanctuaryFit": "Fully written 100-word proposal ready to submit. Allocated to portable acoustic gear ($350), intention beads ($250), artist travel stipends ($250), and herbal teas ($150).",
+      "actionRequired": "Submit turnkey modular answers at awesomefoundation.org within 15 minutes.",
+      "portalUrl": "https://www.awesomefoundation.org"
+    },
+    {
+      "id": "cci-quick-grant-monthly",
+      "category": "Immediate Rolling Seed & CRA",
+      "name": "Center for Cultural Innovation (CCI) — Quick Grant",
+      "funder": "Center for Cultural Innovation (San Francisco & Los Angeles)",
+      "amount": "Up to $600",
+      "cycle": "Monthly Rolling (15th of Every Month)",
+      "deadline": "15th of Every Month",
+      "alignmentScore": 95,
+      "eligibility": "California cultural practitioners, non-profit staff, and creative healing artists.",
+      "strategicFocus": "Professional development, sound therapy training, somatic facilitation skill acquisition.",
+      "innerSanctuaryFit": "Reimburses sound bath certification, sacred instrument acquisition, and facilitator care toolkits.",
+      "actionRequired": "Submit rolling monthly application on the 15th via Submittable.",
+      "portalUrl": "https://www.cciarts.org"
+    },
+    {
+      "id": "pollination-project-rolling",
+      "category": "Immediate Rolling Seed & CRA",
+      "name": "The Pollination Project Grassroots Seed Grant",
+      "funder": "The Pollination Project",
+      "amount": "$1,000 Seed Capital",
+      "cycle": "Open 365 Days a Year",
+      "deadline": "Rolling Continuous (Decision within 6 weeks)",
+      "alignmentScore": 97,
+      "eligibility": "Volunteer-driven, early-stage community healing and kindness projects worldwide.",
+      "strategicFocus": "Fostering compassion, mindfulness, and community connectedness.",
+      "innerSanctuaryFit": "Direct seed match for weekly community pause circles and handcrafted reflection cards.",
+      "actionRequired": "Submit standard 5-question seed application.",
+      "portalUrl": "https://thepollinationproject.org"
+    },
+    {
+      "id": "cra-bank-sponsorships",
+      "category": "Immediate Rolling Seed & CRA",
+      "name": "U.S. Bank / Chase / Wells Fargo CRA Community Reinvestment Pool",
+      "funder": "Corporate Community Reinvestment Departments (CRA)",
+      "amount": "$5,000 – $15,000",
+      "cycle": "Rolling Corporate Philanthropy Cycles",
+      "deadline": "Quarterly Corporate Review",
+      "alignmentScore": 96,
+      "eligibility": "501(c)(3) organizations serving low-to-moderate income (LMI) census tracts in OC and Inland Empire.",
+      "strategicFocus": "Community stabilization, cultural vitality, financial wellness, and holistic neighborhood health.",
+      "innerSanctuaryFit": "100% CRA-eligible community stage sponsorship for SoCal Creatives Collective Open Mics.",
+      "actionRequired": "Dispatch CRA letter packet to regional Community Affairs Officers.",
+      "portalUrl": "https://www.usbank.com/community"
+    }
+  ]
+}

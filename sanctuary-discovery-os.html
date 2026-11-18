@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>3D Sanctuary Search &amp; Discovery OS | Inner Sanctuary Wellness Foundation</title>
+  <meta name="description" content="Explore Inner Sanctuary's autonomous 3D Discovery OS: Scene 1 AI Visibility Radar, Scene 2 Entity Knowledge Graph, Scene 3 Impact Matcher, and Scene 4 Weekly 5-Fix Engine." />
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="emblem.png" />
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="styles.css?v=5.4" />
+
+  <style>
+    body {
+      background-color: #0E1812;
+      color: #FFFDF7;
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .os-standalone-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      background: rgba(14, 24, 18, 0.95);
+      border-bottom: 1.5px solid rgba(197, 154, 63, 0.4);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+    }
+    .os-brand-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: #FFFDF7;
+    }
+    .os-brand-emblem {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1.5px solid var(--sunburst-gold);
+    }
+    .os-topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .os-main-stage {
+      flex: 1;
+      padding: 24px 16px 40px;
+      max-width: 1140px;
+      margin: 0 auto;
+      width: 100%;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Standalone Top Bar -->
+  <header class="os-standalone-topbar">
+    <a href="index.html" class="os-brand-link" title="Return to Main Sanctuary">
+      <img src="emblem.png" alt="Inner Sanctuary Sacred Medallion" class="os-brand-emblem" onerror="this.src='emblem.jpg'">
+      <div>
+        <div style="font-family: 'Cinzel', serif; font-size: 0.92rem; font-weight: 700; letter-spacing: 0.08em; color: #FFFDF7;">
+          INNER SANCTUARY
+        </div>
+        <div style="font-size: 0.68rem; letter-spacing: 0.12em; color: var(--sunburst-gold); font-weight: 600;">
+          DISCOVERY OS • KIOSK
+        </div>
+      </div>
+    </a>
+
+    <div class="os-topbar-actions">
+      <a href="index.html" class="btn btn-outline-gold" style="padding: 7px 14px; font-size: 0.76rem; border-radius: 999px; text-decoration: none;">
+        ← Back to Site
+      </a>
+      <a href="index.html#open-mic" class="btn btn-gold" style="padding: 7px 14px; font-size: 0.76rem; border-radius: 999px; text-decoration: none;">
+        Open Mic 🎙️
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Stage Container -->
+  <main class="os-main-stage">
+    
+    <div class="discovery-os-card">
+      <!-- Ambient Campfire Hearth Embers Canvas -->
+      <canvas id="discovery-hearth-canvas" class="discovery-hearth-canvas" aria-hidden="true"></canvas>
+
+      <div class="discovery-inner-content">
+        <!-- Discovery OS Header -->
+        <div class="discovery-header-wrap">
+          <div class="discovery-badge">
+            <span class="discovery-badge-dot"></span>
+            <span>Autonomous Entity Discovery Architecture • v5.4</span>
+          </div>
+          <h1 class="discovery-title">3D Sanctuary Search &amp; Discovery OS</h1>
+          <p class="discovery-sub">
+            An interactive campfire hearth portal integrating real-time AI visibility radar, interconnected entity knowledge graphs, persona impact matching, and our autonomous weekly 5-fix guardian engine.
+          </p>
+        </div>
+
+        <!-- Scene Switcher Navigation Bar (Touch-friendly 375px–430px scroll-snap) -->
+        <div class="discovery-tab-bar" role="tablist" aria-label="Discovery OS Scenes">
+          <button type="button" class="discovery-scene-tab active" data-scene="1" role="tab" aria-selected="true">
+            <span>📡 Scene 1: AI Visibility Radar</span>
+          </button>
+          <button type="button" class="discovery-scene-tab" data-scene="2" role="tab" aria-selected="false">
+            <span>🌐 Scene 2: Entity Knowledge Graph</span>
+          </button>
+          <button type="button" class="discovery-scene-tab" data-scene="3" role="tab" aria-selected="false">
+            <span>🎯 Scene 3: Impact Matcher</span>
+          </button>
+          <button type="button" class="discovery-scene-tab" data-scene="4" role="tab" aria-selected="false">
+            <span>⚡ Scene 4: Weekly 5-Fix Engine</span>
+          </button>
+        </div>
+
+        <!-- ==================== SCENE 1: AI VISIBILITY RADAR ==================== -->
+        <div class="discovery-scene-panel" data-scene="1" style="display: block;">
+          <div class="discovery-two-col">
+            <!-- Radar Visualizer Stage -->
+            <div class="discovery-stage-box">
+              <canvas id="ai-radar-canvas" class="discovery-canvas"></canvas>
+              <div style="font-size: 0.72rem; color: #CBD7D0; margin-top: 8px; text-align: center;">
+                ✦ Tap any blip or cardinal point to inspect AI engine grounding telemetry
+              </div>
+            </div>
+
+            <!-- Radar Telemetry & Query Simulator -->
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+              <!-- Telemetry Stats Strip -->
+              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+                <div style="background: rgba(0, 0, 0, 0.35); border: 1px solid rgba(197, 154, 63, 0.3); border-radius: 12px; padding: 10px 12px; text-align: center;">
+                  <div style="font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; color: #CBD7D0;">Discoverability</div>
+                  <div style="font-family: 'Cinzel', serif; font-size: 1.25rem; font-weight: 700; color: #F5D77F; margin-top: 2px;">98.6%</div>
+                </div>
+                <div style="background: rgba(0, 0, 0, 0.35); border: 1px solid rgba(197, 154, 63, 0.3); border-radius: 12px; padding: 10px 12px; text-align: center;">
+                  <div style="font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; color: #CBD7D0;">Avg Latency</div>
+                  <div style="font-family: 'Cinzel', serif; font-size: 1.25rem; font-weight: 700; color: #86EFAC; margin-top: 2px;">142ms</div>
+                </div>
+                <div style="background: rgba(0, 0, 0, 0.35); border: 1px solid rgba(197, 154, 63, 0.3); border-radius: 12px; padding: 10px 12px; text-align: center;">
+                  <div style="font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; color: #CBD7D0;">IRS Status</div>
+                  <div style="font-family: 'Cinzel', serif; font-size: 1.15rem; font-weight: 700; color: #F8D98C; margin-top: 2px;">501(c)(3)</div>
+                </div>
+              </div>
+
+              <!-- Radar Inspector Card -->
+              <div id="radarNodeInspector" class="discovery-inspector-card">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== SCENE 2: ENTITY KNOWLEDGE GRAPH ==================== -->
+        <div class="discovery-scene-panel" data-scene="2">
+          <div class="discovery-two-col">
+            <!-- Graph Visualizer Stage -->
+            <div class="discovery-stage-box">
+              <canvas id="knowledge-graph-canvas" class="discovery-canvas"></canvas>
+              <div style="font-size: 0.72rem; color: #CBD7D0; margin-top: 8px; text-align: center;">
+                ✦ Drag or tap nodes to explore schema linkages, leadership, and fiduciary tiers
+              </div>
+            </div>
+
+            <!-- Node Inspector Card -->
+            <div>
+              <div id="graphNodeInspector" class="discovery-inspector-card" style="margin-bottom: 14px;">
+                <!-- Populated by JS -->
+              </div>
+
+              <div style="background: rgba(0, 0, 0, 0.25); border: 1px solid rgba(197, 154, 63, 0.25); border-radius: 14px; padding: 14px 16px;">
+                <div style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--sunburst-gold); font-weight: 700; margin-bottom: 6px;">
+                  ✦ Entity Graph Metadata
+                </div>
+                <p style="font-size: 0.80rem; color: #CBD7D0; line-height: 1.5; margin: 0;">
+                  Connected via JSON-LD <code>Nonprofit501c3</code> schema with verified <strong>Black-Founded &amp; Black-Led</strong> taxonomy, NTEE codes (Mental Health, Arts &amp; Culture), and Community Reinvestment Act (CRA) qualification.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== SCENE 3: 'FIND YOUR SANCTUARY' IMPACT MATCHER ==================== -->
+        <div class="discovery-scene-panel" data-scene="3">
+          <div>
+            <div style="text-align: center; max-width: 680px; margin: 0 auto 20px;">
+              <div style="font-size: 0.76rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sunburst-gold); font-weight: 700; margin-bottom: 4px;">
+                ✦ Select Your Current Heart Space &amp; Role
+              </div>
+              <h3 class="serif-brand" style="font-size: 1.45rem; color: #FFFDF7; margin: 0 0 6px;">
+                Where Do You Fit into the Sanctuary?
+              </h3>
+              <p style="font-size: 0.88rem; color: #CBD7D0; margin: 0;">
+                Whether you have words to share, a nervous system seeking calm, a $1 seed to plant, or corporate CRA capital to invest—the Sanctuary opens its circle to you.
+              </p>
+            </div>
+
+            <!-- 4 Role Selector Buttons -->
+            <div class="matcher-roles-grid" role="group" aria-label="Select Sanctuary Pathway">
+              <button type="button" class="matcher-role-btn active" data-role="artist">
+                <span style="font-size: 1.4rem;">🎤</span>
+                <span style="font-size: 0.82rem; font-weight: 700;">Emerging Artist</span>
+                <span style="font-size: 0.70rem; color: #F5D77F;">Open Mic &amp; Stage</span>
+              </button>
+              <button type="button" class="matcher-role-btn" data-role="seeker">
+                <span style="font-size: 1.4rem;">🕊️</span>
+                <span style="font-size: 0.82rem; font-weight: 700;">Community Seeker</span>
+                <span style="font-size: 0.70rem; color: #CBD7D0;">Breathwork &amp; Pause</span>
+              </button>
+              <button type="button" class="matcher-role-btn" data-role="donor">
+                <span style="font-size: 1.4rem;">🌱</span>
+                <span style="font-size: 0.82rem; font-weight: 700;">$1 Seed Donor</span>
+                <span style="font-size: 0.70rem; color: #CBD7D0;">Grassroots Giving</span>
+              </button>
+              <button type="button" class="matcher-role-btn" data-role="funder">
+                <span style="font-size: 1.4rem;">🏛️</span>
+                <span style="font-size: 0.82rem; font-weight: 700;">CRA Bank / Funder</span>
+                <span style="font-size: 0.70rem; color: #CBD7D0;">Institutional Partner</span>
+              </button>
+            </div>
+
+            <!-- Result Stage (Populated by JS) -->
+            <div id="matcherResultStage" style="max-width: 820px; margin: 0 auto;"></div>
+          </div>
+        </div>
+
+        <!-- ==================== SCENE 4: WEEKLY 5-FIX ENGINE ==================== -->
+        <div class="discovery-scene-panel" data-scene="4">
+          <div>
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 20px;">
+              <div>
+                <div style="font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--sunburst-gold); font-weight: 700; margin-bottom: 4px;">
+                  ✦ Autonomous Sentinel &amp; Guardian Engine
+                </div>
+                <h3 class="serif-brand" style="font-size: 1.4rem; color: #FFFDF7; margin: 0;">
+                  Weekly 5-Fix Autonomous Verification
+                </h3>
+              </div>
+              <button type="button" id="btnRunSweep" class="btn btn-gold" style="padding: 10px 18px; font-size: 0.82rem; font-weight: 700;">
+                <span>⚡ Run Autonomous Diagnostic Sweep</span>
+              </button>
+            </div>
+
+            <!-- Terminal Diagnostic Stream -->
+            <div id="sweepTerminal" class="sweep-terminal-box" style="display: none;"></div>
+
+            <!-- 5 Fixes List -->
+            <div id="fiveFixesList" class="five-fixes-container" style="margin-top: 14px;">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <footer style="text-align: center; padding: 24px 16px; font-size: 0.78rem; color: #8A9C91; border-top: 1px solid rgba(197, 154, 63, 0.25);">
+    Inner Sanctuary Wellness Foundation • IRS 501(c)(3) Public Charity • EIN: 39-3757168 • Black-Founded &amp; Black-Led
+  </footer>
+
+  <!-- Scripts -->
+  <script src="script.js?v=5.4"></script>
+  <script src="js/sanctuary-discovery-os.js?v=5.4"></script>
+</body>
+</html>

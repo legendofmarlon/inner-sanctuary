@@ -11083,3 +11083,394 @@ body[data-element="fire"] .explorer-pulse-dot {
     box-sizing: border-box !important;
   }
 }
+
+/* =============================================================================
+   INNER SANCTUARY 3D DISCOVERY OS — CAMPFIRE HEARTH STYLING (SCENES 1-4)
+   ============================================================================= */
+.sanctuary-discovery-os-section {
+  position: relative;
+  background: linear-gradient(180deg, #111D16 0%, #182B20 50%, #0E1812 100%);
+  color: #FFFDF7;
+  padding: 80px 0;
+  border-top: 1.5px solid rgba(197, 154, 63, 0.45);
+  border-bottom: 1.5px solid rgba(197, 154, 63, 0.45);
+  overflow: hidden;
+}
+
+.discovery-os-card {
+  position: relative;
+  background: rgba(22, 38, 29, 0.90);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1.5px solid rgba(197, 154, 63, 0.45);
+  border-radius: 24px;
+  padding: 36px 30px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.discovery-hearth-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.65;
+}
+
+.discovery-inner-content {
+  position: relative;
+  z-index: 2;
+}
+
+.discovery-header-wrap {
+  text-align: center;
+  max-width: 820px;
+  margin: 0 auto 30px;
+}
+
+.discovery-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(197, 154, 63, 0.18);
+  border: 1px solid rgba(197, 154, 63, 0.45);
+  color: #F8D98C;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 999px;
+  margin-bottom: 12px;
+}
+
+.discovery-badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #FF7A30;
+  box-shadow: 0 0 10px #FFA000;
+  animation: hearthPulse 2s infinite ease-in-out;
+}
+
+@keyframes hearthPulse {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.3); opacity: 1; filter: drop-shadow(0 0 6px #FFA000); }
+}
+
+.discovery-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+  font-weight: 700;
+  color: #FFFDF7;
+  letter-spacing: 0.04em;
+  margin: 0 0 10px;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.6);
+}
+
+.discovery-sub {
+  font-size: clamp(0.92rem, 1.5vw, 1.05rem);
+  color: #CBD7D0;
+  line-height: 1.65;
+  margin: 0 auto;
+  max-width: 720px;
+}
+
+/* Scene Tab Bar */
+.discovery-tab-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 0 auto 32px;
+  flex-wrap: wrap;
+  max-width: 100%;
+}
+
+.discovery-scene-tab {
+  background: rgba(18, 32, 24, 0.75);
+  border: 1px solid rgba(197, 154, 63, 0.35);
+  color: #FAF8F5;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.25s ease;
+  min-height: 44px;
+}
+
+.discovery-scene-tab:hover {
+  border-color: var(--sunburst-gold);
+  background: rgba(35, 58, 44, 0.85);
+  transform: translateY(-1px);
+}
+
+.discovery-scene-tab.active {
+  background: linear-gradient(135deg, #C59A3F 0%, #DDA94B 100%);
+  color: #14241B;
+  border-color: #F8D98C;
+  font-weight: 700;
+  box-shadow: 0 4px 16px rgba(197, 154, 63, 0.45);
+}
+
+/* Scene Panels Layout */
+.discovery-scene-panel {
+  display: none;
+  animation: discoveryFadeIn 0.4s ease forwards;
+}
+
+@keyframes discoveryFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.discovery-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+/* Canvas Stages */
+.discovery-stage-box {
+  background: rgba(12, 22, 17, 0.85);
+  border: 1.5px solid rgba(197, 154, 63, 0.35);
+  border-radius: 18px;
+  padding: 16px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.discovery-canvas {
+  width: 100%;
+  max-width: 440px;
+  height: 340px;
+  display: block;
+  border-radius: 12px;
+}
+
+/* Radar & Graph Node Inspector */
+.discovery-inspector-card {
+  background: rgba(15, 27, 20, 0.88);
+  border: 1.5px solid rgba(197, 154, 63, 0.4);
+  border-radius: 16px;
+  padding: 20px;
+  color: #FFFDF7;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.radar-query-pill {
+  display: inline-block;
+  background: rgba(197, 154, 63, 0.15);
+  border: 1px solid rgba(197, 154, 63, 0.35);
+  color: #FAF8F5;
+  font-size: 0.74rem;
+  padding: 4px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.radar-query-pill:hover {
+  background: rgba(197, 154, 63, 0.35);
+  color: #FFFFFF;
+  border-color: #F8D98C;
+  transform: translateY(-1px);
+}
+
+.radar-sim-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  max-width: 380px;
+  background: rgba(18, 32, 24, 0.96);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1.5px solid #C59A3F;
+  border-radius: 14px;
+  padding: 16px 18px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+  z-index: 10001;
+  color: #FFFDF7;
+  animation: toastSlideUp 0.35s ease;
+}
+
+@keyframes toastSlideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Scene 3: Impact Matcher Controls */
+.matcher-roles-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.matcher-role-btn {
+  background: rgba(16, 29, 21, 0.85);
+  border: 1.5px solid rgba(197, 154, 63, 0.3);
+  border-radius: 14px;
+  padding: 14px 10px;
+  color: #FFFDF7;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.25s ease;
+  min-height: 72px;
+  justify-content: center;
+}
+
+.matcher-role-btn:hover {
+  border-color: #C59A3F;
+  background: rgba(28, 48, 36, 0.95);
+}
+
+.matcher-role-btn.active {
+  background: linear-gradient(135deg, rgba(197, 154, 63, 0.28) 0%, rgba(221, 169, 75, 0.15) 100%);
+  border-color: #F5D77F;
+  box-shadow: 0 6px 18px rgba(197, 154, 63, 0.3);
+}
+
+.matcher-result-card {
+  background: rgba(15, 27, 20, 0.9);
+  border: 1.5px solid rgba(197, 154, 63, 0.45);
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
+}
+
+/* Scene 4: Weekly 5-Fix Cards */
+.five-fixes-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.five-fix-card {
+  background: rgba(15, 27, 20, 0.85);
+  border: 1px solid rgba(197, 154, 63, 0.3);
+  border-radius: 14px;
+  padding: 16px 18px;
+  transition: all 0.2s ease;
+}
+
+.five-fix-card:hover {
+  border-color: #C59A3F;
+  background: rgba(22, 38, 29, 0.92);
+}
+
+.fix-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #86EFAC;
+  background: rgba(34, 197, 94, 0.15);
+  border: 1px solid rgba(34, 197, 94, 0.35);
+  padding: 3px 8px;
+  border-radius: 999px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.fix-pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #22C55E;
+  box-shadow: 0 0 8px #22C55E;
+  animation: pulseDot 1.8s infinite;
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 0.6; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+.sweep-terminal-box {
+  background: #080E0A;
+  border: 1px solid rgba(197, 154, 63, 0.35);
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: #CBD7D0;
+  max-height: 180px;
+  overflow-y: auto;
+  margin-top: 14px;
+}
+
+/* =============================================================================
+   MOBILE RESPONSIVENESS OVERRIDES (375px - 430px)
+   ============================================================================= */
+@media (max-width: 860px) {
+  .discovery-two-col {
+    grid-template-columns: 1fr !important;
+    gap: 18px !important;
+  }
+  .matcher-roles-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .sanctuary-discovery-os-section {
+    padding: 50px 0 !important;
+  }
+  .discovery-os-card {
+    padding: 24px 16px !important;
+    border-radius: 18px !important;
+  }
+  .discovery-tab-bar {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    justify-content: flex-start !important;
+    scroll-snap-type: x mandatory !important;
+    gap: 8px !important;
+    padding-bottom: 8px !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .discovery-tab-bar::-webkit-scrollbar {
+    display: none;
+  }
+  .discovery-scene-tab {
+    flex: 0 0 auto !important;
+    scroll-snap-align: start !important;
+    padding: 8px 14px !important;
+    font-size: 0.76rem !important;
+    white-space: nowrap !important;
+  }
+  .discovery-canvas {
+    height: 290px !important;
+  }
+  .matcher-roles-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .radar-sim-toast {
+    left: 12px !important;
+    right: 12px !important;
+    bottom: 12px !important;
+    max-width: none !important;
+  }
+}
