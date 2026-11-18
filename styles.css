@@ -2842,9 +2842,16 @@ body[data-element="ether"] .breathing-orb {
   white-space: nowrap;
 }
 
+.programs-trio-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+  margin-bottom: 36px;
+}
+
 /* Responsive updates for new components */
 @media (max-width: 960px) {
-  .lsd-trio-grid, .horizons-grid {
+  .lsd-trio-grid, .horizons-grid, .programs-trio-grid {
     grid-template-columns: repeat(2, 1fr);
   }
   .stay-loop-form {
@@ -2859,7 +2866,7 @@ body[data-element="ether"] .breathing-orb {
 }
 
 @media (max-width: 680px) {
-  .lsd-trio-grid, .horizons-grid {
+  .lsd-trio-grid, .horizons-grid, .programs-trio-grid {
     grid-template-columns: 1fr;
   }
 }
@@ -6143,11 +6150,17 @@ body[data-element="ether"] nav::after {
     display: none !important;
   }
 
+  /* Hide Greenroom badge from mobile header (prominently featured in mobile drawer & medallion) */
+  #btnSpeakeasyNav {
+    display: none !important;
+  }
+
   .nav-actions-group {
     display: flex !important;
     align-items: center !important;
-    gap: 8px !important;
+    gap: 6px !important;
     flex-shrink: 0 !important;
+    margin-left: auto !important;
   }
 
   /* Announcement Bar Mobile: Clean vertical stack */
@@ -6161,14 +6174,26 @@ body[data-element="ether"] nav::after {
 
   /* Crisp, beautifully scaled $1 Seed button on mobile header */
   .nav-donate-cta {
-    padding: 7px 14px !important;
-    font-size: 0.74rem !important;
+    padding: 6px 11px !important;
+    font-size: 0.72rem !important;
     letter-spacing: 0.02em !important;
+    white-space: nowrap !important;
   }
 
   #mobile-nav-toggle {
-    padding: 6px 11px !important;
-    font-size: 1.1rem !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 38px !important;
+    min-height: 38px !important;
+    padding: 6px 10px !important;
+    font-size: 1.15rem !important;
+    border-radius: 8px !important;
+    border: 1.5px solid var(--forest-green) !important;
+    color: var(--forest-green) !important;
+    background: transparent !important;
+    cursor: pointer !important;
+    margin-left: 2px !important;
   }
 
   /* Hero Badges on Mobile */
@@ -6225,6 +6250,16 @@ body[data-element="ether"] nav::after {
     font-size: 0.95rem !important;
     line-height: 1.75 !important;
     color: #1C1B18 !important;
+  }
+
+  /* High contrast ivory/cream text for dark cards, modals & footer */
+  .hearth-mirror-card p,
+  .labyrinth-modal-dialog p,
+  .bracelet-modal-dialog p,
+  .foundation-truth-card p,
+  .dark-surface p,
+  footer p {
+    color: #FFFDF7 !important;
   }
 
   /* Hero Manifesto Box */
@@ -6370,6 +6405,102 @@ body[data-element="ether"] nav::after {
   /* Forms */
   .form-grid {
     grid-template-columns: 1fr !important;
+    gap: 14px !important;
+    width: 100% !important;
+  }
+
+  .contact-card {
+    padding: 24px 18px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .intake-tab-bar {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    padding-bottom: 8px !important;
+  }
+  .intake-tab-bar::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  /* Current Programs single-column stack on mobile */
+  .programs-trio-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+    width: 100% !important;
+  }
+  .program-spotlight-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Future Horizons single-column stack on mobile */
+  .horizons-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .horizon-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Get Involved Pathways single-column stack on mobile */
+  .get-involved-pathways {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+    width: 100% !important;
+  }
+
+  /* Hearth Mirror Card: Mobile padding, 2-column pills, and breathing space */
+  .hearth-mirror-card {
+    padding: 26px 18px !important;
+    margin: 28px auto 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .hearth-emotion-pills {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+    width: 100% !important;
+  }
+  .hearth-pill-btn {
+    width: 100% !important;
+    padding: 10px 6px !important;
+    font-size: 0.78rem !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Digital Labyrinth Modal dialog mobile responsiveness */
+  .labyrinth-modal-dialog {
+    max-width: 94vw !important;
+    padding: 22px 16px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Floating Widgets & Safe Area Padding on Mobile */
+  .explorer-pill {
+    display: none !important;
+  }
+  .floating-seed-pill {
+    bottom: 16px !important;
+    right: 16px !important;
+    padding: 8px 16px !important;
+    font-size: 0.76rem !important;
+    z-index: 999 !important;
+  }
+  footer {
+    padding-bottom: calc(64px + env(safe-area-inset-bottom, 20px)) !important;
   }
 
   /* Ambient Canvas */

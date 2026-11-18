@@ -1891,15 +1891,25 @@ document.addEventListener('DOMContentLoaded', () => {
   // =========================================================================
   // 5. MOBILE NAVIGATION DRAWER
   // =========================================================================
+  window.toggleMobileNavDrawer = toggleMobileNavDrawer;
+  function toggleMobileNavDrawer(e) {
+    if (e && e.preventDefault) e.preventDefault();
+    const mobileMenu = document.getElementById('mobile-nav-drawer');
+    if (!mobileMenu) return;
+    const isHidden = mobileMenu.style.display === 'none' || mobileMenu.classList.contains('hidden') || getComputedStyle(mobileMenu).display === 'none';
+    mobileMenu.style.display = isHidden ? 'block' : 'none';
+    if (isHidden) {
+      mobileMenu.classList.remove('hidden');
+    } else {
+      mobileMenu.classList.add('hidden');
+    }
+  }
+
   const mobileToggle = document.getElementById('mobile-nav-toggle');
   const mobileMenu = document.getElementById('mobile-nav-drawer');
 
   if (mobileToggle && mobileMenu) {
-    mobileToggle.addEventListener('click', () => {
-      const isHidden = mobileMenu.style.display === 'none' || mobileMenu.classList.contains('hidden');
-      mobileMenu.style.display = isHidden ? 'block' : 'none';
-      mobileMenu.classList.toggle('hidden');
-    });
+    mobileToggle.addEventListener('click', toggleMobileNavDrawer);
 
     mobileMenu.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {

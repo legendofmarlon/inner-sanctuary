@@ -346,15 +346,23 @@
         <button type="button" onclick="openZeffyModal(event)" class="btn btn-gold nav-donate-cta btn-liquid-gold pulse-gold weekly-shimmer-cta" style="padding: 10px 20px; font-size: 0.82rem; font-weight: 700; cursor: pointer; border-radius: 999px; display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; box-shadow: 0 4px 16px rgba(197, 154, 63, 0.45); letter-spacing: 0.04em;" title="Plant Your $1 Seed in the Sanctuary">
           <span>🌱 Give $1 Seed</span>
         </button>
-        <button id="mobile-nav-toggle" style="display: none; background: none; border: 1.5px solid var(--forest-green); color: var(--forest-green); padding: 8px 12px; border-radius: 6px; cursor: pointer; font-size: 1.15rem;" aria-label="Toggle Menu">
+        <button type="button" id="mobile-nav-toggle" class="mobile-nav-toggle" onclick="toggleMobileNavDrawer(event)" aria-label="Toggle Menu">
           ☰
         </button>
       </div>
     </div>
 
     <!-- Mobile Navigation Drawer -->
-    <div id="mobile-nav-drawer" class="hidden" style="display: none; padding: 22px 24px; background: #F6F3EC; border-bottom: 2px solid var(--sunburst-gold);">
-      <ul style="list-style: none; display: flex; flex-direction: column; gap: 14px; margin: 0; padding: 0;">
+    <div id="mobile-nav-drawer" class="hidden" style="display: none; padding: 20px 20px; background: rgba(246, 243, 236, 0.98); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 2px solid var(--sunburst-gold); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);">
+      <ul style="list-style: none; display: flex; flex-direction: column; gap: 12px; margin: 0; padding: 0;">
+        <li style="display: flex; gap: 8px; margin-bottom: 6px;">
+          <button type="button" onclick="handleSpeakeasyKnock(event); document.getElementById('mobile-nav-drawer').style.display='none';" class="btn-outline-gold" style="flex: 1; padding: 10px 12px; border-radius: 8px; font-size: 0.80rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; background: rgba(30, 49, 39, 0.05); color: var(--forest-green); border: 1.5px solid var(--sunburst-gold);" title="🗝️ The Greenroom • Secret Sessions">
+            <span>🗝️ The Greenroom</span>
+          </button>
+          <button type="button" onclick="openZeffyModal(event); document.getElementById('mobile-nav-drawer').style.display='none';" class="btn btn-gold btn-liquid-gold pulse-gold" style="flex: 1; padding: 10px 12px; border-radius: 8px; font-size: 0.80rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;" title="Plant Your $1 Seed">
+            <span>🌱 Give $1 Seed</span>
+          </button>
+        </li>
         <li id="mobilePwaInstallItem" style="display: none;">
           <button type="button" id="btnPwaMobileInstall" class="mobile-nav-pwa-btn" onclick="triggerPwaInstall(event)" style="width: 100%; text-align: left; background: rgba(197, 154, 63, 0.12); border: 1px dashed var(--sunburst-gold); border-radius: 8px; padding: 10px 14px; color: var(--forest-green); font-size: 0.95rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px;">
             <span>📱 Add to Home Screen</span>
@@ -1010,7 +1018,7 @@
       </div>
 
       <!-- 2-Column Program Cards Grid -->
-      <div class="programs-trio-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 28px; margin-bottom: 36px;">
+      <div class="programs-trio-grid">
         
         <!-- Program 1: Permission to Pause -->
         <div class="program-spotlight-card" style="background: rgba(255, 255, 255, 0.92); border: 1.5px solid rgba(197, 154, 63, 0.35); border-radius: 18px; padding: 32px 28px; box-shadow: 0 8px 24px rgba(43, 68, 54, 0.08); display: flex; flex-direction: column; justify-content: space-between;">
