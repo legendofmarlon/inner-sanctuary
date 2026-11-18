@@ -4317,8 +4317,8 @@ document.addEventListener('DOMContentLoaded', () => {
       alt: "Acoustic guitarist and soulful female singer performing together in armchair circle"
     },
     {
-      src: "images/openmic/openmic-nov15-stone-hearth-celebration.jpg",
-      caption: "Joyful Embodiment • Drums, Dancing & Laughter Before the Grand Hearth (Nov 15)",
+      src: "images/openmic/openmic-nov15-stone-hearth-celebration.gif",
+      caption: "Joyful Embodiment • Drums, Dancing & Laughter Before the Grand Hearth (Nov 15 • Live GIF)",
       alt: "Community members dancing and drumming with pure joy before the stone fireplace"
     },
     {
