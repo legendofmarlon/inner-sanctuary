@@ -6,31 +6,39 @@ document.addEventListener('DOMContentLoaded', () => {
   const floatingSeedPill = document.getElementById('floating-seed-pill');
   const pwaBanner = document.getElementById('pwaInstallBanner');
   if (floatingSeedPill) {
+    let ticking = false;
     window.addEventListener('scroll', () => {
-      const circleGrowth = document.getElementById('circle-growth');
-      let isOverDonation = false;
-      if (circleGrowth) {
-        const rect = circleGrowth.getBoundingClientRect();
-        // Generous buffer so floating pill never covers Zeffy form or payment badges
-        if (rect.top < window.innerHeight + 100 && rect.bottom > -100) {
-          isOverDonation = true;
-        }
-      }
-      if (isOverDonation) {
-        document.body.classList.add('viewing-donation');
-        floatingSeedPill.classList.remove('is-visible');
-      } else {
-        document.body.classList.remove('viewing-donation');
-        if (window.scrollY > 340) {
-          floatingSeedPill.classList.add('is-visible');
-        } else {
-          floatingSeedPill.classList.remove('is-visible');
-        }
-      }
-      if (pwaBanner && isOverDonation && pwaBanner.style.display !== 'none') {
-        pwaBanner.classList.add('pwa-tuck-away');
-      } else if (pwaBanner) {
-        pwaBanner.classList.remove('pwa-tuck-away');
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const circleGrowth = document.getElementById('circle-growth');
+          let isOverDonation = false;
+          if (circleGrowth) {
+            const rect = circleGrowth.getBoundingClientRect();
+            if (rect.top < window.innerHeight + 80 && rect.bottom > -80) {
+              isOverDonation = true;
+            }
+          }
+          if (isOverDonation) {
+            document.body.classList.add('viewing-donation');
+            floatingSeedPill.classList.remove('is-visible');
+          } else {
+            document.body.classList.remove('viewing-donation');
+            if (window.scrollY > 340) {
+              floatingSeedPill.classList.add('is-visible');
+            } else {
+              floatingSeedPill.classList.remove('is-visible');
+            }
+          }
+          if (pwaBanner) {
+            if (isOverDonation && pwaBanner.style.display !== 'none') {
+              pwaBanner.classList.add('pwa-tuck-away');
+            } else {
+              pwaBanner.classList.remove('pwa-tuck-away');
+            }
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     }, { passive: true });
   }

@@ -11011,10 +11011,10 @@ body[data-element="fire"] .explorer-pulse-dot {
     display: block !important;
   }
   body.viewing-donation #floating-seed-pill {
-    display: none !important;
     opacity: 0 !important;
     visibility: hidden !important;
     pointer-events: none !important;
+    transform: translateY(24px) scale(0.9) translateZ(0) !important;
   }
   .dollar-fiduciary-bottom-strip {
     margin-left: 0 !important;
@@ -11543,5 +11543,25 @@ body[data-element="fire"] .explorer-pulse-dot {
   .footer-os-banner button {
     width: 100% !important;
     justify-content: center !important;
+  }
+}
+
+
+/* Mobile Hardware Acceleration & Anti-Flicker Shield */
+.floating-seed-pill,
+.explorer-pill,
+#pwaInstallBanner,
+#sanctuary-nav {
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  will-change: transform, opacity;
+}
+
+@media (max-width: 768px), (pointer: coarse) {
+  /* Suppress touch-tracking 460px radial glow on mobile to eliminate GPU paint thrashing */
+  .lantern-aura {
+    display: none !important;
   }
 }
