@@ -5950,6 +5950,8 @@ body[data-element="ether"] nav::after {
   justify-content: center;
   gap: 8px;
   margin-top: 14px;
+  flex-wrap: wrap;
+  max-width: 100%;
 }
 
 .wheel-dot {

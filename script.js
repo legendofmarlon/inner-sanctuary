@@ -4302,29 +4302,64 @@ document.addEventListener('DOMContentLoaded', () => {
   window.currentPhotoWheelIndex = 0;
   const photoWheelData = [
     {
-      src: "images/openmic/openmic-vocalist-yellow.jpg",
-      caption: "Raw Vocal Resonance • Community Singer Pouring Heart into Song at Our Sanctuary Clubhouse",
-      alt: "Solo vocalist singing at microphone"
+      src: "images/openmic/openmic-nov15-living-room-sanctuary.jpg",
+      caption: "Grounded Presence • Full Community Circle Gathered at the Hearth (Nov 15)",
+      alt: "Community circle gathered in the clubhouse living room around the indoor tree"
+    },
+    {
+      src: "images/openmic/openmic-nov15-spoken-word-circle.jpg",
+      caption: "Raw Vocal Truth • Spoken Word & Acoustic Expression in the Living Room (Nov 15)",
+      alt: "Spoken word performer standing before community circle in Reconnect shirt"
+    },
+    {
+      src: "images/openmic/openmic-nov15-acoustic-duo-harmony.jpg",
+      caption: "Soulful Strings & Melody • Acoustic Guitar & Vocal Harmonies in Flow (Nov 15)",
+      alt: "Acoustic guitarist and soulful female singer performing together in armchair circle"
+    },
+    {
+      src: "images/openmic/openmic-nov15-stone-hearth-celebration.jpg",
+      caption: "Joyful Embodiment • Drums, Dancing & Laughter Before the Grand Hearth (Nov 15)",
+      alt: "Community members dancing and drumming with pure joy before the stone fireplace"
+    },
+    {
+      src: "images/openmic/openmic-nov15-djembe-poolside-rhythm.jpg",
+      caption: "Heartbeat of the Hearth • Djembe Rhythm & Joy by the Waterside (Nov 15)",
+      alt: "Musician playing red djembe drum poolside with smiling friend"
+    },
+    {
+      src: "images/openmic/openmic-nov15-storyteller-reflection.jpg",
+      caption: "Unhurried Words • Vulnerable Storytelling & Poetry by the Staircase (Nov 15)",
+      alt: "Community storyteller reading from phone on wooden stool by rustic staircase"
+    },
+    {
+      src: "images/openmic/openmic-nov15-reconnect-sisterhood.jpg",
+      caption: "Radiant Fellowship • Reconnect & Joy at the Clubhouse Loft (Nov 15)",
+      alt: "Two smiling community members on the wooden staircase, one wearing Reconnect shirt"
+    },
+    {
+      src: "images/openmic/openmic-nov15-elder-wisdom-words.jpg",
+      caption: "Generational Wisdom • Lived Truth & Sacred Listening (Nov 15)",
+      alt: "Silver-haired elder sharing stories with attentive audience in the clubhouse"
+    },
+    {
+      src: "images/openmic/openmic-nov15-clubhouse-pool-dusk.jpg",
+      caption: "Sanctuary Haven • Twilight Reflection by the Pool & Palm Grove (Nov 15)",
+      alt: "Evening view of the Sanctuary Clubhouse pool with illuminated palm trees and warm lighting"
+    },
+    {
+      src: "images/openmic/openmic-nov15-reconnect-portrait.jpg",
+      caption: "Sacred Welcome • Safe Community Haven & True Belonging (Nov 15)",
+      alt: "Close portrait of community members smiling on the wooden lodge balcony"
     },
     {
       src: "images/openmic/openmic-audience-cafe86.jpg",
-      caption: "Attentive Sanctuary • ~40 Neighbors & Creators Gathered in Grounded Presence",
-      alt: "Attentive audience at Our Sanctuary Clubhouse"
-    },
-    {
-      src: "images/openmic/openmic-acoustic-band.jpg",
-      caption: "Acoustic Strings & Rhythm • Local Instrumental Duo in Flow",
-      alt: "Acoustic duo performing"
+      caption: "Attentive Sanctuary • Neighbors & Creators Gathered in Grounded Presence",
+      alt: "Attentive audience gathered at open mic"
     },
     {
       src: "images/openmic/openmic-community-joy.jpg",
       caption: "Authentic Connection & Joy • MC Marlon Smith with Community Members",
       alt: "Marlon Smith smiling with community"
-    },
-    {
-      src: "images/openmic/openmic-performer-singing.jpg",
-      caption: "Unhurried Creative Stages • Every Voice Feels Truly Heard & Valued",
-      alt: "Female vocalist singing with emotion"
     }
   ];
 
