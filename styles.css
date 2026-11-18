@@ -5872,7 +5872,8 @@ body[data-element="ether"] nav::after {
   visibility: visible;
 }
 
-.photo-wheel-slide img {
+.photo-wheel-slide img,
+.photo-wheel-slide video {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -5881,8 +5882,26 @@ body[data-element="ether"] nav::after {
   transition: transform 0.4s ease;
 }
 
-.photo-wheel-slide:hover img {
-  transform: scale(1.02);
+.photo-wheel-slide.active img,
+.photo-wheel-slide.active video {
+  animation: livePhotoBreathe 7s ease-in-out infinite alternate;
+}
+
+@keyframes livePhotoBreathe {
+  0% {
+    transform: scale(1.0) translate(0, 0);
+  }
+  50% {
+    transform: scale(1.04) translate(-0.8%, -0.8%);
+  }
+  100% {
+    transform: scale(1.07) translate(0.8%, 0.5%);
+  }
+}
+
+.photo-wheel-slide:hover img,
+.photo-wheel-slide:hover video {
+  animation-play-state: paused;
 }
 
 .slide-caption-bar {
@@ -6343,9 +6362,9 @@ body[data-element="ether"] nav::after {
     font-size: 1.6rem !important;
   }
 
-  /* Photo Wheel on mobile */
+  /* Photo Wheel on mobile: Expanded height for vertical & live photo view */
   .photo-wheel-viewport {
-    height: 200px !important;
+    height: 290px !important;
   }
 
   .photo-wheel-card {

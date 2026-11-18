@@ -4409,9 +4409,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const wheelCard = document.getElementById('openmic-photo-wheel');
   if (wheelCard) {
+    let touchStartX = 0;
+    let touchEndX = 0;
+
     wheelCard.addEventListener('mouseenter', stopPhotoWheelAuto);
     wheelCard.addEventListener('mouseleave', startPhotoWheelAuto);
-    wheelCard.addEventListener('touchstart', stopPhotoWheelAuto, { passive: true });
+
+    wheelCard.addEventListener('touchstart', (e) => {
+      stopPhotoWheelAuto();
+      if (e.touches && e.touches[0]) {
+        touchStartX = e.touches[0].clientX;
+      }
+    }, { passive: true });
+
+    wheelCard.addEventListener('touchend', (e) => {
+      if (e.changedTouches && e.changedTouches[0]) {
+        touchEndX = e.changedTouches[0].clientX;
+        const diffX = touchEndX - touchStartX;
+        if (Math.abs(diffX) > 40) {
+          if (diffX < 0) {
+            window.nextPhotoSlide();
+          } else {
+            window.prevPhotoSlide();
+          }
+        }
+      }
+      startPhotoWheelAuto();
+    }, { passive: true });
+
     startPhotoWheelAuto();
   }
 
@@ -4476,9 +4501,32 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Modal backdrop click to close
+  // Modal backdrop click & touch swipe navigation
   const modalElem = document.getElementById('PhotoWheelModal');
   if (modalElem) {
+    let modalTouchStartX = 0;
+    let modalTouchEndX = 0;
+
+    modalElem.addEventListener('touchstart', (e) => {
+      if (e.touches && e.touches[0]) {
+        modalTouchStartX = e.touches[0].clientX;
+      }
+    }, { passive: true });
+
+    modalElem.addEventListener('touchend', (e) => {
+      if (e.changedTouches && e.changedTouches[0]) {
+        modalTouchEndX = e.changedTouches[0].clientX;
+        const diffX = modalTouchEndX - modalTouchStartX;
+        if (Math.abs(diffX) > 50) {
+          if (diffX < 0) {
+            window.modalNextPhoto();
+          } else {
+            window.modalPrevPhoto();
+          }
+        }
+      }
+    }, { passive: true });
+
     modalElem.addEventListener('click', (e) => {
       if (e.target === modalElem) window.closePhotoWheelModal();
     });
