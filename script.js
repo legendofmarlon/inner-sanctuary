@@ -6802,3 +6802,14 @@ Provide a deeply compassionate, grounded 2-3 sentence reflection. Never use clin
     link.click();
     document.body.removeChild(link);
   };
+
+
+  // ------------------------------------------------------------------------
+  // SANCTUARY SPOTIFY PLAYER TRAY CONTROLLER
+  // ------------------------------------------------------------------------
+  window.toggleSpotifyPlayer = function() {
+    const tray = document.getElementById('sanctuarySpotifyTray');
+    if (!tray) return;
+    const isHidden = tray.style.display === 'none' || !tray.style.display;
+    tray.style.display = isHidden ? 'block' : 'none';
+  };
