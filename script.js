@@ -3580,7 +3580,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!daysEl || !hoursEl || !minutesEl || !secondsEl) return;
 
     // Anchor: Sunday, November 15, 2026, 2:00 PM PST
-    let targetTime = new Date('2026-11-15T14:00:00-08:00').getTime();
+    let targetTime = new Date('2026-11-22T14:00:00-08:00').getTime();
 
     function updateTimer() {
       const now = Date.now();
@@ -6740,4 +6740,57 @@ Provide a deeply compassionate, grounded 2-3 sentence reflection. Never use clin
     } else {
       window.location.href = 'sanctuary-discovery-os.html';
     }
+  };
+
+
+  // ------------------------------------------------------------------------
+  // CALENDAR (.ICS) GENERATOR & DOWNLOAD HELPER
+  // ------------------------------------------------------------------------
+  window.downloadEventIcs = function(eventId) {
+    const events = {
+      'friendsgiving': {
+        title: '🍂 Friendsgiving: Good Food, Good Humans & Good Vibes',
+        description: 'A RECONNECT × Inner Sanctuary Wellness Foundation Gathering. Good food. Good humans. Alcohol-free creative sanctuary. Details: https://www.meetup.com/socal-creatives-collective/events/317482553/',
+        location: 'Our Sanctuary Clubhouse, Orange County, CA',
+        start: '20261122T140000',
+        end: '20261122T180000'
+      },
+      'jam-session': {
+        title: '🎶 Jam Session: The Unplugged Playground',
+        description: 'An Intimate Jam Session with SoCal Creatives Collective & Inner Sanctuary. 10 Humans. A Few Instruments. Endless Possibilities. Details: https://www.meetup.com/socal-creatives-collective/events/317462800/',
+        location: '1501 W Alton Ave, Santa Ana, CA 92704',
+        start: '20261210T180000',
+        end: '20261210T200000'
+      }
+    };
+
+    const ev = events[eventId];
+    if (!ev) return;
+
+    const icsData = [
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'PRODID:-//Inner Sanctuary Wellness Foundation//Calendar Event//EN',
+      'CALSCALE:GREGORIAN',
+      'METHOD:PUBLISH',
+      'BEGIN:VEVENT',
+      'UID:' + Date.now() + '@innersanctuarywellnessfoundation.org',
+      'DTSTAMP:' + new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z',
+      'DTSTART;TZID=America/Los_Angeles:' + ev.start,
+      'DTEND;TZID=America/Los_Angeles:' + ev.end,
+      'SUMMARY:' + ev.title,
+      'DESCRIPTION:' + ev.description,
+      'LOCATION:' + ev.location,
+      'STATUS:CONFIRMED',
+      'END:VEVENT',
+      'END:VCALENDAR'
+    ].join('\r\n');
+
+    const blob = new Blob([icsData], { type: 'text/calendar;charset=utf-8' });
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.setAttribute('download', eventId + '-inner-sanctuary.ics');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
