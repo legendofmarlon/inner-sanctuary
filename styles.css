@@ -11520,3 +11520,28 @@ body[data-element="fire"] .explorer-pulse-dot {
     max-width: none !important;
   }
 }
+
+
+/* Footer Discovery OS Banner */
+.footer-os-banner {
+  box-sizing: border-box !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+@media (max-width: 768px) {
+  .footer-os-banner {
+    flex-direction: column !important;
+    text-align: center !important;
+    padding: 18px 14px !important;
+    gap: 14px !important;
+  }
+  .footer-os-banner > div:first-child {
+    flex-direction: column !important;
+    text-align: center !important;
+  }
+  .footer-os-banner button {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+}

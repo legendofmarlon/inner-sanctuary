@@ -6722,3 +6722,22 @@ Provide a deeply compassionate, grounded 2-3 sentence reflection. Never use clin
   initLabyrinthModal();
 
 })();
+
+
+  // ------------------------------------------------------------------------
+  // SANCTUARY DISCOVERY OS POPUP WINDOW HANDLER
+  // ------------------------------------------------------------------------
+  window.openDiscoveryOsWindow = function(e) {
+    if (e && typeof e.preventDefault === 'function') e.preventDefault();
+    const w = Math.min(1280, window.screen.availWidth - 40);
+    const h = Math.min(900, window.screen.availHeight - 60);
+    const left = Math.max(0, Math.floor((window.screen.availWidth - w) / 2));
+    const top = Math.max(0, Math.floor((window.screen.availHeight - h) / 2));
+    const features = `width=${w},height=${h},left=${left},top=${top},resizable=yes,scrollbars=yes,status=no,toolbar=no,menubar=no,location=no`;
+    const popWin = window.open('sanctuary-discovery-os.html', 'SanctuaryDiscoveryOS', features);
+    if (popWin && !popWin.closed) {
+      popWin.focus();
+    } else {
+      window.location.href = 'sanctuary-discovery-os.html';
+    }
+  };
