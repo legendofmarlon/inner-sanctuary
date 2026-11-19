@@ -6812,7 +6812,13 @@ Provide a deeply compassionate, grounded 2-3 sentence reflection. Never use clin
   // ------------------------------------------------------------------------
   window.toggleSpotifyPlayer = function() {
     const tray = document.getElementById('sanctuarySpotifyTray');
+    const btn = document.getElementById('spotify-toggle-btn');
     if (!tray) return;
     const isHidden = tray.style.display === 'none' || !tray.style.display;
     tray.style.display = isHidden ? 'block' : 'none';
+    if (btn) {
+      btn.style.background = isHidden ? 'rgba(30, 215, 96, 0.35)' : 'rgba(30, 215, 96, 0.16)';
+      btn.style.borderColor = isHidden ? '#1ED760' : 'rgba(30, 215, 96, 0.45)';
+      btn.style.boxShadow = isHidden ? '0 0 14px rgba(30, 215, 96, 0.5)' : 'none';
+    }
   };
