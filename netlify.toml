@@ -3,6 +3,25 @@
 [build]
   publish = "."
 
+# Netlify Redirects — Apex HTTPS Canonical Routing (Zero Redirect Loops)
+[[redirects]]
+  from = "http://innersanctuarywellnessfoundation.org/*"
+  to = "https://innersanctuarywellnessfoundation.org/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.innersanctuarywellnessfoundation.org/*"
+  to = "https://innersanctuarywellnessfoundation.org/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://www.innersanctuarywellnessfoundation.org/*"
+  to = "https://innersanctuarywellnessfoundation.org/:splat"
+  status = 301
+  force = true
+
 [[headers]]
   for = "/*"
   [headers.values]
@@ -11,6 +30,18 @@
     X-XSS-Protection = "1; mode=block"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(self), geolocation=()"
+
+[[headers]]
+  for = "/robots.txt"
+  [headers.values]
+    Content-Type = "text/plain; charset=UTF-8"
+    Cache-Control = "public, max-age=86400, must-revalidate"
+
+[[headers]]
+  for = "/sitemap.xml"
+  [headers.values]
+    Content-Type = "application/xml; charset=UTF-8"
+    Cache-Control = "public, max-age=86400, must-revalidate"
 
 [[headers]]
   for = "/.well-known/*"

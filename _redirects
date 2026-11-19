@@ -1,0 +1,11 @@
+# =========================================================================
+# Inner Sanctuary Wellness Foundation — Netlify Canonical Redirects
+# Canonical Domain: https://innersanctuarywellnessfoundation.org
+# =========================================================================
+
+# 1. Upgrade Insecure HTTP to Canonical Apex HTTPS (Zero Redirect Loops)
+http://innersanctuarywellnessfoundation.org/*    https://innersanctuarywellnessfoundation.org/:splat  301!
+
+# 2. Redirect www Subdomain to Canonical Apex HTTPS (Zero Redirect Loops)
+https://www.innersanctuarywellnessfoundation.org/*   https://innersanctuarywellnessfoundation.org/:splat  301!
+http://www.innersanctuarywellnessfoundation.org/*    https://innersanctuarywellnessfoundation.org/:splat  301!
