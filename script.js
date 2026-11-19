@@ -1230,7 +1230,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!this.audioCache[key]) {
           const audio = new Audio(this.tracks[key]);
           audio.loop = true;
-          audio.preload = 'auto';
+          // Prevent background audio from preloading until user actually clicks play
+          audio.preload = 'none';
           audio.volume = 0;
           this.audioCache[key] = audio;
         }
@@ -1280,6 +1281,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       playElement(element) {
         const audio = this.getAudio(element);
+        audio.preload = 'auto';
         this.activeAudio = audio;
         const playPromise = audio.play();
         if (playPromise !== undefined) {
@@ -1294,6 +1296,7 @@ document.addEventListener('DOMContentLoaded', () => {
       crossfadeTo(newElement) {
         const prevAudio = this.activeAudio;
         const nextAudio = this.getAudio(newElement);
+        nextAudio.preload = 'auto';
         this.activeAudio = nextAudio;
 
         const playPromise = nextAudio.play();
@@ -1492,28 +1495,35 @@ document.addEventListener('DOMContentLoaded', () => {
       activePlateIndex = activePlateIndex === 0 ? 1 : 0;
     }
 
-    // On-demand caching for realistic environmental backdrop plates
-    const loadedPlates = new Set();
-    function preloadPlateIfNeeded(elKey) {
-      const plateMap = {
-        earth: 'images/nature-earth-8k.jpg',
-        water: 'images/nature-water-8k.jpg',
-        air: 'images/sky-air-8k.jpg',
-        fire: 'images/nature-fire-8k.jpg',
-        ether: 'images/nature-ether-8k.jpg'
-      };
-      const src = plateMap[elKey];
-      if (src && !loadedPlates.has(src)) {
-        loadedPlates.add(src);
-        const img = new Image();
-        img.src = src;
+    // Preload all 5 realistic 8K environmental plates in background for instant switching
+    const ELEMENTAL_8K_PLATES = [
+      'images/nature-earth-8k.jpg',
+      'images/nature-water-8k.jpg',
+      'images/sky-air-8k.jpg',
+      'images/nature-fire-8k.jpg',
+      'images/nature-ether-8k.jpg'
+    ];
+    if (typeof window !== 'undefined') {
+      if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(() => {
+          ELEMENTAL_8K_PLATES.forEach(src => {
+            const img = new Image();
+            img.src = src;
+          });
+        });
+      } else {
+        setTimeout(() => {
+          ELEMENTAL_8K_PLATES.forEach(src => {
+            const img = new Image();
+            img.src = src;
+          });
+        }, 800);
       }
     }
 
     window.switchElementTheme = function(elKey, userTriggered) { return switchElementTheme(elKey, userTriggered); };
     function switchElementTheme(elKey, userTriggered = true) {
       if (!elementThemes[elKey]) return;
-      preloadPlateIfNeeded(elKey);
       currentElement = elKey;
       const theme = elementThemes[elKey];
 
@@ -4325,8 +4335,7 @@ document.addEventListener('DOMContentLoaded', () => {
       alt: "Acoustic guitarist and soulful female singer performing together in armchair circle"
     },
     {
-      src: "images/openmic/openmic-nov15-stone-hearth-celebration.jpg",
-      gif: "images/openmic/openmic-nov15-stone-hearth-celebration.gif",
+      src: "images/openmic/openmic-nov15-stone-hearth-celebration.gif",
       caption: "Joyful Embodiment • Drums, Dancing & Laughter Before the Grand Hearth (Nov 15 • Live GIF)",
       alt: "Community members dancing and drumming with pure joy before the stone fireplace"
     },
@@ -4469,8 +4478,6 @@ document.addEventListener('DOMContentLoaded', () => {
     modal.style.display = 'none';
     modal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
-    const modalImg = document.getElementById('wheelModalImg');
-    if (modalImg) modalImg.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'/%3E";
     startPhotoWheelAuto();
   };
 
@@ -4483,7 +4490,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const counter = document.getElementById('wheelModalCounter');
 
     if (img) {
-      img.src = data.gif || data.src;
+      img.src = data.src;
       img.alt = data.alt;
     }
     if (caption) caption.textContent = data.caption;

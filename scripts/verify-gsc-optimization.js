@@ -4,7 +4,7 @@ const path = require('path');
 const root = 'C:/Users/danie/OneDrive/Documents/GitHub/inner-sanctuary';
 
 console.log('=================================================================');
-console.log(' GOOGLE SEARCH CONSOLE & SITE OPTIMIZATION VERIFICATION SUITE');
+console.log(' INNER SANCTUARY — IMMEDIATE LOAD & SEO INTEGRITY SUITE');
 console.log('=================================================================\n');
 
 let allPassed = true;
@@ -47,39 +47,24 @@ check('sitemap.xml lists canonical live pages',
   urls.includes('https://innersanctuarywellnessfoundation.org/reports/inner-sanctuary-fiduciary-one-pager.html')
 );
 
-// 3. BROWSER MEMORY & ASSET OPTIMIZATION
+// 3. ZERO LAZY-LOADING DELAYS ON HOMEPAGE VISUALS
 const indexPath = path.join(root, 'index.html');
 const indexContent = fs.readFileSync(indexPath, 'utf8');
-
-// Check Slide 4 in index.html
-const slide4UsesJpg = /images\/openmic\/openmic-nov15-stone-hearth-celebration\.jpg/i.test(indexContent);
-const slide4GatedGif = /data-gif="images\/openmic\/openmic-nov15-stone-hearth-celebration\.gif"/i.test(indexContent);
-check('Slide 4 uses static JPG on initial load (saving ~859 MB memory)', slide4UsesJpg && slide4GatedGif,
-  'Uncompressed GIF was 859.33 MB in RAM (234 frames @ 736x1308). Static JPG is 234 KB (3.67 MB decoded).'
+const imgLazyMatches = [...indexContent.matchAll(/<img[^>]*loading="lazy"[^>]*>/gi)];
+check('Zero lazy-loading on homepage images (immediate first-visit load)', imgLazyMatches.length === 0,
+  `All ${[...indexContent.matchAll(/<img[^>]*>/gi)].length} images load immediately with zero delay`
 );
 
-// Check lazy loading on below-the-fold images
-const imgMatches = [...indexContent.matchAll(/<img[^>]*>/gi)];
-let missingLazyCount = 0;
-imgMatches.forEach(m => {
-  const tag = m[0];
-  const isAboveFold = /nav-emblem|hero-emblem/i.test(tag);
-  const hasLazy = /loading="lazy"/i.test(tag);
-  if (!isAboveFold && !hasLazy) {
-    missingLazyCount++;
-  }
-});
-check('All below-the-fold images have loading="lazy"', missingLazyCount === 0, `Unlazy count: ${missingLazyCount}`);
-
-// Check backdrop plates eager preloading removed from script.js
+// 4. BACKGROUND AUDIO PRELOAD PREVENTION
 const scriptPath = path.join(root, 'script.js');
 const scriptContent = fs.readFileSync(scriptPath, 'utf8');
-const hasEagerPlatePreload = /ELEMENTAL_8K_PLATES\.forEach/i.test(scriptContent);
-check('Eager 8K backdrop plates preloader removed from script.js', !hasEagerPlatePreload,
-  'Replaced with on-demand preloadPlateIfNeeded() when element theme is activated.'
+const audioPreloadNone = /audio\.preload\s*=\s*'none'/i.test(scriptContent);
+const audioPreloadOnPlay = /playElement[\s\S]*?audio\.preload\s*=\s*'auto'/i.test(scriptContent);
+check('Background audio preloading prevented until user clicks play', audioPreloadNone && audioPreloadOnPlay,
+  'audio.preload = none on initialization; audio.preload = auto triggered only on playElement / crossfadeTo'
 );
 
-// 4. NETLIFY REDIRECTS, CANONICAL ROUTING & NOINDEX AUDIT
+// 5. NETLIFY REDIRECTS & CANONICAL ROUTING (ZERO REDIRECT LOOPS)
 const redirectsPath = path.join(root, '_redirects');
 const redirectsExists = fs.existsSync(redirectsPath);
 const redirectsContent = redirectsExists ? fs.readFileSync(redirectsPath, 'utf8') : '';
@@ -100,7 +85,7 @@ check('netlify.toml contains MIME headers for /robots.txt and /sitemap.xml',
 const hasSelfRedirect = /from\s*=\s*"https:\/\/innersanctuarywellnessfoundation\.org\/\*"\s*to\s*=\s*"https:\/\/innersanctuarywellnessfoundation\.org/i.test(netlifyToml);
 check('Zero redirect loops (apex HTTPS does not redirect to itself)', !hasSelfRedirect);
 
-// Noindex check
+// 6. ZERO NOINDEX CHECK
 const htmlFiles = ['index.html', 'sanctuary-discovery-os.html', 'bracelet-weaver.html', 'digital-labyrinth.html', 'reports/inner-sanctuary-fiduciary-one-pager.html'];
 let noindexFound = false;
 htmlFiles.forEach(f => {
@@ -109,7 +94,7 @@ htmlFiles.forEach(f => {
 });
 check('Zero noindex tags across all live pages', !noindexFound);
 
-// GSC verification & Regional SEO
+// 7. GSC VERIFICATION & REGIONAL SEO
 const hasGscMeta = indexContent.includes('<meta name="google-site-verification" content="VvYyqoNCCgGNpd3VfvtneFDsGxga4o_Xyr99o77QQp0" />');
 check('Google Search Console verification meta tag intact', hasGscMeta);
 const hasCanonical = indexContent.includes('<link rel="canonical" href="https://innersanctuarywellnessfoundation.org/" />');
@@ -119,7 +104,7 @@ check('Regional SEO metadata intact', hasGeo);
 
 console.log('\n=================================================================');
 if (allPassed) {
-  console.log(' 🌟 ALL CHECKS PASSED PERFECTLY! SITE IS 100% READY FOR GSC TEST');
+  console.log(' 🌟 ALL CHECKS PASSED! HOMEPAGE LOADS IMMEDIATELY WITH FULL SEO');
 } else {
   console.error(' ⚠️ SOME CHECKS FAILED');
 }
