@@ -144,6 +144,41 @@ function startServer(port) {
       return;
     }
 
+    // Netlify Functions Emulator for seamless local development
+    if (pathname.startsWith('/.netlify/functions/')) {
+      const functionName = pathname.replace('/.netlify/functions/', '').split('/')[0];
+      const functionFile = path.join(ROOT_DIR, 'netlify', 'functions', `${functionName}.js`);
+      if (fs.existsSync(functionFile)) {
+        try {
+          delete require.cache[require.resolve(functionFile)];
+          const fnModule = require(functionFile);
+          let bodyData = '';
+          req.on('data', chunk => { bodyData += chunk; });
+          req.on('end', async () => {
+            try {
+              const event = {
+                httpMethod: req.method,
+                headers: req.headers,
+                queryStringParameters: Object.fromEntries(parsedUrl.searchParams),
+                body: bodyData
+              };
+              const result = await fnModule.handler(event, {});
+              res.writeHead(result.statusCode || 200, result.headers || { 'Content-Type': 'application/json' });
+              res.end(result.body || '');
+            } catch (execErr) {
+              res.writeHead(500, { 'Content-Type': 'application/json' });
+              res.end(JSON.stringify({ error: execErr.message }));
+            }
+          });
+          return;
+        } catch (loadErr) {
+          res.writeHead(500, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: loadErr.message }));
+          return;
+        }
+      }
+    }
+
     let safePath = path.normalize(path.join(ROOT_DIR, pathname));
     if (!safePath.startsWith(ROOT_DIR)) {
       res.writeHead(403, { 'Content-Type': 'text/plain' });

@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "Inner Sanctuary — Grant Clipper & Companion",
+  "version": "1.0.0",
+  "description": "Official companion for Inner Sanctuary Wellness Foundation. Clip grants, auto-fill 501(c)(3) boilerplate, and sync with Bigin & NotebookLM.",
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon16.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    },
+    "default_title": "Inner Sanctuary Companion"
+  },
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage"
+  ]
+}

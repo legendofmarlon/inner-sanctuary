@@ -1786,7 +1786,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     'raffle': {
       selectVal: 'Raffle & In-Kind Donor',
-      placeholder: 'Tell us about your gift card contribution (1–5 $5 cards) or botanical/refreshment donations for our community showcase series...',
+      placeholder: 'Tell us about your gift card contribution (like In-N-Out meal cards, audio headphones, or mindful gear) or botanical/refreshment donations for our community showcase series...',
       buttonText: 'Pledge Raffle Item ✉️'
     }
   };
@@ -6494,7 +6494,7 @@ window.openPulsePresenceModal = function(e) {
   // 1. Knock System State
   let knockCount = 0;
   let knockTimer = null;
-  let activeTab = 'vinyl';
+  let activeTab = 'wheel';
 
   // 2. Play wooden knock tone using Web Audio
   function playWoodenKnock(pitchMultiplier = 1.0) {
@@ -6764,6 +6764,9 @@ window.openPulsePresenceModal = function(e) {
     modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
 
+    // Open directly to Secret Raffle Wheel (before Midnight Vinyl)
+    switchSpeakeasyTab('wheel');
+
     // Initialize Guestbook on first open
     renderGuestbook();
   };
@@ -6799,16 +6802,19 @@ window.openPulsePresenceModal = function(e) {
   // 6. Tab Switching
   window.switchSpeakeasyTab = function(tabName) {
     activeTab = tabName;
-    const tabs = ['vinyl', 'mic', 'pass'];
+    const tabs = ['wheel', 'vinyl', 'mic', 'pass'];
     tabs.forEach(t => {
       const btn = document.getElementById('tabBtn' + t.charAt(0).toUpperCase() + t.slice(1));
       const pane = document.getElementById('tabPane' + t.charAt(0).toUpperCase() + t.slice(1));
       if (btn) btn.classList.toggle('active', t === tabName);
       if (pane) {
-        pane.style.display = t === tabName ? (t === 'vinyl' ? 'flex' : 'block') : 'none';
+        pane.style.display = t === tabName ? (t === 'vinyl' || t === 'wheel' ? 'flex' : 'block') : 'none';
         pane.classList.toggle('active', t === tabName);
       }
     });
+    if (tabName === 'wheel' && window.sanctuaryRaffleWheel && window.sanctuaryRaffleWheel.initWheelCanvas) {
+      setTimeout(() => window.sanctuaryRaffleWheel.initWheelCanvas(), 60);
+    }
   };
 
   // 7. Greenroom Web Audio Synthesis Engine (3 Tracks)

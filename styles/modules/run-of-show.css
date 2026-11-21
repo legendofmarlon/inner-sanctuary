@@ -1,0 +1,230 @@
+/* ==========================================================================
+   Inner Sanctuary Wellness Foundation — Run-of-Show Stage Command Board
+   Live Stage Dashboard for Hosts, Stage Curators & Sound Engineers
+   ========================================================================== */
+
+.stage-board-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10700;
+  background: rgba(10, 16, 13, 0.92);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.stage-board-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.stage-board-modal {
+  background: #14211A;
+  border: 1.5px solid rgba(197, 154, 63, 0.45);
+  border-radius: 24px;
+  width: 100%;
+  max-width: 860px;
+  max-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+  position: relative;
+  color: #FFFDF7;
+}
+
+/* Header */
+.stage-board-header {
+  padding: 22px 28px;
+  background: rgba(20, 33, 26, 0.98);
+  border-bottom: 1.5px solid rgba(197, 154, 63, 0.35);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.stage-board-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #F8D98C;
+  letter-spacing: 0.03em;
+}
+
+.stage-board-meta {
+  font-size: 0.8rem;
+  color: #CBD7D0;
+  margin-top: 3px;
+}
+
+.stage-board-close-btn {
+  background: rgba(229, 178, 93, 0.12);
+  border: 1px solid rgba(229, 178, 93, 0.35);
+  color: #FAD277;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.stage-board-close-btn:hover {
+  background: rgba(197, 154, 63, 0.25);
+  transform: rotate(90deg);
+}
+
+/* Password Gate Screen */
+.stage-gate-stage {
+  padding: 48px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stage-gate-input-row {
+  display: flex;
+  gap: 10px;
+  max-width: 360px;
+  width: 100%;
+  margin-top: 18px;
+}
+
+.stage-gate-input {
+  flex: 1;
+  padding: 12px 16px;
+  background: rgba(10, 18, 14, 0.8);
+  border: 1.5px solid rgba(197, 154, 63, 0.4);
+  border-radius: 999px;
+  color: #FFFDF7;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.9rem;
+  outline: none;
+  text-align: center;
+}
+
+.stage-gate-btn {
+  background: linear-gradient(135deg, #C59A3F 0%, #A87D2E 100%);
+  border: none;
+  color: #121F17;
+  padding: 12px 22px;
+  border-radius: 999px;
+  font-family: 'Cinzel', serif;
+  font-size: 0.84rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Active Roster List */
+.stage-roster-body {
+  padding: 20px 24px;
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.stage-act-card {
+  background: rgba(28, 44, 35, 0.7);
+  border: 1px solid rgba(197, 154, 63, 0.3);
+  border-radius: 14px;
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  transition: all 0.2s ease;
+}
+
+.stage-act-card:hover {
+  background: rgba(36, 56, 45, 0.9);
+  border-color: #C59A3F;
+}
+
+.stage-act-card.on-stage {
+  border-color: #4ADE80;
+  background: rgba(22, 60, 38, 0.85);
+  box-shadow: 0 0 20px rgba(74, 222, 128, 0.25);
+}
+
+.stage-slot-pill {
+  font-family: 'Cinzel', serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #F8D98C;
+  min-width: 78px;
+}
+
+.stage-artist-info {
+  flex: 1;
+}
+
+.stage-artist-name {
+  font-family: 'Cinzel', serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #FFFDF7;
+}
+
+.stage-artist-meta {
+  font-size: 0.78rem;
+  color: #CBD7D0;
+  margin-top: 3px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.stage-status-select {
+  background: rgba(10, 18, 14, 0.85);
+  border: 1px solid rgba(197, 154, 63, 0.35);
+  color: #F8D98C;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  outline: none;
+  cursor: pointer;
+}
+
+.stage-act-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stage-action-icon-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(197, 154, 63, 0.3);
+  color: #FAD277;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.2s ease;
+}
+
+.stage-action-icon-btn:hover {
+  background: rgba(197, 154, 63, 0.2);
+  border-color: #C59A3F;
+}

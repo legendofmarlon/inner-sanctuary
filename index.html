@@ -322,6 +322,14 @@
 
   <!-- Custom Stylesheet -->
   <link rel="stylesheet" href="styles.css?v=6.2">
+  <!-- Modular Living Architecture Stylesheets -->
+  <link rel="stylesheet" href="styles/modules/adaptive-atmosphere.css?v=1.0">
+  <link rel="stylesheet" href="styles/modules/pause-booth.css?v=1.0">
+  <link rel="stylesheet" href="styles/modules/pulse-constellation.css?v=1.0">
+  <link rel="stylesheet" href="styles/modules/raffle-wheel.css?v=1.0">
+  <link rel="stylesheet" href="styles/modules/community-popup.css?v=1.0">
+  <link rel="stylesheet" href="styles/modules/run-of-show.css?v=1.0">
+  <link rel="stylesheet" href="styles/modules/promo-card-generator.css?v=1.0">
 </head>
 <body data-element="fire">
 
@@ -500,6 +508,14 @@
       </ul>
 
       <div class="nav-actions-group">
+        <!-- Living Atmosphere Switcher -->
+        <div id="atmosphereSwitcherMount"></div>
+
+        <!-- Digital Pause Booth Trigger -->
+        <button type="button" id="btnNavPauseBooth" class="btn-outline-gold" onclick="window.sanctuaryPauseBooth.open()" title="Digital Pause Booth • Somatic Nervous System Reset" style="padding: 7px 13px; border-radius: 999px; font-size: 0.74rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; letter-spacing: 0.03em;">
+          <span>🍃 Pause Booth</span>
+        </button>
+
         <button type="button" id="btnNavPresence" class="nav-presence-badge" onclick="openPulsePresenceModal(event)" title="Live Sanctuary Presence">
           <span class="nav-presence-dot"></span>
           <span class="nav-presence-text"><strong id="navPresenceCount">4</strong> Breathing</span>
@@ -534,6 +550,11 @@
           </button>
           <button type="button" onclick="openZeffyModal(event); document.getElementById('mobile-nav-drawer').style.display='none';" class="btn btn-gold btn-liquid-gold pulse-gold" style="flex: 1; padding: 10px 12px; border-radius: 8px; font-size: 0.80rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;" title="Plant Your $1 Seed">
             <span>🌱 Give $1 Seed</span>
+          </button>
+        </li>
+        <li style="margin-bottom: 6px;">
+          <button type="button" onclick="window.sanctuaryPauseBooth.open(); document.getElementById('mobile-nav-drawer').style.display='none';" class="btn-outline-gold" style="width: 100%; padding: 10px 14px; border-radius: 8px; font-size: 0.84rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; background: rgba(197, 154, 63, 0.12); color: var(--forest-green); border: 1.5px solid var(--sunburst-gold);" title="Open Digital Pause Booth">
+            <span>🍃 Digital Pause Booth (60s Reset)</span>
           </button>
         </li>
         <li id="mobilePwaInstallItem" style="display: none;">
@@ -940,6 +961,25 @@
           </a>
         </div>
 
+      </div>
+
+      <!-- ==================== THE GREENROOM & SPEAKEASY WHEEL INVITATION ==================== -->
+      <div class="speakeasy-hearth-invite-card" id="community-raffle-wheel" data-alias="community-pulse-wall" aria-label="Inner Sanctuary Secret Speakeasy Raffle Wheel">
+        <div class="speakeasy-invite-halo"></div>
+        <span class="speakeasy-invite-badge">✦ THE SANCTUARY GREENROOM • 3 KNOCKS TO UNLOCK ✦</span>
+        <h3 class="speakeasy-invite-title serif-brand">The Secret Speakeasy &amp; Raffle Vault</h3>
+        <p class="speakeasy-invite-sub">
+          Behind the sacred medallion lies our hidden Greenroom hearth—featuring the midnight vinyl player, open mic whisper vault, and the <strong>Secret Raffle Gacha Wheel</strong> with sponsored In-N-Out meal cards, rare headphones, and sanctuary gear.
+        </p>
+        <div class="speakeasy-invite-actions">
+          <button type="button" class="btn btn-gold btn-liquid-gold" onclick="window.sanctuaryRaffleWheel.openSpeakeasyWheel()" aria-label="Knock 3 Times & Open Secret Speakeasy Wheel">
+            <span>🗝️ Knock 3 Times &amp; Open Wheel</span>
+            <span>→</span>
+          </button>
+        </div>
+        <div class="speakeasy-invite-hint">
+          <span>💡 Or tap the golden medallion in the top menu 3 times anytime</span>
+        </div>
       </div>
 
       <!-- ==================== THE HEARTH MIRROR (GEMINI WISDOM COMPANION) ==================== -->
@@ -1368,6 +1408,15 @@
       <div class="section-header" style="max-width: 860px; margin: 0 auto 20px;">
         <div class="section-subtitle">Get Into Your Element • Community Gathering</div>
         <h2 class="section-title">Community Open Mic</h2>
+        <!-- Stage Curator & Host Actions -->
+        <div style="display: flex; justify-content: center; gap: 10px; margin: 10px 0 14px; flex-wrap: wrap;">
+          <button type="button" class="btn btn-outline" onclick="window.sanctuaryStageBoard.open()" style="border-color: rgba(197, 154, 63, 0.5); color: var(--forest-green); font-size: 0.78rem; padding: 6px 16px; border-radius: 999px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;" title="Open Live Run-of-Show Stage Command Board">
+            <span>🗝️ Stage Command Board</span>
+          </button>
+          <button type="button" class="btn btn-outline" onclick="window.sanctuaryPromoCard.open()" style="border-color: rgba(197, 154, 63, 0.5); color: var(--forest-green); font-size: 0.78rem; padding: 6px 16px; border-radius: 999px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;" title="Open Artist Promo Graphic Studio">
+            <span>🎨 Artist Promo Studio</span>
+          </button>
+        </div>
         <div class="flourish-divider">✦</div>
         <p style="font-size: 1.08rem; color: var(--charcoal-muted); line-height: 1.8;">
           An unhurried space for artists, neighbors, and truth-tellers to share space, breathe together, process life's journey, and be truly heard. Co-presented with <strong>SoCal Creatives Collective</strong>.
@@ -1446,19 +1495,19 @@
         <!-- Community Impact Metrics Bar -->
         <div class="community-impact-metrics-bar">
           <div class="impact-metric-card">
-            <div class="impact-metric-num">~40</div>
-            <div class="impact-metric-label">Average Community Attendees</div>
-            <div class="impact-metric-sub">Neighbors, artists &amp; seekers per circle</div>
+            <div class="impact-metric-num" id="metric-headcount-total">120+</div>
+            <div class="impact-metric-label">Documented Community Attendees</div>
+            <div class="impact-metric-sub">Across 2 verified Santa Ana &amp; OC circles</div>
           </div>
           <div class="impact-metric-card">
-            <div class="impact-metric-num">15+</div>
-            <div class="impact-metric-label">Featured Performers Per Gathering</div>
-            <div class="impact-metric-sub">Poets, singers, acoustic sets, comedians &amp; bands</div>
+            <div class="impact-metric-num" id="metric-performers-total">24+</div>
+            <div class="impact-metric-label">Featured Performers &amp; Healers</div>
+            <div class="impact-metric-sub">Poets, singers, acoustic sets &amp; comedians</div>
           </div>
           <div class="impact-metric-card">
-            <div class="impact-metric-num">100%</div>
-            <div class="impact-metric-label">Substance-Free Safe Space</div>
-            <div class="impact-metric-sub">Alcohol-free, trauma-informed sanctuary</div>
+            <div class="impact-metric-num" id="metric-hours-total">360h</div>
+            <div class="impact-metric-label">Trauma-Informed Care Delivered</div>
+            <div class="impact-metric-sub">Substance-free somatic wellness sanctuary</div>
           </div>
           <div class="impact-metric-card">
             <div class="impact-metric-num">$0</div>
@@ -1466,6 +1515,7 @@
             <div class="impact-metric-sub">100% free community admission for all</div>
           </div>
         </div>
+      </div>
 
         
       
@@ -1483,11 +1533,11 @@
           </p>
         </div>
 
-        <div class="calendar-cards-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
+        <div class="calendar-cards-grid" >
           
           <!-- Event 1: Friendsgiving -->
           <div class="calendar-event-card" style="background: rgba(30, 49, 39, 0.96); border: 1.5px solid rgba(197, 154, 63, 0.45); border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 10px 30px rgba(0,0,0,0.25);">
-            <div style="position: relative; height: 210px; overflow: hidden;">
+            <div class="event-card-img-wrap">
               <img src="images/openmic/openmic-nov15-reconnect-sisterhood.jpg" alt="RECONNECT community leaders gathered at Our Sanctuary Clubhouse" style="width: 100%; height: 100%; object-fit: cover;">
               <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(17,29,22,0.85) 100%);"></div>
               <span style="position: absolute; top: 14px; left: 14px; background: #C59A3F; color: #111D16; font-size: 0.72rem; font-weight: 800; padding: 4px 10px; border-radius: 6px; letter-spacing: 0.08em; text-transform: uppercase;">✦ NEXT GATHERING</span>
@@ -1503,7 +1553,6 @@
               <p style="color: #CBD7D0; font-size: 0.88rem; line-height: 1.6; margin-bottom: 18px; flex-grow: 1;">
                 A collaborative gathering with <strong>RECONNECT</strong> and Inner Sanctuary. Good food, genuine connection, and unhurried conversation. No masks required.
               </p>
-              
               <!-- CTA Button Row -->
               <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: auto;">
                 <a href="https://www.meetup.com/socal-creatives-collective/events/317482553/" target="_blank" rel="noopener noreferrer" class="btn btn-gold" style="flex: 1; text-align: center; font-size: 0.82rem; padding: 10px 14px; display: inline-flex; align-items: center; justify-content: center; gap: 6px;">
@@ -1523,7 +1572,7 @@
 
           <!-- Event 2: Jam Session -->
           <div class="calendar-event-card" style="background: rgba(30, 49, 39, 0.96); border: 1.5px solid rgba(197, 154, 63, 0.45); border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 10px 30px rgba(0,0,0,0.25);">
-            <div style="position: relative; height: 210px; overflow: hidden;">
+            <div class="event-card-img-wrap">
               <img src="images/openmic/openmic-nov15-djembe-poolside-rhythm.jpg" alt="Acoustic djembe drumming and live open mic rhythm at sunset" style="width: 100%; height: 100%; object-fit: cover;">
               <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(17,29,22,0.85) 100%);"></div>
               <span style="position: absolute; top: 14px; left: 14px; background: rgba(197, 154, 63, 0.25); border: 1px solid #C59A3F; color: #F5D77F; font-size: 0.72rem; font-weight: 800; padding: 4px 10px; border-radius: 6px; letter-spacing: 0.08em; text-transform: uppercase;">✦ DECEMBER JAM</span>
@@ -1557,6 +1606,90 @@
             </div>
           </div>
 
+        </div>
+      </div>
+
+      <!-- ==================== PAST GATHERINGS & VERIFIED IMPACT ARCHIVE ==================== -->
+      <div class="past-gatherings-showcase" style="margin: 40px 0 36px;">
+        <div style="text-align: center; max-width: 720px; margin: 0 auto 28px;">
+          <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(197, 154, 63, 0.16); border: 1px solid rgba(197, 154, 63, 0.45); border-radius: 999px; padding: 5px 16px; font-size: 0.76rem; font-weight: 700; color: #F5D77F; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px;">
+            <span>🌿</span> Git-Backed Community Impact Ledger
+          </div>
+          <h3 class="serif-brand" style="font-size: clamp(1.6rem, 2.8vw, 2.2rem); color: #FFFFFF; letter-spacing: 0.04em; margin-bottom: 8px; text-shadow: 0 2px 8px rgba(0,0,0,0.35);">
+            Past Gatherings &amp; Verified Impact
+          </h3>
+          <p style="color: #FFFDF7; font-size: 1.02rem; line-height: 1.7; margin: 0 auto; max-width: 680px; text-shadow: 0 1px 4px rgba(0,0,0,0.4);">
+            Every gathering is archived in our transparent open ledger. Review documented community participation, attendee voices, and download official 1-page sponsor receipts for CRA and corporate partner tax verification.
+          </p>
+        </div>
+
+        <div class="calendar-cards-grid" id="past-gatherings-cards-container">
+
+            <!-- Event Card: 2026-11-15-sanctuary-clubhouse-openmic -->
+            <div class="calendar-event-card" style="background: rgba(30, 49, 39, 0.96); border: 1.5px solid rgba(197, 154, 63, 0.45); border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 10px 30px rgba(0,0,0,0.25);">
+              <div style="position: relative; height: 180px; overflow: hidden;">
+                <img src="images/openmic/openmic-nov15-living-room-sanctuary.jpg" alt="Our Sanctuary Clubhouse Open Mic & Somatic Circle" style="width: 100%; height: 100%; object-fit: cover;">
+                <div style="position: absolute; top: 12px; left: 12px; background: rgba(18, 30, 24, 0.90); border: 1px solid #C59A3F; color: #F8D98C; font-size: 0.72rem; font-weight: 700; padding: 4px 10px; border-radius: 999px;">
+                  ✦ Substance-Free Open Mic & Somatic Circle
+                </div>
+              </div>
+              <div style="padding: 20px; display: flex; flex-direction: column; flex: 1;">
+                <div style="font-size: 0.76rem; color: #F5D77F; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px;">
+                  Nov 14, 2026 • Our Sanctuary Clubhouse, Orange County, CA
+                </div>
+                <h4 style="font-family: 'Cinzel', serif; font-size: 1.25rem; color: #FFFFFF; font-weight: 700; margin-bottom: 10px; line-height: 1.35;">
+                  Our Sanctuary Clubhouse Open Mic & Somatic Circle
+                </h4>
+                <div style="display: flex; gap: 12px; margin-bottom: 14px; font-size: 0.82rem; color: #CBD7D0;">
+                  <span>👥 <strong>52</strong> Neighbors</span>
+                  <span>🎙️ <strong>16</strong> Artists</span>
+                  <span>⏳ <strong>156</strong> Care Hrs</span>
+                </div>
+                
+                <div style="background: rgba(0, 0, 0, 0.22); border-left: 2px solid #C59A3F; padding: 8px 12px; border-radius: 4px; font-size: 0.82rem; color: #EDE8DD; font-style: italic; margin-bottom: 16px;">
+                  "In a room full of strangers, I felt safer than I have in months. No pressure, no substances—just pure voice, breath, and neighborhood warmth."
+                </div>
+                <div style="margin-top: auto; display: flex; gap: 8px;">
+                  <a href="reports/receipts/2026-11-15-sanctuary-clubhouse-openmic-impact-receipt.html" target="_blank" class="btn btn-outline" style="border-color: #C59A3F; color: #F8D98C; font-size: 0.78rem; padding: 6px 14px; border-radius: 999px; text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 6px;">
+                    <span>📄 Sponsor &amp; Impact Receipt</span>
+                    <span>↗</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Event Card: 2026-11-08-santa-ana-artists-village-pause-booth -->
+            <div class="calendar-event-card" style="background: rgba(30, 49, 39, 0.96); border: 1.5px solid rgba(197, 154, 63, 0.45); border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 10px 30px rgba(0,0,0,0.25);">
+              <div style="position: relative; height: 180px; overflow: hidden;">
+                <img src="images/openmic/openmic-nov15-living-room-sanctuary.jpg" alt="Downtown Santa Ana Artists Village Pause Activation" style="width: 100%; height: 100%; object-fit: cover;">
+                <div style="position: absolute; top: 12px; left: 12px; background: rgba(18, 30, 24, 0.90); border: 1px solid #C59A3F; color: #F8D98C; font-size: 0.72rem; font-weight: 700; padding: 4px 10px; border-radius: 999px;">
+                  ✦ Digital & Physical Pause Booth Activation
+                </div>
+              </div>
+              <div style="padding: 20px; display: flex; flex-direction: column; flex: 1;">
+                <div style="font-size: 0.76rem; color: #F5D77F; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px;">
+                  Nov 7, 2026 • Artists Village Promenade, Santa Ana, CA
+                </div>
+                <h4 style="font-family: 'Cinzel', serif; font-size: 1.25rem; color: #FFFFFF; font-weight: 700; margin-bottom: 10px; line-height: 1.35;">
+                  Downtown Santa Ana Artists Village Pause Activation
+                </h4>
+                <div style="display: flex; gap: 12px; margin-bottom: 14px; font-size: 0.82rem; color: #CBD7D0;">
+                  <span>👥 <strong>68</strong> Neighbors</span>
+                  <span>🎙️ <strong>8</strong> Artists</span>
+                  <span>⏳ <strong>204</strong> Care Hrs</span>
+                </div>
+                
+                <div style="background: rgba(0, 0, 0, 0.22); border-left: 2px solid #C59A3F; padding: 8px 12px; border-radius: 4px; font-size: 0.82rem; color: #EDE8DD; font-style: italic; margin-bottom: 16px;">
+                  "The 60-second breathing orb stopped me in my tracks in the middle of a hectic art walk. It literally changed the tone of my entire weekend."
+                </div>
+                <div style="margin-top: auto; display: flex; gap: 8px;">
+                  <a href="reports/receipts/2026-11-08-santa-ana-artists-village-pause-booth-impact-receipt.html" target="_blank" class="btn btn-outline" style="border-color: #C59A3F; color: #F8D98C; font-size: 0.78rem; padding: 6px 14px; border-radius: 999px; text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 6px;">
+                    <span>📄 Sponsor &amp; Impact Receipt</span>
+                    <span>↗</span>
+                  </a>
+                </div>
+              </div>
+            </div>
         </div>
       </div>
 
@@ -1893,8 +2026,6 @@
             Sign Up to Share on Mic
           </a>
         </div>
-      </div>
-
     </div>
   </section>
 
@@ -2014,7 +2145,10 @@
 
       <!-- Segmented Tab Navigation -->
       <div class="speakeasy-tabs-bar" role="tablist">
-        <button type="button" class="speakeasy-tab-btn active" id="tabBtnVinyl" onclick="switchSpeakeasyTab('vinyl')">
+        <button type="button" class="speakeasy-tab-btn active" id="tabBtnWheel" onclick="switchSpeakeasyTab('wheel')">
+          <span>🎰</span> <span>Secret Raffle</span>
+        </button>
+        <button type="button" class="speakeasy-tab-btn" id="tabBtnVinyl" onclick="switchSpeakeasyTab('vinyl')">
           <span>💽</span> <span>Midnight Vinyl</span>
         </button>
         <button type="button" class="speakeasy-tab-btn" id="tabBtnMic" onclick="switchSpeakeasyTab('mic')">
@@ -2025,8 +2159,240 @@
         </button>
       </div>
 
-      <!-- Tab 1: Midnight Vinyl Player -->
-      <div class="speakeasy-tab-pane active" id="tabPaneVinyl">
+      <!-- Tab 1: Secret Speakeasy Raffle Wheel (Password Protected - Placed Before Midnight Vinyl) -->
+      <div class="speakeasy-tab-pane active" id="tabPaneWheel">
+        <div class="speakeasy-wheel-stage">
+          
+          <!-- View A: Restricted Password Gate -->
+          <div id="speakeasyWheelGate" class="speakeasy-gate-card">
+            <div class="speakeasy-gate-icon">🗝️</div>
+            <div class="speakeasy-gate-badge">✦ RESTRICTED GREENROOM VAULT ✦</div>
+            <h4 class="speakeasy-gate-title serif-brand">Secret Gacha Wheel Vault</h4>
+            <p class="speakeasy-gate-sub">
+              Whisper the sacred passkey to unlock the speakeasy wheel. Win active gathering blessings: <strong>In-N-Out Meal Cards</strong>, <strong>Rare Studio Headphones</strong>, <strong>Inner Sanctuary Gear</strong>, or <strong>Intention Bracelets</strong>.
+            </p>
+
+            <form id="speakeasyWheelForm" onsubmit="event.preventDefault(); window.sanctuaryRaffleWheel.unlockWithPasskey();">
+              <div class="speakeasy-gate-input-wrap">
+                <input type="password" id="speakeasyWheelPassInput" class="speakeasy-gate-input" placeholder="Whisper passkey (e.g. 777)..." autocomplete="off" />
+                <button type="submit" id="speakeasyWheelUnlockBtn" class="btn btn-gold btn-liquid-gold speakeasy-gate-btn">
+                  <span>Unlock</span> <span>🗝️</span>
+                </button>
+              </div>
+            </form>
+
+            <div class="speakeasy-gate-hint">
+              💡 <em>Hint: The secret jackpot key (<strong>777</strong>) or <strong>sanctuary777</strong></em>
+            </div>
+            <div id="speakeasyWheelGateError" class="speakeasy-gate-error" style="display: none;">
+              ⚠️ Incorrect passkey. Whisper the sacred frequency.
+            </div>
+          </div>
+
+          <!-- View B: Unlocked Gacha Wheel Stage -->
+          <div id="speakeasyWheelUnlocked" class="speakeasy-wheel-unlocked" style="display: none;">
+            <div class="speakeasy-wheel-header">
+              <span class="speakeasy-wheel-tag">✦ VAULT UNLOCKED • GACHA ACTIVE ✦</span>
+              <h4 class="speakeasy-wheel-title serif-brand">Speakeasy Raffle Wheel</h4>
+              <p class="speakeasy-wheel-sub">
+                Spin to reveal active gathering blessings! Sponsored by In-N-Out Burger, audio partners, and Inner Sanctuary.
+              </p>
+            </div>
+
+            <!-- Rarity Odds Strip -->
+            <div class="raffle-rarity-strip">
+              <span class="raffle-rarity-pill rarity-pill-rare">🎧 Headphones: 5% (Rare)</span>
+              <span class="raffle-rarity-pill rarity-pill-sponsored">🍔 In-N-Out: 25%</span>
+              <span class="raffle-rarity-pill rarity-pill-uncommon">👕 Gear: 20%</span>
+              <span class="raffle-rarity-pill rarity-pill-common">🌿 Bracelet: 30%</span>
+              <span class="raffle-rarity-pill rarity-pill-common">🍵 Elixir: 20%</span>
+            </div>
+
+            <!-- Wheel Stage -->
+            <div class="raffle-wheel-stage">
+              <div class="raffle-wheel-container">
+                <!-- 12 o'clock Golden Pointer -->
+                <div class="raffle-wheel-pointer" id="rafflePointer">
+                  <svg viewBox="0 0 32 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16 42L2 8C0 5 2.5 0 6.5 0H25.5C29.5 0 32 5 30 8L16 42Z" fill="url(#pointerGoldGrad)"/>
+                    <path d="M16 38L4 8H28L16 38Z" fill="#111D16"/>
+                    <circle cx="16" cy="14" r="5" fill="#FDE047"/>
+                    <defs>
+                      <linearGradient id="pointerGoldGrad" x1="0" y1="0" x2="32" y2="42" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#FFFDF7"/>
+                        <stop offset="0.5" stop-color="#F5D77F"/>
+                        <stop offset="1" stop-color="#C59A3F"/>
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                </div>
+
+                <!-- Canvas Wheel -->
+                <canvas id="raffleWheelCanvas" width="480" height="480" aria-label="Interactive Raffle Prize Wheel"></canvas>
+              </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="raffle-wheel-controls">
+              <button type="button" class="raffle-spin-btn" id="raffleSpinBtn" aria-label="Spin the Community Raffle Wheel">
+                <span>🎰 Spin Secret Wheel</span> <span id="raffleSpinBtnCount">(2 Left)</span>
+              </button>
+              <div class="raffle-token-pill" id="raffleTokenPill">
+                🎟️ Free Gathering Spins: <strong id="raffleTokenCount" style="color: #FFFFFF;">2</strong> of 2 Remaining
+              </div>
+            </div>
+
+            <!-- Result Card -->
+            <div class="raffle-result-card" id="raffleResultCard" role="region" aria-live="polite">
+              <div class="raffle-result-badge-wrap">
+                <span class="raffle-result-badge">✦ Gathering Prize Unlocked ✦</span>
+                <span class="raffle-result-rarity" id="raffleResultRarity">✦ RARE DROP ✦</span>
+              </div>
+              <h4 class="raffle-result-title">
+                <span id="raffleResultIcon">🎁</span>
+                <span id="raffleResultTitle">In-N-Out Meal Card</span>
+              </h4>
+              <div class="raffle-result-sponsor" id="raffleResultSponsor">✦ In-N-Out Burger (Official Sponsor)</div>
+              <p class="raffle-result-desc" id="raffleResultDesc">
+                Complimentary fresh meal card sponsored by In-N-Out Burger! Claim your physical drawing ticket at Our Sanctuary Clubhouse on Sunday, Nov 22!
+              </p>
+
+              <!-- Claim & Instagram Story Section -->
+              <div class="raffle-claim-container" id="raffleClaimContainer" style="margin-top: 14px; padding-top: 14px; border-top: 1px dashed rgba(197, 154, 63, 0.35);">
+                
+                <!-- View 1: Attendee Info Capture Form -->
+                <div id="raffleClaimFormWrap" class="raffle-claim-form-wrap">
+                  <div style="text-align: center; margin-bottom: 10px;">
+                    <span class="raffle-claim-badge">📸 POST ON STORY &amp; CLAIM</span>
+                    <h5 class="raffle-claim-heading serif-brand">Lock In Win &amp; Get IG Story Card</h5>
+                    <p class="raffle-claim-desc">
+                      Enter your name and info below to generate your official Instagram Story Card. Post it to your story, tag <strong>@innersanctuary</strong>, and show it at the door to verify!
+                    </p>
+                  </div>
+
+                  <form id="raffleClaimForm" onsubmit="event.preventDefault(); window.sanctuaryRaffleWheel.submitClaim();" class="raffle-claim-form">
+                    <div class="raffle-claim-field">
+                      <label for="raffleClaimName" class="raffle-field-label">Full Name / Artist Name</label>
+                      <input type="text" id="raffleClaimName" class="raffle-field-input" placeholder="e.g. Maya Lin" required autocomplete="name" />
+                    </div>
+                    <div class="raffle-claim-field">
+                      <label for="raffleClaimEmail" class="raffle-field-label">Email Address (For Verification)</label>
+                      <input type="email" id="raffleClaimEmail" class="raffle-field-input" placeholder="e.g. maya@example.com" required autocomplete="email" />
+                    </div>
+                    <div class="raffle-claim-field">
+                      <label for="raffleClaimIG" class="raffle-field-label">Instagram Handle (Must match your story)</label>
+                      <div class="raffle-ig-input-wrap">
+                        <span class="raffle-ig-prefix">@</span>
+                        <input type="text" id="raffleClaimIG" class="raffle-field-input" placeholder="username" required autocomplete="username" />
+                      </div>
+                    </div>
+                    <button type="submit" id="raffleSubmitClaimBtn" class="btn btn-gold btn-liquid-gold raffle-claim-btn" style="width: 100%; justify-content: center; margin-top: 6px;">
+                      <span>✨ Lock In Prize &amp; Generate Story Card</span> <span>📸</span>
+                    </button>
+                  </form>
+                  <div id="raffleClaimError" class="raffle-claim-error" style="display: none;"></div>
+                </div>
+
+                <!-- View 2: Verified Winner & Instagram Story Action Card -->
+                <div id="raffleVerifiedWrap" class="raffle-verified-wrap" style="display: none;">
+                  <div style="text-align: center; margin-bottom: 8px;">
+                    <div class="raffle-verified-tag">
+                      <span>✅ ENTRY LOCKED</span> • <span id="raffleVerifiedCode">IS-777-XXXX</span>
+                    </div>
+                    <div class="raffle-verified-user" id="raffleVerifiedUser">
+                      Awarded to Maya Lin (@mayalin)
+                    </div>
+                  </div>
+
+                  <!-- Instagram Story Graphic Preview -->
+                  <div class="raffle-story-preview-box">
+                    <div class="raffle-story-preview-header">
+                      <span>📱 Official Instagram Story Card</span>
+                      <span id="raffleDownloadCountBadge" class="raffle-download-badge">0 Downloads</span>
+                    </div>
+                    <div class="raffle-story-canvas-wrap">
+                      <canvas id="raffleStoryCanvas" width="360" height="640" class="raffle-story-canvas"></canvas>
+                    </div>
+                  </div>
+
+                  <div class="raffle-story-actions">
+                    <button type="button" onclick="window.sanctuaryRaffleWheel.downloadStoryCard()" class="btn btn-gold btn-liquid-gold" style="flex: 1; justify-content: center; font-size: 0.84rem; padding: 10px 14px;">
+                      <span>📸 Download Story Card (.PNG)</span>
+                    </button>
+                    <button type="button" onclick="window.sanctuaryRaffleWheel.shareToInstagram()" class="btn btn-outline" style="border-color: #F5D77F; color: #F5D77F; font-size: 0.82rem; padding: 10px 12px;">
+                      <span>📲 Share / Copy Tag</span>
+                    </button>
+                  </div>
+                  <div class="raffle-story-instructions">
+                    💡 <em>Post this card to your Instagram Story, tag <strong>@innersanctuary</strong>, and present it to our welcome table on Sunday, Nov 22 to claim!</em>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="raffle-result-actions" style="margin-top: 14px;">
+                <a href="#open-mic" onclick="closeSpeakeasyModal()" class="btn btn-gold" style="padding: 8px 18px; font-size: 0.82rem; text-decoration: none;">
+                  🎟️ Gathering Info
+                </a>
+                <button type="button" class="btn btn-outline" id="raffleSpinAgainBtn" style="padding: 8px 16px; font-size: 0.82rem; border-color: rgba(197, 154, 63, 0.5); color: #F5D77F; cursor: pointer;">
+                  🔄 Spin Again
+                </button>
+              </div>
+            </div>
+
+            <!-- VIP Admin Deck for Marlon & Teshia -->
+            <div id="raffleVipAdminDeck" class="raffle-vip-deck" style="display: none;">
+              <div class="raffle-vip-header">
+                <span class="raffle-vip-badge">👑 VIP GODMODE ACTIVE</span>
+                <span id="raffleVipUserTitle" class="raffle-vip-user-title">Marlon / Teshia</span>
+              </div>
+              <p class="raffle-vip-desc">
+                Infinite spins unlocked. Track and export attendee prize claims, verify downloads, or reset test spins.
+              </p>
+              <div class="raffle-vip-actions">
+                <button type="button" onclick="window.sanctuaryRaffleWheel.exportClaimsCSV()" class="btn btn-gold" style="font-size: 0.78rem; padding: 6px 14px;">
+                  📥 Export Claims Ledger (.CSV)
+                </button>
+                <button type="button" onclick="window.sanctuaryRaffleWheel.resetTestSpins()" class="btn btn-outline" style="font-size: 0.78rem; padding: 6px 14px; border-color: #86EFAC; color: #86EFAC;">
+                  🔄 Reset Test Spins (Set to 2)
+                </button>
+                <div class="raffle-vip-force-drop">
+                  <label for="raffleForceDropSelect" style="font-size: 0.74rem; color: #FDE047;">🎯 Force Drop:</label>
+                  <select id="raffleForceDropSelect" onchange="window.sanctuaryRaffleWheel.setForcedPrize(this.value)" style="background: #111D16; color: #FFFDF7; border: 1px solid #C59A3F; border-radius: 6px; padding: 4px 8px; font-size: 0.74rem;">
+                    <option value="">Random (Weighted)</option>
+                    <option value="headphones">🎧 Headphones (5% Rare)</option>
+                    <option value="innout">🍔 In-N-Out Card (25%)</option>
+                    <option value="gear">👕 Sanctuary Gear (20%)</option>
+                    <option value="bracelet">🌿 Intention Bracelet (30%)</option>
+                    <option value="elixir">🍵 Herbal Elixir (20%)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sponsor Strip -->
+            <div class="raffle-sponsor-strip">
+              <div class="raffle-sponsor-pill">
+                <span>🍔</span> <span><strong>In-N-Out Burger:</strong> Meal Cards</span>
+              </div>
+              <div class="raffle-sponsor-pill">
+                <span>🎧</span> <span><strong>Audio Partners:</strong> Headphones</span>
+              </div>
+              <div class="raffle-sponsor-pill">
+                <span>👕</span> <span><strong>Inner Sanctuary:</strong> Gear</span>
+              </div>
+              <div class="raffle-sponsor-pill">
+                <span>🌿</span> <span><strong>Artisans:</strong> Bracelets</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Tab 2: Midnight Vinyl Player -->
+      <div class="speakeasy-tab-pane" id="tabPaneVinyl" style="display: none;">
         <div class="speakeasy-vinyl-stage">
           <!-- Spinning Sunburst Vinyl Record -->
           <div class="speakeasy-turntable-wrap">
@@ -2215,6 +2581,8 @@
           </div>
         </div>
       </div>
+
+      
 
     </div>
   </div>
@@ -3385,6 +3753,21 @@
   </footer>
   <!-- Main Script File & 3D Sanctuary Discovery OS -->
   <script src="script.js?v=6.2"></script>
+  <!-- Living Atmosphere, Digital Pause Booth & Pulse Wall Modules -->
+  <script src="js/modules/adaptive-atmosphere.js?v=1.0"></script>
+  <script src="js/modules/pause-booth.js?v=1.0"></script>
+  <script src="js/modules/pulse-constellation.js?v=1.0"></script>
+  <script src="js/modules/raffle-wheel.js?v=1.0"></script>
+  <script src="js/modules/community-popup.js?v=1.0"></script>
+  <script src="js/modules/run-of-show.js?v=1.0"></script>
+  <script src="js/modules/promo-card-generator.js?v=1.0"></script>
+
+  <!-- Hidden Netlify Form Definition for Community Circle Newsletter Alerts -->
+  <form name="sanctuary-newsletter" data-netlify="true" netlify-honeypot="bot-field" hidden>
+    <input type="text" name="name" />
+    <input type="email" name="email" />
+    <input type="text" name="source_origin" />
+  </form>
 
   <!-- ==================== PRELOADED ZEFFY MODAL (ZEFFY QUICK DONATE MODAL) ==================== -->
   <div id="ZeffyQuickDonateModal" class="zeffy-modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true" style="display: none;">
@@ -3700,5 +4083,10 @@
   </div>
 
   
+  <!-- Floating QR / Mobile Quick Pause Pill -->
+  <button type="button" class="floating-pause-booth-pill" onclick="window.sanctuaryPauseBooth.open()" title="Open Digital Pause Booth (60s Reset)">
+    <span>🍃 Take a 60s Pause</span>
+  </button>
+
 </body>
 </html>

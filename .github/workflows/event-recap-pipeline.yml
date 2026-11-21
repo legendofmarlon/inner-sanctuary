@@ -1,0 +1,48 @@
+name: Event-to-Sponsor Build Machine
+
+on:
+  push:
+    paths:
+      - 'content/recaps/**'
+      - 'scripts/build-event-recaps.js'
+    branches:
+      - main
+  pull_request:
+    paths:
+      - 'content/recaps/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-recaps-and-receipts:
+    name: Compile Event Recaps, Impact Metrics & Sponsor Receipts
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run Event-to-Sponsor Machine
+        run: node scripts/build-event-recaps.js
+
+      - name: Commit & Push Generated Metrics and Receipts
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html content/recaps-index.json reports/receipts/
+          if git diff --staged --quiet; then
+            echo "No changes detected. Skipping commit."
+          else
+            git commit -m "chore(automation): update live impact counters & sponsor receipts [skip ci]"
+            git push origin main
+          fi

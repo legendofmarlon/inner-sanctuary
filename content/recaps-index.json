@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-11-21T19:49:07.159Z",
+  "metrics": {
+    "totalGatherings": 2,
+    "totalHeadcount": 120,
+    "totalPerformers": 24,
+    "totalHours": 360
+  },
+  "recaps": [
+    {
+      "title": "Our Sanctuary Clubhouse Open Mic & Somatic Circle",
+      "date": "2026-11-15",
+      "location": "Our Sanctuary Clubhouse, Orange County, CA",
+      "impactType": "Substance-Free Open Mic & Somatic Circle",
+      "headcount": 52,
+      "performers": 16,
+      "impactHours": 156,
+      "sponsor": "Community Seed Donors & RECONNECT",
+      "sponsorContribution": "$1,250",
+      "photos": [
+        "images/openmic/openmic-nov15-living-room-sanctuary.jpg",
+        "images/openmic/openmic-nov15-spoken-word-circle.jpg"
+      ],
+      "highlights": [
+        "Opening 432Hz bronze singing bowl meditation and unhurried diaphragmatic breath",
+        "16 diverse artists featured across spoken word, acoustic soul, comedic storytelling, and instrumental guitar",
+        "Communal organic soup and herbal tea served in 100% alcohol-free trauma-informed sanctuary"
+      ],
+      "quote": "In a room full of strangers, I felt safer than I have in months. No pressure, no substances—just pure voice, breath, and neighborhood warmth.",
+      "attendeeVoice": "Elena S., Orange County",
+      "slug": "2026-11-15-sanctuary-clubhouse-openmic"
+    },
+    {
+      "title": "Downtown Santa Ana Artists Village Pause Activation",
+      "date": "2026-11-08",
+      "location": "Artists Village Promenade, Santa Ana, CA",
+      "impactType": "Digital & Physical Pause Booth Activation",
+      "headcount": 68,
+      "performers": 8,
+      "impactHours": 204,
+      "sponsor": "Santa Ana Arts & Wellness Collective",
+      "sponsorContribution": "$1,500",
+      "photos": [
+        "images/openmic/openmic-nov15-living-room-sanctuary.jpg"
+      ],
+      "highlights": [
+        "Mobile-first Pause Booth QR activation stationed on 2nd Street Promenade",
+        "68 active guided somatic breath resets delivered to Saturday evening art walk visitors",
+        "Hands-on intention bracelet weaving and grounding stone distribution"
+      ],
+      "quote": "The 60-second breathing orb stopped me in my tracks in the middle of a hectic art walk. It literally changed the tone of my entire weekend.",
+      "attendeeVoice": "Marcus T., Santa Ana Resident",
+      "slug": "2026-11-08-santa-ana-artists-village-pause-booth"
+    }
+  ]
+}

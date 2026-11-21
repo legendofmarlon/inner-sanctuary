@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Inner Sanctuary Companion</title>
+  <style>
+    :root {
+      --forest-green: #2B4436;
+      --forest-dark: #1E3127;
+      --forest-light: #5F7B6B;
+      --sunburst-gold: #C59A3F;
+      --gold-light: #F8D98C;
+      --sand-bg: #FAF8F5;
+      --charcoal: #2A332D;
+      --border-gold: rgba(197, 154, 63, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      width: 390px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--sand-bg);
+      color: var(--charcoal);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, #1C2D24 0%, #2B4436 100%);
+      color: #FAF8F5;
+      padding: 14px 16px;
+      border-bottom: 2px solid var(--sunburst-gold);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .emblem {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1.5px solid var(--sunburst-gold);
+      object-fit: cover;
+      background: #fff;
+    }
+
+    .header-text {
+      flex: 1;
+    }
+
+    .brand-title {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 13.5px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: #FAF8F5;
+      text-transform: uppercase;
+      line-height: 1.2;
+    }
+
+    .brand-sub {
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      color: var(--gold-light);
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    .ein-badge {
+      display: inline-block;
+      background: rgba(197, 154, 63, 0.25);
+      border: 1px solid var(--sunburst-gold);
+      color: var(--gold-light);
+      font-size: 9px;
+      font-weight: 600;
+      padding: 1px 6px;
+      border-radius: 10px;
+      margin-top: 4px;
+    }
+
+    /* Tabs */
+    .tab-bar {
+      display: flex;
+      background: #EDE8DE;
+      border-bottom: 1px solid var(--border-gold);
+    }
+
+    .tab-btn {
+      flex: 1;
+      background: none;
+      border: none;
+      padding: 9px 4px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #555;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      transition: all 0.2s ease;
+      border-bottom: 2px solid transparent;
+    }
+
+    .tab-btn:hover {
+      color: var(--forest-green);
+      background: rgba(255, 255, 255, 0.4);
+    }
+
+    .tab-btn.active {
+      color: var(--forest-green);
+      background: var(--sand-bg);
+      border-bottom: 2px solid var(--sunburst-gold);
+      font-weight: 700;
+    }
+
+    /* Content Area */
+    .tab-pane {
+      display: none;
+      padding: 14px;
+    }
+
+    .tab-pane.active {
+      display: block;
+    }
+
+    /* Forms & Inputs */
+    .form-group {
+      margin-bottom: 10px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 10.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--forest-green);
+      margin-bottom: 3px;
+    }
+
+    .form-input, .form-textarea {
+      width: 100%;
+      padding: 7px 10px;
+      border-radius: 6px;
+      border: 1px solid #D5CFC5;
+      background: #FFFFFF;
+      font-size: 12px;
+      color: var(--charcoal);
+      font-family: inherit;
+    }
+
+    .form-input:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--sunburst-gold);
+      box-shadow: 0 0 0 2px rgba(197, 154, 63, 0.2);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border: none;
+    }
+
+    .btn-gold {
+      background: linear-gradient(135deg, #C59A3F 0%, #B3862D 100%);
+      color: #1C1B18;
+      box-shadow: 0 2px 6px rgba(197, 154, 63, 0.3);
+    }
+
+    .btn-gold:hover {
+      background: #D4AF37;
+    }
+
+    .btn-forest {
+      background: var(--forest-green);
+      color: #FAF8F5;
+    }
+
+    .btn-forest:hover {
+      background: var(--forest-dark);
+    }
+
+    .btn-outline {
+      background: #fff;
+      border: 1px solid var(--border-gold);
+      color: var(--forest-green);
+    }
+
+    .btn-outline:hover {
+      background: #F4EFE6;
+    }
+
+    .btn-full {
+      width: 100%;
+      margin-top: 6px;
+    }
+
+    /* Copy Drawer Items */
+    .copy-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-gold);
+      border-radius: 6px;
+      padding: 8px 10px;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.15s ease;
+    }
+
+    .copy-card:hover {
+      border-color: var(--sunburst-gold);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .copy-info {
+      flex: 1;
+      padding-right: 8px;
+    }
+
+    .copy-title {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--forest-green);
+    }
+
+    .copy-val {
+      font-size: 11.5px;
+      color: #444;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 260px;
+    }
+
+    .btn-copy {
+      background: var(--sand-bg);
+      border: 1px solid #D5CFC5;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--forest-green);
+      cursor: pointer;
+    }
+
+    .btn-copy:hover {
+      background: var(--sunburst-gold);
+      color: #111;
+      border-color: var(--sunburst-gold);
+    }
+
+    /* Quick Links */
+    .link-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .quick-link-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-gold);
+      border-radius: 8px;
+      padding: 12px;
+      text-align: center;
+      text-decoration: none;
+      color: var(--forest-green);
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .quick-link-card:hover {
+      border-color: var(--sunburst-gold);
+      background: #FDFBF7;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+    }
+
+    .quick-link-icon {
+      font-size: 22px;
+      margin-bottom: 2px;
+    }
+
+    .quick-link-name {
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .quick-link-desc {
+      font-size: 9.5px;
+      color: #777;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1C2D24;
+      color: #FAF8F5;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+      display: none;
+      align-items: center;
+      gap: 6px;
+      z-index: 99;
+      border: 1px solid var(--sunburst-gold);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Official Header -->
+  <div class="header">
+    <img src="icon48.png" alt="Emblem" class="emblem" onerror="this.style.display='none'">
+    <div class="header-text">
+      <div class="brand-title">Inner Sanctuary</div>
+      <div class="brand-sub">Wellness Foundation</div>
+      <span class="ein-badge">IRS 501(c)(3) • EIN: 39-3757168</span>
+    </div>
+  </div>
+
+  <!-- Tabs Navigation -->
+  <div class="tab-bar">
+    <button class="tab-btn active" data-tab="tab-clip">🎯 Clip Grant</button>
+    <button class="tab-btn" data-tab="tab-copy">📋 Auto-Fill</button>
+    <button class="tab-btn" data-tab="tab-links">⚡ Shortcuts</button>
+  </div>
+
+  <!-- TAB 1: CLIP GRANT -->
+  <div class="tab-pane active" id="tab-clip">
+    <div class="form-group">
+      <label class="form-label" for="clip-title">Opportunity / Grant Title</label>
+      <input type="text" id="clip-title" class="form-input" placeholder="e.g. CAC Impact Projects">
+    </div>
+
+    <div class="grid-2">
+      <div class="form-group">
+        <label class="form-label" for="clip-amount">Amount / Request</label>
+        <input type="text" id="clip-amount" class="form-input" placeholder="$25,000">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="clip-deadline">Deadline</label>
+        <input type="text" id="clip-deadline" class="form-input" placeholder="May 1, 2026">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="clip-url">Source URL</label>
+      <input type="text" id="clip-url" class="form-input" placeholder="https://...">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="clip-notes">Mission Alignment Notes</label>
+      <textarea id="clip-notes" class="form-textarea" rows="2" placeholder="Why this fits our monthly open mics & somatic pauses..."></textarea>
+    </div>
+
+    <button type="button" id="btn-save-clip" class="btn btn-gold btn-full">
+      <span>💾 Copy Grant Summary for Bigin / Drive</span>
+    </button>
+  </div>
+
+  <!-- TAB 2: AUTO-FILL BOILERPLATE -->
+  <div class="tab-pane" id="tab-copy">
+    <p style="font-size: 11px; color: #666; margin-bottom: 10px;">
+      One-click copy official foundation details into grant portals:
+    </p>
+
+    <!-- EIN -->
+    <div class="copy-card">
+      <div class="copy-info">
+        <div class="copy-title">Federal Tax ID (EIN)</div>
+        <div class="copy-val">39-3757168</div>
+      </div>
+      <button class="btn-copy" data-copy="39-3757168">Copy</button>
+    </div>
+
+    <!-- Legal Name -->
+    <div class="copy-card">
+      <div class="copy-info">
+        <div class="copy-title">Legal Name</div>
+        <div class="copy-val">Inner Sanctuary Wellness Foundation</div>
+      </div>
+      <button class="btn-copy" data-copy="Inner Sanctuary Wellness Foundation">Copy</button>
+    </div>
+
+    <!-- Tax Status -->
+    <div class="copy-card">
+      <div class="copy-info">
+        <div class="copy-title">Tax Exemption Status</div>
+        <div class="copy-val">IRS 501(c)(3) Public Charity (IRC Section 170(b)(1)(A)(vi))</div>
+      </div>
+      <button class="btn-copy" data-copy="IRS 501(c)(3) Public Charity (IRC Section 170(b)(1)(A)(vi))">Copy</button>
+    </div>
+
+    <!-- Leadership -->
+    <div class="copy-card">
+      <div class="copy-info">
+        <div class="copy-title">Key Leadership</div>
+        <div class="copy-val">Teshia Campbell (ED) & Marlon Smith (President)</div>
+      </div>
+      <button class="btn-copy" data-copy="Teshia Campbell, Founder & Executive Director | Marlon Smith, President & Primary Host">Copy</button>
+    </div>
+
+    <!-- 100-Word Mission -->
+    <div class="copy-card">
+      <div class="copy-info">
+        <div class="copy-title">100-Word Mission Abstract</div>
+        <div class="copy-val">Inner Sanctuary begins within. We create welcoming, unhurried community experiences...</div>
+      </div>
+      <button class="btn-copy" data-copy="Inner Sanctuary begins within. Inner Sanctuary Wellness Foundation creates welcoming community experiences that support emotional wellness, self-awareness, authentic creative expression, and meaningful human connection. Operating on a trauma-informed, 100% substance-free model with $0 cost barriers, our Permission to Pause stations and monthly SoCal Creatives Collective open mics create spaces to be witnessed, heard, and understood. As within, so without.">Copy</button>
+    </div>
+
+    <!-- The Four Releases -->
+    <div class="copy-card">
+      <div class="copy-info">
+        <div class="copy-title">Somatic Methodology</div>
+        <div class="copy-val">The Four Biological Releases: Laugh, Sing, Move, Cry</div>
+      </div>
+      <button class="btn-copy" data-copy="Inner Sanctuary structures its healing framework around the Four Biological Releases: 1) Laughing (diaphragmatic release and endorphin stimulation); 2) Singing & Sounding (vagal nerve activation via 432Hz/528Hz acoustic soundscapes); 3) Dancing & Movement (neuromuscular trauma discharge); 4) Crying (healthy emotional detoxification in a sacred, de-stigmatized setting).">Copy</button>
+    </div>
+  </div>
+
+  <!-- TAB 3: SHORTCUTS -->
+  <div class="tab-pane" id="tab-links">
+    <div class="link-grid">
+      <a href="https://notebooklm.google.com" target="_blank" class="quick-link-card">
+        <span class="quick-link-icon">📓</span>
+        <span class="quick-link-name">NotebookLM</span>
+        <span class="quick-link-desc">Gemini Notebook</span>
+      </a>
+
+      <a href="https://bigin.zoho.com" target="_blank" class="quick-link-card">
+        <span class="quick-link-icon">💼</span>
+        <span class="quick-link-name">Bigin CRM</span>
+        <span class="quick-link-desc">Donors & Grants</span>
+      </a>
+
+      <a href="https://drive.google.com/drive/folders/1_WV86d1iw01iXxDIS_4O60sSSHMP-wQz" target="_blank" class="quick-link-card">
+        <span class="quick-link-icon">📁</span>
+        <span class="quick-link-name">Google Drive</span>
+        <span class="quick-link-desc">Knowledge Base</span>
+      </a>
+
+      <a href="https://innersanctuarywellnessfoundation.org" target="_blank" class="quick-link-card">
+        <span class="quick-link-icon">🌐</span>
+        <span class="quick-link-name">Foundation Site</span>
+        <span class="quick-link-desc">Live Website</span>
+      </a>
+
+      <a href="https://www.instagram.com/ourinnersanctuary/" target="_blank" class="quick-link-card" style="grid-column: span 2;">
+        <span class="quick-link-icon">📸</span>
+        <span class="quick-link-name">@ourinnersanctuary</span>
+        <span class="quick-link-desc">Instagram Community Channel</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast">
+    <span>✓</span> <span id="toast-msg">Copied to clipboard!</span>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

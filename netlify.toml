@@ -2,6 +2,10 @@
 
 [build]
   publish = "."
+  functions = "netlify/functions"
+
+[functions]
+  directory = "netlify/functions"
 
 # Netlify Redirects — Apex HTTPS Canonical Routing (Zero Redirect Loops)
 [[redirects]]

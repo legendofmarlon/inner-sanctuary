@@ -1,0 +1,102 @@
+{
+  "eventTitle": "Inner Sanctuary Clubhouse Open Mic & Somatic Circle",
+  "eventDate": "2026-11-22",
+  "doorsOpen": "1:30 PM",
+  "startTime": "2:00 PM",
+  "location": "Our Sanctuary Clubhouse, Orange County, CA",
+  "host": "Marlon Smith (President & MC)",
+  "coHost": "Teshia Campbell (Founder)",
+  "rafflePrizes": [
+    {
+      "id": "prize-innout",
+      "name": "In-N-Out Meal Cards",
+      "sponsor": "In-N-Out Burger (Official Sponsor)",
+      "badge": "🍔 In-N-Out Meal Cards",
+      "status": "ready",
+      "description": "Complimentary fresh meal cards generously sponsored by In-N-Out Burger."
+    },
+    {
+      "id": "prize-headphones",
+      "name": "Audio Headphones",
+      "sponsor": "Community Partner",
+      "badge": "🎧 Audio Headphones",
+      "status": "ready",
+      "description": "Pair of high-fidelity headphones for mindful listening, music creation, and sound baths."
+    },
+    {
+      "id": "prize-gear",
+      "name": "Inner Sanctuary Official Gear",
+      "sponsor": "Inner Sanctuary Wellness Foundation",
+      "badge": "👕 Inner Sanctuary Gear",
+      "status": "ready",
+      "description": "Signature Inner Sanctuary community apparel and intentional wellness wear."
+    }
+  ],
+  "performers": [
+    {
+      "id": "act-1",
+      "name": "Maya Lin",
+      "artType": "poetry",
+      "category": "Spoken Word & Soul Poetry",
+      "slot": "2:10 PM",
+      "durationMinutes": 7,
+      "status": "confirmed",
+      "stageStatus": "ready",
+      "instagram": "@mayalinpoetry",
+      "pieceTitle": "Roots in the Concrete",
+      "bio": "Santa Ana spoken word poet exploring generational resilience and softness."
+    },
+    {
+      "id": "act-2",
+      "name": "Kofi & Jordan",
+      "artType": "music",
+      "category": "Acoustic Soul & Vocals",
+      "slot": "2:20 PM",
+      "durationMinutes": 10,
+      "status": "confirmed",
+      "stageStatus": "ready",
+      "instagram": "@kofiandjordan",
+      "pieceTitle": "River to the Sea",
+      "bio": "Acoustic guitar and vocal duo blending folk soul with meditative harmonies."
+    },
+    {
+      "id": "act-3",
+      "name": "Deshawn 'Sage' Vance",
+      "artType": "comedy",
+      "category": "Comedic Storytelling & Laughter Medicine",
+      "slot": "2:35 PM",
+      "durationMinutes": 8,
+      "status": "confirmed",
+      "stageStatus": "ready",
+      "instagram": "@sagevancejokes",
+      "pieceTitle": "Trying to Meditate While Broke",
+      "bio": "Inland Empire stand-up comedian turning everyday stress into diaphragmatic joy."
+    },
+    {
+      "id": "act-4",
+      "name": "Aria Sol",
+      "artType": "music",
+      "category": "Acoustic Singing & Harmonium",
+      "slot": "2:50 PM",
+      "durationMinutes": 9,
+      "status": "confirmed",
+      "stageStatus": "ready",
+      "instagram": "@ariasolmusic",
+      "pieceTitle": "Breathe Into Tomorrow",
+      "bio": "Vocalist and sound practitioner integrating 528Hz vocal resonance."
+    },
+    {
+      "id": "act-5",
+      "name": "Marcus Trevino",
+      "artType": "poetry",
+      "category": "Spoken Word & Narrative",
+      "slot": "3:15 PM",
+      "durationMinutes": 8,
+      "status": "confirmed",
+      "stageStatus": "ready",
+      "instagram": "@marcust_words",
+      "pieceTitle": "Orange Groves & Iron Fences",
+      "bio": "Local Santa Ana storyteller reflecting on brotherhood and vulnerability."
+    }
+  ]
+}

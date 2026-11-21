@@ -1,0 +1,312 @@
+/* ==========================================================================
+   Inner Sanctuary Wellness Foundation — Adaptive Atmosphere Engine
+   Circadian Solar Theme Shifts & Ambient Lighting Architecture
+   ========================================================================== */
+
+/* Smooth, meditative color & lighting transitions across the entire DOM */
+html, body, .hero, .sanctuary-nav, .element-sanctuary-bar, 
+.sanctuary-orb-card, .hearth-mirror-card, .footer, .community-impact-metrics-bar {
+  transition: background-color 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+              background 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+              color 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* --------------------------------------------------------------------------
+   Atmosphere 1: DAWN AWAKENING (05:00 – 11:00)
+   Crisp botanical clarity, sun-dappled dew, gentle upward awakening
+   -------------------------------------------------------------------------- */
+[data-atmosphere="dawn"] {
+  --bg-cream: #F8F6F0;
+  --bg-cream-soft: #FCFBF7;
+  --bg-cream-alt: #F1ECE1;
+  --forest-green: #244133;
+  --forest-dark: #192D23;
+  --forest-light: #3D604E;
+  --sunburst-gold: #B88B32;
+  --gold-text: #7D560E;
+  --gold-glow: rgba(184, 139, 50, 0.22);
+  --earth-charcoal: #1E1D19;
+  --charcoal-muted: #2E2D28;
+  --botanical-sage: #537563;
+  --somatic-breath-duration: 8s;
+  --atmosphere-ambient-glow: radial-gradient(ellipse at 50% 0%, rgba(248, 217, 140, 0.25) 0%, transparent 70%);
+}
+
+[data-atmosphere="dawn"] body {
+  background-color: var(--bg-cream);
+  color: var(--earth-charcoal);
+}
+
+/* --------------------------------------------------------------------------
+   Atmosphere 2: GROUNDED DAYLIGHT (11:00 – 16:30)
+   Full organic contrast, sunburst warmth, open community vitality
+   -------------------------------------------------------------------------- */
+[data-atmosphere="day"] {
+  --bg-cream: #F6F3EC;
+  --bg-cream-soft: #FAF8F3;
+  --bg-cream-alt: #EFECE3;
+  --forest-green: #2B4436;
+  --forest-dark: #1E3328;
+  --forest-light: #3A5A48;
+  --sunburst-gold: #C59A3F;
+  --gold-text: #8C6212;
+  --gold-glow: rgba(197, 154, 63, 0.25);
+  --earth-charcoal: #1C1B18;
+  --charcoal-muted: #2C2B27;
+  --botanical-sage: #5F7B6B;
+  --somatic-breath-duration: 7s;
+  --atmosphere-ambient-glow: radial-gradient(ellipse at 50% 0%, rgba(197, 154, 63, 0.20) 0%, transparent 65%);
+}
+
+[data-atmosphere="day"] body {
+  background-color: var(--bg-cream);
+  color: var(--earth-charcoal);
+}
+
+/* --------------------------------------------------------------------------
+   Atmosphere 3: GOLDEN HOUR TWILIGHT (16:30 – 20:00)
+   Honeyed amber, sunset warmth, rich bronze grounding
+   -------------------------------------------------------------------------- */
+[data-atmosphere="golden"] {
+  --bg-cream: #F4EBD9;
+  --bg-cream-soft: #FAF3E5;
+  --bg-cream-alt: #EBDECA;
+  --forest-green: #293B30;
+  --forest-dark: #1A2820;
+  --forest-light: #445D4D;
+  --sunburst-gold: #D49B35;
+  --gold-text: #96660F;
+  --gold-glow: rgba(212, 155, 53, 0.35);
+  --earth-charcoal: #211D17;
+  --charcoal-muted: #302A22;
+  --botanical-sage: #667560;
+  --somatic-breath-duration: 8.5s;
+  --atmosphere-ambient-glow: radial-gradient(ellipse at 50% 0%, rgba(212, 155, 53, 0.35) 0%, rgba(235, 172, 78, 0.12) 45%, transparent 75%);
+}
+
+[data-atmosphere="golden"] body {
+  background-color: var(--bg-cream);
+  color: var(--earth-charcoal);
+}
+
+[data-atmosphere="golden"] .hero {
+  background: linear-gradient(180deg, rgba(244, 235, 217, 0.98) 0%, rgba(235, 222, 202, 0.95) 100%);
+}
+
+/* --------------------------------------------------------------------------
+   Atmosphere 4: SANCTUARY NIGHT MODE (20:00 – 05:00)
+   Velvet obsidian forest, warm amber candlelight, meditative violet depths
+   -------------------------------------------------------------------------- */
+[data-atmosphere="night"] {
+  --bg-cream: #0F1713;
+  --bg-cream-soft: #16221C;
+  --bg-cream-alt: #1B2B23;
+  --forest-green: #4D7A62;
+  --forest-dark: #8DB8A0;
+  --forest-light: #6A9980;
+  --sunburst-gold: #E5B25D;
+  --gold-text: #FAD277;
+  --gold-hover: #F2C172;
+  --gold-glow: rgba(229, 178, 93, 0.35);
+  --earth-charcoal: #EDE8DD;
+  --charcoal-muted: #C8C2B4;
+  --botanical-sage: #7EA690;
+  --somatic-breath-duration: 10s;
+  --atmosphere-ambient-glow: radial-gradient(ellipse at 50% -10%, rgba(229, 178, 93, 0.18) 0%, rgba(77, 122, 98, 0.15) 40%, transparent 80%);
+}
+
+[data-atmosphere="night"] body {
+  background-color: #0F1713;
+  color: #EDE8DD;
+}
+
+[data-atmosphere="night"] nav#sanctuary-nav {
+  background: rgba(15, 23, 19, 0.95);
+  border-bottom: 1px solid rgba(229, 178, 93, 0.25);
+}
+
+[data-atmosphere="night"] .hero {
+  background: linear-gradient(180deg, #0F1713 0%, #15221B 60%, #0F1713 100%);
+}
+
+[data-atmosphere="night"] .hero-inner-headline,
+[data-atmosphere="night"] .manifesto-lead-title,
+[data-atmosphere="night"] .section-title,
+[data-atmosphere="night"] .serif-brand {
+  color: #FDF9EE !important;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.6);
+}
+
+[data-atmosphere="night"] .hero-manifesto-box {
+  background: rgba(22, 34, 28, 0.85);
+  border: 1.5px solid rgba(229, 178, 93, 0.35);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+}
+
+[data-atmosphere="night"] .sanctuary-orb-card {
+  background: rgba(22, 34, 28, 0.75);
+  border: 1.5px solid rgba(229, 178, 93, 0.3);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+[data-atmosphere="night"] .nav-link-main {
+  color: #EDE8DD !important;
+}
+
+[data-atmosphere="night"] .nav-link-sub {
+  color: #E5B25D !important;
+}
+
+[data-atmosphere="night"] .element-sanctuary-bar {
+  background: rgba(12, 19, 15, 0.95);
+  border-bottom: 1px solid rgba(229, 178, 93, 0.2);
+}
+
+[data-atmosphere="night"] .card,
+[data-atmosphere="night"] .program-card,
+[data-atmosphere="night"] .impact-metric-card,
+[data-atmosphere="night"] .workshop-card {
+  background: rgba(22, 34, 28, 0.85);
+  border-color: rgba(229, 178, 93, 0.25);
+  color: #EDE8DD;
+}
+
+[data-atmosphere="night"] .impact-metric-num {
+  color: #FAD277 !important;
+}
+
+[data-atmosphere="night"] .impact-metric-label {
+  color: #EDE8DD !important;
+}
+
+[data-atmosphere="night"] .impact-metric-sub {
+  color: #C8C2B4 !important;
+}
+
+/* --------------------------------------------------------------------------
+   Atmosphere Switcher UI Control
+   Non-intrusive, elegant pill with solar cycle indicator
+   -------------------------------------------------------------------------- */
+.atmosphere-switcher-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(43, 68, 54, 0.08);
+  border: 1px solid rgba(197, 154, 63, 0.35);
+  color: var(--forest-green);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-family: var(--font-body, 'Montserrat', sans-serif);
+  font-size: 0.76rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.atmosphere-switcher-btn:hover {
+  background: rgba(197, 154, 63, 0.18);
+  border-color: var(--sunburst-gold);
+  transform: translateY(-1px);
+}
+
+[data-atmosphere="night"] .atmosphere-switcher-btn {
+  background: rgba(229, 178, 93, 0.12);
+  border-color: rgba(229, 178, 93, 0.4);
+  color: #FAD277;
+}
+
+.atmosphere-icon-slot {
+  font-size: 0.88rem;
+  line-height: 1;
+}
+
+.atmosphere-mode-label {
+  letter-spacing: 0.03em;
+}
+
+.atmosphere-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: rgba(246, 243, 236, 0.98);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(197, 154, 63, 0.35);
+  border-radius: 12px;
+  padding: 6px;
+  min-width: 170px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+  z-index: 1000;
+  display: none;
+  flex-direction: column;
+  gap: 2px;
+  transform-origin: top right;
+  animation: atmosphereMenuFade 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+[data-atmosphere="night"] .atmosphere-dropdown-menu {
+  background: rgba(20, 31, 25, 0.98);
+  border-color: rgba(229, 178, 93, 0.35);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+}
+
+.atmosphere-dropdown-menu.active {
+  display: flex;
+}
+
+@keyframes atmosphereMenuFade {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.atmosphere-option-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 7px 10px;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--forest-green);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: left;
+}
+
+[data-atmosphere="night"] .atmosphere-option-btn {
+  color: #EDE8DD;
+}
+
+.atmosphere-option-btn:hover {
+  background: rgba(197, 154, 63, 0.15);
+  color: var(--gold-text);
+}
+
+.atmosphere-option-btn.selected {
+  background: rgba(197, 154, 63, 0.22);
+  font-weight: 700;
+  color: var(--gold-text);
+}
+
+[data-atmosphere="night"] .atmosphere-option-btn.selected {
+  color: #FAD277;
+}
+
+.atmosphere-check-mark {
+  font-size: 0.75rem;
+  color: var(--sunburst-gold);
+}

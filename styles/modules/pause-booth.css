@@ -1,0 +1,423 @@
+/* ==========================================================================
+   Inner Sanctuary Wellness Foundation — Digital Pause Booth
+   Mobile-First QR Check-In & 60-Second Guided Somatic Grounding
+   ========================================================================== */
+
+.pause-booth-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10500;
+  background: rgba(12, 20, 16, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pause-booth-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.pause-booth-container {
+  background: rgba(246, 243, 236, 0.98);
+  border: 1.5px solid rgba(197, 154, 63, 0.4);
+  border-radius: 24px;
+  width: 100%;
+  max-width: 520px;
+  max-height: 92vh;
+  overflow-y: auto;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+  position: relative;
+  padding: 28px 24px 24px;
+  color: var(--earth-charcoal, #1C1B18);
+  box-sizing: border-box;
+  transform: translateY(16px) scale(0.97);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-atmosphere="night"] .pause-booth-container {
+  background: rgba(18, 28, 22, 0.98);
+  border-color: rgba(229, 178, 93, 0.35);
+  color: #EDE8DD;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.6);
+}
+
+.pause-booth-overlay.active .pause-booth-container {
+  transform: translateY(0) scale(1);
+}
+
+.pause-booth-close-btn {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  background: rgba(43, 68, 54, 0.08);
+  border: 1px solid rgba(197, 154, 63, 0.3);
+  color: var(--forest-green, #2B4436);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+[data-atmosphere="night"] .pause-booth-close-btn {
+  background: rgba(229, 178, 93, 0.1);
+  border-color: rgba(229, 178, 93, 0.3);
+  color: #FAD277;
+}
+
+.pause-booth-close-btn:hover {
+  background: rgba(197, 154, 63, 0.2);
+  transform: rotate(90deg);
+}
+
+/* Header & Copy */
+.pause-booth-header {
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+.pause-booth-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(197, 154, 63, 0.14);
+  border: 1px solid rgba(197, 154, 63, 0.35);
+  color: var(--gold-text, #8C6212);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 4px 12px;
+  border-radius: 999px;
+  margin-bottom: 8px;
+}
+
+[data-atmosphere="night"] .pause-booth-badge {
+  color: #FAD277;
+}
+
+.pause-booth-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.55rem;
+  color: var(--forest-green, #2B4436);
+  margin-bottom: 6px;
+  line-height: 1.25;
+}
+
+[data-atmosphere="night"] .pause-booth-title {
+  color: #FDF9EE;
+}
+
+.pause-booth-sub {
+  font-size: 0.88rem;
+  color: var(--charcoal-muted, #555);
+  line-height: 1.45;
+}
+
+[data-atmosphere="night"] .pause-booth-sub {
+  color: #CBD7D0;
+}
+
+/* Step 1: Somatic State Selection Grid */
+.pause-states-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+@media (min-width: 480px) {
+  .pause-states-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.pause-state-card {
+  background: rgba(255, 255, 255, 0.65);
+  border: 1.5px solid rgba(197, 154, 63, 0.3);
+  border-radius: 16px;
+  padding: 16px 14px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+  outline: none;
+}
+
+[data-atmosphere="night"] .pause-state-card {
+  background: rgba(28, 42, 34, 0.65);
+  border-color: rgba(229, 178, 93, 0.25);
+}
+
+.pause-state-card:hover,
+.pause-state-card:focus-visible {
+  border-color: var(--sunburst-gold, #C59A3F);
+  background: rgba(255, 255, 255, 0.95);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(43, 68, 54, 0.12);
+}
+
+[data-atmosphere="night"] .pause-state-card:hover,
+[data-atmosphere="night"] .pause-state-card:focus-visible {
+  background: rgba(35, 52, 42, 0.9);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.pause-state-icon {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.pause-state-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: var(--forest-green, #2B4436);
+}
+
+[data-atmosphere="night"] .pause-state-label {
+  color: #F8D98C;
+}
+
+.pause-state-microcopy {
+  font-size: 0.76rem;
+  color: var(--charcoal-muted, #666);
+  line-height: 1.4;
+}
+
+[data-atmosphere="night"] .pause-state-microcopy {
+  color: #CBD7D0;
+}
+
+/* Step 2: 60-Second Guided Immersion Stage */
+.pause-immersion-stage {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 10px 0;
+}
+
+.pause-immersion-stage.active {
+  display: flex;
+}
+
+.pause-somatic-halo {
+  position: relative;
+  width: 170px;
+  height: 170px;
+  margin: 14px auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pause-ring-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.pause-ring-bg {
+  stroke: rgba(197, 154, 63, 0.2);
+  stroke-width: 6;
+  fill: none;
+}
+
+.pause-ring-progress {
+  stroke: var(--sunburst-gold, #C59A3F);
+  stroke-width: 6;
+  stroke-linecap: round;
+  fill: none;
+  stroke-dasharray: 471; /* 2 * PI * 75 */
+  stroke-dashoffset: 471;
+  transition: stroke-dashoffset 0.8s linear;
+}
+
+.pause-living-orb {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #D8AA49 0%, #2B4436 80%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFDF7;
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: center;
+  box-shadow: 0 0 35px rgba(197, 154, 63, 0.4);
+  transition: transform 3.5s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 3.5s cubic-bezier(0.4, 0, 0.2, 1),
+              background 1.5s ease;
+  user-select: none;
+}
+
+/* Breathing Orb Dynamic Phases */
+.pause-living-orb.inhale {
+  transform: scale(1.22);
+  box-shadow: 0 0 50px rgba(197, 154, 63, 0.7);
+}
+
+.pause-living-orb.hold {
+  transform: scale(1.22);
+  box-shadow: 0 0 55px rgba(229, 178, 93, 0.85);
+}
+
+.pause-living-orb.exhale {
+  transform: scale(0.85);
+  box-shadow: 0 0 25px rgba(43, 68, 54, 0.4);
+}
+
+.pause-living-orb.rest {
+  transform: scale(0.92);
+  box-shadow: 0 0 30px rgba(95, 123, 107, 0.35);
+}
+
+.pause-instruction-text {
+  font-family: 'Cinzel', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--forest-green, #2B4436);
+  margin-bottom: 6px;
+  min-height: 32px;
+}
+
+[data-atmosphere="night"] .pause-instruction-text {
+  color: #F8D98C;
+}
+
+.pause-sub-instruction {
+  font-size: 0.85rem;
+  color: var(--charcoal-muted, #555);
+  margin-bottom: 18px;
+  min-height: 22px;
+}
+
+[data-atmosphere="night"] .pause-sub-instruction {
+  color: #CBD7D0;
+}
+
+/* Timer and Sound Bar */
+.pause-controls-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 360px;
+  background: rgba(43, 68, 54, 0.06);
+  border: 1px solid rgba(197, 154, 63, 0.25);
+  border-radius: 999px;
+  padding: 6px 14px;
+  margin-bottom: 16px;
+}
+
+[data-atmosphere="night"] .pause-controls-row {
+  background: rgba(229, 178, 93, 0.08);
+}
+
+.pause-timer-readout {
+  font-family: 'Cinzel', serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--forest-green, #2B4436);
+}
+
+[data-atmosphere="night"] .pause-timer-readout {
+  color: #FAD277;
+}
+
+.pause-sound-toggle-btn {
+  background: none;
+  border: none;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--forest-green, #2B4436);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+[data-atmosphere="night"] .pause-sound-toggle-btn {
+  color: #CBD7D0;
+}
+
+/* Step 3: Completion State */
+.pause-complete-screen {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 18px 0 10px;
+}
+
+.pause-complete-screen.active {
+  display: flex;
+}
+
+.pause-complete-icon {
+  font-size: 2.8rem;
+  margin-bottom: 12px;
+  animation: floatSoftly 3s ease-in-out infinite;
+}
+
+@keyframes floatSoftly {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.pause-actions-group {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 14px;
+}
+
+/* Floating QR / Check-in Quick Pill for mobile visitors */
+.floating-pause-booth-pill {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9990;
+  background: linear-gradient(135deg, #2B4436 0%, #16241D 100%);
+  border: 1.5px solid var(--sunburst-gold, #C59A3F);
+  color: #F8D98C;
+  padding: 10px 18px;
+  border-radius: 999px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  font-family: 'Cinzel', serif;
+  font-size: 0.84rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: 0.04em;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.floating-pause-booth-pill:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 12px 30px rgba(197, 154, 63, 0.4);
+}

@@ -1,0 +1,179 @@
+/* ==========================================================================
+   Inner Sanctuary Wellness Foundation — Live Pulse Constellation
+   Real-Time Community Energy Map & Harmonic Breathing Starfield
+   ========================================================================== */
+
+.pulse-constellation-section {
+  position: relative;
+  width: 100%;
+  max-width: 1080px;
+  margin: 48px auto;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+.pulse-constellation-card {
+  position: relative;
+  background: radial-gradient(circle at 50% 30%, rgba(30, 49, 39, 0.94) 0%, rgba(15, 25, 20, 0.98) 100%);
+  border: 1.5px solid rgba(197, 154, 63, 0.4);
+  border-radius: 28px;
+  padding: 32px 24px 28px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
+  overflow: hidden;
+  text-align: center;
+  color: #FFFDF7;
+}
+
+[data-atmosphere="night"] .pulse-constellation-card {
+  background: radial-gradient(circle at 50% 20%, rgba(22, 36, 29, 0.96) 0%, rgba(10, 16, 13, 0.99) 100%);
+  border-color: rgba(229, 178, 93, 0.45);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.6);
+}
+
+.pulse-constellation-halo-bg {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 500px;
+  height: 250px;
+  background: radial-gradient(ellipse, rgba(197, 154, 63, 0.22) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.pulse-constellation-header {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 20px;
+}
+
+.pulse-constellation-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(197, 154, 63, 0.16);
+  border: 1px solid rgba(197, 154, 63, 0.45);
+  color: #FAD277;
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 4px 14px;
+  border-radius: 999px;
+  margin-bottom: 10px;
+}
+
+.pulse-constellation-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.4rem, 3.2vw, 2.1rem);
+  color: #FFFDF7;
+  font-weight: 700;
+  margin-bottom: 8px;
+  letter-spacing: 0.03em;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+}
+
+.pulse-constellation-sub {
+  font-size: 0.92rem;
+  color: #CBD7D0;
+  max-width: 640px;
+  margin: 0 auto;
+  line-height: 1.55;
+}
+
+/* Canvas Stage */
+.pulse-canvas-stage {
+  position: relative;
+  width: 100%;
+  height: 340px;
+  border-radius: 20px;
+  background: rgba(10, 18, 14, 0.65);
+  border: 1px solid rgba(197, 154, 63, 0.25);
+  overflow: hidden;
+  margin: 20px 0 22px;
+}
+
+#pulseConstellationCanvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Floating interactive legend */
+.pulse-telemetry-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.pulse-stat-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(197, 154, 63, 0.3);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #F8D98C;
+  transition: all 0.2s ease;
+}
+
+.pulse-stat-pill:hover {
+  background: rgba(197, 154, 63, 0.18);
+  border-color: #C59A3F;
+  transform: translateY(-1px);
+}
+
+.pulse-stat-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.pulse-dot-processing { background: #D8AA49; box-shadow: 0 0 8px #D8AA49; }
+.pulse-dot-tension { background: #5F7B6B; box-shadow: 0 0 8px #5F7B6B; }
+.pulse-dot-battery { background: #E5B25D; box-shadow: 0 0 8px #E5B25D; }
+.pulse-dot-peace { background: #4D7A62; box-shadow: 0 0 8px #4D7A62; }
+
+/* Call to Action Bar */
+.pulse-constellation-cta-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 2;
+}
+
+.pulse-add-btn {
+  background: linear-gradient(135deg, #C59A3F 0%, #A87D2E 100%);
+  border: none;
+  color: #121F17;
+  padding: 10px 24px;
+  border-radius: 999px;
+  font-family: 'Cinzel', serif;
+  font-size: 0.86rem;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 18px rgba(197, 154, 63, 0.4);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pulse-add-btn:hover {
+  background: linear-gradient(135deg, #D8AA49 0%, #B88B32 100%);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 26px rgba(197, 154, 63, 0.55);
+}
