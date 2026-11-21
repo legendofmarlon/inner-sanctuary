@@ -1606,7 +1606,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const customAmountInput = document.getElementById('custom-donation-amount');
 
   const impactMap = {
-    '1': 'Spawns 1 community stage token, organic herbal tea & welcoming presence for a grassroots artist.',
+    '1': 'Spawns 1 community stage token, sound bowl reset & welcoming presence for a grassroots artist.',
     '5': 'Directly sponsors 1 community raffle gift card, blessing a neighborhood performer.',
     '10': 'Funds healthy botanical refreshments and printed event guides for 15 local neighbors.',
     '25': 'Subsidizes live acoustic sound engineering and venue setup for an unhurried showcase.'
@@ -2496,7 +2496,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'DTSTART:20261115T220000Z',
         'DTEND:20261116T000000Z',
         'SUMMARY:Community Open Mic & Pause Activations • Inner Sanctuary & SoCal Creatives',
-        'DESCRIPTION:Come laugh\\, sing\\, share\\, listen\\, cry\\, create\\, or simply be. Open Mic stage + Somatic Pause Activations (botanical herbal tea\\, guided 4-4-4 breath intervals\\, 432 Hz sound bowls). No performance necessary. Just come as you are.\\n\\nMeetup Details & RSVP: https://www.meetup.com/socal-creatives-collective/events/316432286/',
+        'DESCRIPTION:Come laugh\\, sing\\, share\\, listen\\, cry\\, create\\, or simply be. Open Mic stage + Somatic Pause Activations (432 Hz bronze sound bowls\\, guided 4-4-4 breath intervals). No performance necessary. Just come as you are.\\n\\nMeetup Details & RSVP: https://www.meetup.com/socal-creatives-collective/events/316432286/',
         'LOCATION:Our Sanctuary Clubhouse\\, Orange County\\, CA',
         'STATUS:CONFIRMED',
         'END:VEVENT',
@@ -3494,10 +3494,74 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
+    // 3D Perspective Tilt & Dynamic Specular Sheen Tracking
+    const stage = document.getElementById('reflectionCardStage');
+    if (stage) {
+      let isHovering = false;
+      const updateTilt = (clientX, clientY) => {
+        const rect = stage.getBoundingClientRect();
+        if (!rect.width || !rect.height) return;
+        const x = clientX - rect.left;
+        const y = clientY - rect.top;
+        const px = Math.max(0, Math.min(1, x / rect.width));
+        const py = Math.max(0, Math.min(1, y / rect.height));
+        const tiltX = (0.5 - py) * 20;
+        const tiltY = (px - 0.5) * 20;
+        const glareX = Math.round(px * 100);
+        const glareY = Math.round(py * 100);
+
+        stage.style.setProperty('--glare-x', `${glareX}%`);
+        stage.style.setProperty('--glare-y', `${glareY}%`);
+
+        const isFlipped = card3D.classList.contains('is-flipped');
+        card3D.style.transform = isFlipped
+          ? `perspective(1200px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${(180 + tiltY).toFixed(2)}deg) scale3d(1.025, 1.025, 1.025)`
+          : `perspective(1200px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) scale3d(1.025, 1.025, 1.025)`;
+      };
+
+      const resetTilt = () => {
+        isHovering = false;
+        stage.classList.remove('is-touching');
+        card3D.style.transition = 'transform 0.65s cubic-bezier(0.23, 1, 0.32, 1)';
+        const isFlipped = card3D.classList.contains('is-flipped');
+        card3D.style.transform = isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)';
+      };
+
+      stage.addEventListener('mouseenter', () => {
+        isHovering = true;
+        card3D.style.transition = 'transform 0.12s ease-out';
+      });
+
+      stage.addEventListener('mousemove', (e) => {
+        if (!isHovering) return;
+        updateTilt(e.clientX, e.clientY);
+      });
+
+      stage.addEventListener('mouseleave', resetTilt);
+
+      stage.addEventListener('touchstart', (e) => {
+        if (e.touches && e.touches.length === 1) {
+          stage.classList.add('is-touching');
+          card3D.style.transition = 'transform 0.15s ease-out';
+          updateTilt(e.touches[0].clientX, e.touches[0].clientY);
+        }
+      }, { passive: true });
+
+      stage.addEventListener('touchmove', (e) => {
+        if (e.touches && e.touches.length === 1) {
+          updateTilt(e.touches[0].clientX, e.touches[0].clientY);
+        }
+      }, { passive: true });
+
+      stage.addEventListener('touchend', resetTilt);
+    }
+
     // Tapping the card flips it
     card3D.addEventListener('click', () => {
       card3D.classList.toggle('is-flipped');
       playHarmonicTone(528, 0.8, 0.015);
+      const isFlipped = card3D.classList.contains('is-flipped');
+      card3D.style.transform = isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)';
     });
 
     card3D.addEventListener('keydown', (e) => {
@@ -3505,6 +3569,8 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         card3D.classList.toggle('is-flipped');
         playHarmonicTone(528, 0.8, 0.015);
+        const isFlipped = card3D.classList.contains('is-flipped');
+        card3D.style.transform = isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)';
       }
     });
 
@@ -4062,6 +4128,50 @@ document.addEventListener('DOMContentLoaded', () => {
 
         ringBeadsLayer.appendChild(beadEl);
       }
+
+      // Attach tactile 3D rotational drag on the sacred completed ring
+      const ringEl = document.querySelector('.circle-string-ring');
+      if (ringEl && !ringEl._dragBound) {
+        ringEl._dragBound = true;
+        let isDragging = false;
+        let startX = 0, startY = 0;
+        let curRotY = 0, curRotX = 12;
+
+        const handleStart = (clientX, clientY) => {
+          isDragging = true;
+          startX = clientX;
+          startY = clientY;
+          ringEl.style.transition = 'none';
+        };
+
+        const handleMove = (clientX, clientY) => {
+          if (!isDragging) return;
+          const dx = clientX - startX;
+          const dy = clientY - startY;
+          const rotY = curRotY + dx * 0.8;
+          const rotX = Math.max(-25, Math.min(35, curRotX - dy * 0.5));
+          ringEl.style.transform = `perspective(900px) rotateX(${rotX.toFixed(1)}deg) rotateY(${rotY.toFixed(1)}deg)`;
+        };
+
+        const handleEnd = () => {
+          if (!isDragging) return;
+          isDragging = false;
+          ringEl.style.transition = 'transform 0.6s cubic-bezier(0.23, 1, 0.32, 1)';
+          ringEl.style.transform = 'perspective(900px) rotateX(12deg) rotateY(0deg)';
+        };
+
+        ringEl.addEventListener('mousedown', (e) => handleStart(e.clientX, e.clientY));
+        window.addEventListener('mousemove', (e) => handleMove(e.clientX, e.clientY));
+        window.addEventListener('mouseup', handleEnd);
+
+        ringEl.addEventListener('touchstart', (e) => {
+          if (e.touches && e.touches.length === 1) handleStart(e.touches[0].clientX, e.touches[0].clientY);
+        }, { passive: true });
+        window.addEventListener('touchmove', (e) => {
+          if (isDragging && e.touches && e.touches.length === 1) handleMove(e.touches[0].clientX, e.touches[0].clientY);
+        }, { passive: true });
+        window.addEventListener('touchend', handleEnd);
+      }
     }
 
     function updateBraceletStage() {
@@ -4100,6 +4210,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (beadSummary) {
           beadSummary.textContent = selectedBeads.map(b => b.name).join(' • ');
         }
+        window.lastSelectedBeads = selectedBeads.map(b => ({ ...b }));
         if (quoteElem) {
           const quoteIdx = (selectedBeads[0].name.length + selectedBeads[1].name.length) % sparkMessages.length;
           quoteElem.textContent = `"${sparkMessages[quoteIdx]}"`;
@@ -4115,6 +4226,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     window.openBraceletKeepsakeModal = function() {
+      if (selectedBeads && selectedBeads.length) {
+        window.lastSelectedBeads = selectedBeads.map(b => ({ ...b }));
+      }
       const modal = document.getElementById('braceletKeepsakeModal');
       if (modal) {
         modal.style.display = 'flex';
@@ -4271,6 +4385,413 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize new expansion features
   initDigitalBraceletCreator();
   initFAQAccordion();
+  initZenPlinkoGame();
+
+  // =========================================================================
+  // THE "DROP A SEED" ZEN PLINKO GAME ENGINE (432Hz HARMONIC SOMATIC PHYSICS)
+  // =========================================================================
+  function initZenPlinkoGame() {
+    const canvas = document.getElementById('zenPlinkoCanvas');
+    const dropBar = document.getElementById('plinkoDropBar');
+    const btnDrop = document.getElementById('btnDropSeedManual');
+    const btnReplay = document.getElementById('btnPlinkoReplay');
+    const resultBox = document.getElementById('plinkoResultBox');
+    const resultTitle = document.getElementById('plinkoResultTitle');
+    const resultDesc = document.getElementById('plinkoResultDesc');
+    const seedCounter = document.getElementById('plinkoSeedCounter');
+    const aimGuide = document.getElementById('plinkoAimGuide');
+    const basketCards = document.querySelectorAll('.plinko-basket-card');
+
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    // Load persisted seed tally
+    const STORAGE_KEY = 'sanctuary_plinko_seeds_sown';
+    let seedsSown = parseInt(localStorage.getItem(STORAGE_KEY), 10);
+    if (isNaN(seedsSown) || seedsSown < 142) {
+      seedsSown = 142;
+      localStorage.setItem(STORAGE_KEY, seedsSown);
+    }
+    if (seedCounter) seedCounter.textContent = seedsSown;
+
+    const BASKETS = [
+      {
+        emoji: "🥣",
+        title: "🥣 You Nourished: 432Hz Sound Bowl Bath",
+        desc: "A restorative 432Hz sound bowl bath frequency offered freely so a tired neighbor, elder, or creator can sit, soften, and regulate their nervous system.",
+        color: "#C59A3F"
+      },
+      {
+        emoji: "📿",
+        title: "📿 You Nourished: Intention Bead Strung",
+        desc: "A sacred gemstone bead woven into an unhurried mindfulness bracelet for someone navigating stress and overwhelm.",
+        color: "#5F7B6B"
+      },
+      {
+        emoji: "🎙️",
+        title: "🎙️ You Nourished: Open Mic Stage Mic & Sound",
+        desc: "Protecting a safe, sober, and unhurried acoustic stage where local voices, musicians, and poets can speak their truth.",
+        color: "#C59A3F"
+      },
+      {
+        emoji: "🕊️",
+        title: "🕊️ You Nourished: 60-Second Pause Sanctuary",
+        desc: "Sponsoring somatic grounding cards, sound bowls, and guided breath pauses in our community clubhouse.",
+        color: "#7FB392"
+      },
+      {
+        emoji: "🏛️",
+        title: "🏛️ You Nourished: Sanctuary Foundation Pillar",
+        desc: "Directly underwriting physical space rent, community insurance, and zero-barrier access for everyone.",
+        color: "#FAD277"
+      }
+    ];
+
+    const CHIME_FREQS = [432, 486, 540, 576, 648, 720, 864]; // Pentatonic Harmonic Scale
+
+    let width = 580;
+    let height = 420;
+    let pegs = [];
+    let seeds = [];
+    let particles = [];
+    let animationFrameId = null;
+
+    function resizeCanvas() {
+      const dpr = window.devicePixelRatio || 1;
+      width = 580;
+      height = 420;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      if (ctx.resetTransform) ctx.resetTransform();
+      else ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.scale(dpr, dpr);
+      buildPegGrid();
+    }
+
+    function buildPegGrid() {
+      pegs = [];
+      const rows = 8;
+      const startY = 65;
+      const endY = height - 55;
+      const rowGap = (endY - startY) / (rows - 1);
+      const marginX = 42;
+      const playWidth = width - marginX * 2;
+
+      for (let r = 0; r < rows; r++) {
+        const isOffset = r % 2 === 1;
+        const count = isOffset ? 8 : 7;
+        const colGap = playWidth / (count - 1);
+        const y = startY + r * rowGap;
+
+        for (let c = 0; c < count; c++) {
+          const x = isOffset ? (marginX + 18 + (c * (playWidth - 36)) / (count - 1)) : (marginX + c * colGap);
+          const toneIdx = (r + c) % CHIME_FREQS.length;
+          pegs.push({
+            x,
+            y,
+            radius: 4.5,
+            pulse: 0,
+            tone: CHIME_FREQS[toneIdx]
+          });
+        }
+      }
+    }
+
+    function dropSeed(atX) {
+      let launchX = atX;
+      if (typeof launchX !== 'number' || isNaN(launchX)) {
+        launchX = width / 2 + (Math.random() - 0.5) * 60;
+      }
+      launchX = Math.max(50, Math.min(width - 50, launchX));
+
+      seeds.push({
+        x: launchX,
+        y: 18,
+        vx: (Math.random() - 0.5) * 1.4,
+        vy: 1.6,
+        radius: 7.5,
+        settled: false,
+        sprouted: false
+      });
+
+      // Play soft drop intro tone
+      playHarmonicTone(528, 0.25, 0.02);
+
+      // Reset active highlight on baskets
+      basketCards.forEach(c => c.classList.remove('active-sprout'));
+      if (resultBox) resultBox.style.display = 'none';
+    }
+
+    function triggerSproutCelebration(basketIdx, x, y) {
+      const basket = BASKETS[basketIdx] || BASKETS[0];
+
+      // Update counter
+      seedsSown++;
+      localStorage.setItem(STORAGE_KEY, seedsSown);
+      if (seedCounter) seedCounter.textContent = seedsSown;
+
+      // Highlight legend card
+      basketCards.forEach((c, idx) => {
+        if (idx === basketIdx) {
+          c.classList.add('active-sprout');
+        } else {
+          c.classList.remove('active-sprout');
+        }
+      });
+
+      // Show result box
+      if (resultBox && resultTitle && resultDesc) {
+        resultTitle.textContent = basket.title;
+        resultDesc.textContent = `"${basket.desc}"`;
+        resultBox.style.display = 'block';
+      }
+
+      // Play 3-tone celebration harmony (432Hz major chord)
+      playHarmonicTone(432, 0.8, 0.03);
+      setTimeout(() => playHarmonicTone(540, 0.8, 0.03), 90);
+      setTimeout(() => playHarmonicTone(648, 1.2, 0.03), 180);
+
+      // Sparkle burst particles
+      for (let i = 0; i < 24; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = 1.5 + Math.random() * 3.5;
+        particles.push({
+          x: x || (width / 5) * (basketIdx + 0.5),
+          y: y || (height - 35),
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed - 2.0,
+          radius: 2 + Math.random() * 3,
+          color: Math.random() > 0.5 ? '#FAD277' : '#90EE90',
+          life: 1.0,
+          decay: 0.02 + Math.random() * 0.02
+        });
+      }
+    }
+
+    function update() {
+      // Update Peg Pulses
+      pegs.forEach(p => {
+        if (p.pulse > 0) p.pulse -= 0.04;
+      });
+
+      // Update Particles
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const pt = particles[i];
+        pt.x += pt.vx;
+        pt.y += pt.vy;
+        pt.vy += 0.08;
+        pt.life -= pt.decay;
+        if (pt.life <= 0) particles.splice(i, 1);
+      }
+
+      // Update Seeds
+      for (let i = seeds.length - 1; i >= 0; i--) {
+        const s = seeds[i];
+        if (s.settled) continue;
+
+        s.vy += 0.28; // gravity
+        s.vx *= 0.992; // air friction
+        s.x += s.vx;
+        s.y += s.vy;
+
+        // Wall Boundaries
+        if (s.x - s.radius < 20) {
+          s.x = 20 + s.radius;
+          s.vx = -s.vx * 0.6;
+        }
+        if (s.x + s.radius > width - 20) {
+          s.x = width - 20 - s.radius;
+          s.vx = -s.vx * 0.6;
+        }
+
+        // Peg Collisions
+        pegs.forEach(p => {
+          const dx = s.x - p.x;
+          const dy = s.y - p.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          const minDist = s.radius + p.radius;
+
+          if (dist < minDist && dist > 0.001) {
+            const nx = dx / dist;
+            const ny = dy / dist;
+            s.x = p.x + nx * minDist;
+            s.y = p.y + ny * minDist;
+
+            const dot = s.vx * nx + s.vy * ny;
+            s.vx = (s.vx - 2 * dot * nx) * 0.68 + (Math.random() - 0.5) * 0.6;
+            s.vy = (s.vy - 2 * dot * ny) * 0.68;
+
+            p.pulse = 1.0;
+            playHarmonicTone(p.tone, 0.15, 0.015);
+          }
+        });
+
+        // Bottom Basket Catch
+        if (s.y >= height - 35) {
+          s.settled = true;
+          s.y = height - 25;
+          const basketWidth = width / 5;
+          const basketIdx = Math.max(0, Math.min(4, Math.floor(s.x / basketWidth)));
+          triggerSproutCelebration(basketIdx, s.x, s.y);
+          setTimeout(() => {
+            const idx = seeds.indexOf(s);
+            if (idx !== -1) seeds.splice(idx, 1);
+          }, 1800);
+        }
+      }
+    }
+
+    function render() {
+      ctx.clearRect(0, 0, width, height);
+
+      // Background subtle wood grain rings
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.015)';
+      ctx.beginPath();
+      ctx.arc(width / 2, height / 2, 220, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Draw 5 Bottom Receiving Baskets
+      const bW = width / 5;
+      for (let b = 0; b < 5; b++) {
+        const bx = b * bW;
+        ctx.fillStyle = b % 2 === 0 ? 'rgba(0, 0, 0, 0.35)' : 'rgba(0, 0, 0, 0.25)';
+        ctx.fillRect(bx + 2, height - 42, bW - 4, 38);
+
+        ctx.strokeStyle = 'rgba(197, 154, 63, 0.45)';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(bx + 2, height - 42, bW - 4, 38);
+
+        // Divider posts
+        ctx.fillStyle = '#C59A3F';
+        ctx.fillRect(bx, height - 44, 3, 40);
+        if (b === 4) {
+          ctx.fillRect(width - 3, height - 44, 3, 40);
+        }
+
+        // Basket Icon
+        ctx.font = '16px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(BASKETS[b].emoji, bx + bW / 2, height - 22);
+      }
+
+      // Draw Brass Pegs
+      pegs.forEach(p => {
+        if (p.pulse > 0) {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius + p.pulse * 9, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(252, 230, 162, ${p.pulse * 0.7})`;
+          ctx.fill();
+        }
+
+        const grad = ctx.createRadialGradient(p.x - 1, p.y - 1, 0.5, p.x, p.y, p.radius);
+        grad.addColorStop(0, '#FFF5D6');
+        grad.addColorStop(0.5, '#C59A3F');
+        grad.addColorStop(1, '#664911');
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = grad;
+        ctx.fill();
+
+        ctx.strokeStyle = 'rgba(0, 0, 0, 0.35)';
+        ctx.lineWidth = 0.8;
+        ctx.stroke();
+      });
+
+      // Draw Particles
+      particles.forEach(pt => {
+        ctx.beginPath();
+        ctx.arc(pt.x, pt.y, pt.radius, 0, Math.PI * 2);
+        ctx.fillStyle = pt.color;
+        ctx.globalAlpha = Math.max(0, pt.life);
+        ctx.fill();
+        ctx.globalAlpha = 1.0;
+      });
+
+      // Draw Golden Seeds
+      seeds.forEach(s => {
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.radius * 2.2, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(250, 210, 119, 0.3)';
+        ctx.fill();
+
+        const seedGrad = ctx.createRadialGradient(s.x - 2, s.y - 2, 0.5, s.x, s.y, s.radius);
+        seedGrad.addColorStop(0, '#FFFFFF');
+        seedGrad.addColorStop(0.3, '#FFE680');
+        seedGrad.addColorStop(0.7, '#C59A3F');
+        seedGrad.addColorStop(1, '#7A5410');
+
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+        ctx.fillStyle = seedGrad;
+        ctx.fill();
+
+        ctx.strokeStyle = '#FFFFFF';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      });
+    }
+
+    function loop() {
+      update();
+      render();
+      animationFrameId = requestAnimationFrame(loop);
+    }
+
+    function handleDropAtEvent(e, container) {
+      const rect = container.getBoundingClientRect();
+      const clientX = e.clientX || (e.touches && e.touches[0] ? e.touches[0].clientX : rect.left + rect.width / 2);
+      const scale = width / rect.width;
+      const x = (clientX - rect.left) * scale;
+      dropSeed(x);
+    }
+
+    if (dropBar) {
+      dropBar.addEventListener('click', (e) => {
+        if (e.target.closest('#btnDropSeedManual')) return;
+        handleDropAtEvent(e, dropBar);
+      });
+    }
+
+    if (canvas) {
+      canvas.addEventListener('click', (e) => {
+        handleDropAtEvent(e, canvas);
+      });
+
+      canvas.addEventListener('mousemove', (e) => {
+        if (!aimGuide) return;
+        const rect = canvas.getBoundingClientRect();
+        const px = e.clientX - rect.left;
+        aimGuide.style.opacity = '1';
+        aimGuide.style.left = `${px}px`;
+      });
+
+      canvas.addEventListener('mouseleave', () => {
+        if (aimGuide) aimGuide.style.opacity = '0';
+      });
+    }
+
+    if (btnDrop) {
+      btnDrop.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dropSeed(width / 2 + (Math.random() - 0.5) * 80);
+      });
+    }
+
+    if (btnReplay) {
+      btnReplay.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dropSeed(width / 2 + (Math.random() - 0.5) * 80);
+      });
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+    loop();
+  }
+
 
 
 
@@ -4636,6 +5157,26 @@ document.addEventListener('DOMContentLoaded', () => {
     filename: "inner-sanctuary-reflection.png"
   };
 
+  window.currentStoryTheme = 'lake';
+
+  window.setStoryTheme = function(themeName) {
+    window.currentStoryTheme = themeName || 'lake';
+    
+    // Update active pill UI
+    ['lake', 'dawn', 'obsidian'].forEach(t => {
+      const pill = document.getElementById('pillTheme' + t.charAt(0).toUpperCase() + t.slice(1));
+      if (pill) {
+        if (t === window.currentStoryTheme) {
+          pill.classList.add('active');
+        } else {
+          pill.classList.remove('active');
+        }
+      }
+    });
+
+    renderAndShowStoryModal();
+  };
+
   window.openStorySnapshotFromReflection = function(e) {
     if (e) e.preventDefault();
     const activeItem = window.activeOracleReflection || ((typeof SANCTUARY_REFLECTIONS !== 'undefined' && typeof currentReflectionIndex !== 'undefined')
@@ -4645,14 +5186,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const quoteEl = document.getElementById('reflectionCardQuote');
     const badgeEl = document.getElementById('reflectionCardBadge');
 
-    const quote = activeItem ? activeItem.quote : (quoteEl ? quoteEl.textContent.trim().replace(/^"|"$/g, '') : "Pause. Breathe. Remember.");
-    const badge = activeItem ? (activeItem.badge || `✦ ${activeItem.theme || activeItem.category} ✦`) : (badgeEl ? badgeEl.textContent.trim() : "✦ SANCTUARY SOMATIC ORACLE ✦");
+    const quote = activeItem ? activeItem.quote : (quoteEl ? quoteEl.textContent.trim().replace(/^"|"$/g, '') : "Where in your body are you holding yesterday? Soften your jaw, drop your shoulders, and let this breath belong only to right now.");
+    const badge = activeItem ? (activeItem.badge || `✦ ${activeItem.theme || activeItem.category || 'SANCTUARY REFLECTION'} ✦`) : (badgeEl ? badgeEl.textContent.trim() : "✦ SACRED SANCTUARY REFLECTION ✦");
 
     window.currentStoryData = {
+      isBracelet: false,
       quote: quote,
       badge: badge,
-      source: "— Inner Sanctuary Somatic Oracle",
-      filename: "inner-sanctuary-somatic-oracle.png"
+      freq: (activeItem && activeItem.freq) ? activeItem.freq : 528,
+      source: "— Inner Sanctuary Reflection • @ourinnersanctuary",
+      filename: "inner-sanctuary-reflection.png"
     };
 
     renderAndShowStoryModal();
@@ -4661,15 +5204,25 @@ document.addEventListener('DOMContentLoaded', () => {
   window.openStorySnapshotFromSpark = function(e) {
     if (e) e.preventDefault();
     const quoteEl = document.getElementById('sparkQuote');
-    const quote = quoteEl ? quoteEl.textContent.trim().replace(/^"|"$/g, '') : "Rooted in grace, held in softness, glowing from within. Breathe in permission.";
+    const quote = quoteEl ? quoteEl.textContent.trim().replace(/^"|"$/g, '') : "Rooted in grace, held in softness, glowing from within. You don't have to carry the whole mountain today. Breathe in permission.";
     const summaryEl = document.getElementById('sparkBeadSummary');
-    const summary = summaryEl ? summaryEl.textContent.trim() : "Mindful Intention Weave";
+    const summary = summaryEl ? summaryEl.textContent.trim() : "Cedar Wood • River Turquoise • Sunburst Gold";
+
+    let beads = (window.lastSelectedBeads && window.lastSelectedBeads.length === 3)
+      ? window.lastSelectedBeads
+      : [
+          { type: 'cedar', name: 'Cedar Wood', meaning: 'Grounded Roots', color: '#8B5A2B' },
+          { type: 'turquoise', name: 'River Turquoise', meaning: 'Authentic Voice', color: '#40E0D0' },
+          { type: 'gold', name: 'Sunburst Gold', meaning: 'Inner Radiance', color: '#FFD700' }
+        ];
 
     window.currentStoryData = {
+      isBracelet: true,
+      beads: beads,
       quote: quote,
-      badge: "✦ WEAVED WITH LOVE • OUR SANCTUARY CLUBHOUSE ✦",
+      badge: "✦ WEAVED WITH LOVE • SANCTUARY CLUBHOUSE ✦",
       source: `— Inner Sanctuary Bracelet Keepsake • ${summary}`,
-      filename: "inner-sanctuary-clubhouse-keepsake.png"
+      filename: "inner-sanctuary-bracelet-keepsake.png"
     };
 
     renderAndShowStoryModal();
@@ -4685,168 +5238,420 @@ document.addEventListener('DOMContentLoaded', () => {
     const W = 1080;
     const H = 1920;
 
-    // 1. Draw Deep Forest Gradient Background
+    const isBracelet = !!(window.currentStoryData && window.currentStoryData.isBracelet);
+    const themeName = window.currentStoryTheme || 'lake';
+
+    // =========================================================================
+    // THEME PALETTES: ZERO DEEP GREEN. ALL PURE LUMINOUS WATER / MIRROR REFLECTION.
+    // =========================================================================
+    const palettes = {
+      lake: {
+        name: 'Tranquil Mirror Lake',
+        bg: ['#050A14', '#0E1B2D', '#162C47', '#09111D'],
+        auraColor1: 'rgba(180, 225, 255, 0.22)',
+        auraColor2: 'rgba(248, 217, 140, 0.12)',
+        rippleStroke: (a) => `rgba(175, 230, 255, ${a})`,
+        cardFace: ['#0D1624', '#17273C', '#0A111A'],
+        sheenBeam: 'rgba(220, 242, 255, 0.15)',
+        goldTrim: '#F8D98C',
+        goldTrimDim: 'rgba(197, 154, 63, 0.35)',
+        headerEmblem: '#F8D98C',
+        badgeBg: 'rgba(180, 225, 255, 0.14)',
+        badgeBorder: 'rgba(248, 217, 140, 0.65)',
+        stardust: 'rgba(220, 240, 255, 0.60)',
+        waterHorizonGlow: 'rgba(100, 180, 255, 0.12)'
+      },
+      dawn: {
+        name: 'Golden Dawn Horizon',
+        bg: ['#120D1B', '#22162C', '#3B223D', '#180F22'],
+        auraColor1: 'rgba(255, 220, 168, 0.28)',
+        auraColor2: 'rgba(248, 180, 120, 0.14)',
+        rippleStroke: (a) => `rgba(255, 215, 140, ${a})`,
+        cardFace: ['#1F1527', '#31213E', '#1A1121'],
+        sheenBeam: 'rgba(255, 230, 200, 0.18)',
+        goldTrim: '#FFE6B3',
+        goldTrimDim: 'rgba(226, 177, 92, 0.40)',
+        headerEmblem: '#FFE6B3',
+        badgeBg: 'rgba(255, 215, 140, 0.16)',
+        badgeBorder: 'rgba(255, 215, 140, 0.70)',
+        stardust: 'rgba(255, 235, 190, 0.65)',
+        waterHorizonGlow: 'rgba(255, 190, 110, 0.14)'
+      },
+      obsidian: {
+        name: 'Celestial Obsidian Mirror',
+        bg: ['#07080B', '#111218', '#1A1C24', '#090A0D'],
+        auraColor1: 'rgba(235, 242, 255, 0.22)',
+        auraColor2: 'rgba(180, 200, 230, 0.10)',
+        rippleStroke: (a) => `rgba(220, 235, 255, ${a})`,
+        cardFace: ['#121319', '#1D1F28', '#0E0F14'],
+        sheenBeam: 'rgba(255, 255, 255, 0.18)',
+        goldTrim: '#F0E6D2',
+        goldTrimDim: 'rgba(212, 175, 55, 0.40)',
+        headerEmblem: '#F0E6D2',
+        badgeBg: 'rgba(255, 255, 255, 0.12)',
+        badgeBorder: 'rgba(240, 230, 210, 0.65)',
+        stardust: 'rgba(255, 255, 255, 0.75)',
+        waterHorizonGlow: 'rgba(200, 220, 255, 0.10)'
+      }
+    };
+
+    const P = palettes[themeName] || palettes.lake;
+
+    // 1. Draw Deep Reflective Mirror Water Gradient Background
     const bgGrad = ctx.createLinearGradient(0, 0, 0, H);
-    bgGrad.addColorStop(0, '#121F17');
-    bgGrad.addColorStop(0.35, '#1C2E24');
-    bgGrad.addColorStop(0.75, '#263D30');
-    bgGrad.addColorStop(1, '#15241B');
+    bgGrad.addColorStop(0, P.bg[0]);
+    bgGrad.addColorStop(0.35, P.bg[1]);
+    bgGrad.addColorStop(0.70, P.bg[2]);
+    bgGrad.addColorStop(1, P.bg[3]);
     ctx.fillStyle = bgGrad;
     ctx.fillRect(0, 0, W, H);
 
-    // 2. Radial Golden Aura at top and center
-    const topAura = ctx.createRadialGradient(W / 2, 280, 20, W / 2, 280, 480);
-    topAura.addColorStop(0, 'rgba(248, 217, 140, 0.22)');
-    topAura.addColorStop(0.6, 'rgba(197, 154, 63, 0.08)');
-    topAura.addColorStop(1, 'rgba(197, 154, 63, 0)');
-    ctx.fillStyle = topAura;
-    ctx.fillRect(0, 0, W, 800);
-
-    const centerAura = ctx.createRadialGradient(W / 2, H / 2, 50, W / 2, H / 2, 550);
-    centerAura.addColorStop(0, 'rgba(248, 217, 140, 0.12)');
+    // 2. Central Radiant Reflection Aura (Like moonlight or dawn sun reflecting off calm water)
+    const auraY = isBracelet ? 640 : 880;
+    const auraRadius = isBracelet ? 480 : 620;
+    const centerAura = ctx.createRadialGradient(W / 2, auraY, 20, W / 2, auraY, auraRadius);
+    centerAura.addColorStop(0, P.auraColor1);
+    centerAura.addColorStop(0.55, P.auraColor2);
     centerAura.addColorStop(1, 'rgba(0, 0, 0, 0)');
     ctx.fillStyle = centerAura;
-    ctx.fillRect(0, 600, W, 900);
+    ctx.fillRect(0, auraY - auraRadius, W, auraRadius * 2);
 
-    // 3. Stardust Motes
-    ctx.fillStyle = 'rgba(248, 217, 140, 0.4)';
-    const motes = [
-      [120, 320, 3], [940, 260, 2.5], [180, 850, 2], [900, 920, 3],
-      [140, 1550, 3.5], [920, 1620, 2], [320, 180, 2], [760, 210, 2.5],
-      [250, 1400, 2], [820, 1340, 3]
-    ];
-    motes.forEach(([x, y, r]) => {
+    // 3. Gentle Concentric Water Ripples (The Signature Ripple of Inner Stillness)
+    const rippleCenterY = isBracelet ? 640 : 1020;
+    const rippleRadii = isBracelet 
+      ? [110, 200, 310, 440, 580, 740, 920] 
+      : [140, 270, 420, 590, 770, 960];
+
+    rippleRadii.forEach((r, idx) => {
+      ctx.save();
       ctx.beginPath();
-      ctx.arc(x, y, r, 0, Math.PI * 2);
-      ctx.fill();
+      ctx.ellipse(W / 2, rippleCenterY, r, r * 0.32, 0, 0, Math.PI * 2);
+      const alpha = Math.max(0.03, 0.22 - idx * 0.028);
+      ctx.strokeStyle = P.rippleStroke(alpha);
+      ctx.lineWidth = 1.6;
+      ctx.stroke();
+      ctx.restore();
     });
 
-    // 4. Elegant Outer Gold Border
-    ctx.strokeStyle = 'rgba(248, 217, 140, 0.45)';
+    // 4. Shimmering Water Starbursts & Reflections
+    function drawStarGlint(x, y, size, opacity) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.fillStyle = P.stardust;
+      ctx.globalAlpha = opacity;
+      ctx.beginPath();
+      ctx.moveTo(0, -size);
+      ctx.quadraticCurveTo(0, 0, size, 0);
+      ctx.quadraticCurveTo(0, 0, 0, size);
+      ctx.quadraticCurveTo(0, 0, -size, 0);
+      ctx.quadraticCurveTo(0, 0, 0, -size);
+      ctx.fill();
+
+      // Core point
+      ctx.beginPath();
+      ctx.arc(0, 0, size * 0.28, 0, Math.PI * 2);
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fill();
+      ctx.restore();
+    }
+
+    const waterStars = [
+      [140, 220, 7, 0.7], [940, 190, 8, 0.8], [170, 560, 6, 0.65], [910, 600, 7, 0.75],
+      [130, 1180, 9, 0.85], [950, 1240, 7, 0.7], [290, 140, 5, 0.6], [790, 160, 6, 0.65],
+      [210, 1450, 7, 0.7], [870, 1410, 8, 0.8], [100, 900, 6, 0.6], [980, 880, 6, 0.6]
+    ];
+    waterStars.forEach(([x, y, s, op]) => drawStarGlint(x, y, s, op));
+
+    // 5. Elegant Double Gold Outer Border with Corner Flourishes
+    ctx.strokeStyle = P.goldTrimDim;
     ctx.lineWidth = 3;
-    ctx.strokeRect(54, 54, W - 108, H - 108);
+    ctx.strokeRect(50, 50, W - 100, H - 100);
 
-    ctx.strokeStyle = 'rgba(197, 154, 63, 0.25)';
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
     ctx.lineWidth = 1;
-    ctx.strokeRect(66, 66, W - 132, H - 132);
+    ctx.strokeRect(62, 62, W - 124, H - 124);
 
-    // 4 Corner Gold Flourishes
-    ctx.fillStyle = '#F8D98C';
+    ctx.fillStyle = P.goldTrim;
     ctx.font = '24px Cinzel, serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText('✦', 60, 60);
-    ctx.fillText('✦', W - 60, 60);
-    ctx.fillText('✦', 60, H - 60);
-    ctx.fillText('✦', W - 60, H - 60);
+    ctx.fillText('✦', 56, 56);
+    ctx.fillText('✦', W - 56, 56);
+    ctx.fillText('✦', 56, H - 56);
+    ctx.fillText('✦', W - 56, H - 56);
 
-    // 5. Load and Draw Emblem Image
-    const emblemImg = new Image();
-    emblemImg.crossOrigin = 'anonymous';
-    emblemImg.onload = function() {
-      drawEmblemAndFinish();
-    };
-    emblemImg.onerror = function() {
-      // If image fails, finish without image
-      drawCardDetails(null);
-    };
-    emblemImg.src = 'emblem.png';
+    // 6. Header Typography & Emblem
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = '700 42px Cinzel, serif';
+    ctx.fillText('INNER SANCTUARY', W / 2, 175);
 
-    function drawEmblemAndFinish() {
-      drawCardDetails(emblemImg);
-    }
+    ctx.fillStyle = P.goldTrim;
+    ctx.font = '800 19px Montserrat, sans-serif';
+    ctx.fillText('W E L L N E S S   F O U N D A T I O N', W / 2, 215);
 
-    function drawCardDetails(img) {
-      // Draw Emblem at top
-      const emblemY = 240;
-      const emblemSize = 170;
-      if (img) {
-        ctx.save();
-        ctx.beginPath();
-        ctx.arc(W / 2, emblemY, emblemSize / 2, 0, Math.PI * 2);
-        ctx.closePath();
-        ctx.clip();
-        ctx.drawImage(img, W / 2 - emblemSize / 2, emblemY - emblemSize / 2, emblemSize, emblemSize);
-        ctx.restore();
+    // Pill Badge
+    const badgeText = window.currentStoryData.badge || (isBracelet ? '✦ MY SACRED INTENTION BRACELET ✦' : '✦ SANCTUARY MIRROR REFLECTION ✦');
+    ctx.font = '800 20px Montserrat, sans-serif';
+    const badgeWidth = ctx.measureText(badgeText).width + 48;
+    const badgeY = 255;
+    
+    ctx.fillStyle = P.badgeBg;
+    roundRect(ctx, W / 2 - badgeWidth / 2, badgeY, badgeWidth, 42, 21);
+    ctx.fill();
+    ctx.strokeStyle = P.badgeBorder;
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
 
-        // Gold Ring around Emblem
-        ctx.beginPath();
-        ctx.arc(W / 2, emblemY, emblemSize / 2 + 4, 0, Math.PI * 2);
-        ctx.strokeStyle = '#F8D98C';
-        ctx.lineWidth = 4;
-        ctx.stroke();
-      }
+    ctx.fillStyle = P.goldTrim;
+    ctx.textBaseline = 'middle';
+    ctx.fillText(badgeText, W / 2, badgeY + 21);
 
-      // 6. Header Typography
-      ctx.textAlign = 'center';
-      ctx.fillStyle = '#FFFFFF';
-      ctx.font = '700 44px Cinzel, serif';
-      ctx.fillText('INNER SANCTUARY', W / 2, 385);
+    if (isBracelet) {
+      // =========================================================================
+      // DRAW THE REAL TACTILE 3D INTENTION BRACELET (Over Luminous Reflection Water)
+      // =========================================================================
+      const ringCx = W / 2;
+      const ringCy = 640;
+      const ringR = 210;
 
-      ctx.fillStyle = '#F8D98C';
-      ctx.font = '800 20px Montserrat, sans-serif';
-      ctx.fillText('W E L L N E S S   F O U N D A T I O N', W / 2, 428);
-
-      // 7. Category Pill Badge
-      const badgeText = window.currentStoryData.badge || '✦ DAILY SANCTUARY REFLECTION ✦';
-      ctx.font = '800 22px Montserrat, sans-serif';
-      const badgeWidth = ctx.measureText(badgeText).width + 50;
-      const badgeY = 505;
-      
-      ctx.fillStyle = 'rgba(248, 217, 140, 0.18)';
+      // Glow halo behind bracelet
+      const ringAura = ctx.createRadialGradient(ringCx, ringCy, 60, ringCx, ringCy, ringR + 80);
+      ringAura.addColorStop(0, P.auraColor1);
+      ringAura.addColorStop(0.65, P.auraColor2);
+      ringAura.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      ctx.fillStyle = ringAura;
       ctx.beginPath();
-      roundRect(ctx, W / 2 - badgeWidth / 2, badgeY, badgeWidth, 44, 22);
+      ctx.arc(ringCx, ringCy, ringR + 80, 0, Math.PI * 2);
       ctx.fill();
-      ctx.strokeStyle = 'rgba(248, 217, 140, 0.6)';
+
+      // Inverted Mirrored Water Reflection beneath the bracelet
+      ctx.save();
+      ctx.translate(ringCx, ringCy + ringR * 1.55);
+      ctx.scale(1, -0.35); // Flattened water perspective
+      ctx.globalAlpha = 0.22;
+      ctx.beginPath();
+      ctx.arc(0, 0, ringR, 0, Math.PI * 2);
+      ctx.strokeStyle = P.goldTrim;
+      ctx.lineWidth = 6;
+      ctx.shadowColor = P.goldTrim;
+      ctx.shadowBlur = 18;
+      ctx.stroke();
+      ctx.restore();
+
+      // Elastic Golden Braided Cord Loop
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(ringCx, ringCy, ringR, 0, Math.PI * 2);
+      ctx.strokeStyle = '#FCE6A2';
+      ctx.lineWidth = 4;
+      ctx.shadowColor = 'rgba(197, 154, 63, 0.65)';
+      ctx.shadowBlur = 14;
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.arc(ringCx, ringCy, ringR, 0, Math.PI * 2);
+      ctx.setLineDash([7, 4]);
+      ctx.strokeStyle = '#8C6212';
       ctx.lineWidth = 1.5;
       ctx.stroke();
+      ctx.restore();
 
-      ctx.fillStyle = '#F8D98C';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(badgeText, W / 2, badgeY + 22);
+      // Center Charm Medallion (Polished 24k Gold)
+      ctx.save();
+      const charmGrad = ctx.createRadialGradient(ringCx - 10, ringCy - 10, 5, ringCx, ringCy, 58);
+      charmGrad.addColorStop(0, '#FFF5D6');
+      charmGrad.addColorStop(0.3, '#E5B854');
+      charmGrad.addColorStop(0.75, '#B27D23');
+      charmGrad.addColorStop(1, '#5C3E08');
 
-      // 8. Frosted Glass Quote Card Frame
-      const cardX = 90;
-      const cardY = 590;
-      const cardW = W - 180;
-      const cardH = 880;
-
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.07)';
       ctx.beginPath();
-      roundRect(ctx, cardX, cardY, cardW, cardH, 32);
+      ctx.arc(ringCx, ringCy, 58, 0, Math.PI * 2);
+      ctx.fillStyle = charmGrad;
+      ctx.shadowColor = 'rgba(0, 0, 0, 0.6)';
+      ctx.shadowBlur = 20;
+      ctx.shadowOffsetY = 6;
       ctx.fill();
 
-      ctx.strokeStyle = 'rgba(248, 217, 140, 0.35)';
-      ctx.lineWidth = 2;
+      ctx.strokeStyle = '#FFFFFF';
+      ctx.lineWidth = 2.5;
       ctx.stroke();
 
-      // Top flourish divider
-      ctx.fillStyle = '#F8D98C';
-      ctx.font = '22px Cinzel, serif';
-      ctx.fillText('✦  ✦  ✦', W / 2, cardY + 55);
-
-      // Giant decorative quote mark
-      ctx.font = 'italic 140px "Cormorant Garamond", Georgia, serif';
-      ctx.fillStyle = 'rgba(248, 217, 140, 0.28)';
-      ctx.textAlign = 'left';
-      ctx.fillText('“', cardX + 50, cardY + 160);
-
-      // 9. Auto-Wrapped Quote Text
+      ctx.fillStyle = '#2B1C04';
+      ctx.font = '28px Cinzel, serif';
       ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('✦', ringCx, ringCy - 18);
+
+      ctx.font = '800 13px Montserrat, sans-serif';
+      ctx.fillText('INNER SANCTUARY', ringCx, ringCy + 8);
+      ctx.font = '700 11px Montserrat, sans-serif';
+      ctx.fillText('SACRED ANCHOR', ringCx, ringCy + 24);
+      ctx.restore();
+
+      // Helper for drawing 3D mineral spherical beads
+      function drawSphericalBead(bx, by, rad, beadObj) {
+        ctx.save();
+        ctx.shadowColor = 'rgba(0, 0, 0, 0.55)';
+        ctx.shadowBlur = 16;
+        ctx.shadowOffsetY = 6;
+
+        const bGrad = ctx.createRadialGradient(bx - rad * 0.35, by - rad * 0.35, 1, bx, by, rad);
+        const bType = (beadObj.type || '').toLowerCase();
+
+        if (bType.includes('cedar') || bType.includes('wood')) {
+          bGrad.addColorStop(0, '#E0BA8F');
+          bGrad.addColorStop(0.35, '#A8713D');
+          bGrad.addColorStop(0.75, '#73461E');
+          bGrad.addColorStop(1, '#42240E');
+        } else if (bType.includes('rose') || bType.includes('quartz')) {
+          bGrad.addColorStop(0, '#FFFFFF');
+          bGrad.addColorStop(0.35, '#FCE4E8');
+          bGrad.addColorStop(0.65, '#F4A6B7');
+          bGrad.addColorStop(1, '#D86B85');
+        } else if (bType.includes('lava') || bType.includes('stone')) {
+          bGrad.addColorStop(0, '#666666');
+          bGrad.addColorStop(0.4, '#383838');
+          bGrad.addColorStop(0.8, '#1F1F1F');
+          bGrad.addColorStop(1, '#0A0A0A');
+        } else if (bType.includes('turq') || bType.includes('river')) {
+          bGrad.addColorStop(0, '#D4FBF7');
+          bGrad.addColorStop(0.3, '#48E0D1');
+          bGrad.addColorStop(0.7, '#1EA396');
+          bGrad.addColorStop(1, '#0E5C55');
+        } else if (bType.includes('gold')) {
+          bGrad.addColorStop(0, '#FFFFE0');
+          bGrad.addColorStop(0.3, '#FFD700');
+          bGrad.addColorStop(0.75, '#C98500');
+          bGrad.addColorStop(1, '#7A4C00');
+        } else if (bType.includes('agate') || bType.includes('moss')) {
+          bGrad.addColorStop(0, '#C2DEC2');
+          bGrad.addColorStop(0.35, '#568556');
+          bGrad.addColorStop(0.75, '#315431');
+          bGrad.addColorStop(1, '#1A331A');
+        } else {
+          bGrad.addColorStop(0, '#FFF5D6');
+          bGrad.addColorStop(0.4, beadObj.color || '#C59A3F');
+          bGrad.addColorStop(1, '#3D2A08');
+        }
+
+        ctx.beginPath();
+        ctx.arc(bx, by, rad, 0, Math.PI * 2);
+        ctx.fillStyle = bGrad;
+        ctx.fill();
+
+        // White/Gold Rim
+        ctx.strokeStyle = '#FFFFFF';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // 3D Specular Highlight Pinpoint (Glass / Stone Light Glare)
+        ctx.beginPath();
+        ctx.ellipse(bx - rad * 0.35, by - rad * 0.35, rad * 0.32, rad * 0.22, -Math.PI / 4, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+        ctx.fill();
+
+        ctx.restore();
+      }
+
+      // 12 Beads around circumference
+      const chosenBeads = window.currentStoryData.beads || [];
+      const totalBeads = 12;
+
+      for (let i = 0; i < totalBeads; i++) {
+        const theta = (i / totalBeads) * Math.PI * 2 - Math.PI / 2;
+        const bx = ringCx + ringR * Math.cos(theta);
+        const by = ringCy + ringR * Math.sin(theta);
+
+        if (i === 0 || i === 4 || i === 8) {
+          const chosenIdx = i === 0 ? 0 : (i === 4 ? 1 : 2);
+          const bead = chosenBeads[chosenIdx] || { type: 'gold', name: 'Sunburst Gold', meaning: 'Inner Radiance' };
+          drawSphericalBead(bx, by, 35, bead);
+        } else {
+          const isGold = (i % 2 === 0);
+          drawSphericalBead(bx, by, 18, {
+            type: isGold ? 'gold' : 'cedar',
+            name: isGold ? 'Gold' : 'Cedar'
+          });
+        }
+      }
+
+      // 3 Selected Intentions Ribbon
+      const ribbonY = 930;
+      const pillW = 280;
+      const pillH = 50;
+      const gap = 20;
+      const startX = (W - (pillW * 3 + gap * 2)) / 2;
+
+      chosenBeads.slice(0, 3).forEach((bead, idx) => {
+        const px = startX + idx * (pillW + gap);
+        ctx.save();
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
+        roundRect(ctx, px, ribbonY, pillW, pillH, 12);
+        ctx.fill();
+        ctx.strokeStyle = P.badgeBorder;
+        ctx.lineWidth = 1.2;
+        ctx.stroke();
+
+        ctx.fillStyle = '#FFFFFF';
+        ctx.font = '700 18px Cinzel, serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(bead.name, px + pillW / 2, ribbonY + 18);
+
+        ctx.fillStyle = P.goldTrim;
+        ctx.font = '600 14px Montserrat, sans-serif';
+        ctx.fillText(bead.meaning || 'Sacred Intention', px + pillW / 2, ribbonY + 36);
+        ctx.restore();
+      });
+
+      // Frosted Glass Quote Card Frame with Diagonal Specular Sheen
+      const cardX = 90;
+      const cardY = 1015;
+      const cardW = W - 180;
+      const cardH = 530;
+
+      ctx.save();
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.07)';
+      roundRect(ctx, cardX, cardY, cardW, cardH, 26);
+      ctx.fill();
+      ctx.strokeStyle = P.goldTrimDim;
+      ctx.lineWidth = 1.8;
+      ctx.stroke();
+
+      // Diagonal Specular Reflection Sheen across glass card
+      ctx.save();
+      roundRect(ctx, cardX, cardY, cardW, cardH, 26);
+      ctx.clip();
+      const glassSheen = ctx.createLinearGradient(cardX, cardY, cardX + cardW, cardY + cardH);
+      glassSheen.addColorStop(0, 'rgba(255, 255, 255, 0)');
+      glassSheen.addColorStop(0.38, 'rgba(255, 255, 255, 0)');
+      glassSheen.addColorStop(0.48, P.sheenBeam);
+      glassSheen.addColorStop(0.54, 'rgba(255, 255, 255, 0.04)');
+      glassSheen.addColorStop(1, 'rgba(255, 255, 255, 0)');
+      ctx.fillStyle = glassSheen;
+      ctx.fillRect(cardX, cardY, cardW, cardH);
+      ctx.restore();
+
+      // Top flourish
+      ctx.fillStyle = P.goldTrim;
+      ctx.font = '20px Cinzel, serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('✦  ✦  ✦', W / 2, cardY + 45);
+
+      // Quote text
       ctx.fillStyle = '#FFFDF5';
-      ctx.font = 'italic 46px "Cormorant Garamond", Georgia, serif';
-      
-      const cleanQuote = window.currentStoryData.quote.replace(/^"|"$/g, '');
-      const maxTextWidth = cardW - 140;
-      const lineHeight = 72;
+      ctx.font = 'italic 40px "Cormorant Garamond", Georgia, serif';
+      const cleanQuote = (window.currentStoryData.quote || '').replace(/^"|"$/g, '');
+      const maxTextWidth = cardW - 120;
+      const lineHeight = 62;
       const words = cleanQuote.split(' ');
       const lines = [];
       let currentLine = words[0];
 
       for (let i = 1; i < words.length; i++) {
         const testLine = currentLine + ' ' + words[i];
-        const testWidth = ctx.measureText(testLine).width;
-        if (testWidth < maxTextWidth) {
+        if (ctx.measureText(testLine).width < maxTextWidth) {
           currentLine = testLine;
         } else {
           lines.push(currentLine);
@@ -4855,48 +5660,179 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       lines.push(currentLine);
 
-      // Center quote vertically within card
-      const totalBlockHeight = lines.length * lineHeight;
-      let startY = cardY + 220 + (cardH - 340 - totalBlockHeight) / 2;
-      if (startY < cardY + 160) startY = cardY + 160;
-
+      const totalH = lines.length * lineHeight;
+      let qStartY = cardY + 115 + (cardH - 210 - totalH) / 2;
       lines.forEach((line, idx) => {
-        ctx.fillText(line, W / 2, startY + (idx * lineHeight));
+        ctx.fillText(line, W / 2, qStartY + (idx * lineHeight));
       });
 
-      // Bottom source attribution inside card
-      ctx.font = '600 24px Montserrat, sans-serif';
+      // Attribution
+      ctx.font = '600 22px Montserrat, sans-serif';
       ctx.fillStyle = '#CBD7D0';
-      ctx.fillText(window.currentStoryData.source || '— Inner Sanctuary Reflection', W / 2, cardY + cardH - 65);
+      ctx.fillText(window.currentStoryData.source || '— Weaved with Love at Inner Sanctuary Clubhouse', W / 2, cardY + cardH - 45);
+      ctx.restore();
 
-      // 10. Footer Sanctuary Signature & Social Handles
-      ctx.font = '700 30px Cinzel, serif';
-      ctx.fillStyle = '#F8D98C';
-      ctx.fillText('Pause.  Breathe.  Remember.', W / 2, 1560);
+    } else {
+      // =========================================================================
+      // DRAW THE SACRED MIRROR REFLECTION CARD (Luminous Obsidian / Lake Mirror)
+      // =========================================================================
+      const cardX = 90;
+      const cardY = 370;
+      const cardW = W - 180;
+      const cardH = 1180;
 
-      ctx.font = '700 22px Montserrat, sans-serif';
-      ctx.fillStyle = '#FFFFFF';
-      ctx.fillText('@ourinnersanctuary  •  innersanctuarywellnessfoundation.org', W / 2, 1615);
+      // Outer Card Shadow & Glow
+      ctx.save();
+      ctx.shadowColor = 'rgba(0, 0, 0, 0.7)';
+      ctx.shadowBlur = 42;
+      ctx.shadowOffsetY = 18;
 
-      ctx.font = '500 19px Montserrat, sans-serif';
-      ctx.fillStyle = '#8EA89A';
-      ctx.fillText('501(c)(3) Nonprofit Public Charity  •  Santa Ana, California', W / 2, 1660);
+      // Card Face Gradient (Deep Luminous Polished Obsidian Mirror)
+      const cardGrad = ctx.createLinearGradient(cardX, cardY, cardX + cardW, cardY + cardH);
+      cardGrad.addColorStop(0, P.cardFace[0]);
+      cardGrad.addColorStop(0.5, P.cardFace[1]);
+      cardGrad.addColorStop(1, P.cardFace[2]);
 
-      // 11. Export to Preview Image & Display Modal
-      const dataUrl = canvas.toDataURL('image/png');
-      if (previewImg) previewImg.src = dataUrl;
-      modal.style.display = 'flex';
-      modal.setAttribute('aria-hidden', 'false');
+      roundRect(ctx, cardX, cardY, cardW, cardH, 32);
+      ctx.fillStyle = cardGrad;
+      ctx.fill();
+      ctx.restore();
+
+      // DIAGONAL SPECULAR MIRROR BEAM (Light cutting across the glass mirror surface)
+      ctx.save();
+      roundRect(ctx, cardX, cardY, cardW, cardH, 32);
+      ctx.clip();
+      const mirrorSheen = ctx.createLinearGradient(cardX, cardY, cardX + cardW, cardY + cardH);
+      mirrorSheen.addColorStop(0, 'rgba(255, 255, 255, 0)');
+      mirrorSheen.addColorStop(0.38, 'rgba(255, 255, 255, 0)');
+      mirrorSheen.addColorStop(0.48, P.sheenBeam);
+      mirrorSheen.addColorStop(0.52, 'rgba(248, 217, 140, 0.22)');
+      mirrorSheen.addColorStop(0.56, 'rgba(255, 255, 255, 0.06)');
+      mirrorSheen.addColorStop(0.66, 'rgba(255, 255, 255, 0)');
+      mirrorSheen.addColorStop(1, 'rgba(255, 255, 255, 0)');
+      ctx.fillStyle = mirrorSheen;
+      ctx.fillRect(cardX, cardY, cardW, cardH);
+      ctx.restore();
+
+      // Card Double Gold Foil Border
+      ctx.save();
+      ctx.strokeStyle = P.goldTrim;
+      ctx.lineWidth = 3.5;
+      roundRect(ctx, cardX + 16, cardY + 16, cardW - 32, cardH - 32, 24);
+      ctx.stroke();
+
+      ctx.strokeStyle = P.goldTrimDim;
+      ctx.lineWidth = 1.5;
+      roundRect(ctx, cardX + 26, cardY + 26, cardW - 52, cardH - 52, 18);
+      ctx.stroke();
+
+      // Corner Card Ornaments
+      ctx.fillStyle = P.goldTrim;
+      ctx.font = '22px Cinzel, serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('✦', cardX + 44, cardY + 44);
+      ctx.fillText('✦', cardX + cardW - 44, cardY + 44);
+      ctx.fillText('✦', cardX + 44, cardY + cardH - 44);
+      ctx.fillText('✦', cardX + cardW - 44, cardY + cardH - 44);
+
+      // Card Header Emblem & Badge
+      ctx.font = '700 24px Cinzel, serif';
+      ctx.fillText('✦ SANCTUARY REFLECTION ✦', W / 2, cardY + 95);
+
+      ctx.fillStyle = '#CBD7D0';
+      ctx.font = '600 18px Montserrat, sans-serif';
+      ctx.fillText('SACRED SOMATIC STILLNESS', W / 2, cardY + 135);
+
+      // Big Elegant Gold Quotation Mark
+      ctx.font = 'italic 160px "Cormorant Garamond", Georgia, serif';
+      ctx.fillStyle = 'rgba(248, 217, 140, 0.25)';
+      ctx.textAlign = 'left';
+      ctx.fillText('“', cardX + 70, cardY + 270);
+
+      // Auto-Wrapped Quote Text
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#FFFDF5';
+      ctx.font = 'italic 48px "Cormorant Garamond", Georgia, serif';
+      
+      const cleanQuote = (window.currentStoryData.quote || '').replace(/^"|"$/g, '');
+      const maxTextWidth = cardW - 140;
+      const lineHeight = 76;
+      const words = cleanQuote.split(' ');
+      const lines = [];
+      let currentLine = words[0];
+
+      for (let i = 1; i < words.length; i++) {
+        const testLine = currentLine + ' ' + words[i];
+        if (ctx.measureText(testLine).width < maxTextWidth) {
+          currentLine = testLine;
+        } else {
+          lines.push(currentLine);
+          currentLine = words[i];
+        }
+      }
+      lines.push(currentLine);
+
+      const totalH = lines.length * lineHeight;
+      let qStartY = cardY + 340 + (cardH - 580 - totalH) / 2;
+      lines.forEach((line, idx) => {
+        ctx.fillText(line, W / 2, qStartY + (idx * lineHeight));
+      });
+
+      // Somatic Breath Reminder Box
+      const breathBoxY = cardY + cardH - 180;
+      const breathBoxW = cardW - 140;
+      const breathBoxH = 65;
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+      roundRect(ctx, W / 2 - breathBoxW / 2, breathBoxY, breathBoxW, breathBoxH, 16);
+      ctx.fill();
+      ctx.strokeStyle = P.badgeBorder;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      ctx.fillStyle = '#FCE6A2';
+      ctx.font = '600 20px Montserrat, sans-serif';
+      ctx.fillText('🕊️ Inhale Stillness • Soften Your Heart • Exhale Yesterday', W / 2, breathBoxY + breathBoxH / 2);
+
+      // Attribution
+      ctx.font = '600 22px Montserrat, sans-serif';
+      ctx.fillStyle = '#CBD7D0';
+      ctx.fillText('— Inner Sanctuary Reflection • @ourinnersanctuary', W / 2, cardY + cardH - 55);
+      ctx.restore();
     }
+
+    // Common Footer Branding
+    ctx.textAlign = 'center';
+    ctx.font = '700 28px Cinzel, serif';
+    ctx.fillStyle = P.goldTrim;
+    ctx.fillText('Pause.  Breathe.  Remember.', W / 2, 1625);
+
+    ctx.font = '700 22px Montserrat, sans-serif';
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillText('@ourinnersanctuary  •  innersanctuarywellnessfoundation.org', W / 2, 1675);
+
+    ctx.font = '500 18px Montserrat, sans-serif';
+    ctx.fillStyle = '#8EA89A';
+    ctx.fillText('501(c)(3) Nonprofit Public Charity  •  Santa Ana, California', W / 2, 1715);
+
+    // Export to Preview Image & Display Modal
+    const dataUrl = canvas.toDataURL('image/png');
+    if (previewImg) previewImg.src = dataUrl;
+    modal.style.display = 'flex';
+    modal.setAttribute('aria-hidden', 'false');
 
     function roundRect(c, x, y, w, h, r) {
       c.beginPath();
-      c.moveTo(x + r, y);
-      c.arcTo(x + w, y, x + w, y + h, r);
-      c.arcTo(x + w, y + h, x, y + h, r);
-      c.arcTo(x, y + h, x, y, r);
-      c.arcTo(x, y, x + w, y, r);
-      c.closePath();
+      if (typeof c.roundRect === 'function') {
+        c.roundRect(x, y, w, h, r);
+      } else {
+        c.moveTo(x + r, y);
+        c.arcTo(x + w, y, x + w, y + h, r);
+        c.arcTo(x + w, y + h, x, y + h, r);
+        c.arcTo(x, y + h, x, y, r);
+        c.arcTo(x, y, x + r, y, r);
+        c.closePath();
+      }
     }
   }
 
@@ -5041,7 +5977,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (badge && text) {
       if (currentFrequency === 'monthly') {
         badge.textContent = '✨ Monthly Sustaining Care';
-        text.textContent = 'Sustains free weekly open mic stages, artist stipends, tea, and trauma-informed healing spaces month after month.';
+        text.textContent = 'Sustains free weekly open mic stages, artist stipends, sound bowl resets, and trauma-informed healing spaces month after month.';
       } else {
         badge.textContent = '🌱 Instant 1-Time Seed • $1 Sparks a Circle';
         text.textContent = 'Directly sparks this week\'s community open mic and helps provide tokens and sacred materials for local neighbors.';
@@ -6820,5 +7756,165 @@ Provide a deeply compassionate, grounded 2-3 sentence reflection. Never use clin
       btn.style.background = isHidden ? 'rgba(30, 215, 96, 0.35)' : 'rgba(30, 215, 96, 0.16)';
       btn.style.borderColor = isHidden ? '#1ED760' : 'rgba(30, 215, 96, 0.45)';
       btn.style.boxShadow = isHidden ? '0 0 14px rgba(30, 215, 96, 0.5)' : 'none';
+    }
+  };
+
+
+  // ------------------------------------------------------------------------
+  // 60-SECOND PERMISSION TO PAUSE MODAL CONTROLLER
+  // ------------------------------------------------------------------------
+  let pauseTimer = null;
+  let pauseSecondsLeft = 60;
+  let pauseIsRunning = false;
+  let pausePhaseInterval = null;
+  let pauseAudioCtx = null;
+
+  function playSoftChime(freq) {
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      if (!pauseAudioCtx) pauseAudioCtx = new AudioCtx();
+      if (pauseAudioCtx.state === 'suspended') pauseAudioCtx.resume();
+      
+      const osc = pauseAudioCtx.createOscillator();
+      const gain = pauseAudioCtx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq || 432, pauseAudioCtx.currentTime);
+      gain.gain.setValueAtTime(0.001, pauseAudioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.05, pauseAudioCtx.currentTime + 0.1);
+      gain.gain.exponentialRampToValueAtTime(0.0001, pauseAudioCtx.currentTime + 2.5);
+      osc.connect(gain);
+      gain.connect(pauseAudioCtx.destination);
+      osc.start();
+      osc.stop(pauseAudioCtx.currentTime + 2.6);
+    } catch (e) {}
+  }
+
+  const pauseAffirmations = [
+    "Soften your shoulders. There is nowhere else you need to be right now.",
+    "Breathe in peace... release the pressure to perform.",
+    "You are worthy of rest simply because you exist.",
+    "Your breath is your anchor. It's okay to put yourself first.",
+    "Feel the floor beneath your feet. You are safe in this moment."
+  ];
+
+  window.openPauseModal = function(e) {
+    if (e && e.preventDefault) e.preventDefault();
+    const modal = document.getElementById('pauseModal');
+    if (!modal) return;
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    startPauseExperience();
+  };
+
+  window.closePauseModal = function() {
+    const modal = document.getElementById('pauseModal');
+    if (!modal) return;
+    modal.style.display = 'none';
+    document.body.style.overflow = '';
+    stopPauseExperience();
+  };
+
+  function startPauseExperience() {
+    stopPauseExperience();
+    pauseSecondsLeft = 60;
+    pauseIsRunning = true;
+    updatePauseTimerUI();
+
+    const orb = document.getElementById('pauseOrb');
+    const phaseText = document.getElementById('pausePhaseText');
+    const affirmEl = document.getElementById('pauseAffirmation');
+    const playIcon = document.getElementById('pausePlayIcon');
+    const btnText = document.getElementById('pauseBtnText');
+    if (playIcon) playIcon.textContent = '⏸';
+    if (btnText) btnText.textContent = 'Pause';
+
+    let cycleStep = 0;
+    function runBreathStep() {
+      if (!pauseIsRunning) return;
+      if (cycleStep === 0) {
+        if (orb) orb.className = 'pause-orb inhale';
+        if (phaseText) phaseText.textContent = 'Inhale';
+        playSoftChime(432);
+      } else if (cycleStep === 1) {
+        if (orb) orb.className = 'pause-orb hold';
+        if (phaseText) phaseText.textContent = 'Hold';
+      } else if (cycleStep === 2) {
+        if (orb) orb.className = 'pause-orb exhale';
+        if (phaseText) phaseText.textContent = 'Exhale';
+        playSoftChime(528);
+      } else {
+        if (orb) orb.className = 'pause-orb';
+        if (phaseText) phaseText.textContent = 'Rest';
+        if (affirmEl) {
+          const rand = pauseAffirmations[Math.floor(Math.random() * pauseAffirmations.length)];
+          affirmEl.textContent = `"${rand}"`;
+        }
+      }
+      cycleStep = (cycleStep + 1) % 4;
+    }
+
+    runBreathStep();
+    pausePhaseInterval = setInterval(runBreathStep, 4000);
+
+    pauseTimer = setInterval(() => {
+      if (!pauseIsRunning) return;
+      pauseSecondsLeft--;
+      updatePauseTimerUI();
+      if (pauseSecondsLeft <= 0) {
+        finishPauseExperience();
+      }
+    }, 1000);
+  }
+
+  function updatePauseTimerUI() {
+    const bar = document.getElementById('pauseProgressBar');
+    const label = document.getElementById('pauseTimerLabel');
+    const pct = ((60 - pauseSecondsLeft) / 60) * 100;
+    if (bar) bar.style.width = pct + '%';
+    if (label) label.textContent = `${pauseSecondsLeft}s remaining`;
+  }
+
+  function stopPauseExperience() {
+    pauseIsRunning = false;
+    clearInterval(pauseTimer);
+    clearInterval(pausePhaseInterval);
+    pauseTimer = null;
+    pausePhaseInterval = null;
+  }
+
+  function finishPauseExperience() {
+    stopPauseExperience();
+    playSoftChime(528);
+    const phaseText = document.getElementById('pausePhaseText');
+    const affirmEl = document.getElementById('pauseAffirmation');
+    const label = document.getElementById('pauseTimerLabel');
+    const orb = document.getElementById('pauseOrb');
+    if (orb) orb.className = 'pause-orb hold';
+    if (phaseText) phaseText.textContent = 'Complete 🕊️';
+    if (label) label.textContent = 'Somatic Reset Complete';
+    if (affirmEl) {
+      affirmEl.innerHTML = '<strong>Your breath is your anchor.</strong> Thank you for honoring yourself with this pause today.';
+    }
+    const actions = document.querySelector('.pause-modal-actions');
+    if (actions) {
+      actions.innerHTML = `
+        <a href="#open-mic" onclick="closePauseModal()" class="btn btn-gold">Join Next Gathering 🌿</a>
+        <button type="button" onclick="startPauseExperience()" class="btn btn-outline" style="border-color: rgba(197, 154, 63, 0.5); color: var(--forest-green);">Breathe Again</button>
+      `;
+    }
+  }
+
+  window.togglePauseExperience = function() {
+    const playIcon = document.getElementById('pausePlayIcon');
+    const btnText = document.getElementById('pauseBtnText');
+    if (pauseIsRunning) {
+      pauseIsRunning = false;
+      if (playIcon) playIcon.textContent = '▶';
+      if (btnText) btnText.textContent = 'Resume';
+    } else {
+      pauseIsRunning = true;
+      if (playIcon) playIcon.textContent = '⏸';
+      if (btnText) btnText.textContent = 'Pause';
     }
   };

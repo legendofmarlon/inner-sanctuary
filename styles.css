@@ -7231,6 +7231,8 @@ body[data-element="ether"] nav::after {
   max-width: 540px;
   margin: 0 auto 16px;
   min-height: 230px;
+  transform-style: preserve-3d;
+  touch-action: pan-y;
 }
 
 .reflection-card-3d {
@@ -7241,10 +7243,31 @@ body[data-element="ether"] nav::after {
   transition: transform 0.65s cubic-bezier(0.23, 1, 0.32, 1);
   cursor: pointer;
   outline: none;
+  will-change: transform;
 }
 
 .reflection-card-3d.is-flipped {
   transform: rotateY(180deg);
+}
+
+.card-specular-glare {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 18px;
+  background: radial-gradient(circle at var(--glare-x, 50%) var(--glare-y, 50%), rgba(255, 255, 255, 0.45) 0%, rgba(197, 154, 63, 0.20) 30%, transparent 68%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  mix-blend-mode: overlay;
+  z-index: 8;
+}
+
+.reflection-card-stage:hover .card-specular-glare,
+.reflection-card-stage.is-touching .card-specular-glare {
+  opacity: 1;
 }
 
 .reflection-card-face {
@@ -8302,8 +8325,21 @@ body[data-element="ether"] nav::after {
   height: 44px;
   border-radius: 50%;
   margin-bottom: 8px;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25), inset 0 2px 4px rgba(255, 255, 255, 0.4);
-  transition: transform 0.2s ease;
+  position: relative;
+  box-shadow: inset -4px -4px 9px rgba(0, 0, 0, 0.48), inset 4px 4px 9px rgba(255, 255, 255, 0.65), 0 8px 18px rgba(0, 0, 0, 0.28);
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+}
+
+.bead-circle::after {
+  content: '';
+  position: absolute;
+  top: 15%;
+  left: 20%;
+  width: 28%;
+  height: 22%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 80%);
+  pointer-events: none;
 }
 
 .bead-btn:hover .bead-circle {
@@ -8408,12 +8444,15 @@ body[data-element="ether"] nav::after {
   width: 280px;
   height: 280px;
   margin: 0 auto;
-  animation: braceletBreathSway 4s ease-in-out infinite;
+  transform-style: preserve-3d;
+  perspective: 900px;
+  cursor: grab;
+  touch-action: none;
+  transition: transform 0.15s ease-out;
 }
 
-@keyframes braceletBreathSway {
-  0%, 100% { transform: scale(1.0); }
-  50% { transform: scale(1.028); }
+.circle-string-ring:active {
+  cursor: grabbing;
 }
 
 .bracelet-ring-svg {
@@ -8436,22 +8475,34 @@ body[data-element="ether"] nav::after {
 .ring-bead {
   position: absolute;
   border-radius: 50%;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  box-shadow: inset -3px -3px 7px rgba(0, 0, 0, 0.5), inset 3px 3px 7px rgba(255, 255, 255, 0.65), 0 6px 14px rgba(0, 0, 0, 0.35);
   transition: transform 0.3s ease;
+}
+
+.ring-bead::after {
+  content: '';
+  position: absolute;
+  top: 14%;
+  left: 20%;
+  width: 30%;
+  height: 24%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0) 80%);
+  pointer-events: none;
 }
 
 .ring-bead.main-bead {
   width: 34px;
   height: 34px;
   border: 2px solid #FFFFFF;
-  box-shadow: 0 0 16px rgba(197, 154, 63, 0.6), 0 4px 14px rgba(0, 0, 0, 0.4);
+  box-shadow: inset -3px -3px 8px rgba(0, 0, 0, 0.5), inset 3px 3px 8px rgba(255, 255, 255, 0.7), 0 0 16px rgba(197, 154, 63, 0.6), 0 6px 16px rgba(0, 0, 0, 0.4);
   z-index: 5;
 }
 
 .ring-bead.spacer-bead {
   width: 18px;
   height: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.4);
   z-index: 3;
 }
 
@@ -9059,7 +9110,7 @@ body[data-element="ether"] nav::after {
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25), 0 0 20px rgba(197, 154, 63, 0.2);
   margin: 12px 0 16px;
-  background: #1C2D24;
+  background: #070D16;
   border: 2px solid var(--sunburst-gold);
   display: flex;
   align-items: center;
@@ -11564,4 +11615,276 @@ body[data-element="fire"] .explorer-pulse-dot {
   .lantern-aura {
     display: none !important;
   }
+}
+
+
+/* ==================== 60-SECOND PERMISSION TO PAUSE MODAL ==================== */
+.pause-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(28, 45, 36, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: pauseFadeIn 0.35s ease-out;
+}
+
+@keyframes pauseFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.pause-modal-card {
+  background: linear-gradient(145deg, #FAF8F5 0%, #F3EDE2 100%);
+  border: 1.5px solid var(--sunburst-gold);
+  border-radius: 20px;
+  padding: 36px 32px;
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35), 0 0 40px rgba(197, 154, 63, 0.2);
+  position: relative;
+}
+
+.pause-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: var(--forest-green);
+  cursor: pointer;
+  padding: 6px;
+  line-height: 1;
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+
+.pause-modal-close:hover {
+  background: rgba(197, 154, 63, 0.2);
+  color: #111;
+}
+
+.pause-modal-emblem {
+  font-size: 20px;
+  color: var(--sunburst-gold);
+  margin-bottom: 6px;
+}
+
+.pause-modal-title {
+  color: var(--forest-green);
+  font-size: 1.85rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.pause-modal-sub {
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--sunburst-gold);
+  font-weight: 700;
+  margin-bottom: 22px;
+}
+
+.pause-orb-stage {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pause-orb-aura {
+  position: absolute;
+  inset: -15px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(197, 154, 63, 0.35) 0%, rgba(95, 123, 107, 0.1) 60%, transparent 80%);
+}
+
+.pause-orb {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #5F7B6B 0%, #2B4436 70%, #1C2D24 100%);
+  border: 2px solid var(--sunburst-gold);
+  box-shadow: 0 0 25px rgba(197, 154, 63, 0.4), inset 0 0 20px rgba(248, 217, 140, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 3.8s ease-in-out;
+  transform: scale(0.85);
+}
+
+.pause-orb.inhale {
+  transform: scale(1.18);
+  box-shadow: 0 0 40px rgba(197, 154, 63, 0.65), inset 0 0 30px rgba(248, 217, 140, 0.5);
+}
+
+.pause-orb.hold {
+  transform: scale(1.18);
+  border-color: #F8D98C;
+}
+
+.pause-orb.exhale {
+  transform: scale(0.85);
+  box-shadow: 0 0 20px rgba(95, 123, 107, 0.4);
+}
+
+.pause-phase-text {
+  font-family: 'Cinzel', serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #FAF8F5;
+  letter-spacing: 0.08em;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.4);
+  transition: opacity 0.3s;
+}
+
+.pause-affirmation {
+  font-size: 0.98rem;
+  color: var(--forest-dark);
+  font-style: italic;
+  min-height: 48px;
+  line-height: 1.6;
+  margin-bottom: 16px;
+  padding: 0 10px;
+}
+
+.pause-progress-bar-wrap {
+  width: 100%;
+  height: 6px;
+  background: rgba(197, 154, 63, 0.2);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.pause-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--forest-green), var(--sunburst-gold));
+  border-radius: 10px;
+  transition: width 1s linear;
+}
+
+.pause-timer-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--forest-light);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 20px;
+}
+
+.pause-modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* ==================== THE "DROP A SEED" ZEN PLINKO MINI-GAME ==================== */
+.zen-plinko-wrapper {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.plinko-drop-control-bar:hover {
+  background: rgba(0, 0, 0, 0.45) !important;
+  border-color: var(--sunburst-gold) !important;
+}
+
+.plinko-basket-card {
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  cursor: default;
+}
+
+.plinko-basket-card:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(197, 154, 63, 0.5) !important;
+  transform: translateY(-2px);
+}
+
+.plinko-basket-card.active-sprout {
+  background: linear-gradient(135deg, rgba(197, 154, 63, 0.35) 0%, rgba(43, 68, 54, 0.6) 100%) !important;
+  border-color: #FCE6A2 !important;
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 0 20px rgba(197, 154, 63, 0.6);
+}
+
+@keyframes bounceDrop {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@media (max-width: 600px) {
+  .plinko-baskets-legend {
+    grid-template-columns: repeat(5, 1fr) !important;
+    gap: 3px !important;
+  }
+  .plinko-basket-card {
+    padding: 6px 2px !important;
+  }
+  .plinko-basket-card div:nth-child(2) {
+    font-size: 0.60rem !important;
+  }
+  .plinko-basket-card div:nth-child(3) {
+    display: none !important;
+  }
+}
+
+/* Instagram Story Reflection Mood Selector */
+.ig-story-themes {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 10px 0 14px;
+}
+
+.ig-themes-label {
+  font-family: var(--font-body, 'Montserrat', sans-serif);
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--sunburst-gold, #C59A3F);
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+.ig-theme-pill {
+  background: rgba(43, 68, 54, 0.08);
+  border: 1px solid rgba(197, 154, 63, 0.35);
+  color: #2B4436;
+  padding: 5px 13px;
+  border-radius: 999px;
+  font-family: var(--font-body, 'Montserrat', sans-serif);
+  font-size: 0.80rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ig-theme-pill:hover {
+  background: rgba(197, 154, 63, 0.18);
+  border-color: #C59A3F;
+  transform: translateY(-1px);
+}
+
+.ig-theme-pill.active {
+  background: linear-gradient(135deg, #2B4436 0%, #16241D 100%);
+  border-color: #C59A3F;
+  color: #F8D98C;
+  box-shadow: 0 4px 14px rgba(43, 68, 54, 0.25);
 }

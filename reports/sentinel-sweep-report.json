@@ -1,29 +1,29 @@
 {
-  "timestamp": "2026-11-19T04:50:37.401Z",
-  "status": "HEALTHY",
-  "checksPassed": 7,
-  "checksFailed": 0,
+  "timestamp": "2026-11-21T16:04:09.326Z",
+  "status": "DEGRADED",
+  "checksPassed": 6,
+  "checksFailed": 1,
   "healedCount": 0,
   "details": [
     {
       "name": "index.html",
       "passed": true,
-      "message": "Size: 236715 bytes"
+      "message": "Size: 245367 bytes"
     },
     {
       "name": "script.js",
       "passed": true,
-      "message": "Size: 272561 bytes"
+      "message": "Size: 305756 bytes"
     },
     {
       "name": "styles.css",
       "passed": true,
-      "message": "Size: 261774 bytes"
+      "message": "Size: 269299 bytes"
     },
     {
       "name": "Anchor Integrity",
       "passed": true,
-      "message": "All 44 internal navigation anchors fully operational"
+      "message": "All 46 internal navigation anchors fully operational"
     },
     {
       "name": "Image Asset Vault",
@@ -37,8 +37,8 @@
     },
     {
       "name": "Preview Server Connectivity",
-      "passed": true,
-      "message": "HTTP status code: 200"
+      "passed": false,
+      "message": ""
     }
   ]
 }

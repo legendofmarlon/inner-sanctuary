@@ -1,6 +1,6 @@
 # 🌿 Inner Sanctuary Wellness Foundation
 ## Executive Grant Scout & Discovery Pipeline Digest
-**Date:** November 18, 2026 | **Tax Status:** IRS 501(c)(3) Public Charity (EIN: 39-3757168)  
+**Date:** November 19, 2026 | **Tax Status:** IRS 501(c)(3) Public Charity (EIN: 39-3757168)  
 **Leadership:** Teshia Campbell, Founder & Executive Director • Marlon Smith, President & Primary Host  
 **Dual-Routing Notice:** Confirmed dispatch to `hello@innersanctuarywellnessfoundation.org` (Route 1) and `legendofmarlon@gmail.com`, `innersanctuary0@gmail.com` (Route 2).
 
