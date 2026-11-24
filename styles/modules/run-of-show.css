@@ -8,8 +8,8 @@
   inset: 0;
   z-index: 10700;
   background: rgba(10, 16, 13, 0.92);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -28,7 +28,7 @@
 .stage-board-modal {
   background: #14211A;
   border: 1.5px solid rgba(197, 154, 63, 0.45);
-  border-radius: 24px;
+  border-radius: 20px;
   width: 100%;
   max-width: 860px;
   max-height: 92vh;

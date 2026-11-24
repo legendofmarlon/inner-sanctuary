@@ -29,6 +29,39 @@
   --turquoise-mist: rgba(46, 125, 115, 0.12);
   --turquoise-glow: rgba(78, 155, 145, 0.28);
   --turquoise-border: rgba(46, 125, 115, 0.35);
+
+  /* Foundation Theme & Surface Radii */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-full: 9999px;
+
+  /* Obsidian Glass & Sacred Night Tones */
+  --bg-obsidian: #0D1912;
+  --bg-obsidian-deep: #080F0B;
+  --bg-obsidian-card: #13241B;
+  --bg-obsidian-glass: rgba(13, 25, 18, 0.85);
+  --bg-obsidian-subtle: rgba(13, 25, 18, 0.45);
+
+  /* Celestial Sapphire Tones */
+  --celestial-sapphire: #1E3A5F;
+  --celestial-deep: #0E1B33;
+  --celestial-glow: rgba(30, 58, 95, 0.25);
+
+  /* Radiant & Metallic Gold Tokens */
+  --gold-light: #E8C872;
+  --gold-metallic: #D4AF37;
+  --gold-bright: #F5D77F;
+  --gold-subtle: rgba(197, 154, 63, 0.08);
+  --border-gold-subtle: 1px solid rgba(197, 154, 63, 0.18);
+
+  /* Harmonized Modal Architecture */
+  --modal-backdrop-blur: blur(20px);
+  --modal-bg-glass: rgba(13, 25, 18, 0.92);
+  --modal-border: 1.5px solid rgba(197, 154, 63, 0.35);
+  --modal-radius: 20px;
 }
 
 * {
@@ -65,6 +98,16 @@ body {
 
 *, *::before, *::after {
   box-sizing: border-box;
+}
+
+/* ==================== UNIVERSAL ACCESSIBILITY: REDUCED-MOTION GUARD ==================== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 
@@ -1326,7 +1369,7 @@ nav {
 }
 
 .seed-tooltip-name {
-  font-family: 'Cinzel', serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 0.92rem;
   font-weight: 700;
   color: #F8D98C;
@@ -1718,7 +1761,7 @@ nav {
 }
 
 .spec-title {
-  font-family: 'Cinzel', serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 0.82rem;
   color: var(--forest-green);
   font-weight: 700;
@@ -3630,7 +3673,7 @@ body[data-element="earth"] {
 }
 
 .logic-step-num {
-  font-family: 'Cinzel', serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 0.72rem;
   letter-spacing: 0.16em;
   font-weight: 700;
@@ -4058,7 +4101,7 @@ body[data-element="earth"] {
 }
 
 .breath-widget-eyebrow {
-  font-family: 'Cinzel', serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 0.78rem;
   letter-spacing: 0.22em;
   color: #F5AF19;
@@ -4162,7 +4205,7 @@ body[data-element="earth"] {
 }
 
 .sacred-phase-eyebrow {
-  font-family: 'Cinzel', serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 0.72rem;
   letter-spacing: 0.25em;
   color: #00F2FE;
@@ -4221,7 +4264,7 @@ body[data-element="earth"] {
 .breath-primary-toggle {
   background: linear-gradient(135deg, #F5AF19 0%, #D48806 100%);
   color: #0B0F17;
-  font-family: 'Cinzel', serif;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 700;
   font-size: 0.84rem;
   letter-spacing: 0.14em;
@@ -5193,8 +5236,8 @@ body[data-element="earth"] {
   inset: 0;
   z-index: 999999;
   background: rgba(14, 27, 20, 0.78);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -5213,7 +5256,7 @@ body[data-element="earth"] {
 .zeffy-modal-dialog {
   background: #F6F2E9;
   border: 2px solid #9A6F1A;
-  border-radius: 18px;
+  border-radius: 20px;
   width: 100%;
   max-width: 620px;
   max-height: 96vh;
@@ -5640,9 +5683,9 @@ body[data-element="earth"] {
 }
 
 .nav-link-main {
-  font-family: 'Cinzel', serif;
-  font-size: 0.75rem;
-  font-weight: 700;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
   color: var(--forest-green);
   letter-spacing: 0.04em;
   white-space: nowrap;
@@ -5682,9 +5725,9 @@ body[data-element="earth"] {
 }
 
 .mobile-nav-main {
-  font-family: 'Cinzel', serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 0.92rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--forest-green);
 }
 
@@ -6167,8 +6210,8 @@ body[data-element="ether"] nav::after {
   inset: 0;
   z-index: 999999;
   background: rgba(10, 18, 14, 0.92);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -6181,7 +6224,7 @@ body[data-element="ether"] nav::after {
   max-width: 920px;
   background: rgba(22, 38, 30, 0.98);
   border: 1.5px solid var(--sunburst-gold);
-  border-radius: 18px;
+  border-radius: 20px;
   padding: 24px 26px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
   color: #FFFFFF;
@@ -9181,8 +9224,8 @@ body[data-element="ether"] nav::after {
   inset: 0;
   z-index: 10000;
   background: rgba(14, 25, 19, 0.88);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -9193,7 +9236,7 @@ body[data-element="ether"] nav::after {
 .ig-story-modal-dialog {
   background: linear-gradient(180deg, #FAF8F3 0%, #F5F1E8 100%);
   border: 2px solid var(--sunburst-gold);
-  border-radius: 24px;
+  border-radius: 20px;
   max-width: 480px;
   width: 100%;
   max-height: 92vh;
@@ -9503,8 +9546,8 @@ body[data-element="ether"] nav::after {
   position: fixed;
   inset: 0;
   background: rgba(14, 26, 20, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   z-index: 10000;
   display: flex;
   align-items: center;
@@ -9522,7 +9565,7 @@ body[data-element="ether"] nav::after {
   position: relative;
   background: linear-gradient(135deg, #1C3024 0%, #101F17 100%);
   border: 1.5px solid var(--sunburst-gold);
-  border-radius: 22px;
+  border-radius: 20px;
   max-width: 460px;
   width: 100%;
   padding: 32px 24px 26px;
@@ -9652,8 +9695,8 @@ body[data-element="ether"] nav::after {
   inset: 0;
   z-index: 99999;
   background: rgba(14, 26, 20, 0.85);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -9665,7 +9708,7 @@ body[data-element="ether"] nav::after {
   position: relative;
   background: linear-gradient(135deg, #1C3024 0%, #101F17 100%);
   border: 2px solid var(--sunburst-gold);
-  border-radius: 24px;
+  border-radius: 20px;
   max-width: 620px;
   width: 100%;
   max-height: 94vh;
@@ -10173,10 +10216,10 @@ body[data-element="fire"] .explorer-pulse-dot {
   border-radius: 999px;
   padding: 7px 12px;
   color: #F8D98C;
-  font-family: 'Cinzel', serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 0.76rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
+  font-weight: 600;
+  letter-spacing: 0.05em;
   cursor: pointer;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
@@ -10240,8 +10283,8 @@ body[data-element="fire"] .explorer-pulse-dot {
   inset: 0;
   z-index: 99999;
   background: radial-gradient(circle at center, rgba(14, 28, 20, 0.92) 0%, rgba(6, 14, 10, 0.98) 100%);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -10256,7 +10299,7 @@ body[data-element="fire"] .explorer-pulse-dot {
     linear-gradient(180deg, rgba(8, 16, 12, 0.84) 0%, rgba(10, 20, 15, 0.92) 50%, rgba(5, 10, 7, 0.98) 100%),
     url('images/clubhouse-cabin-speakeasy.jpg') center/cover no-repeat;
   border: 2px solid var(--sunburst-gold);
-  border-radius: 26px;
+  border-radius: 20px;
   max-width: 880px;
   width: 100%;
   max-height: 94vh;
@@ -10341,10 +10384,10 @@ body[data-element="fire"] .explorer-pulse-dot {
   color: #C2DEC9;
   padding: 10px 8px;
   border-radius: 10px;
-  font-family: 'Cinzel', serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 0.80rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
+  font-weight: 600;
+  letter-spacing: 0.05em;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -11780,8 +11823,8 @@ body[data-element="fire"] .explorer-pulse-dot {
   position: fixed;
   inset: 0;
   background: rgba(28, 45, 36, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   z-index: 99999;
   display: flex;
   align-items: center;
