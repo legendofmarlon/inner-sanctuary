@@ -707,7 +707,7 @@
         </div>
       </div>
       <div style="display: flex; align-items: center; gap: 12px; width: 100%; max-width: 480px;">
-        <iframe style="border-radius:12px; width: 100%; height: 80px;" src="https://open.spotify.com/embed/playlist/37i9dQZF1DX4sWSpwq3LiO?utm_source=generator&theme=0" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+        <iframe loading="lazy" style="border-radius:12px; width: 100%; height: 80px;" src="https://open.spotify.com/embed/playlist/37i9dQZF1DX4sWSpwq3LiO?utm_source=generator&theme=0" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
         <button type="button" onclick="toggleSpotifyPlayer()" style="background: none; border: none; color: #CBD7D0; font-size: 1.4rem; cursor: pointer; padding: 4px 8px; line-height: 1;" title="Close Spotify Player">&times;</button>
       </div>
     </div>
@@ -1891,7 +1891,7 @@
         <p style="color: #CBD7D0; font-size: 0.88rem; line-height: 1.6; margin: 0 0 16px;">
           Immerse yourself in our curated playlist for restorative pauses, open mics, and mindful reflection. Tap play to stream directly on the page.
         </p>
-        <iframe style="border-radius:12px; width: 100%; height: 152px; border: 0;" src="https://open.spotify.com/embed/playlist/37i9dQZF1DX4sWSpwq3LiO?utm_source=generator&theme=0" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+        <iframe loading="lazy" style="border-radius:12px; width: 100%; height: 152px; border: 0;" src="https://open.spotify.com/embed/playlist/37i9dQZF1DX4sWSpwq3LiO?utm_source=generator&theme=0" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
       </div>
 
       <!-- Space-Saving Compact Community Photo Wheel (Our Sanctuary Clubhouse Moments) -->
@@ -1939,7 +1939,7 @@
 
               <!-- Slide 4: Stone Hearth Joyful Dancing & Drumming -->
               <div class="photo-wheel-slide" onclick="openPhotoWheelModal(3)">
-                <img src="images/openmic/openmic-nov15-stone-hearth-celebration.jpg" loading="lazy" width="800" height="600" alt="Community members dancing and drumming with pure joy before the stone fireplace">
+                <img src="images/openmic/openmic-nov15-stone-hearth-celebration.jpg" width="800" height="600" alt="Community members dancing and drumming with pure joy before the stone fireplace">
                 <div class="slide-caption-bar">
                   <span class="slide-caption-text">Joyful Embodiment • Drums, Dancing &amp; Laughter Before the Grand Hearth • Nov 15</span>
                   <span class="slide-counter">Photo 4 of 12</span>
@@ -4119,12 +4119,13 @@
         <iframe
           id="zeffy-modal-iframe"
           title="Inner Sanctuary Wellness Foundation 1-Tap Giving"
-          src="https://www.zeffy.com/embed/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation"
+          src="about:blank"
+          data-src="https://www.zeffy.com/embed/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation"
           style="border:0; width:1px; min-width:100%; max-width:100%; height:100%; background:#F6F2E9; display:block; box-sizing:border-box;"
           allow="payment; payment-request *; camera; clipboard-write"
           allowpaymentrequest="true"
           allowtransparency="true"
-          loading="eager">
+          loading="lazy">
         </iframe>
       </div>
 

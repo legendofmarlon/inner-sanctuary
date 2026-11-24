@@ -3,6 +3,21 @@
  * Returns aggregated 24h community pulse metrics and constellation telemetry
  */
 
+const fs = require('fs');
+const path = require('path');
+const os = require('os');
+
+const PULSE_TMP_PATH = path.join(os.tmpdir(), 'sanctuary-pulses.json');
+
+function getPersistedPulses() {
+  try {
+    if (fs.existsSync(PULSE_TMP_PATH)) {
+      return JSON.parse(fs.readFileSync(PULSE_TMP_PATH, 'utf8') || '[]');
+    }
+  } catch (e) {}
+  return [];
+}
+
 const TWENTY_FOUR_HOURS = 24 * 60 * 60 * 1000;
 
 // Base seed data for healthy community pulse representation
@@ -43,8 +58,21 @@ exports.handler = async function(event, context) {
 
   const now = Date.now();
 
+  // Load real pulses submitted to this serverless environment
+  const persisted = getPersistedPulses().filter(p => (now - p.timestamp) < TWENTY_FOUR_HOURS);
+  const liveNodes = persisted.map((p, idx) => {
+    const ageMinutes = Math.max(1, Math.round((now - p.timestamp) / (60 * 1000)));
+    return {
+      id: `live-node-${idx}-${p.timestamp}`,
+      state: p.state,
+      ageMinutes: ageMinutes,
+      intensity: Math.max(0.45, +(1 - (ageMinutes / 1440)).toFixed(2)),
+      isLive: true
+    };
+  });
+
   // Generate constellation nodes based on seeds + active minutes
-  const nodes = DEFAULT_SEED_PULSES.map((seed, idx) => {
+  const seedNodes = DEFAULT_SEED_PULSES.map((seed, idx) => {
     const timestamp = now - (seed.minutesAgo * 60 * 1000);
     return {
       id: `pulse-node-${idx}`,
@@ -54,6 +82,8 @@ exports.handler = async function(event, context) {
       intensity: Math.max(0.35, +(1 - (seed.minutesAgo / 1440)).toFixed(2))
     };
   });
+
+  const nodes = liveNodes.concat(seedNodes);
 
   const breakdown = {
     processing: 0,

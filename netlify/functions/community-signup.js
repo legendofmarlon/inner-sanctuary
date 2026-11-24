@@ -6,6 +6,9 @@
 
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
+
+const TMP_LEDGER_PATH = path.join(os.tmpdir(), 'sanctuary-subscribers.json');
 
 // In-memory fallback if file system is read-only in certain serverless runtimes
 let inMemorySubscribers = [];
@@ -64,7 +67,8 @@ exports.handler = async function(event, context) {
 
     inMemorySubscribers.push(subscriberRecord);
 
-    // Attempt persistent write if running locally or in writable environment
+    // Attempt persistent write if running locally or in writable environment, with /tmp fallback
+    let written = false;
     try {
       const dataDir = path.resolve(__dirname, '../../content');
       const ledgerPath = path.join(dataDir, 'community-subscribers.json');
@@ -78,9 +82,26 @@ exports.handler = async function(event, context) {
           existing.push(subscriberRecord);
           fs.writeFileSync(ledgerPath, JSON.stringify(existing, null, 2), 'utf8');
         }
+        written = true;
       }
     } catch (fsErr) {
-      console.log('[CommunitySignup] Persistent filesystem write bypassed (serverless sandbox):', fsErr.message);
+      console.log('[CommunitySignup] Local repo filesystem bypassed (serverless sandbox):', fsErr.message);
+    }
+
+    // Serverless sandbox fallback: write to persistent /tmp directory
+    if (!written) {
+      try {
+        let existing = [];
+        if (fs.existsSync(TMP_LEDGER_PATH)) {
+          existing = JSON.parse(fs.readFileSync(TMP_LEDGER_PATH, 'utf8') || '[]');
+        }
+        if (!existing.some(s => s.email === email)) {
+          existing.push(subscriberRecord);
+          fs.writeFileSync(TMP_LEDGER_PATH, JSON.stringify(existing, null, 2), 'utf8');
+        }
+      } catch (tmpErr) {
+        console.warn('[CommunitySignup] /tmp write failed:', tmpErr.message);
+      }
     }
 
     console.log(`[CommunitySignup] New Subscriber Registered: ${email} (${name}) via ${source}. Alert flagged for Marlon & Teshia.`);

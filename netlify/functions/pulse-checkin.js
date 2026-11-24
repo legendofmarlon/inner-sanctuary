@@ -3,6 +3,27 @@
  * Anonymous, privacy-preserving somatic pulse ingest for Inner Sanctuary
  */
 
+const fs = require('fs');
+const path = require('path');
+const os = require('os');
+
+const PULSE_TMP_PATH = path.join(os.tmpdir(), 'sanctuary-pulses.json');
+
+function getPersistedPulses() {
+  try {
+    if (fs.existsSync(PULSE_TMP_PATH)) {
+      return JSON.parse(fs.readFileSync(PULSE_TMP_PATH, 'utf8') || '[]');
+    }
+  } catch (e) {}
+  return [];
+}
+
+function savePersistedPulses(pulses) {
+  try {
+    fs.writeFileSync(PULSE_TMP_PATH, JSON.stringify(pulses), 'utf8');
+  } catch (e) {}
+}
+
 // Resilient in-memory store for serverless instance lifetime
 let inMemoryPulses = [
   { state: 'peace', timestamp: Date.now() - 1000 * 60 * 15, origin: 'web' },
@@ -58,14 +79,24 @@ exports.handler = async function(event, context) {
       origin: (data.origin === 'qr-booth' ? 'qr-booth' : 'web')
     };
 
-    // Prune stale pulses older than 24h
-    inMemoryPulses = inMemoryPulses.filter(p => (now - p.timestamp) < TWENTY_FOUR_HOURS);
-    inMemoryPulses.push(entry);
-
-    // Limit maximum retained in-memory events to prevent unbounded growth
-    if (inMemoryPulses.length > 500) {
-      inMemoryPulses = inMemoryPulses.slice(-500);
+    // Merge with persisted pulses in /tmp for cross-invocation resilience
+    let combined = getPersistedPulses().concat(inMemoryPulses);
+    combined = combined.filter(p => (now - p.timestamp) < TWENTY_FOUR_HOURS);
+    combined.push(entry);
+    
+    // Deduplicate by timestamp + state
+    const seen = new Set();
+    const unique = [];
+    for (const p of combined) {
+      const k = `${p.timestamp}_${p.state}`;
+      if (!seen.has(k)) {
+        seen.add(k);
+        unique.push(p);
+      }
     }
+
+    inMemoryPulses = unique.slice(-500);
+    savePersistedPulses(inMemoryPulses);
 
     return {
       statusCode: 200,

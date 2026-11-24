@@ -5,8 +5,10 @@
 
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
 
 const ROSTER_PATH = path.resolve(__dirname, '../../content/run-of-show-roster.json');
+const TMP_ROSTER_PATH = path.join(os.tmpdir(), 'sanctuary-roster.json');
 const STAGE_PASSKEY = process.env.SANCTUARY_STAGE_PASSKEY || 'sanctuary432';
 
 // In-memory fallback
@@ -18,8 +20,17 @@ function loadRoster() {
       return JSON.parse(fs.readFileSync(ROSTER_PATH, 'utf8'));
     }
   } catch (e) {
-    console.warn('[OpenMicTriage] Could not read local roster, using memory:', e.message);
+    console.warn('[OpenMicTriage] Could not read local roster, checking /tmp:', e.message);
   }
+
+  try {
+    if (fs.existsSync(TMP_ROSTER_PATH)) {
+      return JSON.parse(fs.readFileSync(TMP_ROSTER_PATH, 'utf8'));
+    }
+  } catch (e) {
+    console.warn('[OpenMicTriage] Could not read /tmp roster, using memory:', e.message);
+  }
+
   if (!inMemoryRoster) {
     inMemoryRoster = {
       eventTitle: "Inner Sanctuary Open Mic & Somatic Circle",
@@ -32,13 +43,23 @@ function loadRoster() {
 
 function saveRoster(roster) {
   inMemoryRoster = roster;
+  let saved = false;
   try {
     const dir = path.dirname(ROSTER_PATH);
     if (fs.existsSync(dir)) {
       fs.writeFileSync(ROSTER_PATH, JSON.stringify(roster, null, 2), 'utf8');
+      saved = true;
     }
   } catch (e) {
     console.warn('[OpenMicTriage] Could not write local roster (sandbox):', e.message);
+  }
+
+  if (!saved) {
+    try {
+      fs.writeFileSync(TMP_ROSTER_PATH, JSON.stringify(roster, null, 2), 'utf8');
+    } catch (e) {
+      console.warn('[OpenMicTriage] Could not write /tmp roster:', e.message);
+    }
   }
 }
 
