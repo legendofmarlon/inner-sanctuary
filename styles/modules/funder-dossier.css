@@ -1,5 +1,6 @@
 /* ==========================================================================
    Inner Sanctuary — Institutional Funder & Grantmaker Dossier
+   Luminous Gilded Alabaster, Sunburst Gold & Raw Mineral Turquoise Theme
    ========================================================================== */
 
 /* 1. Institutional Funder & Grant Dossier Modal */
@@ -7,9 +8,9 @@
   position: fixed;
   inset: 0;
   z-index: 10005;
-  background: rgba(8, 16, 12, 0.88);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  background: rgba(14, 24, 19, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -24,16 +25,16 @@
 }
 
 .funder-modal-dialog {
-  background: radial-gradient(circle at 50% 20%, rgba(22, 38, 28, 0.98) 0%, rgba(10, 18, 14, 0.99) 100%);
-  border: 1.5px solid rgba(197, 154, 63, 0.55);
+  background: linear-gradient(155deg, #FFFFFF 0%, #FAF7F0 50%, #F5EFE3 100%);
+  border: 2px solid rgba(197, 154, 63, 0.75);
   border-radius: 24px;
-  max-width: 880px;
+  max-width: 900px;
   width: 100%;
   max-height: 90vh;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(197, 154, 63, 0.15);
-  color: #FFFDF7;
+  box-shadow: 0 28px 75px rgba(18, 32, 25, 0.35), 0 0 35px rgba(197, 154, 63, 0.25), inset 0 1px 0 #FFFFFF;
+  color: #172B20;
   position: relative;
   overflow: hidden;
 }
@@ -42,62 +43,69 @@
   position: absolute;
   top: 18px;
   right: 20px;
-  background: none;
-  border: none;
-  color: #CBD7D0;
-  font-size: 1.8rem;
+  background: rgba(197, 154, 63, 0.12);
+  border: 1px solid rgba(197, 154, 63, 0.3);
+  color: #4A5D54;
+  font-size: 1.6rem;
   line-height: 1;
   cursor: pointer;
-  padding: 4px 8px;
-  border-radius: 8px;
+  padding: 4px 10px;
+  border-radius: 999px;
   transition: all 0.2s ease;
   z-index: 2;
 }
 
 .funder-modal-close:hover {
-  color: #FFFFFF;
-  background: rgba(255, 255, 255, 0.1);
+  color: #0E1A14;
+  background: rgba(197, 154, 63, 0.25);
+  border-color: #C59A3F;
+  transform: rotate(90deg);
 }
 
 .funder-modal-header {
   padding: 28px 32px 18px;
-  border-bottom: 1px solid rgba(197, 154, 63, 0.25);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 243, 233, 0.98) 100%);
+  border-bottom: 1.5px solid rgba(197, 154, 63, 0.35);
 }
 
 .funder-modal-badge {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #F8D98C;
-  background: rgba(197, 154, 63, 0.15);
-  border: 1px solid rgba(197, 154, 63, 0.45);
-  padding: 4px 12px;
+  color: #174842;
+  background: linear-gradient(135deg, rgba(46, 125, 115, 0.12) 0%, rgba(197, 154, 63, 0.18) 100%);
+  border: 1.5px solid #2E7D73;
+  padding: 4px 14px;
   border-radius: 999px;
   margin-bottom: 10px;
+  box-shadow: 0 2px 8px rgba(46, 125, 115, 0.1);
 }
 
 .funder-modal-title {
+  font-family: 'Cinzel', serif;
   font-size: clamp(1.4rem, 2.5vw, 1.85rem);
-  color: #FFFFFF;
+  color: #14241C;
   margin: 0 0 6px;
   letter-spacing: 0.03em;
 }
 
 .funder-modal-sub {
   font-size: 0.88rem;
-  color: #CBD7D0;
+  color: #4A5D54;
   line-height: 1.6;
   margin: 0;
-  max-width: 720px;
+  max-width: 760px;
 }
 
 .funder-tabs-bar {
   display: flex;
-  background: rgba(0, 0, 0, 0.35);
-  padding: 6px 32px 0;
-  border-bottom: 1px solid rgba(197, 154, 63, 0.2);
+  background: #F1ECE0;
+  padding: 8px 32px 0;
+  border-bottom: 1.5px solid rgba(197, 154, 63, 0.3);
   gap: 8px;
   overflow-x: auto;
 }
@@ -105,27 +113,31 @@
 .funder-tab-btn {
   background: none;
   border: none;
-  color: #CBD7D0;
+  color: #4A5D54;
   font-family: 'Montserrat', sans-serif;
   font-size: 0.82rem;
   font-weight: 700;
   padding: 10px 16px;
   cursor: pointer;
-  border-bottom: 2px solid transparent;
+  border-bottom: 3px solid transparent;
   transition: all 0.2s ease;
   white-space: nowrap;
   display: flex;
   align-items: center;
   gap: 6px;
+  border-radius: 8px 8px 0 0;
 }
 
 .funder-tab-btn:hover {
-  color: #FFFDF7;
+  color: #174842;
+  background: rgba(255, 255, 255, 0.6);
 }
 
 .funder-tab-btn.active {
-  color: #F5D77F;
-  border-bottom: 2px solid #C59A3F;
+  color: #174842;
+  background: #FFFFFF;
+  border-bottom: 3px solid #2E7D73;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .funder-modal-body {
@@ -152,17 +164,18 @@
 }
 
 .funder-info-card {
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(197, 154, 63, 0.3);
-  border-radius: 14px;
-  padding: 20px;
+  background: #FFFFFF;
+  border: 1.5px solid rgba(197, 154, 63, 0.35);
+  border-radius: 16px;
+  padding: 22px;
   margin-bottom: 16px;
+  box-shadow: 0 4px 18px rgba(43, 68, 54, 0.05);
 }
 
 .funder-card-title {
   font-family: 'Cinzel', serif;
-  font-size: 1.05rem;
-  color: #F8D98C;
+  font-size: 1.10rem;
+  color: #174842;
   margin: 0 0 14px;
   display: flex;
   align-items: center;
@@ -170,18 +183,18 @@
 }
 
 .funder-card-desc {
-  font-size: 0.86rem;
-  color: #CBD7D0;
-  line-height: 1.6;
-  margin: 0;
+  font-size: 0.88rem;
+  color: #3E5147;
+  line-height: 1.65;
+  margin: 0 0 16px;
 }
 
 .funder-detail-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 9px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(197, 154, 63, 0.18);
   font-size: 0.88rem;
   gap: 12px;
 }
@@ -192,12 +205,13 @@
 }
 
 .funder-detail-label {
-  color: #CBD7D0;
+  color: #55685F;
+  font-weight: 600;
 }
 
 .funder-detail-val {
   font-weight: 700;
-  color: #FFFDF7;
+  color: #13241C;
   text-align: right;
   display: flex;
   align-items: center;
@@ -205,19 +219,20 @@
 }
 
 .funder-copy-pill {
-  background: rgba(197, 154, 63, 0.2);
-  border: 1px solid rgba(197, 154, 63, 0.45);
-  color: #F8D98C;
+  background: rgba(46, 125, 115, 0.12);
+  border: 1px solid rgba(46, 125, 115, 0.45);
+  color: #174842;
   font-size: 0.72rem;
-  padding: 2px 8px;
+  font-weight: 700;
+  padding: 3px 8px;
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .funder-copy-pill:hover {
-  background: #C59A3F;
-  color: #111D16;
+  background: #2E7D73;
+  color: #FFFFFF;
 }
 
 .funder-stat-grid {
@@ -228,33 +243,34 @@
 }
 
 .funder-stat-card {
-  background: rgba(0, 0, 0, 0.35);
-  border: 1px solid rgba(197, 154, 63, 0.35);
-  border-radius: 12px;
-  padding: 16px;
+  background: linear-gradient(135deg, #FFFFFF 0%, #FAF6EE 100%);
+  border: 1.5px solid rgba(197, 154, 63, 0.4);
+  border-radius: 16px;
+  padding: 18px 14px;
   text-align: center;
+  box-shadow: 0 4px 16px rgba(197, 154, 63, 0.08);
 }
 
 .funder-stat-val {
   font-family: 'Cinzel', serif;
-  font-size: 1.85rem;
+  font-size: 2rem;
   font-weight: 800;
-  color: #F5D77F;
+  color: #8C6212;
   line-height: 1.1;
   margin-bottom: 4px;
 }
 
 .funder-stat-label {
-  font-size: 0.82rem;
+  font-size: 0.86rem;
   font-weight: 700;
-  color: #FFFDF7;
+  color: #13241C;
   margin-bottom: 4px;
 }
 
 .funder-stat-sub {
-  font-size: 0.72rem;
-  color: #CBD7D0;
-  line-height: 1.4;
+  font-size: 0.74rem;
+  color: #55685F;
+  line-height: 1.45;
 }
 
 .funder-leader-grid {
@@ -264,10 +280,11 @@
 }
 
 .funder-leader-card {
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(197, 154, 63, 0.3);
-  border-radius: 14px;
-  padding: 18px;
+  background: #FFFFFF;
+  border: 1.5px solid rgba(197, 154, 63, 0.35);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 6px 20px rgba(43, 68, 54, 0.06);
 }
 
 .funder-leader-avatar {
@@ -277,49 +294,49 @@
 
 .funder-leader-name {
   font-family: 'Cinzel', serif;
-  font-size: 1.15rem;
-  color: #FFFDF7;
+  font-size: 1.2rem;
+  color: #13241C;
   margin: 0 0 2px;
 }
 
 .funder-leader-role {
-  font-size: 0.78rem;
-  color: #F8D98C;
-  font-weight: 700;
+  font-size: 0.80rem;
+  color: #2E7D73;
+  font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin-bottom: 10px;
 }
 
 .funder-leader-bio {
-  font-size: 0.84rem;
-  color: #CBD7D0;
-  line-height: 1.6;
+  font-size: 0.86rem;
+  color: #3E5147;
+  line-height: 1.65;
   margin: 0;
 }
 
 .funder-modal-footer {
   padding: 18px 32px;
-  border-top: 1px solid rgba(197, 154, 63, 0.25);
+  border-top: 1.5px solid rgba(197, 154, 63, 0.35);
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 12px;
-  background: rgba(0, 0, 0, 0.25);
+  background: #F3EDE2;
 }
 
 .funder-toast {
   position: fixed;
   bottom: 24px;
   right: 24px;
-  background: #C59A3F;
-  color: #111E17;
+  background: #2E7D73;
+  color: #FFFFFF;
   padding: 10px 18px;
   border-radius: 8px;
   font-weight: 700;
   font-size: 0.84rem;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
   z-index: 100000;
   display: none;
   animation: funderFadeIn 0.2s ease;
@@ -415,18 +432,19 @@
 }
 
 .funder-inline-leader-card {
-  background: rgba(0, 0, 0, 0.35);
-  border: 1.5px solid rgba(197, 154, 63, 0.35);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1.5px solid rgba(248, 217, 140, 0.45);
   border-radius: 14px;
   padding: 22px 20px;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   transition: all 0.25s ease;
 }
 
 .funder-inline-leader-card:hover {
   border-color: #F8D98C;
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
 }
 
 .funder-matrix-row {
@@ -454,15 +472,16 @@
 
 /* ==========================================================================
    4. Prominent Institutional Grant & Funder Tab Bar (Above Our Mission)
+   Luminous Gilded Alabaster, Champagne Silk & Raw Mineral Turquoise Theme
    ========================================================================== */
 .grant-funder-prominent-bar {
   position: relative;
   z-index: 10;
-  background: linear-gradient(135deg, rgba(14, 26, 20, 0.98) 0%, rgba(22, 38, 29, 0.96) 50%, rgba(16, 30, 23, 0.98) 100%);
+  background: linear-gradient(135deg, #FFFFFF 0%, #FAF6EE 50%, #F5F9F8 100%);
   border-top: 1.5px solid rgba(197, 154, 63, 0.45);
-  border-bottom: 2px solid rgba(197, 154, 63, 0.55);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(248, 217, 140, 0.2);
-  padding: 16px 0;
+  border-bottom: 2.5px solid rgba(46, 125, 115, 0.4);
+  box-shadow: 0 10px 32px rgba(140, 98, 18, 0.08), 0 2px 10px rgba(46, 125, 115, 0.08), inset 0 1px 0 #FFFFFF;
+  padding: 18px 0;
   margin: 0;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -479,8 +498,8 @@
 .grant-tab-left {
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  max-width: 540px;
+  gap: 6px;
+  max-width: 560px;
 }
 
 .grant-tab-badge-row {
@@ -494,20 +513,20 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: linear-gradient(135deg, rgba(197, 154, 63, 0.25) 0%, rgba(46, 125, 115, 0.20) 100%);
-  border: 1px solid rgba(248, 217, 140, 0.6);
-  color: #F8D98C;
+  background: linear-gradient(135deg, rgba(46, 125, 115, 0.12) 0%, rgba(197, 154, 63, 0.18) 100%);
+  border: 1.5px solid #2E7D73;
+  color: #174842;
   font-size: 0.74rem;
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  padding: 4px 12px;
+  padding: 4px 14px;
   border-radius: 999px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 8px rgba(46, 125, 115, 0.1);
 }
 
 .grant-tab-cra-tag {
-  color: #A7F3D0;
+  color: #2E7D73;
   font-size: 0.74rem;
   font-weight: 700;
   letter-spacing: 0.05em;
@@ -518,25 +537,29 @@
 
 .grant-tab-title {
   font-family: 'Cinzel', serif;
-  font-size: 1.15rem;
-  color: #FFFFFF;
+  font-size: 1.18rem;
+  color: #13241C;
   margin: 0;
   line-height: 1.35;
   letter-spacing: 0.02em;
 }
 
 .grant-tab-title .gold-accent {
-  color: #F5D77F;
+  color: #8C6212;
+}
+
+.grant-tab-title strong {
+  color: #8C6212 !important;
 }
 
 .grant-tab-fiduciary-meta {
-  font-size: 0.78rem;
-  color: #CBD7D0;
+  font-size: 0.80rem;
+  color: #4A5D54;
   line-height: 1.5;
 }
 
 .grant-tab-fiduciary-meta strong {
-  color: #FFFDF7;
+  color: #13241C;
 }
 
 .grant-tab-actions {
@@ -547,18 +570,18 @@
 }
 
 .grant-tab-btn-primary {
-  background: linear-gradient(135deg, #C59A3F 0%, #D49B35 50%, #B88628 100%);
+  background: linear-gradient(135deg, #D49B35 0%, #C59A3F 100%);
   color: #0E1A14 !important;
   font-weight: 800;
   font-size: 0.84rem;
   padding: 10px 20px;
   border-radius: 999px;
-  border: 1px solid #FFE494;
+  border: 1.5px solid #FFE494;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  box-shadow: 0 4px 16px rgba(197, 154, 63, 0.4), 0 0 10px rgba(248, 217, 140, 0.3);
+  box-shadow: 0 4px 18px rgba(197, 154, 63, 0.45);
   transition: all 0.25s ease;
   white-space: nowrap;
   text-decoration: none;
@@ -566,14 +589,14 @@
 
 .grant-tab-btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 22px rgba(197, 154, 63, 0.55), 0 0 16px rgba(248, 217, 140, 0.5);
-  background: linear-gradient(135deg, #D49B35 0%, #E5B25D 50%, #C59A3F 100%);
+  box-shadow: 0 6px 24px rgba(197, 154, 63, 0.6);
+  background: linear-gradient(135deg, #E5B25D 0%, #D49B35 100%);
 }
 
 .grant-tab-btn-sub {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(197, 154, 63, 0.4);
-  color: #FFFDF7 !important;
+  background: #FFFFFF;
+  border: 1.5px solid rgba(46, 125, 115, 0.45);
+  color: #174842 !important;
   font-size: 0.80rem;
   font-weight: 700;
   padding: 9px 15px;
@@ -585,19 +608,20 @@
   transition: all 0.2s ease;
   white-space: nowrap;
   text-decoration: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .grant-tab-btn-sub:hover {
-  background: rgba(197, 154, 63, 0.22);
-  border-color: #F8D98C;
-  color: #F8D98C !important;
+  background: rgba(46, 125, 115, 0.12);
+  border-color: #2E7D73;
+  color: #0D322D !important;
   transform: translateY(-1px);
 }
 
 .grant-tab-btn-copy {
-  background: rgba(46, 125, 115, 0.25);
-  border: 1px solid rgba(78, 155, 145, 0.5);
-  color: #C2F0E8 !important;
+  background: rgba(46, 125, 115, 0.14);
+  border: 1.5px solid #2E7D73;
+  color: #174842 !important;
   font-size: 0.80rem;
   font-weight: 700;
   padding: 9px 14px;
@@ -611,10 +635,9 @@
 }
 
 .grant-tab-btn-copy:hover {
-  background: rgba(46, 125, 115, 0.45);
-  border-color: #A7F3D0;
+  background: #2E7D73;
   color: #FFFFFF !important;
-  box-shadow: 0 0 12px rgba(78, 155, 145, 0.4);
+  box-shadow: 0 0 14px rgba(46, 125, 115, 0.35);
 }
 
 /* Enhanced Navbar Grant Tab */
