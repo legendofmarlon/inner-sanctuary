@@ -8,10 +8,10 @@
   let currentFormat = 'square'; // 'square' (1080x1080) or 'story' (1080x1920)
   let activeArtistData = {
     artistName: 'Maya Lin',
-    category: 'Spoken Word & Soul Poetry',
-    slot: '2:10 PM',
-    date: 'Sunday, November 22, 2026',
-    location: 'Our Sanctuary Clubhouse, OC'
+    category: 'Unplugged Acoustic & Spoken Word',
+    slot: '6:30 PM',
+    date: 'Thursday, December 10, 2026',
+    location: '1501 W Alton Ave, Santa Ana, CA'
   };
 
   let emblemImg = null;
@@ -77,17 +77,17 @@
 
             <div class="promo-input-group">
               <label class="promo-input-label" for="promoCategoryInput">Performance Category</label>
-              <input type="text" id="promoCategoryInput" class="promo-input-field" value="Spoken Word & Soul Poetry">
+              <input type="text" id="promoCategoryInput" class="promo-input-field" value="Unplugged Acoustic &amp; Spoken Word">
             </div>
 
             <div class="promo-input-group">
               <label class="promo-input-label" for="promoDateInput">Date &amp; Time Slot</label>
-              <input type="text" id="promoDateInput" class="promo-input-field" value="Sunday, Nov 22 • 2:10 PM PST">
+              <input type="text" id="promoDateInput" class="promo-input-field" value="Thursday, Dec 10 • 6:30 PM PST">
             </div>
 
             <div class="promo-input-group">
               <label class="promo-input-label" for="promoLocationInput">Sanctuary Location</label>
-              <input type="text" id="promoLocationInput" class="promo-input-field" value="Our Sanctuary Clubhouse, Orange County">
+              <input type="text" id="promoLocationInput" class="promo-input-field" value="1501 W Alton Ave, Santa Ana, CA">
             </div>
 
             <button type="button" id="promoDownloadBtn" class="promo-download-btn">

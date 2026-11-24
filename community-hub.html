@@ -24,6 +24,8 @@
   <link rel="stylesheet" href="styles/modules/raffle-wheel.css?v=1.0" />
   <link rel="stylesheet" href="styles/modules/community-popup.css?v=1.0" />
   <link rel="stylesheet" href="styles/modules/funder-dossier.css?v=1.0" />
+  <link rel="stylesheet" href="styles/modules/promo-card-generator.css?v=1.0" />
+  <link rel="stylesheet" href="styles/modules/community-hub-wings.css?v=1.0" />
 
   <style>
     .hub-hero-banner {
@@ -141,10 +143,10 @@
 
       <ul class="nav-links">
         <li><a href="index.html" class="nav-link-dual"><span class="nav-link-main">Home</span><span class="nav-link-sub">Main Sanctuary</span></a></li>
+        <li><a href="#stage-lounge" class="nav-link-dual"><span class="nav-link-main">Stage &amp; Jam</span><span class="nav-link-sub">Mic Prep &amp; Chords</span></a></li>
         <li><a href="#sanctuary-reflection" class="nav-link-dual"><span class="nav-link-main">Sparks</span><span class="nav-link-sub">3D Card</span></a></li>
         <li><a href="#breath" class="nav-link-dual"><span class="nav-link-main">Breathe</span><span class="nav-link-sub">Orb &amp; Labyrinth</span></a></li>
         <li><a href="#bracelet-creator" class="nav-link-dual"><span class="nav-link-main">Bracelet</span><span class="nav-link-sub">Intention Weaver</span></a></li>
-        <li><a href="#zen-plinko" class="nav-link-dual"><span class="nav-link-main">Zen Plinko</span><span class="nav-link-sub">Seed Blessing</span></a></li>
         <li><a href="#greenroom-vault" class="nav-link-dual"><span class="nav-link-main">Greenroom</span><span class="nav-link-sub">Speakeasy</span></a></li>
       </ul>
 
@@ -163,6 +165,7 @@
     <div id="mobile-nav-drawer" class="hidden" style="display: none; padding: 20px; background: rgba(246, 243, 236, 0.98); backdrop-filter: blur(16px); border-bottom: 2px solid var(--sunburst-gold); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);">
       <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; margin: 0; padding: 0;">
         <li><a href="index.html" class="mobile-nav-item"><span class="mobile-nav-main">← Sanctuary Home</span><span class="mobile-nav-sub">Return to Main Page</span></a></li>
+        <li><a href="#stage-lounge" onclick="document.getElementById('mobile-nav-drawer').style.display='none';" class="mobile-nav-item"><span class="mobile-nav-main">🎶 Stage &amp; Jam Lounge</span><span class="mobile-nav-sub">3-Min Timer, Chords &amp; Promo Studio</span></a></li>
         <li><a href="#sanctuary-reflection" onclick="document.getElementById('mobile-nav-drawer').style.display='none';" class="mobile-nav-item"><span class="mobile-nav-main">✨ Daily Sanctuary Sparks</span><span class="mobile-nav-sub">3D Flip Card &amp; Prompts</span></a></li>
         <li><a href="#breath" onclick="document.getElementById('mobile-nav-drawer').style.display='none';" class="mobile-nav-item"><span class="mobile-nav-main">🕊️ Pause &amp; Breathe</span><span class="mobile-nav-sub">Orb &amp; Sacred Labyrinth</span></a></li>
         <li><a href="#bracelet-creator" onclick="document.getElementById('mobile-nav-drawer').style.display='none';" class="mobile-nav-item"><span class="mobile-nav-main">📿 Intention Bracelet</span><span class="mobile-nav-sub">Keepsake Weaver</span></a></li>
@@ -190,20 +193,120 @@
             Every interactive ritual, reflection card, bracelet station, breath pacer, and Greenroom experience lives right here—keeping our homepage peaceful and uncluttered while giving our community room to play and unwind.
           </p>
 
-          <div class="hub-pill-nav">
+          <!-- Expandable Modular Wing Filter Bar -->
+          <div class="hub-wing-filter-bar" role="group" aria-label="Filter Community Hub Wings">
+            <button type="button" class="hub-wing-pill active" data-wing-filter="all" aria-pressed="true" onclick="window.sanctuaryHubWings.filterWing('all')">✦ All Wings (Full Hub)</button>
+            <button type="button" class="hub-wing-pill" data-wing-filter="stage" aria-pressed="false" onclick="window.sanctuaryHubWings.filterWing('stage')">🎶 Stage &amp; Jam Lounge</button>
+            <button type="button" class="hub-wing-pill" data-wing-filter="pause" aria-pressed="false" onclick="window.sanctuaryHubWings.filterWing('pause')">🍃 Breathe &amp; Pause</button>
+            <button type="button" class="hub-wing-pill" data-wing-filter="craft" aria-pressed="false" onclick="window.sanctuaryHubWings.filterWing('craft')">📿 Sparks, Bracelets &amp; Seeds</button>
+            <button type="button" class="hub-wing-pill" data-wing-filter="greenroom" aria-pressed="false" onclick="window.sanctuaryHubWings.filterWing('greenroom')">🗝️ Hearth &amp; Greenroom</button>
+          </div>
+          <div class="hub-pill-nav" style="margin-top: 14px;">
+            <a href="#stage-lounge" class="ritual-pill-btn">🎤 Open Mic Timer &amp; Chords</a>
             <a href="#sanctuary-reflection" class="ritual-pill-btn">✨ Daily Sparks</a>
-            <a href="#breath" class="ritual-pill-btn">🕊️ Breath Orb &amp; Labyrinth</a>
+            <a href="#breath" class="ritual-pill-btn">🕊️ Breath Orb</a>
             <a href="#bracelet-creator" class="ritual-pill-btn">📿 Intention Bracelet</a>
             <a href="#zen-plinko" class="ritual-pill-btn">🎯 Zen Plinko</a>
-            <a href="#hearth-mirror-portal" class="ritual-pill-btn">🕯️ Hearth Mirror</a>
-            <a href="#greenroom-vault" class="ritual-pill-btn">🗝️ Greenroom &amp; Jam</a>
+            <a href="#greenroom-vault" class="ritual-pill-btn">🗝️ Greenroom Vault</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 0. STAGE & UNPLUGGED JAM PREP LOUNGE -->
+    <section id="stage-lounge" class="hub-section-block hub-section-cream hub-wing-section" data-hub-wing="stage">
+      <div class="container">
+        <div class="stage-lounge-card">
+          <div class="stage-lounge-header">
+            <div class="stage-lounge-badge">🎶 Unplugged Playground &amp; Open Mic Prep Lounge</div>
+            <h2 class="serif-brand" style="color: #FFFFFF; font-size: clamp(1.65rem, 3vw, 2.2rem); margin: 0 0 8px;">Warm Up for the Stage or Catch a Groove</h2>
+            <p style="color: #D3DFD8; font-size: 0.92rem; line-height: 1.6; margin: 0;">Practice a 3-minute poem or acoustic song with zero pressure, explore warm chord pockets before December 10 in Santa Ana, or generate your Artist Promo Card.</p>
+          </div>
+
+          <div class="stage-lounge-grid">
+            <!-- Left: Rehearsal Timer -->
+            <div class="stage-tool-panel">
+              <div>
+                <div class="stage-panel-eyebrow">⏱️ Performer Confidence Tool</div>
+                <h3 class="stage-panel-title">Open Mic Set Rehearsal Timer</h3>
+                <p class="stage-panel-sub">Pace your poem, monologue, or acoustic track gently with an optional 12-second grounding breath cue before you start.</p>
+
+                <div class="stage-timer-presets" role="group" aria-label="Rehearsal Time Presets">
+                  <button type="button" class="stage-preset-btn" data-seconds="90" onclick="window.sanctuaryHubWings.setStagePreset(90)">1:30 Story</button>
+                  <button type="button" class="stage-preset-btn active" data-seconds="180" onclick="window.sanctuaryHubWings.setStagePreset(180)">3:00 Open Mic</button>
+                  <button type="button" class="stage-preset-btn" data-seconds="300" onclick="window.sanctuaryHubWings.setStagePreset(300)">5:00 Acoustic Set</button>
+                </div>
+
+                <div id="stageTimerBox" class="stage-timer-display-box">
+                  <div id="stageTimerDigits" class="stage-timer-digits">03:00</div>
+                  <div id="stageTimerStatus" class="stage-timer-status">Ready when you are — set your pace</div>
+                  <div class="stage-timer-bar-wrap"><div id="stageTimerBar" class="stage-timer-bar"></div></div>
+                </div>
+              </div>
+
+              <div>
+                <label class="stage-breath-check">
+                  <input type="checkbox" id="chkStageBreathCue" checked />
+                  <span>🍃 Begin with a 4-2-6 grounding breath (12s)</span>
+                </label>
+                <div class="stage-timer-controls">
+                  <button type="button" id="btnStageTimerToggle" class="btn btn-gold" onclick="window.sanctuaryHubWings.toggleStageTimer()" style="flex: 1; justify-content: center;">▶ Start Set Timer</button>
+                  <button type="button" class="btn btn-outline" onclick="window.sanctuaryHubWings.resetStageTimer()" style="border-color: rgba(245, 215, 127, 0.45); color: #FCE6A2;">🔄 Reset</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Acoustic Pocket Pad -->
+            <div class="stage-tool-panel">
+              <div>
+                <div class="stage-panel-eyebrow">🎸 Dec 10 Unplugged Jam Prep</div>
+                <h3 class="stage-panel-title">Acoustic Pocket Chord &amp; Rhythm Pad</h3>
+                <p class="stage-panel-sub">Tap warm acoustic chord voicings to write lyrics or catch a flow, then add a subtle hand-drum pocket pulse.</p>
+
+                <div class="jam-key-tabs" role="group" aria-label="Chord Progression Mood">
+                  <button type="button" class="jam-key-btn active" data-prog="soul" onclick="window.sanctuaryHubWings.selectProgression('soul')">Warm Soul (Fmaj7)</button>
+                  <button type="button" class="jam-key-btn" data-prog="hearth" onclick="window.sanctuaryHubWings.selectProgression('hearth')">Acoustic Hearth (G)</button>
+                  <button type="button" class="jam-key-btn" data-prog="poet" onclick="window.sanctuaryHubWings.selectProgression('poet')">Poet Minor (Am7)</button>
+                </div>
+
+                <div class="jam-chord-grid">
+                  <button type="button" class="jam-chord-pad" onclick="window.sanctuaryHubWings.playChordPad(0)"><span class="jam-chord-name">Fmaj7</span><span class="jam-chord-feel">Warm Root</span></button>
+                  <button type="button" class="jam-chord-pad" onclick="window.sanctuaryHubWings.playChordPad(1)"><span class="jam-chord-name">Em7</span><span class="jam-chord-feel">Soft Drift</span></button>
+                  <button type="button" class="jam-chord-pad" onclick="window.sanctuaryHubWings.playChordPad(2)"><span class="jam-chord-name">Dm7</span><span class="jam-chord-feel">Spoken Pocket</span></button>
+                  <button type="button" class="jam-chord-pad" onclick="window.sanctuaryHubWings.playChordPad(3)"><span class="jam-chord-name">Cmaj7</span><span class="jam-chord-feel">Home Resolve</span></button>
+                </div>
+              </div>
+
+              <div class="jam-rhythm-bar">
+                <div class="jam-rhythm-top">
+                  <button type="button" id="btnJamGrooveToggle" class="btn btn-gold" onclick="window.sanctuaryHubWings.toggleGroove()" style="padding: 7px 14px; font-size: 0.76rem;">▶ Play Soft Pocket Groove</button>
+                  <button type="button" class="btn btn-outline" onclick="window.sanctuaryHubWings.tapTempo()" style="padding: 6px 12px; font-size: 0.74rem; border-color: rgba(197, 154, 63, 0.45); color: #FCE6A2;">👆 Tap Tempo</button>
+                </div>
+                <div class="jam-bpm-row">
+                  <label for="jamBpmSlider" style="font-weight: 700; min-width: 62px;" id="jamBpmLabel">84 BPM</label>
+                  <input type="range" id="jamBpmSlider" min="66" max="112" step="1" value="84" oninput="window.sanctuaryHubWings.setGrooveBpm(this.value)" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stage-lounge-footer-strip">
+            <div style="font-size: 0.84rem; color: #FFFDF7; line-height: 1.45;">
+              <strong style="color: #FCE6A2;">Coming Dec 10 in Santa Ana?</strong><br />
+              Mint an IG promo graphic for your set, or save Thursday Dec 10 (6–8 PM) at 1501 W Alton Ave.
+            </div>
+            <div class="stage-lounge-footer-actions">
+              <button type="button" id="btnHubOpenPromoStudio" class="btn btn-gold" onclick="if(window.sanctuaryPromoCard) window.sanctuaryPromoCard.open()" style="padding: 9px 15px; font-size: 0.78rem;">🎨 Artist Promo Studio</button>
+              <a href="https://www.meetup.com/socal-creatives-collective/events/317462800/" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="padding: 9px 14px; font-size: 0.78rem; border-color: rgba(134, 239, 172, 0.55); color: #86EFAC; text-decoration: none;">🎶 RSVP Dec 10 Jam ↗</a>
+              <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=%F0%9F%8E%B6+Jam+Session%3A+The+Unplugged+Playground&dates=20261211T020000Z/20261211T040000Z&details=An+Intimate+Jam+Session+with+SoCal+Creatives+Collective.+RSVP%3A+https%3A%2F%2Fwww.meetup.com%2Fsocal-creatives-collective%2Fevents%2F317462800%2F&location=1501+W+Alton+Ave%2C+Santa+Ana%2C+CA+92704" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="padding: 9px 14px; font-size: 0.78rem; border-color: rgba(245, 215, 127, 0.45); color: #FCE6A2; text-decoration: none;">📅 Google Cal ↗</a>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- 1. DAILY SANCTUARY SPARKS (RELOCATED FROM HERO/HOMEPAGE) -->
-    <section class="hub-section-block hub-section-cream">
+    <section class="hub-section-block hub-section-cream hub-wing-section" data-hub-wing="craft">
       <div class="container">
         <div class="sanctuary-reflection-widget" id="sanctuary-reflection" style="background: rgba(255, 255, 255, 0.94); border: 1.5px solid rgba(197, 154, 63, 0.35); border-radius: 20px; padding: 34px 24px; box-shadow: 0 14px 36px rgba(43, 68, 54, 0.08); margin: 0 auto; max-width: 640px;">
           <div class="reflection-widget-header">
@@ -264,7 +367,7 @@
     </section>
 
     <!-- 2. LIVING BREATH ORB & SACRED LABYRINTH -->
-    <section id="breath" class="section-padding sacred-breath-section">
+    <section id="breath" class="section-padding sacred-breath-section hub-wing-section" data-hub-wing="pause">
       <div class="container" style="text-align: center;">
         <div class="section-header" style="max-width: 680px; margin: 0 auto 20px; text-align: center;">
           <div class="section-subtitle" style="color: var(--sunburst-gold); font-weight: 700; letter-spacing: 0.12em;">Pause Activation • Unhurried Presence</div>
@@ -323,7 +426,7 @@
     </section>
 
     <!-- 3. DIGITAL INTENTION BRACELET CREATOR -->
-    <section class="hub-section-block hub-section-warm">
+    <section class="hub-section-block hub-section-warm hub-wing-section" data-hub-wing="craft">
       <div class="container">
         <div class="digital-bracelet-creator" id="bracelet-creator" style="margin-top: 0;">
           <div class="bracelet-header">
@@ -389,7 +492,7 @@
     </section>
 
     <!-- 4. ZEN PLINKO SEED BLESSING -->
-    <section class="hub-section-block hub-section-cream">
+    <section class="hub-section-block hub-section-cream hub-wing-section" data-hub-wing="craft">
       <div class="container">
         <div id="zen-plinko" class="zen-plinko-wrapper" style="max-width: 860px; margin: 0 auto; background: linear-gradient(165deg, rgba(34, 54, 43, 0.96) 0%, rgba(20, 32, 25, 0.98) 100%); border: 1.5px solid rgba(197, 154, 63, 0.5); border-radius: 24px; padding: 32px 24px 28px; box-shadow: 0 16px 42px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.12); position: relative; overflow: hidden;">
           <div style="text-align: center; position: relative; z-index: 2; margin-bottom: 20px;">
@@ -477,7 +580,7 @@
     </section>
 
     <!-- 5. THE HEARTH MIRROR (GEMINI WISDOM COMPANION) + GREENROOM SPEAKEASY -->
-    <section id="greenroom-vault" class="hub-section-block hub-section-warm">
+    <section id="greenroom-vault" class="hub-section-block hub-section-warm hub-wing-section" data-hub-wing="greenroom">
       <div class="container">
         <div class="hearth-mirror-card" id="hearth-mirror-portal" style="max-width: 720px; margin: 0 auto 38px; background: rgba(30, 49, 39, 0.94); border: 1.5px solid rgba(197, 154, 63, 0.45); border-radius: 20px; padding: 36px 30px; box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22); color: #FFFDF7; text-align: center; position: relative; overflow: hidden;">
           <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(197, 154, 63, 0.18); border: 1px solid rgba(197, 154, 63, 0.4); padding: 5px 14px; border-radius: 999px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; color: #FCE6A2; text-transform: uppercase; margin-bottom: 16px;">
@@ -900,5 +1003,7 @@
   <script src="js/modules/adaptive-atmosphere.js?v=1.0"></script>
   <script src="js/modules/pause-booth.js?v=1.0"></script>
   <script src="js/modules/raffle-wheel.js?v=1.0"></script>
+  <script src="js/modules/promo-card-generator.js?v=1.1"></script>
+  <script src="js/modules/community-hub-wings.js?v=1.0"></script>
 </body>
 </html>
