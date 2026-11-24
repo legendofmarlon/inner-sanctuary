@@ -2,10 +2,11 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  // Floating $1 Seed Action Button on Scroll (Auto-hides when donation section is in view)
+  // Floating $1 Seed Action Button & Back to Top Medallion on Scroll
   const floatingSeedPill = document.getElementById('floating-seed-pill');
+  const btnBackToTop = document.getElementById('btnBackToTop');
   const pwaBanner = document.getElementById('pwaInstallBanner');
-  if (floatingSeedPill) {
+  if (floatingSeedPill || btnBackToTop) {
     let ticking = false;
     window.addEventListener('scroll', () => {
       if (!ticking) {
@@ -18,15 +19,24 @@ document.addEventListener('DOMContentLoaded', () => {
               isOverDonation = true;
             }
           }
-          if (isOverDonation) {
-            document.body.classList.add('viewing-donation');
-            floatingSeedPill.classList.remove('is-visible');
-          } else {
-            document.body.classList.remove('viewing-donation');
-            if (window.scrollY > 340) {
-              floatingSeedPill.classList.add('is-visible');
-            } else {
+          if (floatingSeedPill) {
+            if (isOverDonation) {
+              document.body.classList.add('viewing-donation');
               floatingSeedPill.classList.remove('is-visible');
+            } else {
+              document.body.classList.remove('viewing-donation');
+              if (window.scrollY > 340) {
+                floatingSeedPill.classList.add('is-visible');
+              } else {
+                floatingSeedPill.classList.remove('is-visible');
+              }
+            }
+          }
+          if (btnBackToTop) {
+            if (window.scrollY > 500) {
+              btnBackToTop.classList.add('is-visible');
+            } else {
+              btnBackToTop.classList.remove('is-visible');
             }
           }
           if (pwaBanner) {

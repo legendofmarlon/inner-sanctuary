@@ -488,8 +488,14 @@
         </li>
         <li>
           <a href="#programs" class="nav-link-dual">
-            <span class="nav-link-main">Current Programs</span>
-            <span class="nav-link-sub">Pause &amp; Open Mic</span>
+            <span class="nav-link-main">Experiences</span>
+            <span class="nav-link-sub">Pause &amp; Reset</span>
+          </a>
+        </li>
+        <li>
+          <a href="#open-mic" class="nav-link-dual" title="Community Open Mic &amp; Gatherings">
+            <span class="nav-link-main" style="color: var(--forest-green); font-weight: 700;">🎙️ Open Mic</span>
+            <span class="nav-link-sub">Gatherings &amp; Stage</span>
           </a>
         </li>
         <li>
@@ -614,9 +620,15 @@
           </a>
         </li>
         <li>
-          <a href="#programs" class="mobile-nav-item">
-            <span class="mobile-nav-main">Current Programs</span>
-            <span class="mobile-nav-sub">Pause &amp; Open Mic</span>
+          <a href="#programs" class="mobile-nav-item" onclick="document.getElementById('mobile-nav-drawer').style.display='none';">
+            <span class="mobile-nav-main">Experiences</span>
+            <span class="mobile-nav-sub">Pause &amp; Reset</span>
+          </a>
+        </li>
+        <li>
+          <a href="#open-mic" class="mobile-nav-item" onclick="document.getElementById('mobile-nav-drawer').style.display='none';">
+            <span class="mobile-nav-main" style="color: var(--forest-green); font-weight: 700;">🎙️ Open Mic &amp; Gatherings</span>
+            <span class="mobile-nav-sub">Community Lineup &amp; RSVP</span>
           </a>
         </li>
         <li>
@@ -2933,106 +2945,10 @@
           Whether you are planting a <strong>$1 Community Seed</strong> or a community-minded corporate/banking partner fulfilling <strong>CRA (Community Reinvestment Act)</strong> objectives, your gift directly sustains unhurried healing spaces and authentic stages.
         </p>
         <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
-          <a href="#zen-plinko" class="btn btn-gold btn-liquid-gold pulse-gold" style="text-decoration: none;">🌱 Play Zen Plinko (Drop a Seed)</a>
-          <a href="#dollar-campaign-anchor" class="btn btn-outline" style="text-decoration: none;">🌱 Give $1 Direct</a>
+          <a href="#dollar-campaign-anchor" class="btn btn-gold btn-liquid-gold pulse-gold" style="text-decoration: none;">🌱 Give $1 Community Seed</a>
+          <a href="#zen-plinko" class="btn btn-outline" style="text-decoration: none;">🎮 Drop a Seed (Zen Plinko)</a>
           <a href="#sponsorship" class="btn btn-forest">🏢 Become a Sponsor</a>
         </div>
-      </div>
-
-      
-      <!-- ==================== "DROP A SEED" ZEN PLINKO INTERACTIVE MINI-GAME ==================== -->
-      <div id="zen-plinko" class="zen-plinko-wrapper" style="max-width: 860px; margin: 0 auto 48px; background: linear-gradient(165deg, rgba(34, 54, 43, 0.96) 0%, rgba(20, 32, 25, 0.98) 100%); border: 1.5px solid rgba(197, 154, 63, 0.5); border-radius: 24px; padding: 32px 24px 28px; box-shadow: 0 16px 42px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.12); position: relative; overflow: hidden;">
-        
-        <!-- Subtle Ambient Background Glow -->
-        <div style="position: absolute; top: -60px; right: -60px; width: 220px; height: 220px; background: radial-gradient(circle, rgba(197, 154, 63, 0.15) 0%, transparent 70%); border-radius: 50%; pointer-events: none;"></div>
-        <div style="position: absolute; bottom: -60px; left: -60px; width: 220px; height: 220px; background: radial-gradient(circle, rgba(95, 123, 107, 0.2) 0%, transparent 70%); border-radius: 50%; pointer-events: none;"></div>
-
-        <div style="text-align: center; position: relative; z-index: 2; margin-bottom: 20px;">
-          <span style="font-size: 0.74rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #FCE6A2; background: rgba(197, 154, 63, 0.22); border: 1px solid rgba(197, 154, 63, 0.45); padding: 4px 14px; border-radius: 999px; display: inline-block; margin-bottom: 10px;">
-            ✦ Interactive Somatic Game • 432Hz Harmonic Chimes ✦
-          </span>
-          <h3 class="serif-brand" style="color: #FFFFFF; font-size: clamp(1.6rem, 2.8vw, 2.1rem); margin: 0 0 8px; text-shadow: 0 2px 10px rgba(0,0,0,0.4);">
-            The "Drop a Seed" Zen Plinko
-          </h3>
-          <p style="color: #DCEEE2; font-size: 0.95rem; max-width: 620px; margin: 0 auto; line-height: 1.6;">
-            Tap anywhere along the top bar to release a golden seed into the Sanctuary. Listen to the soothing 432Hz harmonic chimes as it tumbles through the brass bells to reveal the community gift you nurture today.
-          </p>
-        </div>
-
-        <!-- Top Drop Selector Bar -->
-        <div class="plinko-drop-control-bar" id="plinkoDropBar" title="Click or tap anywhere along this bar to drop your seed" style="background: rgba(0, 0, 0, 0.35); border: 1.5px dashed rgba(197, 154, 63, 0.6); border-radius: 14px; padding: 12px 18px; margin: 0 auto 16px; max-width: 580px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; transition: border-color 0.25s ease, background 0.25s ease;">
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <span style="font-size: 1.25rem; animation: bounceDrop 2s infinite ease-in-out;">🌱</span>
-            <span style="font-size: 0.88rem; font-weight: 600; color: #FFFDF7;">Tap or click to drop a seed</span>
-          </div>
-          <button type="button" id="btnDropSeedManual" class="btn btn-gold btn-liquid-gold pulse-gold" style="font-size: 0.78rem; font-weight: 700; padding: 6px 14px; border-radius: 999px; border: none; cursor: pointer;">
-            <span>🌱 Drop A Seed</span>
-          </button>
-        </div>
-
-        <!-- Plinko Canvas Interactive Stage -->
-        <div class="plinko-canvas-container" style="position: relative; max-width: 580px; margin: 0 auto; border-radius: 16px; overflow: hidden; background: radial-gradient(circle at 50% 20%, #1D3126 0%, #111E17 100%); border: 1px solid rgba(197, 154, 63, 0.35); box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.45);">
-          <canvas id="zenPlinkoCanvas" width="580" height="420" style="display: block; width: 100%; height: auto; touch-action: none; cursor: pointer;"></canvas>
-          <div class="plinko-aim-guide" id="plinkoAimGuide" style="position: absolute; top: 0; bottom: 0; width: 1px; border-left: 1px dashed rgba(197, 154, 63, 0.4); pointer-events: none; opacity: 0; transition: opacity 0.2s ease;"></div>
-        </div>
-
-        <!-- 5 Receiving Baskets Legend / Visualizer -->
-        <div class="plinko-baskets-legend" id="plinkoBasketsLegend" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; max-width: 580px; margin: 12px auto 20px;">
-          <div class="plinko-basket-card" data-basket="0" style="background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(197, 154, 63, 0.25); border-radius: 10px; padding: 8px 4px; text-align: center; transition: all 0.3s ease;">
-            <div style="font-size: 1.1rem; margin-bottom: 2px;">🥣</div>
-            <div style="font-size: 0.72rem; font-weight: 700; color: #FFF8E7; line-height: 1.2;">Sound Bowl</div>
-            <div style="font-size: 0.62rem; color: #A6C9B2;">432Hz Reset</div>
-          </div>
-          <div class="plinko-basket-card" data-basket="1" style="background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(197, 154, 63, 0.25); border-radius: 10px; padding: 8px 4px; text-align: center; transition: all 0.3s ease;">
-            <div style="font-size: 1.1rem; margin-bottom: 2px;">📿</div>
-            <div style="font-size: 0.72rem; font-weight: 700; color: #FFF8E7; line-height: 1.2;">Intention Bead</div>
-            <div style="font-size: 0.62rem; color: #A6C9B2;">Anchor Weave</div>
-          </div>
-          <div class="plinko-basket-card" data-basket="2" style="background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(197, 154, 63, 0.25); border-radius: 10px; padding: 8px 4px; text-align: center; transition: all 0.3s ease;">
-            <div style="font-size: 1.1rem; margin-bottom: 2px;">🎙️</div>
-            <div style="font-size: 0.72rem; font-weight: 700; color: #FFF8E7; line-height: 1.2;">Open Mic</div>
-            <div style="font-size: 0.62rem; color: #A6C9B2;">Stage Sound</div>
-          </div>
-          <div class="plinko-basket-card" data-basket="3" style="background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(197, 154, 63, 0.25); border-radius: 10px; padding: 8px 4px; text-align: center; transition: all 0.3s ease;">
-            <div style="font-size: 1.1rem; margin-bottom: 2px;">🕊️</div>
-            <div style="font-size: 0.72rem; font-weight: 700; color: #FFF8E7; line-height: 1.2;">60-Sec Pause</div>
-            <div style="font-size: 0.62rem; color: #A6C9B2;">Somatic Reset</div>
-          </div>
-          <div class="plinko-basket-card" data-basket="4" style="background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(197, 154, 63, 0.25); border-radius: 10px; padding: 8px 4px; text-align: center; transition: all 0.3s ease;">
-            <div style="font-size: 1.1rem; margin-bottom: 2px;">🏛️</div>
-            <div style="font-size: 0.72rem; font-weight: 700; color: #FFF8E7; line-height: 1.2;">Sanctuary Pillar</div>
-            <div style="font-size: 0.62rem; color: #A6C9B2;">Root Foundation</div>
-          </div>
-        </div>
-
-        <!-- Result Celebration Card (Reveals upon catch) -->
-        <div id="plinkoResultBox" style="display: none; background: rgba(0, 0, 0, 0.4); border: 1.5px solid var(--sunburst-gold); border-radius: 16px; padding: 18px 20px; max-width: 580px; margin: 0 auto 16px; text-align: center; animation: fadeIn 0.4s ease;">
-          <div style="font-size: 0.75rem; font-weight: 700; color: #FCE6A2; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px;">
-            ✦ SEED SPROUTED IN THE SANCTUARY ✦
-          </div>
-          <div id="plinkoResultTitle" class="serif-brand" style="font-size: 1.35rem; color: #FFFFFF; margin-bottom: 6px;">
-            🥣 You Nourished: 432Hz Sound Bowl Bath
-          </div>
-          <p id="plinkoResultDesc" style="color: #DCEEE2; font-size: 0.90rem; margin: 0 0 16px; line-height: 1.5;">
-            "A restorative 432Hz sound bath frequency offered freely so a tired neighbor or local creator can sit, exhale, and regulate their nervous system."
-          </p>
-          <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
-            <button type="button" id="btnPlinkoReplay" class="btn btn-outline" style="font-size: 0.80rem; padding: 8px 16px; color: #FFFFFF; border-color: rgba(255, 255, 255, 0.4);">
-              <span>🔄 Drop Another Seed</span>
-            </button>
-            <button type="button" onclick="openZeffyModal(event)" class="btn btn-gold btn-liquid-gold pulse-gold" style="font-size: 0.80rem; padding: 8px 18px;">
-              <span>🌱 Plant Real Roots ($1 via Zeffy)</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Live Community Seed Tally Counter -->
-        <div style="text-align: center; font-size: 0.84rem; color: #FCE6A2; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px;">
-          <span>🌱 Community Seeds Sown Today: <strong id="plinkoSeedCounter" style="color: #FFFFFF; font-size: 1.05rem; font-family: 'Cinzel', serif;">142</strong></span>
-          <span style="opacity: 0.6;">•</span>
-          <span style="color: #A6C9B2; font-weight: 400; font-size: 0.80rem;">100% Tax-Deductible 501(c)(3)</span>
-        </div>
-
       </div>
 
       <div id="dollar-campaign-anchor" class="dollar-campaign-wrapper" style="overflow: hidden; max-width: 100%; box-sizing: border-box;">
@@ -3205,6 +3121,101 @@
               Institutional Grants &amp; CRA Packets ↓
             </a>
           </div>
+        </div>
+
+      </div>
+
+      <!-- ==================== "DROP A SEED" ZEN PLINKO INTERACTIVE MINI-GAME ==================== -->
+      <div id="zen-plinko" class="zen-plinko-wrapper" style="max-width: 860px; margin: 40px auto 20px; background: linear-gradient(165deg, rgba(34, 54, 43, 0.96) 0%, rgba(20, 32, 25, 0.98) 100%); border: 1.5px solid rgba(197, 154, 63, 0.5); border-radius: 24px; padding: 32px 24px 28px; box-shadow: 0 16px 42px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.12); position: relative; overflow: hidden;">
+        
+        <!-- Subtle Ambient Background Glow -->
+        <div style="position: absolute; top: -60px; right: -60px; width: 220px; height: 220px; background: radial-gradient(circle, rgba(197, 154, 63, 0.15) 0%, transparent 70%); border-radius: 50%; pointer-events: none;"></div>
+        <div style="position: absolute; bottom: -60px; left: -60px; width: 220px; height: 220px; background: radial-gradient(circle, rgba(95, 123, 107, 0.2) 0%, transparent 70%); border-radius: 50%; pointer-events: none;"></div>
+
+        <div style="text-align: center; position: relative; z-index: 2; margin-bottom: 20px;">
+          <span style="font-size: 0.74rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #FCE6A2; background: rgba(197, 154, 63, 0.22); border: 1px solid rgba(197, 154, 63, 0.45); padding: 4px 14px; border-radius: 999px; display: inline-block; margin-bottom: 10px;">
+            ✦ Interactive Somatic Game • 432Hz Harmonic Chimes ✦
+          </span>
+          <h3 class="serif-brand" style="color: #FFFFFF; font-size: clamp(1.6rem, 2.8vw, 2.1rem); margin: 0 0 8px; text-shadow: 0 2px 10px rgba(0,0,0,0.4);">
+            The "Drop a Seed" Zen Plinko
+          </h3>
+          <p style="color: #DCEEE2; font-size: 0.95rem; max-width: 620px; margin: 0 auto; line-height: 1.6;">
+            Tap anywhere along the top bar to release a golden seed into the Sanctuary. Listen to the soothing 432Hz harmonic chimes as it tumbles through the brass bells to reveal the community gift you nurture today.
+          </p>
+        </div>
+
+        <!-- Top Drop Selector Bar -->
+        <div class="plinko-drop-control-bar" id="plinkoDropBar" title="Click or tap anywhere along this bar to drop your seed" style="background: rgba(0, 0, 0, 0.35); border: 1.5px dashed rgba(197, 154, 63, 0.6); border-radius: 14px; padding: 12px 18px; margin: 0 auto 16px; max-width: 580px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; transition: border-color 0.25s ease, background 0.25s ease;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 1.25rem; animation: bounceDrop 2s infinite ease-in-out;">🌱</span>
+            <span style="font-size: 0.88rem; font-weight: 600; color: #FFFDF7;">Tap or click to drop a seed</span>
+          </div>
+          <button type="button" id="btnDropSeedManual" class="btn btn-gold btn-liquid-gold pulse-gold" style="font-size: 0.78rem; font-weight: 700; padding: 6px 14px; border-radius: 999px; border: none; cursor: pointer;">
+            <span>🌱 Drop A Seed</span>
+          </button>
+        </div>
+
+        <!-- Plinko Canvas Interactive Stage -->
+        <div class="plinko-canvas-container" style="position: relative; max-width: 580px; margin: 0 auto; border-radius: 16px; overflow: hidden; background: radial-gradient(circle at 50% 20%, #1D3126 0%, #111E17 100%); border: 1px solid rgba(197, 154, 63, 0.35); box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.45);">
+          <canvas id="zenPlinkoCanvas" width="580" height="420" style="display: block; width: 100%; height: auto; touch-action: none; cursor: pointer;"></canvas>
+          <div class="plinko-aim-guide" id="plinkoAimGuide" style="position: absolute; top: 0; bottom: 0; width: 1px; border-left: 1px dashed rgba(197, 154, 63, 0.4); pointer-events: none; opacity: 0; transition: opacity 0.2s ease;"></div>
+        </div>
+
+        <!-- 5 Receiving Baskets Legend / Visualizer -->
+        <div class="plinko-baskets-legend" id="plinkoBasketsLegend" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; max-width: 580px; margin: 12px auto 20px;">
+          <div class="plinko-basket-card" data-basket="0" style="background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(197, 154, 63, 0.25); border-radius: 10px; padding: 8px 4px; text-align: center; transition: all 0.3s ease;">
+            <div style="font-size: 1.1rem; margin-bottom: 2px;">🥣</div>
+            <div style="font-size: 0.72rem; font-weight: 700; color: #FFF8E7; line-height: 1.2;">Sound Bowl</div>
+            <div style="font-size: 0.62rem; color: #A6C9B2;">432Hz Reset</div>
+          </div>
+          <div class="plinko-basket-card" data-basket="1" style="background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(197, 154, 63, 0.25); border-radius: 10px; padding: 8px 4px; text-align: center; transition: all 0.3s ease;">
+            <div style="font-size: 1.1rem; margin-bottom: 2px;">📿</div>
+            <div style="font-size: 0.72rem; font-weight: 700; color: #FFF8E7; line-height: 1.2;">Intention Bead</div>
+            <div style="font-size: 0.62rem; color: #A6C9B2;">Anchor Weave</div>
+          </div>
+          <div class="plinko-basket-card" data-basket="2" style="background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(197, 154, 63, 0.25); border-radius: 10px; padding: 8px 4px; text-align: center; transition: all 0.3s ease;">
+            <div style="font-size: 1.1rem; margin-bottom: 2px;">🎙️</div>
+            <div style="font-size: 0.72rem; font-weight: 700; color: #FFF8E7; line-height: 1.2;">Open Mic</div>
+            <div style="font-size: 0.62rem; color: #A6C9B2;">Stage Sound</div>
+          </div>
+          <div class="plinko-basket-card" data-basket="3" style="background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(197, 154, 63, 0.25); border-radius: 10px; padding: 8px 4px; text-align: center; transition: all 0.3s ease;">
+            <div style="font-size: 1.1rem; margin-bottom: 2px;">🕊️</div>
+            <div style="font-size: 0.72rem; font-weight: 700; color: #FFF8E7; line-height: 1.2;">60-Sec Pause</div>
+            <div style="font-size: 0.62rem; color: #A6C9B2;">Somatic Reset</div>
+          </div>
+          <div class="plinko-basket-card" data-basket="4" style="background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(197, 154, 63, 0.25); border-radius: 10px; padding: 8px 4px; text-align: center; transition: all 0.3s ease;">
+            <div style="font-size: 1.1rem; margin-bottom: 2px;">🏛️</div>
+            <div style="font-size: 0.72rem; font-weight: 700; color: #FFF8E7; line-height: 1.2;">Sanctuary Pillar</div>
+            <div style="font-size: 0.62rem; color: #A6C9B2;">Root Foundation</div>
+          </div>
+        </div>
+
+        <!-- Result Celebration Card (Reveals upon catch) -->
+        <div id="plinkoResultBox" style="display: none; background: rgba(0, 0, 0, 0.4); border: 1.5px solid var(--sunburst-gold); border-radius: 16px; padding: 18px 20px; max-width: 580px; margin: 0 auto 16px; text-align: center; animation: fadeIn 0.4s ease;">
+          <div style="font-size: 0.75rem; font-weight: 700; color: #FCE6A2; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px;">
+            ✦ SEED SPROUTED IN THE SANCTUARY ✦
+          </div>
+          <div id="plinkoResultTitle" class="serif-brand" style="font-size: 1.35rem; color: #FFFFFF; margin-bottom: 6px;">
+            🥣 You Nourished: 432Hz Sound Bowl Bath
+          </div>
+          <p id="plinkoResultDesc" style="color: #DCEEE2; font-size: 0.90rem; margin: 0 0 16px; line-height: 1.5;">
+            "A restorative 432Hz sound bath frequency offered freely so a tired neighbor or local creator can sit, exhale, and regulate their nervous system."
+          </p>
+          <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
+            <button type="button" id="btnPlinkoReplay" class="btn btn-outline" style="font-size: 0.80rem; padding: 8px 16px; color: #FFFFFF; border-color: rgba(255, 255, 255, 0.4);">
+              <span>🔄 Drop Another Seed</span>
+            </button>
+            <button type="button" onclick="openZeffyModal(event)" class="btn btn-gold btn-liquid-gold pulse-gold" style="font-size: 0.80rem; padding: 8px 18px;">
+              <span>🌱 Plant Real Roots ($1 via Zeffy)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Live Community Seed Tally Counter -->
+        <div style="text-align: center; font-size: 0.84rem; color: #FCE6A2; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px;">
+          <span>🌱 Community Seeds Sown Today: <strong id="plinkoSeedCounter" style="color: #FFFFFF; font-size: 1.05rem; font-family: 'Cinzel', serif;">142</strong></span>
+          <span style="opacity: 0.6;">•</span>
+          <span style="color: #A6C9B2; font-weight: 400; font-size: 0.80rem;">100% Tax-Deductible 501(c)(3)</span>
         </div>
 
       </div>
@@ -4145,6 +4156,12 @@
   <!-- Floating $1 Seed Action Button on the Side of the Screen -->
   <button id="floating-seed-pill" type="button" onclick="openZeffyModal(event)" class="floating-seed-pill btn-liquid-gold pulse-gold weekly-shimmer-cta" aria-label="Plant Your $1 Seed in the Sanctuary" title="Plant Your $1 Seed in the Sanctuary">
     <span>🌱 Give $1 Seed</span>
+  </button>
+
+  <!-- Floating Back-to-Top Medallion -->
+  <button type="button" id="btnBackToTop" class="back-to-top-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="Back to top" title="Return to top of sanctuary">
+    <span class="back-to-top-arrow">↑</span>
+    <span class="back-to-top-text">Top</span>
   </button>
 
 
