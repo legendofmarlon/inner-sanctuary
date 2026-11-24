@@ -722,22 +722,63 @@
         <img class="hero-emblem" id="hero-emblem-img" src="emblem.png" alt="Inner Sanctuary Sacred Medallion Emblem" onerror="this.src='emblem.jpg'" onclick="handleSpeakeasyKnock(event)">
       </div>
 
-      <!-- 501(c)(3) Verification & Instagram Badge -->
-      <div class="hero-trust-badges-wrap" style="display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 22px;">
-        <span class="badge-ein-prominent">
-          <span style="color: #F8D98C; font-weight: 700;">✦ Grassroots Sanctuary &amp; Somatic Care</span>
-          <span class="badge-bullet">•</span>
-          <span>🏛️ IRS 501(c)(3) Public Charity</span>
-          <span class="badge-bullet">•</span>
-          <span>EIN: <strong class="ein-pill">39-3757168</strong></span>
-          <span class="badge-bullet desktop-only">•</span>
-          <span class="desktop-only">California Nonprofit</span>
-        </span>
-
+      <!-- Instagram Community Badge -->
+      <div style="display: flex; justify-content: center; margin-bottom: 16px;">
         <a href="https://www.instagram.com/ourinnersanctuary/" target="_blank" rel="noopener noreferrer" class="badge-ig-sky" title="Follow @ourinnersanctuary on Instagram">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8C6212" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
           <span>Follow @ourinnersanctuary</span>
         </a>
+      </div>
+
+      <!-- ==================== SACRED MEDALLION INSTITUTIONAL GRANT & CRA PORTAL (ABOVE THE SPARK) ==================== -->
+      <div id="grant-hub-portal" class="medallion-grant-portal" aria-label="Institutional Grants and CRA Fiduciary Hub">
+        <div class="medallion-portal-halo"></div>
+        <div class="medallion-portal-ring"></div>
+        <div class="medallion-portal-shimmer"></div>
+        
+        <div class="medallion-portal-inner">
+          <div class="medallion-portal-header">
+            <div class="medallion-portal-crest">
+              <span class="crest-icon">🏛️</span>
+              <span class="crest-badge">✦ IRS 501(c)(3) Public Charity • CRA Partner ✦</span>
+            </div>
+            <h3 class="medallion-portal-title serif-brand">
+              <span>Institutional Grants &amp; Funder Hub</span>
+            </h3>
+            <div class="medallion-portal-ein-strip">
+              <span>Federal EIN: <strong class="medallion-portal-ein">39-3757168</strong></span>
+              <span class="medallion-portal-dot">•</span>
+              <span>Teshia Campbell, Founder &amp; ED</span>
+              <span class="medallion-portal-dot">•</span>
+              <span>Marlon Smith, President</span>
+              <span class="medallion-portal-dot desktop-only">•</span>
+              <span class="desktop-only">Contributions 100% Tax-Deductible</span>
+            </div>
+          </div>
+
+          <div class="medallion-portal-actions">
+            <button type="button" onclick="openFunderModal(event, 'summary')" class="medallion-btn-gold" title="Open Complete 1-Page Grantmaker Dossier &amp; Print PDF">
+              <span>📑</span>
+              <span>Open Funder Dossier (PDF)</span>
+            </button>
+            <button type="button" onclick="openFunderModal(event, 'leadership')" class="medallion-btn-cyan" title="View Executive Board Stewardship (Teshia Campbell &amp; Marlon Smith)">
+              <span>⚖️</span>
+              <span>Board Stewardship</span>
+            </button>
+            <button type="button" onclick="openFunderModal(event, 'outcomes')" class="medallion-btn-cyan" title="View Verified Community Impact Metrics (120+ Served)">
+              <span>📊</span>
+              <span>Outcomes (120+)</span>
+            </button>
+            <button type="button" onclick="openFunderModal(event, 'theory')" class="medallion-btn-cyan" title="View Clinical Translation Matrix">
+              <span>🩺</span>
+              <span>Clinical Matrix</span>
+            </button>
+            <button type="button" onclick="copyFunderEIN(event)" class="medallion-btn-copy" title="Copy Federal EIN: 39-3757168 to Clipboard">
+              <span>📋</span>
+              <span>Copy EIN</span>
+            </button>
+          </div>
+        </div>
       </div>
 
       <!-- ==================== DAILY SANCTUARY SPARKS CARD (INTERACTIVE GROUNDING HERO CENTERPIECE) ==================== -->
@@ -872,61 +913,6 @@
       <div class="trust-item" onclick="openFunderModal(event, 'outcomes')" style="cursor: pointer;" title="View CRA Community Partner Impact">
         <span class="trust-icon">✦</span>
         <span>CRA-Eligible Community Partner</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== PROMINENT INSTITUTIONAL GRANT & FUNDER TAB BAR (ABOVE OUR MISSION) ==================== -->
-  <section id="grant-hub-portal" class="grant-funder-prominent-bar" aria-label="Institutional Grants and CRA Fiduciary Hub">
-    <div class="container">
-      <div class="grant-tab-inner">
-        <div class="grant-tab-left">
-          <div class="grant-tab-badge-row">
-            <span class="grant-tab-pill">
-              <span>🏛️</span>
-              <span>Institutional Grants &amp; Funder Hub</span>
-            </span>
-            <span class="grant-tab-cra-tag">
-              <span>✦</span>
-              <span>CRA-Eligible Community Partner</span>
-            </span>
-          </div>
-          <h3 class="grant-tab-title">
-            <span>IRS 501(c)(3) Public Charity</span>
-            <span class="gold-accent">•</span>
-            <span>EIN: <strong style="color: #FDE047;">39-3757168</strong></span>
-          </h3>
-          <div class="grant-tab-fiduciary-meta">
-            <span>Executive Director: <strong>Teshia Campbell</strong></span>
-            <span> • </span>
-            <span>Board President: <strong>Marlon Smith</strong></span>
-            <span> • </span>
-            <span>100% Tax-Deductible</span>
-          </div>
-        </div>
-
-        <div class="grant-tab-actions">
-          <button type="button" onclick="openFunderModal(event, 'summary')" class="grant-tab-btn-primary" title="Open Complete 1-Page Grantmaker Dossier &amp; Print PDF">
-            <span>📑</span>
-            <span>Grantmaker Dossier (PDF)</span>
-          </button>
-          <button type="button" onclick="openFunderModal(event, 'leadership')" class="grant-tab-btn-sub" title="View Executive Board &amp; Fiduciary Stewardship">
-            <span>⚖️</span>
-            <span>Board Stewardship</span>
-          </button>
-          <button type="button" onclick="openFunderModal(event, 'outcomes')" class="grant-tab-btn-sub" title="View Verified Community Impact Metrics (120+ Served)">
-            <span>📊</span>
-            <span>Outcomes (120+)</span>
-          </button>
-          <button type="button" onclick="openFunderModal(event, 'theory')" class="grant-tab-btn-sub" title="View Clinical Translation Matrix">
-            <span>🩺</span>
-            <span>Clinical Matrix</span>
-          </button>
-          <button type="button" onclick="copyFunderEIN(event)" class="grant-tab-btn-copy" title="Copy IRS EIN to Clipboard">
-            <span>📋</span>
-            <span>Copy EIN</span>
-          </button>
-        </div>
       </div>
     </div>
   </section>
