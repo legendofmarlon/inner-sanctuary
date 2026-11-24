@@ -7,13 +7,21 @@
 
   let activeTab = 'summary';
 
-  window.openFunderModal = function(e) {
+  window.openFunderModal = function(e, tabName) {
     if (e && typeof e.preventDefault === 'function') e.preventDefault();
     const modal = document.getElementById('funderDossierModal');
     if (!modal) return;
     modal.style.display = 'flex';
     modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
+    if (tabName) {
+      window.switchFunderTab(tabName);
+    }
+  };
+
+  window.copyFunderEIN = function(e) {
+    if (e && typeof e.preventDefault === 'function') e.preventDefault();
+    window.copyFunderText('39-3757168', 'EIN (39-3757168)');
   };
 
   window.closeFunderModal = function() {

@@ -502,6 +502,12 @@
           </a>
         </li>
         <li>
+          <a href="#grant-hub-portal" class="nav-link-dual" title="Institutional Grants &amp; CRA Impact Hub">
+            <span class="nav-link-main" style="color: var(--sunburst-gold); font-weight: 700;">🏛️ Grants</span>
+            <span class="nav-link-sub">Funder &amp; CRA Hub</span>
+          </a>
+        </li>
+        <li>
           <a href="#connect" class="nav-link-dual">
             <span class="nav-link-main">Connect</span>
             <span class="nav-link-sub">Get Involved</span>
@@ -511,9 +517,10 @@
 
       <div class="nav-actions-group">
         <!-- Institutional Funder & Grantmaker Dossier -->
-        <button type="button" id="btnNavFunderDossier" class="btn-outline-gold" onclick="openFunderModal(event)" style="font-size: 0.78rem; padding: 6px 14px; border-radius: 999px; display: inline-flex; align-items: center; gap: 6px;" title="Institutional 501(c)(3) & CRA Grantmaker Dossier">
+        <button type="button" id="btnNavFunderDossier" class="nav-grant-prominent-tab" onclick="openFunderModal(event)" title="Institutional 501(c)(3) &amp; CRA Grantmaker Dossier">
           <span>🏛️</span>
-          <span class="desktop-only">Grants &amp; Funder Hub</span>
+          <span>Grants &amp; Funder Hub</span>
+          <span class="nav-grant-pill-badge">501(c)(3)</span>
         </button>
         <!-- Living Atmosphere Switcher -->
         <div id="atmosphereSwitcherMount"></div>
@@ -854,17 +861,72 @@
         <span class="trust-icon">✦</span>
         <span>Community-Grounded Healing</span>
       </div>
-      <div class="trust-item">
-        <span class="trust-icon">✦</span>
-        <span>IRS 501(c)(3) Public Charity (EIN: 39-3757168)</span>
+      <div class="trust-item" onclick="openFunderModal(event)" style="cursor: pointer;" title="Open Institutional 501(c)(3) Funder Dossier">
+        <span class="trust-icon">🏛️</span>
+        <span style="font-weight: 700; color: var(--forest-green); text-decoration: underline; text-decoration-color: rgba(197, 154, 63, 0.4);">IRS 501(c)(3) Public Charity (EIN: 39-3757168)</span>
       </div>
       <div class="trust-item">
         <span class="trust-icon">✦</span>
         <span>Contributions 100% Tax-Deductible</span>
       </div>
-      <div class="trust-item">
+      <div class="trust-item" onclick="openFunderModal(event, 'outcomes')" style="cursor: pointer;" title="View CRA Community Partner Impact">
         <span class="trust-icon">✦</span>
         <span>CRA-Eligible Community Partner</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PROMINENT INSTITUTIONAL GRANT & FUNDER TAB BAR (ABOVE OUR MISSION) ==================== -->
+  <section id="grant-hub-portal" class="grant-funder-prominent-bar" aria-label="Institutional Grants and CRA Fiduciary Hub">
+    <div class="container">
+      <div class="grant-tab-inner">
+        <div class="grant-tab-left">
+          <div class="grant-tab-badge-row">
+            <span class="grant-tab-pill">
+              <span>🏛️</span>
+              <span>Institutional Grants &amp; Funder Hub</span>
+            </span>
+            <span class="grant-tab-cra-tag">
+              <span>✦</span>
+              <span>CRA-Eligible Community Partner</span>
+            </span>
+          </div>
+          <h3 class="grant-tab-title">
+            <span>IRS 501(c)(3) Public Charity</span>
+            <span class="gold-accent">•</span>
+            <span>EIN: <strong style="color: #F8D98C;">39-3757168</strong></span>
+          </h3>
+          <div class="grant-tab-fiduciary-meta">
+            <span>Executive Director: <strong>Teshia Campbell</strong></span>
+            <span> • </span>
+            <span>Board President: <strong>Marlon Smith</strong></span>
+            <span> • </span>
+            <span>100% Tax-Deductible</span>
+          </div>
+        </div>
+
+        <div class="grant-tab-actions">
+          <button type="button" onclick="openFunderModal(event, 'summary')" class="grant-tab-btn-primary" title="Open Complete 1-Page Grantmaker Dossier &amp; Print PDF">
+            <span>📑</span>
+            <span>Grantmaker Dossier (PDF)</span>
+          </button>
+          <button type="button" onclick="openFunderModal(event, 'leadership')" class="grant-tab-btn-sub" title="View Executive Board &amp; Fiduciary Stewardship">
+            <span>⚖️</span>
+            <span>Board Stewardship</span>
+          </button>
+          <button type="button" onclick="openFunderModal(event, 'outcomes')" class="grant-tab-btn-sub" title="View Verified Community Impact Metrics (120+ Served)">
+            <span>📊</span>
+            <span>Outcomes (120+)</span>
+          </button>
+          <button type="button" onclick="openFunderModal(event, 'theory')" class="grant-tab-btn-sub" title="View Clinical Translation Matrix">
+            <span>🩺</span>
+            <span>Clinical Matrix</span>
+          </button>
+          <button type="button" onclick="copyFunderEIN(event)" class="grant-tab-btn-copy" title="Copy IRS EIN to Clipboard">
+            <span>📋</span>
+            <span>Copy EIN</span>
+          </button>
+        </div>
       </div>
     </div>
   </section>
