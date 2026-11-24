@@ -534,13 +534,18 @@
   position: relative;
   z-index: 10;
   background: linear-gradient(135deg, #0A1726 0%, #132A44 50%, #0E1E32 100%);
-  border-top: 2px solid rgba(245, 215, 127, 0.6);
-  border-bottom: 2.5px solid rgba(56, 189, 248, 0.65);
-  box-shadow: 0 12px 36px rgba(5, 15, 28, 0.45), 0 0 24px rgba(14, 165, 233, 0.2), inset 0 1px 0 rgba(125, 211, 252, 0.2);
-  padding: 18px 0;
-  margin: 0;
+  border: 1.5px solid rgba(56, 189, 248, 0.45);
+  border-top: 2px solid rgba(245, 215, 127, 0.75);
+  border-bottom: 2px solid rgba(56, 189, 248, 0.65);
+  border-radius: 22px;
+  max-width: 960px;
+  width: 100%;
+  box-shadow: 0 14px 40px rgba(5, 15, 28, 0.5), 0 0 24px rgba(14, 165, 233, 0.22), inset 0 1px 0 rgba(125, 211, 252, 0.25);
+  padding: 18px 24px;
+  margin: 18px auto 32px;
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
+  box-sizing: border-box;
 }
 
 .grant-tab-inner {
@@ -736,6 +741,11 @@
 }
 
 @media (max-width: 860px) {
+  .grant-funder-prominent-bar {
+    padding: 16px 16px;
+    border-radius: 16px;
+    margin: 14px auto 26px;
+  }
   .grant-tab-inner {
     flex-direction: column;
     align-items: flex-start;
