@@ -22,6 +22,13 @@
   --card-shadow-hover: 0 20px 48px rgba(43, 68, 54, 0.14);
   --border-gold: 1px solid rgba(197, 154, 63, 0.35);
   --breath-bg-scale: 1.0;
+
+  /* Raw Mineral Turquoise & Throat Chakra Accents */
+  --turquoise-mineral: #2E7D73;
+  --turquoise-soft: #4E9B91;
+  --turquoise-mist: rgba(46, 125, 115, 0.12);
+  --turquoise-glow: rgba(78, 155, 145, 0.28);
+  --turquoise-border: rgba(46, 125, 115, 0.35);
 }
 
 * {
@@ -2057,7 +2064,7 @@ footer {
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, transparent, var(--sunburst-gold), transparent);
+  background: linear-gradient(90deg, transparent, var(--sunburst-gold) 35%, var(--turquoise-soft) 50%, var(--sunburst-gold) 65%, transparent);
 }
 
 .manifesto-lead-title {
@@ -2668,8 +2675,8 @@ body[data-element="ether"] .breathing-orb {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(197, 154, 63, 0.2);
-  border: 1px solid var(--sunburst-gold);
+  background: linear-gradient(135deg, rgba(46, 125, 115, 0.22) 0%, rgba(197, 154, 63, 0.20) 100%);
+  border: 1px solid rgba(78, 155, 145, 0.45);
   color: #F8D98C;
   font-size: 0.8rem;
   font-weight: 700;
@@ -2678,6 +2685,11 @@ body[data-element="ether"] .breathing-orb {
   padding: 6px 16px;
   border-radius: 999px;
   margin-bottom: 18px;
+  box-shadow: 0 2px 10px rgba(46, 125, 115, 0.12);
+}
+
+.event-tag-badge span {
+  color: var(--turquoise-soft);
 }
 
 .event-datetime-banner {
@@ -3100,10 +3112,10 @@ body[data-element="ether"] .breathing-orb {
 }
 
 .soundscape-toggle-btn.playing {
-  background: linear-gradient(135deg, #2B4436 0%, #1E3328 100%);
-  border-color: #72C095;
-  color: #A7F3D0;
-  box-shadow: 0 0 14px rgba(114, 192, 149, 0.35);
+  background: linear-gradient(135deg, #1E3328 0%, #173831 60%, #122822 100%);
+  border-color: var(--turquoise-soft);
+  color: #C2F0E8;
+  box-shadow: 0 0 16px var(--turquoise-glow);
 }
 
 
@@ -3154,6 +3166,11 @@ body[data-element="ether"] .breathing-orb {
   background-color: currentColor;
   border-radius: 2px;
   transition: height 0.2s ease;
+}
+
+.soundscape-toggle-btn.playing .sound-wave-bar {
+  background-color: var(--turquoise-soft);
+  box-shadow: 0 0 6px var(--turquoise-glow);
 }
 
 .soundscape-toggle-btn.playing .sound-wave-bar:nth-child(1) {
@@ -8140,8 +8157,9 @@ body[data-element="ether"] nav::after {
 .air-ripple-3 {
   width: 295px;
   height: 295px;
-  border: 1px solid rgba(255, 255, 255, 0.22);
+  border: 1px solid rgba(78, 155, 145, 0.35);
   animation: airPulseGently 4s ease-in-out infinite;
+  box-shadow: 0 0 18px var(--turquoise-mist);
 }
 
 .breathing-orb-wrapper.is-breathing .air-ripple {

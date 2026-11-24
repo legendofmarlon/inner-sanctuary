@@ -1,0 +1,454 @@
+/* ==========================================================================
+   Inner Sanctuary — Institutional Funder & Grantmaker Dossier
+   ========================================================================== */
+
+/* 1. Institutional Funder & Grant Dossier Modal */
+.funder-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 10005;
+  background: rgba(8, 16, 12, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+  animation: funderFadeIn 0.3s ease;
+}
+
+@keyframes funderFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.funder-modal-dialog {
+  background: radial-gradient(circle at 50% 20%, rgba(22, 38, 28, 0.98) 0%, rgba(10, 18, 14, 0.99) 100%);
+  border: 1.5px solid rgba(197, 154, 63, 0.55);
+  border-radius: 24px;
+  max-width: 880px;
+  width: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(197, 154, 63, 0.15);
+  color: #FFFDF7;
+  position: relative;
+  overflow: hidden;
+}
+
+.funder-modal-close {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: #CBD7D0;
+  font-size: 1.8rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  z-index: 2;
+}
+
+.funder-modal-close:hover {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.funder-modal-header {
+  padding: 28px 32px 18px;
+  border-bottom: 1px solid rgba(197, 154, 63, 0.25);
+}
+
+.funder-modal-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #F8D98C;
+  background: rgba(197, 154, 63, 0.15);
+  border: 1px solid rgba(197, 154, 63, 0.45);
+  padding: 4px 12px;
+  border-radius: 999px;
+  margin-bottom: 10px;
+}
+
+.funder-modal-title {
+  font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+  color: #FFFFFF;
+  margin: 0 0 6px;
+  letter-spacing: 0.03em;
+}
+
+.funder-modal-sub {
+  font-size: 0.88rem;
+  color: #CBD7D0;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 720px;
+}
+
+.funder-tabs-bar {
+  display: flex;
+  background: rgba(0, 0, 0, 0.35);
+  padding: 6px 32px 0;
+  border-bottom: 1px solid rgba(197, 154, 63, 0.2);
+  gap: 8px;
+  overflow-x: auto;
+}
+
+.funder-tab-btn {
+  background: none;
+  border: none;
+  color: #CBD7D0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 10px 16px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.funder-tab-btn:hover {
+  color: #FFFDF7;
+}
+
+.funder-tab-btn.active {
+  color: #F5D77F;
+  border-bottom: 2px solid #C59A3F;
+}
+
+.funder-modal-body {
+  padding: 24px 32px;
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.funder-tab-pane {
+  display: none;
+  animation: funderPaneFade 0.25s ease;
+}
+
+.funder-tab-pane.active {
+  display: block;
+}
+
+@keyframes funderPaneFade {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.funder-info-card {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(197, 154, 63, 0.3);
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.funder-card-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.05rem;
+  color: #F8D98C;
+  margin: 0 0 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.funder-card-desc {
+  font-size: 0.86rem;
+  color: #CBD7D0;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.funder-detail-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.88rem;
+  gap: 12px;
+}
+
+.funder-detail-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.funder-detail-label {
+  color: #CBD7D0;
+}
+
+.funder-detail-val {
+  font-weight: 700;
+  color: #FFFDF7;
+  text-align: right;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.funder-copy-pill {
+  background: rgba(197, 154, 63, 0.2);
+  border: 1px solid rgba(197, 154, 63, 0.45);
+  color: #F8D98C;
+  font-size: 0.72rem;
+  padding: 2px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.funder-copy-pill:hover {
+  background: #C59A3F;
+  color: #111D16;
+}
+
+.funder-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.funder-stat-card {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(197, 154, 63, 0.35);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+}
+
+.funder-stat-val {
+  font-family: 'Cinzel', serif;
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #F5D77F;
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+.funder-stat-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #FFFDF7;
+  margin-bottom: 4px;
+}
+
+.funder-stat-sub {
+  font-size: 0.72rem;
+  color: #CBD7D0;
+  line-height: 1.4;
+}
+
+.funder-leader-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.funder-leader-card {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(197, 154, 63, 0.3);
+  border-radius: 14px;
+  padding: 18px;
+}
+
+.funder-leader-avatar {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.funder-leader-name {
+  font-family: 'Cinzel', serif;
+  font-size: 1.15rem;
+  color: #FFFDF7;
+  margin: 0 0 2px;
+}
+
+.funder-leader-role {
+  font-size: 0.78rem;
+  color: #F8D98C;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+}
+
+.funder-leader-bio {
+  font-size: 0.84rem;
+  color: #CBD7D0;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.funder-modal-footer {
+  padding: 18px 32px;
+  border-top: 1px solid rgba(197, 154, 63, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.funder-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: #C59A3F;
+  color: #111E17;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.84rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  z-index: 100000;
+  display: none;
+  animation: funderFadeIn 0.2s ease;
+}
+
+.funder-toast.active {
+  display: block;
+}
+
+/* Print Styles for 1-Page Fiduciary Dossier PDF */
+@media print {
+  body > *:not(#funderDossierModal) {
+    display: none !important;
+  }
+  
+  .funder-modal-backdrop {
+    position: static !important;
+    background: #FFFFFF !important;
+    padding: 0 !important;
+  }
+  
+  .funder-modal-dialog {
+    max-width: 100% !important;
+    background: #FFFFFF !important;
+    color: #111111 !important;
+    border: none !important;
+    box-shadow: none !important;
+    max-height: none !important;
+  }
+  
+  .funder-modal-close,
+  .funder-tabs-bar,
+  .funder-copy-pill,
+  .funder-modal-footer button {
+    display: none !important;
+  }
+  
+  .funder-tab-pane {
+    display: block !important;
+    margin-bottom: 20px !important;
+  }
+  
+  .funder-info-card,
+  .funder-stat-card,
+  .funder-leader-card {
+    background: #F9F9F7 !important;
+    border: 1px solid #CCCCCC !important;
+    color: #111111 !important;
+  }
+  
+  .funder-card-title,
+  .funder-leader-name,
+  .funder-stat-val {
+    color: #2B4436 !important;
+  }
+  
+  .funder-detail-label,
+  .funder-detail-val,
+  .funder-stat-label,
+  .funder-stat-sub,
+  .funder-leader-bio {
+    color: #333333 !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .funder-modal-header,
+  .funder-modal-body,
+  .funder-modal-footer {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .funder-tabs-bar {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .funder-detail-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  .funder-detail-val {
+    text-align: left;
+  }
+}
+
+/* 3. Inline Fiduciary & Grantmaker Showcase in #sponsorship */
+.funder-inline-dossier-wrap {
+  margin: 34px 0 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.funder-inline-leader-card {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1.5px solid rgba(197, 154, 63, 0.35);
+  border-radius: 14px;
+  padding: 22px 20px;
+  backdrop-filter: blur(8px);
+  transition: all 0.25s ease;
+}
+
+.funder-inline-leader-card:hover {
+  border-color: #F8D98C;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.funder-matrix-row {
+  display: grid;
+  grid-template-columns: 1fr 1.35fr;
+  gap: 12px;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  transition: background 0.2s ease;
+}
+
+.funder-matrix-row:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+@media (max-width: 680px) {
+  .funder-matrix-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+}
+

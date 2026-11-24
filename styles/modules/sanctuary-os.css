@@ -1,0 +1,1286 @@
+/* ==========================================================================
+   Inner Sanctuary Wellness Foundation — Sanctuary OS: Mission Control
+   Private Command Architecture for Leadership (Marlon & Teshia)
+   Design System: Obsidian Glass, Frosted Backdrop & Radiant Gold Accents
+   Responsive on Desktop and 375px–430px Mobile for Live Community Events
+   ========================================================================== */
+
+:root {
+  --os-obsidian-bg: rgba(10, 16, 13, 0.94);
+  --os-obsidian-header: rgba(14, 23, 18, 0.98);
+  --os-obsidian-card: rgba(16, 26, 20, 0.85);
+  --os-obsidian-card-hover: rgba(24, 38, 30, 0.95);
+  --os-obsidian-stage: rgba(7, 12, 9, 0.95);
+  --os-gold-radiant: #E5B25D;
+  --os-gold-primary: #C59A3F;
+  --os-gold-bright: #F5D77F;
+  --os-gold-glow: rgba(229, 178, 93, 0.35);
+  --os-gold-subtle: rgba(229, 178, 93, 0.12);
+  --os-gold-border: rgba(229, 178, 93, 0.28);
+  --os-gold-border-bright: rgba(245, 215, 127, 0.65);
+  --os-text-bright: #FFFDF7;
+  --os-text-soft: #D3DDD6;
+  --os-text-muted: #8E9F95;
+  --os-emerald-accent: #2BD980;
+  --os-emerald-light: #86EFAC;
+  --os-emerald-glow: rgba(43, 217, 128, 0.25);
+  --os-rose-accent: #FF5C5C;
+  --os-rose-subtle: rgba(255, 92, 92, 0.15);
+  --os-radius-lg: 20px;
+  --os-radius-md: 12px;
+  --os-radius-sm: 8px;
+  --os-font-serif: 'Cinzel', serif;
+  --os-font-sans: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --os-font-mono: 'SF Mono', 'Fira Code', 'Roboto Mono', Consolas, monospace;
+}
+
+/* ==========================================================================
+   MODAL CONTAINER & FROSTED BACKDROP OVERLAY
+   ========================================================================== */
+.sanctuary-os-modal,
+.sanctuary-os-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+}
+
+.sanctuary-os-modal.active,
+.sanctuary-os-overlay.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.sanctuary-os-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(4, 8, 6, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 1;
+}
+
+/* ==========================================================================
+   OBSIDIAN GLASS WINDOW
+   ========================================================================== */
+.sanctuary-os-window {
+  width: 100%;
+  max-width: 1060px;
+  height: 90vh;
+  max-height: 860px;
+  background: var(--os-obsidian-bg);
+  border: 1.5px solid var(--os-gold-border);
+  border-radius: var(--os-radius-lg);
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.8),
+              0 0 50px var(--os-gold-subtle);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+  font-family: var(--os-font-sans);
+  color: var(--os-text-bright);
+  transform: translateY(20px) scale(0.98);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+}
+
+.sanctuary-os-modal.active .sanctuary-os-window,
+.sanctuary-os-overlay.active .sanctuary-os-window {
+  transform: translateY(0) scale(1);
+}
+
+/* ==========================================================================
+   WINDOW HEADER BAR
+   ========================================================================== */
+.sanctuary-os-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 22px;
+  background: var(--os-obsidian-header);
+  border-bottom: 1.5px solid var(--os-gold-border);
+  flex-shrink: 0;
+  gap: 12px;
+}
+
+.sanctuary-os-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sanctuary-os-emblem,
+.sanctuary-os-emblem-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(229, 178, 93, 0.3) 0%, rgba(13, 22, 17, 0.8) 100%);
+  border: 1.5px solid var(--os-gold-radiant);
+  color: var(--os-gold-bright);
+  font-size: 1rem;
+  box-shadow: 0 0 14px var(--os-gold-glow);
+  flex-shrink: 0;
+}
+
+.sanctuary-os-title {
+  font-family: var(--os-font-serif);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--os-text-bright);
+  line-height: 1.2;
+}
+
+.sanctuary-os-title .os-gold {
+  color: var(--os-gold-radiant);
+  text-shadow: 0 0 10px rgba(229, 178, 93, 0.45);
+}
+
+.sanctuary-os-subtitle {
+  font-size: 0.68rem;
+  color: var(--os-text-muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+.sanctuary-os-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sanctuary-os-operator-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 14px;
+  border-radius: 999px;
+  background: rgba(229, 178, 93, 0.12);
+  border: 1px solid var(--os-gold-radiant);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--os-gold-radiant);
+  letter-spacing: 0.03em;
+}
+
+.sanctuary-os-operator-badge .operator-avatar {
+  font-size: 0.95rem;
+}
+
+.sanctuary-os-operator-badge .operator-badge-tag {
+  font-size: 0.64rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: rgba(229, 178, 93, 0.2);
+  color: #FFFDF7;
+}
+
+.sanctuary-os-icon-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--os-text-soft);
+  padding: 6px 12px;
+  border-radius: var(--os-radius-sm);
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sanctuary-os-icon-btn:hover {
+  background: rgba(229, 178, 93, 0.15);
+  border-color: var(--os-gold-radiant);
+  color: var(--os-gold-radiant);
+}
+
+.sanctuary-os-close-btn,
+.sanctuary-os-btn-close {
+  background: rgba(255, 92, 92, 0.12);
+  border: 1px solid rgba(255, 92, 92, 0.35);
+  color: #FFA5A5;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--os-radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.sanctuary-os-close-btn:hover,
+.sanctuary-os-btn-close:hover {
+  background: rgba(255, 92, 92, 0.25);
+  border-color: var(--os-rose-accent);
+  color: #FFFFFF;
+}
+
+/* ==========================================================================
+   VIEW 1: PASSWORD AUTH GATE (LOCK SCREEN)
+   ========================================================================== */
+.sanctuary-os-auth-view,
+.sanctuary-os-lock-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: 40px 20px;
+  background: radial-gradient(circle at center, rgba(229, 178, 93, 0.05) 0%, transparent 70%);
+}
+
+.sanctuary-os-auth-card,
+.sanctuary-os-lock-card {
+  width: 100%;
+  max-width: 460px;
+  background: var(--os-obsidian-card);
+  border: 1.5px solid var(--os-gold-border);
+  border-radius: var(--os-radius-lg);
+  padding: 38px 30px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65), 0 0 30px var(--os-gold-subtle);
+  text-align: center;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.sanctuary-os-auth-glyph,
+.sanctuary-os-lock-emblem {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(229, 178, 93, 0.35) 0%, rgba(13, 22, 17, 0.9) 100%);
+  border: 1.5px solid var(--os-gold-radiant);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  color: var(--os-gold-bright);
+  box-shadow: 0 0 24px var(--os-gold-glow);
+  animation: osEmblemPulse 3s infinite ease-in-out;
+}
+
+@keyframes osEmblemPulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 20px var(--os-gold-glow); }
+  50% { transform: scale(1.05); box-shadow: 0 0 35px var(--os-gold-glow); }
+}
+
+.sanctuary-os-auth-heading,
+.sanctuary-os-lock-title {
+  font-family: var(--os-font-serif);
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--os-text-bright);
+  margin-bottom: 8px;
+}
+
+.sanctuary-os-auth-sub,
+.sanctuary-os-lock-sub {
+  font-size: 0.82rem;
+  color: var(--os-text-soft);
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.sanctuary-os-auth-input-group {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.sanctuary-os-input {
+  flex: 1;
+  background: rgba(8, 14, 11, 0.9);
+  border: 1.5px solid var(--os-gold-border);
+  border-radius: var(--os-radius-md);
+  padding: 12px 16px;
+  font-family: var(--os-font-sans);
+  font-size: 0.92rem;
+  color: var(--os-text-bright);
+  outline: none;
+  box-sizing: border-box;
+  transition: all 0.25s ease;
+}
+
+.sanctuary-os-input:focus {
+  border-color: var(--os-gold-bright);
+  box-shadow: 0 0 16px var(--os-gold-glow);
+}
+
+.sanctuary-os-btn-gold,
+.sanctuary-os-btn-primary {
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #E5B25D 0%, #C59A3F 100%);
+  border: none;
+  border-radius: var(--os-radius-md);
+  color: #121814;
+  font-family: var(--os-font-sans);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 18px rgba(197, 154, 63, 0.4);
+  transition: all 0.25s ease;
+}
+
+.sanctuary-os-btn-gold:hover,
+.sanctuary-os-btn-primary:hover {
+  background: linear-gradient(135deg, #F5D77F 0%, #D8AA49 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(197, 154, 63, 0.55);
+}
+
+.sanctuary-os-btn-outline {
+  padding: 9px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(229, 178, 93, 0.35);
+  border-radius: var(--os-radius-sm);
+  color: var(--os-text-soft);
+  font-family: var(--os-font-sans);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sanctuary-os-btn-outline:hover {
+  background: rgba(229, 178, 93, 0.15);
+  border-color: var(--os-gold-radiant);
+  color: var(--os-gold-bright);
+}
+
+.sanctuary-os-btn-chime {
+  padding: 9px 16px;
+  background: rgba(43, 217, 128, 0.14);
+  border: 1px solid rgba(43, 217, 128, 0.4);
+  border-radius: var(--os-radius-sm);
+  color: #86EFAC;
+  font-family: var(--os-font-sans);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sanctuary-os-btn-chime:hover {
+  background: rgba(43, 217, 128, 0.26);
+  border-color: var(--os-emerald-accent);
+  box-shadow: 0 0 16px var(--os-emerald-glow);
+}
+
+.sanctuary-os-auth-error {
+  font-size: 0.78rem;
+  color: var(--os-rose-accent);
+  margin-top: 8px;
+  line-height: 1.4;
+}
+
+.sanctuary-os-auth-hint {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(229, 178, 93, 0.15);
+  font-size: 0.72rem;
+  color: var(--os-text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.sanctuary-os-auth-hint code {
+  background: rgba(229, 178, 93, 0.15);
+  color: var(--os-gold-radiant);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: var(--os-font-mono);
+}
+
+/* ==========================================================================
+   VIEW 2: AUTHENTICATED OS APP & TAB NAVIGATION
+   ========================================================================== */
+.sanctuary-os-app-view {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.sanctuary-os-tab-bar,
+.sanctuary-os-tablist {
+  display: flex;
+  align-items: center;
+  background: rgba(12, 19, 15, 0.98);
+  border-bottom: 1.5px solid var(--os-gold-border);
+  padding: 0 16px;
+  gap: 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  flex-shrink: 0;
+}
+
+.sanctuary-os-tab-bar::-webkit-scrollbar,
+.sanctuary-os-tablist::-webkit-scrollbar {
+  display: none;
+}
+
+.sanctuary-os-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 18px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--os-text-muted);
+  font-family: var(--os-font-sans);
+  font-size: 0.84rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.sanctuary-os-tab-btn:hover {
+  color: var(--os-text-bright);
+  background: rgba(229, 178, 93, 0.05);
+}
+
+.sanctuary-os-tab-btn.active {
+  color: var(--os-gold-bright);
+  border-bottom-color: var(--os-gold-bright);
+  background: rgba(229, 178, 93, 0.08);
+}
+
+.sanctuary-os-tab-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 15%;
+  right: 15%;
+  height: 2px;
+  background: var(--os-gold-bright);
+  box-shadow: 0 0 10px var(--os-gold-bright);
+}
+
+.sanctuary-os-panels-wrap,
+.sanctuary-os-body {
+  flex: 1;
+  overflow-y: auto;
+  position: relative;
+  background: radial-gradient(circle at 85% 15%, rgba(229, 178, 93, 0.04) 0%, transparent 60%),
+              radial-gradient(circle at 10% 80%, rgba(43, 68, 54, 0.15) 0%, transparent 70%),
+              var(--os-obsidian-bg);
+  scrollbar-width: thin;
+  scrollbar-color: var(--os-gold-primary) rgba(15, 23, 18, 0.7);
+}
+
+.sanctuary-os-panels-wrap::-webkit-scrollbar,
+.sanctuary-os-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sanctuary-os-panels-wrap::-webkit-scrollbar-thumb,
+.sanctuary-os-body::-webkit-scrollbar-thumb {
+  background: var(--os-gold-border);
+  border-radius: 4px;
+}
+
+.sanctuary-os-panel {
+  display: none;
+  padding: 24px;
+  animation: osFadeIn 0.25s ease-out;
+}
+
+.sanctuary-os-panel.active {
+  display: block;
+}
+
+@keyframes osFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   SHARED CARD & GRID ARCHITECTURE
+   ========================================================================== */
+.sanctuary-os-grid-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.sanctuary-os-card,
+.os-card {
+  background: var(--os-obsidian-card);
+  border: 1px solid var(--os-gold-border);
+  border-radius: var(--os-radius-md);
+  padding: 20px;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+
+.sanctuary-os-card-title,
+.os-card-title {
+  font-family: var(--os-font-serif);
+  font-size: 0.98rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--os-gold-bright);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sanctuary-os-card-title-row,
+.os-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(229, 178, 93, 0.16);
+}
+
+.sanctuary-os-subheading {
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--os-gold-radiant);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+/* ==========================================================================
+   MODULE 1: LIVE MC STAGE DECK
+   ========================================================================== */
+.mc-timer-stage,
+.mc-timer-box {
+  background: var(--os-obsidian-stage);
+  border: 1.5px solid var(--os-gold-border);
+  border-radius: var(--os-radius-md);
+  padding: 24px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.6);
+}
+
+.mc-timer-stage::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--os-gold-radiant), transparent);
+}
+
+.mc-timer-display {
+  font-family: var(--os-font-mono);
+  font-size: clamp(3.2rem, 6vw, 4.8rem);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--os-text-bright);
+  line-height: 1;
+  text-shadow: 0 0 24px var(--os-gold-glow);
+  margin-bottom: 16px;
+}
+
+.mc-timer-display.timer-warning {
+  color: #FFAE42;
+  text-shadow: 0 0 24px rgba(255, 174, 66, 0.5);
+}
+
+.mc-timer-display.timer-expired {
+  color: var(--os-rose-accent);
+  text-shadow: 0 0 28px rgba(255, 92, 92, 0.7);
+  animation: osExpiredPulse 1s infinite alternate;
+}
+
+.mc-timer-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.mc-timer-presets {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.mc-preset-pill {
+  padding: 4px 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(229, 178, 93, 0.2);
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--os-text-soft);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mc-preset-pill:hover,
+.mc-preset-pill.active {
+  background: var(--os-gold-subtle);
+  border-color: var(--os-gold-bright);
+  color: var(--os-gold-bright);
+}
+
+.mc-add-artist-bar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.mc-queue-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.mc-queue-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--os-radius-sm);
+  transition: all 0.2s ease;
+}
+
+.mc-queue-item.is-current {
+  background: rgba(229, 178, 93, 0.12);
+  border-color: var(--os-gold-radiant);
+  box-shadow: 0 0 14px var(--os-gold-subtle);
+}
+
+.mc-prompts-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mc-prompt-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(229, 178, 93, 0.2);
+  border-radius: var(--os-radius-sm);
+  padding: 12px 14px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  transition: all 0.2s ease;
+}
+
+.mc-prompt-card:hover {
+  background: rgba(229, 178, 93, 0.07);
+  border-color: var(--os-gold-radiant);
+}
+
+/* ==========================================================================
+   MODULE 2: DOOR RAFFLE & CHECK-IN SCANNER
+   ========================================================================== */
+.door-tally-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.door-tally-card {
+  background: var(--os-obsidian-card);
+  border: 1px solid var(--os-gold-border);
+  border-radius: var(--os-radius-md);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.door-tally-num {
+  font-family: var(--os-font-mono);
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: var(--os-text-bright);
+  line-height: 1.1;
+}
+
+.door-tally-card.highlight-green .door-tally-num {
+  color: #86EFAC;
+}
+
+.door-tally-card.highlight-gold .door-tally-num {
+  color: var(--os-gold-bright);
+}
+
+.door-tally-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--os-text-muted);
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.door-filter-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.door-search-box {
+  flex: 1;
+  min-width: 260px;
+  position: relative;
+}
+
+.door-search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--os-gold-radiant);
+  pointer-events: none;
+}
+
+.door-search-box input {
+  padding-left: 36px;
+  width: 100%;
+}
+
+.door-quick-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.door-inventory-strip {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  margin-bottom: 16px;
+  padding-bottom: 4px;
+}
+
+.door-inventory-pill {
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  font-size: 0.74rem;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.door-claims-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 480px;
+  overflow-y: auto;
+}
+
+.door-claim-card {
+  background: var(--os-obsidian-card);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: var(--os-radius-sm);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  transition: all 0.2s ease;
+}
+
+.door-claim-card:hover {
+  background: var(--os-obsidian-card-hover);
+  border-color: var(--os-gold-border);
+}
+
+.door-claim-card.verified {
+  border-left: 3px solid var(--os-emerald-accent);
+}
+
+.door-claim-code {
+  font-family: var(--os-font-mono);
+  font-weight: 700;
+  color: var(--os-gold-bright);
+  background: rgba(229, 178, 93, 0.12);
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 0.76rem;
+}
+
+.door-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.door-status-pill.verified {
+  background: rgba(43, 217, 128, 0.15);
+  border: 1px solid rgba(43, 217, 128, 0.35);
+  color: #86EFAC;
+}
+
+.door-status-pill.pending {
+  background: rgba(255, 174, 66, 0.15);
+  border: 1px solid rgba(255, 174, 66, 0.35);
+  color: #FFAE42;
+}
+
+/* ==========================================================================
+   MODULE 3: FUNDER & CRA RAPID TOOLKIT
+   ========================================================================== */
+.funder-copy-block {
+  background: rgba(8, 14, 11, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--os-radius-sm);
+  padding: 12px 14px;
+  margin-bottom: 12px;
+}
+
+.funder-copy-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.funder-copy-val {
+  font-family: var(--os-font-mono);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--os-gold-bright);
+  margin-top: 4px;
+}
+
+.funder-copy-btn {
+  padding: 6px 12px;
+  font-size: 0.76rem;
+  white-space: nowrap;
+}
+
+.funder-snippet-preview {
+  font-size: 0.74rem;
+  color: var(--os-text-muted);
+  line-height: 1.45;
+  margin-top: 8px;
+  font-style: italic;
+}
+
+.funder-pipeline-val-badge {
+  font-family: var(--os-font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #86EFAC;
+  background: rgba(43, 217, 128, 0.12);
+  border: 1px solid rgba(43, 217, 128, 0.3);
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+.funder-pipeline-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.funder-pipeline-card {
+  background: rgba(8, 14, 11, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: var(--os-radius-sm);
+  padding: 12px;
+}
+
+/* ==========================================================================
+   MODULE 4: SPOTLIGHT / OMNISEARCH
+   ========================================================================== */
+.omni-search-container {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.omni-input-wrap {
+  position: relative;
+  margin-bottom: 14px;
+}
+
+.omni-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--os-gold-bright);
+  font-size: 1.2rem;
+  pointer-events: none;
+}
+
+.omni-input {
+  width: 100%;
+  background: rgba(8, 14, 11, 0.95);
+  border: 2px solid var(--os-gold-radiant);
+  border-radius: var(--os-radius-md);
+  padding: 15px 100px 15px 46px;
+  font-size: 1.02rem;
+  color: var(--os-text-bright);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), 0 0 20px var(--os-gold-subtle);
+  outline: none;
+  box-sizing: border-box;
+}
+
+.omni-input:focus {
+  border-color: var(--os-gold-bright);
+  box-shadow: 0 8px 36px rgba(0, 0, 0, 0.7), 0 0 30px var(--os-gold-glow);
+}
+
+.omni-esc-badge {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--os-text-muted);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 3px 7px;
+  border-radius: 4px;
+}
+
+.omni-quick-chips {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.omni-chip {
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: rgba(229, 178, 93, 0.08);
+  border: 1px solid rgba(229, 178, 93, 0.25);
+  color: var(--os-text-soft);
+  font-size: 0.74rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.omni-chip:hover {
+  background: var(--os-gold-radiant);
+  color: #121814;
+  border-color: var(--os-gold-radiant);
+}
+
+.omni-results-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+.omni-result-item {
+  background: var(--os-obsidian-card);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: var(--os-radius-sm);
+  padding: 12px 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.2s ease;
+}
+
+.omni-result-item:hover,
+.omni-result-item.selected {
+  background: rgba(229, 178, 93, 0.12);
+  border-color: var(--os-gold-radiant);
+  transform: translateX(4px);
+}
+
+/* ==========================================================================
+   MODULE 5: 3D AI RADAR & KNOWLEDGE GRAPH & SENTINEL
+   ========================================================================== */
+.radar-subtab-bar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.radar-subtab-btn {
+  padding: 8px 16px;
+  border-radius: var(--os-radius-sm);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(229, 178, 93, 0.25);
+  color: var(--os-text-soft);
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.radar-subtab-btn:hover,
+.radar-subtab-btn.active {
+  background: var(--os-gold-subtle);
+  border-color: var(--os-gold-bright);
+  color: var(--os-gold-bright);
+}
+
+.discovery-stage-box {
+  background: rgba(8, 16, 12, 0.95);
+  border: 1.5px solid rgba(197, 154, 63, 0.35);
+  border-radius: var(--os-radius-md);
+  padding: 12px;
+  position: relative;
+  min-height: 380px;
+}
+
+.discovery-inspector-card {
+  background: var(--os-obsidian-card);
+  border: 1px solid var(--os-gold-border);
+  border-radius: var(--os-radius-sm);
+  padding: 14px;
+  min-height: 180px;
+}
+
+.sentinel-run-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.sentinel-terminal-log {
+  background: #050B08;
+  border: 1px solid var(--os-gold-border);
+  border-radius: var(--os-radius-sm);
+  padding: 14px;
+  font-family: var(--os-font-mono);
+  font-size: 0.76rem;
+  color: var(--os-text-soft);
+  max-height: 200px;
+  overflow-y: auto;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.sentinel-results-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sentinel-check-card {
+  background: var(--os-obsidian-card);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: var(--os-radius-sm);
+  padding: 12px 14px;
+}
+
+.sentinel-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ==========================================================================
+   TOAST NOTIFICATION
+   ========================================================================== */
+.sanctuary-os-toast {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  background: rgba(14, 25, 19, 0.96);
+  border: 1.5px solid var(--os-gold-radiant);
+  border-radius: var(--os-radius-md);
+  padding: 12px 18px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--os-text-bright);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.75), 0 0 20px var(--os-gold-glow);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 100;
+}
+
+.sanctuary-os-toast.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   NAV TRIGGER BUTTON (Desktop & Mobile)
+   ========================================================================== */
+.nav-sanctuary-os-btn {
+  background: linear-gradient(135deg, rgba(229, 178, 93, 0.2) 0%, rgba(197, 154, 63, 0.1) 100%);
+  border: 1.5px solid var(--sunburst-gold, #C59A3F);
+  color: var(--sunburst-gold, #C59A3F);
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  letter-spacing: 0.04em;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 10px rgba(197, 154, 63, 0.2);
+  white-space: nowrap;
+}
+
+.nav-sanctuary-os-btn:hover {
+  background: var(--sunburst-gold, #C59A3F);
+  color: #121814;
+  box-shadow: 0 4px 18px rgba(197, 154, 63, 0.45);
+  transform: translateY(-1px);
+}
+
+.nav-sanctuary-os-btn .os-kbd {
+  font-size: 0.65rem;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(197, 154, 63, 0.4);
+  color: inherit;
+}
+
+/* ==========================================================================
+   RESPONSIVE OPTIMIZATIONS (375px–430px Mobile for Live Events)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .sanctuary-os-modal,
+  .sanctuary-os-overlay {
+    padding: 0;
+  }
+
+  .sanctuary-os-window {
+    height: 100vh;
+    max-height: 100vh;
+    border-radius: 0;
+    border: none;
+  }
+
+  .sanctuary-os-header {
+    padding: 12px 14px;
+  }
+
+  .sanctuary-os-operator-badge {
+    max-width: 140px;
+    font-size: 0.7rem;
+    padding: 3px 8px;
+  }
+
+  .sanctuary-os-tab-bar,
+  .sanctuary-os-tablist {
+    padding: 0 8px;
+  }
+
+  .sanctuary-os-tab-btn {
+    padding: 10px 12px;
+    font-size: 0.76rem;
+    gap: 6px;
+  }
+
+  .sanctuary-os-panel {
+    padding: 16px 12px;
+  }
+
+  .sanctuary-os-grid-two-col {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .door-tally-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .mc-timer-display {
+    font-size: 3.4rem;
+  }
+}
+
+@media (max-width: 430px) {
+  .sanctuary-os-title {
+    font-size: 0.92rem;
+  }
+
+  .sanctuary-os-subtitle {
+    display: none;
+  }
+
+  .door-filter-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .door-quick-actions {
+    justify-content: stretch;
+  }
+
+  .door-quick-actions button {
+    flex: 1;
+    text-align: center;
+  }
+}

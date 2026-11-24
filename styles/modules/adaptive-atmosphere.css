@@ -35,8 +35,12 @@ html, body, .hero, .sanctuary-nav, .element-sanctuary-bar,
 }
 
 [data-atmosphere="dawn"] body {
-  background-color: var(--bg-cream);
+  background-color: transparent !important;
   color: var(--earth-charcoal);
+}
+
+[data-atmosphere="dawn"] .hero {
+  background: radial-gradient(circle at 50% 25%, rgba(248, 217, 140, 0.16) 0%, rgba(83, 117, 99, 0.05) 45%, transparent 75%);
 }
 
 /* --------------------------------------------------------------------------
@@ -61,8 +65,12 @@ html, body, .hero, .sanctuary-nav, .element-sanctuary-bar,
 }
 
 [data-atmosphere="day"] body {
-  background-color: var(--bg-cream);
+  background-color: transparent !important;
   color: var(--earth-charcoal);
+}
+
+[data-atmosphere="day"] .hero {
+  background: radial-gradient(circle at 50% 25%, rgba(197, 154, 63, 0.15) 0%, rgba(95, 123, 107, 0.06) 45%, transparent 75%);
 }
 
 /* --------------------------------------------------------------------------
@@ -87,12 +95,12 @@ html, body, .hero, .sanctuary-nav, .element-sanctuary-bar,
 }
 
 [data-atmosphere="golden"] body {
-  background-color: var(--bg-cream);
+  background-color: transparent !important;
   color: var(--earth-charcoal);
 }
 
 [data-atmosphere="golden"] .hero {
-  background: linear-gradient(180deg, rgba(244, 235, 217, 0.98) 0%, rgba(235, 222, 202, 0.95) 100%);
+  background: radial-gradient(circle at 50% 25%, rgba(212, 155, 53, 0.20) 0%, rgba(235, 172, 78, 0.06) 45%, transparent 75%);
 }
 
 /* --------------------------------------------------------------------------
@@ -118,7 +126,7 @@ html, body, .hero, .sanctuary-nav, .element-sanctuary-bar,
 }
 
 [data-atmosphere="night"] body {
-  background-color: #0F1713;
+  background-color: transparent !important;
   color: #EDE8DD;
 }
 
@@ -128,7 +136,7 @@ html, body, .hero, .sanctuary-nav, .element-sanctuary-bar,
 }
 
 [data-atmosphere="night"] .hero {
-  background: linear-gradient(180deg, #0F1713 0%, #15221B 60%, #0F1713 100%);
+  background: radial-gradient(circle at 50% 25%, rgba(229, 178, 93, 0.16) 0%, rgba(77, 122, 98, 0.08) 45%, transparent 80%);
 }
 
 [data-atmosphere="night"] .hero-inner-headline,

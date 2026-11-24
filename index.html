@@ -330,6 +330,8 @@
   <link rel="stylesheet" href="styles/modules/community-popup.css?v=1.0">
   <link rel="stylesheet" href="styles/modules/run-of-show.css?v=1.0">
   <link rel="stylesheet" href="styles/modules/promo-card-generator.css?v=1.0">
+  <link rel="stylesheet" href="styles/modules/sanctuary-os.css">
+  <link rel="stylesheet" href="styles/modules/funder-dossier.css?v=1.0">
 </head>
 <body data-element="fire">
 
@@ -508,8 +510,19 @@
       </ul>
 
       <div class="nav-actions-group">
+        <!-- Institutional Funder & Grantmaker Dossier -->
+        <button type="button" id="btnNavFunderDossier" class="btn-outline-gold" onclick="openFunderModal(event)" style="font-size: 0.78rem; padding: 6px 14px; border-radius: 999px; display: inline-flex; align-items: center; gap: 6px;" title="Institutional 501(c)(3) & CRA Grantmaker Dossier">
+          <span>🏛️</span>
+          <span class="desktop-only">Grants &amp; Funder Hub</span>
+        </button>
         <!-- Living Atmosphere Switcher -->
         <div id="atmosphereSwitcherMount"></div>
+
+        <!-- Sanctuary OS Mission Control Trigger -->
+        <button type="button" id="btnNavSanctuaryOs" class="nav-sanctuary-os-btn" onclick="window.sanctuaryOS ? window.sanctuaryOS.open() : (window.openDiscoveryOsWindow ? window.openDiscoveryOsWindow() : null)" title="Sanctuary OS • Private Mission Control & Omnisearch (⌘K / Ctrl+K)">
+          <span>⚡ OS</span>
+          <span class="os-kbd">⌘K</span>
+        </button>
 
         <!-- Digital Pause Booth Trigger -->
         <button type="button" id="btnNavPauseBooth" class="btn-outline-gold" onclick="window.sanctuaryPauseBooth.open()" title="Digital Pause Booth • Somatic Nervous System Reset" style="padding: 7px 13px; border-radius: 999px; font-size: 0.74rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; letter-spacing: 0.03em;">
@@ -544,12 +557,22 @@
     <!-- Mobile Navigation Drawer -->
     <div id="mobile-nav-drawer" class="hidden" style="display: none; padding: 20px 20px; background: rgba(246, 243, 236, 0.98); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 2px solid var(--sunburst-gold); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);">
       <ul style="list-style: none; display: flex; flex-direction: column; gap: 12px; margin: 0; padding: 0;">
+        <li style="margin-bottom: 6px;">
+          <button type="button" onclick="openFunderModal(event); document.getElementById('mobile-nav-drawer').style.display='none';" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 16px; background: rgba(197, 154, 63, 0.18); border: 1.5px solid #F5D77F; color: #FFFDF7; border-radius: 999px; font-weight: 700; font-size: 0.84rem; cursor: pointer;">
+            <span>🏛️ Institutional Grants &amp; Funder Hub</span>
+          </button>
+        </li>
         <li style="display: flex; gap: 8px; margin-bottom: 6px;">
           <button type="button" onclick="handleSpeakeasyKnock(event); document.getElementById('mobile-nav-drawer').style.display='none';" class="btn-outline-gold" style="flex: 1; padding: 10px 12px; border-radius: 8px; font-size: 0.80rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; background: rgba(30, 49, 39, 0.05); color: var(--forest-green); border: 1.5px solid var(--sunburst-gold);" title="🗝️ The Greenroom • Secret Sessions">
             <span>🗝️ The Greenroom</span>
           </button>
           <button type="button" onclick="openZeffyModal(event); document.getElementById('mobile-nav-drawer').style.display='none';" class="btn btn-gold btn-liquid-gold pulse-gold" style="flex: 1; padding: 10px 12px; border-radius: 8px; font-size: 0.80rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;" title="Plant Your $1 Seed">
             <span>🌱 Give $1 Seed</span>
+          </button>
+        </li>
+        <li style="margin-bottom: 6px;">
+          <button type="button" id="btnMobileNavSanctuaryOs" onclick="if(window.sanctuaryOS) window.sanctuaryOS.open(); document.getElementById('mobile-nav-drawer').style.display='none';" class="btn-outline-gold" style="width: 100%; padding: 10px 14px; border-radius: 8px; font-size: 0.84rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(135deg, rgba(229, 178, 93, 0.2) 0%, rgba(13, 22, 17, 0.85) 100%); color: var(--sunburst-gold); border: 1.5px solid var(--sunburst-gold);" title="Open Sanctuary OS Mission Control">
+            <span>⚡ Sanctuary OS (⌘K)</span>
           </button>
         </li>
         <li style="margin-bottom: 6px;">
@@ -851,8 +874,14 @@
     <div class="container" style="max-width: 900px; text-align: center;">
       <div class="section-subtitle" style="color: var(--sunburst-gold); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;">Our Sacred Purpose</div>
       <h2 class="section-title serif-brand" style="color: var(--forest-green); font-size: clamp(2rem, 3.2vw, 2.5rem); margin-bottom: 8px;">Our Mission</h2>
-      <div style="display: inline-flex; align-items: center; gap: 8px; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: var(--forest-green); background: rgba(197, 154, 63, 0.14); border: 1px solid rgba(197, 154, 63, 0.35); border-radius: 999px; padding: 4px 14px; margin-bottom: 12px;">
-        ✦ Official 501(c)(3) Public Charity • EIN: 39-3757168
+      <div style="display: inline-flex; align-items: center; gap: 8px; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: var(--forest-green); background: rgba(197, 154, 63, 0.14); border: 1px solid rgba(197, 154, 63, 0.35); border-radius: 999px; padding: 6px 18px; margin-bottom: 14px; flex-wrap: wrap; justify-content: center;">
+        <span>✦ IRS 501(c)(3) Public Charity</span>
+        <span>•</span>
+        <span>EIN: 39-3757168</span>
+        <span>•</span>
+        <span>Teshia Campbell, Founder</span>
+        <span>•</span>
+        <span>Marlon Smith, President</span>
       </div>
       <div class="flourish-divider">✦</div>
       <p style="font-family: 'Cinzel', serif; font-size: clamp(1.15rem, 1.8vw, 1.35rem); color: var(--forest-dark); font-weight: 600; line-height: 1.7; margin-bottom: 18px;">
@@ -1360,8 +1389,8 @@
             <span class="bead-intent">Tension Release</span>
           </button>
           
-          <button type="button" class="bead-btn" data-bead="turquoise" data-name="River Turquoise" data-meaning="Authentic Flow &amp; Sacred Voice" data-color="#40E0D0">
-            <span class="bead-circle" style="background: radial-gradient(circle at 35% 35%, #A0EEEE, #40E0D0 60%, #209E94);"></span>
+          <button type="button" class="bead-btn" data-bead="turquoise" data-name="River Turquoise" data-meaning="Authentic Voice, Sacred Serenity &amp; Throat Chakra Flow" data-color="#2E7D73">
+            <span class="bead-circle" style="background: radial-gradient(circle at 35% 32%, #A8E6CF 0%, #3AAFA9 42%, #2E7D73 75%, #174842 100%); box-shadow: inset 0 2px 4px rgba(255,255,255,0.7), inset -1px -2px 4px rgba(0,0,0,0.35);"></span>
             <span class="bead-title">Turquoise</span>
             <span class="bead-intent">Authentic Voice</span>
           </button>
@@ -3132,6 +3161,18 @@
           <p style="font-size: 0.82rem; color: #CBD7D0; line-height: 1.5; margin-bottom: 0;">
             Inner Sanctuary Wellness Foundation is an IRS 501(c)(3) public charity (EIN: 39-3757168). All contributions are 100% tax-deductible under IRC Section 170(b)(1)(A)(vi).
           </p>
+
+          <!-- Institutional Funder Fast-Action Pill Row -->
+          <div style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 14px; flex-wrap: wrap;">
+            <button type="button" class="btn btn-gold btn-liquid-gold" onclick="openFunderModal(event)" style="font-size: 0.82rem; padding: 8px 20px; border-radius: 999px; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 16px rgba(197, 154, 63, 0.35);">
+              <span>🏛️ Open Institutional Funder &amp; CRA Dossier</span>
+              <span>→</span>
+            </button>
+            <a href="reports/receipts/2026-11-15-sanctuary-clubhouse-openmic-impact-receipt.html" target="_blank" class="btn btn-outline" style="font-size: 0.80rem; padding: 8px 16px; border-radius: 999px; border-color: rgba(245, 215, 127, 0.6); color: #F5D77F; display: inline-flex; align-items: center; gap: 6px;">
+              <span>📄 View Verified Open Ledger Receipt</span>
+              <span>↗</span>
+            </a>
+          </div>
         </div>
 
         <!-- 4-Column Compact Sponsorship & Partnership Tiers -->
@@ -3392,6 +3433,120 @@
               <span class="workplace-badge" style="background: rgba(197, 154, 63, 0.18); color: #F8D98C; border: 1px solid rgba(197, 154, 63, 0.3); font-size: 0.65rem; padding: 2px 6px;">CyberGrants</span>
               <span class="workplace-badge" style="background: rgba(197, 154, 63, 0.18); color: #F8D98C; border: 1px solid rgba(197, 154, 63, 0.3); font-size: 0.65rem; padding: 2px 6px;">YourCause</span>
               <span class="workplace-badge" style="background: rgba(197, 154, 63, 0.18); color: #F8D98C; border: 1px solid rgba(197, 154, 63, 0.3); font-size: 0.65rem; padding: 2px 6px;">Blackbaud</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ==================== INLINE FIDUCIARY GOVERNANCE & OUTCOME SHOWCASE ==================== -->
+        <div class="funder-inline-dossier-wrap">
+          
+          <!-- Leadership & Board Stewardship -->
+          <div>
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 14px;">
+              <h4 style="font-family: 'Cinzel', serif; font-size: 1.25rem; color: #FFFFFF; margin: 0; display: flex; align-items: center; gap: 8px;">
+                <span>👥</span> Executive Leadership &amp; Board Stewardship
+              </h4>
+              <span style="font-size: 0.74rem; color: #F8D98C; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;">
+                ✦ Black-Founded &amp; Community-Governed
+              </span>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
+              <!-- Leader 1: Teshia Campbell -->
+              <div class="funder-inline-leader-card">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+                  <span style="font-size: 2rem;">🌿</span>
+                  <div>
+                    <h5 style="font-family: 'Cinzel', serif; font-size: 1.15rem; color: #FFFDF7; margin: 0;">Teshia Campbell</h5>
+                    <div style="font-size: 0.78rem; color: #F8D98C; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;">Founder &amp; Executive Director</div>
+                  </div>
+                </div>
+                <p style="font-size: 0.85rem; color: #CBD7D0; line-height: 1.6; margin: 0;">
+                  Visionary architect of community care programs, youth mental health initiatives, and institutional grant management. Teshia oversees operational governance, CRA banking compliance, and trauma-informed somatic curriculum design.
+                </p>
+              </div>
+
+              <!-- Leader 2: Marlon Smith -->
+              <div class="funder-inline-leader-card">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+                  <span style="font-size: 2rem;">🎙️</span>
+                  <div>
+                    <h5 style="font-family: 'Cinzel', serif; font-size: 1.15rem; color: #FFFDF7; margin: 0;">Marlon Smith</h5>
+                    <div style="font-size: 0.78rem; color: #F8D98C; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;">President &amp; Primary Host</div>
+                  </div>
+                </div>
+                <p style="font-size: 0.85rem; color: #CBD7D0; line-height: 1.6; margin: 0;">
+                  Cultural connector and community facilitator championing restorative open mic stages, artist development, and somatic stillness. Marlon directs community partnership activations, staging logistics, and civic neighborhood engagement.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Verified Community Outcome Metrics Grid -->
+          <div>
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 14px;">
+              <h4 style="font-family: 'Cinzel', serif; font-size: 1.25rem; color: #FFFFFF; margin: 0; display: flex; align-items: center; gap: 8px;">
+                <span>📊</span> Documented Community Impact Metrics
+              </h4>
+              <span style="font-size: 0.74rem; color: #86EFAC; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;">
+                ✦ Verified by Open Community Ledger
+              </span>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px;">
+              <div class="funder-stat-card" style="padding: 14px 10px; background: rgba(0, 0, 0, 0.35); border: 1px solid rgba(197, 154, 63, 0.35); border-radius: 12px; text-align: center;">
+                <div style="font-family: 'Cinzel', serif; font-size: 1.7rem; font-weight: 800; color: #F5D77F; margin-bottom: 2px;">120+</div>
+                <div style="font-size: 0.78rem; font-weight: 700; color: #FFFDF7; margin-bottom: 2px;">Documented Neighbors</div>
+                <div style="font-size: 0.70rem; color: #CBD7D0;">Across OC gatherings</div>
+              </div>
+              <div class="funder-stat-card" style="padding: 14px 10px; background: rgba(0, 0, 0, 0.35); border: 1px solid rgba(197, 154, 63, 0.35); border-radius: 12px; text-align: center;">
+                <div style="font-family: 'Cinzel', serif; font-size: 1.7rem; font-weight: 800; color: #86EFAC; margin-bottom: 2px;">100%</div>
+                <div style="font-size: 0.78rem; font-weight: 700; color: #FFFDF7; margin-bottom: 2px;">Substance-Free</div>
+                <div style="font-size: 0.70rem; color: #CBD7D0;">Harm-reduction safe space</div>
+              </div>
+              <div class="funder-stat-card" style="padding: 14px 10px; background: rgba(0, 0, 0, 0.35); border: 1px solid rgba(197, 154, 63, 0.35); border-radius: 12px; text-align: center;">
+                <div style="font-family: 'Cinzel', serif; font-size: 1.7rem; font-weight: 800; color: #F5D77F; margin-bottom: 2px;">94%</div>
+                <div style="font-size: 0.78rem; font-weight: 700; color: #FFFDF7; margin-bottom: 2px;">Stress Reduction</div>
+                <div style="font-size: 0.70rem; color: #CBD7D0;">Self-reported drop in tension</div>
+              </div>
+              <div class="funder-stat-card" style="padding: 14px 10px; background: rgba(0, 0, 0, 0.35); border: 1px solid rgba(197, 154, 63, 0.35); border-radius: 12px; text-align: center;">
+                <div style="font-family: 'Cinzel', serif; font-size: 1.7rem; font-weight: 800; color: #F8D98C; margin-bottom: 2px;">360h</div>
+                <div style="font-size: 0.78rem; font-weight: 700; color: #FFFDF7; margin-bottom: 2px;">Care Hours Delivered</div>
+                <div style="font-size: 0.70rem; color: #CBD7D0;">Somatic &amp; acoustic release</div>
+              </div>
+              <div class="funder-stat-card" style="padding: 14px 10px; background: rgba(0, 0, 0, 0.35); border: 1px solid rgba(197, 154, 63, 0.35); border-radius: 12px; text-align: center;">
+                <div style="font-family: 'Cinzel', serif; font-size: 1.7rem; font-weight: 800; color: #86EFAC; margin-bottom: 2px;">72%</div>
+                <div style="font-size: 0.78rem; font-weight: 700; color: #FFFDF7; margin-bottom: 2px;">BIPOC Served</div>
+                <div style="font-size: 0.70rem; color: #CBD7D0;">Centering local creators</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Clinical & Grantmaker Theory of Change Matrix -->
+          <div class="funder-inline-leader-card">
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 14px;">
+              <h4 style="font-family: 'Cinzel', serif; font-size: 1.15rem; color: #FFFFFF; margin: 0; display: flex; align-items: center; gap: 8px;">
+                <span>💡</span> Clinical Translation Matrix (RFP &amp; Public Health Framework)
+              </h4>
+              <span style="font-size: 0.74rem; color: #F5D77F; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;">
+                ✦ How Our Culture Maps to Grant Guidelines
+              </span>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <div class="funder-matrix-row" style="border-left: 3px solid var(--sunburst-gold);">
+                <div><strong style="color: #F8D98C;">Community Language:</strong> "Unhurried Circles"</div>
+                <div><strong style="color: #86EFAC;">Clinical / Grant Framework:</strong> Non-Clinical Somatic Vagus Nerve Regulation &amp; Community Co-Regulation</div>
+              </div>
+              <div class="funder-matrix-row" style="border-left: 3px solid var(--turquoise-soft);">
+                <div><strong style="color: #F8D98C;">Community Language:</strong> "Substance-Free Open Mic"</div>
+                <div><strong style="color: #86EFAC;">Clinical / Grant Framework:</strong> Community Harm Reduction &amp; Sustainable Recovery Protection Ecosystem</div>
+              </div>
+              <div class="funder-matrix-row" style="border-left: 3px solid #86EFAC;">
+                <div><strong style="color: #F8D98C;">Community Language:</strong> "Permission to Pause / No Masks"</div>
+                <div><strong style="color: #86EFAC;">Clinical / Grant Framework:</strong> Psychological Safety, Somatic Stress Release &amp; Social Isolation Reduction</div>
+              </div>
             </div>
           </div>
 
@@ -3751,9 +3906,10 @@
             <li><a href="#zen-plinko">The Zen Plinko (Drop a Seed)</a></li>
             <li><a href="#dollar-campaign-anchor">The $1 Community Seed</a></li>
             <li><a href="#sponsorship">Institutional Grants & Partnerships</a></li>
+            <li><a href="javascript:void(0)" onclick="openFunderModal(event)" style="color: #F8D98C; font-weight: 600;">🏛️ Institutional Grants &amp; Funder Hub</a></li>
             <li><a href="#stay-in-loop">Stay in the Loop</a></li>
             <li><a href="#connect">Get Involved With Us</a></li>
-            <li><a href="javascript:void(0)" onclick="openDiscoveryOsWindow()" style="color: var(--sunburst-gold); font-weight: 600;">📡 Open Discovery OS (3D Window) ↗</a></li>
+            <li><a href="javascript:void(0)" onclick="if(window.sanctuaryOS) window.sanctuaryOS.open(); else if(window.openDiscoveryOsWindow) openDiscoveryOsWindow();" style="color: var(--sunburst-gold); font-weight: 600;">⚡ Sanctuary OS (Mission Control) ⌘K</a></li>
             <li><a href="javascript:void(0)" id="btnPwaFooterInstall" onclick="triggerPwaInstall(event)">📱 Add Sanctuary to Home Screen</a></li>
           </ul>
         </div>
@@ -3787,44 +3943,19 @@
 
       </div>
 
-      <!-- Sanctuary Discovery OS Popup Window Banner -->
-      <div class="footer-os-banner" style="margin: 36px 0 24px; padding: 22px 26px; background: rgba(0, 0, 0, 0.45); border: 1.5px solid rgba(197, 154, 63, 0.4); border-radius: 16px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; backdrop-filter: blur(8px);">
+      <!-- Sanctuary OS Mission Control Banner -->
+      <div class="footer-os-banner" style="margin: 36px 0 24px; padding: 22px 26px; background: rgba(0, 0, 0, 0.55); border: 1.5px solid rgba(229, 178, 93, 0.45); border-radius: 16px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; backdrop-filter: blur(12px); box-shadow: 0 8px 32px rgba(0,0,0,0.4);">
         <div style="display: flex; align-items: center; gap: 16px;">
-          <div style="font-size: 2rem; line-height: 1;">📡</div>
+          <div style="font-size: 2rem; line-height: 1;">⚡</div>
           <div>
-            <div style="font-family: 'Cinzel', serif; font-size: 1.05rem; font-weight: 700; color: #FFFDF7; letter-spacing: 0.04em;">
-              Sanctuary Discovery OS
-            </div>
-            <div style="font-size: 0.82rem; color: #CBD7D0; margin-top: 3px; max-width: 580px; line-height: 1.5;">
-              Pop open our 3D Search &amp; Radar Command Center: real-time AI visibility radar, entity knowledge graph, and autonomous weekly guardian telemetry.
-            </div>
+            <div style="color: #FFFDF7; font-size: 1.05rem; font-weight: 700; font-family: 'Cinzel', serif; letter-spacing: 0.04em;">Sanctuary OS • Private Mission Control &amp; Omnisearch</div>
+            <div style="color: #CBD7D0; font-size: 0.80rem; margin-top: 3px;">Executive command center: Live MC stage timer, 528Hz chime, door prize scanner, CRA toolkit &amp; omnisearch (⌘K / Ctrl+K).</div>
           </div>
         </div>
-        <div>
-          <button type="button" class="btn btn-gold" onclick="openDiscoveryOsWindow()" style="padding: 12px 24px; font-size: 0.86rem; font-weight: 700; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 18px rgba(197, 154, 63, 0.35); cursor: pointer;" aria-label="Pop open 3D Sanctuary Discovery OS in a dedicated window">
-            <span>⚡ Pop Open Discovery OS</span>
-            <span style="font-size: 0.82rem;">↗</span>
-          </button>
-        </div>
+        <button type="button" class="btn btn-gold btn-liquid-gold" onclick="if(window.sanctuaryOS) window.sanctuaryOS.open(); else if(window.openDiscoveryOsWindow) openDiscoveryOsWindow();" style="font-size: 0.85rem; padding: 9px 20px;">
+          <span>⚡ Launch Mission Control</span> <span>→</span>
+        </button>
       </div>
-
-      <!-- Footer Bottom -->
-      <div class="footer-bottom">
-        <div style="font-size: 0.82rem; line-height: 1.6; color: #CBD7D0; max-width: 780px;">
-          Inner Sanctuary Wellness Foundation is an official California 501(c)(3) public charity (Federal EIN: 39-3757168). Founder &amp; Executive Director: Teshia Campbell | President &amp; Primary MC: Marlon Smith.
-        </div>
-        <div style="display: flex; align-items: center; gap: 16px; margin-top: 8px;">
-          <span>EIN: 39-3757168</span>
-          <span>•</span>
-          <a href="https://www.instagram.com/ourinnersanctuary/" target="_blank" rel="noopener noreferrer" style="color: var(--sunburst-gold); display: inline-flex; align-items: center; gap: 5px;">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
-            <span>Instagram</span>
-          </a>
-        </div>
-      
-        <div style="margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(255, 255, 255, 0.12); font-size: 0.76rem; color: #A9BCB0; line-height: 1.6; width: 100%;">
-          <strong>Non-Discrimination Policy:</strong> Inner Sanctuary Wellness Foundation does not discriminate on the basis of race, color, ethnicity, religion, creed, sex, gender identity or expression, sexual orientation, national origin, age, marital status, disability, or military status in any of its community programs, stage opportunities, or volunteer activities.
-        </div></div>
 
     </div>
   </footer>
@@ -4165,5 +4296,544 @@
     <span>🍃 Take a 60s Pause</span>
   </button>
 
+
+  <!-- ==================== SANCTUARY OS MISSION CONTROL MODAL ==================== -->
+  <div id="sanctuaryOsModal" class="sanctuary-os-modal sanctuary-os-overlay" role="dialog" aria-modal="true" aria-labelledby="sanctuaryOsTitle" style="display:none;">
+    <div class="sanctuary-os-backdrop" data-os-close onclick="if(window.sanctuaryOS) window.sanctuaryOS.close()"></div>
+    <div class="sanctuary-os-window">
+      
+      <!-- Header -->
+      <header class="sanctuary-os-header" id="sanctuaryOsHeader">
+        <div class="sanctuary-os-brand">
+          <span class="sanctuary-os-emblem">⚡</span>
+          <div>
+            <div class="sanctuary-os-title" id="sanctuaryOsTitle">SANCTUARY OS • MISSION CONTROL</div>
+            <div class="sanctuary-os-subtitle" id="sanctuaryOsSubtitle">Private Host &amp; Steward Command Center • Hotkey: ⌘K / Ctrl+K</div>
+          </div>
+        </div>
+        <div class="sanctuary-os-controls">
+          <div id="sanctuaryOsOperatorBadge" class="sanctuary-os-operator-badge" style="display: none;"></div>
+          <button type="button" id="sanctuaryOsLockBtn" class="sanctuary-os-icon-btn" title="Lock Sanctuary OS" style="display: none;" onclick="if(window.sanctuaryOS) window.sanctuaryOS.lock()">🔒 Lock</button>
+          <button type="button" id="sanctuaryOsCloseBtn" class="sanctuary-os-close-btn" aria-label="Close Sanctuary OS" data-os-close onclick="if(window.sanctuaryOS) window.sanctuaryOS.close()">✕</button>
+        </div>
+      </header>
+
+      <!-- View 1: Password Auth Gate -->
+      <div id="sanctuaryOsAuthView" class="sanctuary-os-auth-view">
+        <div class="sanctuary-os-auth-card">
+          <div class="sanctuary-os-auth-glyph">🗝️</div>
+          <h2 class="sanctuary-os-auth-heading">Leadership Passkey Verification</h2>
+          <p class="sanctuary-os-auth-sub">
+            Access the private Sanctuary OS Mission Control. Unlocks the Live MC Deck, Door Raffle Scanner, Funder CRA Toolkit, Omnisearch &amp; 3D Radar.
+          </p>
+          <div class="sanctuary-os-auth-input-group">
+            <input type="password" id="sanctuaryOsPasswordInput" class="sanctuary-os-input" placeholder="Enter Host Passkey" autocomplete="current-password" autofocus />
+            <button type="button" id="sanctuaryOsUnlockBtn" class="sanctuary-os-btn-gold" onclick="if(window.sanctuaryOS){const input=document.getElementById('sanctuaryOsPasswordInput'); if(input) window.sanctuaryOS.unlock(input.value);}">Unlock OS</button>
+          </div>
+          <div id="sanctuaryOsAuthError" class="sanctuary-os-auth-error" style="display: none;">
+            ⚠️ Access Denied. Invalid leadership authorization passkey.
+          </div>
+          
+        </div>
+      </div>
+
+      <!-- View 2: Authenticated OS Mission Control Body -->
+      <div id="sanctuaryOsAppView" class="sanctuary-os-app-view" style="display: none;">
+        
+        <!-- Tab Navigation Bar -->
+        <nav class="sanctuary-os-tab-bar" role="tablist" aria-label="Sanctuary OS Modules">
+          <button type="button" class="sanctuary-os-tab-btn active" data-os-tab="mc-deck" role="tab" aria-selected="true" onclick="if(window.sanctuaryOS) window.sanctuaryOS.switchTab('mc-deck')">
+            <span>🎙️ Live MC Deck</span>
+          </button>
+          <button type="button" class="sanctuary-os-tab-btn" data-os-tab="door-checkin" role="tab" aria-selected="false" onclick="if(window.sanctuaryOS) window.sanctuaryOS.switchTab('door-checkin')">
+            <span>🎟️ Door Check-in &amp; Scanner</span>
+          </button>
+          <button type="button" class="sanctuary-os-tab-btn" data-os-tab="funder-toolkit" role="tab" aria-selected="false" onclick="if(window.sanctuaryOS) window.sanctuaryOS.switchTab('funder-toolkit')">
+            <span>🏛️ Funder &amp; CRA Toolkit</span>
+          </button>
+          <button type="button" class="sanctuary-os-tab-btn" data-os-tab="omnisearch" role="tab" aria-selected="false" onclick="if(window.sanctuaryOS) window.sanctuaryOS.switchTab('omnisearch')">
+            <span>🔍 Instant Omnisearch</span>
+          </button>
+          <button type="button" class="sanctuary-os-tab-btn" data-os-tab="radar-3d" role="tab" aria-selected="false" onclick="if(window.sanctuaryOS) window.sanctuaryOS.switchTab('radar-3d')">
+            <span>📡 3D AI Radar &amp; Sentinel</span>
+          </button>
+        </nav>
+
+        <!-- Tab Panels Container -->
+        <main class="sanctuary-os-panels-wrap">
+          
+          <!-- PANEL 1: LIVE MC & HOST DECK -->
+          <section id="osPanelMcDeck" class="sanctuary-os-panel active" role="tabpanel">
+            <div class="sanctuary-os-grid-two-col">
+              
+              <!-- Left: Stage Timer & Audio Center -->
+              <div class="sanctuary-os-card">
+                <div class="sanctuary-os-card-title">
+                  <span>⏱️</span> Live Stage Clock &amp; 528Hz Chime
+                </div>
+                <div class="mc-timer-stage">
+                  <div id="mcTimerDisplay" class="mc-timer-display">05:00</div>
+                  <div class="mc-timer-controls">
+                    <button type="button" id="mcTimerToggleBtn" class="sanctuary-os-btn-gold" onclick="if(window.sanctuaryOS) window.sanctuaryOS.startTimer()">▶ Start Timer</button>
+                    <button type="button" id="mcTimerResetBtn" class="sanctuary-os-btn-outline" onclick="if(window.sanctuaryOS) window.sanctuaryOS.resetTimer()">Reset</button>
+                    <button type="button" id="mcTimerAddMinBtn" class="sanctuary-os-btn-outline" onclick="if(window.sanctuaryOS) window.sanctuaryOS.addOneMinute()">+1 Min</button>
+                    <button type="button" id="mcChimeBtn" class="sanctuary-os-btn-chime" title="Sound 528Hz Solfeggio Stage Bell" onclick="if(window.sanctuaryOS) window.sanctuaryOS.playBell528()">
+                      <span>🔔 Ring 528Hz Bell</span>
+                    </button>
+                  </div>
+                  <div class="mc-timer-presets">
+                    <span style="font-size: 0.72rem; color: #CBD7D0; font-weight: 600;">Presets:</span>
+                    <button type="button" class="mc-preset-pill" onclick="if(window.sanctuaryOS) window.sanctuaryOS.setTimer(180)">3 Min</button>
+                    <button type="button" class="mc-preset-pill active" onclick="if(window.sanctuaryOS) window.sanctuaryOS.setTimer(300)">5 Min</button>
+                    <button type="button" class="mc-preset-pill" onclick="if(window.sanctuaryOS) window.sanctuaryOS.setTimer(480)">8 Min</button>
+                    <button type="button" class="mc-preset-pill" onclick="if(window.sanctuaryOS) window.sanctuaryOS.setTimer(600)">10 Min</button>
+                  </div>
+                </div>
+
+                <!-- Sponsor Prompts & Script Deck -->
+                <div class="sanctuary-os-subheading" style="margin-top: 18px;">
+                  <span>🎙️</span> Host Live Sponsor Scripts &amp; Spoken Cues
+                </div>
+                <div id="mcStagePrompts" class="mc-prompts-container"></div>
+              </div>
+
+              <!-- Right: Performer Slot Order Queue -->
+              <div class="sanctuary-os-card">
+                <div class="sanctuary-os-card-title-row">
+                  <div class="sanctuary-os-card-title">
+                    <span>🎤</span> Stage Roster &amp; Slot Order Queue
+                  </div>
+                  <div style="font-size: 0.74rem; color: #86EFAC; font-weight: 700;">Live Run-of-Show</div>
+                </div>
+
+                <!-- Add Artist Row -->
+                <div class="mc-add-artist-bar">
+                  <input type="text" id="mcPerformerNameInput" class="sanctuary-os-input" placeholder="Artist Name / Group" />
+                  <button type="button" id="mcAddPerformerBtn" class="sanctuary-os-btn-gold" style="white-space: nowrap;">+ Add to Queue</button>
+                </div>
+
+                <!-- Queue List -->
+                <div id="mcPerformerQueueList" class="mc-queue-list"></div>
+              </div>
+
+            </div>
+          </section>
+
+          <!-- PANEL 2: DOOR RAFFLE CHECK-IN & CLAIM SCANNER -->
+          <section id="osPanelDoorCheckin" class="sanctuary-os-panel" role="tabpanel" style="display: none;">
+            <!-- Inventory Tally Summary Cards -->
+            <div class="door-tally-grid">
+              <div class="door-tally-card">
+                <div class="door-tally-num" id="doorTotalCount">0</div>
+                <div class="door-tally-label">Total Claims Recorded</div>
+              </div>
+              <div class="door-tally-card highlight-green">
+                <div class="door-tally-num" id="doorVerifiedCount">0</div>
+                <div class="door-tally-label">Verified at Door ✓</div>
+              </div>
+              <div class="door-tally-card highlight-gold">
+                <div class="door-tally-num" id="doorPendingCount">0</div>
+                <div class="door-tally-label">Awaiting Handout ⏳</div>
+              </div>
+              <div class="door-tally-card">
+                <button type="button" id="doorExportCsvBtn" class="sanctuary-os-btn-gold" style="width: 100%; height: 100%; font-size: 0.82rem; padding: 10px;" onclick="if(window.sanctuaryOS) window.sanctuaryOS.exportClaimsCsv()">
+                  📥 Export CSV Ledger
+                </button>
+              </div>
+            </div>
+
+            <!-- Search & Filter Bar -->
+            <div class="door-filter-row">
+              <div class="door-search-box">
+                <span class="door-search-icon">🔍</span>
+                <input type="text" id="doorSearchInput" class="sanctuary-os-input" placeholder="Search by Code (IS-777-...), Name, Email, or @Instagram..." />
+              </div>
+              <div class="door-quick-actions">
+                <button type="button" class="sanctuary-os-btn-outline" onclick="if(window.sanctuaryOS) window.sanctuaryOS.filterDoorStatus('all')">All</button>
+                <button type="button" class="sanctuary-os-btn-outline" onclick="if(window.sanctuaryOS) window.sanctuaryOS.filterDoorStatus('pending')">Pending Only</button>
+                <button type="button" class="sanctuary-os-btn-outline" onclick="if(window.sanctuaryOS) window.sanctuaryOS.filterDoorStatus('verified')">Verified Only</button>
+              </div>
+            </div>
+
+            <!-- Prize Inventory Breakdown Strip -->
+            <div id="doorInventoryTallyStrip" class="door-inventory-strip"></div>
+
+            <!-- Claims Table / Cards List -->
+            <div id="doorCheckinList" class="door-claims-list"></div>
+          </section>
+
+          <!-- PANEL 3: FUNDER & CRA RAPID TOOLKIT -->
+          <section id="osPanelFunderToolkit" class="sanctuary-os-panel" role="tabpanel" style="display: none;">
+            <div class="sanctuary-os-grid-two-col">
+              
+              <!-- Rapid 1-Click Copy Cards -->
+              <div class="sanctuary-os-card">
+                <div class="sanctuary-os-card-title">
+                  <span>⚡</span> 1-Click Funder &amp; CRA Copy Deck
+                </div>
+                <p style="font-size: 0.82rem; color: #CBD7D0; margin-bottom: 16px;">
+                  Instant copy buttons formatted for institutional grant RFPs, bank CRA compliance officers, and major philanthropic donors.
+                </p>
+
+                <div class="funder-copy-block">
+                  <div class="funder-copy-header">
+                    <div>
+                      <strong>IRS Employer Identification Number (EIN)</strong>
+                      <div class="funder-copy-val">39-3757168</div>
+                    </div>
+                    <button type="button" id="copyEinBtn" class="sanctuary-os-btn-gold funder-copy-btn" onclick="if(window.sanctuaryOS) window.sanctuaryOS.copyEin()">📋 Copy EIN</button>
+                  </div>
+                </div>
+
+                <div class="funder-copy-block">
+                  <div class="funder-copy-header">
+                    <div>
+                      <strong>501(c)(3) Public Charity Tax Exemption</strong>
+                      <div class="funder-copy-val">IRC Section 170 / 509(a)(2) Verified Public Charity</div>
+                    </div>
+                    <button type="button" id="copyTaxExemptBtn" class="sanctuary-os-btn-gold funder-copy-btn" onclick="if(window.sanctuaryOS) window.sanctuaryOS.copyTaxExemption()">📋 Copy Clause</button>
+                  </div>
+                  <div class="funder-snippet-preview">
+                    "Inner Sanctuary Wellness Foundation is an official California 501(c)(3) public charity (Federal EIN: 39-3757168). Contributions are 100% tax-deductible to the extent allowed by law under IRC Section 170..."
+                  </div>
+                </div>
+
+                <div class="funder-copy-block">
+                  <div class="funder-copy-header">
+                    <div>
+                      <strong>California Nonprofit State Standing</strong>
+                      <div class="funder-copy-val">CA SOS &amp; Registry of Charitable Trusts Active</div>
+                    </div>
+                    <button type="button" id="copyStateStandingBtn" class="sanctuary-os-btn-gold funder-copy-btn" onclick="if(window.sanctuaryOS) window.sanctuaryOS.copyStateStanding()">📋 Copy Standing</button>
+                  </div>
+                </div>
+
+                <div class="funder-copy-block">
+                  <div class="funder-copy-header">
+                    <div>
+                      <strong>CRA Bank Community Development Summary</strong>
+                      <div class="funder-copy-val">LMI Community Development Credit Eligible</div>
+                    </div>
+                    <button type="button" id="copyCraSummaryBtn" class="sanctuary-os-btn-gold funder-copy-btn" onclick="if(window.sanctuaryOS) window.sanctuaryOS.copyCraSummary()">📋 Copy CRA Brief</button>
+                  </div>
+                  <div class="funder-snippet-preview">
+                    "Inner Sanctuary Wellness Foundation qualifies for bank Community Reinvestment Act (CRA) community development investments and grants. We deliver direct, verifiable somatic mental health and cultural equity in LMI census tracts across Orange County and the Inland Empire..."
+                  </div>
+                </div>
+              </div>
+
+              <!-- Live Grant Application Pipeline Status -->
+              <div class="sanctuary-os-card">
+                <div class="sanctuary-os-card-title-row">
+                  <div class="sanctuary-os-card-title">
+                    <span>📊</span> Active Grant Discovery &amp; Pipeline Status
+                  </div>
+                  <span class="funder-pipeline-val-badge">$147,000 – $417,000+</span>
+                </div>
+
+                <div id="grantPipelineStatus" class="funder-pipeline-list"></div>
+              </div>
+
+            </div>
+          </section>
+
+          <!-- PANEL 4: INSTANT OMNISEARCH -->
+          <section id="osPanelOmnisearch" class="sanctuary-os-panel" role="tabpanel" style="display: none;">
+            <div class="omni-search-container">
+              <div class="omni-input-wrap">
+                <span class="omni-icon">⚡</span>
+                <input type="text" id="omnisearchInput" class="sanctuary-os-input omni-input" placeholder="Type a command, tool, or section (e.g., 'open mic', 'pause orb', 'CRA', 'ein', 'teshia')..." autocomplete="off" />
+                <span class="omni-esc-badge">ESC to close</span>
+              </div>
+
+              <!-- Quick Filter Chips -->
+              <div id="omnisearchQuickChips" class="omni-quick-chips">
+                <button type="button" class="omni-chip" onclick="if(window.sanctuaryOS) window.sanctuaryOS.setOmniQuery('open mic')">🎙️ Open Mic</button>
+                <button type="button" class="omni-chip" onclick="if(window.sanctuaryOS) window.sanctuaryOS.setOmniQuery('pause')">🕊️ Pause Orb</button>
+                <button type="button" class="omni-chip" onclick="if(window.sanctuaryOS) window.sanctuaryOS.setOmniQuery('greenroom')">🗝️ Greenroom Wheel</button>
+                <button type="button" class="omni-chip" onclick="if(window.sanctuaryOS) window.sanctuaryOS.setOmniQuery('cra')">🏛️ CRA Banks</button>
+                <button type="button" class="omni-chip" onclick="if(window.sanctuaryOS) window.sanctuaryOS.setOmniQuery('ein')">📑 EIN 39-3757168</button>
+                <button type="button" class="omni-chip" onclick="if(window.sanctuaryOS) window.sanctuaryOS.setOmniQuery('bracelet')">🌿 Bracelet Creator</button>
+                <button type="button" class="omni-chip" onclick="if(window.sanctuaryOS) window.sanctuaryOS.setOmniQuery('dossier')">📄 Board Dossier</button>
+              </div>
+
+              <!-- Omnisearch Results Dropdown / List -->
+              <div id="omnisearchResults" class="omni-results-list" role="listbox"></div>
+            </div>
+          </section>
+
+          <!-- PANEL 5: 3D AI RADAR & KNOWLEDGE GRAPH & 5-FIX SENTINEL -->
+          <section id="osPanelRadar3d" class="sanctuary-os-panel" role="tabpanel" style="display: none;">
+            
+            <!-- Sub-tab Selector -->
+            <div class="radar-subtab-bar">
+              <button type="button" class="radar-subtab-btn active" data-subtab="radar" onclick="if(window.sanctuaryOS) window.sanctuaryOS.switchSubTab('radar')">
+                <span>📡 Scene 1: AI Visibility Radar</span>
+              </button>
+              <button type="button" class="radar-subtab-btn" data-subtab="graph" onclick="if(window.sanctuaryOS) window.sanctuaryOS.switchSubTab('graph')">
+                <span>🌐 Scene 2: Entity Knowledge Graph</span>
+              </button>
+              <button type="button" class="radar-subtab-btn" data-subtab="sentinel" onclick="if(window.sanctuaryOS) window.sanctuaryOS.switchSubTab('sentinel')">
+                <span>⚡ Scene 3: Live 5-Fix Sentinel</span>
+              </button>
+            </div>
+
+            <!-- Sub-panel: AI Radar Canvas -->
+            <div id="osSubPanelRadar" class="radar-subpanel">
+              <div class="sanctuary-os-grid-two-col">
+                <div class="discovery-stage-box">
+                  <canvas id="osRadarCanvas" width="480" height="360" style="width: 100%; height: 100%; display: block; border-radius: 10px;"></canvas>
+                  <div style="font-size: 0.72rem; color: #CBD7D0; margin-top: 6px; text-align: center;">
+                    ✦ Real-time sweep: Google SGE, SearchGPT, Gemini Grounding, Perplexity &amp; Apple Intelligence
+                  </div>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                  <div class="door-tally-grid" style="grid-template-columns: repeat(3, 1fr); margin: 0;">
+                    <div class="door-tally-card" style="padding: 10px;">
+                      <div class="door-tally-num" style="font-size: 1.25rem; color: #F5D77F;">99.4%</div>
+                      <div class="door-tally-label">Grounding</div>
+                    </div>
+                    <div class="door-tally-card" style="padding: 10px;">
+                      <div class="door-tally-num" style="font-size: 1.25rem; color: #86EFAC;">142ms</div>
+                      <div class="door-tally-label">Latency</div>
+                    </div>
+                    <div class="door-tally-card" style="padding: 10px;">
+                      <div class="door-tally-num" style="font-size: 1.25rem; color: #F8D98C;">501(c)(3)</div>
+                      <div class="door-tally-label">Status</div>
+                    </div>
+                  </div>
+                  <div id="osRadarNodeInspector" class="discovery-inspector-card"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sub-panel: Entity Knowledge Graph Canvas -->
+            <div id="osSubPanelGraph" class="radar-subpanel" style="display: none;">
+              <div class="sanctuary-os-grid-two-col">
+                <div class="discovery-stage-box">
+                  <canvas id="osGraphCanvas" width="480" height="360" style="width: 100%; height: 100%; display: block; border-radius: 10px; cursor: grab;"></canvas>
+                  <div style="font-size: 0.72rem; color: #CBD7D0; margin-top: 6px; text-align: center;">
+                    ✦ Click or drag nodes to examine schema relations, leadership &amp; fiduciary links
+                  </div>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                  <div id="osGraphNodeInspector" class="discovery-inspector-card"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sub-panel: Live 5-Fix Sentinel Diagnostics -->
+            <div id="osSubPanelSentinel" class="radar-subpanel" style="display: none;">
+              <div class="sentinel-run-header">
+                <div>
+                  <div class="sanctuary-os-card-title">
+                    <span>⚡</span> Autonomous Site Sentinel &amp; 5-Fix Health Engine
+                  </div>
+                  <div style="font-size: 0.80rem; color: #CBD7D0;">
+                    Evaluates viewport fluidity, Schema grounding, asset cache status, fiduciary routing, and audio synthesis.
+                  </div>
+                </div>
+                <button type="button" id="osRunSentinelBtn" class="sanctuary-os-btn-gold" onclick="if(window.sanctuaryOS) window.sanctuaryOS.runSentinelDiagnostics()">
+                  <span>⚡ Run 1-Click Diagnostics</span>
+                </button>
+              </div>
+
+              <div id="osSentinelTerminal" class="sentinel-terminal-log" style="display: none;"></div>
+              <div id="osSentinelResults" class="sentinel-results-grid"></div>
+            </div>
+
+          </section>
+
+        </main>
+
+      </div>
+
+    </div>
+    <!-- Toast Feedback -->
+    <div id="sanctuaryOsToast" class="sanctuary-os-toast" aria-live="polite"></div>
+  </div>
+
+  <!-- Sanctuary OS: Mission Control Module -->
+  <script src="js/modules/sanctuary-os.js"></script>
+
+  <div id="funderDossierModal" class="funder-modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true" style="display: none;">
+    <div class="funder-modal-dialog">
+      <button type="button" class="funder-modal-close" onclick="closeFunderModal()" aria-label="Close Funder Window">&times;</button>
+
+      <!-- Header -->
+      <div class="funder-modal-header">
+        <div class="funder-modal-badge">✦ INSTITUTIONAL FIDUCIARY DOSSIER • GRANT EVALUATION ✦</div>
+        <h3 class="funder-modal-title serif-brand">Inner Sanctuary Wellness Foundation</h3>
+        <p class="funder-modal-sub">
+          Official California 501(c)(3) Public Charity (Federal EIN: <strong>39-3757168</strong>). Black-Founded &amp; Black-Led community mental health, trauma-informed somatic care, and alcohol-free creative sanctuaries.
+        </p>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <div class="funder-tabs-bar" role="tablist">
+        <button type="button" class="funder-tab-btn active" id="tabBtnFunderSummary" onclick="switchFunderTab('summary')">
+          <span>📋 Fiduciary Summary &amp; CRA</span>
+        </button>
+        <button type="button" class="funder-tab-btn" id="tabBtnFunderLeadership" onclick="switchFunderTab('leadership')">
+          <span>👥 Board &amp; Leadership</span>
+        </button>
+        <button type="button" class="funder-tab-btn" id="tabBtnFunderOutcomes" onclick="switchFunderTab('outcomes')">
+          <span>📊 Outcome Data &amp; Metrics</span>
+        </button>
+        <button type="button" class="funder-tab-btn" id="tabBtnFunderTheory" onclick="switchFunderTab('theory')">
+          <span>💡 Theory of Change</span>
+        </button>
+      </div>
+
+      <!-- Content Body -->
+      <div class="funder-modal-body">
+        
+        <!-- Tab 1: Fiduciary Summary & CRA -->
+        <div class="funder-tab-pane active" id="tabPaneFunderSummary">
+          <div class="funder-info-card">
+            <h4 class="funder-card-title"><span>🏛️</span> Tax-Exempt Legal Standing &amp; Registrations</h4>
+            <div class="funder-detail-row">
+              <span class="funder-detail-label">Legal Entity Name:</span>
+              <span class="funder-detail-val">Inner Sanctuary Wellness Foundation</span>
+            </div>
+            <div class="funder-detail-row">
+              <span class="funder-detail-label">Federal EIN:</span>
+              <span class="funder-detail-val">39-3757168</span>
+            </div>
+            <div class="funder-detail-row">
+              <span class="funder-detail-label">IRS Tax Exemption:</span>
+              <span class="funder-detail-val">IRC Section 501(c)(3) Public Charity (170(b)(1)(A)(vi))</span>
+            </div>
+            <div class="funder-detail-row">
+              <span class="funder-detail-label">California Attorney General RCT:</span>
+              <span class="funder-detail-val" style="color: #86EFAC;">Current &amp; In Good Standing (RRF-1 Verified)</span>
+            </div>
+            <div class="funder-detail-row">
+              <span class="funder-detail-label">Community Reinvestment Act (CRA):</span>
+              <span class="funder-detail-val" style="color: #F5D77F;">Eligible Community Development Investment</span>
+            </div>
+            <div class="funder-detail-row">
+              <span class="funder-detail-label">NTEE Classification:</span>
+              <span class="funder-detail-val">E20 (Community Mental Health) &amp; A20 (Arts &amp; Culture)</span>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px;">
+            <button type="button" class="btn btn-gold" onclick="copyFunderText('39-3757168', 'Federal EIN')" style="font-size: 0.78rem; padding: 7px 14px;">
+              <span>📋 Copy EIN (39-3757168)</span>
+            </button>
+            <button type="button" class="btn btn-outline" onclick="copyFunderText('Inner Sanctuary Wellness Foundation is an official California 501(c)(3) public charity (Federal EIN: 39-3757168). Contributions are fully tax-deductible under IRC Section 170.', 'Tax Deduction Clause')" style="font-size: 0.78rem; padding: 7px 14px; border-color: #F5D77F; color: #F5D77F;">
+              <span>📋 Copy 501(c)(3) Legal Clause</span>
+            </button>
+            <button type="button" class="btn btn-outline" onclick="copyFunderText('Inner Sanctuary Wellness Foundation qualifies for CRA bank partner investments under Community Development criteria, supporting primary mental wellness, youth arts equity, and social cohesion across Southern California LMI corridors.', 'CRA Partner Statement')" style="font-size: 0.78rem; padding: 7px 14px; border-color: #86EFAC; color: #86EFAC;">
+              <span>📋 Copy CRA Bank Brief</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Tab 2: Board & Leadership -->
+        <div class="funder-tab-pane" id="tabPaneFunderLeadership">
+          <p class="funder-card-desc">
+            Inner Sanctuary is governed by an active, community-accountable Board of Directors ensuring complete fiscal integrity, dual-signoff on grant disbursements, and zero debt liability.
+          </p>
+
+          <div class="funder-leader-grid">
+            <div class="funder-leader-card">
+              <h5 class="funder-leader-name">Marlon Smith</h5>
+              <div class="funder-leader-role">President &amp; Primary MC</div>
+              <p class="funder-leader-bio">
+                Steward of live community engagement, artist relations, and somatic vocal expression. Marlon leads community circle dynamics, ensures psychological safety on stage, and oversees grassroots outreach across Orange County and the Inland Empire.
+              </p>
+            </div>
+            <div class="funder-leader-card">
+              <h5 class="funder-leader-name">Teshia Campbell</h5>
+              <div class="funder-leader-role">Founder &amp; Executive Director</div>
+              <p class="funder-leader-bio">
+                Visionary architect of community care programs, youth mental health initiatives, and institutional grant management. Teshia oversees operational governance, CRA banking compliance, and trauma-informed somatic curriculum design.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 3: Outcome Data & Metrics -->
+        <div class="funder-tab-pane" id="tabPaneFunderOutcomes">
+          <div class="funder-stat-grid">
+            <div class="funder-stat-card">
+              <div class="funder-stat-val">94%</div>
+              <div class="funder-stat-label">Stress Reduction</div>
+              <div class="funder-stat-sub">Attendees reporting acute drop in stress &amp; loneliness after session</div>
+            </div>
+            <div class="funder-stat-card">
+              <div class="funder-stat-val">100%</div>
+              <div class="funder-stat-label">Substance-Free</div>
+              <div class="funder-stat-sub">Harm-reduction environment safeguarding youth &amp; neighbors in recovery</div>
+            </div>
+            <div class="funder-stat-card">
+              <div class="funder-stat-val">72%</div>
+              <div class="funder-stat-label">BIPOC Served</div>
+              <div class="funder-stat-sub">Centering Black, Indigenous &amp; Latino creative voices in Orange County</div>
+            </div>
+            <div class="funder-stat-card">
+              <div class="funder-stat-val">150+</div>
+              <div class="funder-stat-label">Care Hours</div>
+              <div class="funder-stat-sub">Direct somatic breathwork, acoustic release, and reflective journaling</div>
+            </div>
+          </div>
+
+          <div class="funder-info-card">
+            <h5 class="funder-card-title"><span>🎯</span> Verification &amp; Evaluation Methodology</h5>
+            <p class="funder-card-desc">
+              All gathering participation is archived in our transparent open ledger. Participant impact is measured using standardized pre- and post-session self-regulation assessments, evaluating nervous system settling, emotional connection, and community trust.
+            </p>
+          </div>
+        </div>
+
+        <!-- Tab 4: Theory of Change -->
+        <div class="funder-tab-pane" id="tabPaneFunderTheory">
+          <div class="funder-info-card">
+            <h5 class="funder-card-title"><span>💡</span> Clinical &amp; Community Translation Matrix</h5>
+            <div class="funder-detail-row">
+              <span class="funder-detail-label">Community Language:</span>
+              <span class="funder-detail-val" style="color: #F8D98C;">"Unhurried Circles"</span>
+            </div>
+            <div class="funder-detail-row">
+              <span class="funder-detail-label">Clinical Public Health Framework:</span>
+              <span class="funder-detail-val" style="color: #86EFAC;">Trauma-Informed Somatic Regulation &amp; Co-Regulation</span>
+            </div>
+            <div class="funder-detail-row">
+              <span class="funder-detail-label">Community Language:</span>
+              <span class="funder-detail-val" style="color: #F8D98C;">"Substance-Free Open Mic"</span>
+            </div>
+            <div class="funder-detail-row">
+              <span class="funder-detail-label">Clinical Public Health Framework:</span>
+              <span class="funder-detail-val" style="color: #86EFAC;">Community Harm Reduction &amp; Sustainable Recovery Protection</span>
+            </div>
+            <div class="funder-detail-row">
+              <span class="funder-detail-label">Community Language:</span>
+              <span class="funder-detail-val" style="color: #F8D98C;">"No Masks Required / Permission to Pause"</span>
+            </div>
+            <div class="funder-detail-row">
+              <span class="funder-detail-label">Clinical Public Health Framework:</span>
+              <span class="funder-detail-val" style="color: #86EFAC;">Psychological Safety &amp; Non-Clinical Vagus Nerve Grounding</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Footer Action -->
+      <div class="funder-modal-footer">
+        <div style="font-size: 0.78rem; color: #CBD7D0;">
+          Direct Fiduciary Inquiries: <strong style="color: #FFFDF7;">hello@innersanctuarywellnessfoundation.org</strong>
+        </div>
+        <button type="button" class="btn btn-gold" onclick="downloadFunderDossier()" style="font-size: 0.82rem; padding: 8px 18px;">
+          <span>🖨️ Print / Save 1-Page Dossier (PDF)</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="js/modules/funder-dossier.js?v=1.0"></script>
 </body>
 </html>
