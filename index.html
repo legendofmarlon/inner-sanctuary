@@ -566,6 +566,12 @@
           </a>
         </li>
         <li>
+          <a href="#openmic-photo-wheel" class="mobile-nav-item" onclick="document.getElementById('mobile-nav-drawer').style.display='none';">
+            <span class="mobile-nav-main" style="color: var(--forest-green); font-weight: 700;">📸 3D Community Gallery</span>
+            <span class="mobile-nav-sub">Real Moments &amp; Impact Reach</span>
+          </a>
+        </li>
+        <li>
           <a href="#open-mic" class="mobile-nav-item" onclick="document.getElementById('mobile-nav-drawer').style.display='none';">
             <span class="mobile-nav-main" style="color: var(--forest-green); font-weight: 700;">🎙️ Open Mic &amp; Gatherings</span>
             <span class="mobile-nav-sub">Community Lineup &amp; RSVP</span>
@@ -603,10 +609,11 @@
       <div class="sanctuary-subnav-inner">
         <span class="subnav-context-badge">On Home</span>
         <a href="#remember" class="subnav-pill-link">🏠 Pause &amp; Hero</a>
-        <a href="#core-activations" class="subnav-pill-link">✦ Activations (Mic &amp; Jam)</a>
-        <a href="#mission" class="subnav-pill-link">📖 Mission &amp; Medallion</a>
-        <a href="#open-mic" class="subnav-pill-link">📅 Events &amp; Countdown</a>
-        <a href="#grantImpactSimulator" class="subnav-pill-link">🏛️ Grants &amp; Simulator</a>
+        <a href="#openmic-photo-wheel" class="subnav-pill-link">📸 3D Gallery</a>
+        <a href="#core-activations" class="subnav-pill-link">✦ Activations</a>
+        <a href="#mission" class="subnav-pill-link">📖 Mission</a>
+        <a href="#open-mic" class="subnav-pill-link">📅 Events</a>
+        <a href="#grantImpactSimulator" class="subnav-pill-link">🏛️ Grants &amp; Sim</a>
         <a href="#connect" class="subnav-pill-link">✉️ Connect</a>
       </div>
     </div>
@@ -915,6 +922,269 @@
       <div class="trust-item" onclick="openFunderModal(event, 'outcomes')" style="cursor: pointer;" title="View CRA Community Partner Impact">
         <span class="trust-icon">✦</span>
         <span>CRA-Eligible Community Partner</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== LIVING SANCTUARY 3D COVERFLOW GALLERY & IMPACT REACH ==================== -->
+  <section id="openmic-photo-wheel" class="sanctuary-coverflow-showcase" aria-label="Living Sanctuary 3D Event Photo Carousel and Community Reach">
+    <div class="container">
+      <div class="coverflow-section-header">
+        <div class="master-eyebrow-tag" style="margin-bottom: 12px;">
+          <span>✦ REAL PEOPLE • REAL SANCTUARY • SANTA ANA &amp; ORANGE COUNTY ✦</span>
+        </div>
+        <h2 class="master-font-serif coverflow-section-title">
+          Our Community in Living Color
+        </h2>
+        <div class="flourish-divider" style="color: var(--sunburst-gold); font-size: 1.1rem; margin-bottom: 14px;">✦</div>
+        <p class="master-lead-text coverflow-section-lead" style="max-width: 820px; margin: 0 auto;">
+          Every statistic represents real neighbors choosing substance-free connection—spoken word artists, acoustic musicians, youth, and elders sharing the room together.
+        </p>
+      </div>
+
+        <!-- Community Impact Metrics Bar -->
+        <div class="community-impact-metrics-bar">
+          <div class="impact-metric-card">
+            <div class="impact-metric-num" id="metric-headcount-total">120+</div>
+            <div class="impact-metric-label">Documented Community Attendees</div>
+            <div class="impact-metric-sub">Across 2 verified Santa Ana &amp; OC circles</div>
+          </div>
+          <div class="impact-metric-card">
+            <div class="impact-metric-num" id="metric-performers-total">24+</div>
+            <div class="impact-metric-label">Featured Performers &amp; Healers</div>
+            <div class="impact-metric-sub">Poets, singers, acoustic sets &amp; comedians</div>
+          </div>
+          <div class="impact-metric-card">
+            <div class="impact-metric-num" id="metric-hours-total">360h</div>
+            <div class="impact-metric-label">Trauma-Informed Care Delivered</div>
+            <div class="impact-metric-sub">Substance-free somatic wellness sanctuary</div>
+          </div>
+          <div class="impact-metric-card">
+            <div class="impact-metric-num">$0</div>
+            <div class="impact-metric-label">Barrier to Entry</div>
+            <div class="impact-metric-sub">100% free community admission for all</div>
+          </div>
+        </div>
+
+      <!-- 3D Cinema Coverflow Stage Card -->
+      <div class="photo-wheel-card">
+        <div class="photo-wheel-header">
+          <div>
+            <span class="photo-wheel-tag">✦ Interactive 3D Living Sanctuary Stage</span>
+            <h3 class="photo-wheel-title">Real Moments from Our Sanctuary Clubhouse Open Mic (Nov 15 Gathering)</h3>
+          </div>
+          <div class="coverflow-header-actions">
+            <button type="button" class="btn-coverflow-auto" id="btnCoverflowAutoToggle" aria-pressed="true" onclick="togglePhotoWheelAutoPlay()" title="Pause or resume automatic 3D orbit">
+              <span>⏸ Auto-Orbit</span>
+            </button>
+            <button type="button" class="btn-open-wheel-modal" onclick="openPhotoWheelModal(currentPhotoWheelIndex)">
+              <span>🎡 Fullscreen Lightbox</span>
+              <span>↗</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="coverflow-toolbar">
+          <div class="moment-filter-pills" role="group" aria-label="Filter community moments by atmosphere">
+            <button type="button" class="moment-filter-btn active" data-moment-filter="all" aria-pressed="true" onclick="filterPhotoMoments('all')">✦ All Moments (12)</button>
+            <button type="button" class="moment-filter-btn" data-moment-filter="stage" aria-pressed="false" onclick="filterPhotoMoments('stage')">🎙️ Stage &amp; Spoken Word</button>
+            <button type="button" class="moment-filter-btn" data-moment-filter="music" aria-pressed="false" onclick="filterPhotoMoments('music')">🎸 Music &amp; Rhythm</button>
+            <button type="button" class="moment-filter-btn" data-moment-filter="community" aria-pressed="false" onclick="filterPhotoMoments('community')">🔥 Hearth &amp; Community</button>
+          </div>
+          <span class="coverflow-drag-hint">✦ Click any side card or swipe • Click center to expand</span>
+        </div>
+
+        <div class="photo-wheel-viewport">
+          <div class="coverflow-stage-floor" aria-hidden="true"></div>
+          <div class="photo-wheel-slides" id="photoWheelSlides">
+
+              <!-- Slide 1: Full community circle gathered in the clubhouse living room around the indoor tree -->
+              <div class="photo-wheel-slide slot-center active" data-slide-idx="0" data-categories="community stage" onclick="handleCoverflowSlideClick(0, event)">
+                <img src="images/openmic/openmic-nov15-living-room-sanctuary.jpg" alt="Full community circle gathered in the clubhouse living room around the indoor tree">
+                <span class="coverflow-expand-hint">🔍 Click to Expand</span>
+                <div class="slide-caption-bar">
+                  <span class="slide-caption-text">Grounded Presence • Full Community Circle Gathered at the Hearth • Nov 15</span>
+                  <span class="slide-counter">Photo 1 of 12</span>
+                </div>
+              </div>
+
+              <!-- Slide 2: Spoken word artist performing before community circle in Reconnect shirt -->
+              <div class="photo-wheel-slide slot-right-1" data-slide-idx="1" data-categories="stage" onclick="handleCoverflowSlideClick(1, event)">
+                <img src="images/openmic/openmic-nov15-spoken-word-circle.jpg" alt="Spoken word artist performing before community circle in Reconnect shirt">
+                <span class="coverflow-expand-hint">🔍 Click to Expand</span>
+                <div class="slide-caption-bar">
+                  <span class="slide-caption-text">Raw Vocal Truth • Spoken Word &amp; Acoustic Expression in the Living Room • Nov 15</span>
+                  <span class="slide-counter">Photo 2 of 12</span>
+                </div>
+              </div>
+
+              <!-- Slide 3: Acoustic guitarist and soulful female singer performing together -->
+              <div class="photo-wheel-slide slot-right-2" data-slide-idx="2" data-categories="music stage" onclick="handleCoverflowSlideClick(2, event)">
+                <img src="images/openmic/openmic-nov15-acoustic-duo-harmony.jpg" alt="Acoustic guitarist and soulful female singer performing together">
+                <span class="coverflow-expand-hint">🔍 Click to Expand</span>
+                <div class="slide-caption-bar">
+                  <span class="slide-caption-text">Soulful Strings &amp; Melody • Acoustic Guitar &amp; Vocal Harmonies in Flow • Nov 15</span>
+                  <span class="slide-counter">Photo 3 of 12</span>
+                </div>
+              </div>
+
+              <!-- Slide 4: Community members dancing and drumming with pure joy before the stone fireplace -->
+              <div class="photo-wheel-slide slot-hidden" data-slide-idx="3" data-categories="music community" onclick="handleCoverflowSlideClick(3, event)">
+                <img src="images/openmic/openmic-nov15-stone-hearth-celebration.jpg" alt="Community members dancing and drumming with pure joy before the stone fireplace">
+                <span class="coverflow-expand-hint">🔍 Click to Expand</span>
+                <div class="slide-caption-bar">
+                  <span class="slide-caption-text">Joyful Embodiment • Drums, Dancing &amp; Laughter Before the Grand Hearth • Nov 15</span>
+                  <span class="slide-counter">Photo 4 of 12</span>
+                </div>
+              </div>
+
+              <!-- Slide 5: Musician playing red djembe drum poolside with smiling friend -->
+              <div class="photo-wheel-slide slot-hidden" data-slide-idx="4" data-categories="music" onclick="handleCoverflowSlideClick(4, event)">
+                <img src="images/openmic/openmic-nov15-djembe-poolside-rhythm.jpg" alt="Musician playing red djembe drum poolside with smiling friend">
+                <span class="coverflow-expand-hint">🔍 Click to Expand</span>
+                <div class="slide-caption-bar">
+                  <span class="slide-caption-text">Heartbeat of the Hearth • Djembe Rhythm &amp; Joy by the Waterside • Nov 15</span>
+                  <span class="slide-counter">Photo 5 of 12</span>
+                </div>
+              </div>
+
+              <!-- Slide 6: Community storyteller reading from phone on wooden stool by rustic staircase -->
+              <div class="photo-wheel-slide slot-hidden" data-slide-idx="5" data-categories="stage" onclick="handleCoverflowSlideClick(5, event)">
+                <img src="images/openmic/openmic-nov15-storyteller-reflection.jpg" alt="Community storyteller reading from phone on wooden stool by rustic staircase">
+                <span class="coverflow-expand-hint">🔍 Click to Expand</span>
+                <div class="slide-caption-bar">
+                  <span class="slide-caption-text">Unhurried Words • Vulnerable Storytelling &amp; Poetry by the Staircase • Nov 15</span>
+                  <span class="slide-counter">Photo 6 of 12</span>
+                </div>
+              </div>
+
+              <!-- Slide 7: Two smiling community members on the wooden staircase, one wearing Reconnect shirt -->
+              <div class="photo-wheel-slide slot-hidden" data-slide-idx="6" data-categories="community" onclick="handleCoverflowSlideClick(6, event)">
+                <img src="images/openmic/openmic-nov15-reconnect-sisterhood.jpg" alt="Two smiling community members on the wooden staircase, one wearing Reconnect shirt">
+                <span class="coverflow-expand-hint">🔍 Click to Expand</span>
+                <div class="slide-caption-bar">
+                  <span class="slide-caption-text">Radiant Fellowship • Reconnect &amp; Joy at the Clubhouse Loft • Nov 15</span>
+                  <span class="slide-counter">Photo 7 of 12</span>
+                </div>
+              </div>
+
+              <!-- Slide 8: Silver-haired elder sharing stories with attentive audience in the clubhouse -->
+              <div class="photo-wheel-slide slot-hidden" data-slide-idx="7" data-categories="stage community" onclick="handleCoverflowSlideClick(7, event)">
+                <img src="images/openmic/openmic-nov15-elder-wisdom-words.jpg" alt="Silver-haired elder sharing stories with attentive audience in the clubhouse">
+                <span class="coverflow-expand-hint">🔍 Click to Expand</span>
+                <div class="slide-caption-bar">
+                  <span class="slide-caption-text">Generational Wisdom • Lived Truth &amp; Sacred Listening • Nov 15</span>
+                  <span class="slide-counter">Photo 8 of 12</span>
+                </div>
+              </div>
+
+              <!-- Slide 9: Evening view of the Sanctuary Clubhouse pool with illuminated palm trees -->
+              <div class="photo-wheel-slide slot-hidden" data-slide-idx="8" data-categories="community" onclick="handleCoverflowSlideClick(8, event)">
+                <img src="images/openmic/openmic-nov15-clubhouse-pool-dusk.jpg" alt="Evening view of the Sanctuary Clubhouse pool with illuminated palm trees">
+                <span class="coverflow-expand-hint">🔍 Click to Expand</span>
+                <div class="slide-caption-bar">
+                  <span class="slide-caption-text">Sanctuary Haven • Twilight Reflection by the Pool &amp; Palm Grove • Nov 15</span>
+                  <span class="slide-counter">Photo 9 of 12</span>
+                </div>
+              </div>
+
+              <!-- Slide 10: Close portrait of community members smiling on the wooden lodge balcony -->
+              <div class="photo-wheel-slide slot-hidden" data-slide-idx="9" data-categories="community" onclick="handleCoverflowSlideClick(9, event)">
+                <img src="images/openmic/openmic-nov15-reconnect-portrait.jpg" alt="Close portrait of community members smiling on the wooden lodge balcony">
+                <span class="coverflow-expand-hint">🔍 Click to Expand</span>
+                <div class="slide-caption-bar">
+                  <span class="slide-caption-text">Sacred Welcome • Safe Community Haven &amp; True Belonging • Nov 15</span>
+                  <span class="slide-counter">Photo 10 of 12</span>
+                </div>
+              </div>
+
+              <!-- Slide 11: Attentive community audience gathered at Our Sanctuary Clubhouse -->
+              <div class="photo-wheel-slide slot-left-2" data-slide-idx="10" data-categories="community stage" onclick="handleCoverflowSlideClick(10, event)">
+                <img src="images/openmic/openmic-audience-cafe86.jpg" alt="Attentive community audience gathered at Our Sanctuary Clubhouse">
+                <span class="coverflow-expand-hint">🔍 Click to Expand</span>
+                <div class="slide-caption-bar">
+                  <span class="slide-caption-text">Attentive Sanctuary • Neighbors &amp; Creators in Grounded Presence</span>
+                  <span class="slide-counter">Photo 11 of 12</span>
+                </div>
+              </div>
+
+              <!-- Slide 12: Marlon Smith smiling with community members -->
+              <div class="photo-wheel-slide slot-left-1" data-slide-idx="11" data-categories="community" onclick="handleCoverflowSlideClick(11, event)">
+                <img src="images/openmic/openmic-community-joy.jpg" alt="Marlon Smith smiling with community members">
+                <span class="coverflow-expand-hint">🔍 Click to Expand</span>
+                <div class="slide-caption-bar">
+                  <span class="slide-caption-text">Authentic Connection &amp; Joy • MC Marlon Smith with Community Members</span>
+                  <span class="slide-counter">Photo 12 of 12</span>
+                </div>
+              </div>
+          </div>
+
+          <button type="button" class="wheel-nav-arrow wheel-arrow-prev" onclick="prevPhotoSlide(event)" aria-label="Previous Photo">‹</button>
+          <button type="button" class="wheel-nav-arrow wheel-arrow-next" onclick="nextPhotoSlide(event)" aria-label="Next Photo">›</button>
+        </div>
+
+        <div class="coverflow-active-bar">
+          <div class="coverflow-active-info">
+            <span class="coverflow-active-tag" id="coverflowActiveTag">🔥 Hearth &amp; Community</span>
+            <span class="coverflow-active-caption" id="coverflowActiveCaption">Grounded Presence • Full Community Circle Gathered at the Hearth (Nov 15)</span>
+          </div>
+          <span class="coverflow-active-counter" id="coverflowActiveCounter">Moment 1 of 12</span>
+        </div>
+
+        <div class="coverflow-thumb-strip" id="coverflowThumbStrip" aria-label="Quick photo thumbnails">
+
+            <button type="button" class="coverflow-thumb-btn active" data-thumb-idx="0" onclick="goToPhotoSlide(0)" aria-label="Jump to Photo 1: Full community circle gathered in the clubhouse living room around the indoor tree" aria-current="true">
+              <img src="images/openmic/openmic-nov15-living-room-sanctuary.jpg" alt="Full community circle gathered in the clubhouse living room around the indoor tree">
+            </button>
+            <button type="button" class="coverflow-thumb-btn" data-thumb-idx="1" onclick="goToPhotoSlide(1)" aria-label="Jump to Photo 2: Spoken word artist performing before community circle in Reconnect shirt" aria-current="false">
+              <img src="images/openmic/openmic-nov15-spoken-word-circle.jpg" alt="Spoken word artist performing before community circle in Reconnect shirt">
+            </button>
+            <button type="button" class="coverflow-thumb-btn" data-thumb-idx="2" onclick="goToPhotoSlide(2)" aria-label="Jump to Photo 3: Acoustic guitarist and soulful female singer performing together" aria-current="false">
+              <img src="images/openmic/openmic-nov15-acoustic-duo-harmony.jpg" alt="Acoustic guitarist and soulful female singer performing together">
+            </button>
+            <button type="button" class="coverflow-thumb-btn" data-thumb-idx="3" onclick="goToPhotoSlide(3)" aria-label="Jump to Photo 4: Community members dancing and drumming with pure joy before the stone fireplace" aria-current="false">
+              <img src="images/openmic/openmic-nov15-stone-hearth-celebration.jpg" alt="Community members dancing and drumming with pure joy before the stone fireplace">
+            </button>
+            <button type="button" class="coverflow-thumb-btn" data-thumb-idx="4" onclick="goToPhotoSlide(4)" aria-label="Jump to Photo 5: Musician playing red djembe drum poolside with smiling friend" aria-current="false">
+              <img src="images/openmic/openmic-nov15-djembe-poolside-rhythm.jpg" alt="Musician playing red djembe drum poolside with smiling friend">
+            </button>
+            <button type="button" class="coverflow-thumb-btn" data-thumb-idx="5" onclick="goToPhotoSlide(5)" aria-label="Jump to Photo 6: Community storyteller reading from phone on wooden stool by rustic staircase" aria-current="false">
+              <img src="images/openmic/openmic-nov15-storyteller-reflection.jpg" alt="Community storyteller reading from phone on wooden stool by rustic staircase">
+            </button>
+            <button type="button" class="coverflow-thumb-btn" data-thumb-idx="6" onclick="goToPhotoSlide(6)" aria-label="Jump to Photo 7: Two smiling community members on the wooden staircase, one wearing Reconnect shirt" aria-current="false">
+              <img src="images/openmic/openmic-nov15-reconnect-sisterhood.jpg" alt="Two smiling community members on the wooden staircase, one wearing Reconnect shirt">
+            </button>
+            <button type="button" class="coverflow-thumb-btn" data-thumb-idx="7" onclick="goToPhotoSlide(7)" aria-label="Jump to Photo 8: Silver-haired elder sharing stories with attentive audience in the clubhouse" aria-current="false">
+              <img src="images/openmic/openmic-nov15-elder-wisdom-words.jpg" alt="Silver-haired elder sharing stories with attentive audience in the clubhouse">
+            </button>
+            <button type="button" class="coverflow-thumb-btn" data-thumb-idx="8" onclick="goToPhotoSlide(8)" aria-label="Jump to Photo 9: Evening view of the Sanctuary Clubhouse pool with illuminated palm trees" aria-current="false">
+              <img src="images/openmic/openmic-nov15-clubhouse-pool-dusk.jpg" alt="Evening view of the Sanctuary Clubhouse pool with illuminated palm trees">
+            </button>
+            <button type="button" class="coverflow-thumb-btn" data-thumb-idx="9" onclick="goToPhotoSlide(9)" aria-label="Jump to Photo 10: Close portrait of community members smiling on the wooden lodge balcony" aria-current="false">
+              <img src="images/openmic/openmic-nov15-reconnect-portrait.jpg" alt="Close portrait of community members smiling on the wooden lodge balcony">
+            </button>
+            <button type="button" class="coverflow-thumb-btn" data-thumb-idx="10" onclick="goToPhotoSlide(10)" aria-label="Jump to Photo 11: Attentive community audience gathered at Our Sanctuary Clubhouse" aria-current="false">
+              <img src="images/openmic/openmic-audience-cafe86.jpg" alt="Attentive community audience gathered at Our Sanctuary Clubhouse">
+            </button>
+            <button type="button" class="coverflow-thumb-btn" data-thumb-idx="11" onclick="goToPhotoSlide(11)" aria-label="Jump to Photo 12: Marlon Smith smiling with community members" aria-current="false">
+              <img src="images/openmic/openmic-community-joy.jpg" alt="Marlon Smith smiling with community members">
+            </button>
+        </div>
+
+        <div class="photo-wheel-dots" id="photoWheelDots">
+            <button type="button" class="wheel-dot active" onclick="goToPhotoSlide(0)" aria-label="Slide 1"></button>
+            <button type="button" class="wheel-dot" onclick="goToPhotoSlide(1)" aria-label="Slide 2"></button>
+            <button type="button" class="wheel-dot" onclick="goToPhotoSlide(2)" aria-label="Slide 3"></button>
+            <button type="button" class="wheel-dot" onclick="goToPhotoSlide(3)" aria-label="Slide 4"></button>
+            <button type="button" class="wheel-dot" onclick="goToPhotoSlide(4)" aria-label="Slide 5"></button>
+            <button type="button" class="wheel-dot" onclick="goToPhotoSlide(5)" aria-label="Slide 6"></button>
+            <button type="button" class="wheel-dot" onclick="goToPhotoSlide(6)" aria-label="Slide 7"></button>
+            <button type="button" class="wheel-dot" onclick="goToPhotoSlide(7)" aria-label="Slide 8"></button>
+            <button type="button" class="wheel-dot" onclick="goToPhotoSlide(8)" aria-label="Slide 9"></button>
+            <button type="button" class="wheel-dot" onclick="goToPhotoSlide(9)" aria-label="Slide 10"></button>
+            <button type="button" class="wheel-dot" onclick="goToPhotoSlide(10)" aria-label="Slide 11"></button>
+            <button type="button" class="wheel-dot" onclick="goToPhotoSlide(11)" aria-label="Slide 12"></button>
+        </div>
       </div>
     </div>
   </section>
@@ -1483,33 +1753,13 @@
           </div>
         </div>
 
-        <!-- Community Impact Metrics Bar -->
-        <div class="community-impact-metrics-bar">
-          <div class="impact-metric-card">
-            <div class="impact-metric-num" id="metric-headcount-total">120+</div>
-            <div class="impact-metric-label">Documented Community Attendees</div>
-            <div class="impact-metric-sub">Across 2 verified Santa Ana &amp; OC circles</div>
-          </div>
-          <div class="impact-metric-card">
-            <div class="impact-metric-num" id="metric-performers-total">24+</div>
-            <div class="impact-metric-label">Featured Performers &amp; Healers</div>
-            <div class="impact-metric-sub">Poets, singers, acoustic sets &amp; comedians</div>
-          </div>
-          <div class="impact-metric-card">
-            <div class="impact-metric-num" id="metric-hours-total">360h</div>
-            <div class="impact-metric-label">Trauma-Informed Care Delivered</div>
-            <div class="impact-metric-sub">Substance-free somatic wellness sanctuary</div>
-          </div>
-          <div class="impact-metric-card">
-            <div class="impact-metric-num">$0</div>
-            <div class="impact-metric-label">Barrier to Entry</div>
-            <div class="impact-metric-sub">100% free community admission for all</div>
-          </div>
+        <div style="text-align: center; margin-top: 16px;">
+          <a href="#openmic-photo-wheel" class="btn-open-wheel-modal" style="text-decoration: none;">
+            <span>📸 View 120+ Neighbors &amp; 360h Care in the 3D Gallery Showcase ↑</span>
+          </a>
         </div>
       </div>
 
-        
-      
       <!-- ==================== UPCOMING GATHERINGS & MEETUP CALENDAR ==================== -->
       <div class="upcoming-calendar-showcase" style="margin: 40px 0 32px;">
         <div style="text-align: center; max-width: 720px; margin: 0 auto 28px;">
@@ -1699,151 +1949,19 @@
         </div>
       </div>
 
-      <!-- Space-Saving Compact Community Photo Wheel (Our Sanctuary Clubhouse Moments) -->
-        <div class="photo-wheel-card" id="openmic-photo-wheel">
-          <div class="photo-wheel-header">
-            <div>
-              <span class="photo-wheel-tag">✦ Living Sanctuary Gallery</span>
-              <h4 class="photo-wheel-title">Real Moments from Our Sanctuary Clubhouse Open Mic (Nov 15 Gathering)</h4>
-            </div>
-            <button type="button" class="btn-open-wheel-modal" onclick="openPhotoWheelModal(currentPhotoWheelIndex)">
-              <span>🎡 Launch Fullscreen Photo Wheel</span>
-              <span>↗</span>
+      <!-- Quick Portal Callout to Hero 3D Gallery Showcase -->
+        <div class="openmic-gallery-callout">
+          <div>
+            <h4 class="openmic-gallery-callout-title">📸 Nov 15 Sanctuary Clubhouse Gallery (12 Documented Moments)</h4>
+            <p class="openmic-gallery-callout-sub">Now showcased prominently at the top of the page in our interactive 3D Coverflow Stage.</p>
+          </div>
+          <div class="coverflow-header-actions">
+            <a href="#openmic-photo-wheel" class="btn-open-wheel-modal" style="text-decoration: none;">
+              <span>🎥 Jump to 3D Photo Stage ↑</span>
+            </a>
+            <button type="button" class="btn-coverflow-auto" onclick="openPhotoWheelModal(currentPhotoWheelIndex)">
+              <span>🎡 Fullscreen Lightbox ↗</span>
             </button>
-          </div>
-
-          <div class="photo-wheel-viewport">
-            <div class="photo-wheel-slides" id="photoWheelSlides">
-              
-              <!-- Slide 1: Full Living Room Sanctuary Circle -->
-              <div class="photo-wheel-slide active" onclick="openPhotoWheelModal(0)">
-                <img src="images/openmic/openmic-nov15-living-room-sanctuary.jpg" alt="Full community circle gathered in the clubhouse living room around the indoor tree">
-                <div class="slide-caption-bar">
-                  <span class="slide-caption-text">Grounded Presence • Full Community Circle Gathered at the Hearth • Nov 15</span>
-                  <span class="slide-counter">Photo 1 of 12</span>
-                </div>
-              </div>
-
-              <!-- Slide 2: Spoken Word Circle Performance -->
-              <div class="photo-wheel-slide" onclick="openPhotoWheelModal(1)">
-                <img src="images/openmic/openmic-nov15-spoken-word-circle.jpg" alt="Spoken word artist performing before community circle in Reconnect shirt">
-                <div class="slide-caption-bar">
-                  <span class="slide-caption-text">Raw Vocal Truth • Spoken Word &amp; Acoustic Expression in the Living Room • Nov 15</span>
-                  <span class="slide-counter">Photo 2 of 12</span>
-                </div>
-              </div>
-
-              <!-- Slide 3: Acoustic Duo Harmonies -->
-              <div class="photo-wheel-slide" onclick="openPhotoWheelModal(2)">
-                <img src="images/openmic/openmic-nov15-acoustic-duo-harmony.jpg" alt="Acoustic guitarist and soulful female singer performing together">
-                <div class="slide-caption-bar">
-                  <span class="slide-caption-text">Soulful Strings &amp; Melody • Acoustic Guitar &amp; Vocal Harmonies in Flow • Nov 15</span>
-                  <span class="slide-counter">Photo 3 of 12</span>
-                </div>
-              </div>
-
-              <!-- Slide 4: Stone Hearth Joyful Dancing & Drumming -->
-              <div class="photo-wheel-slide" onclick="openPhotoWheelModal(3)">
-                <img src="images/openmic/openmic-nov15-stone-hearth-celebration.jpg" width="800" height="600" alt="Community members dancing and drumming with pure joy before the stone fireplace">
-                <div class="slide-caption-bar">
-                  <span class="slide-caption-text">Joyful Embodiment • Drums, Dancing &amp; Laughter Before the Grand Hearth • Nov 15</span>
-                  <span class="slide-counter">Photo 4 of 12</span>
-                </div>
-              </div>
-
-              <!-- Slide 5: Poolside Djembe Drummer -->
-              <div class="photo-wheel-slide" onclick="openPhotoWheelModal(4)">
-                <img src="images/openmic/openmic-nov15-djembe-poolside-rhythm.jpg" alt="Musician playing red djembe drum poolside with smiling friend">
-                <div class="slide-caption-bar">
-                  <span class="slide-caption-text">Heartbeat of the Hearth • Djembe Rhythm &amp; Joy by the Waterside • Nov 15</span>
-                  <span class="slide-counter">Photo 5 of 12</span>
-                </div>
-              </div>
-
-              <!-- Slide 6: Storyteller by the Staircase -->
-              <div class="photo-wheel-slide" onclick="openPhotoWheelModal(5)">
-                <img src="images/openmic/openmic-nov15-storyteller-reflection.jpg" alt="Community storyteller reading from phone on wooden stool by rustic staircase">
-                <div class="slide-caption-bar">
-                  <span class="slide-caption-text">Unhurried Words • Vulnerable Storytelling &amp; Poetry by the Staircase • Nov 15</span>
-                  <span class="slide-counter">Photo 6 of 12</span>
-                </div>
-              </div>
-
-              <!-- Slide 7: Reconnect Sisterhood on Balcony -->
-              <div class="photo-wheel-slide" onclick="openPhotoWheelModal(6)">
-                <img src="images/openmic/openmic-nov15-reconnect-sisterhood.jpg" alt="Two smiling community members on the wooden staircase, one wearing Reconnect shirt">
-                <div class="slide-caption-bar">
-                  <span class="slide-caption-text">Radiant Fellowship • Reconnect &amp; Joy at the Clubhouse Loft • Nov 15</span>
-                  <span class="slide-counter">Photo 7 of 12</span>
-                </div>
-              </div>
-
-              <!-- Slide 8: Elder Wisdom & Sacred Listening -->
-              <div class="photo-wheel-slide" onclick="openPhotoWheelModal(7)">
-                <img src="images/openmic/openmic-nov15-elder-wisdom-words.jpg" alt="Silver-haired elder sharing stories with attentive audience in the clubhouse">
-                <div class="slide-caption-bar">
-                  <span class="slide-caption-text">Generational Wisdom • Lived Truth &amp; Sacred Listening • Nov 15</span>
-                  <span class="slide-counter">Photo 8 of 12</span>
-                </div>
-              </div>
-
-              <!-- Slide 9: Clubhouse Pool at Twilight -->
-              <div class="photo-wheel-slide" onclick="openPhotoWheelModal(8)">
-                <img src="images/openmic/openmic-nov15-clubhouse-pool-dusk.jpg" alt="Evening view of the Sanctuary Clubhouse pool with illuminated palm trees">
-                <div class="slide-caption-bar">
-                  <span class="slide-caption-text">Sanctuary Haven • Twilight Reflection by the Pool &amp; Palm Grove • Nov 15</span>
-                  <span class="slide-counter">Photo 9 of 12</span>
-                </div>
-              </div>
-
-              <!-- Slide 10: Reconnect Portrait on Staircase -->
-              <div class="photo-wheel-slide" onclick="openPhotoWheelModal(9)">
-                <img src="images/openmic/openmic-nov15-reconnect-portrait.jpg" alt="Close portrait of community members smiling on the wooden lodge balcony">
-                <div class="slide-caption-bar">
-                  <span class="slide-caption-text">Sacred Welcome • Safe Community Haven &amp; True Belonging • Nov 15</span>
-                  <span class="slide-counter">Photo 10 of 12</span>
-                </div>
-              </div>
-
-              <!-- Slide 11: Attentive Community Gathering -->
-              <div class="photo-wheel-slide" onclick="openPhotoWheelModal(10)">
-                <img src="images/openmic/openmic-audience-cafe86.jpg" alt="Attentive community audience gathered at Our Sanctuary Clubhouse">
-                <div class="slide-caption-bar">
-                  <span class="slide-caption-text">Attentive Sanctuary • Neighbors &amp; Creators in Grounded Presence</span>
-                  <span class="slide-counter">Photo 11 of 12</span>
-                </div>
-              </div>
-
-              <!-- Slide 12: Community Joy & Connection -->
-              <div class="photo-wheel-slide" onclick="openPhotoWheelModal(11)">
-                <img src="images/openmic/openmic-community-joy.jpg" alt="Marlon Smith smiling with community members">
-                <div class="slide-caption-bar">
-                  <span class="slide-caption-text">Authentic Connection &amp; Joy • MC Marlon Smith with Community Members</span>
-                  <span class="slide-counter">Photo 12 of 12</span>
-                </div>
-              </div>
-
-            </div>
-
-            <!-- Carousel Controls -->
-            <button type="button" class="wheel-nav-arrow wheel-arrow-prev" onclick="prevPhotoSlide(event)" aria-label="Previous Photo">‹</button>
-            <button type="button" class="wheel-nav-arrow wheel-arrow-next" onclick="nextPhotoSlide(event)" aria-label="Next Photo">›</button>
-          </div>
-
-          <!-- Dot Indicators -->
-          <div class="photo-wheel-dots" id="photoWheelDots">
-            <button type="button" class="wheel-dot active" onclick="goToPhotoSlide(0)" aria-label="Slide 1"></button>
-            <button type="button" class="wheel-dot" onclick="goToPhotoSlide(1)" aria-label="Slide 2"></button>
-            <button type="button" class="wheel-dot" onclick="goToPhotoSlide(2)" aria-label="Slide 3"></button>
-            <button type="button" class="wheel-dot" onclick="goToPhotoSlide(3)" aria-label="Slide 4"></button>
-            <button type="button" class="wheel-dot" onclick="goToPhotoSlide(4)" aria-label="Slide 5"></button>
-            <button type="button" class="wheel-dot" onclick="goToPhotoSlide(5)" aria-label="Slide 6"></button>
-            <button type="button" class="wheel-dot" onclick="goToPhotoSlide(6)" aria-label="Slide 7"></button>
-            <button type="button" class="wheel-dot" onclick="goToPhotoSlide(7)" aria-label="Slide 8"></button>
-            <button type="button" class="wheel-dot" onclick="goToPhotoSlide(8)" aria-label="Slide 9"></button>
-            <button type="button" class="wheel-dot" onclick="goToPhotoSlide(9)" aria-label="Slide 10"></button>
-            <button type="button" class="wheel-dot" onclick="goToPhotoSlide(10)" aria-label="Slide 11"></button>
-            <button type="button" class="wheel-dot" onclick="goToPhotoSlide(11)" aria-label="Slide 12"></button>
           </div>
         </div>
 
@@ -3427,14 +3545,14 @@
       </div>
 
       <div class="wheel-modal-stage">
-        <img id="wheelModalImg" src="images/openmic/openmic-vocalist-yellow.jpg" alt="Featured Community Photo">
+        <img id="wheelModalImg" src="images/openmic/openmic-nov15-living-room-sanctuary.jpg" alt="Community circle gathered in the clubhouse living room around the indoor tree">
         <button type="button" class="modal-arrow modal-arrow-prev" onclick="modalPrevPhoto()" aria-label="Previous">‹</button>
         <button type="button" class="modal-arrow modal-arrow-next" onclick="modalNextPhoto()" aria-label="Next">›</button>
       </div>
 
       <div class="wheel-modal-footer">
-        <div id="wheelModalCaption" class="wheel-modal-caption">Raw Vocal Resonance • Community Singer at Our Sanctuary Clubhouse</div>
-        <div id="wheelModalCounter" class="wheel-modal-counter">Photo 1 of 5</div>
+        <div id="wheelModalCaption" class="wheel-modal-caption">Grounded Presence • Full Community Circle Gathered at the Hearth (Nov 15)</div>
+        <div id="wheelModalCounter" class="wheel-modal-counter">Photo 1 of 12</div>
       </div>
     </div>
   </div>

@@ -4958,109 +4958,262 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // =========================================================================
-  // COMMUNITY PHOTO WHEEL & LIGHTBOX MODAL LOGIC
+  // LIVING SANCTUARY 3D CINEMA COVERFLOW & LIGHTBOX MODAL ENGINE
   // =========================================================================
   window.currentPhotoWheelIndex = 0;
   const photoWheelData = [
     {
       src: "images/openmic/openmic-nov15-living-room-sanctuary.jpg",
       caption: "Grounded Presence • Full Community Circle Gathered at the Hearth (Nov 15)",
-      alt: "Community circle gathered in the clubhouse living room around the indoor tree"
+      alt: "Community circle gathered in the clubhouse living room around the indoor tree",
+      tag: "🔥 Hearth & Community",
+      categories: ["community", "stage"]
     },
     {
       src: "images/openmic/openmic-nov15-spoken-word-circle.jpg",
       caption: "Raw Vocal Truth • Spoken Word & Acoustic Expression in the Living Room (Nov 15)",
-      alt: "Spoken word performer standing before community circle in Reconnect shirt"
+      alt: "Spoken word performer standing before community circle in Reconnect shirt",
+      tag: "🎙️ Stage & Spoken Word",
+      categories: ["stage"]
     },
     {
       src: "images/openmic/openmic-nov15-acoustic-duo-harmony.jpg",
       caption: "Soulful Strings & Melody • Acoustic Guitar & Vocal Harmonies in Flow (Nov 15)",
-      alt: "Acoustic guitarist and soulful female singer performing together in armchair circle"
+      alt: "Acoustic guitarist and soulful female singer performing together in armchair circle",
+      tag: "🎸 Music & Rhythm",
+      categories: ["music", "stage"]
     },
     {
       src: "images/openmic/openmic-nov15-stone-hearth-celebration.gif",
       caption: "Joyful Embodiment • Drums, Dancing & Laughter Before the Grand Hearth (Nov 15 • Live GIF)",
-      alt: "Community members dancing and drumming with pure joy before the stone fireplace"
+      alt: "Community members dancing and drumming with pure joy before the stone fireplace",
+      tag: "🎸 Music & Rhythm",
+      categories: ["music", "community"]
     },
     {
       src: "images/openmic/openmic-nov15-djembe-poolside-rhythm.jpg",
       caption: "Heartbeat of the Hearth • Djembe Rhythm & Joy by the Waterside (Nov 15)",
-      alt: "Musician playing red djembe drum poolside with smiling friend"
+      alt: "Musician playing red djembe drum poolside with smiling friend",
+      tag: "🎸 Music & Rhythm",
+      categories: ["music"]
     },
     {
       src: "images/openmic/openmic-nov15-storyteller-reflection.jpg",
       caption: "Unhurried Words • Vulnerable Storytelling & Poetry by the Staircase (Nov 15)",
-      alt: "Community storyteller reading from phone on wooden stool by rustic staircase"
+      alt: "Community storyteller reading from phone on wooden stool by rustic staircase",
+      tag: "🎙️ Stage & Spoken Word",
+      categories: ["stage"]
     },
     {
       src: "images/openmic/openmic-nov15-reconnect-sisterhood.jpg",
       caption: "Radiant Fellowship • Reconnect & Joy at the Clubhouse Loft (Nov 15)",
-      alt: "Two smiling community members on the wooden staircase, one wearing Reconnect shirt"
+      alt: "Two smiling community members on the wooden staircase, one wearing Reconnect shirt",
+      tag: "🔥 Hearth & Community",
+      categories: ["community"]
     },
     {
       src: "images/openmic/openmic-nov15-elder-wisdom-words.jpg",
       caption: "Generational Wisdom • Lived Truth & Sacred Listening (Nov 15)",
-      alt: "Silver-haired elder sharing stories with attentive audience in the clubhouse"
+      alt: "Silver-haired elder sharing stories with attentive audience in the clubhouse",
+      tag: "🎙️ Stage & Spoken Word",
+      categories: ["stage", "community"]
     },
     {
       src: "images/openmic/openmic-nov15-clubhouse-pool-dusk.jpg",
       caption: "Sanctuary Haven • Twilight Reflection by the Pool & Palm Grove (Nov 15)",
-      alt: "Evening view of the Sanctuary Clubhouse pool with illuminated palm trees and warm lighting"
+      alt: "Evening view of the Sanctuary Clubhouse pool with illuminated palm trees and warm lighting",
+      tag: "🔥 Hearth & Community",
+      categories: ["community"]
     },
     {
       src: "images/openmic/openmic-nov15-reconnect-portrait.jpg",
       caption: "Sacred Welcome • Safe Community Haven & True Belonging (Nov 15)",
-      alt: "Close portrait of community members smiling on the wooden lodge balcony"
+      alt: "Close portrait of community members smiling on the wooden lodge balcony",
+      tag: "🔥 Hearth & Community",
+      categories: ["community"]
     },
     {
       src: "images/openmic/openmic-audience-cafe86.jpg",
       caption: "Attentive Sanctuary • Neighbors & Creators Gathered in Grounded Presence",
-      alt: "Attentive audience gathered at open mic"
+      alt: "Attentive audience gathered at open mic",
+      tag: "🔥 Hearth & Community",
+      categories: ["community", "stage"]
     },
     {
       src: "images/openmic/openmic-community-joy.jpg",
       caption: "Authentic Connection & Joy • MC Marlon Smith with Community Members",
-      alt: "Marlon Smith smiling with community"
+      alt: "Marlon Smith smiling with community",
+      tag: "🔥 Hearth & Community",
+      categories: ["community"]
     }
   ];
 
   let photoWheelTimer = null;
+  let currentMomentFilter = 'all';
+  let photoWheelPausedByUser = false;
+
+  const SLOT_CLASSES = ['slot-center', 'slot-left-1', 'slot-right-1', 'slot-left-2', 'slot-right-2', 'slot-hidden'];
+
+  function getFilteredSlideIndices() {
+    const slides = document.querySelectorAll('.photo-wheel-slide');
+    const visible = [];
+    slides.forEach((slide, i) => {
+      const cats = (slide.getAttribute('data-categories') || '').split(/\s+/).filter(Boolean);
+      if (currentMomentFilter === 'all' || cats.includes(currentMomentFilter)) {
+        visible.push(i);
+      }
+    });
+    return visible;
+  }
 
   function updatePhotoWheelUI(idx) {
     const slides = document.querySelectorAll('.photo-wheel-slide');
     const dots = document.querySelectorAll('.wheel-dot');
+    const thumbs = document.querySelectorAll('.coverflow-thumb-btn');
     if (!slides.length) return;
 
-    window.currentPhotoWheelIndex = (idx + slides.length) % slides.length;
+    const visibleIndices = getFilteredSlideIndices();
+    if (!visibleIndices.length) return;
+
+    const normalized = ((idx % slides.length) + slides.length) % slides.length;
+    window.currentPhotoWheelIndex = visibleIndices.includes(normalized) ? normalized : visibleIndices[0];
+
+    const posInVisible = visibleIndices.indexOf(window.currentPhotoWheelIndex);
+    const totalVisible = visibleIndices.length;
 
     slides.forEach((slide, i) => {
-      slide.classList.toggle('active', i === window.currentPhotoWheelIndex);
+      slide.classList.remove(...SLOT_CLASSES, 'active');
+
+      const visIdx = visibleIndices.indexOf(i);
+      if (visIdx === -1) {
+        slide.classList.add('slot-hidden');
+        slide.setAttribute('aria-hidden', 'true');
+        return;
+      }
+
+      let delta = visIdx - posInVisible;
+      if (totalVisible > 2) {
+        if (delta > totalVisible / 2) delta -= totalVisible;
+        if (delta < -totalVisible / 2) delta += totalVisible;
+      }
+
+      if (delta === 0) {
+        slide.classList.add('slot-center', 'active');
+        slide.setAttribute('aria-hidden', 'false');
+      } else if (delta === -1) {
+        slide.classList.add('slot-left-1');
+        slide.setAttribute('aria-hidden', 'false');
+      } else if (delta === 1) {
+        slide.classList.add('slot-right-1');
+        slide.setAttribute('aria-hidden', 'false');
+      } else if (delta === -2) {
+        slide.classList.add('slot-left-2');
+        slide.setAttribute('aria-hidden', 'false');
+      } else if (delta === 2) {
+        slide.classList.add('slot-right-2');
+        slide.setAttribute('aria-hidden', 'false');
+      } else {
+        slide.classList.add('slot-hidden');
+        slide.setAttribute('aria-hidden', 'true');
+      }
     });
 
     dots.forEach((dot, i) => {
+      const isVisible = visibleIndices.includes(i);
+      dot.classList.toggle('is-filtered-out', !isVisible);
       dot.classList.toggle('active', i === window.currentPhotoWheelIndex);
     });
+
+    const thumbStrip = document.getElementById('coverflowThumbStrip');
+    thumbs.forEach((thumb, i) => {
+      const isVisible = visibleIndices.includes(i);
+      const isActive = i === window.currentPhotoWheelIndex;
+      thumb.classList.toggle('is-filtered-out', !isVisible);
+      thumb.classList.toggle('active', isActive);
+      thumb.setAttribute('aria-current', isActive ? 'true' : 'false');
+
+      if (isActive && thumbStrip) {
+        const targetLeft = thumb.offsetLeft - (thumbStrip.clientWidth / 2) + (thumb.offsetWidth / 2);
+        thumbStrip.scrollTo({ left: Math.max(0, targetLeft), behavior: 'smooth' });
+      }
+    });
+
+    const activeData = photoWheelData[window.currentPhotoWheelIndex];
+    const tagEl = document.getElementById('coverflowActiveTag');
+    const capEl = document.getElementById('coverflowActiveCaption');
+    const countEl = document.getElementById('coverflowActiveCounter');
+    if (tagEl && activeData) tagEl.textContent = activeData.tag || '✦ Sanctuary Moment';
+    if (capEl && activeData) capEl.textContent = activeData.caption;
+    if (countEl) countEl.textContent = `Moment ${posInVisible + 1} of ${totalVisible}`;
+  }
+
+  function stepFilteredSlide(dir) {
+    const visible = getFilteredSlideIndices();
+    if (!visible.length) return;
+    const pos = Math.max(0, visible.indexOf(window.currentPhotoWheelIndex));
+    const nextIdx = visible[(pos + dir + visible.length) % visible.length];
+    updatePhotoWheelUI(nextIdx);
   }
 
   window.nextPhotoSlide = function(e) {
     if (e) e.stopPropagation();
-    updatePhotoWheelUI(window.currentPhotoWheelIndex + 1);
+    stepFilteredSlide(1);
   };
 
   window.prevPhotoSlide = function(e) {
     if (e) e.stopPropagation();
-    updatePhotoWheelUI(window.currentPhotoWheelIndex - 1);
+    stepFilteredSlide(-1);
   };
 
   window.goToPhotoSlide = function(idx) {
     updatePhotoWheelUI(idx);
   };
 
-  // Auto-advance every 5 seconds
+  window.handleCoverflowSlideClick = function(origIdx, e) {
+    if (e) e.stopPropagation();
+    if (origIdx === window.currentPhotoWheelIndex) {
+      window.openPhotoWheelModal(origIdx);
+    } else {
+      updatePhotoWheelUI(origIdx);
+    }
+  };
+
+  window.filterPhotoMoments = function(category) {
+    currentMomentFilter = category || 'all';
+    document.querySelectorAll('.moment-filter-btn').forEach(btn => {
+      const active = btn.getAttribute('data-moment-filter') === currentMomentFilter;
+      btn.classList.toggle('active', active);
+      btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
+    const visible = getFilteredSlideIndices();
+    if (visible.length) {
+      updatePhotoWheelUI(visible.includes(window.currentPhotoWheelIndex) ? window.currentPhotoWheelIndex : visible[0]);
+    }
+  };
+
+  window.togglePhotoWheelAutoPlay = function() {
+    photoWheelPausedByUser = !photoWheelPausedByUser;
+    const btn = document.getElementById('btnCoverflowAutoToggle');
+    if (photoWheelPausedByUser) {
+      stopPhotoWheelAuto();
+      if (btn) {
+        btn.setAttribute('aria-pressed', 'false');
+        btn.innerHTML = '<span>▶ Resume Orbit</span>';
+      }
+    } else {
+      startPhotoWheelAuto();
+      if (btn) {
+        btn.setAttribute('aria-pressed', 'true');
+        btn.innerHTML = '<span>⏸ Auto-Orbit</span>';
+      }
+    }
+  };
+
   function startPhotoWheelAuto() {
+    if (photoWheelPausedByUser) return;
     stopPhotoWheelAuto();
     photoWheelTimer = setInterval(() => {
-      updatePhotoWheelUI(window.currentPhotoWheelIndex + 1);
+      stepFilteredSlide(1);
     }, 5000);
   }
 
@@ -5069,42 +5222,76 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const wheelCard = document.getElementById('openmic-photo-wheel');
-  if (wheelCard) {
-    let touchStartX = 0;
-    let touchEndX = 0;
+  const wheelCardInner = document.querySelector('#openmic-photo-wheel .photo-wheel-card') || wheelCard;
+  const coverflowStageTrack = document.getElementById('photoWheelSlides');
+  const coverflowViewport = document.querySelector('#openmic-photo-wheel .photo-wheel-viewport');
 
-    wheelCard.addEventListener('mouseenter', stopPhotoWheelAuto);
-    wheelCard.addEventListener('mouseleave', startPhotoWheelAuto);
+  if (wheelCardInner) {
+    let pointerStartX = 0;
+    let isPointerDown = false;
 
-    wheelCard.addEventListener('touchstart', (e) => {
+    wheelCardInner.addEventListener('mouseenter', stopPhotoWheelAuto);
+    wheelCardInner.addEventListener('mouseleave', () => {
+      if (coverflowStageTrack) {
+        coverflowStageTrack.style.setProperty('--stage-rx', '0deg');
+        coverflowStageTrack.style.setProperty('--stage-ry', '0deg');
+      }
+      startPhotoWheelAuto();
+    });
+
+    if (coverflowViewport && coverflowStageTrack) {
+      coverflowViewport.addEventListener('mousemove', (e) => {
+        if (window.innerWidth <= 768) return;
+        const rect = coverflowViewport.getBoundingClientRect();
+        const nx = ((e.clientX - rect.left) / rect.width) - 0.5;
+        const ny = ((e.clientY - rect.top) / rect.height) - 0.5;
+        coverflowStageTrack.style.setProperty('--stage-ry', `${(nx * 3.5).toFixed(2)}deg`);
+        coverflowStageTrack.style.setProperty('--stage-rx', `${(-ny * 2.2).toFixed(2)}deg`);
+      });
+
+      coverflowViewport.addEventListener('pointerdown', (e) => {
+        if (e.target.closest('button')) return;
+        isPointerDown = true;
+        pointerStartX = e.clientX;
+      });
+
+      coverflowViewport.addEventListener('pointerup', (e) => {
+        if (!isPointerDown) return;
+        isPointerDown = false;
+        const diffX = e.clientX - pointerStartX;
+        if (Math.abs(diffX) > 42) {
+          if (diffX < 0) stepFilteredSlide(1);
+          else stepFilteredSlide(-1);
+        }
+      });
+    }
+
+    wheelCardInner.addEventListener('touchstart', (e) => {
       stopPhotoWheelAuto();
       if (e.touches && e.touches[0]) {
-        touchStartX = e.touches[0].clientX;
+        pointerStartX = e.touches[0].clientX;
       }
     }, { passive: true });
 
-    wheelCard.addEventListener('touchend', (e) => {
+    wheelCardInner.addEventListener('touchend', (e) => {
       if (e.changedTouches && e.changedTouches[0]) {
-        touchEndX = e.changedTouches[0].clientX;
-        const diffX = touchEndX - touchStartX;
+        const diffX = e.changedTouches[0].clientX - pointerStartX;
         if (Math.abs(diffX) > 40) {
-          if (diffX < 0) {
-            window.nextPhotoSlide();
-          } else {
-            window.prevPhotoSlide();
-          }
+          if (diffX < 0) stepFilteredSlide(1);
+          else stepFilteredSlide(-1);
         }
       }
       startPhotoWheelAuto();
     }, { passive: true });
 
+    updatePhotoWheelUI(0);
     startPhotoWheelAuto();
   }
 
   // Fullscreen Photo Wheel Modal Window
   window.openPhotoWheelModal = function(idx = 0) {
     stopPhotoWheelAuto();
-    window.currentPhotoWheelIndex = idx;
+    window.currentPhotoWheelIndex = ((idx % photoWheelData.length) + photoWheelData.length) % photoWheelData.length;
     const modal = document.getElementById('PhotoWheelModal');
     if (!modal) return;
 
@@ -5152,13 +5339,24 @@ document.addEventListener('DOMContentLoaded', () => {
     updatePhotoWheelUI(window.currentPhotoWheelIndex);
   };
 
-  // Keyboard navigation
+  // Keyboard navigation (Modal + focused Photo Wheel)
   window.addEventListener('keydown', (e) => {
     const modal = document.getElementById('PhotoWheelModal');
     if (modal && modal.style.display === 'flex') {
       if (e.key === 'ArrowRight') window.modalNextPhoto();
       if (e.key === 'ArrowLeft') window.modalPrevPhoto();
       if (e.key === 'Escape') window.closePhotoWheelModal();
+      return;
+    }
+    const activeEl = document.activeElement;
+    if (wheelCard && activeEl && wheelCard.contains(activeEl)) {
+      if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        stepFilteredSlide(1);
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        stepFilteredSlide(-1);
+      }
     }
   });
 
