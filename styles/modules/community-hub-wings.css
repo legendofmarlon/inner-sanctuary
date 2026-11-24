@@ -381,3 +381,107 @@
     color: #DCEEE2 !important;
   }
 }
+
+/* =========================================================================
+   MOOD CHECK-IN LEDGER & BOTANICAL KEEPSAKES GALLERY
+   ========================================================================= */
+.hub-checkin-ledger-strip {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px dashed rgba(197, 154, 63, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.hub-checkin-post-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.hub-post-mood-btn {
+  background: rgba(134, 239, 172, 0.14);
+  border: 1px solid rgba(134, 239, 172, 0.45);
+  color: #DCEEE2;
+  padding: 6px 13px;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.hub-post-mood-btn:hover {
+  background: rgba(134, 239, 172, 0.28);
+  color: #FFFFFF;
+}
+
+.hub-checkin-stats-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(197, 154, 63, 0.35);
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 0.78rem;
+  color: #FCE6A2;
+}
+
+.hub-keepsakes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  max-width: 1020px;
+  margin: 0 auto;
+}
+
+.hub-keepsake-card {
+  background: rgba(30, 49, 39, 0.96);
+  border: 1.5px solid rgba(197, 154, 63, 0.45);
+  border-radius: 18px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  color: #FFFDF7;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22);
+}
+
+.hub-keepsake-media {
+  height: 190px;
+  overflow: hidden;
+  background: #14221B;
+  position: relative;
+}
+
+.hub-keepsake-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hub-keepsake-body {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.hub-keepsake-body p {
+  color: #CBD7D0 !important;
+  font-size: 0.84rem;
+  line-height: 1.55;
+  margin-bottom: 14px;
+  flex: 1;
+}
+
+@media (max-width: 900px) {
+  .hub-keepsakes-grid {
+    grid-template-columns: 1fr;
+  }
+}

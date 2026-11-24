@@ -141,14 +141,16 @@
         </a>
       </div>
 
-      <ul class="nav-links">
-        <li><a href="index.html" class="nav-link-dual"><span class="nav-link-main">Home</span><span class="nav-link-sub">Main Sanctuary</span></a></li>
-        <li><a href="#stage-lounge" class="nav-link-dual"><span class="nav-link-main">Stage &amp; Jam</span><span class="nav-link-sub">Mic Prep &amp; Chords</span></a></li>
-        <li><a href="#sanctuary-reflection" class="nav-link-dual"><span class="nav-link-main">Sparks</span><span class="nav-link-sub">3D Card</span></a></li>
-        <li><a href="#breath" class="nav-link-dual"><span class="nav-link-main">Breathe</span><span class="nav-link-sub">Orb &amp; Labyrinth</span></a></li>
-        <li><a href="#bracelet-creator" class="nav-link-dual"><span class="nav-link-main">Bracelet</span><span class="nav-link-sub">Intention Weaver</span></a></li>
-        <li><a href="#greenroom-vault" class="nav-link-dual"><span class="nav-link-main">Greenroom</span><span class="nav-link-sub">Speakeasy</span></a></li>
-      </ul>
+      <div class="primary-hub-tabs" role="navigation" aria-label="Main Sanctuary Tabs">
+        <a href="index.html" class="primary-tab-pill" title="Return to Main Sanctuary Home">
+          <span>🏛️</span>
+          <span>Home</span>
+        </a>
+        <a href="community-hub.html" class="primary-tab-pill active" aria-current="page">
+          <span>✨</span>
+          <span>Community Hub</span>
+        </a>
+      </div>
 
       <div class="nav-actions-group">
         <div id="atmosphereSwitcherMount"></div>
@@ -173,6 +175,20 @@
         <li><a href="#hearth-mirror-portal" onclick="document.getElementById('mobile-nav-drawer').style.display='none';" class="mobile-nav-item"><span class="mobile-nav-main">🕯️ The Hearth Mirror</span><span class="mobile-nav-sub">Personal Reflection</span></a></li>
         <li><a href="#greenroom-vault" onclick="document.getElementById('mobile-nav-drawer').style.display='none';" class="mobile-nav-item"><span class="mobile-nav-main">🗝️ The Greenroom</span><span class="mobile-nav-sub">Speakeasy &amp; Jam Sessions</span></a></li>
       </ul>
+    </div>
+
+    <!-- Contextual Sub-Navigation Bar (Community Hub) -->
+    <div id="sanctuarySubnavBar" class="sanctuary-subnav-bar" aria-label="Community Hub Quick Links">
+      <div class="sanctuary-subnav-inner">
+        <span class="subnav-context-badge">On Community Hub</span>
+        <a href="#stage-lounge" class="subnav-pill-link">🎶 Stage &amp; Jam Lounge</a>
+        <a href="#sanctuary-reflection" class="subnav-pill-link">✨ Daily Sparks</a>
+        <a href="#breath" class="subnav-pill-link">🕊️ Breathe &amp; Pause</a>
+        <a href="#bracelet-creator" class="subnav-pill-link">📿 Intention Bracelet</a>
+        <a href="#zen-plinko" class="subnav-pill-link">🎯 Zen Plinko</a>
+        <a href="#greenroom-vault" class="subnav-pill-link">🕯️ Hearth &amp; 🗝️ Greenroom</a>
+        <a href="#hub-keepsakes" class="subnav-pill-link">🖼️ Keepsakes &amp; Art</a>
+      </div>
     </div>
   </nav>
 
@@ -208,6 +224,7 @@
             <a href="#bracelet-creator" class="ritual-pill-btn">📿 Intention Bracelet</a>
             <a href="#zen-plinko" class="ritual-pill-btn">🎯 Zen Plinko</a>
             <a href="#greenroom-vault" class="ritual-pill-btn">🗝️ Greenroom Vault</a>
+            <a href="#hub-keepsakes" class="ritual-pill-btn">🖼️ Botanical Keepsakes</a>
           </div>
         </div>
       </div>
@@ -631,6 +648,27 @@
               </a>
             </div>
           </div>
+
+          <!-- Anonymous Check-In Mood Shift & Sheets Ledger Strip -->
+          <div class="hub-checkin-ledger-strip" id="hubMoodLedgerStrip">
+            <div style="font-size: 0.74rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #F5D77F;">
+              📊 Anonymous Pre/Post Check-In Pulse (Optional)
+            </div>
+            <div style="font-size: 0.80rem; color: #DCEEE2;">After taking a pause or sharing on stage, how does your body feel right now?</div>
+            <div class="hub-checkin-post-row">
+              <button type="button" class="hub-post-mood-btn" onclick="window.sanctuaryHubWings.logMoodCheckIn('Calmer &amp; Grounded')">🌿 Calmer &amp; Grounded</button>
+              <button type="button" class="hub-post-mood-btn" onclick="window.sanctuaryHubWings.logMoodCheckIn('Lighter &amp; Relieved')">🕊️ Lighter &amp; Relieved</button>
+              <button type="button" class="hub-post-mood-btn" onclick="window.sanctuaryHubWings.logMoodCheckIn('Inspired to Create')">✨ Inspired to Create</button>
+            </div>
+            <div id="hubCheckInToast" style="display: none; font-size: 0.78rem; color: #86EFAC; font-weight: 700;"></div>
+            <div class="hub-checkin-stats-bar">
+              <span>Saved Check-Ins on Device: <strong id="hubCheckInCountVal" style="color: #FFFFFF;">0</strong></span>
+              <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                <button type="button" class="stage-preset-btn" onclick="window.sanctuaryHubWings.copyCheckInsForSheet()">📋 Copy Rows for Sheets</button>
+                <button type="button" class="stage-preset-btn" onclick="window.sanctuaryHubWings.exportCheckInCsv()">📥 Export CSV</button>
+              </div>
+            </div>
+          </div>
         </div>
 
         <!-- The Sanctuary Greenroom & Secret Raffle Vault Invitation -->
@@ -652,6 +690,59 @@
           </div>
         </div>
 
+      </div>
+    </section>
+
+    <!-- 6. BOTANICAL KEEPSAKES, STAGE ART & DEC 10 DECK GALLERY -->
+    <section id="hub-keepsakes" class="hub-section-block hub-section-cream hub-wing-section" data-hub-wing="craft">
+      <div class="container">
+        <div class="section-header" style="max-width: 720px; margin: 0 auto 28px; text-align: center;">
+          <div class="section-subtitle" style="color: #8C6D23; font-weight: 700; letter-spacing: 0.12em;">Carry Calm Everywhere • Dec 10 Visual Kit</div>
+          <h2 class="section-title serif-brand" style="color: var(--forest-green); font-size: clamp(1.7rem, 3vw, 2.2rem);">Sanctuary Keepsakes &amp; Wallpapers</h2>
+          <div class="flourish-divider">✦</div>
+          <p style="color: var(--charcoal-muted); font-size: 0.96rem; line-height: 1.65;">Download our bespoke botanical phone lock-screen, save the evening acoustic backdrop, or open the Dec 10 Unplugged Jam live stage loop deck.</p>
+        </div>
+
+        <div class="hub-keepsakes-grid">
+          <div class="hub-keepsake-card">
+            <div class="hub-keepsake-media">
+              <img src="images/sanctuary-pause-wallpaper.jpg" alt="Botanical olive leaf &amp; gold filigree Sanctuary calm wallpaper" />
+            </div>
+            <div class="hub-keepsake-body">
+              <div class="stage-panel-eyebrow">📱 Mobile Lock Screen (9:16)</div>
+              <h3 class="serif-brand" style="font-size: 1.1rem; color: #FFFFFF; margin: 0 0 6px;">Permission to Pause Wallpaper</h3>
+              <p>Deep emerald dusk &amp; hand-painted botanical filigree designed with calm space right beneath your phone clock.</p>
+              <a href="images/sanctuary-pause-wallpaper.jpg" download="inner-sanctuary-pause-wallpaper.jpg" class="btn btn-gold" style="width: 100%; text-align: center; justify-content: center; font-size: 0.78rem; padding: 9px 14px;">📥 Download Wallpaper</a>
+            </div>
+          </div>
+
+          <div class="hub-keepsake-card">
+            <div class="hub-keepsake-media">
+              <img src="images/sanctuary-jam-emblem-backdrop.jpg" alt="Warm amber lantern glow and golden botanical crest backdrop" />
+            </div>
+            <div class="hub-keepsake-body">
+              <div class="stage-panel-eyebrow">🕯️ Desktop / Room Backdrop (16:9)</div>
+              <h3 class="serif-brand" style="font-size: 1.1rem; color: #FFFFFF; margin: 0 0 6px;">Evening Hearth &amp; Acoustic Frame</h3>
+              <p>Use for virtual creative check-ins, calm study sessions, or framing digital poem &amp; lyric shares.</p>
+              <a href="images/sanctuary-jam-emblem-backdrop.jpg" download="inner-sanctuary-acoustic-backdrop.jpg" class="btn btn-gold" style="width: 100%; text-align: center; justify-content: center; font-size: 0.78rem; padding: 9px 14px;">📥 Download 16:9 Backdrop</a>
+            </div>
+          </div>
+
+          <div class="hub-keepsake-card">
+            <div class="hub-keepsake-media">
+              <img src="images/openmic/openmic-nov15-acoustic-duo-harmony.jpg" alt="Acoustic musicians sharing warm living room stage in Orange County" />
+            </div>
+            <div class="hub-keepsake-body">
+              <div class="stage-panel-eyebrow">🎨 Canva Venue Loop &amp; Brief</div>
+              <h3 class="serif-brand" style="font-size: 1.1rem; color: #FFFFFF; margin: 0 0 6px;">Dec 10 Jam Stage Loop &amp; Deck</h3>
+              <p>View the live Dec 10 in-room slide loop in Canva or grab the 7-slide institutional brief PDF.</p>
+              <div style="display: flex; flex-direction: column; gap: 6px;">
+                <a href="https://www.canva.com/d/0auLvYTORtEguZd" target="_blank" rel="noopener noreferrer" class="btn btn-gold" style="width: 100%; text-align: center; justify-content: center; font-size: 0.78rem; padding: 9px 12px;">🖥️ Open Dec 10 Canva Loop ↗</a>
+                <a href="reports/inner-sanctuary-grant-pitch-deck.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="width: 100%; text-align: center; justify-content: center; font-size: 0.76rem; padding: 7px 12px; border-color: rgba(245, 215, 127, 0.45); color: #FCE6A2;">📊 7-Slide Partner Brief PDF ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 

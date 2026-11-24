@@ -359,6 +359,130 @@
     setStagePreset(timerTotalSec);
   }
 
+  // =========================================================================
+  // 4. ANONYMOUS MOOD CHECK-IN PULSE & GOOGLE SHEETS / CSV EXPORT
+  // Captures non-PII pre/post check-in shifts for grant reporting ledgers
+  // =========================================================================
+  const LEDGER_STORAGE_KEY = 'sanctuary_anonymous_checkin_ledger_v1';
+
+  function getLedgerRows() {
+    try {
+      const raw = localStorage.getItem(LEDGER_STORAGE_KEY);
+      const parsed = raw ? JSON.parse(raw) : [];
+      return Array.isArray(parsed) ? parsed : [];
+    } catch (_) {
+      return [];
+    }
+  }
+
+  function saveLedgerRows(rows) {
+    try {
+      localStorage.setItem(LEDGER_STORAGE_KEY, JSON.stringify(rows.slice(-200)));
+    } catch (_) {}
+  }
+
+  function renderLedgerCount() {
+    const rows = getLedgerRows();
+    const countEl = document.getElementById('hubCheckInCountVal');
+    if (countEl) countEl.textContent = String(rows.length);
+  }
+
+  function logMoodCheckIn(postFeeling) {
+    const activeEmotionBtn = document.querySelector('.hearth-pill-btn.active');
+    const arrivalMood = activeEmotionBtn
+      ? activeEmotionBtn.textContent.trim()
+      : 'Reflecting in Hub';
+    const noteEl = document.getElementById('hearthReflectionInput');
+    const noteText = noteEl && noteEl.value ? noteEl.value.trim().slice(0, 140) : '';
+
+    const row = {
+      timestamp: new Date().toISOString(),
+      portal: 'Community Hub Hearth Mirror',
+      arrivalMood,
+      postFeeling: postFeeling || 'Calmer & Grounded',
+      takeawayNote: noteText || 'Paused & checked in anonymously',
+      source: 'Anonymous Hub Check-In'
+    };
+
+    const rows = getLedgerRows();
+    rows.push(row);
+    saveLedgerRows(rows);
+    renderLedgerCount();
+
+    const statusEl = document.getElementById('hubCheckInToast');
+    if (statusEl) {
+      statusEl.textContent = `✓ Logged anonymously (${row.postFeeling}) — thank you for checking in!`;
+      statusEl.style.display = 'block';
+      setTimeout(() => { statusEl.style.display = 'none'; }, 3500);
+    }
+  }
+
+  function csvEscape(val) {
+    const s = String(val == null ? '' : val).replace(/"/g, '""');
+    return `"${s}"`;
+  }
+
+  function exportCheckInCsv() {
+    const rows = getLedgerRows();
+    const header = ['Timestamp', 'Portal', 'Arrival_Mood', 'Post_Feeling', 'Takeaway_Note', 'Source'];
+    const dataRows = rows.length ? rows : [{
+      timestamp: new Date().toISOString(),
+      portal: 'Community Hub Hearth Mirror',
+      arrivalMood: 'Seeking Peace',
+      postFeeling: 'Calmer & Grounded',
+      takeawayNote: 'Sample row (log check-ins above)',
+      source: 'Anonymous Hub Check-In'
+    }];
+
+    const csv = [
+      header.join(','),
+      ...dataRows.map((r) => [
+        csvEscape(r.timestamp),
+        csvEscape(r.portal),
+        csvEscape(r.arrivalMood),
+        csvEscape(r.postFeeling),
+        csvEscape(r.takeawayNote),
+        csvEscape(r.source)
+      ].join(','))
+    ].join('\n');
+
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `inner-sanctuary-hub-checkins-${new Date().toISOString().slice(0, 10)}.csv`;
+    link.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function copyCheckInsForSheet() {
+    const rows = getLedgerRows();
+    const targetRows = rows.length ? rows : [{
+      timestamp: new Date().toISOString(),
+      portal: 'Community Hub Hearth Mirror',
+      arrivalMood: 'Seeking Peace',
+      postFeeling: 'Calmer & Grounded',
+      takeawayNote: 'Sample check-in entry',
+      source: 'Anonymous Hub Check-In'
+    }];
+    const tsv = targetRows
+      .map((r) => [r.timestamp, r.portal, r.arrivalMood, r.postFeeling, r.takeawayNote, r.source].join('\t'))
+      .join('\n');
+
+    const showCopied = () => {
+      const statusEl = document.getElementById('hubCheckInToast');
+      if (statusEl) {
+        statusEl.textContent = `✓ Copied ${targetRows.length} check-in row(s) — paste straight into Google Sheets!`;
+        statusEl.style.display = 'block';
+        setTimeout(() => { statusEl.style.display = 'none'; }, 3500);
+      }
+    };
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(tsv).then(showCopied).catch(showCopied);
+    }
+  }
+
   // Expose cleanly on shared Sanctuary namespace
   window.sanctuaryHubWings = {
     filterWing,
@@ -370,11 +494,15 @@
     playChordPad,
     toggleGroove,
     setGrooveBpm,
-    tapTempo
+    tapTempo,
+    logMoodCheckIn,
+    exportCheckInCsv,
+    copyCheckInsForSheet
   };
 
   document.addEventListener('DOMContentLoaded', () => {
     renderStageTimer();
+    renderLedgerCount();
 
     // Sync nav links & in-page anchor clicks cleanly with Wing visibility
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {

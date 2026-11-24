@@ -6228,6 +6228,149 @@ body[data-element="earth"] {
   color: #FFFFFF !important;
 }
 
+/* Dual Main Tabs (Home | Community Hub) + Contextual Sub-Navigation Bar */
+#sanctuary-nav .nav-inner {
+  height: 68px;
+}
+
+.primary-hub-tabs {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(30, 49, 39, 0.08);
+  border: 1.5px solid rgba(197, 154, 63, 0.45);
+  border-radius: 999px;
+  padding: 4px;
+  flex-shrink: 0;
+}
+
+.primary-tab-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 15px;
+  border-radius: 999px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.79rem;
+  font-weight: 700;
+  color: #1E3127;
+  text-decoration: none;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  transition: all 0.22s ease;
+}
+
+.primary-tab-pill:hover {
+  background: rgba(197, 154, 63, 0.18);
+  color: #14221B;
+}
+
+.primary-tab-pill.active {
+  background: #1E3127;
+  color: #FCE6A2;
+  border-color: #D4AF37;
+  box-shadow: 0 3px 12px rgba(20, 34, 27, 0.24);
+}
+
+[data-atmosphere="night"] .primary-hub-tabs {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(229, 178, 93, 0.45);
+}
+
+[data-atmosphere="night"] .primary-tab-pill {
+  color: #F6F3EC;
+}
+
+[data-atmosphere="night"] .primary-tab-pill.active {
+  background: linear-gradient(135deg, #F5D77F 0%, #D49B35 100%);
+  color: #111D16;
+  border-color: #FCE6A2;
+}
+
+.sanctuary-subnav-bar {
+  width: 100%;
+  background: rgba(24, 42, 32, 0.96);
+  border-top: 1px solid rgba(212, 175, 55, 0.3);
+  border-bottom: 1.5px solid rgba(212, 175, 55, 0.45);
+}
+
+.sanctuary-subnav-inner {
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 6px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.sanctuary-subnav-inner::-webkit-scrollbar {
+  display: none;
+}
+
+.subnav-context-badge {
+  color: #F5D77F;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgba(197, 154, 63, 0.16);
+  border: 1px solid rgba(197, 154, 63, 0.35);
+  margin-right: 4px;
+  flex-shrink: 0;
+}
+
+.subnav-pill-link {
+  color: #DCEEE2;
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 600;
+  padding: 4px 11px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.subnav-pill-link:hover {
+  background: rgba(245, 215, 127, 0.16);
+  border-color: rgba(245, 215, 127, 0.45);
+  color: #FCE6A2;
+}
+
+@media (max-width: 768px) {
+  #sanctuary-nav .container.nav-inner {
+    height: auto !important;
+    min-height: 58px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
+  .primary-hub-tabs {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+  }
+  .primary-tab-pill {
+    flex: 1;
+    justify-content: center;
+    padding: 6px 10px;
+    font-size: 0.76rem;
+  }
+  .sanctuary-subnav-inner {
+    justify-content: flex-start;
+    padding: 6px 12px;
+  }
+}
+
 @media (min-width: 1121px) and (max-width: 1400px) {
   #sanctuary-nav .nav-emblem {
     width: 38px;
