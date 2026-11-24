@@ -19,6 +19,8 @@
     }
   };
 
+  window.openFunderDossierModal = window.openFunderModal;
+
   window.copyFunderEIN = function(e) {
     if (e && typeof e.preventDefault === 'function') e.preventDefault();
     window.copyFunderText('39-3757168', 'EIN (39-3757168)');

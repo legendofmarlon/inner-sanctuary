@@ -638,6 +638,12 @@
           </a>
         </li>
         <li>
+          <a href="#grant-hub-portal" class="mobile-nav-item" onclick="document.getElementById('mobile-nav-drawer').style.display='none';">
+            <span class="mobile-nav-main" style="color: var(--gold-text); font-weight: 700;">🏛️ Grantmakers &amp; CRA Hub</span>
+            <span class="mobile-nav-sub">501(c)(3) • CRA • Fiduciary Dossier</span>
+          </a>
+        </li>
+        <li>
           <a href="#sponsorship" class="mobile-nav-item">
             <span class="mobile-nav-main">Give &amp; Sponsor</span>
             <span class="mobile-nav-sub">Partner With Us</span>
@@ -897,41 +903,37 @@
           
           <div class="grant-tab-left">
             <div class="grant-tab-badge-row">
-              <span class="grant-tab-pill">✦ IRS 501(c)(3) Public Charity</span>
-              <span class="grant-tab-cra-tag">🏛️ CRA Eligible Community Partner</span>
+              <span class="grant-tab-pill">🏛️ IRS 501(c)(3) Public Charity • § 509(a)(1)</span>
+              <span class="grant-tab-cra-tag">🏦 Bank CRA Qualified Community Partner</span>
             </div>
             <h3 class="grant-tab-title">
-              Institutional Grants, Funder Hub &amp; <span class="gold-accent">CRA Dossier</span>
+              Institutional Funder Hub &amp; <span class="gold-accent">Fiduciary Due Diligence</span>
             </h3>
             <div class="grant-tab-fiduciary-meta">
               <span>EIN: <strong>39-3757168</strong></span> • 
+              <span>State: <strong>California Active Charity</strong></span> • 
               <span>Teshia Campbell, Founder &amp; ED</span> • 
-              <span>Marlon Smith, President</span> • 
               <span>100% Tax-Deductible</span>
             </div>
           </div>
 
           <div class="grant-tab-actions">
-            <button type="button" onclick="openFunderModal(event, 'summary')" class="grant-tab-btn-primary" title="Open Complete 1-Page Grantmaker Dossier &amp; Print PDF">
+            <a href="reports/inner-sanctuary-fiduciary-one-pager.html" target="_blank" rel="noopener noreferrer" class="grant-tab-btn-primary" title="Open Official 1-Page Grantmaker Fiduciary Dossier (Printable PDF)">
               <span>📑</span>
-              <span>Open Funder Dossier (PDF)</span>
-            </button>
-            <button type="button" onclick="openFunderModal(event, 'leadership')" class="grant-tab-btn-sub" title="View Executive Board Stewardship (Teshia Campbell &amp; Marlon Smith)">
-              <span>👥</span>
-              <span>Board Stewardship</span>
-            </button>
-            <button type="button" onclick="openFunderModal(event, 'outcomes')" class="grant-tab-btn-sub" title="View Verified Community Impact Metrics (120+ Served)">
-              <span>📊</span>
-              <span>Outcomes (120+)</span>
-            </button>
-            <button type="button" onclick="openFunderModal(event, 'theory')" class="grant-tab-btn-sub" title="View Clinical Translation Matrix">
-              <span>🩺</span>
-              <span>Clinical Matrix</span>
-            </button>
+              <span>1-Page Fiduciary Dossier (PDF)</span>
+              <span style="font-size: 0.85em; opacity: 0.85;">↗</span>
+            </a>
             <button type="button" onclick="copyFunderEIN(event)" class="grant-tab-btn-copy" title="Copy Federal EIN: 39-3757168 to Clipboard">
               <span>📋</span>
               <span>Copy EIN</span>
             </button>
+            <button type="button" onclick="openFunderModal(event, 'summary')" class="grant-tab-btn-sub" title="Open Interactive Institutional Dossier">
+              <span>🏛️</span>
+              <span>Interactive Dossier</span>
+            </button>
+            <a href="#sponsorship" class="grant-tab-btn-scroll" title="Scroll to Full Institutional Due Diligence &amp; Board Governance">
+              <span>Full Due Diligence &amp; Metrics ↓</span>
+            </a>
           </div>
 
         </div>
@@ -3549,13 +3551,13 @@
 
             <!-- Medallion Verification Actions -->
             <div class="medallion-portal-actions">
-              <button type="button" class="medallion-btn-gold" onclick="openFunderDossierModal('summary')">
-                <span>🏛️</span> Open Full Institutional Dossier (501c3 &amp; CRA)
-              </button>
-              <a href="reports/inner-sanctuary-fiduciary-one-pager.html" target="_blank" rel="noopener noreferrer" class="medallion-btn-cyan">
-                <span>📄</span> Open Grantmaker Fiduciary Dossier (PDF / Print)
+              <a href="reports/inner-sanctuary-fiduciary-one-pager.html" target="_blank" rel="noopener noreferrer" class="medallion-btn-gold" title="Open Official 1-Page Printable Fiduciary Dossier &amp; Due Diligence Sheet">
+                <span>📑</span> 1-Page Fiduciary Dossier (Printable PDF) ↗
               </a>
-              <button type="button" class="medallion-btn-copy" onclick="copyFunderEIN(event)">
+              <button type="button" class="medallion-btn-cyan" onclick="openFunderModal(event, 'summary')" title="Open Interactive Institutional Dossier with Audit Tabs">
+                <span>🏛️</span> Interactive Funder Dossier
+              </button>
+              <button type="button" class="medallion-btn-copy" onclick="copyFunderEIN(event)" title="Copy Federal EIN 39-3757168 to Clipboard">
                 <span>📋</span> Copy EIN: 39-3757168
               </button>
             </div>
