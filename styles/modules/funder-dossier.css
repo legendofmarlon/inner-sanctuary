@@ -108,42 +108,85 @@
 }
 
 .funder-tabs-bar {
-  display: flex;
-  background: rgba(8, 17, 28, 0.75);
-  padding: 8px 32px 0;
-  border-bottom: 1.5px solid rgba(56, 189, 248, 0.25);
-  gap: 8px;
-  overflow-x: auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  background: rgba(7, 15, 26, 0.85);
+  padding: 14px 32px;
+  border-bottom: 1.5px solid rgba(56, 189, 248, 0.22);
+  box-sizing: border-box;
 }
 
 .funder-tab-btn {
-  background: none;
-  border: none;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(56, 189, 248, 0.18);
+  border-radius: 12px;
   color: #94A3B8;
   font-family: 'Montserrat', sans-serif;
   font-size: 0.82rem;
   font-weight: 700;
-  padding: 10px 16px;
+  padding: 11px 10px;
   cursor: pointer;
-  border-bottom: 3px solid transparent;
-  transition: all 0.2s ease;
-  white-space: nowrap;
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
   display: flex;
   align-items: center;
-  gap: 6px;
-  border-radius: 8px 8px 0 0;
+  justify-content: center;
+  gap: 7px;
+  text-align: center;
+  width: 100%;
+  min-height: 44px;
+  box-sizing: border-box;
 }
 
-.funder-tab-btn:hover {
+.funder-tab-btn:hover:not(.active) {
   color: #F8FAFC;
-  background: rgba(56, 189, 248, 0.12);
+  background: rgba(56, 189, 248, 0.10);
+  border-color: rgba(56, 189, 248, 0.35);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 
 .funder-tab-btn.active {
-  color: #38BDF8;
-  background: rgba(14, 165, 233, 0.18);
-  border-bottom: 3px solid #38BDF8;
-  box-shadow: 0 -2px 12px rgba(56, 189, 248, 0.3);
+  color: #FFFFFF;
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.35) 0%, rgba(20, 50, 80, 0.8) 100%);
+  border: 1.5px solid #38BDF8;
+  box-shadow: 0 4px 18px rgba(14, 165, 233, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+.funder-tab-btn span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .funder-tabs-bar {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 12px 20px;
+    gap: 8px;
+  }
+  .funder-tab-btn {
+    font-size: 0.80rem;
+    padding: 10px 8px;
+    border-radius: 10px;
+    min-height: 42px;
+  }
+}
+
+@media (max-width: 480px) {
+  .funder-tabs-bar {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    padding: 10px 16px;
+  }
+  .funder-tab-btn {
+    font-size: 0.78rem;
+    padding: 9px 8px;
+    min-height: 40px;
+  }
 }
 
 .funder-modal-body {
