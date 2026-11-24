@@ -4427,9 +4427,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const BASKETS = [
       {
-        emoji: "🥣",
-        title: "🥣 You Nourished: 432Hz Sound Bowl Bath",
-        desc: "A restorative 432Hz sound bowl bath frequency offered freely so a tired neighbor, elder, or creator can sit, soften, and regulate their nervous system.",
+        emoji: "🎵",
+        title: "🎵 You Nourished: Jam Session Unplugged Playground",
+        desc: "An acoustic instrument or welcoming presence offered freely so a local creator or neighbor can jam, find harmony, and experience community belonging.",
         color: "#C59A3F"
       },
       {
@@ -4447,7 +4447,7 @@ document.addEventListener('DOMContentLoaded', () => {
       {
         emoji: "🕊️",
         title: "🕊️ You Nourished: 60-Second Pause Sanctuary",
-        desc: "Sponsoring somatic grounding cards, sound bowls, and guided breath pauses in our community clubhouse.",
+        desc: "Sponsoring somatic grounding cards, gentle breath pacers, and unhurried pause booths in our community clubhouse.",
         color: "#7FB392"
       },
       {
