@@ -97,19 +97,65 @@
 
   // =========================================================================
   // GRANTMAKER IMPACT SIMULATOR ("WHAT YOUR GRANT FUNDS")
-  // Anchored to documented ~$18/seat cost & 88%+ direct program allocation
+  // Conservative illustrative ranges with mutually exclusive budget slices
+  // (never double-counted & non-binding prior to joint grant agreement)
   // =========================================================================
   let currentSimulatedGrantAmount = 5000;
+  let currentSimulatorFocus = 'balanced';
+
+  const SIM_FOCUS_WEIGHTS = {
+    balanced: {
+      label: 'Balanced Care Mix',
+      gatherShare: 0.50,
+      artistShare: 0.30,
+      pauseShare: 0.20
+    },
+    stage: {
+      label: 'Open Mic & Jam Stage Priority',
+      gatherShare: 0.60,
+      artistShare: 0.35,
+      pauseShare: 0.05
+    },
+    pause: {
+      label: 'Mobile Pause Activation Priority',
+      gatherShare: 0.15,
+      artistShare: 0.25,
+      pauseShare: 0.60
+    }
+  };
+
+  window.setGrantSimulatorFocus = function(focusKey) {
+    if (!SIM_FOCUS_WEIGHTS[focusKey]) return;
+    currentSimulatorFocus = focusKey;
+    document.querySelectorAll('.sim-focus-pill').forEach((btn) => {
+      btn.classList.toggle('active', btn.getAttribute('data-sim-focus') === focusKey);
+    });
+    window.updateGrantImpactSimulator(currentSimulatedGrantAmount);
+  };
 
   window.updateGrantImpactSimulator = function(rawAmount) {
     const amount = Math.min(25000, Math.max(500, Number(rawAmount) || 5000));
     currentSimulatedGrantAmount = amount;
+    const weights = SIM_FOCUS_WEIGHTS[currentSimulatorFocus] || SIM_FOCUS_WEIGHTS.balanced;
 
-    const directBudget = amount * 0.88;
-    const neighbors = Math.max(20, Math.round(directBudget / 18));
-    const gatherings = Math.max(1, Math.round(directBudget / 735));
-    const stipends = Math.max(2, Math.round((amount * 0.30) / 100));
-    const pauseKits = Math.max(1, Math.round(directBudget / 550));
+    // Conservative 85% direct program slice / 15% insurance, audit & admin buffer
+    const directBudget = amount * 0.85;
+    const gatherBudget = directBudget * weights.gatherShare;
+    const artistBudget = directBudget * weights.artistShare;
+    const pauseBudget = directBudget * weights.pauseShare;
+
+    // Conservative min-max ranges so we never over-promise fixed quotas
+    const seatMin = Math.max(12, Math.floor(directBudget / 32));
+    const seatMax = Math.max(seatMin + 5, Math.ceil(directBudget / 23));
+
+    const gatherMin = Math.max(1, Math.floor(gatherBudget / 1100));
+    const gatherMax = Math.max(gatherMin, Math.round(gatherBudget / 720));
+
+    const stipendMin = Math.max(1, Math.floor(artistBudget / 150));
+    const stipendMax = Math.max(stipendMin, Math.round(artistBudget / 100));
+
+    const kitMin = pauseBudget < 200 ? 0 : Math.max(1, Math.floor(pauseBudget / 450));
+    const kitMax = pauseBudget < 200 ? 1 : Math.max(kitMin, Math.round(pauseBudget / 280));
 
     const fmt = new Intl.NumberFormat('en-US', {
       style: 'currency',
@@ -117,18 +163,23 @@
       maximumFractionDigits: 0
     });
 
+    const formatRange = (lo, hi) => (lo === hi ? `~${lo}` : `~${lo}–${hi}`);
+
     const setEl = (id, text) => {
       const el = document.getElementById(id);
       if (el) el.textContent = text;
     };
 
     setEl('simGrantAmountVal', fmt.format(amount));
-    setEl('simNeighborsVal', `~${neighbors.toLocaleString()}+`);
-    setEl('simGatheringsVal', `${gatherings}`);
-    setEl('simStipendsVal', `${stipends}+`);
-    setEl('simPauseKitsVal', `${pauseKits}`);
-    setEl('simDirectDollarsText', `${fmt.format(Math.round(directBudget))} Direct Community Programs (88%)`);
-    setEl('simAdminDollarsText', `${fmt.format(Math.round(amount - directBudget))} Civic & Insurance Oversight (12%)`);
+    setEl('simNeighborsVal', `~${seatMin}–${seatMax}`);
+    setEl('simGatheringsVal', formatRange(gatherMin, gatherMax));
+    setEl('simStipendsVal', formatRange(stipendMin, stipendMax));
+    setEl('simPauseKitsVal', kitMin === 0 ? 'Optional' : formatRange(kitMin, kitMax));
+    setEl('simGatherSub', `${Math.round(weights.gatherShare * 100)}% slice (${fmt.format(Math.round(gatherBudget))}) • venue & tea`);
+    setEl('simStipendSub', `${Math.round(weights.artistShare * 100)}% slice (${fmt.format(Math.round(artistBudget))}) • artist honorariums`);
+    setEl('simPauseSub', `${Math.round(weights.pauseShare * 100)}% slice (${fmt.format(Math.round(pauseBudget))}) • mobile booth supplies`);
+    setEl('simDirectDollarsText', `${fmt.format(Math.round(directBudget))} Est. Direct Programs (85% Slice)`);
+    setEl('simAdminDollarsText', `${fmt.format(Math.round(amount - directBudget))} Insurance, Compliance & Admin Buffer (15%)`);
 
     const slider = document.getElementById('grantImpactSlider');
     if (slider && Number(slider.value) !== amount) {
@@ -143,10 +194,12 @@
 
   window.applyGrantTierToIntake = function() {
     const amount = currentSimulatedGrantAmount || 5000;
-    const directBudget = amount * 0.88;
-    const neighbors = Math.max(20, Math.round(directBudget / 18));
-    const gatherings = Math.max(1, Math.round(directBudget / 735));
-    const stipends = Math.max(2, Math.round((amount * 0.30) / 100));
+    const weights = SIM_FOCUS_WEIGHTS[currentSimulatorFocus] || SIM_FOCUS_WEIGHTS.balanced;
+    const directBudget = amount * 0.85;
+    const seatMin = Math.max(12, Math.floor(directBudget / 32));
+    const seatMax = Math.max(seatMin + 5, Math.ceil(directBudget / 23));
+    const gatherMin = Math.max(1, Math.floor((directBudget * weights.gatherShare) / 1100));
+    const gatherMax = Math.max(gatherMin, Math.round((directBudget * weights.gatherShare) / 720));
 
     if (typeof window.selectIntakeTab === 'function') {
       window.selectIntakeTab('grantmaker');
@@ -156,16 +209,16 @@
     if (msgBox) {
       const formattedAmt = `$${amount.toLocaleString()}`;
       msgBox.value =
-        `Grant / Sponsorship Alignment Inquiry (${formattedAmt} Tier):\n` +
-        `• Estimated Direct Impact: ~${neighbors}+ neighborhood participants across ${gatherings} substance-free Open Mic / Jam gatherings and ${stipends}+ local artist & facilitator stipends.\n` +
-        `• Please share your IRS 501(c)(3) Determination Letter, signed Form W-9, and CRA / RFP partnership brief.`;
+        `Grant / Sponsorship Alignment Inquiry (${formattedAmt} Illustrative Planning Scenario — ${weights.label}):\n` +
+        `• Non-binding planning estimate: ~${seatMin}–${seatMax} neighborhood visits across ~${gatherMin}${gatherMax > gatherMin ? '–' + gatherMax : ''} community gatherings/activations (exact deliverables & schedule co-designed per grant agreement).\n` +
+        `• Please share your IRS 501(c)(3) Determination Letter, signed Form W-9, and CRA / RFP partnership overview.`;
     }
 
     const connectSection = document.getElementById('connect');
     if (connectSection) {
       connectSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-    showFunderToast(`✓ Grant inquiry pre-filled for $${amount.toLocaleString()} tier!`);
+    showFunderToast(`✓ Illustrative inquiry drafted for $${amount.toLocaleString()} tier!`);
   };
 
   // =========================================================================

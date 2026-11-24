@@ -866,6 +866,10 @@
               <span>1-Page Fiduciary Dossier (PDF)</span>
               <span style="font-size: 0.85em; opacity: 0.85;">↗</span>
             </a>
+            <a href="reports/inner-sanctuary-grant-pitch-deck.pdf" target="_blank" rel="noopener noreferrer" class="grant-tab-btn-sub" title="Open 7-Slide Partner &amp; Grant Pitch Deck (PDF)">
+              <span>📊</span>
+              <span>7-Slide Pitch Deck (PDF) ↗</span>
+            </a>
             <button type="button" onclick="copyFunderEIN(event)" class="grant-tab-btn-copy" title="Copy Federal EIN: 39-3757168 to Clipboard">
               <span>📋</span>
               <span>Copy EIN</span>
@@ -901,6 +905,7 @@
         <button type="button" class="funder-qv-link" onclick="copyFunderEIN(event)">📋 Copy EIN</button>
         <a href="#grantImpactSimulator" class="funder-qv-link">📊 Grant Calculator</a>
         <a href="reports/inner-sanctuary-fiduciary-one-pager.html" target="_blank" rel="noopener noreferrer" class="funder-qv-link" style="background: rgba(245, 215, 127, 0.22); border-color: #F5D77F; color: #FCE6A2;">📄 1-Page PDF ↗</a>
+        <a href="reports/inner-sanctuary-grant-pitch-deck.pdf" target="_blank" rel="noopener noreferrer" class="funder-qv-link" style="background: rgba(134, 239, 172, 0.16); border-color: rgba(134, 239, 172, 0.5); color: #86EFAC;">📊 Pitch Deck PDF ↗</a>
         <button type="button" class="funder-qv-link" onclick="toggleFunderQuickView(event, false)" style="border-color: rgba(248, 113, 113, 0.5); color: #FCA5A5;">✕ Exit Funder View</button>
       </div>
     </div>
@@ -2847,18 +2852,16 @@
         <div id="grantImpactSimulator" class="grant-simulator-card">
           <div class="grant-sim-header">
             <div>
-              <div style="font-size: 0.74rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: #F8D98C; margin-bottom: 4px;">
-                📊 Interactive Grantmaker Impact Simulator • Unit Economics
-              </div>
+              <div class="sim-planning-badge">📊 Illustrative Planning Estimate • Co-Designed Per Grant Agreement</div>
               <h3 style="font-family: 'Cinzel', serif; font-size: 1.35rem; color: #FFFFFF; margin: 0 0 6px;">
-                What Your Grant or CRA Sponsorship Funds
+                What Your Grant or CRA Sponsorship Can Support
               </h3>
-              <p style="font-size: 0.84rem; color: #D3DFD8; margin: 0; max-width: 620px; line-height: 1.55;">
-                Slide or select a grant tier to project direct neighborhood reach across Orange County &amp; the Inland Empire based on our ~$18/seat direct program cost and 88%+ programmatic allocation.
+              <p style="font-size: 0.84rem; color: #D3DFD8; margin: 0; max-width: 640px; line-height: 1.55;">
+                Explore realistic, non-binding capacity ranges across Orange County &amp; the Inland Empire. Funds divide cleanly across budget lines (no double-counting) with an 85% program / 15% insurance &amp; oversight split.
               </p>
             </div>
             <div class="grant-sim-amount-readout">
-              <div style="font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; color: #CBD7D0; font-weight: 700;">Selected Grant Tier</div>
+              <div style="font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; color: #CBD7D0; font-weight: 700;">Illustrative Grant Tier</div>
               <div class="grant-sim-amount-val" id="simGrantAmountVal">$5,000</div>
             </div>
           </div>
@@ -2868,6 +2871,13 @@
             <button type="button" class="sim-tier-pill active" data-grant-amount="5000" onclick="updateGrantImpactSimulator(5000)">$5,000 CRA Catalyst</button>
             <button type="button" class="sim-tier-pill" data-grant-amount="10000" onclick="updateGrantImpactSimulator(10000)">$10,000 Season Anchor</button>
             <button type="button" class="sim-tier-pill" data-grant-amount="25000" onclick="updateGrantImpactSimulator(25000)">$25,000 Regional Partner</button>
+          </div>
+
+          <div class="grant-sim-focus-row" role="group" aria-label="Select Grant Priority Focus">
+            <span class="sim-focus-label">Priority Lens:</span>
+            <button type="button" class="sim-focus-pill active" data-sim-focus="balanced" onclick="setGrantSimulatorFocus('balanced')">🤝 Balanced Care Mix</button>
+            <button type="button" class="sim-focus-pill" data-sim-focus="stage" onclick="setGrantSimulatorFocus('stage')">🎤 Open Mic &amp; Jam Stage</button>
+            <button type="button" class="sim-focus-pill" data-sim-focus="pause" onclick="setGrantSimulatorFocus('pause')">🍃 Mobile Pause Booths</button>
           </div>
 
           <div class="grant-sim-slider-wrap">
@@ -2883,44 +2893,44 @@
 
           <div class="sim-metrics-grid">
             <div class="sim-metric-box">
-              <div class="sim-metric-val" id="simNeighborsVal">~244+</div>
-              <div class="sim-metric-label">Projected Neighbor Seats</div>
-              <div class="sim-metric-sub">100% free entry at ~$18 direct cost/seat</div>
+              <div class="sim-metric-val" id="simNeighborsVal">~132–185</div>
+              <div class="sim-metric-label">Est. Total Reach (Visits)</div>
+              <div class="sim-metric-sub">Conservative ~$23–$32 blended program range</div>
             </div>
             <div class="sim-metric-box">
-              <div class="sim-metric-val" id="simGatheringsVal">6</div>
-              <div class="sim-metric-label">Open Mic &amp; Jam Circles</div>
-              <div class="sim-metric-sub">Substance-free venue, PA, &amp; tea hospitality</div>
+              <div class="sim-metric-val" id="simGatheringsVal">~1–3</div>
+              <div class="sim-metric-label">Open Mic &amp; Jam Events</div>
+              <div class="sim-metric-sub" id="simGatherSub">50% slice ($2,125) • venue &amp; tea</div>
             </div>
             <div class="sim-metric-box">
-              <div class="sim-metric-val" id="simStipendsVal">15+</div>
-              <div class="sim-metric-label">Local Artist Honorariums</div>
-              <div class="sim-metric-sub">Direct support for poets &amp; acoustic musicians</div>
+              <div class="sim-metric-val" id="simStipendsVal">~8–13</div>
+              <div class="sim-metric-label">Artist / Facilitator Pay</div>
+              <div class="sim-metric-sub" id="simStipendSub">30% slice ($1,275) • artist honorariums</div>
             </div>
             <div class="sim-metric-box">
-              <div class="sim-metric-val" id="simPauseKitsVal">8</div>
-              <div class="sim-metric-label">Mobile Pause Activations</div>
-              <div class="sim-metric-sub">Campus &amp; community pop-up nervous system kits</div>
+              <div class="sim-metric-val" id="simPauseKitsVal">~1–3</div>
+              <div class="sim-metric-label">Mobile Pause Supplies</div>
+              <div class="sim-metric-sub" id="simPauseSub">20% slice ($850) • mobile booth supplies</div>
             </div>
           </div>
 
           <div class="sim-allocation-strip">
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px; font-size: 0.76rem; font-weight: 700;">
-              <span style="color: #86EFAC;" id="simDirectDollarsText">$4,400 Direct Community Programs (88%)</span>
-              <span style="color: #CBD5E1;" id="simAdminDollarsText">$600 Civic &amp; Insurance Oversight (12%)</span>
+              <span style="color: #86EFAC;" id="simDirectDollarsText">$4,250 Est. Direct Programs (85% Slice)</span>
+              <span style="color: #CBD5E1;" id="simAdminDollarsText">$750 Insurance, Compliance &amp; Admin Buffer (15%)</span>
             </div>
             <div class="sim-allocation-bar" aria-hidden="true">
-              <div class="sim-alloc-program"></div>
-              <div class="sim-alloc-admin"></div>
+              <div class="sim-alloc-program" style="width: 85%;"></div>
+              <div class="sim-alloc-admin" style="width: 15%;"></div>
             </div>
             <div style="font-size: 0.71rem; color: #CBD7D0;">
-              Note: Figures reflect projected capacity scaled from our documented open-ledger unit costs (~$18/neighbor seat) and dual-officer fiscal signoff.
+              <strong>Planning Estimate Only (Non-Binding):</strong> Budget slices above partition program dollars cleanly with zero double-counting. Final venue costs, artist stipends, and reporting milestones are scoped mutually in your Grant Agreement.
             </div>
           </div>
 
           <div class="grant-sim-actions">
             <button type="button" class="btn btn-gold" onclick="applyGrantTierToIntake()" style="font-size: 0.82rem; padding: 10px 18px; cursor: pointer;">
-              <span>🤝 Pre-Fill Grant / Sponsor Inquiry With This Tier ↓</span>
+              <span>🤝 Request Custom Scope With This Scenario ↓</span>
             </button>
             <button type="button" class="btn btn-outline" onclick="toggleFunderQuickView(event, true)" style="border-color: rgba(245, 215, 127, 0.55); color: #FCE6A2; font-size: 0.78rem; padding: 9px 14px; cursor: pointer;">
               <span>⚡ Activate 30-Sec Funder Quick-View</span>
@@ -2958,6 +2968,10 @@
               <!-- 1-Page Fiduciary Dossier Instant Download -->
               <a href="reports/inner-sanctuary-fiduciary-one-pager.html" target="_blank" rel="noopener noreferrer" class="btn btn-gold" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 18px; font-size: 0.82rem; font-weight: 700; text-decoration: none; box-shadow: 0 4px 18px rgba(197, 154, 63, 0.35);">
                 <span>📄 Instant 1-Page Fiduciary Dossier (Printable / PDF)</span> <span>↗</span>
+              </a>
+              <!-- 7-Slide Partner & Grant Pitch Deck Download -->
+              <a href="reports/inner-sanctuary-grant-pitch-deck.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 11px 18px; font-size: 0.82rem; font-weight: 700; text-decoration: none; border-color: rgba(245, 215, 127, 0.65); color: #FCE6A2; background: rgba(197, 154, 63, 0.12);">
+                <span>📊 7-Slide Partner &amp; Grant Pitch Deck (PDF)</span> <span>↗</span>
               </a>
               <!-- Primary 1-Click Mailto -->
               <a href="mailto:hello@innersanctuarywellnessfoundation.org?cc=innersanctuary0@gmail.com&subject=Due%20Diligence%20Request%3A%20IRS%20501(c)(3)%20Letter%20%26%20W-9%20-%20Inner%20Sanctuary&body=Hello%20Inner%20Sanctuary%20Leadership%2C%0A%0AWe%20are%20reviewing%20community%20partnerships%20%2F%20grant%20opportunities%20and%20would%20like%20to%20request%20your%20official%20due%20diligence%20packet%20(IRS%20Letter%2C%20Form%20W-9%2C%20Logic%20Model).%0A%0AOrganization%3A%20%0AName%20%2F%20Title%3A%20%0AContact%20Email%3A%20" class="btn-funder-primary" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 18px; font-size: 0.82rem;">
@@ -4146,6 +4160,7 @@
           <button type="button" id="btnDossierModalQuickView" class="btn btn-outline" onclick="closeFunderModal(); toggleFunderQuickView(event);" aria-pressed="false" style="font-size: 0.78rem; padding: 8px 14px; border-color: rgba(245, 215, 127, 0.5); color: #FCE6A2; cursor: pointer;">
             <span>⚡ 30-Sec Funder Quick-View</span>
           </button>
+          <a href="reports/inner-sanctuary-grant-pitch-deck.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 0.78rem; padding: 8px 14px; border-color: rgba(134, 239, 172, 0.5); color: #86EFAC; text-decoration: none;">📊 7-Slide Deck PDF ↗</a>
           <button type="button" class="btn btn-gold" onclick="downloadFunderDossier()" style="font-size: 0.82rem; padding: 8px 18px;">
           <span>🖨️ Print / Save 1-Page Dossier (PDF)</span>
         </button>
