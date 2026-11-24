@@ -475,6 +475,18 @@
           </a>
         </li>
         <li>
+          <a href="#core-activations" class="nav-link-dual" title="Core Grant-Funded Community Activations">
+            <span class="nav-link-main" style="color: var(--forest-green); font-weight: 700;">✦ Activations</span>
+            <span class="nav-link-sub">Open Mic &amp; Circles</span>
+          </a>
+        </li>
+        <li>
+          <a href="#community-hub" class="nav-link-dual" title="Interactive Community Rituals &amp; Sparks">
+            <span class="nav-link-main" style="color: var(--sunburst-gold); font-weight: 700;">✨ Community Hub</span>
+            <span class="nav-link-sub">Sparks &amp; Rituals</span>
+          </a>
+        </li>
+        <li>
           <a href="#mission" class="nav-link-dual">
             <span class="nav-link-main">Our Mission</span>
             <span class="nav-link-sub">Sacred Purpose</span>
@@ -605,6 +617,18 @@
           <a href="#remember" class="mobile-nav-item">
             <span class="mobile-nav-main">Pause &amp; Remember</span>
             <span class="mobile-nav-sub">Home</span>
+          </a>
+        </li>
+        <li>
+          <a href="#core-activations" class="mobile-nav-item" onclick="document.getElementById('mobile-nav-drawer').style.display='none';">
+            <span class="mobile-nav-main" style="color: var(--forest-green); font-weight: 700;">✦ Core Grant Activations</span>
+            <span class="mobile-nav-sub">Open Mic • Circles • Pause Booths</span>
+          </a>
+        </li>
+        <li>
+          <a href="#community-hub" class="mobile-nav-item" onclick="document.getElementById('mobile-nav-drawer').style.display='none';">
+            <span class="mobile-nav-main" style="color: var(--gold-text); font-weight: 700;">✨ Community Hub</span>
+            <span class="mobile-nav-sub">Daily Sparks • Zen Plinko • Rituals</span>
           </a>
         </li>
         <li>
@@ -939,72 +963,6 @@
         </div>
       </div>
 
-      <!-- ==================== DAILY SANCTUARY SPARKS CARD (INTERACTIVE GROUNDING HERO CENTERPIECE) ==================== -->
-      <div class="sanctuary-reflection-widget hero-reflection-widget" id="sanctuary-reflection">
-        <div class="reflection-widget-header">
-          <span class="reflection-widget-pill">✦ Daily Sanctuary Sparks ✦</span>
-          <h3 class="reflection-widget-title serif-brand">Draw Today's Sanctuary Spark</h3>
-          <p class="reflection-widget-sub">Receive an unhurried reminder to ground your nervous system, soften tension, and remember who you are. Generate with Gemini or draw a spark below.</p>
-        </div>
-
-        <!-- Sleek Gemini AI Prompt Bar -->
-        <div class="somatic-oracle-custom-bar">
-          <div class="somatic-oracle-input-wrap">
-            <span class="oracle-input-icon">✨</span>
-            <input type="text" id="somaticCustomInput" class="somatic-oracle-input" placeholder="How does your body feel? (e.g. tight chest, tired, anxious, seeking joy)" aria-label="Generate a Sanctuary Spark with Gemini">
-            <button type="button" id="btnOracleGenerate" class="btn-oracle-generate" title="Generate Sanctuary Spark with Gemini">
-              <span id="oracleBtnText">✨ Generate with Gemini</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- 3D Flippable Card Stage -->
-        <div class="reflection-card-stage" id="reflectionCardStage">
-          <div class="reflection-card-3d is-flipped" id="reflectionCard3D" role="button" tabindex="0" aria-label="Tap to draw and flip your daily sanctuary spark reflection card">
-            
-            <!-- Card Front (Sealed Cover) -->
-            <div class="reflection-card-face card-face-front">
-              <div class="card-front-halo"></div>
-              <div class="card-front-emblem">✦</div>
-              <div class="card-front-text">TAP TO DRAW YOUR SPARK</div>
-              <div class="card-front-sub">Sanctuary Sparks • Somatic • Grounded</div>
-              <div class="card-specular-glare"></div>
-            </div>
-
-            <!-- Card Back (Revealed Living Reflection) -->
-            <div class="reflection-card-face card-face-back" id="reflectionCardBack">
-              <div class="card-back-badge" id="reflectionCardBadge">✦ SANCTUARY SPARK ✦</div>
-              <blockquote class="card-back-quote" id="reflectionCardQuote">
-                "Where in your body are you holding yesterday? Soften your jaw, drop your shoulders, and let this breath belong only to right now."
-              </blockquote>
-              <div class="card-back-source" id="reflectionCardSource">— Inner Sanctuary Sparks</div>
-              <div class="card-specular-glare"></div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- Interactive Card Action Controls -->
-        <div class="reflection-actions-wrap">
-          <button type="button" class="btn-reflection-action btn-reflection-draw" id="btnDrawNewReflection" title="Draw another Sanctuary Spark">
-            <span>🔄 Draw Another Spark</span>
-          </button>
-          <button type="button" class="btn-reflection-action btn-reflection-copy" id="btnCopyReflection" title="Copy Sanctuary Spark to clipboard">
-            <span id="btnCopyReflectionIcon">📋</span>
-            <span id="btnCopyReflectionLabel">Copy Sanctuary Spark</span>
-          </button>
-          <button type="button" class="btn-reflection-action btn-reflection-share" id="btnShareIG" onclick="openStorySnapshotFromReflection(event)" title="Create 9:16 Instagram Story snapshot card">
-            <span>📸 Share to IG Story</span>
-          </button>
-        </div>
-        
-        <!-- Copy Toast Notification -->
-        <div class="reflection-copy-toast" id="reflectionCopyToast" role="status" aria-live="polite">
-          ✓ Copied to clipboard! Ready to paste into Instagram Story or journal.
-        </div>
-      </div>
-
-
     </div>
   </header>
 
@@ -1030,6 +988,127 @@
         <span class="trust-icon">✦</span>
         <span>CRA-Eligible Community Partner</span>
       </div>
+    </div>
+  </section>
+
+  <!-- ==================== CORE GRANT-FUNDED COMMUNITY ACTIVATIONS ==================== -->
+  <section id="core-activations" class="core-activations-section">
+    <div class="container">
+      
+      <div class="section-header" style="max-width: 920px; margin: 0 auto; text-align: center;">
+        <div class="master-eyebrow-tag" style="margin-bottom: 12px;">
+          <span>✦ WHAT WE ACTIVATE &amp; FUND • 501(c)(3) CHARITABLE INITIATIVES ✦</span>
+        </div>
+        <h2 class="master-font-serif" style="color: var(--forest-green); font-size: var(--type-h2); line-height: 1.25; margin-bottom: 14px;">
+          Our Core Grant-Funded Community Activations
+        </h2>
+        <div class="flourish-divider" style="color: var(--sunburst-gold); font-size: 1.1rem; margin-bottom: 16px;">✦</div>
+        <p class="master-lead-text" style="max-width: 820px; margin: 0 auto;">
+          Three signature, substance-free, trauma-informed spaces created to help our neighbors pause, process, and heal—funded through public charity grants, CRA bank investments, and grassroots community seeds.
+        </p>
+      </div>
+
+      <!-- 3-Column Core Activations Grid -->
+      <div class="core-activations-grid">
+
+        <!-- Pillar 1: Open Mic & Creative Expression -->
+        <div class="core-activation-card">
+          <div class="core-activation-card-top">
+            <div class="activation-tag-row">
+              <span class="activation-grant-pill">🎙️ Arts-in-Healing</span>
+              <span class="activation-metric-badge">100% Free Admission</span>
+            </div>
+            <h3 class="activation-card-title">SoCal Creatives Collective Open Mic</h3>
+            <div class="activation-card-tagline">Safe Stage • Unhurried Poetry &amp; Acoustic Music • Bi-Weekly Hearth</div>
+            <p class="activation-card-desc">
+              A substance-free creative haven for youth, emerging poets, songwriters, and community voices to share raw truth without performance pressure. We provide warm herbal tea, active listening, and somatic ground rules so every voice is held with dignity.
+            </p>
+            <div class="activation-target-box">
+              <strong>🏛️ Grant Focus:</strong> California Arts Council, Arts-in-Corrections/Re-entry Prevention, Youth Mental Health &amp; Creative Expression.
+            </div>
+          </div>
+          <div class="activation-card-actions">
+            <a href="#open-mic" class="activation-btn-primary" title="View Open Mic Lineup and RSVP">
+              <span>🎙️ View Lineup &amp; RSVP</span>
+            </a>
+            <button type="button" class="activation-btn-secondary" onclick="openFunderModal(event, 'outcomes')" title="View Open Mic Logic Model">
+              <span>🏛️ Funder Logic Model</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Pillar 2: Community Healing Gatherings & Sound Baths -->
+        <div class="core-activation-card">
+          <div class="core-activation-card-top">
+            <div class="activation-tag-row">
+              <span class="activation-grant-pill">🌿 Mental Health Equity</span>
+              <span class="activation-metric-badge">Sound &amp; Breathwork</span>
+            </div>
+            <h3 class="activation-card-title">Community Healing Gatherings &amp; Circles</h3>
+            <div class="activation-card-tagline">432Hz/528Hz Sound Therapy • Somatic Grounding • Collective Care</div>
+            <p class="activation-card-desc">
+              Free, accessible restorative circles for neighbors carrying chronic stress, grief, or systemic burnout. Guided by trauma-informed facilitators, our gatherings blend therapeutic acoustic frequencies, nervous system breathwork, and communal reflection.
+            </p>
+            <div class="activation-target-box">
+              <strong>🏛️ Grant Focus:</strong> CDPH Health Equity, BIPOC Mental Wellness, Trauma-Informed Community Health Partnerships.
+            </div>
+          </div>
+          <div class="activation-card-actions">
+            <a href="#circle-intake-form" class="activation-btn-primary" title="Reserve a Seat in Community Healing Circles">
+              <span>🌿 Reserve Circle Seat</span>
+            </a>
+            <a href="#programs" class="activation-btn-secondary" title="Explore Program Details">
+              <span>Learn More ↓</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Pillar 3: Permission to Pause Activations -->
+        <div class="core-activation-card">
+          <div class="core-activation-card-top">
+            <div class="activation-tag-row">
+              <span class="activation-grant-pill">🍃 Somatic De-Escalation</span>
+              <span class="activation-metric-badge">96% De-Escalation Rate</span>
+            </div>
+            <h3 class="activation-card-title">Permission to Pause Mobile Activations</h3>
+            <div class="activation-card-tagline">60-Second Nervous System Resets • Pop-Up Booths &amp; Campuses</div>
+            <p class="activation-card-desc">
+              High-impact mobile pop-up installations bringing immediate somatic relief into high-stress spaces—community college campuses, civic gatherings, workplaces, and neighborhood fairs. Features sensory grounding prompts and guided acoustic resets.
+            </p>
+            <div class="activation-target-box">
+              <strong>🏛️ Grant Focus:</strong> Public Health Innovation, Workplace Resilience, Community Violence Prevention &amp; Somatic First Aid.
+            </div>
+          </div>
+          <div class="activation-card-actions">
+            <button type="button" class="activation-btn-primary" onclick="window.sanctuaryPauseBooth.open()" title="Launch Digital Pause Booth">
+              <span>🍃 Try 60-Sec Pause Now</span>
+            </button>
+            <a href="#connect" class="activation-btn-secondary" title="Request a Mobile Pop-Up for Your Space">
+              <span>Request Pop-Up</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Quick Institutional Funder Strip -->
+      <div class="core-activations-funder-strip">
+        <div class="core-funder-strip-info">
+          <div class="core-funder-strip-title">🏛️ Looking to Fund or Sponsor One of These Three Activations?</div>
+          <div class="core-funder-strip-meta">
+            IRS 501(c)(3) Public Charity • EIN: <strong>39-3757168</strong> • Eligible for CRA Qualified Community Development Investments
+          </div>
+        </div>
+        <div class="core-funder-strip-actions">
+          <a href="reports/inner-sanctuary-fiduciary-one-pager.html" target="_blank" rel="noopener noreferrer" class="activation-btn-primary" style="background: var(--sunburst-gold); color: #1C1B18 !important;" title="Open Official 1-Page Grantmaker Fiduciary Dossier">
+            <span>📑 1-Page Fiduciary Dossier (PDF) ↗</span>
+          </a>
+          <button type="button" onclick="openFunderModal(event, 'summary')" class="activation-btn-secondary" style="border-color: rgba(245, 215, 127, 0.5); color: #FFFDF7 !important; background: rgba(255,255,255,0.08);" title="Open Interactive Institutional Dossier">
+            <span>🏛️ Open Funder Dossier</span>
+          </button>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -2928,6 +3007,100 @@
       </div>
     </div>
   </div>
+
+  <!-- ==================== SACRED COMMUNITY HUB & INTERACTIVE SANCTUARY ==================== -->
+  <section id="community-hub" class="community-hub-section">
+    <div class="container">
+      <div class="section-header" style="max-width: 880px; margin: 0 auto 36px; text-align: center;">
+        <div class="master-eyebrow-tag" style="margin-bottom: 12px;">
+          <span>✦ SACRED INTERACTIVE SANCTUARY • LIVING COMMUNITY RITUALS ✦</span>
+        </div>
+        <h2 class="master-font-serif" style="color: var(--forest-green); font-size: var(--type-h2); line-height: 1.25; margin-bottom: 14px;">
+          Our Community Hub
+        </h2>
+        <div class="flourish-divider" style="color: var(--sunburst-gold); font-size: 1.1rem; margin-bottom: 16px;">✦</div>
+        <p class="master-lead-text" style="max-width: 800px; margin: 0 auto;">
+          An unhurried space for daily reflection, community seeds, acoustic grounding, and collective care. Step inside our living interactive rituals below.
+        </p>
+      </div>
+
+      <!-- Quick Interactive Ritual Portals -->
+      <div class="community-rituals-quick-bar">
+        <a href="#sanctuary-reflection" class="ritual-pill-btn">✨ Daily Sparks Oracle</a>
+        <a href="#zen-plinko" class="ritual-pill-btn">🎯 Zen Plinko Blessing</a>
+        <a href="#dollar-campaign-anchor" class="ritual-pill-btn">🌱 $1 Community Seed</a>
+        <a href="#bracelet-creator" class="ritual-pill-btn">📿 Intention Bracelet</a>
+        <button type="button" onclick="handleSpeakeasyKnock(event)" class="ritual-pill-btn">🗝️ The Greenroom</button>
+        <button type="button" onclick="window.sanctuaryPauseBooth.open()" class="ritual-pill-btn">🍃 60-Sec Pause Booth</button>
+      </div>
+
+      <!-- Relocated Daily Sanctuary Sparks Card with Full Interactive Engine -->
+      <div class="sanctuary-reflection-widget" id="sanctuary-reflection" style="background: rgba(255, 255, 255, 0.92); border: 1.5px solid rgba(197, 154, 63, 0.35); border-radius: 20px; padding: 32px 24px; box-shadow: 0 14px 36px rgba(43, 68, 54, 0.08); margin: 0 auto; max-width: 640px;">
+        <div class="reflection-widget-header">
+          <span class="reflection-widget-pill">✦ Daily Sanctuary Sparks ✦</span>
+          <h3 class="reflection-widget-title serif-brand">Draw Today's Sanctuary Spark</h3>
+          <p class="reflection-widget-sub">Receive an unhurried reminder to ground your nervous system, soften tension, and remember who you are. Generate with Gemini or draw a spark below.</p>
+        </div>
+
+        <!-- Sleek Gemini AI Prompt Bar -->
+        <div class="somatic-oracle-custom-bar">
+          <div class="somatic-oracle-input-wrap">
+            <span class="oracle-input-icon">✨</span>
+            <input type="text" id="somaticCustomInput" class="somatic-oracle-input" placeholder="How does your body feel? (e.g. tight chest, tired, anxious, seeking joy)" aria-label="Generate a Sanctuary Spark with Gemini">
+            <button type="button" id="btnOracleGenerate" class="btn-oracle-generate" title="Generate Sanctuary Spark with Gemini">
+              <span id="oracleBtnText">✨ Generate with Gemini</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 3D Flippable Card Stage -->
+        <div class="reflection-card-stage" id="reflectionCardStage">
+          <div class="reflection-card-3d is-flipped" id="reflectionCard3D" role="button" tabindex="0" aria-label="Tap to draw and flip your daily sanctuary spark reflection card">
+            
+            <!-- Card Front (Sealed Cover) -->
+            <div class="reflection-card-face card-face-front">
+              <div class="card-front-halo"></div>
+              <div class="card-front-emblem">✦</div>
+              <div class="card-front-text">TAP TO DRAW YOUR SPARK</div>
+              <div class="card-front-sub">Sanctuary Sparks • Somatic • Grounded</div>
+              <div class="card-specular-glare"></div>
+            </div>
+
+            <!-- Card Back (Revealed Living Reflection) -->
+            <div class="reflection-card-face card-face-back" id="reflectionCardBack">
+              <div class="card-back-badge" id="reflectionCardBadge">✦ SANCTUARY SPARK ✦</div>
+              <blockquote class="card-back-quote" id="reflectionCardQuote">
+                "Where in your body are you holding yesterday? Soften your jaw, drop your shoulders, and let this breath belong only to right now."
+              </blockquote>
+              <div class="card-back-source" id="reflectionCardSource">— Inner Sanctuary Sparks</div>
+              <div class="card-specular-glare"></div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Interactive Card Action Controls -->
+        <div class="reflection-actions-wrap">
+          <button type="button" class="btn-reflection-action btn-reflection-draw" id="btnDrawNewReflection" title="Draw another Sanctuary Spark">
+            <span>🔄 Draw Another Spark</span>
+          </button>
+          <button type="button" class="btn-reflection-action btn-reflection-copy" id="btnCopyReflection" title="Copy Sanctuary Spark to clipboard">
+            <span id="btnCopyReflectionIcon">📋</span>
+            <span id="btnCopyReflectionLabel">Copy Sanctuary Spark</span>
+          </button>
+          <button type="button" class="btn-reflection-action btn-reflection-share" id="btnShareIG" onclick="openStorySnapshotFromReflection(event)" title="Create 9:16 Instagram Story snapshot card">
+            <span>📸 Share to IG Story</span>
+          </button>
+        </div>
+        
+        <!-- Copy Toast Notification -->
+        <div class="reflection-copy-toast" id="reflectionCopyToast" role="status" aria-live="polite">
+          ✓ Copied to clipboard! Ready to paste into Instagram Story or journal.
+        </div>
+      </div>
+
+    </div>
+  </section>
 
   <!-- Anchor for #donate queries -->
   <div id="donate" style="position: relative; top: -80px; visibility: hidden;"></div>

@@ -86,7 +86,7 @@ const hasSelfRedirect = /from\s*=\s*"https:\/\/innersanctuarywellnessfoundation\
 check('Zero redirect loops (apex HTTPS does not redirect to itself)', !hasSelfRedirect);
 
 // 6. ZERO NOINDEX CHECK
-const htmlFiles = ['index.html', 'sanctuary-discovery-os.html', 'bracelet-weaver.html', 'digital-labyrinth.html', 'reports/inner-sanctuary-fiduciary-one-pager.html'];
+const htmlFiles = ['index.html', 'sanctuary-discovery-os.html', 'community-hub.html', 'bracelet-weaver.html', 'digital-labyrinth.html', 'reports/inner-sanctuary-fiduciary-one-pager.html'];
 let noindexFound = false;
 htmlFiles.forEach(f => {
   const c = fs.readFileSync(path.join(root, f), 'utf8');

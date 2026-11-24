@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Community Hub • Inner Sanctuary Wellness Foundation</title>
+  <meta name="description" content="Inner Sanctuary Community Hub: An unhurried space for daily somatic reflections, community seed blessings, acoustic soundscapes, and creative expression.">
+  <link rel="canonical" href="https://innersanctuarywellnessfoundation.org/community-hub.html" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Google Fonts: Master Typography System -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    :root {
+      --hub-bg: #F6F3EC;
+      --hub-card-bg: rgba(255, 255, 255, 0.94);
+      --hub-border: 1.5px solid rgba(197, 154, 63, 0.35);
+    }
+    body {
+      background-color: var(--hub-bg);
+      color: var(--earth-charcoal);
+      font-family: var(--font-sans, 'Montserrat', sans-serif);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .hub-header-bar {
+      background: rgba(246, 243, 236, 0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(197, 154, 63, 0.28);
+      padding: 16px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .hub-brand-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--forest-green);
+    }
+    .hub-brand-emblem {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1px solid var(--sunburst-gold);
+    }
+    .hub-brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+    .hub-brand-title {
+      font-family: var(--font-serif, 'Cinzel', serif);
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--forest-green);
+    }
+    .hub-brand-sub {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: var(--sunburst-gold);
+      text-transform: uppercase;
+    }
+    .hub-nav-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: var(--forest-green);
+      color: #FFFDF7 !important;
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(43, 68, 54, 0.2);
+    }
+    .hub-nav-back:hover {
+      background: var(--forest-dark);
+      transform: translateY(-1px);
+    }
+    .hub-hero {
+      text-align: center;
+      padding: 56px 20px 36px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .hub-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      max-width: 1100px;
+      margin: 0 auto 60px;
+      padding: 0 20px;
+    }
+    .hub-feature-card {
+      background: var(--hub-card-bg);
+      border: var(--hub-border);
+      border-radius: 20px;
+      padding: 28px 24px;
+      box-shadow: 0 8px 24px rgba(43, 68, 54, 0.06);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .hub-feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 36px rgba(43, 68, 54, 0.12);
+      border-color: rgba(197, 154, 63, 0.6);
+    }
+    .hub-card-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--sunburst-gold);
+      margin-bottom: 8px;
+    }
+    .hub-card-title {
+      font-family: var(--font-serif, 'Cinzel', serif);
+      font-size: 1.35rem;
+      color: var(--forest-green);
+      margin-bottom: 10px;
+    }
+    .hub-card-desc {
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: var(--charcoal-muted);
+      margin-bottom: 20px;
+    }
+    .hub-card-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: rgba(197, 154, 63, 0.14);
+      color: var(--forest-green);
+      border: 1.5px solid rgba(197, 154, 63, 0.4);
+      font-size: 0.84rem;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .hub-card-btn:hover {
+      background: var(--sunburst-gold);
+      color: #1C1B18;
+      border-color: var(--sunburst-gold);
+    }
+    .hub-footer {
+      margin-top: auto;
+      background: #1E3328;
+      color: #FAF8F3;
+      padding: 32px 20px;
+      text-align: center;
+      font-size: 0.82rem;
+      border-top: 1px solid rgba(197, 154, 63, 0.35);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Sticky Header -->
+  <header class="hub-header-bar">
+    <a href="index.html" class="hub-brand-link">
+      <img src="emblem.png" alt="Inner Sanctuary Logo" class="hub-brand-emblem" onerror="this.src='emblem.jpg'">
+      <div class="hub-brand-text">
+        <span class="hub-brand-title">INNER SANCTUARY</span>
+        <span class="hub-brand-sub">Community Hub &amp; Rituals</span>
+      </div>
+    </a>
+    <a href="index.html" class="hub-nav-back">
+      <span>← Back to Sanctuary Home</span>
+    </a>
+  </header>
+
+  <main>
+    <!-- Hero Banner -->
+    <section class="hub-hero">
+      <div class="master-eyebrow-tag" style="margin-bottom: 10px;">
+        <span>✦ LIVING COMMUNITY SANCTUARY ✦</span>
+      </div>
+      <h1 class="master-font-serif" style="color: var(--forest-green); font-size: clamp(2rem, 3.8vw, 3rem); margin-bottom: 14px;">
+        Our Community Hub
+      </h1>
+      <div class="flourish-divider" style="color: var(--sunburst-gold); font-size: 1.1rem; margin-bottom: 14px;">✦</div>
+      <p class="master-lead-text" style="font-size: 1.1rem; max-width: 720px; margin: 0 auto;">
+        Welcome to your unhurried space for somatic grounding, interactive reflection cards, community seed blessings, and creative hearth rituals.
+      </p>
+    </section>
+
+    <!-- Interactive Ritual Cards Grid -->
+    <div class="hub-grid">
+
+      <!-- Feature 1: Daily Sanctuary Sparks -->
+      <div class="hub-feature-card">
+        <div>
+          <div class="hub-card-badge">✦ Daily Somatic Oracle</div>
+          <h2 class="hub-card-title">Sanctuary Sparks Oracle</h2>
+          <p class="hub-card-desc">
+            Draw today's flippable 3D reflection card or generate an unhurried reminder with Gemini AI based on how your body feels right now.
+          </p>
+        </div>
+        <a href="index.html#sanctuary-reflection" class="hub-card-btn">
+          <span>✨ Draw Today's Spark</span>
+        </a>
+      </div>
+
+      <!-- Feature 2: Digital Pause Booth -->
+      <div class="hub-feature-card">
+        <div>
+          <div class="hub-card-badge">🍃 60-Second Nervous System Reset</div>
+          <h2 class="hub-card-title">Digital Pause Booth</h2>
+          <p class="hub-card-desc">
+            Experience our 60-second guided somatic breath reset with visual breath ripples, grounding prompts, and 528Hz acoustic tones.
+          </p>
+        </div>
+        <a href="index.html#remember" class="hub-card-btn">
+          <span>🍃 Launch Pause Booth</span>
+        </a>
+      </div>
+
+      <!-- Feature 3: Zen Plinko Blessing -->
+      <div class="hub-feature-card">
+        <div>
+          <div class="hub-card-badge">🎯 Grassroots Seed Blessing</div>
+          <h2 class="hub-card-title">Zen Plinko Ritual</h2>
+          <p class="hub-card-desc">
+            Drop an intention seed through the interactive acoustic Plinko board. Receive a gentle blessing for nourishment, belonging, or rest.
+          </p>
+        </div>
+        <a href="index.html#zen-plinko" class="hub-card-btn">
+          <span>🎯 Drop a Zen Seed</span>
+        </a>
+      </div>
+
+      <!-- Feature 4: $1 Seed Campaign & Garden -->
+      <div class="hub-feature-card">
+        <div>
+          <div class="hub-card-badge">🌱 Micro-Giving &amp; Collective Care</div>
+          <h2 class="hub-card-title">The $1 Seed Garden</h2>
+          <p class="hub-card-desc">
+            Discover how $1 micro-donations directly fund warm herbal tea, open mic stages, and trauma-informed healing circles.
+          </p>
+        </div>
+        <a href="index.html#circle-growth" class="hub-card-btn">
+          <span>🌱 Plant Your $1 Seed</span>
+        </a>
+      </div>
+
+      <!-- Feature 5: Keepsake Intention Bracelet -->
+      <div class="hub-feature-card">
+        <div>
+          <div class="hub-card-badge">📿 Somatic Keepsake Weaver</div>
+          <h2 class="hub-card-title">Intention Bracelet Creator</h2>
+          <p class="hub-card-desc">
+            Weave your custom 3-bead virtual intention bracelet with Cedarwood, Rose Quartz, and Gold, paired with a personalized spark.
+          </p>
+        </div>
+        <a href="bracelet-weaver.html" class="hub-card-btn">
+          <span>📿 Open Bracelet Weaver</span>
+        </a>
+      </div>
+
+      <!-- Feature 6: The Greenroom Speakeasy -->
+      <div class="hub-feature-card">
+        <div>
+          <div class="hub-card-badge">🗝️ Acoustic Living Lounge</div>
+          <h2 class="hub-card-title">The Greenroom Speakeasy</h2>
+          <p class="hub-card-desc">
+            Tap the sacred emblem 3 times to unlock private vinyl sessions, unreleased open mic poetry, and intimate acoustic recordings.
+          </p>
+        </div>
+        <a href="index.html#remember" class="hub-card-btn">
+          <span>🗝️ Enter Greenroom</span>
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="hub-footer">
+    <div style="max-width: 800px; margin: 0 auto; line-height: 1.7;">
+      <p style="font-weight: 700; color: #F5D77F; margin-bottom: 6px;">Inner Sanctuary Wellness Foundation</p>
+      <p style="opacity: 0.85; margin-bottom: 12px;">
+        California 501(c)(3) Public Charity • IRC § 170(b)(1)(A)(vi) • Federal EIN: <strong>39-3757168</strong>
+      </p>
+      <p style="font-size: 0.76rem; opacity: 0.7;">
+        Founded by Executive Director Teshia Campbell • Presided by Marlon Smith • 100% Tax-Deductible
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>
