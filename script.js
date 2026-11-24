@@ -1923,26 +1923,28 @@ document.addEventListener('DOMContentLoaded', () => {
   function toggleMobileNavDrawer(e) {
     if (e && e.preventDefault) e.preventDefault();
     const mobileMenu = document.getElementById('mobile-nav-drawer');
+    const toggleBtn = document.getElementById('mobile-nav-toggle');
     if (!mobileMenu) return;
     const isHidden = mobileMenu.style.display === 'none' || mobileMenu.classList.contains('hidden') || getComputedStyle(mobileMenu).display === 'none';
     mobileMenu.style.display = isHidden ? 'block' : 'none';
     if (isHidden) {
       mobileMenu.classList.remove('hidden');
+      if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'true');
     } else {
       mobileMenu.classList.add('hidden');
+      if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
     }
   }
 
   const mobileToggle = document.getElementById('mobile-nav-toggle');
   const mobileMenu = document.getElementById('mobile-nav-drawer');
 
-  if (mobileToggle && mobileMenu) {
-    mobileToggle.addEventListener('click', toggleMobileNavDrawer);
-
+  if (mobileMenu) {
     mobileMenu.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         mobileMenu.style.display = 'none';
         mobileMenu.classList.add('hidden');
+        if (mobileToggle) mobileToggle.setAttribute('aria-expanded', 'false');
       });
     });
   }
@@ -3656,32 +3658,142 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================================================================
-  // LIVE OPEN MIC COUNTDOWN TIMER (OUR SANCTUARY CLUBHOUSE GATHERING)
+  // DYNAMIC AUTO-ROLLING GATHERING CALENDAR & LIVE COUNTDOWN TIMER
   // =========================================================================
+  const SANCTUARY_GATHERING_SCHEDULE = [
+    {
+      id: 'friendsgiving',
+      featuredTag: '✓ COMPLETED · COMMUNITY FRIENDSGIVING',
+      locationShort: '📍 Our Sanctuary Clubhouse • Orange County, CA',
+      title: 'Friendsgiving: Good Food, Good Humans & Good Vibes',
+      dateDisplay: 'SUNDAY, NOVEMBER 22, 2026',
+      timeDisplay: '2:00 PM – 6:00 PM PST',
+      venueTitle: 'Our Sanctuary Clubhouse',
+      venueSub: 'Orange County, CA',
+      expTitle: 'Friendsgiving & Co-Creation',
+      expSub: 'RECONNECT × Inner Sanctuary',
+      footNote: 'Completed Gathering: <strong>Sunday, November 22, 2026</strong> • 🍂 Friendsgiving with RECONNECT',
+      startIso: '2026-11-22T14:00:00-08:00',
+      endIso: '2026-11-22T18:00:00-08:00',
+      rsvpUrl: 'https://www.meetup.com/socal-creatives-collective/events/317482553/',
+      rsvpLabel: 'View Friendsgiving Archive on Meetup ↗'
+    },
+    {
+      id: 'jam-session',
+      featuredTag: '✦ NEXT UPCOMING · UNPLUGGED JAM SESSION',
+      locationShort: '📍 1501 W Alton Ave, Santa Ana • Alcohol-Free Creative Sanctuary',
+      title: 'Jam Session: The Unplugged Playground',
+      dateDisplay: 'THURSDAY, DECEMBER 10, 2026',
+      timeDisplay: '6:00 PM – 8:00 PM PST',
+      venueTitle: 'SoCal Creatives • Alton Studio',
+      venueSub: '1501 W Alton Ave • Santa Ana, CA',
+      expTitle: 'Unplugged Acoustic Jam',
+      expSub: '10 Humans • Instruments & Creative Flow',
+      footNote: 'Next Gathering: <strong>Thursday, December 10, 2026 at 6:00 PM PST</strong> • 🎶 Unplugged Playground • Free Community Circle',
+      startIso: '2026-12-10T18:00:00-08:00',
+      endIso: '2026-12-10T20:00:00-08:00',
+      rsvpUrl: 'https://www.meetup.com/socal-creatives-collective/events/317462800/',
+      rsvpLabel: 'RSVP for Dec 10 Jam Session ↗'
+    }
+  ];
+
+  function initDynamicGatheringCalendar(nowMs) {
+    const upcomingGrid = document.getElementById('upcomingCalendarCardsContainer');
+    const pastGrid = document.getElementById('past-gatherings-cards-container');
+    if (!upcomingGrid || !pastGrid) return;
+
+    const datedCards = Array.from(upcomingGrid.querySelectorAll('.calendar-event-card[data-event-end]'));
+    datedCards.forEach((card) => {
+      const endMs = new Date(card.getAttribute('data-event-end')).getTime();
+      if (!Number.isNaN(endMs) && nowMs > endMs) {
+        const badge = card.querySelector('.calendar-status-pill');
+        if (badge) {
+          badge.textContent = '✓ COMPLETED GATHERING';
+          badge.style.background = 'rgba(18, 30, 24, 0.90)';
+          badge.style.color = '#86EFAC';
+          badge.style.border = '1px solid #86EFAC';
+        }
+        const actions = card.querySelector('.calendar-card-actions-wrap');
+        if (actions) {
+          const link = actions.querySelector('a[href*="meetup.com"]');
+          const href = link ? link.getAttribute('href') : 'https://www.meetup.com/socal-creatives-collective/';
+          actions.innerHTML = `<a href="${href}" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="border-color: rgba(197, 154, 63, 0.45); color: #F8D98C; font-size: 0.78rem; padding: 8px 14px; border-radius: 999px; width: 100%; text-align: center;">✓ Gathering Completed • View Event Recap ↗</a>`;
+        }
+        pastGrid.insertBefore(card, pastGrid.firstChild);
+      }
+    });
+  }
+
   function initOpenMicCountdown() {
     const daysEl = document.getElementById('countdownDays');
     const hoursEl = document.getElementById('countdownHours');
     const minutesEl = document.getElementById('countdownMinutes');
     const secondsEl = document.getElementById('countdownSeconds');
-
     if (!daysEl || !hoursEl || !minutesEl || !secondsEl) return;
 
-    // Anchor: Sunday, November 15, 2026, 2:00 PM PST
-    let targetTime = new Date('2026-11-22T14:00:00-08:00').getTime();
+    const nowInit = Date.now();
+    initDynamicGatheringCalendar(nowInit);
 
+    const activeEvent = SANCTUARY_GATHERING_SCHEDULE.find(
+      (ev) => new Date(ev.endIso).getTime() > nowInit
+    );
+
+    if (activeEvent) {
+      const setText = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+      const setHtml = (id, val) => { const el = document.getElementById(id); if (el) el.innerHTML = val; };
+      setText('featuredEventTag', activeEvent.featuredTag);
+      setText('featuredEventLocation', activeEvent.locationShort);
+      setText('featuredEventTitle', activeEvent.title);
+      setText('featuredEventDate', activeEvent.dateDisplay);
+      setText('featuredEventTime', activeEvent.timeDisplay);
+      setText('featuredEventVenueTitle', activeEvent.venueTitle);
+      setText('featuredEventVenueSub', activeEvent.venueSub);
+      setText('featuredEventExpTitle', activeEvent.expTitle);
+      setText('featuredEventExpSub', activeEvent.expSub);
+      setHtml('countdownFootNote', activeEvent.footNote);
+      const rsvpBtn = document.getElementById('meetup-action-btn');
+      if (rsvpBtn && activeEvent.rsvpUrl) {
+        rsvpBtn.setAttribute('href', activeEvent.rsvpUrl);
+        const span = rsvpBtn.querySelector('span');
+        if (span) span.textContent = activeEvent.rsvpLabel;
+      }
+    }
+
+    let timerHandle = null;
     function updateTimer() {
       const now = Date.now();
-      let diff = targetTime - now;
-
-      // Resilient fallback: If the date has passed, advance target so countdown stays live
-      if (diff <= 0) {
-        const nextCycle = new Date(now + 1000 * 60 * 60 * 24 * 14);
-        nextCycle.setHours(14, 0, 0, 0);
-        targetTime = nextCycle.getTime();
-        diff = targetTime - now;
+      if (!activeEvent) {
+        daysEl.textContent = '00';
+        hoursEl.textContent = '00';
+        minutesEl.textContent = '00';
+        secondsEl.textContent = '00';
+        const foot = document.getElementById('countdownFootNote');
+        if (foot) foot.innerHTML = 'Next Monthly Gathering Date Announced Soon • <strong>Join Artist &amp; Guest Waitlist Below</strong>';
+        if (timerHandle) clearInterval(timerHandle);
+        return;
       }
 
-      const totalSeconds = Math.max(0, Math.floor(diff / 1000));
+      const startMs = new Date(activeEvent.startIso).getTime();
+      const endMs = new Date(activeEvent.endIso).getTime();
+
+      if (now >= startMs && now <= endMs) {
+        daysEl.textContent = '00';
+        hoursEl.textContent = '00';
+        minutesEl.textContent = '00';
+        secondsEl.textContent = '00';
+        const foot = document.getElementById('countdownFootNote');
+        if (foot) foot.innerHTML = `🔴 <strong>Happening Now!</strong> ${activeEvent.title} at ${activeEvent.venueTitle}`;
+        return;
+      }
+
+      const diff = Math.max(0, startMs - now);
+      if (diff === 0 && now > endMs) {
+        initDynamicGatheringCalendar(now);
+        if (timerHandle) clearInterval(timerHandle);
+        return;
+      }
+
+      const totalSeconds = Math.floor(diff / 1000);
       const days = Math.floor(totalSeconds / (3600 * 24));
       const hours = Math.floor((totalSeconds % (3600 * 24)) / 3600);
       const minutes = Math.floor((totalSeconds % 3600) / 60);
@@ -3694,7 +3806,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     updateTimer();
-    setInterval(updateTimer, 1000);
+    timerHandle = setInterval(updateTimer, 1000);
   }
 
   // =========================================================================
@@ -4325,7 +4437,7 @@ document.addEventListener('DOMContentLoaded', () => {
       btnCopy.addEventListener('click', () => {
         const quote = quoteElem ? quoteElem.textContent : '';
         const summary = beadSummary ? beadSummary.textContent : '';
-        const shareText = `${quote}\n\n— Weaved with Love at Our Sanctuary Clubhouse • ${summary}\nInner Sanctuary Wellness Foundation ✦ @ourinnersanctuary\nhttps://ourinnersanctuary.org`;
+        const shareText = `${quote}\n\n— Woven with Love at Our Sanctuary Clubhouse • ${summary}\nInner Sanctuary Wellness Foundation ✦ @ourinnersanctuary\nhttps://ourinnersanctuary.org`;
 
         if (navigator.clipboard && navigator.clipboard.writeText) {
           navigator.clipboard.writeText(shareText).then(showToastFeedback).catch(() => fallbackCopy(shareText));
@@ -5230,7 +5342,7 @@ document.addEventListener('DOMContentLoaded', () => {
       isBracelet: true,
       beads: beads,
       quote: quote,
-      badge: "✦ WEAVED WITH LOVE • SANCTUARY CLUBHOUSE ✦",
+      badge: "✦ WOVEN WITH LOVE • SANCTUARY CLUBHOUSE ✦",
       source: `— Inner Sanctuary Bracelet Keepsake • ${summary}`,
       filename: "inner-sanctuary-bracelet-keepsake.png"
     };
@@ -5679,7 +5791,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Attribution
       ctx.font = '600 22px Montserrat, sans-serif';
       ctx.fillStyle = '#CBD7D0';
-      ctx.fillText(window.currentStoryData.source || '— Weaved with Love at Inner Sanctuary Clubhouse', W / 2, cardY + cardH - 45);
+      ctx.fillText(window.currentStoryData.source || '— Woven with Love at Inner Sanctuary Clubhouse', W / 2, cardY + cardH - 45);
       ctx.restore();
 
     } else {
@@ -6767,7 +6879,10 @@ window.openPulsePresenceModal = function(e) {
   window.openSpeakeasyModal = function(e) {
     if (e && typeof e.preventDefault === 'function') e.preventDefault();
     const modal = document.getElementById('speakeasyModal');
-    if (!modal) return;
+    if (!modal) {
+      window.location.href = 'community-hub.html?unlock=greenroom#greenroom-vault';
+      return;
+    }
     
     playNeedleDrop();
     modal.style.display = 'flex';
@@ -7914,8 +8029,9 @@ Provide a deeply compassionate, grounded 2-3 sentence reflection. Never use clin
     }
     const actions = document.querySelector('.pause-modal-actions');
     if (actions) {
+      const gatheringHref = document.getElementById('open-mic') ? '#open-mic' : 'index.html#open-mic';
       actions.innerHTML = `
-        <a href="#open-mic" onclick="closePauseModal()" class="btn btn-gold">Join Next Gathering 🌿</a>
+        <a href="${gatheringHref}" onclick="closePauseModal()" class="btn btn-gold">Join Next Gathering 🌿</a>
         <button type="button" onclick="startPauseExperience()" class="btn btn-outline" style="border-color: rgba(197, 154, 63, 0.5); color: var(--forest-green);">Breathe Again</button>
       `;
     }
@@ -7934,3 +8050,14 @@ Provide a deeply compassionate, grounded 2-3 sentence reflection. Never use clin
       if (btnText) btnText.textContent = 'Pause';
     }
   };
+
+  // Auto-open Sanctuary Greenroom on community-hub.html when navigated with ?unlock=greenroom
+  document.addEventListener('DOMContentLoaded', () => {
+    if (window.location.search.includes('unlock=greenroom') && document.getElementById('speakeasyModal')) {
+      setTimeout(() => {
+        if (typeof window.openSpeakeasyModal === 'function') {
+          window.openSpeakeasyModal();
+        }
+      }, 300);
+    }
+  });

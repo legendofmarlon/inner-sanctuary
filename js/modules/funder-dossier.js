@@ -95,6 +95,125 @@
     window.print();
   };
 
+  // =========================================================================
+  // GRANTMAKER IMPACT SIMULATOR ("WHAT YOUR GRANT FUNDS")
+  // Anchored to documented ~$18/seat cost & 88%+ direct program allocation
+  // =========================================================================
+  let currentSimulatedGrantAmount = 5000;
+
+  window.updateGrantImpactSimulator = function(rawAmount) {
+    const amount = Math.min(25000, Math.max(500, Number(rawAmount) || 5000));
+    currentSimulatedGrantAmount = amount;
+
+    const directBudget = amount * 0.88;
+    const neighbors = Math.max(20, Math.round(directBudget / 18));
+    const gatherings = Math.max(1, Math.round(directBudget / 735));
+    const stipends = Math.max(2, Math.round((amount * 0.30) / 100));
+    const pauseKits = Math.max(1, Math.round(directBudget / 550));
+
+    const fmt = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      maximumFractionDigits: 0
+    });
+
+    const setEl = (id, text) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = text;
+    };
+
+    setEl('simGrantAmountVal', fmt.format(amount));
+    setEl('simNeighborsVal', `~${neighbors.toLocaleString()}+`);
+    setEl('simGatheringsVal', `${gatherings}`);
+    setEl('simStipendsVal', `${stipends}+`);
+    setEl('simPauseKitsVal', `${pauseKits}`);
+    setEl('simDirectDollarsText', `${fmt.format(Math.round(directBudget))} Direct Community Programs (88%)`);
+    setEl('simAdminDollarsText', `${fmt.format(Math.round(amount - directBudget))} Civic & Insurance Oversight (12%)`);
+
+    const slider = document.getElementById('grantImpactSlider');
+    if (slider && Number(slider.value) !== amount) {
+      slider.value = String(amount);
+    }
+
+    document.querySelectorAll('.sim-tier-pill').forEach((btn) => {
+      const tierAmt = Number(btn.getAttribute('data-grant-amount'));
+      btn.classList.toggle('active', tierAmt === amount);
+    });
+  };
+
+  window.applyGrantTierToIntake = function() {
+    const amount = currentSimulatedGrantAmount || 5000;
+    const directBudget = amount * 0.88;
+    const neighbors = Math.max(20, Math.round(directBudget / 18));
+    const gatherings = Math.max(1, Math.round(directBudget / 735));
+    const stipends = Math.max(2, Math.round((amount * 0.30) / 100));
+
+    if (typeof window.selectIntakeTab === 'function') {
+      window.selectIntakeTab('grantmaker');
+    }
+
+    const msgBox = document.getElementById('form-message');
+    if (msgBox) {
+      const formattedAmt = `$${amount.toLocaleString()}`;
+      msgBox.value =
+        `Grant / Sponsorship Alignment Inquiry (${formattedAmt} Tier):\n` +
+        `• Estimated Direct Impact: ~${neighbors}+ neighborhood participants across ${gatherings} substance-free Open Mic / Jam gatherings and ${stipends}+ local artist & facilitator stipends.\n` +
+        `• Please share your IRS 501(c)(3) Determination Letter, signed Form W-9, and CRA / RFP partnership brief.`;
+    }
+
+    const connectSection = document.getElementById('connect');
+    if (connectSection) {
+      connectSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    showFunderToast(`✓ Grant inquiry pre-filled for $${amount.toLocaleString()} tier!`);
+  };
+
+  // =========================================================================
+  // 1-CLICK 30-SECOND EXECUTIVE FUNDER QUICK-VIEW LENS
+  // =========================================================================
+  window.toggleFunderQuickView = function(event, forceState) {
+    if (event) event.preventDefault();
+    const isCurrentlyActive = document.body.classList.contains('funder-quick-view-active');
+    const nextState = typeof forceState === 'boolean' ? forceState : !isCurrentlyActive;
+
+    document.body.classList.toggle('funder-quick-view-active', nextState);
+
+    const bar = document.getElementById('funderQuickViewBar');
+    if (bar) {
+      bar.hidden = !nextState;
+    }
+
+    const btns = [
+      document.getElementById('btnFunderQuickViewToggle'),
+      document.getElementById('btnDossierModalQuickView')
+    ].filter(Boolean);
+
+    btns.forEach((btn) => {
+      btn.setAttribute('aria-pressed', nextState ? 'true' : 'false');
+      const labelSpan = btn.querySelector('span');
+      if (labelSpan) {
+        labelSpan.textContent = nextState ? '✕ Exit Funder Quick-View' : '⚡ 30-Sec Funder Quick-View';
+      }
+    });
+
+    if (nextState) {
+      showFunderToast('🏛️ 30-Sec Funder Quick-View active — compliance, outcomes & grant calculator ready');
+    } else {
+      showFunderToast('Returned to full community experience');
+    }
+  };
+
+  // Initialize simulator & optional ?funder=1 executive lens on load
+  document.addEventListener('DOMContentLoaded', () => {
+    window.updateGrantImpactSimulator(5000);
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('funder') === '1' || window.location.hash === '#grant-calculator') {
+      if (params.get('funder') === '1') {
+        window.toggleFunderQuickView(null, true);
+      }
+    }
+  });
+
   // Close on Escape or Backdrop
   window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {

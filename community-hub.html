@@ -1,79 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Community Hub • Inner Sanctuary Wellness Foundation</title>
-  <meta name="description" content="Inner Sanctuary Community Hub: An unhurried space for daily somatic reflections, community seed blessings, acoustic soundscapes, and creative expression.">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Community Hub &amp; Interactive Sanctuary | Inner Sanctuary Wellness Foundation</title>
+  <meta name="description" content="Explore the Inner Sanctuary Community Hub: Daily Sanctuary Sparks, Living Breath Pacer, Sacred Labyrinth, Intention Bracelet Weaver, Zen Plinko Seed Ritual, and The Greenroom." />
   <link rel="canonical" href="https://innersanctuarywellnessfoundation.org/community-hub.html" />
   <meta name="robots" content="index, follow" />
 
   <!-- Google Fonts: Master Typography System -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/png" href="emblem.png" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#2B4436" />
+
+  <!-- Core & Modular Stylesheets -->
+  <link rel="stylesheet" href="styles.css?v=6.2" />
+  <link rel="stylesheet" href="styles/modules/adaptive-atmosphere.css?v=1.0" />
+  <link rel="stylesheet" href="styles/modules/pause-booth.css?v=1.0" />
+  <link rel="stylesheet" href="styles/modules/raffle-wheel.css?v=1.0" />
+  <link rel="stylesheet" href="styles/modules/community-popup.css?v=1.0" />
+  <link rel="stylesheet" href="styles/modules/funder-dossier.css?v=1.0" />
+
   <style>
-    :root {
-      --hub-bg: #F6F3EC;
-      --hub-card-bg: rgba(255, 255, 255, 0.94);
-      --hub-border: 1.5px solid rgba(197, 154, 63, 0.35);
+    .hub-hero-banner {
+      padding: 56px 0 36px;
+      text-align: center;
+      position: relative;
+      z-index: 2;
     }
-    body {
-      background-color: var(--hub-bg);
-      color: var(--earth-charcoal);
-      font-family: var(--font-sans, 'Montserrat', sans-serif);
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
+    .hub-hero-glass-card {
+      max-width: 900px;
+      margin: 0 auto;
+      background: rgba(250, 248, 243, 0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1.5px solid rgba(197, 154, 63, 0.4);
+      border-radius: 26px;
+      padding: 40px 30px 34px;
+      box-shadow: 0 16px 42px rgba(17, 29, 22, 0.14);
+    }
+    .hub-pill-nav {
       display: flex;
-      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 24px auto 0;
+      max-width: 920px;
     }
-    .hub-header-bar {
-      background: rgba(246, 243, 236, 0.96);
+    .hub-section-block {
+      padding: 68px 0;
+      border-top: 1px solid rgba(197, 154, 63, 0.22);
+      position: relative;
+      z-index: 2;
+    }
+    .hub-section-cream {
+      background: rgba(246, 243, 236, 0.94);
       backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(197, 154, 63, 0.28);
-      padding: 16px 24px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      -webkit-backdrop-filter: blur(12px);
     }
-    .hub-brand-link {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-      color: var(--forest-green);
+    .hub-section-warm {
+      background: rgba(240, 236, 225, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
-    .hub-brand-emblem {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      border: 1px solid var(--sunburst-gold);
-    }
-    .hub-brand-text {
-      display: flex;
-      flex-direction: column;
-    }
-    .hub-brand-title {
-      font-family: var(--font-serif, 'Cinzel', serif);
-      font-size: 0.95rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      color: var(--forest-green);
-    }
-    .hub-brand-sub {
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      color: var(--sunburst-gold);
-      text-transform: uppercase;
-    }
-    .hub-nav-back {
+    .hub-back-pill {
       display: inline-flex;
       align-items: center;
       gap: 6px;
@@ -81,244 +76,829 @@
       border-radius: 999px;
       background: var(--forest-green);
       color: #FFFDF7 !important;
-      font-size: 0.82rem;
+      font-size: 0.78rem;
       font-weight: 700;
       text-decoration: none;
-      transition: all 0.2s ease;
-      box-shadow: 0 4px 12px rgba(43, 68, 54, 0.2);
+      border: 1px solid rgba(197, 154, 63, 0.45);
+      white-space: nowrap;
+      transition: all 0.25s ease;
     }
-    .hub-nav-back:hover {
+    .hub-back-pill:hover {
       background: var(--forest-dark);
       transform: translateY(-1px);
     }
-    .hub-hero {
-      text-align: center;
-      padding: 56px 20px 36px;
-      max-width: 860px;
-      margin: 0 auto;
-    }
-    .hub-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-      max-width: 1100px;
-      margin: 0 auto 60px;
-      padding: 0 20px;
-    }
-    .hub-feature-card {
-      background: var(--hub-card-bg);
-      border: var(--hub-border);
-      border-radius: 20px;
-      padding: 28px 24px;
-      box-shadow: 0 8px 24px rgba(43, 68, 54, 0.06);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
-    .hub-feature-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 36px rgba(43, 68, 54, 0.12);
-      border-color: rgba(197, 154, 63, 0.6);
-    }
-    .hub-card-badge {
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--sunburst-gold);
-      margin-bottom: 8px;
-    }
-    .hub-card-title {
-      font-family: var(--font-serif, 'Cinzel', serif);
-      font-size: 1.35rem;
-      color: var(--forest-green);
-      margin-bottom: 10px;
-    }
-    .hub-card-desc {
-      font-size: 0.95rem;
-      line-height: 1.65;
-      color: var(--charcoal-muted);
-      margin-bottom: 20px;
-    }
-    .hub-card-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 10px 18px;
-      border-radius: 999px;
-      background: rgba(197, 154, 63, 0.14);
-      color: var(--forest-green);
-      border: 1.5px solid rgba(197, 154, 63, 0.4);
-      font-size: 0.84rem;
-      font-weight: 700;
-      text-decoration: none;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-    .hub-card-btn:hover {
-      background: var(--sunburst-gold);
-      color: #1C1B18;
-      border-color: var(--sunburst-gold);
-    }
-    .hub-footer {
-      margin-top: auto;
-      background: #1E3328;
-      color: #FAF8F3;
-      padding: 32px 20px;
-      text-align: center;
-      font-size: 0.82rem;
-      border-top: 1px solid rgba(197, 154, 63, 0.35);
+    @media (max-width: 768px) {
+      .hub-back-pill, #btnSpeakeasyNav, #btnNavPauseBooth {
+        display: none !important;
+      }
     }
   </style>
 </head>
-<body>
+<body data-element="fire">
 
-  <!-- Top Sticky Header -->
-  <header class="hub-header-bar">
-    <a href="index.html" class="hub-brand-link">
-      <img src="emblem.png" alt="Inner Sanctuary Logo" class="hub-brand-emblem" onerror="this.src='emblem.jpg'">
-      <div class="hub-brand-text">
-        <span class="hub-brand-title">INNER SANCTUARY</span>
-        <span class="hub-brand-sub">Community Hub &amp; Rituals</span>
-      </div>
-    </a>
-    <a href="index.html" class="hub-nav-back">
-      <span>← Back to Sanctuary Home</span>
-    </a>
-  </header>
+  <!-- Living Atmosphere Background Layers -->
+  <canvas id="sanctuary-3d-canvas" class="sanctuary-3d-canvas" aria-hidden="true"></canvas>
+  <canvas id="argon-dust-canvas"></canvas>
+  <div id="realistic-element-sky" class="realistic-sky-bg" aria-hidden="true">
+    <div class="sky-plate sky-plate-primary active plate-fire" id="skyPlatePrimary"></div>
+    <div class="sky-plate sky-plate-secondary inactive" id="skyPlateSecondary"></div>
+    <canvas id="twilightConstellationCanvas" class="twilight-constellation-canvas" style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.55; z-index: 2;"></canvas>
+  </div>
+  <canvas id="elemental-sanctuary-bg"></canvas>
+  <div id="lantern-aura" class="lantern-aura"></div>
 
-  <main>
-    <!-- Hero Banner -->
-    <section class="hub-hero">
-      <div class="master-eyebrow-tag" style="margin-bottom: 10px;">
-        <span>✦ LIVING COMMUNITY SANCTUARY ✦</span>
+  <!-- Top Announcement Bar -->
+  <div class="announcement-bar">
+    <div class="container" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+      <span style="display: inline-flex; align-items: center; gap: 7px;">
+        <span style="font-size: 1rem;">✨</span>
+        <strong>Community Hub:</strong>
+        <span>Interactive Reflections, Intention Bracelets, Pause Tools &amp; The Greenroom</span>
+      </span>
+      <div style="display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+        <a href="index.html" class="btn-top-download-app" style="background: rgba(255, 255, 255, 0.16); color: #FFFFFF; font-weight: 700; font-size: 0.74rem; padding: 4px 12px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.45); text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
+          <span>← Sanctuary Home</span>
+        </a>
+        <button type="button" onclick="openZeffyModal(event)" class="btn-liquid-gold pulse-gold" style="background: var(--sunburst-gold); color: #1C1B18; font-weight: 700; font-size: 0.74rem; padding: 4px 12px; border-radius: 999px; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
+          <span>🌱 Give $1 Seed</span>
+        </button>
       </div>
-      <h1 class="master-font-serif" style="color: var(--forest-green); font-size: clamp(2rem, 3.8vw, 3rem); margin-bottom: 14px;">
-        Our Community Hub
-      </h1>
-      <div class="flourish-divider" style="color: var(--sunburst-gold); font-size: 1.1rem; margin-bottom: 14px;">✦</div>
-      <p class="master-lead-text" style="font-size: 1.1rem; max-width: 720px; margin: 0 auto;">
-        Welcome to your unhurried space for somatic grounding, interactive reflection cards, community seed blessings, and creative hearth rituals.
-      </p>
+    </div>
+  </div>
+
+  <!-- Clean Sticky Hub Navigation -->
+  <nav id="sanctuary-nav">
+    <div class="container nav-inner">
+      <div class="brand-group">
+        <a href="index.html" class="brand-group" style="text-decoration: none;">
+          <img class="nav-emblem" src="emblem.png" alt="Inner Sanctuary Emblem Logo" onerror="this.src='emblem.jpg'" onclick="handleSpeakeasyKnock(event)" title="Tap 3 times for Greenroom vault" />
+          <div class="brand-text-block">
+            <span class="nav-title serif-brand">INNER SANCTUARY</span>
+            <span class="nav-subtitle">COMMUNITY HUB</span>
+          </div>
+        </a>
+      </div>
+
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link-dual"><span class="nav-link-main">Home</span><span class="nav-link-sub">Main Sanctuary</span></a></li>
+        <li><a href="#sanctuary-reflection" class="nav-link-dual"><span class="nav-link-main">Sparks</span><span class="nav-link-sub">3D Card</span></a></li>
+        <li><a href="#breath" class="nav-link-dual"><span class="nav-link-main">Breathe</span><span class="nav-link-sub">Orb &amp; Labyrinth</span></a></li>
+        <li><a href="#bracelet-creator" class="nav-link-dual"><span class="nav-link-main">Bracelet</span><span class="nav-link-sub">Intention Weaver</span></a></li>
+        <li><a href="#zen-plinko" class="nav-link-dual"><span class="nav-link-main">Zen Plinko</span><span class="nav-link-sub">Seed Blessing</span></a></li>
+        <li><a href="#greenroom-vault" class="nav-link-dual"><span class="nav-link-main">Greenroom</span><span class="nav-link-sub">Speakeasy</span></a></li>
+      </ul>
+
+      <div class="nav-actions-group">
+        <div id="atmosphereSwitcherMount"></div>
+        <button type="button" id="btnSpeakeasyNav" class="nav-speakeasy-badge" onclick="handleSpeakeasyKnock(event)" title="🗝️ The Greenroom • 3 knocks unlock secret sessions">
+          <span class="speakeasy-key-icon">🗝️</span>
+          <span class="speakeasy-nav-text">Greenroom</span>
+          <span class="speakeasy-knock-counter" id="speakeasyKnockCounter">✦</span>
+        </button>
+        <button type="button" id="mobile-nav-toggle" class="mobile-nav-toggle" onclick="toggleMobileNavDrawer(event)" aria-label="Toggle Menu" aria-expanded="false">☰</button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-nav-drawer" class="hidden" style="display: none; padding: 20px; background: rgba(246, 243, 236, 0.98); backdrop-filter: blur(16px); border-bottom: 2px solid var(--sunburst-gold); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);">
+      <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; margin: 0; padding: 0;">
+        <li><a href="index.html" class="mobile-nav-item"><span class="mobile-nav-main">← Sanctuary Home</span><span class="mobile-nav-sub">Return to Main Page</span></a></li>
+        <li><a href="#sanctuary-reflection" onclick="document.getElementById('mobile-nav-drawer').style.display='none';" class="mobile-nav-item"><span class="mobile-nav-main">✨ Daily Sanctuary Sparks</span><span class="mobile-nav-sub">3D Flip Card &amp; Prompts</span></a></li>
+        <li><a href="#breath" onclick="document.getElementById('mobile-nav-drawer').style.display='none';" class="mobile-nav-item"><span class="mobile-nav-main">🕊️ Pause &amp; Breathe</span><span class="mobile-nav-sub">Orb &amp; Sacred Labyrinth</span></a></li>
+        <li><a href="#bracelet-creator" onclick="document.getElementById('mobile-nav-drawer').style.display='none';" class="mobile-nav-item"><span class="mobile-nav-main">📿 Intention Bracelet</span><span class="mobile-nav-sub">Keepsake Weaver</span></a></li>
+        <li><a href="#zen-plinko" onclick="document.getElementById('mobile-nav-drawer').style.display='none';" class="mobile-nav-item"><span class="mobile-nav-main">🎯 Zen Plinko</span><span class="mobile-nav-sub">Seed Blessing Ritual</span></a></li>
+        <li><a href="#hearth-mirror-portal" onclick="document.getElementById('mobile-nav-drawer').style.display='none';" class="mobile-nav-item"><span class="mobile-nav-main">🕯️ The Hearth Mirror</span><span class="mobile-nav-sub">Personal Reflection</span></a></li>
+        <li><a href="#greenroom-vault" onclick="document.getElementById('mobile-nav-drawer').style.display='none';" class="mobile-nav-item"><span class="mobile-nav-main">🗝️ The Greenroom</span><span class="mobile-nav-sub">Speakeasy &amp; Jam Sessions</span></a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main-content">
+
+    <!-- Hub Hero Header -->
+    <section class="hub-hero-banner">
+      <div class="container">
+        <div class="hub-hero-glass-card">
+          <div class="master-eyebrow-tag" style="margin-bottom: 12px;">
+            <span>✦ LIVING INTERACTIVE SANCTUARY • SEPARATE COMMUNITY TAB ✦</span>
+          </div>
+          <h1 class="master-heading-1" style="color: var(--forest-green); margin-bottom: 14px;">
+            Our Community Hub
+          </h1>
+          <div class="flourish-divider" style="color: var(--sunburst-gold); margin-bottom: 14px;">✦</div>
+          <p class="master-lead-text" style="max-width: 760px; margin: 0 auto;">
+            Every interactive ritual, reflection card, bracelet station, breath pacer, and Greenroom experience lives right here—keeping our homepage peaceful and uncluttered while giving our community room to play and unwind.
+          </p>
+
+          <div class="hub-pill-nav">
+            <a href="#sanctuary-reflection" class="ritual-pill-btn">✨ Daily Sparks</a>
+            <a href="#breath" class="ritual-pill-btn">🕊️ Breath Orb &amp; Labyrinth</a>
+            <a href="#bracelet-creator" class="ritual-pill-btn">📿 Intention Bracelet</a>
+            <a href="#zen-plinko" class="ritual-pill-btn">🎯 Zen Plinko</a>
+            <a href="#hearth-mirror-portal" class="ritual-pill-btn">🕯️ Hearth Mirror</a>
+            <a href="#greenroom-vault" class="ritual-pill-btn">🗝️ Greenroom &amp; Jam</a>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- Interactive Ritual Cards Grid -->
-    <div class="hub-grid">
+    <!-- 1. DAILY SANCTUARY SPARKS (RELOCATED FROM HERO/HOMEPAGE) -->
+    <section class="hub-section-block hub-section-cream">
+      <div class="container">
+        <div class="sanctuary-reflection-widget" id="sanctuary-reflection" style="background: rgba(255, 255, 255, 0.94); border: 1.5px solid rgba(197, 154, 63, 0.35); border-radius: 20px; padding: 34px 24px; box-shadow: 0 14px 36px rgba(43, 68, 54, 0.08); margin: 0 auto; max-width: 640px;">
+          <div class="reflection-widget-header">
+            <span class="reflection-widget-pill">✦ Daily Sanctuary Sparks ✦</span>
+            <h2 class="reflection-widget-title serif-brand">Draw Today's Sanctuary Spark</h2>
+            <p class="reflection-widget-sub">Receive an unhurried reminder to slow down, soften tension, and remember who you are. Generate with Gemini or draw a spark below.</p>
+          </div>
 
-      <!-- Feature 1: Daily Sanctuary Sparks -->
-      <div class="hub-feature-card">
-        <div>
-          <div class="hub-card-badge">✦ Daily Somatic Oracle</div>
-          <h2 class="hub-card-title">Sanctuary Sparks Oracle</h2>
-          <p class="hub-card-desc">
-            Draw today's flippable 3D reflection card or generate an unhurried reminder with Gemini AI based on how your body feels right now.
+          <div class="somatic-oracle-custom-bar">
+            <div class="somatic-oracle-input-wrap">
+              <span class="oracle-input-icon">✨</span>
+              <input type="text" id="somaticCustomInput" class="somatic-oracle-input" placeholder="How does your body feel? (e.g. tight chest, tired, anxious, seeking joy)" aria-label="Generate a Sanctuary Spark with Gemini" />
+              <button type="button" id="btnOracleGenerate" class="btn-oracle-generate" title="Generate Sanctuary Spark with Gemini">
+                <span id="oracleBtnText">✨ Generate with Gemini</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="reflection-card-stage" id="reflectionCardStage">
+            <div class="reflection-card-3d is-flipped" id="reflectionCard3D" role="button" tabindex="0" aria-label="Tap to draw and flip your daily sanctuary spark reflection card">
+              <div class="reflection-card-face card-face-front">
+                <div class="card-front-halo"></div>
+                <div class="card-front-emblem">✦</div>
+                <div class="card-front-text">TAP TO DRAW YOUR SPARK</div>
+                <div class="card-front-sub">Sanctuary Sparks • Unhurried • Grounded</div>
+                <div class="card-specular-glare"></div>
+              </div>
+
+              <div class="reflection-card-face card-face-back" id="reflectionCardBack">
+                <div class="card-back-badge" id="reflectionCardBadge">✦ SANCTUARY SPARK ✦</div>
+                <blockquote class="card-back-quote" id="reflectionCardQuote">
+                  "Where in your body are you holding yesterday? Soften your jaw, drop your shoulders, and let this breath belong only to right now."
+                </blockquote>
+                <div class="card-back-source" id="reflectionCardSource">— Inner Sanctuary Sparks</div>
+                <div class="card-specular-glare"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="reflection-actions-wrap">
+            <button type="button" class="btn-reflection-action btn-reflection-draw" id="btnDrawNewReflection" title="Draw another Sanctuary Spark">
+              <span>🔄 Draw Another Spark</span>
+            </button>
+            <button type="button" class="btn-reflection-action btn-reflection-copy" id="btnCopyReflection" title="Copy Sanctuary Spark to clipboard">
+              <span id="btnCopyReflectionIcon">📋</span>
+              <span id="btnCopyReflectionLabel">Copy Sanctuary Spark</span>
+            </button>
+            <button type="button" class="btn-reflection-action btn-reflection-share" id="btnShareIG" onclick="openStorySnapshotFromReflection(event)" title="Create 9:16 Instagram Story snapshot card">
+              <span>📸 Share to IG Story</span>
+            </button>
+          </div>
+
+          <div class="reflection-copy-toast" id="reflectionCopyToast" role="status" aria-live="polite">
+            ✓ Copied to clipboard! Ready to paste into Instagram Story or journal.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. LIVING BREATH ORB & SACRED LABYRINTH -->
+    <section id="breath" class="section-padding sacred-breath-section">
+      <div class="container" style="text-align: center;">
+        <div class="section-header" style="max-width: 680px; margin: 0 auto 20px; text-align: center;">
+          <div class="section-subtitle" style="color: var(--sunburst-gold); font-weight: 700; letter-spacing: 0.12em;">Pause Activation • Unhurried Presence</div>
+          <h2 class="section-title serif-brand" style="color: var(--forest-green); font-size: 2.3rem;">Pause &amp; Breathe</h2>
+          <div class="flourish-divider">✦</div>
+          <p style="color: var(--charcoal-muted); font-size: 1.05rem; line-height: 1.7; font-weight: 500; margin-bottom: 0;">
+            Soften your shoulders.<br />
+            Tap the living orb below and breathe with its gentle expansion and release.
           </p>
         </div>
-        <a href="index.html#sanctuary-reflection" class="hub-card-btn">
-          <span>✨ Draw Today's Spark</span>
-        </a>
-      </div>
 
-      <!-- Feature 2: Digital Pause Booth -->
-      <div class="hub-feature-card">
-        <div>
-          <div class="hub-card-badge">🍃 60-Second Nervous System Reset</div>
-          <h2 class="hub-card-title">Digital Pause Booth</h2>
-          <p class="hub-card-desc">
-            Experience our 60-second guided somatic breath reset with visual breath ripples, grounding prompts, and 528Hz acoustic tones.
-          </p>
+        <div class="sanctuary-orb-card" id="sacred-breathing-portal">
+          <div class="breathing-orb-wrapper" id="breathing-orb-stage" role="button" tabindex="0" title="Click or tap the Orb to breathe" aria-label="Interactive Breathing Orb">
+            <div class="breathing-pulse-ring"></div>
+            <div class="breathing-halo-aura" id="somatic-halo"></div>
+            <div class="air-breeze-ripple-layer" id="airBreezeRippleLayer" aria-hidden="true">
+              <span class="air-ripple air-ripple-1"></span>
+              <span class="air-ripple air-ripple-2"></span>
+              <span class="air-ripple air-ripple-3"></span>
+            </div>
+            <div class="breathing-orb" id="somatic-orb">
+              <div class="orb-inner-glow" id="orb-inner-glow"></div>
+              <div class="orb-center-content">
+                <span class="orb-breath-word" id="orb-breath-word">Breathe</span>
+              </div>
+            </div>
+          </div>
+
+          <div id="orb-status-prompt" class="orb-status-prompt" style="color: var(--forest-green); font-weight: 700;">
+            Tap the orb or press begin below
+          </div>
+
+          <div class="orb-actions-bar" style="justify-content: center; flex-wrap: wrap; gap: 10px;">
+            <button id="orb-toggle-btn" class="breath-primary-toggle" type="button" aria-label="Start or Pause Breath Session">
+              <span class="btn-ctrl-icon" id="btn-ctrl-icon">▶</span>
+              <span id="orb-btn-label">Begin</span>
+            </button>
+            <button id="btnOpenLabyrinth" class="btn btn-outline" type="button" style="border-color: rgba(197, 154, 63, 0.45); color: var(--forest-green); padding: 8px 18px; border-radius: 999px; font-size: 0.82rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;" aria-label="Open Digital Labyrinth Pop-up">
+              <span>🌀</span>
+              <span>Walk Sacred Labyrinth</span>
+            </button>
+            <a href="#bracelet-creator" class="btn btn-outline" style="border-color: rgba(197, 154, 63, 0.45); color: var(--forest-green); padding: 8px 18px; border-radius: 999px; font-size: 0.82rem; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+              <span>📿</span>
+              <span>Weave Intention Bracelet</span>
+            </a>
+          </div>
+
+          <div class="breath-workshop-cta-wrap" style="margin-top: 14px; padding-top: 10px; border-top: 1px solid rgba(197, 154, 63, 0.25);">
+            <a href="index.html#connect" class="breath-workshop-cta-btn" id="breath-workshop-cta-btn" style="color: var(--forest-green); font-weight: 700;">
+              <span>Join Our Next Live Gathering</span>
+              <span class="cta-arrow">→</span>
+            </a>
+          </div>
         </div>
-        <a href="index.html#remember" class="hub-card-btn">
-          <span>🍃 Launch Pause Booth</span>
-        </a>
       </div>
+    </section>
 
-      <!-- Feature 3: Zen Plinko Blessing -->
-      <div class="hub-feature-card">
-        <div>
-          <div class="hub-card-badge">🎯 Grassroots Seed Blessing</div>
-          <h2 class="hub-card-title">Zen Plinko Ritual</h2>
-          <p class="hub-card-desc">
-            Drop an intention seed through the interactive acoustic Plinko board. Receive a gentle blessing for nourishment, belonging, or rest.
-          </p>
+    <!-- 3. DIGITAL INTENTION BRACELET CREATOR -->
+    <section class="hub-section-block hub-section-warm">
+      <div class="container">
+        <div class="digital-bracelet-creator" id="bracelet-creator" style="margin-top: 0;">
+          <div class="bracelet-header">
+            <span class="bracelet-pill">✦ Interactive Pause Activation</span>
+            <h2 class="bracelet-title serif-brand">Weave Your Digital Intention Bracelet</h2>
+            <p class="bracelet-sub">
+              Experience our in-person mindfulness station: choose <strong>3 intentional beads</strong> below to craft your wearable anchor of peace and reveal your personal Sanctuary Spark.
+            </p>
+          </div>
+
+          <div class="bead-palette-grid" role="group" aria-label="Select 3 Intention Beads">
+            <button type="button" class="bead-btn" data-bead="cedar" data-name="Cedar Wood" data-meaning="Grounded Roots &amp; Quiet Presence" data-color="#8B5A2B">
+              <span class="bead-circle" style="background: radial-gradient(circle at 35% 35%, #C19A6B, #8B5A2B 70%, #5C3A1E);"></span>
+              <span class="bead-title">Cedar Wood</span>
+              <span class="bead-intent">Grounded Roots</span>
+            </button>
+            <button type="button" class="bead-btn" data-bead="rosequartz" data-name="Rose Quartz" data-meaning="Unconditional Self-Compassion" data-color="#F4C2C2">
+              <span class="bead-circle" style="background: radial-gradient(circle at 35% 35%, #FFF0F5, #F4C2C2 60%, #E699A8);"></span>
+              <span class="bead-title">Rose Quartz</span>
+              <span class="bead-intent">Self-Compassion</span>
+            </button>
+            <button type="button" class="bead-btn" data-bead="lavastone" data-name="Lava Stone" data-meaning="Tension Release &amp; Earth Strength" data-color="#3A3A3A">
+              <span class="bead-circle" style="background: radial-gradient(circle at 35% 35%, #555555, #2B2B2B 70%, #151515);"></span>
+              <span class="bead-title">Lava Stone</span>
+              <span class="bead-intent">Tension Release</span>
+            </button>
+            <button type="button" class="bead-btn" data-bead="turquoise" data-name="River Turquoise" data-meaning="Authentic Voice &amp; Serenity" data-color="#2E7D73">
+              <span class="bead-circle" style="background: radial-gradient(circle at 35% 32%, #A8E6CF 0%, #3AAFA9 42%, #2E7D73 75%, #174842 100%);"></span>
+              <span class="bead-title">Turquoise</span>
+              <span class="bead-intent">Authentic Voice</span>
+            </button>
+            <button type="button" class="bead-btn" data-bead="gold" data-name="Sunburst Gold" data-meaning="Inner Radiance &amp; Soul Joy" data-color="#FFD700">
+              <span class="bead-circle" style="background: radial-gradient(circle at 35% 35%, #FFF9D2, #FFD700 65%, #C67D00);"></span>
+              <span class="bead-title">Sunburst Gold</span>
+              <span class="bead-intent">Inner Radiance</span>
+            </button>
+            <button type="button" class="bead-btn" data-bead="mossagate" data-name="Moss Agate" data-meaning="Nature Healing &amp; Quiet Trust" data-color="#4A704A">
+              <span class="bead-circle" style="background: radial-gradient(circle at 35% 35%, #A2C4A2, #4A704A 65%, #254025);"></span>
+              <span class="bead-title">Moss Agate</span>
+              <span class="bead-intent">Quiet Trust</span>
+            </button>
+          </div>
+
+          <div class="bracelet-stage" id="braceletStage">
+            <div class="bracelet-cord-line"></div>
+            <div class="bracelet-slots" id="braceletSlots">
+              <div class="bead-slot empty" id="slot0"><span class="slot-placeholder">+ Bead 1</span></div>
+              <div class="bead-slot empty" id="slot1"><span class="slot-placeholder">+ Bead 2</span></div>
+              <div class="bead-slot empty" id="slot2"><span class="slot-placeholder">+ Bead 3</span></div>
+            </div>
+          </div>
+
+          <div style="text-align: center;">
+            <button type="button" class="btn btn-gold btn-liquid-gold pulse-gold btn-open-bracelet-modal" id="btnOpenBraceletModal" onclick="openBraceletKeepsakeModal()" style="display: none;">
+              <span>✨ View Your Keepsake Pop-Up Window ↗</span>
+            </button>
+            <a href="bracelet-weaver.html" class="btn btn-outline" style="margin-left: 8px; text-decoration: none; font-size: 0.82rem; padding: 10px 18px; border-radius: 999px;">
+              <span>Standalone Weaver Tool ↗</span>
+            </a>
+          </div>
         </div>
-        <a href="index.html#zen-plinko" class="hub-card-btn">
-          <span>🎯 Drop a Zen Seed</span>
-        </a>
       </div>
+    </section>
 
-      <!-- Feature 4: $1 Seed Campaign & Garden -->
-      <div class="hub-feature-card">
-        <div>
-          <div class="hub-card-badge">🌱 Micro-Giving &amp; Collective Care</div>
-          <h2 class="hub-card-title">The $1 Seed Garden</h2>
-          <p class="hub-card-desc">
-            Discover how $1 micro-donations directly fund warm herbal tea, open mic stages, and unplugged community jam sessions.
-          </p>
+    <!-- 4. ZEN PLINKO SEED BLESSING -->
+    <section class="hub-section-block hub-section-cream">
+      <div class="container">
+        <div id="zen-plinko" class="zen-plinko-wrapper" style="max-width: 860px; margin: 0 auto; background: linear-gradient(165deg, rgba(34, 54, 43, 0.96) 0%, rgba(20, 32, 25, 0.98) 100%); border: 1.5px solid rgba(197, 154, 63, 0.5); border-radius: 24px; padding: 32px 24px 28px; box-shadow: 0 16px 42px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.12); position: relative; overflow: hidden;">
+          <div style="text-align: center; position: relative; z-index: 2; margin-bottom: 20px;">
+            <span style="font-size: 0.74rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #FCE6A2; background: rgba(197, 154, 63, 0.22); border: 1px solid rgba(197, 154, 63, 0.45); padding: 4px 14px; border-radius: 999px; display: inline-block; margin-bottom: 10px;">
+              ✦ Interactive Community Seed Ritual ✦
+            </span>
+            <h2 class="serif-brand" style="color: #FFFFFF; font-size: clamp(1.6rem, 2.8vw, 2.1rem); margin: 0 0 8px;">
+              The "Drop a Seed" Zen Plinko
+            </h2>
+            <p style="color: #DCEEE2; font-size: 0.95rem; max-width: 620px; margin: 0 auto; line-height: 1.6;">
+              Tap anywhere along the bar below to release a golden seed into the Sanctuary and discover the community offering your pause nurtures today.
+            </p>
+          </div>
+
+          <div class="plinko-drop-control-bar" id="plinkoDropBar" title="Click or tap anywhere along this bar to drop your seed" style="background: rgba(0, 0, 0, 0.35); border: 1.5px dashed rgba(197, 154, 63, 0.6); border-radius: 14px; padding: 12px 18px; margin: 0 auto 16px; max-width: 580px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 1.25rem;">🌱</span>
+              <span style="font-size: 0.88rem; font-weight: 600; color: #FFFDF7;">Tap or click to drop a seed</span>
+            </div>
+            <button type="button" id="btnDropSeedManual" class="btn btn-gold btn-liquid-gold pulse-gold" style="font-size: 0.78rem; font-weight: 700; padding: 6px 14px; border-radius: 999px; border: none; cursor: pointer;">
+              <span>🌱 Drop A Seed</span>
+            </button>
+          </div>
+
+          <div class="plinko-canvas-container" style="position: relative; max-width: 580px; margin: 0 auto; border-radius: 16px; overflow: hidden; background: radial-gradient(circle at 50% 20%, #1D3126 0%, #111E17 100%); border: 1px solid rgba(197, 154, 63, 0.35); box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.45);">
+            <canvas id="zenPlinkoCanvas" width="580" height="420" style="display: block; width: 100%; height: auto; touch-action: none; cursor: pointer;"></canvas>
+            <div class="plinko-aim-guide" id="plinkoAimGuide" style="position: absolute; top: 0; bottom: 0; width: 1px; border-left: 1px dashed rgba(197, 154, 63, 0.4); pointer-events: none; opacity: 0; transition: opacity 0.2s ease;"></div>
+          </div>
+
+          <div class="plinko-baskets-legend" id="plinkoBasketsLegend" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; max-width: 580px; margin: 12px auto 20px;">
+            <div class="plinko-basket-card" data-basket="0" style="background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(197, 154, 63, 0.25); border-radius: 10px; padding: 8px 4px; text-align: center;">
+              <div style="font-size: 1.1rem; margin-bottom: 2px;">🎵</div>
+              <div style="font-size: 0.72rem; font-weight: 700; color: #FFF8E7; line-height: 1.2;">Jam Session</div>
+              <div style="font-size: 0.62rem; color: #A6C9B2;">Acoustic Hearth</div>
+            </div>
+            <div class="plinko-basket-card" data-basket="1" style="background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(197, 154, 63, 0.25); border-radius: 10px; padding: 8px 4px; text-align: center;">
+              <div style="font-size: 1.1rem; margin-bottom: 2px;">📿</div>
+              <div style="font-size: 0.72rem; font-weight: 700; color: #FFF8E7; line-height: 1.2;">Intention Bead</div>
+              <div style="font-size: 0.62rem; color: #A6C9B2;">Anchor Weave</div>
+            </div>
+            <div class="plinko-basket-card" data-basket="2" style="background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(197, 154, 63, 0.25); border-radius: 10px; padding: 8px 4px; text-align: center;">
+              <div style="font-size: 1.1rem; margin-bottom: 2px;">🎙️</div>
+              <div style="font-size: 0.72rem; font-weight: 700; color: #FFF8E7; line-height: 1.2;">Open Mic</div>
+              <div style="font-size: 0.62rem; color: #A6C9B2;">Stage Sound</div>
+            </div>
+            <div class="plinko-basket-card" data-basket="3" style="background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(197, 154, 63, 0.25); border-radius: 10px; padding: 8px 4px; text-align: center;">
+              <div style="font-size: 1.1rem; margin-bottom: 2px;">🕊️</div>
+              <div style="font-size: 0.72rem; font-weight: 700; color: #FFF8E7; line-height: 1.2;">60-Sec Pause</div>
+              <div style="font-size: 0.62rem; color: #A6C9B2;">Calm Reset</div>
+            </div>
+            <div class="plinko-basket-card" data-basket="4" style="background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(197, 154, 63, 0.25); border-radius: 10px; padding: 8px 4px; text-align: center;">
+              <div style="font-size: 1.1rem; margin-bottom: 2px;">🏛️</div>
+              <div style="font-size: 0.72rem; font-weight: 700; color: #FFF8E7; line-height: 1.2;">Sanctuary Pillar</div>
+              <div style="font-size: 0.62rem; color: #A6C9B2;">Root Foundation</div>
+            </div>
+          </div>
+
+          <div id="plinkoResultBox" style="display: none; background: rgba(0, 0, 0, 0.4); border: 1.5px solid var(--sunburst-gold); border-radius: 16px; padding: 18px 20px; max-width: 580px; margin: 0 auto 16px; text-align: center;">
+            <div style="font-size: 0.75rem; font-weight: 700; color: #FCE6A2; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px;">
+              ✦ SEED SPROUTED IN THE SANCTUARY ✦
+            </div>
+            <div id="plinkoResultTitle" class="serif-brand" style="font-size: 1.35rem; color: #FFFFFF; margin-bottom: 6px;">
+              🎵 You Nourished: Jam Session Unplugged Playground
+            </div>
+            <p id="plinkoResultDesc" style="color: #DCEEE2; font-size: 0.90rem; margin: 0 0 16px; line-height: 1.5;">
+              "An acoustic instrument or welcoming presence offered freely so a local creator or neighbor can jam, find harmony, and experience community belonging."
+            </p>
+            <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
+              <button type="button" id="btnPlinkoReplay" class="btn btn-outline" style="font-size: 0.80rem; padding: 8px 16px; color: #FFFFFF; border-color: rgba(255, 255, 255, 0.4);">
+                <span>🔄 Drop Another Seed</span>
+              </button>
+              <button type="button" onclick="openZeffyModal(event)" class="btn btn-gold btn-liquid-gold pulse-gold" style="font-size: 0.80rem; padding: 8px 18px;">
+                <span>🌱 Plant Real Roots ($1 via Zeffy)</span>
+              </button>
+            </div>
+          </div>
+
+          <div style="text-align: center; font-size: 0.84rem; color: #FCE6A2; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px;">
+            <span>🌱 Community Seeds Sown Today: <strong id="plinkoSeedCounter" style="color: #FFFFFF; font-size: 1.05rem; font-family: 'Cinzel', serif;">142</strong></span>
+            <span style="opacity: 0.6;">•</span>
+            <span style="color: #A6C9B2; font-weight: 400; font-size: 0.80rem;">100% Tax-Deductible 501(c)(3)</span>
+          </div>
         </div>
-        <a href="index.html#circle-growth" class="hub-card-btn">
-          <span>🌱 Plant Your $1 Seed</span>
-        </a>
       </div>
+    </section>
 
-      <!-- Feature 5: Jam Sessions -->
-      <div class="hub-feature-card">
-        <div>
-          <div class="hub-card-badge">🎵 Acoustic Jam Sessions</div>
-          <h2 class="hub-card-title">The Unplugged Playground</h2>
-          <p class="hub-card-desc">
-            10 Humans. A Few Instruments. Endless Possibilities. An intimate unplugged session hosted by SoCal Creatives Collective. Bring an acoustic instrument or just your ears.
+    <!-- 5. THE HEARTH MIRROR (GEMINI WISDOM COMPANION) + GREENROOM SPEAKEASY -->
+    <section id="greenroom-vault" class="hub-section-block hub-section-warm">
+      <div class="container">
+        <div class="hearth-mirror-card" id="hearth-mirror-portal" style="max-width: 720px; margin: 0 auto 38px; background: rgba(30, 49, 39, 0.94); border: 1.5px solid rgba(197, 154, 63, 0.45); border-radius: 20px; padding: 36px 30px; box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22); color: #FFFDF7; text-align: center; position: relative; overflow: hidden;">
+          <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(197, 154, 63, 0.18); border: 1px solid rgba(197, 154, 63, 0.4); padding: 5px 14px; border-radius: 999px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; color: #FCE6A2; text-transform: uppercase; margin-bottom: 16px;">
+            <span>✦ THE HEARTH MIRROR • GEMINI WISDOM COMPANION ✦</span>
+          </div>
+
+          <h2 class="serif-brand" style="color: #FFFDF7; font-size: 1.85rem; margin: 0 0 10px;">
+            What is on your heart right now?
+          </h2>
+          <p style="color: rgba(255, 253, 247, 0.85); font-size: 0.98rem; line-height: 1.6; max-width: 580px; margin: 0 auto 22px;">
+            Whisper what you are carrying or navigating today. The Hearth Mirror reflects back a personalized grounding spark to help you soften, breathe, and remember.
           </p>
-        </div>
-        <a href="https://www.meetup.com/socal-creatives-collective/events/317462800/" target="_blank" rel="noopener noreferrer" class="hub-card-btn">
-          <span>🎵 RSVP on Meetup ↗</span>
-        </a>
-      </div>
 
-      <!-- Feature 6: Keepsake Intention Bracelet -->
-      <div class="hub-feature-card">
-        <div>
-          <div class="hub-card-badge">📿 Somatic Keepsake Weaver</div>
-          <h2 class="hub-card-title">Intention Bracelet Creator</h2>
-          <p class="hub-card-desc">
-            Weave your custom 3-bead virtual intention bracelet with Cedarwood, Rose Quartz, and Gold, paired with a personalized spark.
+          <div class="hearth-emotion-pills" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 20px;">
+            <button type="button" class="hearth-pill-btn" data-emotion="overwhelmed">🌪️ Overwhelmed</button>
+            <button type="button" class="hearth-pill-btn" data-emotion="heavy-heart">🌧️ Heavy Heart</button>
+            <button type="button" class="hearth-pill-btn" data-emotion="seeking-peace">🕊️ Seeking Peace</button>
+            <button type="button" class="hearth-pill-btn" data-emotion="creative-spark">🔥 Creative Spark</button>
+            <button type="button" class="hearth-pill-btn" data-emotion="lonely">🕯️ Need Connection</button>
+            <button type="button" class="hearth-pill-btn" data-emotion="grateful">🌿 Grateful</button>
+          </div>
+
+          <div style="margin-bottom: 20px;">
+            <textarea id="hearthReflectionInput" placeholder="Whisper what you are carrying or navigating today (or tap a feeling above)..." rows="2" style="width: 100%; box-sizing: border-box; background: rgba(18, 30, 24, 0.75); border: 1.5px solid rgba(197, 154, 63, 0.35); border-radius: 12px; color: #FFFDF7; font-size: 0.95rem; padding: 14px 16px; font-family: inherit; line-height: 1.5; resize: vertical; outline: none;"></textarea>
+          </div>
+
+          <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
+            <button type="button" id="btnReceiveReflection" class="btn btn-gold" style="padding: 12px 24px; font-weight: 700; letter-spacing: 0.05em; font-size: 0.92rem; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
+              <span id="hearthBtnSpinner" style="display: none;">⏳</span>
+              <span id="hearthBtnText">✦ Receive Hearth Reflection</span>
+            </button>
+          </div>
+
+          <div id="hearthReflectionResult" style="display: none; margin-top: 28px; padding-top: 24px; border-top: 1px solid rgba(197, 154, 63, 0.3); text-align: left;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+              <span style="font-size: 0.76rem; letter-spacing: 0.1em; color: var(--sunburst-gold); font-weight: 700; text-transform: uppercase;">✦ Hearth Reflection Spark</span>
+              <span id="hearthResultTag" style="font-size: 0.74rem; background: rgba(197, 154, 63, 0.2); color: #FCE6A2; padding: 2px 8px; border-radius: 4px; font-weight: 600;">Peace</span>
+            </div>
+            <div id="hearthResultQuote" class="serif-brand" style="font-size: 1.18rem; color: #FFFDF7; line-height: 1.7; font-style: italic; margin-bottom: 16px;">
+              "Take a gentle breath, friend. You have been carrying so much..."
+            </div>
+            <div id="hearthResultPractice" style="background: rgba(18, 30, 24, 0.6); border-left: 3px solid var(--sunburst-gold); padding: 12px 16px; border-radius: 6px; font-size: 0.88rem; color: rgba(255, 253, 247, 0.9); margin-bottom: 18px;">
+              <strong>🌿 Grounding Micro-Practice:</strong> Let your jaw unclench and take 3 slow breaths with the Living Breath Orb above.
+            </div>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end;">
+              <a href="index.html#open-mic" class="btn btn-gold" style="font-size: 0.8rem; padding: 8px 14px; border-radius: 6px; text-decoration: none;">
+                Join Our Next Open Mic or Jam →
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- The Sanctuary Greenroom & Secret Raffle Vault Invitation -->
+        <div class="speakeasy-hearth-invite-card" id="community-raffle-wheel" data-alias="community-pulse-wall" aria-label="Inner Sanctuary Secret Speakeasy Raffle Wheel" style="max-width: 820px; margin: 0 auto 32px;">
+          <div class="speakeasy-invite-halo"></div>
+          <span class="speakeasy-invite-badge">✦ THE SANCTUARY GREENROOM • 3 KNOCKS TO UNLOCK ✦</span>
+          <h3 class="speakeasy-invite-title serif-brand">The Secret Speakeasy &amp; Raffle Vault</h3>
+          <p class="speakeasy-invite-sub">
+            Behind the sacred medallion lies our hidden Greenroom hearth—featuring the midnight vinyl player, open mic whisper vault, and the <strong>Secret Raffle Wheel</strong> for community gatherings.
           </p>
+          <div class="speakeasy-invite-actions">
+            <button type="button" class="btn btn-gold btn-liquid-gold" onclick="window.sanctuaryRaffleWheel.openSpeakeasyWheel()" aria-label="Knock 3 Times & Open Secret Speakeasy Wheel">
+              <span>🗝️ Knock 3 Times &amp; Open Wheel</span>
+              <span>→</span>
+            </button>
+            <a href="https://www.meetup.com/socal-creatives-collective/events/317462800/" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="border-color: rgba(245, 215, 127, 0.55); color: #F5D77F !important; text-decoration: none;">
+              <span>🎵 RSVP: Unplugged Jam Session ↗</span>
+            </a>
+          </div>
         </div>
-        <a href="bracelet-weaver.html" class="hub-card-btn">
-          <span>📿 Open Bracelet Weaver</span>
-        </a>
-      </div>
 
-      <!-- Feature 7: The Greenroom Speakeasy -->
-      <div class="hub-feature-card">
-        <div>
-          <div class="hub-card-badge">🗝️ Acoustic Living Lounge</div>
-          <h2 class="hub-card-title">The Greenroom Speakeasy</h2>
-          <p class="hub-card-desc">
-            Tap the sacred emblem 3 times to unlock private vinyl sessions, unreleased open mic poetry, and intimate acoustic recordings.
-          </p>
-        </div>
-        <a href="index.html#remember" class="hub-card-btn">
-          <span>🗝️ Enter Greenroom</span>
-        </a>
       </div>
+    </section>
 
-    </div>
   </main>
 
-  <footer class="hub-footer">
-    <div style="max-width: 800px; margin: 0 auto; line-height: 1.7;">
-      <p style="font-weight: 700; color: #F5D77F; margin-bottom: 6px;">Inner Sanctuary Wellness Foundation</p>
-      <p style="opacity: 0.85; margin-bottom: 12px;">
+  <footer>
+    <div class="container" style="text-align: center; padding: 36px 20px;">
+      <p style="font-family: 'Cinzel', serif; font-size: 1.1rem; color: #F5D77F; font-weight: 700; margin-bottom: 8px;">Inner Sanctuary Wellness Foundation</p>
+      <p style="color: #CBD7D0; font-size: 0.85rem; margin-bottom: 14px;">
         California 501(c)(3) Public Charity • IRC § 170(b)(1)(A)(vi) • Federal EIN: <strong>39-3757168</strong>
       </p>
-      <p style="font-size: 0.76rem; opacity: 0.7;">
-        Founded by Executive Director Teshia Campbell • Presided by Marlon Smith • 100% Tax-Deductible
-      </p>
+      <div style="display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; font-size: 0.84rem;">
+        <a href="index.html" style="color: #FFFDF7; text-decoration: underline;">← Sanctuary Home</a>
+        <a href="index.html#core-activations" style="color: #F5D77F; text-decoration: underline;">Core Grant Activations</a>
+        <a href="index.html#open-mic" style="color: #FFFDF7; text-decoration: underline;">Open Mic &amp; Jam Schedule</a>
+        <a href="index.html#sponsorship" style="color: #F5D77F; text-decoration: underline;">Grants &amp; Sponsorship</a>
+      </div>
     </div>
   </footer>
 
+  <!-- MODALS FOR FULL INTERACTIVITY INSIDE COMMUNITY HUB -->
+
+  <!-- Speakeasy Modal -->
+  <div id="speakeasyModal" class="speakeasy-modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true" style="display: none;">
+    <div class="speakeasy-modal-dialog">
+      <button type="button" class="speakeasy-modal-close" aria-label="Close Greenroom window" onclick="closeSpeakeasyModal()">&times;</button>
+      <div class="speakeasy-modal-header">
+        <div class="speakeasy-modal-badge">✦ THE SANCTUARY GREENROOM • SECRET CLUBHOUSE ✦</div>
+        <h3 class="speakeasy-modal-title serif-brand">Welcome to the Clubhouse Hearth</h3>
+        <p class="speakeasy-modal-sub">You knocked three times on the medallion. Step into the warm cabin glow, take a deep breath, and make yourself at home.</p>
+      </div>
+
+      <div class="speakeasy-welcome-banner" style="background: rgba(197, 154, 63, 0.22); border: 1.5px solid rgba(212, 175, 55, 0.55); border-radius: 16px; padding: 18px 22px; margin-bottom: 24px; text-align: center;">
+        <div style="color: #FCE6A2; font-family: 'Cinzel', serif; font-size: 1.1rem; font-weight: 700; letter-spacing: 0.08em; margin-bottom: 6px;">
+          🔥 "The sanctuary you searched for is right here with us."
+        </div>
+        <p style="color: #E2ECE5; font-size: 0.92rem; margin: 0; line-height: 1.6;">
+          You've unlocked our private community hearth. Listen to unplugged vibes, share stage whispers, or spin the community raffle vault.
+        </p>
+      </div>
+
+      <div class="speakeasy-tabs-bar" role="tablist">
+        <button type="button" class="speakeasy-tab-btn active" id="tabBtnWheel" onclick="switchSpeakeasyTab('wheel')"><span>🎰</span> <span>Secret Raffle</span></button>
+        <button type="button" class="speakeasy-tab-btn" id="tabBtnVinyl" onclick="switchSpeakeasyTab('vinyl')"><span>💽</span> <span>Midnight Vinyl</span></button>
+        <button type="button" class="speakeasy-tab-btn" id="tabBtnMic" onclick="switchSpeakeasyTab('mic')"><span>🎙️</span> <span>Pass the Mic</span></button>
+        <button type="button" class="speakeasy-tab-btn" id="tabBtnPass" onclick="switchSpeakeasyTab('pass')"><span>🎫</span> <span>Backstage Pass</span></button>
+      </div>
+
+      <div class="speakeasy-tab-pane active" id="tabPaneWheel">
+        <div class="speakeasy-wheel-stage">
+          <div id="speakeasyWheelGate" class="speakeasy-gate-card">
+            <div class="speakeasy-gate-icon">🗝️</div>
+            <div class="speakeasy-gate-badge">✦ RESTRICTED GREENROOM VAULT ✦</div>
+            <h4 class="speakeasy-gate-title serif-brand">Secret Gacha Wheel Vault</h4>
+            <p class="speakeasy-gate-sub">Whisper the sacred passkey to unlock the speakeasy wheel for active gathering perks and keepsakes.</p>
+            <form id="speakeasyWheelForm" onsubmit="event.preventDefault(); window.sanctuaryRaffleWheel.unlockWithPasskey();">
+              <div class="speakeasy-gate-input-wrap">
+                <input type="password" id="speakeasyWheelPassInput" class="speakeasy-gate-input" placeholder="Whisper passkey (e.g. 777)..." autocomplete="off" />
+                <button type="submit" id="speakeasyWheelUnlockBtn" class="btn btn-gold btn-liquid-gold speakeasy-gate-btn"><span>Unlock</span> <span>🗝️</span></button>
+              </div>
+            </form>
+            <div class="speakeasy-gate-hint">💡 <em>Hint: The secret key (<strong>777</strong>) or <strong>sanctuary777</strong></em></div>
+            <div id="speakeasyWheelGateError" class="speakeasy-gate-error" style="display: none;">⚠️ Incorrect passkey.</div>
+          </div>
+
+          <div id="speakeasyWheelUnlocked" class="speakeasy-wheel-unlocked" style="display: none;">
+            <div class="speakeasy-wheel-header">
+              <span class="speakeasy-wheel-tag">✦ VAULT UNLOCKED • GACHA ACTIVE ✦</span>
+              <h4 class="speakeasy-wheel-title serif-brand">Speakeasy Raffle Wheel</h4>
+            </div>
+            <div class="raffle-wheel-stage">
+              <div class="raffle-wheel-container">
+                <div class="raffle-wheel-pointer" id="rafflePointer"></div>
+                <canvas id="raffleWheelCanvas" width="480" height="480" aria-label="Interactive Raffle Prize Wheel"></canvas>
+              </div>
+            </div>
+            <div class="raffle-wheel-controls">
+              <button type="button" class="raffle-spin-btn" id="raffleSpinBtn"><span>🎰 Spin Secret Wheel</span> <span id="raffleSpinBtnCount">(2 Left)</span></button>
+              <div class="raffle-token-pill" id="raffleTokenPill">🎟️ Spins: <strong id="raffleTokenCount" style="color: #FFFFFF;">2</strong> of 2</div>
+            </div>
+            <div class="raffle-result-card" id="raffleResultCard" role="region" aria-live="polite">
+              <div class="raffle-result-badge-wrap">
+                <span class="raffle-result-badge">✦ Gathering Prize Unlocked ✦</span>
+                <span class="raffle-result-rarity" id="raffleResultRarity">✦ DROP ✦</span>
+              </div>
+              <h4 class="raffle-result-title"><span id="raffleResultIcon">🎁</span> <span id="raffleResultTitle">Prize</span></h4>
+              <div class="raffle-result-sponsor" id="raffleResultSponsor"></div>
+              <p class="raffle-result-desc" id="raffleResultDesc"></p>
+              <div class="raffle-claim-container" id="raffleClaimContainer">
+                <div id="raffleClaimFormWrap" class="raffle-claim-form-wrap">
+                  <form id="raffleClaimForm" onsubmit="event.preventDefault(); window.sanctuaryRaffleWheel.submitClaim();" class="raffle-claim-form">
+                    <div class="raffle-claim-field"><label for="raffleClaimName" class="raffle-field-label">Full Name</label><input type="text" id="raffleClaimName" class="raffle-field-input" required /></div>
+                    <div class="raffle-claim-field"><label for="raffleClaimEmail" class="raffle-field-label">Email Address</label><input type="email" id="raffleClaimEmail" class="raffle-field-input" required /></div>
+                    <div class="raffle-claim-field"><label for="raffleClaimIG" class="raffle-field-label">Instagram Handle</label><input type="text" id="raffleClaimIG" class="raffle-field-input" required /></div>
+                    <button type="submit" id="raffleSubmitClaimBtn" class="btn btn-gold" style="width: 100%; justify-content: center;">Lock In Prize &amp; Generate Story Card</button>
+                  </form>
+                  <div id="raffleClaimError" class="raffle-claim-error" style="display: none;"></div>
+                </div>
+                <div id="raffleVerifiedWrap" class="raffle-verified-wrap" style="display: none;">
+                  <div class="raffle-verified-tag"><span>✅ ENTRY LOCKED</span> • <span id="raffleVerifiedCode">IS-777-XXXX</span></div>
+                  <div class="raffle-verified-user" id="raffleVerifiedUser"></div>
+                  <span id="raffleDownloadCountBadge" class="raffle-download-badge">0 Downloads</span>
+                  <canvas id="raffleStoryCanvas" width="360" height="640" class="raffle-story-canvas"></canvas>
+                  <div class="raffle-story-actions">
+                    <button type="button" onclick="window.sanctuaryRaffleWheel.downloadStoryCard()" class="btn btn-gold">Download Story Card</button>
+                    <button type="button" onclick="window.sanctuaryRaffleWheel.shareToInstagram()" class="btn btn-outline">Share / Copy Tag</button>
+                  </div>
+                </div>
+              </div>
+              <div class="raffle-result-actions" style="margin-top: 14px;">
+                <a href="index.html#open-mic" class="btn btn-gold" style="padding: 8px 18px; font-size: 0.82rem; text-decoration: none;">🎟️ Gathering Info</a>
+                <button type="button" class="btn btn-outline" id="raffleSpinAgainBtn" style="padding: 8px 16px; font-size: 0.82rem;">🔄 Spin Again</button>
+              </div>
+            </div>
+            <div id="raffleVipAdminDeck" class="raffle-vip-deck" style="display: none;">
+              <div class="raffle-vip-header"><span class="raffle-vip-badge">👑 VIP ACTIVE</span><span id="raffleVipUserTitle"></span></div>
+              <div class="raffle-vip-actions">
+                <button type="button" onclick="window.sanctuaryRaffleWheel.exportClaimsCSV()" class="btn btn-gold">Export Claims CSV</button>
+                <button type="button" onclick="window.sanctuaryRaffleWheel.resetTestSpins()" class="btn btn-outline">Reset Spins</button>
+                <select id="raffleForceDropSelect" onchange="window.sanctuaryRaffleWheel.setForcedPrize(this.value)">
+                  <option value="">Random</option><option value="headphones">Headphones</option><option value="innout">In-N-Out</option><option value="gear">Gear</option><option value="bracelet">Bracelet</option><option value="elixir">Elixir</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="speakeasy-tab-pane" id="tabPaneVinyl" style="display: none;">
+        <div class="speakeasy-vinyl-stage">
+          <div class="speakeasy-turntable-wrap">
+            <div class="speakeasy-vinyl-disc" id="speakeasyVinylDisc">
+              <div class="speakeasy-vinyl-grooves"></div>
+              <div class="speakeasy-vinyl-label">
+                <span class="vinyl-label-emblem">✦</span>
+                <span class="vinyl-label-title">INNER SANCTUARY</span>
+                <span class="vinyl-label-sub">GREENROOM ARCHIVES</span>
+                <span class="vinyl-label-rpm">33 ⅓ RPM</span>
+              </div>
+            </div>
+            <div class="speakeasy-tone-arm" id="speakeasyToneArm"><div class="tone-arm-pivot"></div><div class="tone-arm-rod"></div><div class="tone-arm-head"></div></div>
+          </div>
+          <div class="speakeasy-track-display">
+            <div class="speakeasy-track-badge" id="speakeasyTrackBadge">NOW PLAYING • TRACK 01</div>
+            <h4 class="speakeasy-track-title serif-brand" id="speakeasyTrackTitle">Midnight Embers &amp; Acoustic Dusk</h4>
+            <div class="speakeasy-track-credits" id="speakeasyTrackCredits">Acoustic Guitar, Warm Hearth &amp; Unplugged Sessions</div>
+            <div class="speakeasy-equalizer-bars" id="speakeasyEqualizer"><span class="eq-bar"></span><span class="eq-bar"></span><span class="eq-bar"></span><span class="eq-bar"></span></div>
+          </div>
+          <div class="speakeasy-player-controls">
+            <button type="button" class="speakeasy-ctrl-btn speakeasy-prev-btn" onclick="prevGreenroomTrack()">⏮</button>
+            <button type="button" class="speakeasy-play-btn" id="speakeasyPlayBtn" onclick="toggleGreenroomPlayback()"><span id="speakeasyPlayIcon">▶</span></button>
+            <button type="button" class="speakeasy-ctrl-btn speakeasy-next-btn" onclick="nextGreenroomTrack()">⏭</button>
+          </div>
+          <div class="speakeasy-track-selector-pills">
+            <button type="button" class="track-pill-btn active" id="btnTrack0" onclick="selectGreenroomTrack(0)"><span class="track-pill-num">01</span> <span class="track-pill-name">Midnight Embers &amp; Acoustic</span></button>
+            <button type="button" class="track-pill-btn" id="btnTrack1" onclick="selectGreenroomTrack(1)"><span class="track-pill-num">02</span> <span class="track-pill-name">Rain on MacArthur &amp; Cello</span></button>
+            <button type="button" class="track-pill-btn" id="btnTrack2" onclick="selectGreenroomTrack(2)"><span class="track-pill-num">03</span> <span class="track-pill-name">Sanctuary Exhale</span></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="speakeasy-tab-pane" id="tabPaneMic" style="display: none;">
+        <div class="speakeasy-mic-stage">
+          <div class="speakeasy-record-card">
+            <span class="record-badge">🎙️ PASS THE MIC</span>
+            <h4 class="serif-brand" style="color: #FFFFFF; margin: 4px 0 6px;">The Mic is Open to You</h4>
+            <div class="record-actions-wrap" id="recordActionsWrap">
+              <button type="button" class="btn btn-gold" id="btnStartVoiceRecord" onclick="toggleVoiceRecording()"><span id="voiceRecordIcon">🎙️</span> <span id="voiceRecordLabel">Record 10s Voice Note</span></button>
+              <button type="button" class="btn-outline-gold" id="btnOpenTextWhisper" onclick="toggleTextWhisperForm()"><span>✍️ Write a Whisper</span></button>
+            </div>
+            <div class="voice-recording-active-bar" id="voiceRecordingActiveBar" style="display: none;"><div class="recording-timer" id="recordingTimer">0:10</div></div>
+            <div class="voice-preview-card" id="voicePreviewCard" style="display: none;">
+              <button type="button" class="btn btn-forest" id="btnPlayVoicePreview" onclick="playVoicePreview()">▶ Play</button>
+              <button type="button" class="btn btn-gold" id="btnSaveVoiceNote" onclick="saveVoiceNoteToGuestbook()">💾 Save</button>
+              <button type="button" class="btn-outline-gold" onclick="discardVoiceRecording()">✕ Retake</button>
+            </div>
+            <div class="text-whisper-form" id="textWhisperForm" style="display: none;">
+              <textarea id="textWhisperInput" class="text-whisper-textarea" maxlength="240" rows="3"></textarea>
+              <input type="text" id="textWhisperAuthor" class="text-whisper-author-input" maxlength="50" />
+              <button type="button" class="btn btn-gold" onclick="submitTextWhisper()">Post Whisper</button>
+            </div>
+            <div class="whisper-feedback-toast" id="whisperToast" style="display: none;">✓ Posted to the Greenroom Hearth!</div>
+          </div>
+          <div class="guestbook-cards-list" id="guestbookCardsList"></div>
+        </div>
+      </div>
+
+      <div class="speakeasy-tab-pane" id="tabPanePass" style="display: none;">
+        <div class="speakeasy-pass-stage">
+          <div class="pass-preview-laminate">
+            <div class="pass-inner-border">
+              <div class="pass-header-top"><h4 class="pass-main-title serif-brand">BACKSTAGE GREENROOM</h4></div>
+              <div class="pass-center-emblem"><div class="pass-number" id="passNumberDisplay">PASS NO. 0842</div></div>
+              <div class="pass-footer-date" id="passFooterDate">ADMITTED: NOVEMBER 2026 • 501(c)(3) SANCTUARY</div>
+            </div>
+          </div>
+          <div class="pass-actions-row">
+            <button type="button" class="btn btn-gold" onclick="openBackstagePassSnapshot(event)">📸 Share Pass to IG Story</button>
+            <button type="button" class="btn-outline-gold" onclick="copySpeakeasyInviteLink()"><span id="copyInviteIcon">📋</span> <span id="copyInviteText">Copy Secret Knock Link</span></button>
+          </div>
+          <div class="invite-copy-toast" id="inviteToast" style="display: none;">✓ Copied!</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Digital Labyrinth Modal -->
+  <div id="labyrinthModal" class="labyrinth-modal-backdrop" role="dialog" aria-modal="true" aria-label="Digital Labyrinth Modal" style="display: none; position: fixed; inset: 0; z-index: 10000; background: rgba(10, 18, 14, 0.88); backdrop-filter: blur(10px); align-items: center; justify-content: center; padding: 20px;">
+    <div class="labyrinth-modal-dialog" style="background: rgba(30, 49, 39, 0.96); border: 1.5px solid rgba(197, 154, 63, 0.5); border-radius: 20px; max-width: 480px; width: 100%; box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45); padding: 28px 24px; position: relative; color: #FFFDF7; text-align: center;">
+      <button type="button" id="btnCloseLabyrinthModal" style="position: absolute; top: 14px; right: 16px; background: none; border: none; color: #FCE6A2; font-size: 26px; cursor: pointer; line-height: 1; padding: 4px;" aria-label="Close Labyrinth Dialog">&times;</button>
+      <div style="font-size: 0.74rem; font-weight: 700; letter-spacing: 0.12em; color: var(--sunburst-gold); text-transform: uppercase; margin-bottom: 6px;">✦ Contemplative Practice ✦</div>
+      <h3 class="serif-brand" style="font-size: 1.6rem; color: #FFFDF7; margin: 0 0 8px;">The Sacred Labyrinth</h3>
+      <p style="font-size: 0.86rem; color: rgba(255, 253, 247, 0.85); line-height: 1.5; margin: 0 auto 14px; max-width: 380px;">A labyrinth has no dead ends. Follow the winding golden path inward toward the center hearth.</p>
+      <div style="max-width: 290px; margin: 0 auto; position: relative;">
+        <svg id="modalLabyrinthSvg" viewBox="0 0 320 320" style="width: 100%; height: auto; cursor: crosshair;">
+          <circle cx="160" cy="160" r="140" fill="none" stroke="rgba(197, 154, 63, 0.22)" stroke-width="8" stroke-linecap="round" />
+          <circle cx="160" cy="160" r="110" fill="none" stroke="rgba(197, 154, 63, 0.32)" stroke-width="8" stroke-linecap="round" />
+          <circle cx="160" cy="160" r="80" fill="none" stroke="rgba(197, 154, 63, 0.42)" stroke-width="8" stroke-linecap="round" />
+          <circle cx="160" cy="160" r="50" fill="none" stroke="rgba(197, 154, 63, 0.52)" stroke-width="8" stroke-linecap="round" />
+          <path id="modalGuidePath" d="M 160 20 A 140 140 0 0 1 300 160 A 140 140 0 0 1 160 300 A 140 140 0 0 1 20 160 A 140 140 0 0 1 160 50 A 110 110 0 0 1 270 160 A 110 110 0 0 1 160 270 A 110 110 0 0 1 50 160 A 110 110 0 0 1 160 80 A 80 80 0 0 1 240 160 A 80 80 0 0 1 160 240 A 80 80 0 0 1 80 160 A 80 80 0 0 1 160 110 A 50 50 0 0 1 210 160 A 50 50 0 0 1 160 210 A 50 50 0 0 1 110 160 A 50 50 0 0 1 160 160" fill="none" stroke="transparent" stroke-width="20" stroke-linecap="round" />
+          <circle cx="160" cy="20" r="6" fill="#C59A3F" stroke="#FFFDF7" stroke-width="1.5" />
+          <g id="modalCenterHearth" style="cursor: pointer;">
+            <circle cx="160" cy="160" r="22" fill="rgba(30, 49, 39, 0.95)" stroke="#C59A3F" stroke-width="2" />
+            <text x="160" y="162" text-anchor="middle" dominant-baseline="middle" fill="#FFFDF7" font-size="8.5" font-weight="700">HEARTH</text>
+          </g>
+          <circle id="modalTravelerOrb" cx="160" cy="20" r="8" fill="#FFFDF7" stroke="#C59A3F" stroke-width="2" />
+        </svg>
+      </div>
+      <div id="modalThresholdBox" style="background: rgba(18, 30, 24, 0.75); border: 1px solid rgba(197, 154, 63, 0.3); border-radius: 10px; padding: 10px 14px; margin-top: 12px; text-align: center;">
+        <div id="modalThresholdBadge" style="font-size: 0.72rem; font-weight: 700; color: var(--sunburst-gold); letter-spacing: 0.08em; text-transform: uppercase;">Threshold 1 • The Entry Gate</div>
+        <div id="modalThresholdQuote" style="font-size: 0.84rem; color: #FFFDF7; font-style: italic; margin-top: 4px;">"Leave behind what you have been carrying outside the gate. Soften your jaw."</div>
+      </div>
+      <div style="display: flex; gap: 10px; justify-content: center; margin-top: 14px;">
+        <button type="button" id="btnModalAutoWalk" class="btn btn-outline" style="border-color: rgba(197, 154, 63, 0.45); color: #FCE6A2; font-size: 0.8rem; padding: 8px 16px; border-radius: 6px; cursor: pointer;">▶ Begin Guided Walk</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sacred Bracelet Keepsake Modal -->
+  <div id="braceletKeepsakeModal" class="bracelet-modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true" style="display: none;">
+    <div class="bracelet-modal-dialog">
+      <button type="button" class="bracelet-modal-close" aria-label="Close bracelet window" onclick="closeBraceletKeepsakeModal()">&times;</button>
+      <div class="bracelet-modal-header">
+        <span class="bracelet-modal-badge">✦ WOVEN WITH LOVE • OUR SANCTUARY CLUBHOUSE ✦</span>
+        <h3 class="bracelet-modal-title serif-brand">Your Sacred Intention Bracelet</h3>
+        <p class="bracelet-modal-sub">Completed keepsake circle infused with your 3 chosen intentions.</p>
+      </div>
+      <div class="bracelet-circle-visualizer" id="braceletCircleVisualizer" style="display: flex;">
+        <div class="circle-string-ring">
+          <svg class="bracelet-ring-svg" viewBox="0 0 280 280" width="280" height="280">
+            <circle cx="140" cy="140" r="105" fill="none" stroke="#C59A3F" stroke-width="2.5" stroke-dasharray="5,3" />
+          </svg>
+          <div class="ring-beads-layer" id="ringBeadsLayer"></div>
+          <div class="ring-center-charm">
+            <span class="ring-charm-emblem">✦</span>
+            <div class="ring-charm-title">INNER SANCTUARY</div>
+            <div class="ring-charm-venue">SANCTUARY CLUBHOUSE</div>
+          </div>
+        </div>
+        <div class="bracelet-ring-caption"><span>✨ The Circle is Completed • 3 Intentions Strung</span></div>
+      </div>
+      <div class="revealed-spark-container" id="revealedSpark" style="display: block; margin: 12px auto 0;">
+        <div class="spark-card-preview">
+          <div class="spark-bead-summary" id="sparkBeadSummary">Cedar Wood • Rose Quartz • Sunburst Gold</div>
+          <blockquote class="spark-quote" id="sparkQuote">"Rooted in grace, held in softness, glowing from within."</blockquote>
+          <div class="spark-source" id="sparkSource">— Inner Sanctuary Sparks</div>
+        </div>
+        <div class="spark-actions-row">
+          <button type="button" class="btn-spark-action" id="btnCopySpark"><span id="btnCopySparkIcon">📋</span> <span id="btnCopySparkLabel">Copy Keepsake Reflection</span></button>
+          <button type="button" class="btn-spark-action btn-spark-share" id="btnShareSparkIG" onclick="openStorySnapshotFromSpark(event)"><span>📸 Share Keepsake to IG Story</span></button>
+          <button type="button" class="btn-spark-reset" id="btnResetBracelet" onclick="resetBraceletAndCloseModal()"><span>🔄 Weave Another Bracelet</span></button>
+        </div>
+        <div class="spark-copy-toast" id="sparkToast">✓ Copied to clipboard!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Instagram Story Snapshot Modal -->
+  <div id="igStoryModal" class="ig-story-modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true" style="display: none;">
+    <div class="ig-story-modal-dialog">
+      <button type="button" class="ig-story-modal-close" aria-label="Close story preview" onclick="closeIgStoryModal()">&times;</button>
+      <div class="ig-story-modal-header">
+        <span class="ig-story-badge">✦ INSTAGRAM STORY SNAPSHOT</span>
+        <h3 class="ig-story-title serif-brand">Your Sanctuary Story Card</h3>
+      </div>
+      <div class="ig-story-themes" role="group">
+        <button type="button" class="ig-theme-pill active" id="pillThemeLake" onclick="setStoryTheme('lake')"><span>🌊 Mirror Lake</span></button>
+        <button type="button" class="ig-theme-pill" id="pillThemeDawn" onclick="setStoryTheme('dawn')"><span>🌅 Golden Dawn</span></button>
+        <button type="button" class="ig-theme-pill" id="pillThemeObsidian" onclick="setStoryTheme('obsidian')"><span>🪞 Obsidian Mirror</span></button>
+      </div>
+      <canvas id="igStoryCanvas" width="1080" height="1920" style="display: none;"></canvas>
+      <div class="ig-story-preview-stage"><img id="igStoryPreviewImg" alt="Sanctuary Instagram Story Preview" class="ig-story-preview-img" /></div>
+      <div class="ig-story-actions">
+        <button type="button" class="btn btn-gold" id="btnDownloadStory" onclick="downloadIgStoryImage()">💾 Save Image</button>
+        <button type="button" class="btn btn-outline-gold" id="btnNativeShareStory" onclick="shareToNativeInstagram()">📱 Share</button>
+        <button type="button" class="btn-copy-quote-clean" id="btnCopyStoryText" onclick="copyStoryQuoteText()">📋 Copy Text</button>
+      </div>
+      <div id="igStoryToast" class="ig-story-toast" role="status" aria-live="polite">✓ Story image downloaded!</div>
+    </div>
+  </div>
+
+  <!-- Zeffy Quick Donate Modal -->
+  <div id="ZeffyQuickDonateModal" class="zeffy-modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true" style="display: none;">
+    <div class="zeffy-modal-dialog">
+      <button type="button" class="zeffy-modal-close" aria-label="Close modal" onclick="closeZeffyModal()">&times;</button>
+      <div class="zeffy-modal-header compact-zeffy-header">
+        <div class="zeffy-compact-row">
+          <span class="zeffy-modal-badge">✦ 501(c)(3) PUBLIC CHARITY • ZERO FEES ✦</span>
+          <h3 class="zeffy-modal-title serif-brand">🌱 Plant Your Community Seed</h3>
+        </div>
+      </div>
+      <div class="zeffy-modal-frame-wrap" style="background:#F6F2E9;">
+        <iframe id="zeffy-modal-iframe" title="Inner Sanctuary Wellness Foundation 1-Tap Giving" src="about:blank" data-src="https://www.zeffy.com/embed/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation" style="border:0; width:1px; min-width:100%; max-width:100%; height:100%; background:#F6F2E9; display:block;" allow="payment; payment-request *; camera; clipboard-write" allowpaymentrequest="true" allowtransparency="true" loading="lazy"></iframe>
+      </div>
+      <div class="zeffy-modal-footer">
+        <div class="zeffy-footer-tip">💡 Select $1, tap <em>'Other → $0'</em> on optional tip to pay <strong>$1.00 flat</strong>.</div>
+        <a href="https://www.zeffy.com/donation-form/donate-to-make-a-difference-inner-sanctuary-wellness-foundation" target="_blank" rel="noopener noreferrer" class="zeffy-direct-link">Direct Window ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 60-Second Pause Modal -->
+  <div id="pauseModal" class="pause-modal-overlay" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="pauseModalTitle">
+    <div class="pause-modal-card">
+      <button type="button" class="pause-modal-close" onclick="closePauseModal()" aria-label="Close Pause Experience">✕</button>
+      <div class="pause-modal-emblem">✦</div>
+      <h2 id="pauseModalTitle" class="pause-modal-title serif-brand">Permission to Pause</h2>
+      <div class="pause-modal-sub">60-Second Pause Reset</div>
+      <div class="pause-orb-stage">
+        <div class="pause-orb-aura" id="pauseAura"></div>
+        <div class="pause-orb" id="pauseOrb"><span id="pausePhaseText" class="pause-phase-text">Breathe In</span></div>
+      </div>
+      <div class="pause-affirmation" id="pauseAffirmation">"Soften your shoulders. There is nowhere else you need to be right now."</div>
+      <div class="pause-progress-bar-wrap"><div class="pause-progress-bar" id="pauseProgressBar"></div></div>
+      <div class="pause-timer-label" id="pauseTimerLabel">60s remaining</div>
+      <div class="pause-modal-actions">
+        <button type="button" id="pauseToggleBtn" onclick="togglePauseExperience()" class="btn btn-gold"><span id="pausePlayIcon">⏸</span> <span id="pauseBtnText">Pause</span></button>
+        <button type="button" onclick="closePauseModal()" class="btn btn-outline">Close Sanctuary</button>
+      </div>
+    </div>
+  </div>
+
+  <button type="button" id="btnBackToTop" class="back-to-top-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="Back to top">
+    <span class="back-to-top-arrow">↑</span>
+    <span class="back-to-top-text">Top</span>
+  </button>
+
+  <script src="script.js?v=6.2"></script>
+  <script src="js/modules/adaptive-atmosphere.js?v=1.0"></script>
+  <script src="js/modules/pause-booth.js?v=1.0"></script>
+  <script src="js/modules/raffle-wheel.js?v=1.0"></script>
 </body>
 </html>

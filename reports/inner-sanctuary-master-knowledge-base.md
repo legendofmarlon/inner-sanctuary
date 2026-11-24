@@ -44,7 +44,7 @@ Inner Sanctuary structures its experiential healing around the four biological r
 
 2. **Singing & Sounding (Vagal Nerve Activation):**
    * *Physiological Mechanism:* Stimulates the vagus nerve through vocal cord resonance and auricular frequencies, shifting the autonomic nervous system from sympathetic fight-or-flight into parasympathetic rest-and-digest.
-   * *Community Practice:* Acoustic open mic sets, communal humming, group choral chanting, and 432Hz/528Hz singing bowl sound baths.
+   * *Community Practice:* Acoustic open mic sets, communal humming, group singing, and unplugged collaborative jam sessions.
 
 3. **Dancing & Somatic Movement (Kinesthetic Trauma Discharge):**
    * *Physiological Mechanism:* Discharges stored neuromuscular tension, regulates dopamine and serotonin, and reconnects individuals with proprioceptive body awareness.
@@ -63,14 +63,14 @@ Inner Sanctuary structures its experiential healing around the four biological r
 * **Environment:** Warm ambient lighting, botanical sage accents, acoustic stage setup, herbal tea bar, and zero cover charge for community accessibility.
 * **Audience:** Intergenerational gathering of poets, singer-songwriters, instrumentalists, storytellers, and community listeners (25–50 attendees per event).
 
-### 2. "Permission to Pause" Somatic Stations
-* Dedicated quiet corners and interactive stations at community gatherings inviting attendees into mindful stillness.
+### 2. "Permission to Pause" Somatic Stations & Unplugged Jam Sessions
+* Dedicated quiet corners and interactive stations at community gatherings inviting attendees into mindful stillness alongside collaborative acoustic jam sessions.
 * Features tactile intention bracelet weaving, guided breathwork cards, sensory touchstones, and personal reflection journals.
 * **Impact Metric:** Over 50 documented individual somatic pause engagements per gathering.
 
 ### 3. Digital Sanctuary & Interactive Online Experiences
-* **Sanctuary Discovery OS:** Interactive web-based somatic hub offering digital labyrinths, calming frequency audio, and virtual pause bells.
-* **Healing Cathedral Bell & 432Hz Soundscapes:** Ambient audio integrated into the website and live gatherings for nervous system down-regulation.
+* **Community Hub & Pause Booth:** Interactive web-based somatic hub (`community-hub.html`) offering digital labyrinths, guided breathwork timers, intention bracelet weaving, and virtual pause cues.
+* **Gentle Stage & Breath Cues:** Optional calming chime accents integrated into the website and interactive timers for guided breathing transitions.
 * **Spotify Sanctuary Vibe Tray:** Curated peaceful instrumental playlists embedded directly into the website for daily decompression.
 
 ---
@@ -115,7 +115,7 @@ Inner Sanctuary maintains an active portfolio of 14 audited institutional grant 
 | **California Black Freedom Fund (CBFF)** | $25,000 – $100,000 | Black-led movement building & collective healing justice | Directly supports Black wellness leadership and somatic community resilience |
 | **CBFF Chinedu Okobi Sabbatical Fellowship** | $50,000 | Sabbatical rest & rejuvenation for movement leaders | Direct leadership support for Founders Teshia Campbell and Marlon Smith |
 | **The Awesome Foundation** | $1,000 Cash | No-strings-attached monthly micro-grants | Turnkey 100-word application for portable acoustic sound gear & intention bracelets |
-| **Center for Cultural Innovation (CCI) Quick Grant** | $600 Monthly | Professional development and artist training | Sound bath facilitator training and somatic leadership certification |
+| **Center for Cultural Innovation (CCI) Quick Grant** | $600 Monthly | Professional development and artist training | Acoustic jam facilitation training and somatic pause leadership certification |
 | **The Pollination Project** | $1,000 Seed | Daily grassroots seed funding for community projects | Micro-funding for community open mic sound system upgrades |
 
 ---
@@ -127,7 +127,7 @@ Beyond monthly open mics and urban gatherings, Inner Sanctuary is actively scout
 * **Parcel Specifications:** 5 to 20 acres zoned for agricultural, residential, or assembly use with water and utility access.
 * **Physical Infrastructure:**
   * Eco-cabins constructed from sustainable, fire-resistant timber and hempcrete.
-  * Central Acoustic Meditation Dome for sound baths, breathwork, and acoustic gatherings.
+  * Central Acoustic Sanctuary Dome for unplugged jam sessions, breathwork, and community open mics.
   * Permaculture healing garden and botanical walking labyrinth.
   * Dedicated artist-in-residence retreats for community organizers, caregivers, and creatives.
 

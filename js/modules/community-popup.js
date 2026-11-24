@@ -176,10 +176,15 @@
     try {
       // If already subscribed, don't show
       if (localStorage.getItem(STORAGE_KEY_SUBSCRIBED) === 'true') return false;
-      // Allow popping up on page load for immediate community engagement
+      const dismissedUntil = parseInt(localStorage.getItem(STORAGE_KEY_DISMISSED) || '0', 10);
+      if (dismissedUntil && Date.now() < dismissedUntil) return false;
+      // Do not interrupt Community Hub page or Grantmaker/CRA deep links
+      if (window.location.pathname.includes('community-hub')) return false;
+      const h = (window.location.hash || '').toLowerCase();
+      if (h.includes('grant') || h.includes('sponsorship') || h.includes('funder') || h.includes('leadership')) return false;
       return true;
     } catch (e) {}
-    return true;
+    return false;
   }
 
   // Public API
@@ -209,10 +214,13 @@
       const modal = document.getElementById('sanctuaryCircleModal');
       if (modal) modal.classList.remove('active');
       document.body.style.overflow = '';
+      try {
+        localStorage.setItem(STORAGE_KEY_DISMISSED, String(Date.now() + SEVEN_DAYS_MS));
+      } catch (e) {}
     }
   };
 
-  // Auto trigger 1.5 seconds after opening the site
+  // Gentle delayed arrival invitation (45s) so grantmakers & first-time readers can scan undisturbed
   function scheduleArrivalPopup() {
     renderModalStructure();
     
@@ -226,13 +234,14 @@
     if (!isEligibleForAutoPopup()) return;
 
     setTimeout(() => {
-      // Ensure no conflicting modal is active before opening
       const pauseModal = document.getElementById('pauseBoothModal');
+      const funderModal = document.getElementById('funderDossierModal');
       const isPauseActive = pauseModal && pauseModal.classList.contains('active');
-      if (!isPauseActive && isEligibleForAutoPopup()) {
+      const isFunderActive = funderModal && funderModal.style.display === 'flex';
+      if (!isPauseActive && !isFunderActive && isEligibleForAutoPopup()) {
         window.sanctuaryCommunityModal.open('arrival-timer');
       }
-    }, 1500);
+    }, 45000);
   }
 
   if (document.readyState === 'loading') {

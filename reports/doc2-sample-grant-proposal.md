@@ -32,7 +32,7 @@ We operate on a trauma-informed, 100% substance-free model with a $0 cost barrie
 
 Southern California communities in lower Healthy Places Index (HPI) quartiles across Orange County and the Inland Empire experience acute disparities in mental health access, chronic stress, and isolation. Conventional clinical mental health services frequently present prohibitive out-of-pocket costs, extended waitlists, and cultural disconnection.
 
-Inner Sanctuary addresses this gap as a **Community-Defined Evidence Practice (CDEP)**: non-clinical, culturally grounded, preventative community care. By creating welcoming neighborhood third spaces anchored in 432Hz/528Hz acoustic soundscapes, mindful breathing, and authentic storytelling, we reduce isolation and restore nervous system balance before crisis occurs.
+Inner Sanctuary addresses this gap as a **Community-Defined Evidence Practice (CDEP)**: non-clinical, culturally grounded, preventative community care. By creating welcoming neighborhood third spaces anchored in Open Mic nights, Unplugged Jam Sessions, guided Pause Activations, and authentic storytelling, we reduce isolation and restore nervous system balance before crisis occurs.
 
 ---
 
@@ -40,7 +40,7 @@ Inner Sanctuary addresses this gap as a **Community-Defined Evidence Practice (C
 
 Our programs operationalize the four biological release valves:
 1. **Laughter:** Diaphragmatic release and endorphin stimulation through joyful community gathering.
-2. **Singing & Sounding:** Vagal nerve stimulation via communal sound baths, acoustic song, and breathwork.
+2. **Singing & Sounding:** Vagal nerve stimulation via unplugged jam sessions, acoustic song, and breathwork.
 3. **Dancing & Movement:** Somatic tension discharge through unhurried movement and stretching.
 4. **Crying:** Healthy emotional detoxification in a sacred, de-stigmatized community setting.
 
@@ -50,7 +50,7 @@ Our programs operationalize the four biological release valves:
 
 | Budget Category | Description | Amount |
 |---|---|---|
-| **Acoustic Sound & Production** | Portable battery-powered PA, dynamic microphones, 432Hz singing bowls | $3,500 |
+| **Acoustic Sound & Production** | Portable battery-powered PA, dynamic microphones, acoustic instrument support | $3,500 |
 | **Somatic Wellness Supplies** | Wooden intention beads, elastic cords, guided pause cards, journals | $2,500 |
 | **Artist & Performer Honorariums** | Direct stipends ($100–$250) for grassroots poets, acoustic musicians, facilitators | $6,000 |
 | **Herbal Tea & Nourishment** | Organic calming herbal teas, honey, compostable serveware | $1,500 |

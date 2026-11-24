@@ -1310,3 +1310,303 @@
 .grant-tab-btn-scroll:hover {
   color: #F5D77F;
 }
+
+/* =========================================================================
+   PHASE 4: 30-SECOND FUNDER QUICK-VIEW & GRANTMAKER IMPACT SIMULATOR
+   ========================================================================= */
+.grant-tab-btn-quickview {
+  background: linear-gradient(135deg, rgba(16, 40, 29, 0.96) 0%, rgba(28, 56, 42, 0.96) 100%);
+  border: 1.5px solid #F5D77F;
+  color: #FCE6A2;
+  padding: 9px 15px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 16px rgba(197, 154, 63, 0.25);
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+
+.grant-tab-btn-quickview:hover,
+.grant-tab-btn-quickview[aria-pressed="true"] {
+  background: linear-gradient(135deg, #F5D77F 0%, #D49B35 100%);
+  color: #111D16;
+  box-shadow: 0 6px 22px rgba(245, 215, 127, 0.45);
+  transform: translateY(-1px);
+}
+
+.funder-quickview-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10050;
+  background: linear-gradient(95deg, rgba(12, 24, 18, 0.98) 0%, rgba(24, 46, 35, 0.98) 60%, rgba(16, 28, 38, 0.98) 100%);
+  border-bottom: 2px solid #D4AF37;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  padding: 10px 18px;
+  color: #FFFDF7;
+}
+
+.funder-quickview-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.funder-quickview-facts {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 0.78rem;
+  color: #E2EFE6;
+}
+
+.funder-qv-pill {
+  background: rgba(197, 154, 63, 0.16);
+  border: 1px solid rgba(245, 215, 127, 0.45);
+  color: #FCE6A2;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.funder-quickview-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.funder-qv-link {
+  color: #FFFDF7;
+  text-decoration: none;
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 6px 11px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.funder-qv-link:hover {
+  background: rgba(245, 215, 127, 0.22);
+  border-color: #F5D77F;
+  color: #FCE6A2;
+}
+
+body.funder-quick-view-active {
+  padding-top: 58px;
+}
+
+body.funder-quick-view-active .announcement-bar,
+body.funder-quick-view-active #sanctuary-philosophy-medallion,
+body.funder-quick-view-active #community-hub,
+body.funder-quick-view-active #stay-in-loop,
+body.funder-quick-view-active #horizons,
+body.funder-quick-view-active #circle-growth,
+body.funder-quick-view-active .floating-pause-booth-pill {
+  display: none !important;
+}
+
+body.funder-quick-view-active #sanctuary-nav {
+  top: 54px;
+}
+
+/* Grantmaker Impact Simulator Card */
+.grant-simulator-card {
+  background: radial-gradient(circle at 20% 0%, rgba(28, 52, 40, 0.98) 0%, rgba(12, 23, 18, 0.99) 100%);
+  border: 1.5px solid rgba(212, 175, 55, 0.65);
+  border-radius: 18px;
+  padding: 24px 26px;
+  margin: 0 0 20px;
+  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  color: #FFFDF7;
+}
+
+.grant-sim-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.grant-sim-amount-readout {
+  background: rgba(197, 154, 63, 0.16);
+  border: 1px solid rgba(245, 215, 127, 0.55);
+  border-radius: 14px;
+  padding: 10px 18px;
+  text-align: right;
+  min-width: 170px;
+}
+
+.grant-sim-amount-val {
+  font-family: 'Cinzel', serif;
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #FCE6A2;
+  line-height: 1.1;
+}
+
+.grant-sim-tiers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.sim-tier-pill {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(197, 154, 63, 0.4);
+  color: #E2EFE6;
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sim-tier-pill:hover {
+  border-color: #F5D77F;
+  background: rgba(197, 154, 63, 0.22);
+  color: #FFFFFF;
+}
+
+.sim-tier-pill.active {
+  background: linear-gradient(135deg, #F5D77F 0%, #D49B35 100%);
+  color: #111D16;
+  border-color: #FCE6A2;
+  box-shadow: 0 4px 14px rgba(245, 215, 127, 0.35);
+}
+
+.grant-sim-slider-wrap {
+  margin-bottom: 18px;
+}
+
+.sim-slider {
+  width: 100%;
+  accent-color: #D4AF37;
+  height: 8px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.grant-sim-range-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: #CBD7D0;
+  margin-top: 4px;
+}
+
+.sim-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.sim-metric-box {
+  background: rgba(0, 0, 0, 0.32);
+  border: 1px solid rgba(197, 154, 63, 0.35);
+  border-radius: 12px;
+  padding: 14px 12px;
+  text-align: center;
+}
+
+.sim-metric-val {
+  font-family: 'Cinzel', serif;
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: #F5D77F;
+  line-height: 1.15;
+  margin-bottom: 4px;
+}
+
+.sim-metric-label {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: 2px;
+}
+
+.sim-metric-sub {
+  font-size: 0.68rem;
+  color: #CBD7D0;
+  line-height: 1.35;
+}
+
+.sim-allocation-strip {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(197, 154, 63, 0.3);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+}
+
+.sim-allocation-bar {
+  height: 10px;
+  border-radius: 999px;
+  overflow: hidden;
+  display: flex;
+  background: rgba(0, 0, 0, 0.45);
+  margin: 8px 0 6px;
+}
+
+.sim-alloc-program {
+  width: 88%;
+  background: linear-gradient(90deg, #4ADE80 0%, #D4AF37 100%);
+}
+
+.sim-alloc-admin {
+  width: 12%;
+  background: rgba(148, 163, 184, 0.55);
+}
+
+.grant-sim-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+@media (max-width: 900px) {
+  .sim-metrics-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .grant-simulator-card {
+    padding: 18px 16px;
+  }
+  .grant-sim-amount-readout {
+    text-align: left;
+    width: 100%;
+  }
+  .sim-metrics-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -424,6 +424,78 @@ body {
   box-shadow: 0 8px 20px rgba(197, 154, 63, 0.2);
 }
 
+/* ==================== COMMUNITY HUB GATEWAY (HOMEPAGE CLEAN PORTAL) ==================== */
+.community-hub-gateway {
+  max-width: 980px;
+  margin: 0 auto;
+  background: radial-gradient(circle at 50% 10%, rgba(255, 255, 255, 0.96) 0%, rgba(246, 243, 236, 0.94) 100%);
+  border: 1.5px solid rgba(197, 154, 63, 0.4);
+  border-radius: 26px;
+  padding: 46px 36px;
+  box-shadow: 0 18px 46px rgba(43, 68, 54, 0.08);
+  text-align: center;
+}
+
+.community-hub-gateway-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 30px 0 32px;
+  text-align: left;
+}
+
+@media (max-width: 820px) {
+  .community-hub-gateway {
+    padding: 32px 20px;
+    border-radius: 20px;
+  }
+  .community-hub-gateway-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+
+.community-gateway-tile {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 18px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(197, 154, 63, 0.28);
+  text-decoration: none;
+  color: var(--earth-charcoal);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.community-gateway-tile:hover {
+  transform: translateY(-3px);
+  border-color: var(--sunburst-gold);
+  box-shadow: 0 10px 24px rgba(43, 68, 54, 0.1);
+}
+
+.community-gateway-tile-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.community-gateway-tile-title {
+  font-family: var(--font-serif);
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: var(--forest-green);
+  margin-bottom: 4px;
+  letter-spacing: 0.04em;
+}
+
+.community-gateway-tile-desc {
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--charcoal-muted);
+}
+
 
 /* ==================== REALISTIC 8K ELEMENT SKY ATMOSPHERE ==================== */
 .realistic-sky-bg {
@@ -1039,6 +1111,9 @@ nav {
   justify-content: space-between;
   align-items: center;
   height: 82px;
+  max-width: 1320px;
+  margin: 0 auto;
+  gap: 10px;
 }
 
 .brand-group {
@@ -1084,13 +1159,17 @@ nav {
 
 .nav-links {
   display: flex;
-  gap: 14px;
+  gap: 20px;
   align-items: center;
   list-style: none;
-  font-size: 0.82rem;
+  font-size: 0.80rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
+}
+
+.nav-links li {
+  white-space: nowrap;
 }
 
 .nav-links a {
@@ -2326,8 +2405,9 @@ input:focus, select:focus, textarea:focus {
   box-shadow: 0 0 0 2px rgba(197, 154, 63, 0.15);
 }
 
-/* Floating Sanctuary Explorer Status Pill */
+/* Floating Sanctuary Explorer Status Pill (hidden to prevent bottom-left collision with Floating Pause Booth pill) */
 .explorer-pill {
+  display: none !important;
   position: fixed;
   bottom: 24px;
   left: 24px;
@@ -4223,15 +4303,15 @@ body[data-element="earth"] {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 8px;
   background: linear-gradient(135deg, rgba(197, 154, 63, 0.22) 0%, rgba(245, 215, 127, 0.18) 100%);
   border: 1.5px solid #F5D77F;
   color: #FCE6A2;
   font-family: 'Cinzel', serif;
   font-weight: 700;
-  letter-spacing: 0.16em;
-  font-size: clamp(1rem, 1.8vw, 1.25rem);
-  padding: 8px 26px;
+  letter-spacing: 0.12em;
+  font-size: clamp(0.86rem, 1.8vw, 1.2rem);
+  padding: 8px 20px;
   border-radius: 999px;
   box-shadow: 0 0 20px rgba(197, 154, 63, 0.35);
   margin: 10px auto 6px;
@@ -4388,10 +4468,12 @@ body[data-element="earth"] {
    Palette: Obsidian (#0B0F17), Golden Hour (#F5AF19), Prism Cyan (#00F2FE), Cream (#F8FAFC)
    ========================================================================== */
 .sacred-breath-section {
-  background: transparent !important;
+  background: rgba(246, 243, 236, 0.92) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   color: var(--earth-charcoal) !important;
-  border-top: none !important;
-  border-bottom: none !important;
+  border-top: 1px solid rgba(197, 154, 63, 0.25) !important;
+  border-bottom: 1px solid rgba(197, 154, 63, 0.25) !important;
   position: relative;
   z-index: 1;
   padding: 55px 0 65px !important;
@@ -6101,13 +6183,151 @@ body[data-element="earth"] {
   letter-spacing: 0.08em;
 }
 
-/* Responsive Nav Switch */
-@media (max-width: 1060px) {
+/* Responsive Nav Switch & Compact Desktop Proportions */
+.mobile-nav-toggle,
+#mobile-nav-toggle {
+  display: none;
+}
+
+#sanctuary-nav .container.nav-inner {
+  max-width: 1380px;
+  width: 100%;
+  padding-left: 20px;
+  padding-right: 20px;
+  box-sizing: border-box;
+  gap: 10px;
+}
+
+#sanctuary-nav .brand-group {
+  flex-shrink: 0;
+  gap: 10px;
+}
+
+#sanctuary-nav .nav-title,
+#sanctuary-nav .nav-subtitle {
+  white-space: nowrap;
+}
+
+#sanctuary-nav .nav-actions-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+#sanctuary-nav .nav-grant-prominent-tab,
+#sanctuary-nav .nav-speakeasy-badge {
+  background: #1E3127 !important;
+  color: #F8D98C !important;
+  border-color: #C59A3F !important;
+}
+
+#sanctuary-nav .nav-grant-prominent-tab:hover,
+#sanctuary-nav .nav-speakeasy-badge:hover {
+  background: #14221B !important;
+  color: #FFFFFF !important;
+}
+
+@media (min-width: 1121px) and (max-width: 1400px) {
+  #sanctuary-nav .nav-emblem {
+    width: 38px;
+    height: 38px;
+  }
+  #sanctuary-nav .nav-title {
+    font-size: 0.96rem;
+  }
+  #sanctuary-nav .nav-subtitle {
+    font-size: 0.56rem;
+    letter-spacing: 0.14em;
+  }
+  #sanctuary-nav .nav-links {
+    gap: 4px;
+    margin: 0;
+    padding: 0;
+  }
+  #sanctuary-nav .nav-link-dual {
+    padding: 4px 6px;
+  }
+  #sanctuary-nav .nav-link-main {
+    font-size: 0.74rem;
+    letter-spacing: 0.02em;
+  }
+  #sanctuary-nav .nav-link-sub {
+    font-size: 0.54rem;
+    letter-spacing: 0.03em;
+  }
+  #sanctuary-nav .nav-grant-prominent-tab {
+    padding: 6px 11px !important;
+    font-size: 0.74rem !important;
+    gap: 5px !important;
+    white-space: nowrap !important;
+  }
+  #sanctuary-nav .nav-grant-pill-badge {
+    display: none !important;
+  }
+  #sanctuary-nav .atmosphere-switcher-btn {
+    padding: 6px 10px;
+    gap: 4px;
+    font-size: 0.74rem;
+  }
+  #sanctuary-nav .atmosphere-mode-label {
+    display: none;
+  }
+  #sanctuary-nav .nav-speakeasy-badge {
+    padding: 6px 11px;
+    font-size: 0.74rem;
+    gap: 4px;
+    white-space: nowrap;
+  }
+  #sanctuary-nav .nav-donate-cta {
+    padding: 7px 13px !important;
+    font-size: 0.75rem !important;
+    gap: 5px !important;
+  }
+}
+
+@media (max-width: 1120px) {
   .nav-links {
     display: none !important;
   }
+  .mobile-nav-toggle,
   #mobile-nav-toggle {
-    display: block !important;
+    display: inline-flex !important;
+  }
+}
+
+@media (max-width: 768px) {
+  #sanctuary-nav .container.nav-inner {
+    padding-left: 12px;
+    padding-right: 12px;
+    gap: 6px;
+  }
+  #sanctuary-nav .brand-group {
+    min-width: 0;
+    gap: 8px;
+    flex: 1 1 auto;
+  }
+  #sanctuary-nav .nav-emblem {
+    width: 34px !important;
+    height: 34px !important;
+  }
+  #sanctuary-nav .nav-title {
+    font-size: 0.78rem !important;
+    letter-spacing: 0.03em !important;
+  }
+  #sanctuary-nav .nav-subtitle {
+    font-size: 0.46rem !important;
+    letter-spacing: 0.07em !important;
+  }
+  #sanctuary-nav .nav-donate-cta {
+    padding: 6px 10px !important;
+    font-size: 0.71rem !important;
+    gap: 4px !important;
+    flex-shrink: 0;
+  }
+  #sanctuary-nav #mobile-nav-toggle {
+    padding: 4px 8px;
+    flex-shrink: 0;
   }
 }
 
@@ -6745,9 +6965,13 @@ body[data-element="ether"] nav::after {
     letter-spacing: 0.14em !important;
   }
 
-  /* Hide Instagram pill from header on mobile (present in drawer & footer) */
+  /* Hide Instagram pill & crowded action buttons from mobile header (present in drawer & footer) */
   #btnNavPresence,
   #btnPwaNavInstall,
+  #btnNavFunderDossier,
+  #atmosphereSwitcherMount,
+  #btnNavSanctuaryOs,
+  #btnNavPauseBooth,
   .nav-ig-btn {
     display: none !important;
   }
@@ -6859,9 +7083,17 @@ body[data-element="ether"] nav::after {
   .labyrinth-modal-dialog p,
   .bracelet-modal-dialog p,
   .foundation-truth-card p,
+  .medallion-philosophy-portal p,
+  .medallion-leadership-portal p,
+  .medallion-verification-portal p,
   .dark-surface p,
   footer p {
     color: #FFFDF7 !important;
+  }
+
+  .core-activations-funder-strip,
+  .core-activations-funder-strip * {
+    color: #FFFDF7;
   }
 
   /* Hero Manifesto Box */

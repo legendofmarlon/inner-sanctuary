@@ -231,20 +231,21 @@
       {
         "@type": "Event",
         "@id": "https://innersanctuarywellnessfoundation.org/#openmic-event",
-        "name": "Community Open Mic & Creative Connection Gathering",
-        "description": "An unhurried, alcohol-free community open mic gathering for local artists, poets, musicians, and neighbors to share space, breathe together, and process life's journey without performance pressure.",
-        "startDate": "2026-11-15T14:00:00-08:00",
-        "endDate": "2026-11-15T16:00:00-08:00",
+        "name": "Jam Session: The Unplugged Playground (Dec 10, 2026)",
+        "description": "An intimate, alcohol-free unplugged jam session and community creative sanctuary hosted with SoCal Creatives Collective at 1501 W Alton Ave in Santa Ana.",
+        "startDate": "2026-12-10T18:00:00-08:00",
+        "endDate": "2026-12-10T20:00:00-08:00",
         "eventStatus": "https://schema.org/EventScheduled",
         "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
         "location": {
           "@type": "Place",
-          "name": "Our Sanctuary Clubhouse",
+          "name": "SoCal Creatives • Alton Studio",
           "address": {
             "@type": "PostalAddress",
-            "streetAddress": "Our Sanctuary Clubhouse",
-            "addressLocality": "Orange County",
+            "streetAddress": "1501 W Alton Ave",
+            "addressLocality": "Santa Ana",
             "addressRegion": "CA",
+            "postalCode": "92704",
             "addressCountry": "US"
           }
         },
@@ -470,68 +471,38 @@
       <ul class="nav-links">
         <li>
           <a href="#remember" class="nav-link-dual">
-            <span class="nav-link-main">Pause &amp; Remember</span>
-            <span class="nav-link-sub">Home</span>
+            <span class="nav-link-main">Home</span>
+            <span class="nav-link-sub">Pause</span>
           </a>
         </li>
         <li>
-          <a href="#core-activations" class="nav-link-dual" title="Core Grant-Funded Community Activations">
+          <a href="#core-activations" class="nav-link-dual" title="Open Mic, Jam Sessions &amp; Pause Activations">
             <span class="nav-link-main" style="color: var(--forest-green); font-weight: 700;">✦ Activations</span>
-            <span class="nav-link-sub">Open Mic &amp; Circles</span>
-          </a>
-        </li>
-        <li>
-          <a href="#community-hub" class="nav-link-dual" title="Interactive Community Rituals &amp; Sparks">
-            <span class="nav-link-main" style="color: var(--sunburst-gold); font-weight: 700;">✨ Community Hub</span>
-            <span class="nav-link-sub">Sparks &amp; Rituals</span>
+            <span class="nav-link-sub">Mic &amp; Jam</span>
           </a>
         </li>
         <li>
           <a href="#mission" class="nav-link-dual">
-            <span class="nav-link-main">Our Mission</span>
-            <span class="nav-link-sub">Sacred Purpose</span>
+            <span class="nav-link-main">Mission</span>
+            <span class="nav-link-sub">Philosophy</span>
           </a>
         </li>
         <li>
-          <a href="#method" class="nav-link-dual">
-            <span class="nav-link-main">Our Method</span>
-            <span class="nav-link-sub">Tune In • Express • Connect</span>
+          <a href="#open-mic" class="nav-link-dual">
+            <span class="nav-link-main">Events</span>
+            <span class="nav-link-sub">Gatherings</span>
           </a>
         </li>
         <li>
-          <a href="#programs" class="nav-link-dual">
-            <span class="nav-link-main">Experiences</span>
-            <span class="nav-link-sub">Pause &amp; Reset</span>
+          <a href="#sponsorship" class="nav-link-dual" title="Institutional Grants &amp; Support">
+            <span class="nav-link-main">Give &amp; Grants</span>
+            <span class="nav-link-sub">Support</span>
           </a>
         </li>
         <li>
-          <a href="#open-mic" class="nav-link-dual" title="Community Open Mic &amp; Gatherings">
-            <span class="nav-link-main" style="color: var(--forest-green); font-weight: 700;">🎙️ Open Mic</span>
-            <span class="nav-link-sub">Gatherings &amp; Stage</span>
-          </a>
-        </li>
-        <li>
-          <a href="#horizons" class="nav-link-dual">
-            <span class="nav-link-main">Future Vision</span>
-            <span class="nav-link-sub">Studio &amp; Housing</span>
-          </a>
-        </li>
-        <li>
-          <a href="#sponsorship" class="nav-link-dual">
-            <span class="nav-link-main">Give &amp; Sponsor</span>
-            <span class="nav-link-sub">Partner With Us</span>
-          </a>
-        </li>
-        <li>
-          <a href="#grant-hub-portal" class="nav-link-dual" title="Institutional Grants &amp; CRA Impact Hub">
-            <span class="nav-link-main" style="color: var(--sunburst-gold); font-weight: 700;">🏛️ Grants</span>
-            <span class="nav-link-sub">Funder &amp; CRA Hub</span>
-          </a>
-        </li>
-        <li>
-          <a href="#connect" class="nav-link-dual">
-            <span class="nav-link-main">Connect</span>
-            <span class="nav-link-sub">Get Involved</span>
+          <a href="community-hub.html" class="nav-link-dual" title="Open Interactive Community Hub in Dedicated Tab">
+            <span class="nav-link-main" style="color: var(--sunburst-gold); font-weight: 700;">✨ Community Hub</span>
+            <span class="nav-link-sub">Sparks ↗</span>
           </a>
         </li>
       </ul>
@@ -540,43 +511,16 @@
         <!-- Institutional Funder & Grantmaker Dossier -->
         <button type="button" id="btnNavFunderDossier" class="nav-grant-prominent-tab" onclick="openFunderModal(event)" title="Institutional 501(c)(3) &amp; CRA Grantmaker Dossier">
           <span>🏛️</span>
-          <span>Grants &amp; Funder Hub</span>
+          <span>Grants Hub</span>
           <span class="nav-grant-pill-badge">501(c)(3)</span>
         </button>
         <!-- Living Atmosphere Switcher -->
         <div id="atmosphereSwitcherMount"></div>
 
-        <!-- Sanctuary OS Mission Control Trigger -->
-        <button type="button" id="btnNavSanctuaryOs" class="nav-sanctuary-os-btn" onclick="window.sanctuaryOS ? window.sanctuaryOS.open() : (window.openDiscoveryOsWindow ? window.openDiscoveryOsWindow() : null)" title="Sanctuary OS • Private Mission Control & Omnisearch (⌘K / Ctrl+K)">
-          <span>⚡ OS</span>
-          <span class="os-kbd">⌘K</span>
-        </button>
-
-        <!-- Digital Pause Booth Trigger -->
-        <button type="button" id="btnNavPauseBooth" class="btn-outline-gold" onclick="window.sanctuaryPauseBooth.open()" title="Digital Pause Booth • Somatic Nervous System Reset" style="padding: 7px 13px; border-radius: 999px; font-size: 0.74rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; letter-spacing: 0.03em;">
-          <span>🍃 Pause Booth</span>
-        </button>
-
-        <button type="button" id="btnNavPresence" class="nav-presence-badge" onclick="openPulsePresenceModal(event)" title="Live Sanctuary Presence">
-          <span class="nav-presence-dot"></span>
-          <span class="nav-presence-text"><strong id="navPresenceCount">4</strong> Breathing</span>
-        </button>
-        <button type="button" id="btnSpeakeasyNav" class="nav-speakeasy-badge" onclick="handleSpeakeasyKnock(event)" title="🗝️ The Greenroom • 3 knocks unlock secret sessions">
-          <span class="speakeasy-key-icon">🗝️</span>
-          <span class="speakeasy-nav-text">Greenroom</span>
-          <span class="speakeasy-knock-counter" id="speakeasyKnockCounter">✦</span>
-        </button>
-        <a href="https://www.instagram.com/ourinnersanctuary/" target="_blank" rel="noopener noreferrer" class="btn-outline-gold nav-ig-btn" style="padding: 8px 12px; border-radius: 8px; display: inline-flex; align-items: center; gap: 6px; font-size: 0.74rem; text-decoration: none;" title="Follow @ourinnersanctuary on Instagram">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
-          <span class="desktop-only-ig">@ourinnersanctuary</span>
-        </a>
-        <button type="button" id="btnPwaNavInstall" class="btn-outline-gold pwa-nav-btn" style="display: none; padding: 8px 14px; border-radius: 999px; align-items: center; gap: 6px; font-size: 0.74rem; font-weight: 700; cursor: pointer; letter-spacing: 0.04em;" title="Add Inner Sanctuary App to Home Screen" onclick="triggerPwaInstall(event)">
-          <span>📱 Install App</span>
-        </button>
-        <button type="button" onclick="openZeffyModal(event)" class="btn btn-gold nav-donate-cta btn-liquid-gold pulse-gold weekly-shimmer-cta" style="padding: 10px 20px; font-size: 0.82rem; font-weight: 700; cursor: pointer; border-radius: 999px; display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; box-shadow: 0 4px 16px rgba(197, 154, 63, 0.45); letter-spacing: 0.04em;" title="Plant Your $1 Seed in the Sanctuary">
+        <button type="button" onclick="openZeffyModal(event)" class="btn btn-gold nav-donate-cta btn-liquid-gold pulse-gold weekly-shimmer-cta" style="padding: 9px 17px; font-size: 0.8rem; font-weight: 700; cursor: pointer; border-radius: 999px; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; box-shadow: 0 4px 16px rgba(197, 154, 63, 0.45); letter-spacing: 0.04em;" title="Plant Your $1 Seed in the Sanctuary">
           <span>🌱 Give $1 Seed</span>
         </button>
-        <button type="button" id="mobile-nav-toggle" class="mobile-nav-toggle" onclick="toggleMobileNavDrawer(event)" aria-label="Toggle Menu">
+        <button type="button" id="mobile-nav-toggle" class="mobile-nav-toggle" onclick="toggleMobileNavDrawer(event)" aria-label="Toggle Menu" aria-expanded="false">
           ☰
         </button>
       </div>
@@ -586,14 +530,14 @@
     <div id="mobile-nav-drawer" class="hidden" style="display: none; padding: 20px 20px; background: rgba(246, 243, 236, 0.98); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 2px solid var(--sunburst-gold); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);">
       <ul style="list-style: none; display: flex; flex-direction: column; gap: 12px; margin: 0; padding: 0;">
         <li style="margin-bottom: 6px;">
-          <button type="button" onclick="openFunderModal(event); document.getElementById('mobile-nav-drawer').style.display='none';" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 16px; background: rgba(197, 154, 63, 0.18); border: 1.5px solid #F5D77F; color: #FFFDF7; border-radius: 999px; font-weight: 700; font-size: 0.84rem; cursor: pointer;">
+          <button type="button" onclick="openFunderModal(event); document.getElementById('mobile-nav-drawer').style.display='none';" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 16px; background: rgba(197, 154, 63, 0.18); border: 1.5px solid #F5D77F; color: var(--forest-green); border-radius: 999px; font-weight: 700; font-size: 0.84rem; cursor: pointer;">
             <span>🏛️ Institutional Grants &amp; Funder Hub</span>
           </button>
         </li>
         <li style="display: flex; gap: 8px; margin-bottom: 6px;">
-          <button type="button" onclick="handleSpeakeasyKnock(event); document.getElementById('mobile-nav-drawer').style.display='none';" class="btn-outline-gold" style="flex: 1; padding: 10px 12px; border-radius: 8px; font-size: 0.80rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; background: rgba(30, 49, 39, 0.05); color: var(--forest-green); border: 1.5px solid var(--sunburst-gold);" title="🗝️ The Greenroom • Secret Sessions">
-            <span>🗝️ The Greenroom</span>
-          </button>
+          <a href="community-hub.html" class="btn-outline-gold" style="flex: 1; padding: 10px 12px; border-radius: 8px; font-size: 0.80rem; font-weight: 700; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 6px; background: rgba(30, 49, 39, 0.05); color: var(--forest-green); border: 1.5px solid var(--sunburst-gold);" title="Open Community Hub">
+            <span>✨ Community Hub</span>
+          </a>
           <button type="button" onclick="openZeffyModal(event); document.getElementById('mobile-nav-drawer').style.display='none';" class="btn btn-gold btn-liquid-gold pulse-gold" style="flex: 1; padding: 10px 12px; border-radius: 8px; font-size: 0.80rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;" title="Plant Your $1 Seed">
             <span>🌱 Give $1 Seed</span>
           </button>
@@ -622,19 +566,19 @@
         <li>
           <a href="#core-activations" class="mobile-nav-item" onclick="document.getElementById('mobile-nav-drawer').style.display='none';">
             <span class="mobile-nav-main" style="color: var(--forest-green); font-weight: 700;">✦ Core Grant Activations</span>
-            <span class="mobile-nav-sub">Open Mic • Circles • Pause Booths</span>
+            <span class="mobile-nav-sub">Open Mic • Jam Sessions • Pause Booths</span>
           </a>
         </li>
         <li>
-          <a href="#community-hub" class="mobile-nav-item" onclick="document.getElementById('mobile-nav-drawer').style.display='none';">
-            <span class="mobile-nav-main" style="color: var(--gold-text); font-weight: 700;">✨ Community Hub</span>
-            <span class="mobile-nav-sub">Daily Sparks • Zen Plinko • Rituals</span>
+          <a href="community-hub.html" class="mobile-nav-item" onclick="document.getElementById('mobile-nav-drawer').style.display='none';">
+            <span class="mobile-nav-main" style="color: var(--gold-text); font-weight: 700;">✨ Community Hub (Interactive)</span>
+            <span class="mobile-nav-sub">Sparks • Bracelet • Zen Plinko • Greenroom ↗</span>
           </a>
         </li>
         <li>
           <a href="#mission" class="mobile-nav-item">
-            <span class="mobile-nav-main">Our Mission</span>
-            <span class="mobile-nav-sub">Sacred Purpose</span>
+            <span class="mobile-nav-main">Our Mission &amp; Philosophy</span>
+            <span class="mobile-nav-sub">Sacred Medallion</span>
           </a>
         </li>
         <li>
@@ -684,7 +628,7 @@
   </nav>
 
   <!-- ==================== THIS WEEK'S SANCTUARY ELEMENT BAR ==================== -->
-  <aside class="element-sanctuary-bar" aria-label="This Week's Element Theme and Natural Soundscape Audio Controller">
+  <aside class="element-sanctuary-bar" aria-label="This Week's Element Theme and Natural Sanctuary Audio Controller">
     <div class="container element-sanctuary-inner">
       
       <!-- Current Weekly Element Headline -->
@@ -699,19 +643,17 @@
         </div>
       </div>
 
-      <!-- Weekly Immersion Action & Audio Controls (Air Week Focus) -->
+      <!-- Weekly Immersion Action & Natural Breeze Toggle -->
       <div class="weekly-soundscape-action-wrap">
         
-        <!-- Active Air Element Badge Pill -->
-        <div class="active-element-pill-badge" id="active-weekly-pill" title="This Week's Active Element: Air & Ocean Breeze Sky Sanctuary">
+        <div class="active-element-pill-badge" id="active-weekly-pill" title="This Week's Active Element: Air &amp; Ocean Breeze Sky Sanctuary">
           <span class="pill-icon">🌬️</span>
           <span class="pill-title" id="active-pill-title">Air &amp; Ocean Breeze</span>
           <span class="pill-vibe-tag">Breeze</span>
         </div>
 
-        <!-- Soundscape Audio Toggle & Volume -->
         <div class="soundscape-controls-wrap">
-          <button id="soundscape-toggle-btn" class="soundscape-toggle-btn" type="button" aria-pressed="false" title="Click to immerse with this week's natural ocean breeze soundscape">
+          <button id="soundscape-toggle-btn" class="soundscape-toggle-btn" type="button" aria-pressed="false" title="Click to toggle ambient nature breeze">
             <span id="soundscape-icon">🔈</span>
             <span id="soundscape-label">Tune In</span>
             <span class="sound-wave-bars" aria-hidden="true">
@@ -721,13 +663,7 @@
             </span>
           </button>
 
-          <!-- Spotify Vibe Button -->
-          <button id="spotify-toggle-btn" class="spotify-pill-btn" type="button" onclick="toggleSpotifyPlayer()" title="Listen to Sanctuary 432Hz Healing Soundscape on Spotify" style="display: inline-flex; align-items: center; gap: 6px; background: rgba(30, 215, 96, 0.16); border: 1px solid rgba(30, 215, 96, 0.45); color: #86EFAC; padding: 5px 12px; border-radius: 999px; font-size: 0.74rem; font-weight: 700; cursor: pointer; transition: all 0.2s ease;">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
-            <span>Spotify Vibe</span>
-          </button>
-
-          <div class="volume-control-pill" title="Adjust Soundscape Volume">
+          <div class="volume-control-pill" title="Adjust Nature Audio Volume">
             <span style="font-size: 0.72rem; color: #CBD7D0;">🎚️</span>
             <input type="range" id="soundscape-volume" class="volume-slider" min="0" max="100" value="70" aria-label="Soundscape Volume">
           </div>
@@ -737,23 +673,6 @@
 
     </div>
   </aside>
-
-  <!-- Collapsible Sanctuary Spotify Player Tray -->
-  <div id="sanctuarySpotifyTray" class="spotify-player-tray" style="display: none; background: rgba(14, 24, 18, 0.98); border-bottom: 1.5px solid rgba(30, 215, 96, 0.4); padding: 12px 20px; transition: all 0.3s ease;">
-    <div class="container" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
-      <div style="display: flex; align-items: center; gap: 10px;">
-        <span style="font-size: 1.3rem;">🎧</span>
-        <div>
-          <div style="font-size: 0.84rem; font-weight: 700; color: #FFFDF7;">Sanctuary 432Hz Restorative Soundscape &amp; Acoustic Soul</div>
-          <div style="font-size: 0.72rem; color: #86EFAC;">Curated meditative and soulful acoustic frequencies for deep somatic pause</div>
-        </div>
-      </div>
-      <div style="display: flex; align-items: center; gap: 12px; width: 100%; max-width: 480px;">
-        <iframe loading="lazy" style="border-radius:12px; width: 100%; height: 80px;" src="https://open.spotify.com/embed/playlist/37i9dQZF1DX4sWSpwq3LiO?utm_source=generator&theme=0" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-        <button type="button" onclick="toggleSpotifyPlayer()" style="background: none; border: none; color: #CBD7D0; font-size: 1.4rem; cursor: pointer; padding: 4px 8px; line-height: 1;" title="Close Spotify Player">&times;</button>
-      </div>
-    </div>
-  </div>
 
   <!-- ==================== HERO SECTION ==================== -->
   <header class="hero">
@@ -865,7 +784,7 @@
             <!-- Leader 1: Teshia Campbell -->
             <div class="funder-inline-leader-card">
               <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 12px;">
-                <div class="leader-avatar-orb" style="width: 52px; height: 52px; border-radius: 50%; background: radial-gradient(circle, rgba(14, 165, 233, 0.3) 0%, rgba(10, 22, 36, 0.9) 100%); border: 1.5px solid #38BDF8; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; box-shadow: 0 0 16px rgba(56, 189, 248, 0.35); flex-shrink: 0;">🌿</div>
+                <div class="leader-avatar-orb" style="width: 52px; height: 52px; border-radius: 50%; background: radial-gradient(circle, rgba(197, 154, 63, 0.28) 0%, rgba(10, 22, 36, 0.9) 100%); border: 1.5px solid #D4AF37; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; box-shadow: 0 0 16px rgba(212, 175, 55, 0.35); flex-shrink: 0;">🌿</div>
                 <div>
                   <h4 style="font-family: 'Cinzel', serif; font-size: 1.22rem; color: #FFFDF7; margin: 0 0 3px;">Teshia Campbell</h4>
                   <div style="font-size: 0.78rem; color: #F8D98C; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;">Founder &amp; Executive Director</div>
@@ -951,6 +870,9 @@
               <span>📋</span>
               <span>Copy EIN</span>
             </button>
+            <button type="button" id="btnFunderQuickViewToggle" onclick="toggleFunderQuickView(event)" class="grant-tab-btn-quickview" aria-pressed="false" title="Switch page into streamlined 30-second Grant Program Officer executive brief">
+              <span>⚡ 30-Sec Funder Quick-View</span>
+            </button>
             <button type="button" onclick="openFunderModal(event, 'summary')" class="grant-tab-btn-sub" title="Open Interactive Institutional Dossier">
               <span>🏛️</span>
               <span>Interactive Dossier</span>
@@ -967,6 +889,22 @@
   </header>
 
   <!-- ==================== MAIN CONTENT LANDMARK ==================== -->
+  <aside id="funderQuickViewBar" class="funder-quickview-bar" hidden aria-label="Executive 30-Second Funder Quick-View Bar">
+    <div class="funder-quickview-inner">
+      <div class="funder-quickview-facts">
+        <span class="funder-qv-pill">🏛️ 501(c)(3) Public Charity</span>
+        <span>EIN: <strong>39-3757168</strong></span>
+        <span>CA DOJ: <strong style="color: #86EFAC;">Active</strong></span>
+        <span>Outcomes: <strong>94% Stress Drop • 360h Care • ~$18/Seat</strong></span>
+      </div>
+      <div class="funder-quickview-actions">
+        <button type="button" class="funder-qv-link" onclick="copyFunderEIN(event)">📋 Copy EIN</button>
+        <a href="#grantImpactSimulator" class="funder-qv-link">📊 Grant Calculator</a>
+        <a href="reports/inner-sanctuary-fiduciary-one-pager.html" target="_blank" rel="noopener noreferrer" class="funder-qv-link" style="background: rgba(245, 215, 127, 0.22); border-color: #F5D77F; color: #FCE6A2;">📄 1-Page PDF ↗</a>
+        <button type="button" class="funder-qv-link" onclick="toggleFunderQuickView(event, false)" style="border-color: rgba(248, 113, 113, 0.5); color: #FCA5A5;">✕ Exit Funder View</button>
+      </div>
+    </div>
+  </aside>
   <main id="main-content">
 
   <!-- ==================== TRUST RIBBON ==================== -->
@@ -1068,7 +1006,7 @@
           <div class="core-activation-card-top">
             <div class="activation-tag-row">
               <span class="activation-grant-pill">🍃 Somatic De-Escalation</span>
-              <span class="activation-metric-badge">96% De-Escalation Rate</span>
+              <span class="activation-metric-badge">94% Stress Reduction</span>
             </div>
             <h3 class="activation-card-title">Permission to Pause Mobile Activations</h3>
             <div class="activation-card-tagline">60-Second Nervous System Resets • Pop-Up Booths &amp; Campuses</div>
@@ -1190,170 +1128,6 @@
           </div>
         </div>
     </div>
-  </section>
-
-  <!-- ==================== SACRED SOMATIC BREATHWORK INTEGRATION (GROUNDING SANCTUARY) ==================== -->
-  <section id="breath" class="section-padding sacred-breath-section">
-    <div class="container" style="text-align: center;">
-      
-      <div class="section-header" style="max-width: 680px; margin: 0 auto 20px; text-align: center;">
-        <div class="section-subtitle" style="color: var(--sunburst-gold); font-weight: 700; letter-spacing: 0.12em;">Somatic Reset • Unhurried Presence</div>
-        <h2 class="section-title serif-brand" style="color: var(--forest-green); font-size: 2.3rem;">Pause &amp; Breathe</h2>
-        <div class="flourish-divider">✦</div>
-        <p style="color: var(--charcoal-muted); font-size: 1.05rem; line-height: 1.7; font-weight: 500; margin-bottom: 0;">
-          Before exploring our community circle, soften your shoulders.<br>
-          Tap the living orb below and breathe with its gentle expansion and release.
-        </p>
-      </div>
-
-      <!-- Living Breath Orb Card (Simple, Minimal, Zen, Transparent Glass) -->
-      <div class="sanctuary-orb-card" id="sacred-breathing-portal">
-        
-        <!-- The Living Breathing Orb Stage -->
-        <div class="breathing-orb-wrapper" id="breathing-orb-stage" role="button" tabindex="0" title="Click or tap the Orb to breathe" aria-label="Interactive Breathing Orb">
-          <div class="breathing-pulse-ring"></div>
-          <div class="breathing-halo-aura" id="somatic-halo"></div>
-          
-          <!-- Ethereal Breezy Mountain Air Waves & Ripples -->
-          <div class="air-breeze-ripple-layer" id="airBreezeRippleLayer" aria-hidden="true">
-            <span class="air-ripple air-ripple-1"></span>
-            <span class="air-ripple air-ripple-2"></span>
-            <span class="air-ripple air-ripple-3"></span>
-          </div>
-
-          <div class="breathing-orb" id="somatic-orb">
-            <div class="orb-inner-glow" id="orb-inner-glow"></div>
-            <div class="orb-center-content">
-              <span class="orb-breath-word" id="orb-breath-word">Breathe</span>
-            </div>
-          </div>
-        </div>
-
-        <div id="orb-status-prompt" class="orb-status-prompt" style="color: var(--forest-green); font-weight: 700;">
-          Tap the orb or press begin below
-        </div>
-
-        <!-- Minimal Action Controls (Silent Pacer - Zero Sound Buttons) -->
-        <div class="orb-actions-bar" style="justify-content: center; flex-wrap: wrap; gap: 10px;">
-          <button id="orb-toggle-btn" class="breath-primary-toggle" type="button" aria-label="Start or Pause Breath Session">
-            <span class="btn-ctrl-icon" id="btn-ctrl-icon">▶</span>
-            <span id="orb-btn-label">Begin</span>
-          </button>
-          <button id="btnOpenLabyrinth" class="btn btn-outline" type="button" style="border-color: rgba(197, 154, 63, 0.45); color: var(--forest-green); padding: 8px 18px; border-radius: 999px; font-size: 0.82rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;" aria-label="Open Digital Labyrinth Pop-up">
-            <span>🌀</span>
-            <span>Walk Sacred Labyrinth</span>
-          </button>
-          <a href="#bracelet-creator" class="btn btn-outline" style="border-color: rgba(197, 154, 63, 0.45); color: var(--forest-green); padding: 8px 18px; border-radius: 999px; font-size: 0.82rem; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;" aria-label="Weave Intention Bracelet">
-            <span>📿</span>
-            <span>Weave Intention Bracelet</span>
-          </a>
-        </div>
-
-        <!-- Google Ad Grants / GA4 Engagement CTA Hook -->
-        <div class="breath-workshop-cta-wrap" style="margin-top: 14px; padding-top: 10px; border-top: 1px solid rgba(197, 154, 63, 0.25);">
-          <a href="#connect" class="breath-workshop-cta-btn" id="breath-workshop-cta-btn" style="color: var(--forest-green); font-weight: 700;">
-            <span>Join Our Next Live Wellness Workshop</span>
-            <span class="cta-arrow">→</span>
-          </a>
-        </div>
-
-      </div>
-
-      <!-- ==================== THE GREENROOM & SPEAKEASY WHEEL INVITATION ==================== -->
-      <div class="speakeasy-hearth-invite-card" id="community-raffle-wheel" data-alias="community-pulse-wall" aria-label="Inner Sanctuary Secret Speakeasy Raffle Wheel">
-        <div class="speakeasy-invite-halo"></div>
-        <span class="speakeasy-invite-badge">✦ THE SANCTUARY GREENROOM • 3 KNOCKS TO UNLOCK ✦</span>
-        <h3 class="speakeasy-invite-title serif-brand">The Secret Speakeasy &amp; Raffle Vault</h3>
-        <p class="speakeasy-invite-sub">
-          Behind the sacred medallion lies our hidden Greenroom hearth—featuring the midnight vinyl player, open mic whisper vault, and the <strong>Secret Raffle Gacha Wheel</strong> with sponsored In-N-Out meal cards, rare headphones, and sanctuary gear.
-        </p>
-        <div class="speakeasy-invite-actions">
-          <button type="button" class="btn btn-gold btn-liquid-gold" onclick="window.sanctuaryRaffleWheel.openSpeakeasyWheel()" aria-label="Knock 3 Times & Open Secret Speakeasy Wheel">
-            <span>🗝️ Knock 3 Times &amp; Open Wheel</span>
-            <span>→</span>
-          </button>
-        </div>
-        <div class="speakeasy-invite-hint">
-          <span>💡 Or tap the golden medallion in the top menu 3 times anytime</span>
-        </div>
-      </div>
-
-      <!-- ==================== THE HEARTH MIRROR (GEMINI WISDOM COMPANION) ==================== -->
-      <div class="hearth-mirror-card" id="hearth-mirror-portal" style="max-width: 720px; margin: 38px auto 0; background: rgba(30, 49, 39, 0.94); border: 1.5px solid rgba(197, 154, 63, 0.45); border-radius: 20px; padding: 36px 30px; box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22); color: #FFFDF7; text-align: center; position: relative; overflow: hidden;">
-        
-        <!-- Subtle Golden Backlight Glow -->
-        <div style="position: absolute; top: -50px; left: 50%; transform: translateX(-50%); width: 320px; height: 160px; background: radial-gradient(circle, rgba(197, 154, 63, 0.3) 0%, transparent 70%); pointer-events: none;"></div>
-
-        <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(197, 154, 63, 0.18); border: 1px solid rgba(197, 154, 63, 0.4); padding: 5px 14px; border-radius: 999px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; color: #FCE6A2; text-transform: uppercase; margin-bottom: 16px;">
-          <span>✦ THE HEARTH MIRROR • GEMINI WISDOM COMPANION ✦</span>
-        </div>
-
-        <h3 class="serif-brand" style="color: #FFFDF7; font-size: 1.85rem; margin: 0 0 10px; text-shadow: 0 0 14px rgba(250, 230, 170, 0.4);">
-          What is on your heart right now?
-        </h3>
-        
-        <p style="color: rgba(255, 253, 247, 0.85); font-size: 0.98rem; line-height: 1.6; max-width: 580px; margin: 0 auto 22px;">
-          Whisper what you are carrying or navigating today. The Hearth Mirror reflects back a personalized grounding wisdom spark to help you soften, breathe, and remember.
-        </p>
-
-        <!-- Emotion Anchor Buttons -->
-        <div class="hearth-emotion-pills" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 20px;">
-          <button type="button" class="hearth-pill-btn" data-emotion="overwhelmed">🌪️ Overwhelmed</button>
-          <button type="button" class="hearth-pill-btn" data-emotion="heavy-heart">🌧️ Heavy Heart</button>
-          <button type="button" class="hearth-pill-btn" data-emotion="seeking-peace">🕊️ Seeking Peace</button>
-          <button type="button" class="hearth-pill-btn" data-emotion="creative-spark">🔥 Creative Spark</button>
-          <button type="button" class="hearth-pill-btn" data-emotion="lonely">🕯️ Need Connection</button>
-          <button type="button" class="hearth-pill-btn" data-emotion="grateful">🌿 Grateful</button>
-        </div>
-
-        <!-- Reflection Input Area -->
-        <div style="margin-bottom: 20px;">
-          <textarea id="hearthReflectionInput" placeholder="Whisper what you are carrying or navigating today (or tap a feeling above)..." rows="2" style="width: 100%; box-sizing: border-box; background: rgba(18, 30, 24, 0.75); border: 1.5px solid rgba(197, 154, 63, 0.35); border-radius: 12px; color: #FFFDF7; font-size: 0.95rem; padding: 14px 16px; font-family: inherit; line-height: 1.5; resize: vertical; outline: none; transition: border-color 0.25s ease;"></textarea>
-        </div>
-
-        <!-- Action Row -->
-        <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
-          <button type="button" id="btnReceiveReflection" class="btn btn-gold" style="padding: 12px 24px; font-weight: 700; letter-spacing: 0.05em; font-size: 0.92rem; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
-            <span id="hearthBtnSpinner" style="display: none;">⏳</span>
-            <span id="hearthBtnText">✦ Receive Hearth Reflection</span>
-          </button>
-          <button type="button" id="btnChime432" class="btn btn-outline" style="border-color: rgba(197, 154, 63, 0.5); color: #FCE6A2; padding: 12px 18px; font-size: 0.88rem; border-radius: 8px; cursor: pointer;">
-            🔔 432 Hz Bronze Bell
-          </button>
-        </div>
-
-        <!-- Dynamic Output Container (Hidden by default) -->
-        <div id="hearthReflectionResult" style="display: none; margin-top: 28px; padding-top: 24px; border-top: 1px solid rgba(197, 154, 63, 0.3); text-align: left; animation: fadeIn 0.6s ease;">
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
-            <span style="font-size: 0.76rem; letter-spacing: 0.1em; color: var(--sunburst-gold); font-weight: 700; text-transform: uppercase;">✦ Hearth Reflection Spark</span>
-            <span id="hearthResultTag" style="font-size: 0.74rem; background: rgba(197, 154, 63, 0.2); color: #FCE6A2; padding: 2px 8px; border-radius: 4px; font-weight: 600;">Peace</span>
-          </div>
-          
-          <div id="hearthResultQuote" class="serif-brand" style="font-size: 1.18rem; color: #FFFDF7; line-height: 1.7; font-style: italic; margin-bottom: 16px; text-shadow: 0 0 10px rgba(250, 230, 170, 0.3);">
-            "Take a gentle breath, friend. You have been carrying so much..."
-          </div>
-
-          <div id="hearthResultPractice" style="background: rgba(18, 30, 24, 0.6); border-left: 3px solid var(--sunburst-gold); padding: 12px 16px; border-radius: 6px; font-size: 0.88rem; color: rgba(255, 253, 247, 0.9); margin-bottom: 18px;">
-            <strong>🌿 Grounding Micro-Practice:</strong> Let your jaw unclench and take 3 slow breaths with the Living Breath Orb above.
-          </div>
-
-          <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end;">
-            <button type="button" id="btnChime528" class="btn btn-outline" style="border-color: rgba(197, 154, 63, 0.5); color: #FCE6A2; font-size: 0.8rem; padding: 8px 14px; border-radius: 6px; cursor: pointer;">
-              🔔 528 Hz Healing Bell
-            </button>
-            <a href="#open-mic" class="btn btn-gold" style="font-size: 0.8rem; padding: 8px 14px; border-radius: 6px; text-decoration: none;">
-              Bring This to Friday's Circle →
-            </a>
-          </div>
-        </div>
-
-      </div>
-
-    
-
-      
-    
-</div>
   </section>
 
   <!-- ==================== OUR METHOD: THE THREEFOLD METHOD & JOYFUL EMBODIMENT ==================== -->
@@ -1589,7 +1363,7 @@
           </div>
 
           <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-            <a href="#bracelet-creator" class="btn btn-gold" style="flex: 1; text-align: center; font-size: 0.82rem; padding: 10px 14px; text-decoration: none;">📿 Weave Digital Bracelet ↓</a>
+            <a href="community-hub.html#bracelet-creator" class="btn btn-gold" style="flex: 1; text-align: center; font-size: 0.82rem; padding: 10px 14px; text-decoration: none;">📿 Weave Bracelet in Hub ↗</a>
             <a href="#connect" class="btn btn-outline" style="flex: 1; text-align: center; font-size: 0.82rem; padding: 10px 14px; text-decoration: none;">Bring to Your Community</a>
           </div>
         </div>
@@ -1626,74 +1400,6 @@
 
       </div>
 
-      <!-- ==================== DIGITAL INTENTION BRACELET CREATOR (PAUSE ACTIVATION COMPANION) ==================== -->
-      <div class="digital-bracelet-creator" id="bracelet-creator">
-        <div class="bracelet-header">
-          <span class="bracelet-pill">✦ Interactive Pause Activation</span>
-          <h3 class="bracelet-title serif-brand">Weave Your Digital Intention Bracelet</h3>
-          <p class="bracelet-sub">
-            Experience our in-person mindfulness station: choose <strong>3 intentional beads</strong> below to craft your wearable anchor of peace and reveal your personal Sanctuary Spark.
-          </p>
-        </div>
-
-        <!-- Bead Palette Grid -->
-        <div class="bead-palette-grid" role="group" aria-label="Select 3 Intention Beads">
-          <button type="button" class="bead-btn" data-bead="cedar" data-name="Cedar Wood" data-meaning="Grounded Roots &amp; Quiet Presence" data-color="#8B5A2B">
-            <span class="bead-circle" style="background: radial-gradient(circle at 35% 35%, #C19A6B, #8B5A2B 70%, #5C3A1E);"></span>
-            <span class="bead-title">Cedar Wood</span>
-            <span class="bead-intent">Grounded Roots</span>
-          </button>
-          
-          <button type="button" class="bead-btn" data-bead="rosequartz" data-name="Rose Quartz" data-meaning="Unconditional Self-Compassion" data-color="#F4C2C2">
-            <span class="bead-circle" style="background: radial-gradient(circle at 35% 35%, #FFF0F5, #F4C2C2 60%, #E699A8);"></span>
-            <span class="bead-title">Rose Quartz</span>
-            <span class="bead-intent">Self-Compassion</span>
-          </button>
-          
-          <button type="button" class="bead-btn" data-bead="lavastone" data-name="Lava Stone" data-meaning="Tension Release &amp; Earth Strength" data-color="#3A3A3A">
-            <span class="bead-circle" style="background: radial-gradient(circle at 35% 35%, #555555, #2B2B2B 70%, #151515);"></span>
-            <span class="bead-title">Lava Stone</span>
-            <span class="bead-intent">Tension Release</span>
-          </button>
-          
-          <button type="button" class="bead-btn" data-bead="turquoise" data-name="River Turquoise" data-meaning="Authentic Voice, Sacred Serenity &amp; Throat Chakra Flow" data-color="#2E7D73">
-            <span class="bead-circle" style="background: radial-gradient(circle at 35% 32%, #A8E6CF 0%, #3AAFA9 42%, #2E7D73 75%, #174842 100%); box-shadow: inset 0 2px 4px rgba(255,255,255,0.7), inset -1px -2px 4px rgba(0,0,0,0.35);"></span>
-            <span class="bead-title">Turquoise</span>
-            <span class="bead-intent">Authentic Voice</span>
-          </button>
-          
-          <button type="button" class="bead-btn" data-bead="gold" data-name="Sunburst Gold" data-meaning="Inner Radiance &amp; Soul Joy" data-color="#FFD700">
-            <span class="bead-circle" style="background: radial-gradient(circle at 35% 35%, #FFF9D2, #FFD700 65%, #C67D00);"></span>
-            <span class="bead-title">Sunburst Gold</span>
-            <span class="bead-intent">Inner Radiance</span>
-          </button>
-          
-          <button type="button" class="bead-btn" data-bead="mossagate" data-name="Moss Agate" data-meaning="Nature Healing &amp; Quiet Trust" data-color="#4A704A">
-            <span class="bead-circle" style="background: radial-gradient(circle at 35% 35%, #A2C4A2, #4A704A 65%, #254025);"></span>
-            <span class="bead-title">Moss Agate</span>
-            <span class="bead-intent">Quiet Trust</span>
-          </button>
-        </div>
-
-        <!-- Real-Time Interactive Bracelet String Display -->
-        <div class="bracelet-stage" id="braceletStage">
-          <div class="bracelet-cord-line"></div>
-          <div class="bracelet-slots" id="braceletSlots">
-            <div class="bead-slot empty" id="slot0"><span class="slot-placeholder">+ Bead 1</span></div>
-            <div class="bead-slot empty" id="slot1"><span class="slot-placeholder">+ Bead 2</span></div>
-            <div class="bead-slot empty" id="slot2"><span class="slot-placeholder">+ Bead 3</span></div>
-          </div>
-        </div>
-
-        <!-- Keepsake Modal Trigger Button (Shows when 3 beads are strung) -->
-        <div style="text-align: center;">
-          <button type="button" class="btn btn-gold btn-liquid-gold pulse-gold btn-open-bracelet-modal" id="btnOpenBraceletModal" onclick="openBraceletKeepsakeModal()" style="display: none;">
-            <span>✨ View Your Keepsake Pop-Up Window ↗</span>
-          </button>
-        </div>
-
-      </div>
-
     </div>
   </section>
 
@@ -1722,42 +1428,42 @@
       <!-- Featured Event Card -->
       <div class="event-featured-card">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;">
-          <div class="event-tag-badge">
-            <span>✦</span> UPCOMING · COMMUNITY OPEN MIC
+          <div class="event-tag-badge" id="featuredEventTag">
+            <span>✦</span> NEXT UPCOMING · UNPLUGGED JAM SESSION
           </div>
-          <span style="font-size: 0.76rem; color: #F8D98C; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;">
-            📍 Irvine / Orange County • Alcohol-Free Creative Sanctuary
+          <span id="featuredEventLocation" style="font-size: 0.76rem; color: #F8D98C; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;">
+            📍 1501 W Alton Ave, Santa Ana • Alcohol-Free Creative Sanctuary
           </span>
         </div>
-        
-        <h3 style="font-family: 'Cinzel', serif; font-size: clamp(1.8rem, 3.2vw, 2.4rem); color: #FFFFFF; letter-spacing: 0.08em; margin-bottom: 8px;">
-          Open Mic & Creative Connection Gathering
+
+        <h3 id="featuredEventTitle" style="font-family: 'Cinzel', serif; font-size: clamp(1.8rem, 3.2vw, 2.4rem); color: #FFFFFF; letter-spacing: 0.08em; margin-bottom: 8px;">
+          Jam Session: The Unplugged Playground
         </h3>
         <p style="color: #CBD7D0; font-size: 0.95rem; margin-bottom: 0;">
-          Hosted by <strong>SoCal Creatives Collective</strong> & <strong>Inner Sanctuary Wellness Foundation</strong>
+          Hosted by <strong>SoCal Creatives Collective</strong> &amp; <strong>Inner Sanctuary Wellness Foundation</strong>
         </p>
 
         <!-- Date / Time / Location Banner -->
         <div class="event-datetime-banner">
           <div>
-            <div class="date-highlight">SUNDAY, NOVEMBER 22, 2026</div>
-            <div class="time-highlight">2:00 PM – 6:00 PM PST</div>
+            <div class="date-highlight" id="featuredEventDate">THURSDAY, DECEMBER 10, 2026</div>
+            <div class="time-highlight" id="featuredEventTime">6:00 PM – 8:00 PM PST</div>
           </div>
           <div style="border-left: 1.5px solid rgba(197, 154, 63, 0.35); padding-left: 20px;">
-            <div style="font-size: 0.95rem; font-weight: 700; color: #FFFFFF;">Location & Venue</div>
-            <div style="font-size: 0.88rem; color: #CBD7D0;">Our Sanctuary Clubhouse • Orange County, CA</div>
+            <div style="font-size: 0.95rem; font-weight: 700; color: #FFFFFF;" id="featuredEventVenueTitle">SoCal Creatives • Alton Studio</div>
+            <div style="font-size: 0.88rem; color: #CBD7D0;" id="featuredEventVenueSub">1501 W Alton Ave • Santa Ana, CA</div>
           </div>
           <div style="border-left: 1.5px solid rgba(197, 154, 63, 0.35); padding-left: 20px;">
-            <div style="font-size: 0.95rem; font-weight: 700; color: #FFFFFF;">The Experience</div>
-            <div style="font-size: 0.88rem; color: #CBD7D0;">Open Mic Stage & Creative Sanctuary</div>
+            <div style="font-size: 0.95rem; font-weight: 700; color: #FFFFFF;" id="featuredEventExpTitle">Unplugged Acoustic Jam</div>
+            <div style="font-size: 0.88rem; color: #CBD7D0;" id="featuredEventExpSub">10 Humans • Instruments &amp; Creative Flow</div>
           </div>
         </div>
 
-        <!-- Live Gathering Real-Time Countdown Timer (Our Sanctuary Clubhouse Gathering) -->
-        <div class="openmic-countdown-card" id="openmic-countdown" aria-label="Real-time countdown to next Community Open Mic gathering at Our Sanctuary Clubhouse">
+        <!-- Live Gathering Real-Time Countdown Timer -->
+        <div class="openmic-countdown-card" id="openmic-countdown" aria-label="Real-time countdown to next Inner Sanctuary gathering">
           <div class="countdown-badge-row">
             <span class="countdown-pulse-dot"></span>
-            <span class="countdown-badge-text">✦ LIVE GATHERING COUNTDOWN • OUR SANCTUARY CLUBHOUSE</span>
+            <span class="countdown-badge-text">✦ LIVE GATHERING COUNTDOWN • SANTA ANA &amp; OC</span>
           </div>
 
           <div class="countdown-clock-grid">
@@ -1782,11 +1488,10 @@
             </div>
           </div>
 
-          <div class="countdown-foot-note">
-            Next Gathering: <strong>Sunday, November 22, 2026 at 2:00 PM PST</strong> • 🍂 Friendsgiving with RECONNECT • Community Donation Gathering
+          <div class="countdown-foot-note" id="countdownFootNote">
+            Next Gathering: <strong>Thursday, December 10, 2026 at 6:00 PM PST</strong> • 🎶 Unplugged Playground • Free Community Circle
           </div>
         </div>
-    
 
         <!-- Community Impact Metrics Bar -->
         <div class="community-impact-metrics-bar">
@@ -1818,60 +1523,25 @@
       <!-- ==================== UPCOMING GATHERINGS & MEETUP CALENDAR ==================== -->
       <div class="upcoming-calendar-showcase" style="margin: 40px 0 32px;">
         <div style="text-align: center; max-width: 720px; margin: 0 auto 28px;">
-          <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(197, 154, 63, 0.16); border: 1px solid rgba(197, 154, 63, 0.45); border-radius: 999px; padding: 5px 16px; font-size: 0.76rem; font-weight: 700; color: #F5D77F; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px;">
+          <div style="display: inline-flex; align-items: center; gap: 8px; background: #1E3127; border: 1px solid #C59A3F; border-radius: 999px; padding: 5px 16px; font-size: 0.76rem; font-weight: 700; color: #F8D98C; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px;">
             <span>📅</span> Verified Meetup Gathering Schedule
           </div>
-          <h3 class="serif-brand" style="font-size: clamp(1.6rem, 2.8vw, 2.2rem); color: #FFFFFF; letter-spacing: 0.04em; margin-bottom: 8px; text-shadow: 0 2px 8px rgba(0,0,0,0.35);">
+          <h3 class="serif-brand" style="font-size: clamp(1.6rem, 2.8vw, 2.2rem); color: var(--forest-green); letter-spacing: 0.04em; margin-bottom: 8px;">
             Upcoming Gatherings &amp; Circles
           </h3>
-          <p style="color: #FFFDF7; font-size: 1.02rem; line-height: 1.7; margin: 0 auto; max-width: 680px; text-shadow: 0 1px 4px rgba(0,0,0,0.4);">
-            Explore our upcoming in-person experiences across Orange County. Each gathering is <span style="color: #F8D98C; font-weight: 600;">substance-free</span>, <span style="color: #F8D98C; font-weight: 600;">trauma-informed</span>, and <span style="color: #F5D77F; font-weight: 600;">community donation-based</span>.
+          <p style="color: var(--charcoal-muted); font-size: 1.02rem; line-height: 1.7; margin: 0 auto; max-width: 680px; font-weight: 500;">
+            Explore our upcoming in-person experiences across Orange County. Each gathering is <strong style="color: var(--forest-green);">substance-free</strong>, <strong style="color: var(--forest-green);">trauma-informed</strong>, and <strong style="color: #8C6D23;">100% free / donation-optional</strong>.
           </p>
         </div>
 
-        <div class="calendar-cards-grid" >
-          
-          <!-- Event 1: Friendsgiving -->
-          <div class="calendar-event-card" style="background: rgba(30, 49, 39, 0.96); border: 1.5px solid rgba(197, 154, 63, 0.45); border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 10px 30px rgba(0,0,0,0.25);">
-            <div class="event-card-img-wrap">
-              <img src="images/openmic/openmic-nov15-reconnect-sisterhood.jpg" alt="RECONNECT community leaders gathered at Our Sanctuary Clubhouse" style="width: 100%; height: 100%; object-fit: cover;">
-              <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(17,29,22,0.85) 100%);"></div>
-              <span style="position: absolute; top: 14px; left: 14px; background: #C59A3F; color: #111D16; font-size: 0.72rem; font-weight: 800; padding: 4px 10px; border-radius: 6px; letter-spacing: 0.08em; text-transform: uppercase;">✦ NEXT GATHERING</span>
-              <span style="position: absolute; bottom: 12px; left: 14px; color: #F8D98C; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em;">📍 Our Sanctuary Clubhouse • Orange County</span>
-            </div>
-            <div style="padding: 22px; display: flex; flex-direction: column; flex-grow: 1;">
-              <div style="font-size: 0.78rem; font-weight: 700; color: #86EFAC; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px;">
-                Sunday, November 22, 2026 • 2:00 PM – 6:00 PM PST
-              </div>
-              <h4 style="font-family: 'Cinzel', serif; font-size: 1.25rem; color: #FFFFFF; font-weight: 700; margin-bottom: 8px; line-height: 1.35;">
-                🍂 Friendsgiving: Good Food, Good Humans &amp; Good Vibes
-              </h4>
-              <p style="color: #CBD7D0; font-size: 0.88rem; line-height: 1.6; margin-bottom: 18px; flex-grow: 1;">
-                A collaborative gathering with <strong>RECONNECT</strong> and Inner Sanctuary. Good food, genuine connection, and unhurried conversation. No masks required.
-              </p>
-              <!-- CTA Button Row -->
-              <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: auto;">
-                <a href="https://www.meetup.com/socal-creatives-collective/events/317482553/" target="_blank" rel="noopener noreferrer" class="btn btn-gold" style="flex: 1; text-align: center; font-size: 0.82rem; padding: 10px 14px; display: inline-flex; align-items: center; justify-content: center; gap: 6px;">
-                  <span>RSVP on Meetup</span> <span>↗</span>
-                </a>
-                <div style="display: flex; gap: 6px;">
-                  <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=%F0%9F%8D%82+Friendsgiving%3A+Good+Food%2C+Good+Humans+%26+Good+Vibes&dates=20261122T220000Z/20261123T020000Z&details=A+RECONNECT+%C3%97+Inner+Sanctuary+Wellness+Foundation+Gathering.+RSVP%3A+https%3A%2F%2Fwww.meetup.com%2Fsocal-creatives-collective%2Fevents%2F317482553%2F&location=Our+Sanctuary+Clubhouse%2C+Orange+County%2C+CA" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 0.78rem; padding: 10px 12px; border-color: rgba(197, 154, 63, 0.45); color: #F5D77F;" title="Add to Google Calendar">
-                    📅 Google
-                  </a>
-                  <button type="button" onclick="downloadEventIcs('friendsgiving')" class="btn btn-outline" style="font-size: 0.78rem; padding: 10px 12px; border-color: rgba(197, 154, 63, 0.45); color: #F5D77F; cursor: pointer;" title="Download Apple/Outlook iCal">
-                    🍏 Apple
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="calendar-cards-grid" id="upcomingCalendarCardsContainer">
 
-          <!-- Event 2: Jam Session -->
-          <div class="calendar-event-card" style="background: rgba(30, 49, 39, 0.96); border: 1.5px solid rgba(197, 154, 63, 0.45); border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 10px 30px rgba(0,0,0,0.25);">
+          <!-- Event 1: Upcoming Jam Session (Dec 10, 2026) -->
+          <div class="calendar-event-card" data-event-id="jam-session" data-event-start="2026-12-10T18:00:00-08:00" data-event-end="2026-12-10T20:00:00-08:00" style="background: rgba(30, 49, 39, 0.96); border: 1.5px solid rgba(197, 154, 63, 0.55); border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 10px 30px rgba(0,0,0,0.25);">
             <div class="event-card-img-wrap">
-              <img src="images/openmic/openmic-nov15-djembe-poolside-rhythm.jpg" alt="Acoustic djembe drumming and live open mic rhythm at sunset" style="width: 100%; height: 100%; object-fit: cover;">
+              <img src="images/openmic/openmic-nov15-djembe-poolside-rhythm.jpg" alt="Acoustic djembe drumming and unplugged jam session rhythm at sunset" style="width: 100%; height: 100%; object-fit: cover;">
               <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(17,29,22,0.85) 100%);"></div>
-              <span style="position: absolute; top: 14px; left: 14px; background: rgba(197, 154, 63, 0.25); border: 1px solid #C59A3F; color: #F5D77F; font-size: 0.72rem; font-weight: 800; padding: 4px 10px; border-radius: 6px; letter-spacing: 0.08em; text-transform: uppercase;">✦ DECEMBER JAM</span>
+              <span class="calendar-status-pill" style="position: absolute; top: 14px; left: 14px; background: #C59A3F; color: #111D16; font-size: 0.72rem; font-weight: 800; padding: 4px 10px; border-radius: 6px; letter-spacing: 0.08em; text-transform: uppercase;">✦ NEXT GATHERING • DEC 10</span>
               <span style="position: absolute; bottom: 12px; left: 14px; color: #F8D98C; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em;">📍 1501 W Alton Ave • Santa Ana, CA</span>
             </div>
             <div style="padding: 22px; display: flex; flex-direction: column; flex-grow: 1;">
@@ -1882,11 +1552,9 @@
                 🎶 Jam Session: The Unplugged Playground
               </h4>
               <p style="color: #CBD7D0; font-size: 0.88rem; line-height: 1.6; margin-bottom: 18px; flex-grow: 1;">
-                10 Humans. A Few Instruments. Endless Possibilities. An intimate unplugged session hosted by SoCal Creatives Collective. Bring an acoustic instrument or just your ears.
+                10 Humans. A Few Instruments. Endless Possibilities. An intimate unplugged circle co-hosted with SoCal Creatives Collective. Bring an acoustic instrument or simply come pause and listen.
               </p>
-              
-              <!-- CTA Button Row -->
-              <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: auto;">
+              <div class="calendar-card-actions-wrap" style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: auto;">
                 <a href="https://www.meetup.com/socal-creatives-collective/events/317462800/" target="_blank" rel="noopener noreferrer" class="btn btn-gold" style="flex: 1; text-align: center; font-size: 0.82rem; padding: 10px 14px; display: inline-flex; align-items: center; justify-content: center; gap: 6px;">
                   <span>RSVP on Meetup</span> <span>↗</span>
                 </a>
@@ -1902,24 +1570,76 @@
             </div>
           </div>
 
+          <!-- Event 2: Monthly Open Mic & Pause Activation Series (Rolling Waitlist) -->
+          <div class="calendar-event-card" style="background: rgba(30, 49, 39, 0.96); border: 1.5px solid rgba(197, 154, 63, 0.45); border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 10px 30px rgba(0,0,0,0.25);">
+            <div class="event-card-img-wrap">
+              <img src="images/openmic/openmic-community-joy.jpg" alt="Community Open Mic &amp; Pause Activation circle in Southern California" style="width: 100%; height: 100%; object-fit: cover;">
+              <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(17,29,22,0.85) 100%);"></div>
+              <span class="calendar-status-pill" style="position: absolute; top: 14px; left: 14px; background: rgba(197, 154, 63, 0.25); border: 1px solid #C59A3F; color: #F5D77F; font-size: 0.72rem; font-weight: 800; padding: 4px 10px; border-radius: 6px; letter-spacing: 0.08em; text-transform: uppercase;">✦ MONTHLY SERIES • ARTIST &amp; HOST SIGN-UP</span>
+              <span style="position: absolute; bottom: 12px; left: 14px; color: #F8D98C; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em;">📍 Orange County &amp; Inland Empire</span>
+            </div>
+            <div style="padding: 22px; display: flex; flex-direction: column; flex-grow: 1;">
+              <div style="font-size: 0.78rem; font-weight: 700; color: #86EFAC; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px;">
+                Monthly Cycle • Performer &amp; Campus Pop-Up Dates
+              </div>
+              <h4 style="font-family: 'Cinzel', serif; font-size: 1.25rem; color: #FFFFFF; font-weight: 700; margin-bottom: 8px; line-height: 1.35;">
+                🎤 Winter Open Mic &amp; Pause Activation Schedule
+              </h4>
+              <p style="color: #CBD7D0; font-size: 0.88rem; line-height: 1.6; margin-bottom: 18px; flex-grow: 1;">
+                Reserve a spoken-word/acoustic slot for our next Clubhouse Open Mic or invite a Permission to Pause mobile booth to your campus, workplace, or neighborhood space.
+              </p>
+              <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: auto;">
+                <a href="#connect" class="btn btn-gold" style="flex: 1; text-align: center; font-size: 0.82rem; padding: 10px 14px; display: inline-flex; align-items: center; justify-content: center; gap: 6px;">
+                  <span>Request Slot / Host Pause ↓</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
 
       <!-- ==================== PAST GATHERINGS & VERIFIED IMPACT ARCHIVE ==================== -->
       <div class="past-gatherings-showcase" style="margin: 40px 0 36px;">
         <div style="text-align: center; max-width: 720px; margin: 0 auto 28px;">
-          <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(197, 154, 63, 0.16); border: 1px solid rgba(197, 154, 63, 0.45); border-radius: 999px; padding: 5px 16px; font-size: 0.76rem; font-weight: 700; color: #F5D77F; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px;">
+          <div style="display: inline-flex; align-items: center; gap: 8px; background: #1E3127; border: 1px solid #C59A3F; border-radius: 999px; padding: 5px 16px; font-size: 0.76rem; font-weight: 700; color: #F8D98C; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px;">
             <span>🌿</span> Git-Backed Community Impact Ledger
           </div>
-          <h3 class="serif-brand" style="font-size: clamp(1.6rem, 2.8vw, 2.2rem); color: #FFFFFF; letter-spacing: 0.04em; margin-bottom: 8px; text-shadow: 0 2px 8px rgba(0,0,0,0.35);">
+          <h3 class="serif-brand" style="font-size: clamp(1.6rem, 2.8vw, 2.2rem); color: var(--forest-green); letter-spacing: 0.04em; margin-bottom: 8px;">
             Past Gatherings &amp; Verified Impact
           </h3>
-          <p style="color: #FFFDF7; font-size: 1.02rem; line-height: 1.7; margin: 0 auto; max-width: 680px; text-shadow: 0 1px 4px rgba(0,0,0,0.4);">
+          <p style="color: var(--charcoal-muted); font-size: 1.02rem; line-height: 1.7; margin: 0 auto; max-width: 680px; font-weight: 500;">
             Every gathering is archived in our transparent open ledger. Review documented community participation, attendee voices, and download official 1-page sponsor receipts for CRA and corporate partner tax verification.
           </p>
         </div>
 
         <div class="calendar-cards-grid" id="past-gatherings-cards-container">
+
+            <!-- Event Card: 2026-11-22-friendsgiving (Archived automatically past end date) -->
+            <div class="calendar-event-card" data-event-id="friendsgiving" data-event-start="2026-11-22T14:00:00-08:00" data-event-end="2026-11-22T18:00:00-08:00" style="background: rgba(30, 49, 39, 0.96); border: 1.5px solid rgba(197, 154, 63, 0.45); border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 10px 30px rgba(0,0,0,0.25);">
+              <div style="position: relative; height: 180px; overflow: hidden;">
+                <img src="images/openmic/openmic-nov15-reconnect-sisterhood.jpg" alt="RECONNECT community leaders gathered at Our Sanctuary Clubhouse" style="width: 100%; height: 100%; object-fit: cover;">
+                <div style="position: absolute; top: 12px; left: 12px; background: rgba(18, 30, 24, 0.90); border: 1px solid #86EFAC; color: #86EFAC; font-size: 0.72rem; font-weight: 700; padding: 4px 10px; border-radius: 999px;">
+                  ✓ COMPLETED GATHERING • NOV 22
+                </div>
+              </div>
+              <div style="padding: 20px; display: flex; flex-direction: column; flex: 1;">
+                <div style="font-size: 0.76rem; color: #F5D77F; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px;">
+                  Nov 22, 2026 • Our Sanctuary Clubhouse, Orange County, CA
+                </div>
+                <h4 style="font-family: 'Cinzel', serif; font-size: 1.25rem; color: #FFFFFF; font-weight: 700; margin-bottom: 10px; line-height: 1.35;">
+                  🍂 Friendsgiving: Good Food, Good Humans &amp; Good Vibes
+                </h4>
+                <p style="color: #CBD7D0; font-size: 0.84rem; line-height: 1.55; margin-bottom: 14px;">
+                  Co-hosted with RECONNECT &amp; Inner Sanctuary — shared table nourishment, unhurried conversation, and substance-free neighborhood fellowship.
+                </p>
+                <div style="margin-top: auto; display: flex; gap: 8px;">
+                  <a href="https://www.meetup.com/socal-creatives-collective/events/317482553/" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="border-color: rgba(197, 154, 63, 0.45); color: #F8D98C; font-size: 0.78rem; padding: 6px 14px; border-radius: 999px; text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 6px;">
+                    <span>✓ View Event Recap on Meetup</span> <span>↗</span>
+                  </a>
+                </div>
+              </div>
+            </div>
 
             <!-- Event Card: 2026-11-15-sanctuary-clubhouse-openmic -->
             <div class="calendar-event-card" style="background: rgba(30, 49, 39, 0.96); border: 1.5px solid rgba(197, 154, 63, 0.45); border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 10px 30px rgba(0,0,0,0.25);">
@@ -1987,28 +1707,6 @@
               </div>
             </div>
         </div>
-      </div>
-
-      <!-- ==================== SANCTUARY ACOUSTIC & 432HZ SPOTIFY SOUNDSCAPE ==================== -->
-      <div class="sanctuary-spotify-showcase" style="margin: 36px 0; background: linear-gradient(135deg, rgba(17, 29, 22, 0.96) 0%, rgba(26, 46, 35, 0.96) 100%); border: 1.5px solid rgba(30, 215, 96, 0.45); border-radius: 18px; padding: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
-        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; margin-bottom: 14px;">
-          <div style="display: flex; align-items: center; gap: 12px;">
-            <div style="width: 42px; height: 42px; border-radius: 50%; background: rgba(30, 215, 96, 0.16); border: 1.5px solid #1ED760; display: flex; align-items: center; justify-content: center; color: #1ED760; flex-shrink: 0;">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
-            </div>
-            <div>
-              <div style="font-size: 0.72rem; font-weight: 800; color: #1ED760; letter-spacing: 0.08em; text-transform: uppercase;">✦ SANCTUARY SOUNDSCAPE &amp; ACOUSTIC VIBE</div>
-              <h4 style="font-family: 'Cinzel', serif; font-size: 1.22rem; color: #FFFFFF; font-weight: 700; margin: 2px 0 0;">Peaceful Piano &amp; Meditative Somatic Harmonies</h4>
-            </div>
-          </div>
-          <a href="https://open.spotify.com/playlist/37i9dQZF1DX4sWSpwq3LiO" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="border-color: rgba(30, 215, 96, 0.55); color: #86EFAC; font-size: 0.8rem; padding: 8px 16px; border-radius: 999px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; font-weight: 600;">
-            <span>Open in Spotify App</span> <span>↗</span>
-          </a>
-        </div>
-        <p style="color: #CBD7D0; font-size: 0.88rem; line-height: 1.6; margin: 0 0 16px;">
-          Immerse yourself in our curated playlist for restorative pauses, open mics, and mindful reflection. Tap play to stream directly on the page.
-        </p>
-        <iframe loading="lazy" style="border-radius:12px; width: 100%; height: 152px; border: 0;" src="https://open.spotify.com/embed/playlist/37i9dQZF1DX4sWSpwq3LiO?utm_source=generator&theme=0" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
       </div>
 
       <!-- Space-Saving Compact Community Photo Wheel (Our Sanctuary Clubhouse Moments) -->
@@ -2309,7 +2007,7 @@
         </div>
 
         <div class="event-cta-bar">
-          <a href="https://www.meetup.com/socal-creatives-collective/events/317482553/" 
+          <a href="https://www.meetup.com/socal-creatives-collective/events/317462800/" 
              target="_blank" 
              rel="noopener noreferrer" 
              class="btn-meetup" 
@@ -2417,712 +2115,76 @@
     </div>
   </section>
 
-  <!-- ==================== THE SANCTUARY GREENROOM (SPEAKEASY SESSIONS & COMMUNITY MIC) ==================== -->
-  <div id="speakeasyModal" class="speakeasy-modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true" style="display: none;">
-    <div class="speakeasy-modal-dialog">
-      <button type="button" class="speakeasy-modal-close" aria-label="Close Greenroom window" onclick="closeSpeakeasyModal()">&times;</button>
-      
-      <!-- Speakeasy Header -->
-      <div class="speakeasy-modal-header">
-        <div class="speakeasy-modal-badge">✦ THE SANCTUARY GREENROOM • SECRET CLUBHOUSE ✦</div>
-        <h3 class="speakeasy-modal-title serif-brand">Welcome to the Clubhouse Hearth</h3>
-        <p class="speakeasy-modal-sub">You knocked three times on the medallion. Step into the warm cabin glow, take a deep breath, and make yourself at home.</p>
-      </div>
-
-      <!-- Welcoming Insider Cabin Banner -->
-      <div class="speakeasy-welcome-banner" style="background: rgba(197, 154, 63, 0.22); border: 1.5px solid rgba(212, 175, 55, 0.55); border-radius: 16px; padding: 18px 22px; margin-bottom: 24px; text-align: center; backdrop-filter: blur(10px); box-shadow: 0 6px 24px rgba(0,0,0,0.45);">
-        <div style="color: #FCE6A2; font-family: 'Cinzel', serif; font-size: 1.1rem; font-weight: 700; letter-spacing: 0.08em; margin-bottom: 6px;">
-          🔥 "The sanctuary you searched for is right here with us."
-        </div>
-        <p style="color: #E2ECE5; font-size: 0.92rem; margin: 0; line-height: 1.6;">
-          You've unlocked our private community hearth. Listen to raw acoustic sets, reserve early stage spots, or connect in our fireside family circle.
-        </p>
-      </div>
-
-      <!-- Segmented Tab Navigation -->
-      <div class="speakeasy-tabs-bar" role="tablist">
-        <button type="button" class="speakeasy-tab-btn active" id="tabBtnWheel" onclick="switchSpeakeasyTab('wheel')">
-          <span>🎰</span> <span>Secret Raffle</span>
-        </button>
-        <button type="button" class="speakeasy-tab-btn" id="tabBtnVinyl" onclick="switchSpeakeasyTab('vinyl')">
-          <span>💽</span> <span>Midnight Vinyl</span>
-        </button>
-        <button type="button" class="speakeasy-tab-btn" id="tabBtnMic" onclick="switchSpeakeasyTab('mic')">
-          <span>🎙️</span> <span>Pass the Mic</span>
-        </button>
-        <button type="button" class="speakeasy-tab-btn" id="tabBtnPass" onclick="switchSpeakeasyTab('pass')">
-          <span>🎫</span> <span>Backstage Pass</span>
-        </button>
-      </div>
-
-      <!-- Tab 1: Secret Speakeasy Raffle Wheel (Password Protected - Placed Before Midnight Vinyl) -->
-      <div class="speakeasy-tab-pane active" id="tabPaneWheel">
-        <div class="speakeasy-wheel-stage">
-          
-          <!-- View A: Restricted Password Gate -->
-          <div id="speakeasyWheelGate" class="speakeasy-gate-card">
-            <div class="speakeasy-gate-icon">🗝️</div>
-            <div class="speakeasy-gate-badge">✦ RESTRICTED GREENROOM VAULT ✦</div>
-            <h4 class="speakeasy-gate-title serif-brand">Secret Gacha Wheel Vault</h4>
-            <p class="speakeasy-gate-sub">
-              Whisper the sacred passkey to unlock the speakeasy wheel. Win active gathering blessings: <strong>In-N-Out Meal Cards</strong>, <strong>Rare Studio Headphones</strong>, <strong>Inner Sanctuary Gear</strong>, or <strong>Intention Bracelets</strong>.
-            </p>
-
-            <form id="speakeasyWheelForm" onsubmit="event.preventDefault(); window.sanctuaryRaffleWheel.unlockWithPasskey();">
-              <div class="speakeasy-gate-input-wrap">
-                <input type="password" id="speakeasyWheelPassInput" class="speakeasy-gate-input" placeholder="Whisper passkey (e.g. 777)..." autocomplete="off" />
-                <button type="submit" id="speakeasyWheelUnlockBtn" class="btn btn-gold btn-liquid-gold speakeasy-gate-btn">
-                  <span>Unlock</span> <span>🗝️</span>
-                </button>
-              </div>
-            </form>
-
-            <div class="speakeasy-gate-hint">
-              💡 <em>Hint: The secret jackpot key (<strong>777</strong>) or <strong>sanctuary777</strong></em>
-            </div>
-            <div id="speakeasyWheelGateError" class="speakeasy-gate-error" style="display: none;">
-              ⚠️ Incorrect passkey. Whisper the sacred frequency.
-            </div>
-          </div>
-
-          <!-- View B: Unlocked Gacha Wheel Stage -->
-          <div id="speakeasyWheelUnlocked" class="speakeasy-wheel-unlocked" style="display: none;">
-            <div class="speakeasy-wheel-header">
-              <span class="speakeasy-wheel-tag">✦ VAULT UNLOCKED • GACHA ACTIVE ✦</span>
-              <h4 class="speakeasy-wheel-title serif-brand">Speakeasy Raffle Wheel</h4>
-              <p class="speakeasy-wheel-sub">
-                Spin to reveal active gathering blessings! Sponsored by In-N-Out Burger, audio partners, and Inner Sanctuary.
-              </p>
-            </div>
-
-            <!-- Rarity Odds Strip -->
-            <div class="raffle-rarity-strip">
-              <span class="raffle-rarity-pill rarity-pill-rare">🎧 Headphones: 5% (Rare)</span>
-              <span class="raffle-rarity-pill rarity-pill-sponsored">🍔 In-N-Out: 25%</span>
-              <span class="raffle-rarity-pill rarity-pill-uncommon">👕 Gear: 20%</span>
-              <span class="raffle-rarity-pill rarity-pill-common">🌿 Bracelet: 30%</span>
-              <span class="raffle-rarity-pill rarity-pill-common">🍵 Elixir: 20%</span>
-            </div>
-
-            <!-- Wheel Stage -->
-            <div class="raffle-wheel-stage">
-              <div class="raffle-wheel-container">
-                <!-- 12 o'clock Golden Pointer -->
-                <div class="raffle-wheel-pointer" id="rafflePointer">
-                  <svg viewBox="0 0 32 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M16 42L2 8C0 5 2.5 0 6.5 0H25.5C29.5 0 32 5 30 8L16 42Z" fill="url(#pointerGoldGrad)"/>
-                    <path d="M16 38L4 8H28L16 38Z" fill="#111D16"/>
-                    <circle cx="16" cy="14" r="5" fill="#FDE047"/>
-                    <defs>
-                      <linearGradient id="pointerGoldGrad" x1="0" y1="0" x2="32" y2="42" gradientUnits="userSpaceOnUse">
-                        <stop stop-color="#FFFDF7"/>
-                        <stop offset="0.5" stop-color="#F5D77F"/>
-                        <stop offset="1" stop-color="#C59A3F"/>
-                      </linearGradient>
-                    </defs>
-                  </svg>
-                </div>
-
-                <!-- Canvas Wheel -->
-                <canvas id="raffleWheelCanvas" width="480" height="480" aria-label="Interactive Raffle Prize Wheel"></canvas>
-              </div>
-            </div>
-
-            <!-- Controls -->
-            <div class="raffle-wheel-controls">
-              <button type="button" class="raffle-spin-btn" id="raffleSpinBtn" aria-label="Spin the Community Raffle Wheel">
-                <span>🎰 Spin Secret Wheel</span> <span id="raffleSpinBtnCount">(2 Left)</span>
-              </button>
-              <div class="raffle-token-pill" id="raffleTokenPill">
-                🎟️ Free Gathering Spins: <strong id="raffleTokenCount" style="color: #FFFFFF;">2</strong> of 2 Remaining
-              </div>
-            </div>
-
-            <!-- Result Card -->
-            <div class="raffle-result-card" id="raffleResultCard" role="region" aria-live="polite">
-              <div class="raffle-result-badge-wrap">
-                <span class="raffle-result-badge">✦ Gathering Prize Unlocked ✦</span>
-                <span class="raffle-result-rarity" id="raffleResultRarity">✦ RARE DROP ✦</span>
-              </div>
-              <h4 class="raffle-result-title">
-                <span id="raffleResultIcon">🎁</span>
-                <span id="raffleResultTitle">In-N-Out Meal Card</span>
-              </h4>
-              <div class="raffle-result-sponsor" id="raffleResultSponsor">✦ In-N-Out Burger (Official Sponsor)</div>
-              <p class="raffle-result-desc" id="raffleResultDesc">
-                Complimentary fresh meal card sponsored by In-N-Out Burger! Claim your physical drawing ticket at Our Sanctuary Clubhouse on Sunday, Nov 22!
-              </p>
-
-              <!-- Claim & Instagram Story Section -->
-              <div class="raffle-claim-container" id="raffleClaimContainer" style="margin-top: 14px; padding-top: 14px; border-top: 1px dashed rgba(197, 154, 63, 0.35);">
-                
-                <!-- View 1: Attendee Info Capture Form -->
-                <div id="raffleClaimFormWrap" class="raffle-claim-form-wrap">
-                  <div style="text-align: center; margin-bottom: 10px;">
-                    <span class="raffle-claim-badge">📸 POST ON STORY &amp; CLAIM</span>
-                    <h5 class="raffle-claim-heading serif-brand">Lock In Win &amp; Get IG Story Card</h5>
-                    <p class="raffle-claim-desc">
-                      Enter your name and info below to generate your official Instagram Story Card. Post it to your story, tag <strong>@ourinnersanctuary</strong>, and show it at the door to verify!
-                    </p>
-                  </div>
-
-                  <form id="raffleClaimForm" onsubmit="event.preventDefault(); window.sanctuaryRaffleWheel.submitClaim();" class="raffle-claim-form">
-                    <div class="raffle-claim-field">
-                      <label for="raffleClaimName" class="raffle-field-label">Full Name / Artist Name</label>
-                      <input type="text" id="raffleClaimName" class="raffle-field-input" placeholder="e.g. Maya Lin" required autocomplete="name" />
-                    </div>
-                    <div class="raffle-claim-field">
-                      <label for="raffleClaimEmail" class="raffle-field-label">Email Address (For Verification)</label>
-                      <input type="email" id="raffleClaimEmail" class="raffle-field-input" placeholder="e.g. maya@example.com" required autocomplete="email" />
-                    </div>
-                    <div class="raffle-claim-field">
-                      <label for="raffleClaimIG" class="raffle-field-label">Instagram Handle (Must match your story)</label>
-                      <div class="raffle-ig-input-wrap">
-                        <span class="raffle-ig-prefix">@</span>
-                        <input type="text" id="raffleClaimIG" class="raffle-field-input" placeholder="username" required autocomplete="username" />
-                      </div>
-                    </div>
-                    <button type="submit" id="raffleSubmitClaimBtn" class="btn btn-gold btn-liquid-gold raffle-claim-btn" style="width: 100%; justify-content: center; margin-top: 6px;">
-                      <span>✨ Lock In Prize &amp; Generate Story Card</span> <span>📸</span>
-                    </button>
-                  </form>
-                  <div id="raffleClaimError" class="raffle-claim-error" style="display: none;"></div>
-                </div>
-
-                <!-- View 2: Verified Winner & Instagram Story Action Card -->
-                <div id="raffleVerifiedWrap" class="raffle-verified-wrap" style="display: none;">
-                  <div style="text-align: center; margin-bottom: 8px;">
-                    <div class="raffle-verified-tag">
-                      <span>✅ ENTRY LOCKED</span> • <span id="raffleVerifiedCode">IS-777-XXXX</span>
-                    </div>
-                    <div class="raffle-verified-user" id="raffleVerifiedUser">
-                      Awarded to Maya Lin (@mayalin)
-                    </div>
-                  </div>
-
-                  <!-- Instagram Story Graphic Preview -->
-                  <div class="raffle-story-preview-box">
-                    <div class="raffle-story-preview-header">
-                      <span>📱 Official Instagram Story Card</span>
-                      <span id="raffleDownloadCountBadge" class="raffle-download-badge">0 Downloads</span>
-                    </div>
-                    <div class="raffle-story-canvas-wrap">
-                      <canvas id="raffleStoryCanvas" width="360" height="640" class="raffle-story-canvas"></canvas>
-                    </div>
-                  </div>
-
-                  <div class="raffle-story-actions">
-                    <button type="button" onclick="window.sanctuaryRaffleWheel.downloadStoryCard()" class="btn btn-gold btn-liquid-gold" style="flex: 1; justify-content: center; font-size: 0.84rem; padding: 10px 14px;">
-                      <span>📸 Download Story Card (.PNG)</span>
-                    </button>
-                    <button type="button" onclick="window.sanctuaryRaffleWheel.shareToInstagram()" class="btn btn-outline" style="border-color: #F5D77F; color: #F5D77F; font-size: 0.82rem; padding: 10px 12px;">
-                      <span>📲 Share / Copy Tag</span>
-                    </button>
-                  </div>
-                  <div class="raffle-story-instructions">
-                    💡 <em>Post this card to your Instagram Story, tag <strong>@ourinnersanctuary</strong>, and present it to our welcome table on Sunday, Nov 22 to claim!</em>
-                  </div>
-                </div>
-
-              </div>
-
-              <div class="raffle-result-actions" style="margin-top: 14px;">
-                <a href="#open-mic" onclick="closeSpeakeasyModal()" class="btn btn-gold" style="padding: 8px 18px; font-size: 0.82rem; text-decoration: none;">
-                  🎟️ Gathering Info
-                </a>
-                <button type="button" class="btn btn-outline" id="raffleSpinAgainBtn" style="padding: 8px 16px; font-size: 0.82rem; border-color: rgba(197, 154, 63, 0.5); color: #F5D77F; cursor: pointer;">
-                  🔄 Spin Again
-                </button>
-              </div>
-            </div>
-
-            <!-- VIP Admin Deck for Marlon & Teshia -->
-            <div id="raffleVipAdminDeck" class="raffle-vip-deck" style="display: none;">
-              <div class="raffle-vip-header">
-                <span class="raffle-vip-badge">👑 VIP GODMODE ACTIVE</span>
-                <span id="raffleVipUserTitle" class="raffle-vip-user-title">Marlon / Teshia</span>
-              </div>
-              <p class="raffle-vip-desc">
-                Infinite spins unlocked. Track and export attendee prize claims, verify downloads, or reset test spins.
-              </p>
-              <div class="raffle-vip-actions">
-                <button type="button" onclick="window.sanctuaryRaffleWheel.exportClaimsCSV()" class="btn btn-gold" style="font-size: 0.78rem; padding: 6px 14px;">
-                  📥 Export Claims Ledger (.CSV)
-                </button>
-                <button type="button" onclick="window.sanctuaryRaffleWheel.resetTestSpins()" class="btn btn-outline" style="font-size: 0.78rem; padding: 6px 14px; border-color: #86EFAC; color: #86EFAC;">
-                  🔄 Reset Test Spins (Set to 2)
-                </button>
-                <div class="raffle-vip-force-drop">
-                  <label for="raffleForceDropSelect" style="font-size: 0.74rem; color: #FDE047;">🎯 Force Drop:</label>
-                  <select id="raffleForceDropSelect" onchange="window.sanctuaryRaffleWheel.setForcedPrize(this.value)" style="background: #111D16; color: #FFFDF7; border: 1px solid #C59A3F; border-radius: 6px; padding: 4px 8px; font-size: 0.74rem;">
-                    <option value="">Random (Weighted)</option>
-                    <option value="headphones">🎧 Headphones (5% Rare)</option>
-                    <option value="innout">🍔 In-N-Out Card (25%)</option>
-                    <option value="gear">👕 Sanctuary Gear (20%)</option>
-                    <option value="bracelet">🌿 Intention Bracelet (30%)</option>
-                    <option value="elixir">🍵 Herbal Elixir (20%)</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <!-- Sponsor Strip -->
-            <div class="raffle-sponsor-strip">
-              <div class="raffle-sponsor-pill">
-                <span>🍔</span> <span><strong>In-N-Out Burger:</strong> Meal Cards</span>
-              </div>
-              <div class="raffle-sponsor-pill">
-                <span>🎧</span> <span><strong>Audio Partners:</strong> Headphones</span>
-              </div>
-              <div class="raffle-sponsor-pill">
-                <span>👕</span> <span><strong>Inner Sanctuary:</strong> Gear</span>
-              </div>
-              <div class="raffle-sponsor-pill">
-                <span>🌿</span> <span><strong>Artisans:</strong> Bracelets</span>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-      </div>
-
-      <!-- Tab 2: Midnight Vinyl Player -->
-      <div class="speakeasy-tab-pane" id="tabPaneVinyl" style="display: none;">
-        <div class="speakeasy-vinyl-stage">
-          <!-- Spinning Sunburst Vinyl Record -->
-          <div class="speakeasy-turntable-wrap">
-            <div class="speakeasy-vinyl-disc" id="speakeasyVinylDisc">
-              <div class="speakeasy-vinyl-grooves"></div>
-              <div class="speakeasy-vinyl-label">
-                <span class="vinyl-label-emblem">✦</span>
-                <span class="vinyl-label-title">INNER SANCTUARY</span>
-                <span class="vinyl-label-sub">GREENROOM ARCHIVES</span>
-                <span class="vinyl-label-rpm">33 ⅓ RPM</span>
-              </div>
-            </div>
-            <!-- Vintage Tone Arm -->
-            <div class="speakeasy-tone-arm" id="speakeasyToneArm">
-              <div class="tone-arm-pivot"></div>
-              <div class="tone-arm-rod"></div>
-              <div class="tone-arm-head"></div>
-            </div>
-          </div>
-
-          <!-- Currently Selected Track Info -->
-          <div class="speakeasy-track-display">
-            <div class="speakeasy-track-badge" id="speakeasyTrackBadge">NOW PLAYING • TRACK 01</div>
-            <h4 class="speakeasy-track-title serif-brand" id="speakeasyTrackTitle">Midnight Embers &amp; 432Hz Dusk</h4>
-            <div class="speakeasy-track-credits" id="speakeasyTrackCredits">Acoustic Guitar, Fire Cracks &amp; Grounding Harmonics • Live Session</div>
-            
-            <!-- Animated Soundwave Frequency Bars -->
-            <div class="speakeasy-equalizer-bars" id="speakeasyEqualizer">
-              <span class="eq-bar"></span>
-              <span class="eq-bar"></span>
-              <span class="eq-bar"></span>
-              <span class="eq-bar"></span>
-              <span class="eq-bar"></span>
-              <span class="eq-bar"></span>
-              <span class="eq-bar"></span>
-              <span class="eq-bar"></span>
-            </div>
-          </div>
-
-          <!-- Playback Controls -->
-          <div class="speakeasy-player-controls">
-            <button type="button" class="speakeasy-ctrl-btn speakeasy-prev-btn" onclick="prevGreenroomTrack()" title="Previous Track">
-              ⏮
-            </button>
-            <button type="button" class="speakeasy-play-btn" id="speakeasyPlayBtn" onclick="toggleGreenroomPlayback()" title="Play / Pause Session">
-              <span id="speakeasyPlayIcon">▶</span>
-            </button>
-            <button type="button" class="speakeasy-ctrl-btn speakeasy-next-btn" onclick="nextGreenroomTrack()" title="Next Track">
-              ⏭
-            </button>
-          </div>
-
-          <!-- Track Selector Pill List -->
-          <div class="speakeasy-track-selector-pills">
-            <button type="button" class="track-pill-btn active" id="btnTrack0" onclick="selectGreenroomTrack(0)">
-              <span class="track-pill-num">01</span>
-              <span class="track-pill-name">Midnight Embers &amp; 432Hz</span>
-            </button>
-            <button type="button" class="track-pill-btn" id="btnTrack1" onclick="selectGreenroomTrack(1)">
-              <span class="track-pill-num">02</span>
-              <span class="track-pill-name">Rain on MacArthur &amp; Cello</span>
-            </button>
-            <button type="button" class="track-pill-btn" id="btnTrack2" onclick="selectGreenroomTrack(2)">
-              <span class="track-pill-num">03</span>
-              <span class="track-pill-name">Sanctuary Exhale &amp; Chimes</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Tab 2: Pass the Mic & Guestbook -->
-      <div class="speakeasy-tab-pane" id="tabPaneMic" style="display: none;">
-        <div class="speakeasy-mic-stage">
-          
-          <!-- Record / Leave Whisper Interactive Banner -->
-          <div class="speakeasy-record-card">
-            <div class="record-card-header">
-              <span class="record-badge">🎙️ PASS THE MIC</span>
-              <h4 class="serif-brand" style="margin: 4px 0 6px; color: #FFFFFF; font-size: 1.25rem;">The Mic is Open to You</h4>
-              <p style="font-size: 0.86rem; color: #CFE3D6; line-height: 1.5; margin: 0 0 14px;">
-                Record a 10-second voice note or leave an anonymous whisper for the next soul who finds this room.
-              </p>
-            </div>
-
-            <!-- Record Actions Row -->
-            <div class="record-actions-wrap" id="recordActionsWrap">
-              <button type="button" class="btn btn-gold btn-liquid-gold speakeasy-record-btn" id="btnStartVoiceRecord" onclick="toggleVoiceRecording()">
-                <span id="voiceRecordIcon">🎙️</span>
-                <span id="voiceRecordLabel">Record 10s Voice Note</span>
-              </button>
-              <button type="button" class="btn-outline-gold speakeasy-type-btn" id="btnOpenTextWhisper" onclick="toggleTextWhisperForm()">
-                <span>✍️ Write a Whisper</span>
-              </button>
-            </div>
-
-            <!-- Active Recording Indicator -->
-            <div class="voice-recording-active-bar" id="voiceRecordingActiveBar" style="display: none;">
-              <div class="recording-pulse-ring"></div>
-              <div class="recording-timer" id="recordingTimer">0:10</div>
-              <span style="font-size: 0.85rem; color: #FAD277; font-weight: 600;">Speaking into the Sanctuary... Tap to Stop</span>
-            </div>
-
-            <!-- Voice Preview Player -->
-            <div class="voice-preview-card" id="voicePreviewCard" style="display: none;">
-              <span style="font-size: 0.82rem; color: #C2DEC9; font-weight: 600;">🎙️ Your 10-Second Recording:</span>
-              <div style="display: flex; gap: 10px; align-items: center; justify-content: center; margin: 10px 0;">
-                <button type="button" class="btn btn-forest" id="btnPlayVoicePreview" onclick="playVoicePreview()" style="padding: 8px 16px; font-size: 0.84rem;">
-                  <span>▶ Play Preview</span>
-                </button>
-                <button type="button" class="btn btn-gold" id="btnSaveVoiceNote" onclick="saveVoiceNoteToGuestbook()" style="padding: 8px 16px; font-size: 0.84rem;">
-                  <span>💾 Pin to Guestbook</span>
-                </button>
-                <button type="button" class="btn-outline-gold" onclick="discardVoiceRecording()" style="padding: 8px 12px; font-size: 0.80rem;">
-                  <span>✕ Retake</span>
-                </button>
-              </div>
-            </div>
-
-            <!-- Written Whisper Form -->
-            <div class="text-whisper-form" id="textWhisperForm" style="display: none;">
-              <textarea id="textWhisperInput" class="text-whisper-textarea" placeholder="Leave a word of grace, an exhale, or a poem line..." maxlength="240" rows="3"></textarea>
-              <div style="display: flex; gap: 10px; align-items: center; justify-content: flex-end; margin-top: 8px;">
-                <input type="text" id="textWhisperAuthor" class="text-whisper-author-input" placeholder="Your Name or City (e.g. Maya, Irvine)" maxlength="50" />
-                <button type="button" class="btn btn-gold" onclick="submitTextWhisper()" style="padding: 8px 18px; font-size: 0.84rem; font-weight: 700; border-radius: 999px;">
-                  <span>Post Whisper</span>
-                </button>
-              </div>
-            </div>
-            
-            <div class="whisper-feedback-toast" id="whisperToast" style="display: none;">
-              ✓ Your voice is now part of the Sanctuary Greenroom Hearth!
-            </div>
-          </div>
-
-          <!-- Community Whispers & Guestbook Feed -->
-          <div class="speakeasy-guestbook-feed">
-            <div class="guestbook-feed-title">
-              <span>✦ WHISPERS FROM THE HEARTH ✦</span>
-            </div>
-            <div class="guestbook-cards-list" id="guestbookCardsList">
-              <!-- Dynamically populated, preloaded with 3 authentic community reflections -->
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- Tab 3: Backstage Pass (9:16 IG Story) -->
-      <div class="speakeasy-tab-pane" id="tabPanePass" style="display: none;">
-        <div class="speakeasy-pass-stage">
-          <div class="pass-preview-laminate">
-            <div class="pass-hole-punch"></div>
-            <div class="pass-inner-border">
-              <div class="pass-header-top">
-                <span class="pass-top-badge">✦ OFFICIAL SANCTUARY ACCESS ✦</span>
-                <h4 class="pass-main-title serif-brand">BACKSTAGE GREENROOM</h4>
-                <div class="pass-venue">OUR SANCTUARY CLUBHOUSE • ORANGE COUNTY</div>
-              </div>
-              
-              <div class="pass-center-emblem">
-                <span class="pass-emblem-glyph">🗝️</span>
-                <div class="pass-all-access-tag">ALL-ACCESS PASS</div>
-                <div class="pass-number" id="passNumberDisplay">PASS NO. 0842</div>
-              </div>
-
-              <div class="pass-body-reflection">
-                <p>"Where raw voices find grounded space. You don't have to carry the whole mountain today. Breathe in permission."</p>
-              </div>
-
-              <div class="pass-footer-date" id="passFooterDate">
-                ADMITTED: NOVEMBER 2026 • 501(c)(3) SANCTUARY
-              </div>
-            </div>
-          </div>
-
-          <div class="pass-actions-row">
-            <button type="button" class="btn btn-gold btn-liquid-gold" onclick="openBackstagePassSnapshot(event)" style="padding: 14px 24px; font-size: 0.95rem; font-weight: 700; border-radius: 999px; display: inline-flex; align-items: center; gap: 8px;">
-              <span>📸 Share 9:16 Pass to IG Story</span>
-            </button>
-            <button type="button" class="btn-outline-gold" onclick="copySpeakeasyInviteLink()" style="padding: 14px 20px; font-size: 0.88rem; font-weight: 700; border-radius: 999px; display: inline-flex; align-items: center; gap: 6px;">
-              <span id="copyInviteIcon">📋</span> <span id="copyInviteText">Copy Secret Knock Link</span>
-            </button>
-          </div>
-          <div class="invite-copy-toast" id="inviteToast" style="display: none; margin-top: 10px; font-size: 0.82rem; color: #FCE6A2;">
-            ✓ Link copied with secret knock! Ready to share with a friend.
-          </div>
-        </div>
-      </div>
-
-      
-
-    </div>
-  </div>
-
-  <!-- ==================== DIGITAL LABYRINTH POP-UP MODAL ==================== -->
-  <div id="labyrinthModal" class="labyrinth-modal-backdrop" role="dialog" aria-modal="true" aria-label="Digital Labyrinth Modal" style="display: none; position: fixed; inset: 0; z-index: 10000; background: rgba(10, 18, 14, 0.88); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); align-items: center; justify-content: center; padding: 20px;">
-    <div class="labyrinth-modal-dialog" style="background: rgba(30, 49, 39, 0.96); border: 1.5px solid rgba(197, 154, 63, 0.5); border-radius: 20px; max-width: 480px; width: 100%; box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45); padding: 28px 24px; position: relative; color: #FFFDF7; text-align: center;">
-      
-      <!-- Close Button -->
-      <button type="button" id="btnCloseLabyrinthModal" style="position: absolute; top: 14px; right: 16px; background: none; border: none; color: #FCE6A2; font-size: 26px; cursor: pointer; line-height: 1; padding: 4px;" aria-label="Close Labyrinth Dialog">&times;</button>
-
-      <!-- Header -->
-      <div style="font-size: 0.74rem; font-weight: 700; letter-spacing: 0.12em; color: var(--sunburst-gold); text-transform: uppercase; margin-bottom: 6px;">
-        ✦ Contemplative Somatic Practice ✦
-      </div>
-      <h3 class="serif-brand" style="font-size: 1.6rem; color: #FFFDF7; margin: 0 0 8px; text-shadow: 0 0 12px rgba(250, 230, 170, 0.35);">
-        The Sacred Labyrinth
-      </h3>
-      <p style="font-size: 0.86rem; color: rgba(255, 253, 247, 0.85); line-height: 1.5; margin: 0 auto 14px; max-width: 380px;">
-        A labyrinth has no dead ends. Follow the winding golden path inward with your finger or mouse toward the center hearth.
-      </p>
-
-      <!-- Labyrinth Interactive Canvas / SVG -->
-      <div style="max-width: 290px; margin: 0 auto; position: relative;">
-        <svg id="modalLabyrinthSvg" viewBox="0 0 320 320" style="width: 100%; height: auto; cursor: crosshair;">
-          <circle cx="160" cy="160" r="140" fill="none" stroke="rgba(197, 154, 63, 0.22)" stroke-width="8" stroke-linecap="round" />
-          <circle cx="160" cy="160" r="110" fill="none" stroke="rgba(197, 154, 63, 0.32)" stroke-width="8" stroke-linecap="round" />
-          <circle cx="160" cy="160" r="80" fill="none" stroke="rgba(197, 154, 63, 0.42)" stroke-width="8" stroke-linecap="round" />
-          <circle cx="160" cy="160" r="50" fill="none" stroke="rgba(197, 154, 63, 0.52)" stroke-width="8" stroke-linecap="round" />
-
-          <path id="modalGuidePath" d="
-            M 160 20
-            A 140 140 0 0 1 300 160
-            A 140 140 0 0 1 160 300
-            A 140 140 0 0 1 20 160
-            A 140 140 0 0 1 160 50
-            A 110 110 0 0 1 270 160
-            A 110 110 0 0 1 160 270
-            A 110 110 0 0 1 50 160
-            A 110 110 0 0 1 160 80
-            A 80 80 0 0 1 240 160
-            A 80 80 0 0 1 160 240
-            A 80 80 0 0 1 80 160
-            A 80 80 0 0 1 160 110
-            A 50 50 0 0 1 210 160
-            A 50 50 0 0 1 160 210
-            A 50 50 0 0 1 110 160
-            A 50 50 0 0 1 160 160
-          " fill="none" stroke="transparent" stroke-width="20" stroke-linecap="round" />
-
-          <!-- Entry Marker -->
-          <circle cx="160" cy="20" r="6" fill="#C59A3F" stroke="#FFFDF7" stroke-width="1.5" />
-
-          <!-- Center Hearth Goal -->
-          <g id="modalCenterHearth" style="cursor: pointer;">
-            <circle cx="160" cy="160" r="22" fill="rgba(30, 49, 39, 0.95)" stroke="#C59A3F" stroke-width="2" />
-            <circle cx="160" cy="160" r="18" fill="none" stroke="#FCE6A2" stroke-width="1" stroke-dasharray="2 2" />
-            <text x="160" y="161" text-anchor="middle" dominant-baseline="middle" fill="#FFFDF7" font-size="8.5" font-weight="700">HEARTH</text>
-            <text x="160" y="171" text-anchor="middle" dominant-baseline="middle" fill="#FCE6A2" font-size="6.5" font-weight="600">528 Hz</text>
-          </g>
-
-          <!-- Traveling Orb -->
-          <circle id="modalTravelerOrb" cx="160" cy="20" r="8" fill="#FFFDF7" stroke="#C59A3F" stroke-width="2" />
-        </svg>
-      </div>
-
-      <!-- Threshold Wisdom Box -->
-      <div id="modalThresholdBox" style="background: rgba(18, 30, 24, 0.75); border: 1px solid rgba(197, 154, 63, 0.3); border-radius: 10px; padding: 10px 14px; margin-top: 12px; text-align: center;">
-        <div id="modalThresholdBadge" style="font-size: 0.72rem; font-weight: 700; color: var(--sunburst-gold); letter-spacing: 0.08em; text-transform: uppercase;">Threshold 1 • The Entry Gate</div>
-        <div id="modalThresholdQuote" style="font-size: 0.84rem; color: #FFFDF7; font-style: italic; margin-top: 4px; line-height: 1.4;">
-          "Leave behind what you have been carrying outside the gate. Soften your jaw."
-        </div>
-      </div>
-
-      <!-- Modal Controls -->
-      <div style="display: flex; gap: 10px; justify-content: center; margin-top: 14px;">
-        <button type="button" id="btnModalAutoWalk" class="btn btn-outline" style="border-color: rgba(197, 154, 63, 0.45); color: #FCE6A2; font-size: 0.8rem; padding: 8px 16px; border-radius: 6px; cursor: pointer;">
-          ▶ Begin Guided Walk
-        </button>
-        <button type="button" id="btnModalChime528" class="btn btn-gold" style="font-size: 0.8rem; padding: 8px 16px; border-radius: 6px; cursor: pointer;">
-          🔔 528 Hz Chime
-        </button>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ==================== SACRED BRACELET KEEPSAKE POP-UP MODAL ==================== -->
-  <div id="braceletKeepsakeModal" class="bracelet-modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true" style="display: none;">
-    <div class="bracelet-modal-dialog">
-      <button type="button" class="bracelet-modal-close" aria-label="Close bracelet window" onclick="closeBraceletKeepsakeModal()">&times;</button>
-      
-      <div class="bracelet-modal-header">
-        <span class="bracelet-modal-badge">✦ WEAVED WITH LOVE • OUR SANCTUARY CLUBHOUSE ✦</span>
-        <h3 class="bracelet-modal-title serif-brand">Your Sacred Intention Bracelet</h3>
-        <p class="bracelet-modal-sub">Completed keepsake circle infused with your 3 chosen intentions.</p>
-      </div>
-
-      <!-- Completed Circular Bracelet Visualizer Inside Modal -->
-      <div class="bracelet-circle-visualizer" id="braceletCircleVisualizer" style="display: flex;">
-        <div class="circle-string-ring">
-          <svg class="bracelet-ring-svg" viewBox="0 0 280 280" width="280" height="280">
-            <defs>
-              <linearGradient id="goldCordGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#C59A3F" />
-                <stop offset="50%" stop-color="#F8D98C" />
-                <stop offset="100%" stop-color="#9E7623" />
-              </linearGradient>
-            </defs>
-            <!-- Golden Elastic Cord Loop -->
-            <circle cx="140" cy="140" r="105" fill="none" stroke="url(#goldCordGrad)" stroke-width="2.5" stroke-dasharray="5,3" filter="drop-shadow(0 0 6px rgba(197, 154, 63, 0.45))" />
-          </svg>
-          <!-- 12 Beads Container around the circle -->
-          <div class="ring-beads-layer" id="ringBeadsLayer"></div>
-          <!-- Center Medallion Charm -->
-          <div class="ring-center-charm">
-            <span class="ring-charm-emblem">✦</span>
-            <div class="ring-charm-title">INNER SANCTUARY</div>
-            <div class="ring-charm-venue">SANCTUARY CLUBHOUSE</div>
-          </div>
-        </div>
-        <div class="bracelet-ring-caption">
-          <span>✨ The Circle is Completed • 3 Intentions Strung</span>
-        </div>
-      </div>
-
-      <!-- Revealed Sanctuary Spark Keepsake Card -->
-      <div class="revealed-spark-container" id="revealedSpark" style="display: block; margin: 12px auto 0;">
-        <div class="spark-card-preview">
-          <div class="spark-bead-summary" id="sparkBeadSummary">Cedar Wood • Rose Quartz • Sunburst Gold</div>
-          <blockquote class="spark-quote" id="sparkQuote">
-            "Rooted in grace, held in softness, glowing from within. You don't have to carry the whole mountain today. Breathe in permission."
-          </blockquote>
-          <div class="spark-source" id="sparkSource">— Inner Sanctuary Sparks • Weaved at Our Sanctuary Clubhouse</div>
-        </div>
-
-        <div class="spark-actions-row">
-          <button type="button" class="btn-spark-action" id="btnCopySpark">
-            <span id="btnCopySparkIcon">📋</span>
-            <span id="btnCopySparkLabel">Copy Keepsake Reflection</span>
-          </button>
-          <button type="button" class="btn-spark-action btn-spark-share" id="btnShareSparkIG" onclick="openStorySnapshotFromSpark(event)" title="Create 9:16 Instagram Story snapshot card">
-            <span>📸 Share Keepsake to IG Story</span>
-          </button>
-          <button type="button" class="btn-spark-reset" id="btnResetBracelet" onclick="resetBraceletAndCloseModal()">
-            <span>🔄 Weave Another Bracelet</span>
-          </button>
-        </div>
-        <div class="spark-copy-toast" id="sparkToast">✓ Copied to clipboard! Ready to paste into IG Stories or notes.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ==================== SACRED COMMUNITY HUB & INTERACTIVE SANCTUARY ==================== -->
+  <!-- ==================== SACRED COMMUNITY HUB & INTERACTIVE SANCTUARY GATEWAY ==================== -->
   <section id="community-hub" class="community-hub-section">
     <div class="container">
-      <div class="section-header" style="max-width: 880px; margin: 0 auto 36px; text-align: center;">
-        <div class="master-eyebrow-tag" style="margin-bottom: 12px;">
-          <span>✦ SACRED INTERACTIVE SANCTUARY • LIVING COMMUNITY RITUALS ✦</span>
+      <div class="community-hub-gateway">
+        <div class="master-eyebrow-tag" style="margin-bottom: 10px;">
+          <span>✦ SEPARATE INTERACTIVE SANCTUARY TAB ✦</span>
         </div>
-        <h2 class="master-font-serif" style="color: var(--forest-green); font-size: var(--type-h2); line-height: 1.25; margin-bottom: 14px;">
-          Our Community Hub
+        <h2 class="master-font-serif" style="color: var(--forest-green); font-size: var(--type-h2); line-height: 1.25; margin-bottom: 12px;">
+          Our Living Community Hub
         </h2>
-        <div class="flourish-divider" style="color: var(--sunburst-gold); font-size: 1.1rem; margin-bottom: 16px;">✦</div>
-        <p class="master-lead-text" style="max-width: 800px; margin: 0 auto;">
-          An unhurried space for daily reflection, community seeds, acoustic grounding, and collective care. Step inside our living interactive rituals below.
+        <div class="flourish-divider" style="color: var(--sunburst-gold); font-size: 1.1rem; margin-bottom: 14px;">✦</div>
+        <p class="master-lead-text" style="max-width: 720px; margin: 0 auto;">
+          To keep our sanctuary homepage simple, calm, and focused on community gatherings and grant partnerships, all of our interactive tools live together inside our dedicated Community Hub tab.
         </p>
-      </div>
 
-      <!-- Quick Interactive Ritual Portals -->
-      <div class="community-rituals-quick-bar">
-        <a href="#sanctuary-reflection" class="ritual-pill-btn">✨ Daily Sparks Oracle</a>
-        <a href="#zen-plinko" class="ritual-pill-btn">🎯 Zen Plinko Blessing</a>
-        <a href="#dollar-campaign-anchor" class="ritual-pill-btn">🌱 $1 Community Seed</a>
-        <a href="#bracelet-creator" class="ritual-pill-btn">📿 Intention Bracelet</a>
-        <button type="button" onclick="handleSpeakeasyKnock(event)" class="ritual-pill-btn">🗝️ The Greenroom</button>
-        <button type="button" onclick="window.sanctuaryPauseBooth.open()" class="ritual-pill-btn">🍃 60-Sec Pause Booth</button>
-      </div>
-
-      <!-- Relocated Daily Sanctuary Sparks Card with Full Interactive Engine -->
-      <div class="sanctuary-reflection-widget" id="sanctuary-reflection" style="background: rgba(255, 255, 255, 0.92); border: 1.5px solid rgba(197, 154, 63, 0.35); border-radius: 20px; padding: 32px 24px; box-shadow: 0 14px 36px rgba(43, 68, 54, 0.08); margin: 0 auto; max-width: 640px;">
-        <div class="reflection-widget-header">
-          <span class="reflection-widget-pill">✦ Daily Sanctuary Sparks ✦</span>
-          <h3 class="reflection-widget-title serif-brand">Draw Today's Sanctuary Spark</h3>
-          <p class="reflection-widget-sub">Receive an unhurried reminder to ground your nervous system, soften tension, and remember who you are. Generate with Gemini or draw a spark below.</p>
-        </div>
-
-        <!-- Sleek Gemini AI Prompt Bar -->
-        <div class="somatic-oracle-custom-bar">
-          <div class="somatic-oracle-input-wrap">
-            <span class="oracle-input-icon">✨</span>
-            <input type="text" id="somaticCustomInput" class="somatic-oracle-input" placeholder="How does your body feel? (e.g. tight chest, tired, anxious, seeking joy)" aria-label="Generate a Sanctuary Spark with Gemini">
-            <button type="button" id="btnOracleGenerate" class="btn-oracle-generate" title="Generate Sanctuary Spark with Gemini">
-              <span id="oracleBtnText">✨ Generate with Gemini</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- 3D Flippable Card Stage -->
-        <div class="reflection-card-stage" id="reflectionCardStage">
-          <div class="reflection-card-3d is-flipped" id="reflectionCard3D" role="button" tabindex="0" aria-label="Tap to draw and flip your daily sanctuary spark reflection card">
-            
-            <!-- Card Front (Sealed Cover) -->
-            <div class="reflection-card-face card-face-front">
-              <div class="card-front-halo"></div>
-              <div class="card-front-emblem">✦</div>
-              <div class="card-front-text">TAP TO DRAW YOUR SPARK</div>
-              <div class="card-front-sub">Sanctuary Sparks • Somatic • Grounded</div>
-              <div class="card-specular-glare"></div>
+        <div class="community-hub-gateway-grid">
+          <a href="community-hub.html#sanctuary-reflection" class="community-gateway-tile">
+            <span class="community-gateway-tile-icon">✨</span>
+            <div>
+              <div class="community-gateway-tile-title">Daily Sanctuary Sparks</div>
+              <div class="community-gateway-tile-desc">Draw a 3D grounding reflection card or generate one with Gemini.</div>
             </div>
-
-            <!-- Card Back (Revealed Living Reflection) -->
-            <div class="reflection-card-face card-face-back" id="reflectionCardBack">
-              <div class="card-back-badge" id="reflectionCardBadge">✦ SANCTUARY SPARK ✦</div>
-              <blockquote class="card-back-quote" id="reflectionCardQuote">
-                "Where in your body are you holding yesterday? Soften your jaw, drop your shoulders, and let this breath belong only to right now."
-              </blockquote>
-              <div class="card-back-source" id="reflectionCardSource">— Inner Sanctuary Sparks</div>
-              <div class="card-specular-glare"></div>
+          </a>
+          <a href="community-hub.html#breath" class="community-gateway-tile">
+            <span class="community-gateway-tile-icon">🕊️</span>
+            <div>
+              <div class="community-gateway-tile-title">Breath Orb &amp; Labyrinth</div>
+              <div class="community-gateway-tile-desc">Guided nervous system breath pacer and contemplative labyrinth walk.</div>
             </div>
-
-          </div>
+          </a>
+          <a href="community-hub.html#bracelet-creator" class="community-gateway-tile">
+            <span class="community-gateway-tile-icon">📿</span>
+            <div>
+              <div class="community-gateway-tile-title">Intention Bracelet</div>
+              <div class="community-gateway-tile-desc">Weave 3 intention stones into a digital wearable keepsake.</div>
+            </div>
+          </a>
+          <a href="community-hub.html#zen-plinko" class="community-gateway-tile">
+            <span class="community-gateway-tile-icon">🎯</span>
+            <div>
+              <div class="community-gateway-tile-title">Zen Plinko Seed Ritual</div>
+              <div class="community-gateway-tile-desc">Drop a virtual golden seed and celebrate grassroots impact.</div>
+            </div>
+          </a>
+          <a href="community-hub.html#hearth-mirror-portal" class="community-gateway-tile">
+            <span class="community-gateway-tile-icon">🕯️</span>
+            <div>
+              <div class="community-gateway-tile-title">The Hearth Mirror</div>
+              <div class="community-gateway-tile-desc">Whisper what is on your heart for a personalized grounding note.</div>
+            </div>
+          </a>
+          <a href="community-hub.html#greenroom-vault" class="community-gateway-tile">
+            <span class="community-gateway-tile-icon">🗝️</span>
+            <div>
+              <div class="community-gateway-tile-title">The Greenroom Vault</div>
+              <div class="community-gateway-tile-desc">Unlock backstage whispers, midnight vinyl, and gathering perks.</div>
+            </div>
+          </a>
         </div>
 
-        <!-- Interactive Card Action Controls -->
-        <div class="reflection-actions-wrap">
-          <button type="button" class="btn-reflection-action btn-reflection-draw" id="btnDrawNewReflection" title="Draw another Sanctuary Spark">
-            <span>🔄 Draw Another Spark</span>
+        <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
+          <a href="community-hub.html" class="activation-btn-primary" style="flex: 0 1 auto; padding: 14px 28px; font-size: 0.92rem;">
+            <span>✨ Enter Interactive Community Hub</span>
+            <span>↗</span>
+          </a>
+          <button type="button" onclick="window.sanctuaryPauseBooth.open()" class="activation-btn-secondary" style="padding: 14px 22px; font-size: 0.9rem;">
+            <span>🍃 Try 60-Sec Pause Here</span>
           </button>
-          <button type="button" class="btn-reflection-action btn-reflection-copy" id="btnCopyReflection" title="Copy Sanctuary Spark to clipboard">
-            <span id="btnCopyReflectionIcon">📋</span>
-            <span id="btnCopyReflectionLabel">Copy Sanctuary Spark</span>
-          </button>
-          <button type="button" class="btn-reflection-action btn-reflection-share" id="btnShareIG" onclick="openStorySnapshotFromReflection(event)" title="Create 9:16 Instagram Story snapshot card">
-            <span>📸 Share to IG Story</span>
-          </button>
-        </div>
-        
-        <!-- Copy Toast Notification -->
-        <div class="reflection-copy-toast" id="reflectionCopyToast" role="status" aria-live="polite">
-          ✓ Copied to clipboard! Ready to paste into Instagram Story or journal.
         </div>
       </div>
-
     </div>
   </section>
 
@@ -3145,7 +2207,7 @@
         </p>
         <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
           <a href="#dollar-campaign-anchor" class="btn btn-gold btn-liquid-gold pulse-gold" style="text-decoration: none;">🌱 Give $1 Community Seed</a>
-          <a href="#zen-plinko" class="btn btn-outline" style="text-decoration: none;">🎮 Drop a Seed (Zen Plinko)</a>
+          <a href="community-hub.html#zen-plinko" class="btn btn-outline" style="text-decoration: none;">🎮 Drop a Seed in Hub ↗</a>
           <a href="#sponsorship" class="btn btn-forest">🏢 Become a Sponsor</a>
         </div>
       </div>
@@ -3247,7 +2309,7 @@
                 </div>
                 <div class="seed-freq-explanation" id="seedFreqExplanation" style="background: rgba(197, 154, 63, 0.16); border: 1px solid rgba(197, 154, 63, 0.35); color: #CFE3D6; margin-top: 6px; padding: 6px 10px; font-size: 0.76rem;">
                   <span class="seed-freq-pill-badge" id="seedFreqBadge" style="background: rgba(197, 154, 63, 0.3); color: #FCE6A2; font-size: 0.65rem;">✨ Monthly Sustaining Care</span>
-                  <span class="seed-freq-text" id="seedFreqText">Sustains free weekly open mic stages, artist stipends, sound bowl resets, and healing spaces month after month.</span>
+                  <span class="seed-freq-text" id="seedFreqText">Sustains free community open mic stages, unplugged jam sessions, artist stipends, and healing spaces month after month.</span>
                 </div>
               </div>
 
@@ -3324,101 +2386,6 @@
 
       </div>
 
-      <!-- ==================== "DROP A SEED" ZEN PLINKO INTERACTIVE MINI-GAME ==================== -->
-      <div id="zen-plinko" class="zen-plinko-wrapper" style="max-width: 860px; margin: 40px auto 20px; background: linear-gradient(165deg, rgba(34, 54, 43, 0.96) 0%, rgba(20, 32, 25, 0.98) 100%); border: 1.5px solid rgba(197, 154, 63, 0.5); border-radius: 24px; padding: 32px 24px 28px; box-shadow: 0 16px 42px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.12); position: relative; overflow: hidden;">
-        
-        <!-- Subtle Ambient Background Glow -->
-        <div style="position: absolute; top: -60px; right: -60px; width: 220px; height: 220px; background: radial-gradient(circle, rgba(197, 154, 63, 0.15) 0%, transparent 70%); border-radius: 50%; pointer-events: none;"></div>
-        <div style="position: absolute; bottom: -60px; left: -60px; width: 220px; height: 220px; background: radial-gradient(circle, rgba(95, 123, 107, 0.2) 0%, transparent 70%); border-radius: 50%; pointer-events: none;"></div>
-
-        <div style="text-align: center; position: relative; z-index: 2; margin-bottom: 20px;">
-          <span style="font-size: 0.74rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #FCE6A2; background: rgba(197, 154, 63, 0.22); border: 1px solid rgba(197, 154, 63, 0.45); padding: 4px 14px; border-radius: 999px; display: inline-block; margin-bottom: 10px;">
-            ✦ Interactive Somatic Game • 432Hz Harmonic Chimes ✦
-          </span>
-          <h3 class="serif-brand" style="color: #FFFFFF; font-size: clamp(1.6rem, 2.8vw, 2.1rem); margin: 0 0 8px; text-shadow: 0 2px 10px rgba(0,0,0,0.4);">
-            The "Drop a Seed" Zen Plinko
-          </h3>
-          <p style="color: #DCEEE2; font-size: 0.95rem; max-width: 620px; margin: 0 auto; line-height: 1.6;">
-            Tap anywhere along the top bar to release a golden seed into the Sanctuary. Listen to the soothing 432Hz harmonic chimes as it tumbles through the brass bells to reveal the community gift you nurture today.
-          </p>
-        </div>
-
-        <!-- Top Drop Selector Bar -->
-        <div class="plinko-drop-control-bar" id="plinkoDropBar" title="Click or tap anywhere along this bar to drop your seed" style="background: rgba(0, 0, 0, 0.35); border: 1.5px dashed rgba(197, 154, 63, 0.6); border-radius: 14px; padding: 12px 18px; margin: 0 auto 16px; max-width: 580px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; transition: border-color 0.25s ease, background 0.25s ease;">
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <span style="font-size: 1.25rem; animation: bounceDrop 2s infinite ease-in-out;">🌱</span>
-            <span style="font-size: 0.88rem; font-weight: 600; color: #FFFDF7;">Tap or click to drop a seed</span>
-          </div>
-          <button type="button" id="btnDropSeedManual" class="btn btn-gold btn-liquid-gold pulse-gold" style="font-size: 0.78rem; font-weight: 700; padding: 6px 14px; border-radius: 999px; border: none; cursor: pointer;">
-            <span>🌱 Drop A Seed</span>
-          </button>
-        </div>
-
-        <!-- Plinko Canvas Interactive Stage -->
-        <div class="plinko-canvas-container" style="position: relative; max-width: 580px; margin: 0 auto; border-radius: 16px; overflow: hidden; background: radial-gradient(circle at 50% 20%, #1D3126 0%, #111E17 100%); border: 1px solid rgba(197, 154, 63, 0.35); box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.45);">
-          <canvas id="zenPlinkoCanvas" width="580" height="420" style="display: block; width: 100%; height: auto; touch-action: none; cursor: pointer;"></canvas>
-          <div class="plinko-aim-guide" id="plinkoAimGuide" style="position: absolute; top: 0; bottom: 0; width: 1px; border-left: 1px dashed rgba(197, 154, 63, 0.4); pointer-events: none; opacity: 0; transition: opacity 0.2s ease;"></div>
-        </div>
-
-        <!-- 5 Receiving Baskets Legend / Visualizer -->
-        <div class="plinko-baskets-legend" id="plinkoBasketsLegend" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; max-width: 580px; margin: 12px auto 20px;">
-          <div class="plinko-basket-card" data-basket="0" style="background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(197, 154, 63, 0.25); border-radius: 10px; padding: 8px 4px; text-align: center; transition: all 0.3s ease;">
-            <div style="font-size: 1.1rem; margin-bottom: 2px;">🎵</div>
-            <div style="font-size: 0.72rem; font-weight: 700; color: #FFF8E7; line-height: 1.2;">Jam Session</div>
-            <div style="font-size: 0.62rem; color: #A6C9B2;">Acoustic Hearth</div>
-          </div>
-          <div class="plinko-basket-card" data-basket="1" style="background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(197, 154, 63, 0.25); border-radius: 10px; padding: 8px 4px; text-align: center; transition: all 0.3s ease;">
-            <div style="font-size: 1.1rem; margin-bottom: 2px;">📿</div>
-            <div style="font-size: 0.72rem; font-weight: 700; color: #FFF8E7; line-height: 1.2;">Intention Bead</div>
-            <div style="font-size: 0.62rem; color: #A6C9B2;">Anchor Weave</div>
-          </div>
-          <div class="plinko-basket-card" data-basket="2" style="background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(197, 154, 63, 0.25); border-radius: 10px; padding: 8px 4px; text-align: center; transition: all 0.3s ease;">
-            <div style="font-size: 1.1rem; margin-bottom: 2px;">🎙️</div>
-            <div style="font-size: 0.72rem; font-weight: 700; color: #FFF8E7; line-height: 1.2;">Open Mic</div>
-            <div style="font-size: 0.62rem; color: #A6C9B2;">Stage Sound</div>
-          </div>
-          <div class="plinko-basket-card" data-basket="3" style="background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(197, 154, 63, 0.25); border-radius: 10px; padding: 8px 4px; text-align: center; transition: all 0.3s ease;">
-            <div style="font-size: 1.1rem; margin-bottom: 2px;">🕊️</div>
-            <div style="font-size: 0.72rem; font-weight: 700; color: #FFF8E7; line-height: 1.2;">60-Sec Pause</div>
-            <div style="font-size: 0.62rem; color: #A6C9B2;">Somatic Reset</div>
-          </div>
-          <div class="plinko-basket-card" data-basket="4" style="background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(197, 154, 63, 0.25); border-radius: 10px; padding: 8px 4px; text-align: center; transition: all 0.3s ease;">
-            <div style="font-size: 1.1rem; margin-bottom: 2px;">🏛️</div>
-            <div style="font-size: 0.72rem; font-weight: 700; color: #FFF8E7; line-height: 1.2;">Sanctuary Pillar</div>
-            <div style="font-size: 0.62rem; color: #A6C9B2;">Root Foundation</div>
-          </div>
-        </div>
-
-        <!-- Result Celebration Card (Reveals upon catch) -->
-        <div id="plinkoResultBox" style="display: none; background: rgba(0, 0, 0, 0.4); border: 1.5px solid var(--sunburst-gold); border-radius: 16px; padding: 18px 20px; max-width: 580px; margin: 0 auto 16px; text-align: center; animation: fadeIn 0.4s ease;">
-          <div style="font-size: 0.75rem; font-weight: 700; color: #FCE6A2; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px;">
-            ✦ SEED SPROUTED IN THE SANCTUARY ✦
-          </div>
-          <div id="plinkoResultTitle" class="serif-brand" style="font-size: 1.35rem; color: #FFFFFF; margin-bottom: 6px;">
-            🎵 You Nourished: Jam Session Unplugged Playground
-          </div>
-          <p id="plinkoResultDesc" style="color: #DCEEE2; font-size: 0.90rem; margin: 0 0 16px; line-height: 1.5;">
-            "An acoustic instrument or welcoming presence offered freely so a local creator or neighbor can jam, find harmony, and experience community belonging."
-          </p>
-          <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
-            <button type="button" id="btnPlinkoReplay" class="btn btn-outline" style="font-size: 0.80rem; padding: 8px 16px; color: #FFFFFF; border-color: rgba(255, 255, 255, 0.4);">
-              <span>🔄 Drop Another Seed</span>
-            </button>
-            <button type="button" onclick="openZeffyModal(event)" class="btn btn-gold btn-liquid-gold pulse-gold" style="font-size: 0.80rem; padding: 8px 18px;">
-              <span>🌱 Plant Real Roots ($1 via Zeffy)</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Live Community Seed Tally Counter -->
-        <div style="text-align: center; font-size: 0.84rem; color: #FCE6A2; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px;">
-          <span>🌱 Community Seeds Sown Today: <strong id="plinkoSeedCounter" style="color: #FFFFFF; font-size: 1.05rem; font-family: 'Cinzel', serif;">142</strong></span>
-          <span style="opacity: 0.6;">•</span>
-          <span style="color: #A6C9B2; font-weight: 400; font-size: 0.80rem;">100% Tax-Deductible 501(c)(3)</span>
-        </div>
-
-      </div>
-
     </div>
   </section>
 
@@ -3482,7 +2449,7 @@
 
               <!-- Compact Category Chips -->
               <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 12px;">
-                <span style="font-size: 0.68rem; background: rgba(30, 58, 43, 0.07); padding: 2px 7px; border-radius: 999px; color: var(--forest-green); font-weight: 600;">🥣 Sound Bowl Bath</span>
+                <span style="font-size: 0.68rem; background: rgba(30, 58, 43, 0.07); padding: 2px 7px; border-radius: 999px; color: var(--forest-green); font-weight: 600;">🎵 Acoustic Jam Gear</span>
                 <span style="font-size: 0.68rem; background: rgba(30, 58, 43, 0.07); padding: 2px 7px; border-radius: 999px; color: var(--forest-green); font-weight: 600;">🎁 Raffle Cards</span>
                 <span style="font-size: 0.68rem; background: rgba(30, 58, 43, 0.07); padding: 2px 7px; border-radius: 999px; color: var(--forest-green); font-weight: 600;">🎨 Supplies</span>
               </div>
@@ -3876,6 +2843,91 @@
 
         </div>
 
+        <!-- Interactive Grantmaker Impact Simulator ("What Your Grant Funds") -->
+        <div id="grantImpactSimulator" class="grant-simulator-card">
+          <div class="grant-sim-header">
+            <div>
+              <div style="font-size: 0.74rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: #F8D98C; margin-bottom: 4px;">
+                📊 Interactive Grantmaker Impact Simulator • Unit Economics
+              </div>
+              <h3 style="font-family: 'Cinzel', serif; font-size: 1.35rem; color: #FFFFFF; margin: 0 0 6px;">
+                What Your Grant or CRA Sponsorship Funds
+              </h3>
+              <p style="font-size: 0.84rem; color: #D3DFD8; margin: 0; max-width: 620px; line-height: 1.55;">
+                Slide or select a grant tier to project direct neighborhood reach across Orange County &amp; the Inland Empire based on our ~$18/seat direct program cost and 88%+ programmatic allocation.
+              </p>
+            </div>
+            <div class="grant-sim-amount-readout">
+              <div style="font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; color: #CBD7D0; font-weight: 700;">Selected Grant Tier</div>
+              <div class="grant-sim-amount-val" id="simGrantAmountVal">$5,000</div>
+            </div>
+          </div>
+
+          <div class="grant-sim-tiers" role="group" aria-label="Select Grant Tier Amount">
+            <button type="button" class="sim-tier-pill" data-grant-amount="1000" onclick="updateGrantImpactSimulator(1000)">$1,000 Micro-Grant</button>
+            <button type="button" class="sim-tier-pill active" data-grant-amount="5000" onclick="updateGrantImpactSimulator(5000)">$5,000 CRA Catalyst</button>
+            <button type="button" class="sim-tier-pill" data-grant-amount="10000" onclick="updateGrantImpactSimulator(10000)">$10,000 Season Anchor</button>
+            <button type="button" class="sim-tier-pill" data-grant-amount="25000" onclick="updateGrantImpactSimulator(25000)">$25,000 Regional Partner</button>
+          </div>
+
+          <div class="grant-sim-slider-wrap">
+            <label for="grantImpactSlider" class="sr-only" style="position: absolute; width: 1px; height: 1px; overflow: hidden;">Custom Grant Amount</label>
+            <input type="range" id="grantImpactSlider" class="sim-slider" min="500" max="25000" step="250" value="5000" oninput="updateGrantImpactSimulator(this.value)" />
+            <div class="grant-sim-range-labels">
+              <span>$500 Seed</span>
+              <span>$5,000 Catalyst</span>
+              <span>$15,000 Series</span>
+              <span>$25,000 Regional Expansion</span>
+            </div>
+          </div>
+
+          <div class="sim-metrics-grid">
+            <div class="sim-metric-box">
+              <div class="sim-metric-val" id="simNeighborsVal">~244+</div>
+              <div class="sim-metric-label">Projected Neighbor Seats</div>
+              <div class="sim-metric-sub">100% free entry at ~$18 direct cost/seat</div>
+            </div>
+            <div class="sim-metric-box">
+              <div class="sim-metric-val" id="simGatheringsVal">6</div>
+              <div class="sim-metric-label">Open Mic &amp; Jam Circles</div>
+              <div class="sim-metric-sub">Substance-free venue, PA, &amp; tea hospitality</div>
+            </div>
+            <div class="sim-metric-box">
+              <div class="sim-metric-val" id="simStipendsVal">15+</div>
+              <div class="sim-metric-label">Local Artist Honorariums</div>
+              <div class="sim-metric-sub">Direct support for poets &amp; acoustic musicians</div>
+            </div>
+            <div class="sim-metric-box">
+              <div class="sim-metric-val" id="simPauseKitsVal">8</div>
+              <div class="sim-metric-label">Mobile Pause Activations</div>
+              <div class="sim-metric-sub">Campus &amp; community pop-up nervous system kits</div>
+            </div>
+          </div>
+
+          <div class="sim-allocation-strip">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px; font-size: 0.76rem; font-weight: 700;">
+              <span style="color: #86EFAC;" id="simDirectDollarsText">$4,400 Direct Community Programs (88%)</span>
+              <span style="color: #CBD5E1;" id="simAdminDollarsText">$600 Civic &amp; Insurance Oversight (12%)</span>
+            </div>
+            <div class="sim-allocation-bar" aria-hidden="true">
+              <div class="sim-alloc-program"></div>
+              <div class="sim-alloc-admin"></div>
+            </div>
+            <div style="font-size: 0.71rem; color: #CBD7D0;">
+              Note: Figures reflect projected capacity scaled from our documented open-ledger unit costs (~$18/neighbor seat) and dual-officer fiscal signoff.
+            </div>
+          </div>
+
+          <div class="grant-sim-actions">
+            <button type="button" class="btn btn-gold" onclick="applyGrantTierToIntake()" style="font-size: 0.82rem; padding: 10px 18px; cursor: pointer;">
+              <span>🤝 Pre-Fill Grant / Sponsor Inquiry With This Tier ↓</span>
+            </button>
+            <button type="button" class="btn btn-outline" onclick="toggleFunderQuickView(event, true)" style="border-color: rgba(245, 215, 127, 0.55); color: #FCE6A2; font-size: 0.78rem; padding: 9px 14px; cursor: pointer;">
+              <span>⚡ Activate 30-Sec Funder Quick-View</span>
+            </button>
+          </div>
+        </div>
+
         <!-- Grantmaker & Corporate Due Diligence Kit Banner -->
         <div class="funder-action-banner" style="background: radial-gradient(circle at 45% 20%, rgba(32, 54, 43, 0.98) 0%, rgba(14, 26, 20, 1) 100%); border: 1.5px solid var(--sunburst-gold); border-radius: 16px; padding: 24px 26px; margin: 0 0 18px; box-shadow: 0 12px 36px rgba(0, 0, 0, 0.28);">
           <div class="funder-banner-grid" style="display: grid; grid-template-columns: 1.25fr 0.95fr; gap: 24px; align-items: center;">
@@ -4173,7 +3225,7 @@
           Download the Inner Sanctuary App
         </h3>
         <p class="sanctuary-app-card-desc">
-          Carry your digital sanctuary wherever you go. Instant offline access to 432Hz/528Hz soundscapes, community open mic schedules, somatic breathing circles, and personal reflections — zero App Store login needed, 100% free.
+          Carry your digital sanctuary wherever you go. Instant offline access to Open Mic &amp; Jam Session schedules, 60-second Pause activations, and our Community Hub tools — zero App Store login needed, 100% free.
         </p>
         <div class="sanctuary-device-pills">
           <span class="device-badge-pill">🍏 Apple iPhone &amp; iPad</span>
@@ -4224,11 +3276,12 @@
           <h5>Quick Navigation</h5>
           <ul class="footer-links">
             <li><a href="#remember">Pause. Breathe. Remember.</a></li>
-            <li><a href="#breath">Sacred Breathwork Reset</a></li>
+            <li><a href="community-hub.html">✨ Interactive Community Hub ↗</a></li>
+            <li><a href="community-hub.html#breath">Breath Orb &amp; Labyrinth ↗</a></li>
             <li><a href="#method">Our Method: Laugh • Sing • Dance</a></li>
             <li><a href="#open-mic">Community Open Mic & Pause</a></li>
             <li><a href="#horizons">Sanctuary Horizons</a></li>
-            <li><a href="#zen-plinko">The Zen Plinko (Drop a Seed)</a></li>
+            <li><a href="community-hub.html#zen-plinko">The Zen Plinko Seed Ritual ↗</a></li>
             <li><a href="#dollar-campaign-anchor">The $1 Community Seed</a></li>
             <li><a href="#sponsorship">Institutional Grants & Partnerships</a></li>
             <li><a href="javascript:void(0)" onclick="openFunderModal(event)" style="color: #F8D98C; font-weight: 600;">🏛️ Institutional Grants &amp; Funder Hub</a></li>
@@ -4388,54 +3441,6 @@
   </div>
 
 
-  <!-- ==================== REAL INSTAGRAM STORY SNAPSHOT MODAL ==================== -->
-  <div id="igStoryModal" class="ig-story-modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true" style="display: none;">
-    <div class="ig-story-modal-dialog">
-      <button type="button" class="ig-story-modal-close" aria-label="Close story preview" onclick="closeIgStoryModal()">&times;</button>
-      
-      <div class="ig-story-modal-header">
-        <span class="ig-story-badge">✦ INSTAGRAM STORY SNAPSHOT</span>
-        <h3 class="ig-story-title serif-brand">Your Sanctuary Story Card</h3>
-        <p class="ig-story-sub">Save this 9:16 high-resolution card directly to your camera roll or share to Instagram Stories.</p>
-      </div>
-
-      <!-- Reflection Mood / Tone Selector -->
-      <div class="ig-story-themes" role="group" aria-label="Select Reflection Tone">
-        <span class="ig-themes-label">Reflection:</span>
-        <button type="button" class="ig-theme-pill active" id="pillThemeLake" onclick="setStoryTheme('lake')" title="Tranquil Midnight Sapphire & Water Ripples">
-          <span>🌊 Mirror Lake</span>
-        </button>
-        <button type="button" class="ig-theme-pill" id="pillThemeDawn" onclick="setStoryTheme('dawn')" title="Warm Sunrise Horizon & Morning Mist">
-          <span>🌅 Golden Dawn</span>
-        </button>
-        <button type="button" class="ig-theme-pill" id="pillThemeObsidian" onclick="setStoryTheme('obsidian')" title="Smoked Quartz & Star Glass Mirror">
-          <span>🪞 Obsidian Mirror</span>
-        </button>
-      </div>
-
-      <!-- Canvas (Offscreen render) and Live Preview -->
-      <canvas id="igStoryCanvas" width="1080" height="1920" style="display: none;"></canvas>
-      <div class="ig-story-preview-stage">
-        <img id="igStoryPreviewImg" alt="Sanctuary Instagram Story Preview" class="ig-story-preview-img">
-      </div>
-
-      <!-- Action Buttons -->
-      <div class="ig-story-actions">
-        <button type="button" class="btn btn-gold btn-liquid-gold pulse-gold ig-btn-action" id="btnDownloadStory" onclick="downloadIgStoryImage()">
-          <span>💾 Save Image to Photos</span>
-        </button>
-        <button type="button" class="btn btn-outline-gold ig-btn-action" id="btnNativeShareStory" onclick="shareToNativeInstagram()">
-          <span>📱 Share to Stories</span>
-        </button>
-        <button type="button" class="btn-copy-quote-clean ig-btn-action" id="btnCopyStoryText" onclick="copyStoryQuoteText()">
-          <span>📋 Copy Text</span>
-        </button>
-      </div>
-      
-      <div id="igStoryToast" class="ig-story-toast" role="status" aria-live="polite">✓ Story image downloaded! Ready to add to your IG Story.</div>
-    </div>
-  </div>
-
   <!-- ==================== SANCTUARY IN YOUR POCKET: PWA INSTALL BANNER ==================== -->
   <aside id="pwaInstallBanner" class="pwa-install-banner" role="region" aria-label="Add Inner Sanctuary to Home Screen" style="display: none;">
     <div class="pwa-banner-card">
@@ -4447,7 +3452,7 @@
         <div class="pwa-text-wrap">
           <div class="pwa-badge">🔥 FIRE WEEK • SANCTUARY IN YOUR POCKET</div>
           <h4 class="pwa-title">Take Sanctuary Wherever You Go</h4>
-          <p class="pwa-desc">Add Inner Sanctuary to your phone's home screen for instant offline 432Hz/528Hz soundscapes, open mic updates, and daily sacred breath resets.</p>
+          <p class="pwa-desc">Add Inner Sanctuary to your phone's home screen for instant offline Pause Booth resets, Open Mic &amp; Jam Session schedules, and daily breath cues.</p>
         </div>
       </div>
       <div class="pwa-actions-row">
@@ -5085,16 +4090,16 @@
               <div class="funder-stat-sub">Centering Black, Indigenous &amp; Latino creative voices in Orange County</div>
             </div>
             <div class="funder-stat-card">
-              <div class="funder-stat-val">150+</div>
-              <div class="funder-stat-label">Care Hours</div>
-              <div class="funder-stat-sub">Direct somatic breathwork, acoustic release, and reflective journaling</div>
+              <div class="funder-stat-val">360h</div>
+              <div class="funder-stat-label">Care Hours Delivered</div>
+              <div class="funder-stat-sub">Across 24 open mics, unplugged jam sessions, and pause activations (120+ neighbors)</div>
             </div>
           </div>
 
           <div class="funder-info-card">
             <h5 class="funder-card-title"><span>🎯</span> Verification &amp; Evaluation Methodology</h5>
             <p class="funder-card-desc">
-              All gathering participation is archived in our transparent open ledger. Participant impact is measured using standardized pre- and post-session self-regulation assessments, evaluating nervous system settling, emotional connection, and community trust.
+              All verified Orange County &amp; Santa Ana gatherings and 120+ participating neighbors are logged in our open ledger. Outcome metrics (94% stress reduction; 72% BIPOC served; 360 cumulative care hours) come from voluntary pre/post attendee self-assessments. Unit economics average ~$18/neighbor per gathering seat, with 88%+ of programmatic funds directed to venue hospitality, artist stipends, and pause activation kits under dual-officer signoff (Form 990-N &amp; CA RRF-1 in good standing).
             </p>
           </div>
         </div>
@@ -5137,9 +4142,14 @@
         <div style="font-size: 0.78rem; color: #94A3B8;">
           Direct Fiduciary Inquiries: <strong style="color: #BAE6FD;">hello@innersanctuarywellnessfoundation.org</strong>
         </div>
-        <button type="button" class="btn btn-gold" onclick="downloadFunderDossier()" style="font-size: 0.82rem; padding: 8px 18px;">
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <button type="button" id="btnDossierModalQuickView" class="btn btn-outline" onclick="closeFunderModal(); toggleFunderQuickView(event);" aria-pressed="false" style="font-size: 0.78rem; padding: 8px 14px; border-color: rgba(245, 215, 127, 0.5); color: #FCE6A2; cursor: pointer;">
+            <span>⚡ 30-Sec Funder Quick-View</span>
+          </button>
+          <button type="button" class="btn btn-gold" onclick="downloadFunderDossier()" style="font-size: 0.82rem; padding: 8px 18px;">
           <span>🖨️ Print / Save 1-Page Dossier (PDF)</span>
         </button>
+        </div>
       </div>
 
     </div>
