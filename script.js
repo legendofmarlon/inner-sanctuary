@@ -7434,7 +7434,7 @@ window.openPulsePresenceModal = function(e) {
     if (!recordedBlobUrl) return;
     addWhisperToGuestbook({
       id: 'voice_' + Date.now(),
-      author: 'A Backstage Soul • Whispered Note',
+      author: 'A Backstage Soul • Voice Keepsake',
       text: '🎙️ [10-Second Voice Keepsake Recorded Live]',
       time: 'Just now',
       isVoice: true,
@@ -7478,7 +7478,7 @@ window.openPulsePresenceModal = function(e) {
     textEl.value = '';
     if (authorEl) authorEl.value = '';
     document.getElementById('textWhisperForm').style.display = 'none';
-    showWhisperToast('✓ Your whisper was pinned to the Sanctuary Greenroom!');
+    showWhisperToast('✓ Your note was pinned to the Sanctuary Greenroom!');
   };
 
   function showWhisperToast(msg) {
@@ -7634,7 +7634,7 @@ window.openPulsePresenceModal = function(e) {
       'heavy-heart': {
         tag: 'Gentle Witness',
         quote: '"Grief and heaviness are sacred messengers—they show how deeply you love and feel. You don’t have to rush past this moment or explain it to anyone. In our circle, every heavy heart is met with warmth and belonging."',
-        practice: '🌿 Grounding Micro-Practice: Inhale for 4 seconds, whisper \"I am here\", and exhale for 8 seconds. You are never alone in what you feel.'
+        practice: '🌿 Grounding Micro-Practice: Inhale for 4 seconds, gently affirm \"I am here\", and exhale for 8 seconds. You are never alone in what you feel.'
       },
       'seeking-peace': {
         tag: 'Unhurried Presence',

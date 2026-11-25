@@ -214,9 +214,9 @@
             Every table and corner has a purpose: step right into the <strong>Chill &amp; Release Lounge</strong> to breathe, pull a Spark, and weave an anchor—or head over to <strong>Vibe &amp; Stage</strong> for rehearsal timing, chord pockets, and Midnight Vinyl throwbacks.
           </p>
 
-          <!-- Live Community Lantern Whispers Ticker -->
+          <!-- Live Shared Clubhouse Neighbor Board Ticker -->
           <div class="hub-lantern-ticker" id="hubLanternTicker" aria-live="polite">
-            <div class="hub-lantern-badge">🏮 Clubhouse Neighbor Board</div>
+            <div class="hub-lantern-badge">💬 Shared Neighbor Board</div>
             <div class="hub-lantern-whisper" id="hubLanternWhisperText">
               "Walked into the living room stressed from work—3 slow breaths and a warm acoustic chord later, my shoulders finally dropped." — Santa Ana Neighbor
             </div>
@@ -489,7 +489,7 @@
             <div class="clubhouse-doorway-eyebrow">🕯️ Clubhouse Wing 01 • Quiet Tables &amp; Fireside</div>
             <h2 class="clubhouse-doorway-title">Chill &amp; Release Lounge</h2>
           </div>
-          <p class="clubhouse-doorway-sub">Draw a Spark Card, breathe with the living orb, weave a 3-stone anchor bracelet, sow a Zen Plinko seed, or whisper at the Hearth Fireplace.</p>
+          <p class="clubhouse-doorway-sub">Draw a Spark Card, breathe with the living orb, weave a 3-stone anchor bracelet, sow a Zen Plinko seed, or reflect at the Hearth Fireplace.</p>
         </div>
 
         <div class="clubhouse-room-grid">
@@ -776,7 +776,7 @@
                 What is on your heart right now?
               </h2>
               <p style="color: #E8F3ED; font-size: 1rem; line-height: 1.65; max-width: 620px; margin: 0 auto 22px;">
-                Whisper what you are carrying or navigating today. The Hearth Mirror reflects back a personalized grounding spark to help you soften, breathe, and remember.
+                Share what you are carrying or navigating today. The Hearth Mirror reflects back a personalized grounding spark to help you soften, breathe, and remember.
               </p>
 
               <div class="hearth-emotion-pills" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 20px;">
@@ -789,8 +789,8 @@
               </div>
 
               <div style="max-width: 720px; margin: 0 auto 20px;">
-                <label for="hearthReflectionInput" class="sr-only">Whisper what you are carrying or navigating today</label>
-                <textarea id="hearthReflectionInput" placeholder="Whisper what you are carrying or navigating today (or tap a feeling above)..." rows="2" style="width: 100%; box-sizing: border-box; background: rgba(7, 34, 24, 0.85); border: 1.5px solid rgba(197, 154, 63, 0.42); border-radius: 12px; color: #FFFDF7; font-size: 0.95rem; padding: 14px 16px; font-family: inherit; line-height: 1.5; resize: vertical; outline: none;"></textarea>
+                <label for="hearthReflectionInput" class="sr-only">Share what you are carrying or navigating today</label>
+                <textarea id="hearthReflectionInput" placeholder="Share what you are carrying or navigating today (or tap a feeling above)..." rows="2" style="width: 100%; box-sizing: border-box; background: rgba(7, 34, 24, 0.85); border: 1.5px solid rgba(197, 154, 63, 0.42); border-radius: 12px; color: #FFFDF7; font-size: 0.95rem; padding: 14px 16px; font-family: inherit; line-height: 1.5; resize: vertical; outline: none;"></textarea>
               </div>
 
               <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
@@ -958,7 +958,7 @@
               <span class="speakeasy-invite-badge">✦ THE SANCTUARY GREENROOM • 3 KNOCKS TO UNLOCK ✦</span>
               <h3 class="speakeasy-invite-title serif-brand">The Secret Speakeasy &amp; Raffle Vault</h3>
               <p class="speakeasy-invite-sub">
-                Behind the sacred medallion lies our hidden Greenroom hearth—featuring the midnight vinyl player, open mic whisper vault, and the <strong>Secret Raffle Wheel</strong> for community gatherings.
+                Behind the sacred medallion lies our hidden Greenroom hearth—featuring the midnight vinyl player, shared neighbor guestbook, and the <strong>Secret Raffle Wheel</strong> for community gatherings.
               </p>
               <div class="speakeasy-invite-actions">
                 <button type="button" class="btn btn-gold btn-liquid-gold" onclick="window.sanctuaryRaffleWheel.openSpeakeasyWheel()" aria-label="Knock 3 Times & Open Secret Speakeasy Wheel">
@@ -1060,7 +1060,7 @@
           🔥 "The sanctuary you searched for is right here with us."
         </div>
         <p style="color: #E2ECE5; font-size: 0.92rem; margin: 0; line-height: 1.6;">
-          You've unlocked our private community hearth. Listen to unplugged vibes, share stage whispers, or spin the community raffle vault.
+          You've unlocked our private community hearth. Listen to unplugged vibes, post a neighbor shoutout, or spin the community raffle vault.
         </p>
       </div>
 
@@ -1077,11 +1077,11 @@
             <div class="speakeasy-gate-icon">🗝️</div>
             <div class="speakeasy-gate-badge">✦ RESTRICTED GREENROOM VAULT ✦</div>
             <h4 class="speakeasy-gate-title serif-brand">Secret Gacha Wheel Vault</h4>
-            <p class="speakeasy-gate-sub">Whisper the sacred passkey to unlock the speakeasy wheel for active gathering perks and keepsakes.</p>
+            <p class="speakeasy-gate-sub">Enter the sacred passkey to unlock the speakeasy wheel for active gathering perks and keepsakes.</p>
             <form id="speakeasyWheelForm" onsubmit="event.preventDefault(); window.sanctuaryRaffleWheel.unlockWithPasskey();">
               <div class="speakeasy-gate-input-wrap">
                 <label for="speakeasyWheelPassInput" class="sr-only">Speakeasy wheel passkey</label>
-                <input type="password" id="speakeasyWheelPassInput" class="speakeasy-gate-input" placeholder="Whisper passkey (e.g. 777)..." autocomplete="off" />
+                <input type="password" id="speakeasyWheelPassInput" class="speakeasy-gate-input" placeholder="Enter passkey (e.g. 777)..." autocomplete="off" />
                 <button type="submit" id="speakeasyWheelUnlockBtn" class="btn btn-gold btn-liquid-gold speakeasy-gate-btn"><span>Unlock</span> <span>🗝️</span></button>
               </div>
             </form>
@@ -1193,7 +1193,7 @@
             <h4 class="serif-brand" style="color: #FFFFFF; margin: 4px 0 6px;">The Mic is Open to You</h4>
             <div class="record-actions-wrap" id="recordActionsWrap">
               <button type="button" class="btn btn-gold" id="btnStartVoiceRecord" onclick="toggleVoiceRecording()"><span id="voiceRecordIcon">🎙️</span> <span id="voiceRecordLabel">Record 10s Voice Note</span></button>
-              <button type="button" class="btn-outline-gold" id="btnOpenTextWhisper" onclick="toggleTextWhisperForm()"><span>✍️ Write a Whisper</span></button>
+              <button type="button" class="btn-outline-gold" id="btnOpenTextWhisper" onclick="toggleTextWhisperForm()"><span>✍️ Leave a Note</span></button>
             </div>
             <div class="voice-recording-active-bar" id="voiceRecordingActiveBar" style="display: none;"><div class="recording-timer" id="recordingTimer">0:10</div></div>
             <div class="voice-preview-card" id="voicePreviewCard" style="display: none;">
@@ -1202,11 +1202,11 @@
               <button type="button" class="btn-outline-gold" onclick="discardVoiceRecording()">✕ Retake</button>
             </div>
             <div class="text-whisper-form" id="textWhisperForm" style="display: none;">
-              <label for="textWhisperInput" class="sr-only">Your whisper message</label>
+              <label for="textWhisperInput" class="sr-only">Your clubhouse note</label>
               <textarea id="textWhisperInput" class="text-whisper-textarea" maxlength="240" rows="3"></textarea>
               <label for="textWhisperAuthor" class="sr-only">Your name or alias</label>
               <input type="text" id="textWhisperAuthor" class="text-whisper-author-input" maxlength="50" />
-              <button type="button" class="btn btn-gold" onclick="submitTextWhisper()">Post Whisper</button>
+              <button type="button" class="btn btn-gold" onclick="submitTextWhisper()">Post Note</button>
             </div>
             <div class="whisper-feedback-toast" id="whisperToast" style="display: none;">✓ Posted to the Greenroom Hearth!</div>
           </div>
