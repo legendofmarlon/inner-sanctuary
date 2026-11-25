@@ -18,20 +18,20 @@ html, body, .hero, .sanctuary-nav, .element-sanctuary-bar,
    Crisp botanical clarity, sun-dappled dew, gentle upward awakening
    -------------------------------------------------------------------------- */
 [data-atmosphere="dawn"] {
-  --bg-cream: #F8F6F0;
-  --bg-cream-soft: #FCFBF7;
-  --bg-cream-alt: #F1ECE1;
-  --forest-green: #244133;
-  --forest-dark: #192D23;
-  --forest-light: #3D604E;
+  --bg-cream: #F7F5EE;
+  --bg-cream-soft: #FCFAF4;
+  --bg-cream-alt: #EEF2EA;
+  --forest-green: #164A38;
+  --forest-dark: #0B3325;
+  --forest-light: #245E45;
   --sunburst-gold: #B88B32;
-  --gold-text: #7D560E;
-  --gold-glow: rgba(184, 139, 50, 0.22);
-  --earth-charcoal: #1E1D19;
-  --charcoal-muted: #2E2D28;
-  --botanical-sage: #537563;
+  --gold-text: #7A540E;
+  --gold-glow: rgba(184, 139, 50, 0.24);
+  --earth-charcoal: #13221B;
+  --charcoal-muted: #2B4237;
+  --botanical-sage: #2E8B6E;
   --somatic-breath-duration: 8s;
-  --atmosphere-ambient-glow: radial-gradient(ellipse at 50% 0%, rgba(248, 217, 140, 0.25) 0%, transparent 70%);
+  --atmosphere-ambient-glow: radial-gradient(ellipse at 50% 0%, rgba(46, 139, 110, 0.14) 0%, rgba(248, 217, 140, 0.22) 50%, transparent 72%);
 }
 
 [data-atmosphere="dawn"] body {
@@ -48,20 +48,20 @@ html, body, .hero, .sanctuary-nav, .element-sanctuary-bar,
    Full organic contrast, sunburst warmth, open community vitality
    -------------------------------------------------------------------------- */
 [data-atmosphere="day"] {
-  --bg-cream: #F6F3EC;
-  --bg-cream-soft: #FAF8F3;
-  --bg-cream-alt: #EFECE3;
-  --forest-green: #2B4436;
-  --forest-dark: #1E3328;
-  --forest-light: #3A5A48;
+  --bg-cream: #F6F4EC;
+  --bg-cream-soft: #FAF9F4;
+  --bg-cream-alt: #EAEFE8;
+  --forest-green: #164A38;
+  --forest-dark: #0B3325;
+  --forest-light: #245E45;
   --sunburst-gold: #C59A3F;
-  --gold-text: #8C6212;
+  --gold-text: #7A540E;
   --gold-glow: rgba(197, 154, 63, 0.25);
-  --earth-charcoal: #1C1B18;
-  --charcoal-muted: #2C2B27;
-  --botanical-sage: #5F7B6B;
+  --earth-charcoal: #13221B;
+  --charcoal-muted: #2B4237;
+  --botanical-sage: #2E8B6E;
   --somatic-breath-duration: 7s;
-  --atmosphere-ambient-glow: radial-gradient(ellipse at 50% 0%, rgba(197, 154, 63, 0.20) 0%, transparent 65%);
+  --atmosphere-ambient-glow: radial-gradient(ellipse at 50% 0%, rgba(46, 139, 110, 0.14) 0%, rgba(197, 154, 63, 0.18) 45%, transparent 68%);
 }
 
 [data-atmosphere="day"] body {
@@ -78,20 +78,20 @@ html, body, .hero, .sanctuary-nav, .element-sanctuary-bar,
    Honeyed amber, sunset warmth, rich bronze grounding
    -------------------------------------------------------------------------- */
 [data-atmosphere="golden"] {
-  --bg-cream: #F4EBD9;
-  --bg-cream-soft: #FAF3E5;
-  --bg-cream-alt: #EBDECA;
-  --forest-green: #293B30;
-  --forest-dark: #1A2820;
-  --forest-light: #445D4D;
-  --sunburst-gold: #D49B35;
-  --gold-text: #96660F;
+  --bg-cream: #F5EEDB;
+  --bg-cream-soft: #FAF4E6;
+  --bg-cream-alt: #E9E2CF;
+  --forest-green: #164A38;
+  --forest-dark: #0B3325;
+  --forest-light: #245E45;
+  --sunburst-gold: #C88F29;
+  --gold-text: #7A500B;
   --gold-glow: rgba(212, 155, 53, 0.35);
-  --earth-charcoal: #211D17;
-  --charcoal-muted: #302A22;
-  --botanical-sage: #667560;
+  --earth-charcoal: #1B241D;
+  --charcoal-muted: #2D3F33;
+  --botanical-sage: #2E8B6E;
   --somatic-breath-duration: 8.5s;
-  --atmosphere-ambient-glow: radial-gradient(ellipse at 50% 0%, rgba(212, 155, 53, 0.35) 0%, rgba(235, 172, 78, 0.12) 45%, transparent 75%);
+  --atmosphere-ambient-glow: radial-gradient(ellipse at 50% 0%, rgba(212, 155, 53, 0.32) 0%, rgba(46, 139, 110, 0.14) 45%, transparent 75%);
 }
 
 [data-atmosphere="golden"] body {
@@ -105,80 +105,460 @@ html, body, .hero, .sanctuary-nav, .element-sanctuary-bar,
 
 /* --------------------------------------------------------------------------
    Atmosphere 4: SANCTUARY NIGHT MODE (20:00 – 05:00)
-   Velvet obsidian forest, warm amber candlelight, meditative violet depths
+   Sacred Emerald (#0B3325) & Botanical Jade (#134A37) with High-Contrast Ivory
    -------------------------------------------------------------------------- */
 [data-atmosphere="night"] {
-  --bg-cream: #0F1713;
-  --bg-cream-soft: #16221C;
-  --bg-cream-alt: #1B2B23;
-  --forest-green: #4D7A62;
-  --forest-dark: #8DB8A0;
-  --forest-light: #6A9980;
-  --sunburst-gold: #E5B25D;
+  --bg-cream: #0B3325;
+  --bg-cream-soft: #134A37;
+  --bg-cream-alt: #164A38;
+  --forest-green: #EBF7F0;
+  --forest-dark: #D5E8DD;
+  --forest-light: #9FE2C1;
+  --sunburst-gold: #FAD277;
   --gold-text: #FAD277;
-  --gold-hover: #F2C172;
-  --gold-glow: rgba(229, 178, 93, 0.35);
-  --earth-charcoal: #EDE8DD;
-  --charcoal-muted: #C8C2B4;
-  --botanical-sage: #7EA690;
+  --gold-hover: #FFE5A3;
+  --gold-glow: rgba(229, 178, 93, 0.38);
+  --earth-charcoal: #FFFDF7;
+  --charcoal-muted: #D5E5DC;
+  --botanical-sage: #2E8B6E;
   --somatic-breath-duration: 10s;
-  --atmosphere-ambient-glow: radial-gradient(ellipse at 50% -10%, rgba(229, 178, 93, 0.18) 0%, rgba(77, 122, 98, 0.15) 40%, transparent 80%);
+  --atmosphere-ambient-glow: radial-gradient(ellipse at 50% -10%, rgba(27, 97, 72, 0.42) 0%, rgba(19, 74, 55, 0.35) 45%, rgba(11, 51, 37, 0.18) 80%);
 }
 
 [data-atmosphere="night"] body {
   background-color: transparent !important;
-  color: #EDE8DD;
+  color: #FFFDF7;
+}
+
+[data-atmosphere="night"] .realistic-sky-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(6, 28, 20, 0.10) 0%, rgba(11, 51, 37, 0.16) 55%, rgba(8, 36, 26, 0.22) 100%);
+  z-index: 3;
+  pointer-events: none;
+}
+
+[data-atmosphere="night"] .sky-plate {
+  filter: brightness(0.92) contrast(1.06) saturate(1.06);
 }
 
 [data-atmosphere="night"] nav#sanctuary-nav {
-  background: rgba(15, 23, 19, 0.95);
-  border-bottom: 1px solid rgba(229, 178, 93, 0.25);
+  background: rgba(11, 51, 37, 0.96);
+  border-bottom: 1px solid rgba(250, 210, 119, 0.32);
 }
 
 [data-atmosphere="night"] .hero {
-  background: radial-gradient(circle at 50% 25%, rgba(229, 178, 93, 0.16) 0%, rgba(77, 122, 98, 0.08) 45%, transparent 80%);
+  background: radial-gradient(circle at 50% 25%, rgba(27, 97, 72, 0.34) 0%, rgba(19, 74, 55, 0.22) 50%, transparent 82%);
 }
 
 [data-atmosphere="night"] .hero-inner-headline,
 [data-atmosphere="night"] .manifesto-lead-title,
 [data-atmosphere="night"] .section-title,
 [data-atmosphere="night"] .serif-brand {
-  color: #FDF9EE !important;
-  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.6);
+  color: #FFFDF7 !important;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
 }
 
-[data-atmosphere="night"] .hero-manifesto-box {
-  background: rgba(22, 34, 28, 0.85);
-  border: 1.5px solid rgba(229, 178, 93, 0.35);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+[data-atmosphere="night"] .section-subtitle,
+[data-atmosphere="night"] .master-eyebrow-tag,
+[data-atmosphere="night"] .activation-card-tagline,
+[data-atmosphere="night"] .activation-metric-badge,
+[data-atmosphere="night"] .release-subtitle,
+[data-atmosphere="night"] .pathway-card-sub {
+  color: #FAD277 !important;
 }
 
-[data-atmosphere="night"] .sanctuary-orb-card {
-  background: rgba(22, 34, 28, 0.75);
-  border: 1.5px solid rgba(229, 178, 93, 0.3);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+/* Open Transparent Surrounding Areas Across ALL Themes — lets 8K scenery & particles shine freely */
+main#main-content > section[id],
+.core-activations-section,
+.community-hub-section,
+.hub-section-cream,
+.hub-section-warm,
+.sacred-breath-section,
+[data-atmosphere="night"] main#main-content > section[id],
+[data-atmosphere="night"] .core-activations-section,
+[data-atmosphere="night"] .community-hub-section,
+[data-atmosphere="night"] .hub-section-cream,
+[data-atmosphere="night"] .hub-section-warm,
+[data-atmosphere="night"] .sacred-breath-section,
+[data-atmosphere="day"] main#main-content > section[id],
+[data-atmosphere="dawn"] main#main-content > section[id],
+[data-atmosphere="golden"] main#main-content > section[id],
+[data-atmosphere="day"] .core-activations-section,
+[data-atmosphere="dawn"] .core-activations-section,
+[data-atmosphere="golden"] .core-activations-section,
+[data-atmosphere="day"] .sacred-breath-section,
+[data-atmosphere="dawn"] .sacred-breath-section,
+[data-atmosphere="golden"] .sacred-breath-section {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-top-color: rgba(197, 154, 63, 0.24) !important;
+  border-bottom-color: rgba(197, 154, 63, 0.24) !important;
 }
 
-[data-atmosphere="night"] .nav-link-main {
+/* Solid Botanical Cream directly behind standalone headers & text cards in Dawn / Day / Golden */
+.section-header,
+.coverflow-section-header,
+#mission > .container {
+  background: #FAF7F0 !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1.5px solid rgba(22, 74, 56, 0.22);
+  border-radius: 22px;
+  padding: 28px 30px;
+  box-shadow: 0 16px 38px rgba(11, 51, 37, 0.14);
+}
+
+[data-atmosphere="day"] .trust-ribbon,
+[data-atmosphere="dawn"] .trust-ribbon,
+[data-atmosphere="golden"] .trust-ribbon,
+[data-atmosphere="day"] .hero-manifesto-box,
+[data-atmosphere="dawn"] .hero-manifesto-box,
+[data-atmosphere="golden"] .hero-manifesto-box,
+[data-atmosphere="day"] .core-activation-card,
+[data-atmosphere="dawn"] .core-activation-card,
+[data-atmosphere="golden"] .core-activation-card,
+[data-atmosphere="day"] .program-spotlight-card,
+[data-atmosphere="dawn"] .program-spotlight-card,
+[data-atmosphere="golden"] .program-spotlight-card,
+[data-atmosphere="day"] .release-card,
+[data-atmosphere="dawn"] .release-card,
+[data-atmosphere="golden"] .release-card,
+[data-atmosphere="day"] .lsd-focus-card,
+[data-atmosphere="dawn"] .lsd-focus-card,
+[data-atmosphere="golden"] .lsd-focus-card,
+[data-atmosphere="day"] .method-focus-card,
+[data-atmosphere="dawn"] .method-focus-card,
+[data-atmosphere="golden"] .method-focus-card,
+[data-atmosphere="day"] .impact-metric-card,
+[data-atmosphere="dawn"] .impact-metric-card,
+[data-atmosphere="golden"] .impact-metric-card,
+[data-atmosphere="day"] .horizon-card,
+[data-atmosphere="dawn"] .horizon-card,
+[data-atmosphere="golden"] .horizon-card,
+[data-atmosphere="day"] .pathway-card,
+[data-atmosphere="dawn"] .pathway-card,
+[data-atmosphere="golden"] .pathway-card,
+[data-atmosphere="day"] .stay-loop-card,
+[data-atmosphere="dawn"] .stay-loop-card,
+[data-atmosphere="golden"] .stay-loop-card,
+[data-atmosphere="day"] .contact-card,
+[data-atmosphere="dawn"] .contact-card,
+[data-atmosphere="golden"] .contact-card,
+[data-atmosphere="day"] .openmic-roster-card,
+[data-atmosphere="dawn"] .openmic-roster-card,
+[data-atmosphere="golden"] .openmic-roster-card,
+[data-atmosphere="day"] .method-mantra-pill,
+[data-atmosphere="dawn"] .method-mantra-pill,
+[data-atmosphere="golden"] .method-mantra-pill,
+[data-atmosphere="day"] .tier-box,
+[data-atmosphere="dawn"] .tier-box,
+[data-atmosphere="golden"] .tier-box,
+[data-atmosphere="day"] .community-hub-gateway,
+[data-atmosphere="dawn"] .community-hub-gateway,
+[data-atmosphere="golden"] .community-hub-gateway,
+[data-atmosphere="day"] .community-gateway-tile,
+[data-atmosphere="dawn"] .community-gateway-tile,
+[data-atmosphere="golden"] .community-gateway-tile,
+[data-atmosphere="day"] .hub-hero-glass-card,
+[data-atmosphere="dawn"] .hub-hero-glass-card,
+[data-atmosphere="golden"] .hub-hero-glass-card,
+[data-atmosphere="day"] .sanctuary-reflection-widget,
+[data-atmosphere="dawn"] .sanctuary-reflection-widget,
+[data-atmosphere="golden"] .sanctuary-reflection-widget,
+[data-atmosphere="day"] .sanctuary-orb-card,
+[data-atmosphere="dawn"] .sanctuary-orb-card,
+[data-atmosphere="golden"] .sanctuary-orb-card,
+[data-atmosphere="day"] .digital-bracelet-creator,
+[data-atmosphere="dawn"] .digital-bracelet-creator,
+[data-atmosphere="golden"] .digital-bracelet-creator {
+  background: #FAF7F0 !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-color: rgba(22, 74, 56, 0.24) !important;
+  box-shadow: 0 16px 40px rgba(11, 51, 37, 0.14) !important;
+}
+
+/* Solid Sacred Emerald & Botanical Jade Cards in Night Mode (open scenery around them, zero text bleed behind letters) */
+[data-atmosphere="night"] .section-header,
+[data-atmosphere="night"] .coverflow-section-header,
+[data-atmosphere="night"] #mission > .container {
+  background: linear-gradient(155deg, rgba(16, 66, 48, 0.96) 0%, rgba(10, 44, 31, 0.98) 100%) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-color: rgba(46, 139, 110, 0.56) !important;
+  box-shadow: 0 18px 42px rgba(4, 18, 12, 0.52) !important;
+}
+
+[data-atmosphere="night"] .trust-ribbon,
+[data-atmosphere="night"] .hero-manifesto-box,
+[data-atmosphere="night"] .core-activation-card,
+[data-atmosphere="night"] .card,
+[data-atmosphere="night"] .program-card,
+[data-atmosphere="night"] .program-spotlight-card,
+[data-atmosphere="night"] .release-card,
+[data-atmosphere="night"] .lsd-focus-card,
+[data-atmosphere="night"] .method-focus-card,
+[data-atmosphere="night"] .impact-metric-card,
+[data-atmosphere="night"] .workshop-card,
+[data-atmosphere="night"] .horizon-card,
+[data-atmosphere="night"] .pathway-card,
+[data-atmosphere="night"] .method-mantra-pill,
+[data-atmosphere="night"] .stay-loop-card,
+[data-atmosphere="night"] .contact-card,
+[data-atmosphere="night"] .openmic-roster-card,
+[data-atmosphere="night"] .event-featured-card,
+[data-atmosphere="night"] .tier-box,
+[data-atmosphere="night"] .community-hub-gateway,
+[data-atmosphere="night"] .community-gateway-tile,
+[data-atmosphere="night"] .sanctuary-orb-card,
+[data-atmosphere="night"] .hub-hero-glass-card,
+[data-atmosphere="night"] .sanctuary-reflection-widget,
+[data-atmosphere="night"] .digital-bracelet-creator,
+[data-atmosphere="night"] .bead-btn,
+[data-atmosphere="night"] .sanctuary-app-card,
+[data-atmosphere="night"] .circle-intake-success-box {
+  background: linear-gradient(155deg, rgba(16, 66, 48, 0.96) 0%, rgba(10, 44, 31, 0.98) 100%) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1.5px solid rgba(46, 139, 110, 0.58) !important;
+  box-shadow: 0 18px 42px rgba(4, 18, 12, 0.52), inset 0 1px 0 rgba(159, 226, 193, 0.14) !important;
   color: #EDE8DD !important;
 }
 
+/* Fix Night Mode Mobile Hero paragraphs & tagline so 390px cards keep bright readable ivory text */
+[data-atmosphere="night"] .manifesto-body-text p,
+[data-atmosphere="night"] .hero-manifesto-box p,
+[data-atmosphere="night"] .hero-manifesto-box .manifesto-closing p {
+  color: #EDE8DD !important;
+}
+
+[data-atmosphere="night"] .hero-tagline-motto {
+  color: #FAD277 !important;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.78) !important;
+}
+
+[data-atmosphere="night"] .lsd-focus-title,
+[data-atmosphere="night"] .lsd-focus-desc,
+[data-atmosphere="night"] .lsd-vibe-tag,
+[data-atmosphere="night"] .lsd-focus-card p,
+[data-atmosphere="night"] .community-gateway-tile-title {
+  color: #FFFDF7 !important;
+}
+[data-atmosphere="night"] .lsd-focus-subtitle {
+  color: #FAD277 !important;
+}
+[data-atmosphere="night"] .lsd-vibe-tag {
+  background: rgba(7, 34, 24, 0.85) !important;
+  border: 1px solid rgba(250, 210, 119, 0.45) !important;
+}
+
+[data-atmosphere="night"] .btn-forest,
+[data-atmosphere="night"] .activation-btn-primary,
+[data-atmosphere="night"] .tier-ribbon,
+[data-atmosphere="night"] .announcement-bar,
+[data-atmosphere="night"] .skip-link,
+[data-atmosphere="night"] .lsd-letter-badge,
+[data-atmosphere="night"] .method-focus-card .lsd-letter-badge {
+  background: linear-gradient(135deg, #1B6148 0%, #0B3325 100%) !important;
+  color: #FFFDF7 !important;
+  border: 1.5px solid rgba(250, 210, 119, 0.62) !important;
+}
+[data-atmosphere="night"] .btn-forest:hover,
+[data-atmosphere="night"] .activation-btn-primary:hover {
+  background: linear-gradient(135deg, #FAD277 0%, #D9A23D 100%) !important;
+  color: #0B3325 !important;
+  border-color: #FFFDF7 !important;
+}
+
+[data-atmosphere="night"] .community-gateway-tile-desc,
+[data-atmosphere="night"] #community-hub .master-lead-text {
+  color: #E3EFE8 !important;
+}
+
+[data-atmosphere="night"] .purpose-callout,
+[data-atmosphere="night"] .event-spotlight,
+[data-atmosphere="night"] .sponsorship-campaign-wrapper,
+[data-atmosphere="night"] .stage-lounge-card {
+  background: radial-gradient(circle at 25% 0%, rgba(22, 82, 60, 0.82) 0%, rgba(10, 44, 31, 0.88) 100%) !important;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-color: rgba(250, 210, 119, 0.55) !important;
+  color: #FFFDF7 !important;
+}
+
+/* Override any hardcoded inline muted ink or light panels inside Night cards */
+[data-atmosphere="night"] .card p,
+[data-atmosphere="night"] .core-activation-card p,
+[data-atmosphere="night"] .program-spotlight-card p,
+[data-atmosphere="night"] .release-card p,
+[data-atmosphere="night"] .horizon-card p,
+[data-atmosphere="night"] .pathway-card p,
+[data-atmosphere="night"] .tier-box p,
+[data-atmosphere="night"] .contact-section p,
+[data-atmosphere="night"] .stay-loop-card p,
+[data-atmosphere="night"] .hub-hero-glass-card p,
+[data-atmosphere="night"] .sanctuary-reflection-widget p,
+[data-atmosphere="night"] .digital-bracelet-creator p,
+[data-atmosphere="night"] #open-mic p,
+[data-atmosphere="night"] #mission p,
+[data-atmosphere="night"] #method p,
+[data-atmosphere="night"] #horizons p,
+[data-atmosphere="night"] .trust-grid {
+  color: #E3EFE8 !important;
+}
+
+[data-atmosphere="night"] .core-activation-card .activation-target-box,
+[data-atmosphere="night"] .program-spotlight-card div[style*="rgba(246, 243, 236"] {
+  background: rgba(7, 34, 24, 0.84) !important;
+  border-color: rgba(250, 210, 119, 0.45) !important;
+  color: #EDF7F1 !important;
+}
+
+[data-atmosphere="night"] .core-activation-card .activation-target-box *,
+[data-atmosphere="night"] .program-spotlight-card div[style*="rgba(246, 243, 236"] *,
+[data-atmosphere="night"] .tier-box li,
+[data-atmosphere="night"] .tier-price,
+[data-atmosphere="night"] .tier-price span,
+[data-atmosphere="night"] .bead-title,
+[data-atmosphere="night"] .bead-intent,
+[data-atmosphere="night"] .pathway-card-action,
+[data-atmosphere="night"] .horizon-status-pill,
+[data-atmosphere="night"] .badge-sage {
+  color: #EDF7F1 !important;
+}
+
+[data-atmosphere="night"] .program-spotlight-card span[style*="rgba(197, 154, 63"],
+[data-atmosphere="night"] .tier-box span[style*="rgba(30, 58, 43"],
+[data-atmosphere="night"] .badge-sage {
+  background: rgba(7, 34, 24, 0.78) !important;
+  border: 1px solid rgba(46, 139, 110, 0.52) !important;
+  color: #FAD277 !important;
+}
+
+[data-atmosphere="night"] .sanctuary-orb-card .orb-status-prompt,
+[data-atmosphere="night"] .sanctuary-orb-card .breath-workshop-cta-btn,
+[data-atmosphere="night"] .sanctuary-orb-card .btn-outline,
+[data-atmosphere="night"] .hero-manifesto-box .btn-outline,
+[data-atmosphere="night"] #mission .btn-outline,
+[data-atmosphere="night"] .activation-btn-secondary,
+[data-atmosphere="night"] .program-spotlight-card .btn-outline,
+[data-atmosphere="night"] .digital-bracelet-creator .btn-outline,
+[data-atmosphere="night"] .tier-box .btn-outline,
+[data-atmosphere="night"] .btn-reflection-draw,
+[data-atmosphere="night"] .btn-reflection-copy,
+[data-atmosphere="night"] .btn-reflection-share,
+[data-atmosphere="night"] .hub-wing-pill,
+[data-atmosphere="night"] .ritual-pill-btn {
+  background: rgba(7, 34, 24, 0.85) !important;
+  color: #FFFDF7 !important;
+  border-color: rgba(250, 210, 119, 0.58) !important;
+}
+
+[data-atmosphere="night"] .hub-wing-pill.active,
+[data-atmosphere="night"] .intake-tab.active,
+[data-atmosphere="night"] .tier-freq-btn.active,
+[data-atmosphere="night"] .somatic-pill.active,
+[data-atmosphere="night"] .somatic-chip.active {
+  background: linear-gradient(135deg, #FAD277 0%, #D9A23D 100%) !important;
+  color: #0B3325 !important;
+  border-color: #FFFDF7 !important;
+}
+
+[data-atmosphere="night"] .somatic-pill,
+[data-atmosphere="night"] .somatic-chip,
+[data-atmosphere="night"] .intake-tab,
+[data-atmosphere="night"] .tier-freq-btn {
+  background: rgba(7, 34, 24, 0.72) !important;
+  color: #E6F2EB !important;
+  border-color: rgba(46, 139, 110, 0.5) !important;
+}
+
+/* Keep the flipped Spark parchment card back crisp & readable in Night Mode too */
+[data-atmosphere="night"] .card-face-back {
+  background: linear-gradient(160deg, #134A37 0%, #0B3325 100%) !important;
+  border: 1.5px solid rgba(250, 210, 119, 0.6) !important;
+}
+[data-atmosphere="night"] .card-back-badge {
+  background: rgba(250, 210, 119, 0.2) !important;
+  color: #FAD277 !important;
+  border-color: rgba(250, 210, 119, 0.55) !important;
+}
+[data-atmosphere="night"] .card-back-quote {
+  color: #FFFDF7 !important;
+}
+[data-atmosphere="night"] .card-back-source {
+  color: #D2E4D9 !important;
+}
+
+/* Form controls, dropdowns & mobile nav drawer in Night Mode */
+[data-atmosphere="night"] .contact-card input,
+[data-atmosphere="night"] .contact-card select,
+[data-atmosphere="night"] .contact-card textarea,
+[data-atmosphere="night"] .stay-loop-input,
+[data-atmosphere="night"] .somatic-oracle-input-wrap,
+[data-atmosphere="night"] #somaticCustomInput {
+  background: rgba(7, 34, 24, 0.92) !important;
+  color: #FFFDF7 !important;
+  border-color: rgba(229, 178, 93, 0.52) !important;
+}
+
+[data-atmosphere="night"] input::placeholder,
+[data-atmosphere="night"] textarea::placeholder {
+  color: #BBD1C4 !important;
+  opacity: 1 !important;
+}
+
+[data-atmosphere="night"] select option {
+  background: #0B3325;
+  color: #FFFDF7;
+}
+
+[data-atmosphere="night"] label {
+  color: #FAD277 !important;
+}
+
+[data-atmosphere="night"] #mobile-nav-drawer {
+  background: rgba(11, 51, 37, 0.98) !important;
+  border-bottom-color: #FAD277 !important;
+}
+[data-atmosphere="night"] #mobile-nav-drawer .mobile-nav-main {
+  color: #FFFDF7 !important;
+}
+[data-atmosphere="night"] #mobile-nav-drawer .mobile-nav-sub {
+  color: #FAD277 !important;
+}
+
+[data-atmosphere="night"] footer,
+[data-atmosphere="night"] .footer {
+  background: linear-gradient(180deg, #0B3325 0%, #072218 100%) !important;
+  color: #EDF7F1 !important;
+  border-top-color: #FAD277 !important;
+}
+[data-atmosphere="night"] footer a,
+[data-atmosphere="night"] footer p,
+[data-atmosphere="night"] .footer-bottom {
+  color: #E6F2EB !important;
+}
+[data-atmosphere="night"] footer .footer-tagline,
+[data-atmosphere="night"] footer h4,
+[data-atmosphere="night"] footer h5 {
+  color: #FAD277 !important;
+}
+
+[data-atmosphere="night"] .nav-link-main {
+  color: #FFFDF7 !important;
+}
+
 [data-atmosphere="night"] .nav-link-sub {
-  color: #E5B25D !important;
+  color: #FAD277 !important;
 }
 
 [data-atmosphere="night"] .element-sanctuary-bar {
-  background: rgba(12, 19, 15, 0.95);
-  border-bottom: 1px solid rgba(229, 178, 93, 0.2);
-}
-
-[data-atmosphere="night"] .card,
-[data-atmosphere="night"] .program-card,
-[data-atmosphere="night"] .impact-metric-card,
-[data-atmosphere="night"] .workshop-card {
-  background: rgba(22, 34, 28, 0.85);
-  border-color: rgba(229, 178, 93, 0.25);
-  color: #EDE8DD;
+  background: rgba(8, 34, 24, 0.96);
+  border-bottom: 1px solid rgba(250, 210, 119, 0.28);
 }
 
 [data-atmosphere="night"] .impact-metric-num {
@@ -186,11 +566,11 @@ html, body, .hero, .sanctuary-nav, .element-sanctuary-bar,
 }
 
 [data-atmosphere="night"] .impact-metric-label {
-  color: #EDE8DD !important;
+  color: #FFFDF7 !important;
 }
 
 [data-atmosphere="night"] .impact-metric-sub {
-  color: #C8C2B4 !important;
+  color: #D5E5DC !important;
 }
 
 /* --------------------------------------------------------------------------

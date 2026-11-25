@@ -4984,8 +4984,8 @@ document.addEventListener('DOMContentLoaded', () => {
       categories: ["music", "stage"]
     },
     {
-      src: "images/openmic/openmic-nov15-stone-hearth-celebration.jpg",
-      caption: "Joyful Embodiment • Drums, Dancing & Laughter Before the Grand Hearth (Nov 15)",
+      src: "images/openmic/openmic-nov15-stone-hearth-celebration.gif",
+      caption: "Joyful Embodiment • Drums, Dancing & Laughter Before the Grand Hearth (Nov 15 • Live GIF)",
       alt: "Community members dancing and drumming with pure joy before the stone fireplace",
       tag: "🎸 Music & Rhythm",
       categories: ["music", "community"]
@@ -5115,6 +5115,16 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         slide.classList.add('slot-hidden');
         slide.setAttribute('aria-hidden', 'true');
+      }
+
+      if (Math.abs(delta) <= 1) {
+        const slideImg = slide.querySelector('img[data-animated-src]');
+        if (slideImg) {
+          const animSrc = slideImg.getAttribute('data-animated-src');
+          if (animSrc && !slideImg.getAttribute('src').endsWith('.gif')) {
+            slideImg.setAttribute('src', animSrc);
+          }
+        }
       }
     });
 
@@ -5286,6 +5296,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     updatePhotoWheelUI(0);
     startPhotoWheelAuto();
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.querySelectorAll('.photo-wheel-slide img[data-animated-src]').forEach((img) => {
+          const animSrc = img.getAttribute('data-animated-src');
+          if (animSrc && !img.getAttribute('src').endsWith('.gif')) {
+            const pre = new Image();
+            pre.onload = () => { img.setAttribute('src', animSrc); };
+            pre.src = animSrc;
+          }
+        });
+      }, 1800);
+    }, { once: true });
   }
 
   // Fullscreen Photo Wheel Modal Window

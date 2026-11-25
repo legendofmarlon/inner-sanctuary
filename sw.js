@@ -1,7 +1,7 @@
 // Inner Sanctuary Wellness Foundation — Progressive Web App Service Worker
 // Version: 1.0.0 (Sanctuary in Your Pocket)
 
-const CACHE_NAME = 'inner-sanctuary-cache-v24';
+const CACHE_NAME = 'inner-sanctuary-cache-v25';
 const PRECACHE_ASSETS = [
   './',
   './index.html',
@@ -75,8 +75,8 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Skip caching Netlify function calls so live endpoints always hit network
-  if (req.url.includes('/.netlify/functions/')) {
+  // Skip caching Netlify function calls and oversized animated GIFs
+  if (req.url.includes('/.netlify/functions/') || /\.gif(\?|$)/i.test(req.url)) {
     return;
   }
 

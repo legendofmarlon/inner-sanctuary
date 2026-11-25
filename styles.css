@@ -2,24 +2,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Montserrat:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --bg-cream: #F6F3EC;
-  --bg-cream-soft: #FAF8F3;
-  --bg-cream-alt: #EFECE3;
-  --forest-green: #2B4436;
-  --forest-dark: #1E3328;
-  --forest-light: #3A5A48;
+  --bg-cream: #F6F4EC;
+  --bg-cream-soft: #FAF9F4;
+  --bg-cream-alt: #EAEFE8;
+  --forest-green: #164A38;
+  --forest-dark: #0B3325;
+  --forest-light: #245E45;
+  --sacred-emerald: #0B3325;
+  --botanical-jade: #164A38;
+  --jade-surface: #134A37;
+  --jade-glow: #2E8B6E;
   --sunburst-gold: #C59A3F;
-  --gold-text: #8C6212;
+  --gold-text: #7A540E;
   --gold-hover: #D8AA49;
   --gold-glow: rgba(197, 154, 63, 0.25);
-  --gold-soft: rgba(197, 154, 63, 0.12);
-  --earth-charcoal: #1C1B18;
-  --charcoal-muted: #2C2B27;
-  --botanical-sage: #5F7B6B;
-  --sage-light: rgba(95, 123, 107, 0.12);
+  --gold-soft: rgba(197, 154, 63, 0.14);
+  --earth-charcoal: #13221B;
+  --charcoal-muted: #2B4237;
+  --botanical-sage: #2E8B6E;
+  --sage-light: rgba(46, 139, 110, 0.12);
   --white: #FFFFFF;
-  --card-shadow: 0 12px 36px rgba(43, 68, 54, 0.08);
-  --card-shadow-hover: 0 20px 48px rgba(43, 68, 54, 0.14);
+  --card-shadow: 0 12px 36px rgba(11, 51, 37, 0.08);
+  --card-shadow-hover: 0 20px 48px rgba(11, 51, 37, 0.14);
   --border-gold: 1px solid rgba(197, 154, 63, 0.35);
   --breath-bg-scale: 1.0;
 
@@ -136,11 +140,11 @@ body {
 
 .master-eyebrow-tag {
   font-family: var(--font-sans);
-  font-size: var(--type-tag);
+  font-size: 0.82rem;
   font-weight: 700;
-  letter-spacing: var(--tracking-eyebrow);
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--sunburst-gold);
+  color: var(--gold-text);
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -238,31 +242,31 @@ body {
 
 .activation-metric-badge {
   font-family: var(--font-sans);
-  font-size: 0.74rem;
+  font-size: 0.78rem;
   font-weight: 700;
-  color: var(--sunburst-gold);
+  color: var(--gold-text);
 }
 
 .activation-card-title {
   font-family: var(--font-serif);
   font-size: clamp(1.35rem, 2vw, 1.65rem);
   color: var(--forest-green);
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
   margin-top: 6px;
-  line-height: 1.25;
+  line-height: 1.28;
 }
 
 .activation-card-tagline {
   font-family: var(--font-sans);
-  font-size: 0.94rem;
-  color: var(--sunburst-gold);
-  font-weight: 600;
-  line-height: 1.4;
+  font-size: 0.96rem;
+  color: var(--gold-text);
+  font-weight: 700;
+  line-height: 1.45;
 }
 
 .activation-card-desc {
   font-family: var(--font-sans);
-  font-size: 1.01rem;
+  font-size: 1.02rem;
   color: var(--charcoal-muted);
   line-height: 1.75;
   margin-top: 8px;
@@ -546,7 +550,7 @@ body {
 /* 1. Earth Plate: Ancient temperate rainforest, redwoods, mossy cedar & ferns */
 .sky-plate.plate-earth {
   background-image: 
-    linear-gradient(180deg, rgba(220, 235, 222, 0.12) 0%, rgba(246, 243, 236, 0.05) 40%, rgba(246, 243, 236, 0.65) 82%, #F6F3EC 100%),
+    linear-gradient(180deg, rgba(220, 235, 222, 0.08) 0%, rgba(246, 243, 236, 0.04) 55%, rgba(246, 243, 236, 0.28) 100%),
     url('images/nature-earth-8k.jpg'),
     url('images/sky-air-8k-mountains-backup.jpg');
   animation: forestCanopyBreathing 42s ease-in-out infinite alternate;
@@ -555,7 +559,7 @@ body {
 /* 2. Water Plate: Pristine cascading mountain creek, caustics, serene pebbles & mist */
 .sky-plate.plate-water {
   background-image: 
-    linear-gradient(180deg, rgba(210, 235, 245, 0.14) 0%, rgba(237, 243, 245, 0.06) 40%, rgba(237, 243, 245, 0.68) 82%, #EDF3F5 100%),
+    linear-gradient(180deg, rgba(210, 235, 245, 0.08) 0%, rgba(237, 243, 245, 0.04) 55%, rgba(237, 243, 245, 0.28) 100%),
     url('images/nature-water-8k.jpg'),
     url('images/sky-ocean-waves-8k.jpg');
   animation: waterCausticRipple 38s ease-in-out infinite alternate;
@@ -564,7 +568,7 @@ body {
 /* 3. Air Plate: High-altitude morning ocean breeze, open atmosphere & gilded cumulus */
 .sky-plate.plate-air {
   background-image: 
-    linear-gradient(180deg, rgba(225, 242, 250, 0.12) 0%, rgba(246, 243, 236, 0.04) 40%, rgba(246, 243, 236, 0.62) 82%, #F6F3EC 100%),
+    linear-gradient(180deg, rgba(225, 242, 250, 0.08) 0%, rgba(246, 243, 236, 0.04) 55%, rgba(246, 243, 236, 0.28) 100%),
     url('images/sky-air-8k.jpg');
   animation: gentleBreezeSway 45s ease-in-out infinite alternate;
 }
@@ -572,7 +576,7 @@ body {
 /* 4. Fire Plate: Twilight gathering hearth fire, golden-amber embers & dusk rim light */
 .sky-plate.plate-fire {
   background-image: 
-    linear-gradient(180deg, rgba(255, 235, 215, 0.16) 0%, rgba(250, 242, 236, 0.06) 40%, rgba(250, 242, 236, 0.68) 82%, #FAF2EC 100%),
+    linear-gradient(180deg, rgba(255, 235, 215, 0.10) 0%, rgba(250, 242, 236, 0.04) 55%, rgba(250, 242, 236, 0.26) 100%),
     url('images/nature-fire-8k.jpg'),
     url('images/sky-breezy-panorama.jpg');
   animation: hearthEmberGlow 34s ease-in-out infinite alternate;
@@ -581,7 +585,7 @@ body {
 /* 5. Ether Plate: Infinite celestial starry sky, tranquil alpine lake & luminous nebula */
 .sky-plate.plate-ether {
   background-image: 
-    linear-gradient(180deg, rgba(230, 220, 245, 0.15) 0%, rgba(243, 238, 248, 0.06) 40%, rgba(243, 238, 248, 0.70) 82%, #F3EEF8 100%),
+    linear-gradient(180deg, rgba(230, 220, 245, 0.10) 0%, rgba(243, 238, 248, 0.04) 55%, rgba(243, 238, 248, 0.28) 100%),
     url('images/nature-ether-8k.jpg'),
     url('images/sky-ocean-infinite-8k.jpg');
   animation: celestialCosmicDrift 55s ease-in-out infinite alternate;
@@ -1507,11 +1511,12 @@ nav {
 }
 
 .release-subtitle {
-  font-size: 0.74rem;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: var(--sunburst-gold);
+  letter-spacing: 0.1em;
+  color: var(--gold-text);
   margin-bottom: 14px;
 }
 
@@ -2333,11 +2338,13 @@ nav {
 
 .intake-tab-bar {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 8px;
   border-bottom: 2px solid var(--bg-cream-alt);
   padding-bottom: 12px;
   margin-bottom: 28px;
-  overflow-x: auto;
+  overflow-x: visible;
 }
 
 .intake-tab {
@@ -2444,8 +2451,8 @@ input:focus, select:focus, textarea:focus {
 
 /* Footer */
 footer {
-  background: var(--forest-dark);
-  color: #D3DFD8;
+  background: linear-gradient(180deg, #0B3325 0%, #072218 100%) !important;
+  color: #E8F2EC;
   padding: 75px 0 35px;
   border-top: 2px solid var(--sunburst-gold);
 }
@@ -2840,11 +2847,11 @@ body[data-element="ether"] .breathing-orb {
 }
 
 .lsd-focus-subtitle {
-  font-size: 0.74rem;
+  font-size: 0.78rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--sunburst-gold);
+  letter-spacing: 0.08em;
+  color: var(--gold-text);
 }
 
 .lsd-focus-desc {
@@ -4229,18 +4236,20 @@ body[data-element="earth"] {
 }
 
 .pathway-card-sub {
-  font-size: 0.74rem;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--sunburst-gold);
+  letter-spacing: 0.06em;
+  color: var(--gold-text);
   margin-bottom: 10px;
 }
 
 .pathway-card-desc {
-  font-size: 0.84rem;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
   color: var(--charcoal-muted);
-  line-height: 1.55;
+  line-height: 1.62;
   margin-bottom: 16px;
 }
 
@@ -7065,17 +7074,35 @@ body[data-element="ether"] nav::after {
   animation-play-state: paused;
 }
 
+.coverflow-gif-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: linear-gradient(135deg, #0B3325 0%, #164A38 100%);
+  border: 1px solid #FAD277;
+  color: #FAD277;
+  font-family: var(--font-sans);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  padding: 4px 10px;
+  border-radius: 999px;
+  z-index: 4;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+  pointer-events: none;
+}
+
 .coverflow-expand-hint {
   position: absolute;
   top: 12px;
   right: 12px;
-  background: rgba(14, 26, 20, 0.84);
-  border: 1px solid rgba(248, 217, 140, 0.62);
-  color: #F8D98C;
-  font-size: 0.68rem;
+  background: rgba(11, 51, 37, 0.9);
+  border: 1px solid rgba(250, 210, 119, 0.7);
+  color: #FAD277;
+  font-size: 0.76rem;
   font-weight: 700;
-  letter-spacing: 0.06em;
-  padding: 4px 10px;
+  letter-spacing: 0.04em;
+  padding: 5px 11px;
   border-radius: 999px;
   opacity: 0;
   transform: translateY(-4px);
@@ -7597,11 +7624,11 @@ body[data-element="ether"] nav::after {
     text-shadow: 0 1px 8px rgba(255, 255, 255, 0.95) !important;
   }
 
-  /* Body copy contrast & readability */
+  /* Body copy contrast & readability (respecting circadian atmosphere variables) */
   p, .manifesto-body-text p {
     font-size: 0.95rem !important;
     line-height: 1.75 !important;
-    color: #1C1B18 !important;
+    color: var(--earth-charcoal) !important;
   }
 
   /* High contrast ivory/cream text for dark cards, modals & footer */
@@ -8645,16 +8672,17 @@ body[data-element="ether"] nav::after {
   perspective: 1200px;
   width: 100%;
   max-width: 540px;
-  margin: 0 auto 16px;
-  min-height: 230px;
+  margin: 10px auto 22px;
+  min-height: 250px;
   transform-style: preserve-3d;
   touch-action: pan-y;
 }
 
 .reflection-card-3d {
   position: relative;
+  display: grid;
   width: 100%;
-  min-height: 230px;
+  min-height: 250px;
   transform-style: preserve-3d;
   transition: transform 0.65s cubic-bezier(0.23, 1, 0.32, 1);
   cursor: pointer;
@@ -8687,11 +8715,10 @@ body[data-element="ether"] nav::after {
 }
 
 .reflection-card-face {
-  position: absolute;
-  top: 0;
-  left: 0;
+  grid-area: 1 / 1;
+  position: relative;
   width: 100%;
-  height: 100%;
+  min-height: 250px;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   border-radius: 18px;
@@ -8699,8 +8726,30 @@ body[data-element="ether"] nav::after {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 26px 24px;
+  padding: 28px 24px;
   box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+  .somatic-oracle-input-wrap {
+    flex-wrap: wrap;
+    border-radius: 16px;
+    padding: 8px 10px;
+    gap: 8px;
+  }
+  .somatic-oracle-input {
+    min-width: 180px;
+    padding: 8px 6px;
+  }
+  .btn-oracle-generate {
+    width: 100%;
+    padding: 9px 14px;
+    justify-content: center;
+  }
+  .reflection-card-face {
+    padding: 24px 18px;
+    min-height: 230px;
+  }
 }
 
 .card-face-front {
@@ -8769,20 +8818,21 @@ body[data-element="ether"] nav::after {
 }
 
 .card-back-quote {
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-sans);
   font-style: italic;
-  font-size: 1.10rem;
-  line-height: 1.65;
-  color: #1E3127;
+  font-size: 1.08rem;
+  line-height: 1.68;
+  color: #13221B;
   font-weight: 600;
   margin: 0 0 12px;
 }
 
 .card-back-source {
-  font-size: 0.78rem;
-  color: var(--forest-light);
-  font-weight: 600;
-  letter-spacing: 0.06em;
+  font-family: var(--font-sans);
+  font-size: 0.84rem;
+  color: var(--gold-text);
+  font-weight: 700;
+  letter-spacing: 0.04em;
 }
 
 .reflection-actions-wrap {
@@ -9765,16 +9815,18 @@ body[data-element="ether"] nav::after {
 
 .bead-title {
   font-family: 'Cinzel', serif;
-  font-size: 0.84rem;
+  font-size: 0.88rem;
   font-weight: 700;
   color: var(--forest-green);
-  margin-bottom: 2px;
+  margin-bottom: 4px;
 }
 
 .bead-intent {
-  font-size: 0.68rem;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
   color: var(--charcoal-muted);
   font-weight: 600;
+  line-height: 1.35;
 }
 
 /* Real-Time Bracelet String Display */
@@ -12345,10 +12397,10 @@ body[data-element="fire"] .explorer-pulse-dot {
     margin-bottom: 6px !important;
   }
   .bead-title {
-    font-size: 0.76rem !important;
+    font-size: 0.82rem !important;
   }
   .bead-intent {
-    font-size: 0.62rem !important;
+    font-size: 0.74rem !important;
   }
   .bracelet-stage {
     max-width: 100% !important;
@@ -12363,7 +12415,7 @@ body[data-element="fire"] .explorer-pulse-dot {
     height: 52px !important;
   }
   .slot-placeholder {
-    font-size: 0.60rem !important;
+    font-size: 0.72rem !important;
   }
   .bracelet-modal-dialog {
     width: 92% !important;
@@ -13456,24 +13508,157 @@ body.lens-neighbor main#main-content > #core-activations { order: 5; }
   animation: livePhotoBreathe 9s ease-in-out infinite alternate;
 }
 
+[data-atmosphere="night"] .adaptive-lens-ribbon {
+  border-top-color: rgba(250, 210, 119, 0.3);
+}
+
 [data-atmosphere="night"] .adaptive-lens-eyebrow {
-  background: rgba(248, 217, 140, 0.18);
-  color: #F8D98C;
+  background: rgba(250, 210, 119, 0.22);
+  border-color: rgba(250, 210, 119, 0.52);
+  color: #FAD277;
 }
 
 [data-atmosphere="night"] .adaptive-lens-status {
-  color: #CBD7D0 !important;
+  color: #E3EFE8 !important;
 }
 
 [data-atmosphere="night"] .lens-switch-btn {
-  background: rgba(20, 36, 28, 0.88);
-  border-color: rgba(248, 217, 140, 0.28);
-  color: #EDE8DD;
+  background: rgba(7, 34, 24, 0.9);
+  border-color: rgba(250, 210, 119, 0.42);
+  color: #FFFDF7;
 }
 
 [data-atmosphere="night"] .lens-switch-btn.active {
-  background: linear-gradient(135deg, #D4A84E, #F3D179);
-  color: #16261D;
+  background: linear-gradient(135deg, #FAD277, #D9A23D);
+  color: #0B3325;
+}
+
+/* ==================== PHASE 3: GLOWING PAUSE ORB CTA & IMPACT GALLERY ==================== */
+.hero-glow-orb-cta {
+  border-color: rgba(46, 139, 110, 0.72) !important;
+  color: var(--forest-green) !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+  font-weight: 700;
+}
+
+.hero-orb-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #FFFDF0 0%, #FAD277 50%, #2E8B6E 100%);
+  box-shadow: 0 0 10px rgba(250, 210, 119, 0.85), 0 0 18px rgba(46, 139, 110, 0.65);
+  animation: heroOrbPulse 3.6s ease-in-out infinite;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+@keyframes heroOrbPulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 8px rgba(250, 210, 119, 0.75); }
+  50% { transform: scale(1.22); box-shadow: 0 0 16px rgba(250, 210, 119, 0.98), 0 0 24px rgba(46, 139, 110, 0.75); }
+}
+
+.impact-story-gallery {
+  max-width: 1180px;
+  margin: 0 auto 24px;
+  background: linear-gradient(155deg, rgba(19, 74, 55, 0.96) 0%, rgba(11, 51, 37, 0.98) 100%);
+  border: 1.5px solid rgba(250, 210, 119, 0.55);
+  border-radius: 20px;
+  padding: 22px 24px;
+  box-shadow: 0 16px 40px rgba(8, 28, 20, 0.25);
+  color: #FFFDF7;
+}
+
+.impact-story-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.impact-story-eyebrow {
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #FAD277;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.impact-story-heading {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+  color: #FFFDF7;
+  margin: 0;
+}
+
+.impact-story-funder-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(250, 210, 119, 0.18);
+  border: 1px solid rgba(250, 210, 119, 0.65);
+  color: #FAD277;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.22s ease;
+}
+
+.impact-story-funder-btn:hover {
+  background: #FAD277;
+  color: #0B3325;
+}
+
+.impact-story-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.impact-story-card {
+  background: rgba(7, 34, 24, 0.78);
+  border: 1px solid rgba(46, 139, 110, 0.45);
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.impact-story-meta {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #A7F3D0;
+  letter-spacing: 0.04em;
+}
+
+.impact-story-quote {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #FFFDF7;
+  font-style: italic;
+  margin: 0;
+}
+
+.impact-story-receipt-link {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #FAD277;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 900px) {
+  .impact-story-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 768px) {

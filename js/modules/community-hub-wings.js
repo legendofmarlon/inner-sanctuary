@@ -9,6 +9,15 @@
   // 1. EXPANDABLE HUB WING ROUTER
   // Allows focusing on one room on mobile or viewing All Wings without losing widgets.
   // =========================================================================
+  const WING_ROOMS = {
+    release: ['release', 'pause', 'craft'],
+    pause: ['release', 'pause'],
+    craft: ['release', 'craft'],
+    stage: ['stage', 'greenroom', 'keepsakes'],
+    greenroom: ['stage', 'greenroom'],
+    keepsakes: ['stage', 'keepsakes']
+  };
+
   let activeWing = 'all';
 
   function filterWing(wingKey) {
@@ -16,12 +25,17 @@
     const wings = document.querySelectorAll('.hub-wing-section[data-hub-wing]');
     wings.forEach((sec) => {
       const w = sec.getAttribute('data-hub-wing');
-      sec.hidden = activeWing !== 'all' && w !== activeWing;
+      if (activeWing === 'all') {
+        sec.hidden = false;
+      } else {
+        const mapped = WING_ROOMS[activeWing] || [activeWing];
+        sec.hidden = !mapped.includes(w) && w !== activeWing;
+      }
     });
 
     document.querySelectorAll('.hub-wing-pill').forEach((btn) => {
       const btnWing = btn.getAttribute('data-wing-filter');
-      const isActive = btnWing === activeWing;
+      const isActive = btnWing === activeWing || (btnWing === 'release' && (activeWing === 'pause' || activeWing === 'craft')) || (btnWing === 'stage' && (activeWing === 'greenroom' || activeWing === 'keepsakes'));
       btn.classList.toggle('active', isActive);
       btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
     });
@@ -176,6 +190,114 @@
     }
   }
 
+  let droneNodes = null;
+  let dronePlaying = false;
+
+  function syncLivingAudioUI(customMsg) {
+    const rainBtn = document.getElementById('btnHubRainToggle');
+    const barGrooveBtn = document.getElementById('btnHubGrooveBarToggle');
+    const dotEl = document.getElementById('hubAudioDot');
+    const statusEl = document.getElementById('hubAudioStatus');
+    const isAnyPlaying = dronePlaying || groovePlaying;
+
+    if (rainBtn) rainBtn.setAttribute('aria-pressed', dronePlaying ? 'true' : 'false');
+    if (barGrooveBtn) barGrooveBtn.setAttribute('aria-pressed', groovePlaying ? 'true' : 'false');
+    if (dotEl) dotEl.classList.toggle('playing', isAnyPlaying);
+
+    if (statusEl) {
+      if (customMsg) {
+        statusEl.textContent = customMsg;
+      } else if (dronePlaying && groovePlaying) {
+        statusEl.textContent = `Playing Warm Hearth Breeze + Pocket Groove (${grooveBpm} BPM)`;
+      } else if (dronePlaying) {
+        statusEl.textContent = 'Playing Warm Hearth Breeze & 432Hz Pad';
+      } else if (groovePlaying) {
+        statusEl.textContent = `Playing Soft Pocket Rhythm (${grooveBpm} BPM)`;
+      } else {
+        statusEl.textContent = 'Tap any vibe to keep soft ambiance playing while you explore';
+      }
+    }
+  }
+
+  function toggleLivingRoomDrone() {
+    if (dronePlaying && droneNodes) {
+      try {
+        droneNodes.noise.stop();
+        droneNodes.osc1.stop();
+        droneNodes.osc2.stop();
+        droneNodes.master.disconnect();
+      } catch (_) {}
+      droneNodes = null;
+      dronePlaying = false;
+      syncLivingAudioUI();
+      return;
+    }
+
+    const ctx = ensureAudioCtx();
+    if (!ctx) return;
+    const now = ctx.currentTime;
+    const master = ctx.createGain();
+    master.gain.setValueAtTime(0.001, now);
+    master.gain.linearRampToValueAtTime(0.09, now + 0.6);
+    master.connect(ctx.destination);
+
+    // Warm filtered pink/brown hearth breeze buffer
+    const bufLen = ctx.sampleRate * 2;
+    const noiseBuf = ctx.createBuffer(1, bufLen, ctx.sampleRate);
+    const out = noiseBuf.getChannelData(0);
+    let lastOut = 0;
+    for (let i = 0; i < bufLen; i++) {
+      const white = Math.random() * 2 - 1;
+      lastOut = (lastOut + 0.02 * white) / 1.02;
+      out[i] = lastOut * 2.4;
+    }
+    const noise = ctx.createBufferSource();
+    noise.buffer = noiseBuf;
+    noise.loop = true;
+
+    const lp = ctx.createBiquadFilter();
+    lp.type = 'lowpass';
+    lp.frequency.setValueAtTime(420, now);
+
+    const osc1 = ctx.createOscillator();
+    osc1.type = 'sine';
+    osc1.frequency.setValueAtTime(216, now); // 432Hz octave undercurrent
+    const oscGain1 = ctx.createGain();
+    oscGain1.gain.setValueAtTime(0.035, now);
+
+    const osc2 = ctx.createOscillator();
+    osc2.type = 'sine';
+    osc2.frequency.setValueAtTime(324, now);
+    const oscGain2 = ctx.createGain();
+    oscGain2.gain.setValueAtTime(0.022, now);
+
+    noise.connect(lp);
+    lp.connect(master);
+    osc1.connect(oscGain1);
+    oscGain1.connect(master);
+    osc2.connect(oscGain2);
+    oscGain2.connect(master);
+
+    noise.start(now);
+    osc1.start(now);
+    osc2.start(now);
+    droneNodes = { noise, osc1, osc2, master };
+    dronePlaying = true;
+    syncLivingAudioUI();
+  }
+
+  function openThrowbacksVinyl() {
+    if (typeof window.openSpeakeasyModal === 'function') {
+      window.openSpeakeasyModal();
+      setTimeout(() => {
+        if (typeof window.switchSpeakeasyTab === 'function') {
+          window.switchSpeakeasyTab('vinyl');
+        }
+      }, 120);
+      syncLivingAudioUI('Opened Midnight Vinyl & Saturday Nite Throwbacks Lounge');
+    }
+  }
+
   function toggleGroove() {
     const btn = document.getElementById('btnJamGrooveToggle');
     if (groovePlaying) {
@@ -183,6 +305,7 @@
       rhythmTimer = null;
       groovePlaying = false;
       if (btn) btn.textContent = '▶ Play Soft Pocket Groove';
+      syncLivingAudioUI();
       return;
     }
 
@@ -195,6 +318,7 @@
       playSoftDjembeStep(grooveStep++);
     }, stepMs);
     if (btn) btn.textContent = '⏸ Pause Pocket Groove';
+    syncLivingAudioUI();
   }
 
   function setGrooveBpm(val) {
@@ -492,6 +616,27 @@
     }
   }
 
+  function startLanternWhisperLoop() {
+    const tickerEl = document.getElementById('hubLanternWhisperText');
+    if (!tickerEl) return;
+    const baseWhispers = [
+      '"Walked into the living room stressed from work—3 slow breaths and a warm acoustic chord later, my shoulders finally dropped." — Santa Ana Neighbor',
+      '"First open mic where nobody rushed me or talked over my poem. Truly feels like family." — SoCal Poet',
+      '"Dropped a seed for free art supplies and spun up a Fmaj7 chord loop while journaling." — Garden Grove Creator',
+      '"No alcohol, no ego, just warm lanterns, real voices, and breathing room to reset." — Nov 15 Gathering Guest'
+    ];
+    let idx = 0;
+    const renderNext = () => {
+      const userRows = getLedgerRows().filter((r) => r.takeawayNote && r.takeawayNote !== 'Paused & checked in anonymously');
+      const liveWhispers = userRows.slice(-4).map((r) => `"${r.takeawayNote}" — Feeling ${r.postFeeling}`);
+      const pool = liveWhispers.length ? [...liveWhispers, ...baseWhispers] : baseWhispers;
+      tickerEl.textContent = pool[idx % pool.length];
+      idx++;
+    };
+    renderNext();
+    setInterval(renderNext, 7000);
+  }
+
   // Expose cleanly on shared Sanctuary namespace
   window.sanctuaryHubWings = {
     filterWing,
@@ -504,6 +649,8 @@
     toggleGroove,
     setGrooveBpm,
     tapTempo,
+    toggleLivingRoomDrone,
+    openThrowbacksVinyl,
     logMoodCheckIn,
     exportCheckInCsv,
     copyCheckInsForSheet
@@ -512,6 +659,7 @@
   document.addEventListener('DOMContentLoaded', () => {
     renderStageTimer();
     renderLedgerCount();
+    startLanternWhisperLoop();
 
     // Sync nav links & in-page anchor clicks cleanly with Wing visibility
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {

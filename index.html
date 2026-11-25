@@ -723,12 +723,12 @@
           </div>
         </div>
 
-        <!-- CTA Buttons -->
-        <div class="hero-cta-group" style="margin-top: 26px; display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
-          <a href="#programs" class="btn btn-gold">Explore Our Experiences</a>
-          <a href="#open-mic" class="btn btn-forest">Join a Gathering</a>
-          <button type="button" onclick="openPauseModal(event)" class="btn btn-outline" style="border-color: rgba(197, 154, 63, 0.75); color: var(--forest-green); font-weight: 700; cursor: pointer; background: rgba(255, 255, 255, 0.85); display: inline-flex; align-items: center; gap: 6px;">🕊️ 60-Sec Pause</button>
+        <!-- CTA Buttons (Mission-First Primary + Glowing 60s Pause Orb) -->
+        <div class="hero-cta-group hero-mission-actions" style="margin-top: 26px; display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
+          <a href="#open-mic" class="btn btn-gold hero-primary-mission-cta">🎟️ Attend Free Gathering</a>
           <button type="button" onclick="openZeffyModal(event)" class="btn btn-liquid-gold pulse-gold" style="cursor: pointer;">🌱 Give $1 Seed</button>
+          <button type="button" onclick="openPauseModal(event)" class="btn btn-outline hero-glow-orb-cta" style="cursor: pointer; display: inline-flex; align-items: center; gap: 8px;"><span class="hero-orb-dot" aria-hidden="true"></span><span>60-Sec Glow Pause</span></button>
+          <a href="#programs" class="btn btn-forest">Explore Experiences</a>
         </div>
       </div>
 
@@ -978,6 +978,34 @@
           </div>
         </div>
 
+      <!-- Story-Driven Funder & Neighbor Impact Gallery -->
+      <div class="impact-story-gallery" aria-label="Verified Impact Stories and Open Receipts">
+        <div class="impact-story-header">
+          <div>
+            <span class="impact-story-eyebrow">🏛️ Grantmaker &amp; Community Impact Gallery</span>
+            <h3 class="impact-story-heading">Verified Voices &amp; Open Ledger Proof</h3>
+          </div>
+          <a href="#sponsorship" class="impact-story-funder-btn" onclick="openFunderModal(event, 'outcomes')">📊 Inspect 501(c)(3) Logic Model ↗</a>
+        </div>
+        <div class="impact-story-grid">
+          <article class="impact-story-card">
+            <div class="impact-story-meta">🔥 Nov 15 • Sanctuary Clubhouse • 52 Neighbors</div>
+            <blockquote class="impact-story-quote">"In a room full of strangers, I felt safer than I have in months. No pressure, no substances—just pure voice, breath, and neighborhood warmth."</blockquote>
+            <a href="reports/receipts/2026-11-15-sanctuary-clubhouse-openmic-impact-receipt.html" target="_blank" rel="noopener noreferrer" class="impact-story-receipt-link">📄 Inspect Open Ledger Receipt ↗</a>
+          </article>
+          <article class="impact-story-card">
+            <div class="impact-story-meta">🕊️ Nov 8 • Santa Ana Artists Village • 68 Neighbors</div>
+            <blockquote class="impact-story-quote">"The 60-second breathing orb stopped me in my tracks in the middle of a hectic art walk. It literally changed the tone of my entire weekend."</blockquote>
+            <a href="reports/receipts/2026-11-08-santa-ana-artists-village-pause-booth-impact-receipt.html" target="_blank" rel="noopener noreferrer" class="impact-story-receipt-link">📄 Inspect Pause Booth Receipt ↗</a>
+          </article>
+          <article class="impact-story-card">
+            <div class="impact-story-meta">🎶 Dec 10 Next • Unplugged Playground • Free 501(c)(3)</div>
+            <blockquote class="impact-story-quote">"Ten humans, a few acoustic instruments, zero alcohol, and endless room for local creatives to be witnessed without judgment."</blockquote>
+            <a href="https://www.canva.com/d/FNQlnZbLs64t8K8" target="_blank" rel="noopener noreferrer" class="impact-story-receipt-link">🖥️ Open Live Venue Stage Loop ↗</a>
+          </article>
+        </div>
+      </div>
+
       <!-- 3D Cinema Coverflow Stage Card -->
       <div class="photo-wheel-card">
         <div class="photo-wheel-header">
@@ -1042,7 +1070,8 @@
 
               <!-- Slide 4: Community members dancing and drumming with pure joy before the stone fireplace -->
               <div class="photo-wheel-slide slot-hidden" data-slide-idx="3" data-categories="music community" onclick="handleCoverflowSlideClick(3, event)">
-                <img src="images/openmic/openmic-nov15-stone-hearth-celebration.jpg" alt="Community members dancing and drumming with pure joy before the stone fireplace" width="576" height="1024">
+                <img src="images/openmic/openmic-nov15-stone-hearth-celebration.jpg" data-animated-src="images/openmic/openmic-nov15-stone-hearth-celebration.gif" alt="Community members dancing and drumming with pure joy before the stone fireplace" width="576" height="1024">
+                <span class="coverflow-gif-badge" aria-label="Live Animated GIF Moment">🎬 LIVE GIF</span>
                 <span class="coverflow-expand-hint">🔍 Click to Expand</span>
                 <div class="slide-caption-bar">
                   <span class="slide-caption-text">Joyful Embodiment • Drums, Dancing &amp; Laughter Before the Grand Hearth • Nov 15</span>
@@ -1496,7 +1525,7 @@
       </div>
 
       <!-- Closing statement for Threefold Method -->
-      <div style="text-align: center; margin: 20px auto 52px; padding: 14px 24px; background: rgba(197, 154, 63, 0.12); border-radius: 999px; max-width: 640px; border: 1px solid rgba(197, 154, 63, 0.3);">
+      <div class="method-mantra-pill" style="text-align: center; margin: 20px auto 52px; padding: 14px 24px; background: #FAF7F0; border-radius: 999px; max-width: 640px; border: 1.5px solid rgba(197, 154, 63, 0.45); box-shadow: 0 10px 26px rgba(11, 51, 37, 0.12);">
         <span style="font-family: 'Cinzel', serif; font-size: 1.08rem; color: var(--forest-green); font-weight: 700; letter-spacing: 0.12em;">
           ✦ Witness yourself. Express your truth. Connect with others. ✦
         </span>
