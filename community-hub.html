@@ -203,6 +203,16 @@
     <section class="hub-hero-banner">
       <div class="container">
         <div class="hub-hero-glass-card clubhouse-foyer-card">
+          <svg class="clubhouse-porch-gable" viewBox="0 0 560 72" aria-hidden="true">
+            <path d="M18 58 L280 8 L542 58" fill="none" stroke="#8A572E" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M36 58 L280 14 L524 58" fill="none" stroke="#FAD277" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.85" />
+            <line x1="92" y1="48" x2="468" y2="48" stroke="#6E4423" stroke-width="6" stroke-linecap="round" />
+            <circle cx="110" cy="57" r="6" fill="#FAD277" stroke="#593416" stroke-width="2" />
+            <circle cx="280" cy="48" r="7" fill="#FAD277" stroke="#593416" stroke-width="2" />
+            <circle cx="450" cy="57" r="6" fill="#FAD277" stroke="#593416" stroke-width="2" />
+            <rect x="208" y="34" width="144" height="24" rx="12" fill="#3F230D" stroke="#FAD277" stroke-width="1.6" />
+            <text x="280" y="50" text-anchor="middle" fill="#FAD277" font-family="Cinzel, serif" font-size="11" font-weight="700" letter-spacing="1.4">CLUBHOUSE LODGE</text>
+          </svg>
           <div class="master-eyebrow-tag" style="margin-bottom: 12px;">
             <span>🏡 INNER SANCTUARY CLUBHOUSE • SANTA ANA &amp; ONLINE LIVING ROOM ✦</span>
           </div>
@@ -220,7 +230,7 @@
             <div class="hub-lantern-whisper" id="hubLanternWhisperText">
               "Walked into the living room stressed from work—3 slow breaths and a warm acoustic chord later, my shoulders finally dropped." — Santa Ana Neighbor
             </div>
-            <a href="#hearth-mirror-portal" class="hub-lantern-share-link">Leave a check-in at the Fireside →</a>
+            <a href="#gratitude-wall-station" class="hub-lantern-share-link">Share a gratitude note or photo →</a>
           </div>
 
           <!-- Streamlined 2-Wing Clubhouse Switcher -->
@@ -235,6 +245,7 @@
             <a href="#bracelet-creator" class="ritual-pill-btn">📿 Bracelet Bench</a>
             <a href="#zen-plinko" class="ritual-pill-btn">🎯 Seed Plinko</a>
             <a href="#hearth-mirror-portal" class="ritual-pill-btn">🔥 Hearth Fireside</a>
+            <a href="#gratitude-wall-station" class="ritual-pill-btn">🌻 Gratitude &amp; Photos</a>
             <a href="#stage-lounge" class="ritual-pill-btn">🎤 Stage &amp; Chords</a>
             <a href="#throwbacks-lounge" class="ritual-pill-btn">💽 Throwbacks Vinyl</a>
             <a href="#greenroom-vault" class="ritual-pill-btn">🗝️ Secret Greenroom</a>
@@ -493,9 +504,9 @@
         </div>
 
         <div class="clubhouse-room-grid">
-          <!-- Corner 01: Daily Sanctuary Spark Table -->
+          <!-- Room 01: Daily Reflections & Sparks Lounge (Own Dedicated Row) -->
           <div class="clubhouse-station-card" data-clubhouse-zone="sparks">
-            <span class="clubhouse-station-plaque">✨ Table 01 • Daily Sparks</span>
+            <span class="clubhouse-station-plaque">✨ Room 01 • Daily Reflections &amp; Sparks Table</span>
             <div class="sanctuary-reflection-widget" id="sanctuary-reflection">
               <div class="reflection-widget-header">
                 <span class="reflection-widget-pill">✦ Daily Sanctuary Sparks ✦</span>
@@ -554,11 +565,11 @@
             </div>
           </div>
 
-          <!-- Corner 02: Living Breath Orb & Sacred Labyrinth Nook -->
+          <!-- Room 02: Living Breath Orb & Sacred Labyrinth Alcove -->
           <div id="breath" class="clubhouse-station-card" data-clubhouse-zone="breath">
-            <span class="clubhouse-station-plaque">🕊️ Corner 02 • Breath &amp; Labyrinth Nook</span>
+            <span class="clubhouse-station-plaque">🕊️ Room 02 • Pause &amp; Breath Alcove</span>
             <div style="text-align: center; display: flex; flex-direction: column; height: 100%; justify-content: space-between;">
-              <div class="section-header" style="margin: 0 auto 10px; text-align: center;">
+              <div class="section-header" style="margin: 0 auto 12px; text-align: center;">
                 <div class="section-subtitle" style="color: var(--sunburst-gold); font-weight: 700; letter-spacing: 0.12em;">Pause Activation • Unhurried Presence</div>
                 <h2 class="section-title serif-brand" style="color: var(--forest-green); font-size: clamp(1.55rem, 2.5vw, 2rem);">Pause &amp; Breathe</h2>
                 <p style="color: var(--charcoal-muted); font-size: 0.96rem; line-height: 1.6; font-weight: 500; margin-bottom: 0;">
@@ -567,54 +578,60 @@
               </div>
 
               <div class="sanctuary-orb-card" id="sacred-breathing-portal">
-                <div class="breathing-orb-wrapper" id="breathing-orb-stage" role="button" tabindex="0" title="Click or tap the Orb to breathe" aria-label="Interactive Breathing Orb">
-                  <div class="breathing-pulse-ring"></div>
-                  <div class="breathing-halo-aura" id="somatic-halo"></div>
-                  <div class="air-breeze-ripple-layer" id="airBreezeRippleLayer" aria-hidden="true">
-                    <span class="air-ripple air-ripple-1"></span>
-                    <span class="air-ripple air-ripple-2"></span>
-                    <span class="air-ripple air-ripple-3"></span>
-                  </div>
-                  <div class="breathing-orb" id="somatic-orb">
-                    <div class="orb-inner-glow" id="orb-inner-glow"></div>
-                    <div class="orb-center-content">
-                      <span class="orb-breath-word" id="orb-breath-word">Breathe</span>
+                <div class="clubhouse-alcove-split">
+                  <div class="clubhouse-alcove-side">
+                    <div class="breathing-orb-wrapper" id="breathing-orb-stage" role="button" tabindex="0" title="Click or tap the Orb to breathe" aria-label="Interactive Breathing Orb">
+                      <div class="breathing-pulse-ring"></div>
+                      <div class="breathing-halo-aura" id="somatic-halo"></div>
+                      <div class="air-breeze-ripple-layer" id="airBreezeRippleLayer" aria-hidden="true">
+                        <span class="air-ripple air-ripple-1"></span>
+                        <span class="air-ripple air-ripple-2"></span>
+                        <span class="air-ripple air-ripple-3"></span>
+                      </div>
+                      <div class="breathing-orb" id="somatic-orb">
+                        <div class="orb-inner-glow" id="orb-inner-glow"></div>
+                        <div class="orb-center-content">
+                          <span class="orb-breath-word" id="orb-breath-word">Breathe</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div id="orb-status-prompt" class="orb-status-prompt">
+                      Tap the orb or press begin below
                     </div>
                   </div>
-                </div>
 
-                <div id="orb-status-prompt" class="orb-status-prompt">
-                  Tap the orb or press begin below
-                </div>
+                  <div class="clubhouse-alcove-side">
+                    <div class="orb-actions-bar" style="justify-content: center; flex-wrap: wrap; gap: 10px;">
+                      <button id="orb-toggle-btn" class="breath-primary-toggle" type="button" aria-label="Start or Pause Breath Session">
+                        <span class="btn-ctrl-icon" id="btn-ctrl-icon">▶</span>
+                        <span id="orb-btn-label">Begin</span>
+                      </button>
+                      <button id="btnOpenLabyrinth" class="btn btn-outline" type="button" style="border-color: rgba(197, 154, 63, 0.65); padding: 8px 18px; border-radius: 999px; font-size: 0.84rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;" aria-label="Open Digital Labyrinth Pop-up">
+                        <span>🌀</span>
+                        <span>Walk Sacred Labyrinth</span>
+                      </button>
+                      <a href="#bracelet-creator" class="btn btn-outline" style="border-color: rgba(197, 154, 63, 0.65); padding: 8px 18px; border-radius: 999px; font-size: 0.84rem; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+                        <span>📿</span>
+                        <span>Weave Intention Bracelet</span>
+                      </a>
+                    </div>
 
-                <div class="orb-actions-bar" style="justify-content: center; flex-wrap: wrap; gap: 10px;">
-                  <button id="orb-toggle-btn" class="breath-primary-toggle" type="button" aria-label="Start or Pause Breath Session">
-                    <span class="btn-ctrl-icon" id="btn-ctrl-icon">▶</span>
-                    <span id="orb-btn-label">Begin</span>
-                  </button>
-                  <button id="btnOpenLabyrinth" class="btn btn-outline" type="button" style="border-color: rgba(197, 154, 63, 0.65); padding: 8px 18px; border-radius: 999px; font-size: 0.84rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;" aria-label="Open Digital Labyrinth Pop-up">
-                    <span>🌀</span>
-                    <span>Walk Sacred Labyrinth</span>
-                  </button>
-                  <a href="#bracelet-creator" class="btn btn-outline" style="border-color: rgba(197, 154, 63, 0.65); padding: 8px 18px; border-radius: 999px; font-size: 0.84rem; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
-                    <span>📿</span>
-                    <span>Weave Intention Bracelet</span>
-                  </a>
-                </div>
-
-                <div class="breath-workshop-cta-wrap" style="margin-top: 14px; padding-top: 10px; border-top: 1px solid rgba(197, 154, 63, 0.25);">
-                  <a href="index.html#connect" class="breath-workshop-cta-btn" id="breath-workshop-cta-btn" style="font-weight: 700;">
-                    <span>Join Our Next Live Gathering</span>
-                    <span class="cta-arrow">→</span>
-                  </a>
+                    <div class="breath-workshop-cta-wrap" style="margin-top: 10px; padding-top: 12px; border-top: 1px solid rgba(197, 154, 63, 0.25); width: 100%;">
+                      <a href="index.html#connect" class="breath-workshop-cta-btn" id="breath-workshop-cta-btn" style="font-weight: 700;">
+                        <span>Join Our Next Live Gathering</span>
+                        <span class="cta-arrow">→</span>
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Worktable 03: Digital Intention Bracelet Workbench -->
-          <div class="clubhouse-station-card" data-clubhouse-zone="bracelet">
-            <span class="clubhouse-station-plaque">📿 Worktable 03 • Bracelet Bench</span>
+          <!-- Room 03: Digital Intention Bracelet Workbench (Streamlined Full-Width Horizontal Row) -->
+          <div class="clubhouse-station-card clubhouse-station-card--wide" data-clubhouse-zone="bracelet">
+            <span class="clubhouse-station-plaque">📿 Room 03 • Bracelet Craft Bench</span>
             <div class="digital-bracelet-creator" id="bracelet-creator">
               <div class="bracelet-header">
                 <span class="bracelet-pill">✦ Interactive Pause Activation</span>
@@ -677,9 +694,9 @@
             </div>
           </div>
 
-          <!-- Corner 04: Zen Plinko Seed Blessing -->
+          <!-- Room 04: Zen Plinko Game Corner -->
           <div class="clubhouse-station-card clubhouse-station-card--dark" data-clubhouse-zone="plinko">
-            <span class="clubhouse-station-plaque">🎯 Corner 04 • Drop-a-Seed Plinko</span>
+            <span class="clubhouse-station-plaque">🎯 Room 04 • Zen Plinko Game Corner</span>
             <div id="zen-plinko" class="zen-plinko-wrapper">
               <div style="text-align: center; position: relative; z-index: 2; margin-bottom: 16px;">
                 <span style="font-size: 0.74rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #FCE6A2; background: rgba(197, 154, 63, 0.22); border: 1px solid rgba(197, 154, 63, 0.45); padding: 4px 14px; border-radius: 999px; display: inline-block; margin-bottom: 10px;">
@@ -764,9 +781,9 @@
             </div>
           </div>
 
-          <!-- Fireside 05: The Hearth Mirror Fireplace & Neighbor Check-In Ledger -->
-          <div class="clubhouse-station-card clubhouse-station-card--dark clubhouse-station-card--wide" data-clubhouse-zone="hearth">
-            <span class="clubhouse-station-plaque">🔥 Fireside 05 • Hearth Mirror &amp; Neighbor Check-In</span>
+          <!-- Room 05: The Hearth Mirror Reflections & Neighbor Check-In Fireside (Own Dedicated Row) -->
+          <div class="clubhouse-station-card clubhouse-station-card--dark" data-clubhouse-zone="hearth">
+            <span class="clubhouse-station-plaque">🔥 Room 05 • Fireside Hearth Mirror Reflections &amp; Check-In</span>
             <div class="hearth-mirror-card" id="hearth-mirror-portal" style="color: #FFFDF7; text-align: center; position: relative;">
               <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(250, 210, 119, 0.18); border: 1px solid rgba(250, 210, 119, 0.45); padding: 5px 14px; border-radius: 999px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; color: #FAD277; text-transform: uppercase; margin-bottom: 14px;">
                 <span>✦ THE HEARTH MIRROR • GEMINI WISDOM COMPANION ✦</span>
@@ -837,6 +854,119 @@
                     <button type="button" class="stage-preset-btn" onclick="window.sanctuaryHubWings.exportCheckInCsv()">📥 Export CSV</button>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Room 06: Shared Clubhouse Pinboard, Gratitude Wall, Photo Uploads & Live Milestone Badges -->
+          <div id="gratitude-wall-station" class="clubhouse-station-card clubhouse-station-card--wide" data-clubhouse-zone="hearth">
+            <span class="clubhouse-station-plaque">🌻 Room 06 • Clubhouse Pinboard: Gratitude, Photos &amp; Trophy Shelf</span>
+            <div class="gratitude-wall-shell">
+              <div class="gratitude-wall-header">
+                <div style="text-align: left;">
+                  <div class="gratitude-eyebrow">Clubhouse Community Corkboard • Persistent Cross-Device Feed</div>
+                  <h2 id="gratitudeWallHeading" class="serif-brand gratitude-wall-title">Shared Gratitude &amp; Photo Wall</h2>
+                  <p class="gratitude-wall-desc">Pin a small win, shoutout a performer, or share a snapshot from the Sanctuary circle—every post saves live across devices via Supabase.</p>
+                </div>
+                <div class="gratitude-live-pill">
+                  <span class="gratitude-live-dot" aria-hidden="true"></span>
+                  <span id="gratitudeLiveStatusLabel">Connecting to Clubhouse...</span>
+                </div>
+              </div>
+
+              <form id="clubhouseGratitudeForm" aria-labelledby="gratitudeWallHeading" method="post" novalidate>
+                <div class="gratitude-compose-grid">
+                  <div class="gratitude-form-card">
+                    <div class="gratitude-field-row">
+                      <div class="gratitude-field">
+                        <label for="gratitudeAuthorInput">Your Name or Alias <span aria-hidden="true">*</span></label>
+                        <span id="gratitudeAuthorHint" class="gratitude-hint">First name or artist handle (1–60 chars).</span>
+                        <input type="text" id="gratitudeAuthorInput" name="author_name" class="gratitude-input" required maxlength="60" autocomplete="name" enterkeyhint="next" aria-describedby="gratitudeAuthorHint" data-error="gratitudeAuthorError" />
+                        <div id="gratitudeAuthorError" class="gratitude-error-msg"><span role="img" aria-label="Error">❌</span> Please enter your name or handle before posting.</div>
+                      </div>
+                      <div class="gratitude-field">
+                        <label for="gratitudeCityInput">City or Neighborhood</label>
+                        <span id="gratitudeCityHint" class="gratitude-hint">Optional (e.g., Santa Ana, OC, Remote).</span>
+                        <input type="text" id="gratitudeCityInput" name="neighborhood" class="gratitude-input" maxlength="60" autocomplete="address-level2" enterkeyhint="next" aria-describedby="gratitudeCityHint" />
+                      </div>
+                    </div>
+
+                    <fieldset class="gratitude-fieldset">
+                      <legend class="gratitude-legend">Choose a Note Vibe</legend>
+                      <div class="gratitude-radio-grid">
+                        <div class="gratitude-radio-item">
+                          <input type="radio" id="catGratitude" name="gratitudeCategory" value="gratitude" class="visually-hidden" checked />
+                          <label for="catGratitude" class="gratitude-radio-label">🌿 Gratitude</label>
+                        </div>
+                        <div class="gratitude-radio-item">
+                          <input type="radio" id="catShoutout" name="gratitudeCategory" value="shoutout" class="visually-hidden" />
+                          <label for="catShoutout" class="gratitude-radio-label">🎤 Stage Shoutout</label>
+                        </div>
+                        <div class="gratitude-radio-item">
+                          <input type="radio" id="catWin" name="gratitudeCategory" value="win" class="visually-hidden" />
+                          <label for="catWin" class="gratitude-radio-label">🏆 Daily Win</label>
+                        </div>
+                        <div class="gratitude-radio-item">
+                          <input type="radio" id="catJamVibe" name="gratitudeCategory" value="jam-vibe" class="visually-hidden" />
+                          <label for="catJamVibe" class="gratitude-radio-label">🎶 Jam Vibe</label>
+                        </div>
+                      </div>
+                    </fieldset>
+
+                    <div class="gratitude-field" style="margin-block-end: 12px;">
+                      <label for="gratitudeMessageInput">What are you celebrating or grateful for today? <span aria-hidden="true">*</span></label>
+                      <span id="gratitudeMessageHint" class="gratitude-hint">Up to 320 characters—keep it warm and neighborly.</span>
+                      <textarea id="gratitudeMessageInput" name="message" class="gratitude-textarea" required maxlength="320" rows="3" enterkeyhint="done" aria-describedby="gratitudeMessageHint" data-error="gratitudeMessageError"></textarea>
+                      <div id="gratitudeMessageError" class="gratitude-error-msg"><span role="img" aria-label="Error">❌</span> Please write a short gratitude note or shoutout.</div>
+                    </div>
+
+                    <button type="submit" id="btnSubmitGratitude" class="btn btn-gold btn-liquid-gold" style="width: 100%; min-height: 48px; justify-content: center;">✨ Post to Shared Gratitude Wall</button>
+                  </div>
+
+                  <div class="gratitude-upload-card">
+                    <div class="gratitude-field" style="margin-block-end: 0;">
+                      <span class="gratitude-legend">📸 Attach a Clubhouse Photo (Optional)</span>
+                      <span id="gratitudePhotoMeta" class="gratitude-hint">Optional: upload JPEG, PNG, WebP, or GIF up to 5 MB.</span>
+                      <input type="file" id="gratitudePhotoInput" name="photo" accept="image/jpeg,image/png,image/webp,image/gif" class="visually-hidden" aria-describedby="gratitudePhotoMeta" data-error="gratitudePhotoError" />
+                      <label for="gratitudePhotoInput" class="gratitude-upload-label">
+                        <span>🖼️ Choose Moment Photo</span>
+                      </label>
+                      <div id="gratitudePhotoError" class="gratitude-error-msg"><span role="img" aria-label="Error">❌</span> Please choose a JPEG, PNG, WebP, or GIF image under 15 MB.</div>
+                    </div>
+
+                    <div id="gratitudePhotoPreview" class="gratitude-photo-preview">
+                      <img id="gratitudePhotoPreviewImg" alt="Selected photo preview ready for Gratitude Wall upload" />
+                      <button type="button" id="btnRemoveGratitudePhoto" class="gratitude-remove-photo-btn">✕ Remove Photo</button>
+                    </div>
+
+                    <div id="gratitudeFormStatus" class="gratitude-status-banner" role="status" aria-live="polite"></div>
+                  </div>
+                </div>
+              </form>
+
+              <div class="gratitude-filter-bar">
+                <span class="gratitude-filter-heading">Browse Shared Moments:</span>
+                <div class="gratitude-filter-pills" role="group" aria-label="Filter Shared Gratitude Wall">
+                  <button type="button" class="gratitude-filter-btn active" data-gratitude-filter="all" aria-pressed="true">🏡 All Moments</button>
+                  <button type="button" class="gratitude-filter-btn" data-gratitude-filter="photos" aria-pressed="false">📸 With Photos</button>
+                  <button type="button" class="gratitude-filter-btn" data-gratitude-filter="gratitude" aria-pressed="false">🌿 Gratitude</button>
+                  <button type="button" class="gratitude-filter-btn" data-gratitude-filter="shoutout" aria-pressed="false">🎤 Shoutouts</button>
+                  <button type="button" class="gratitude-filter-btn" data-gratitude-filter="win" aria-pressed="false">🏆 Wins</button>
+                </div>
+              </div>
+
+              <ul id="gratitudeWallFeed" class="gratitude-wall-grid" role="list" aria-label="Clubhouse Shared Gratitude and Photo Feed">
+                <li class="gratitude-post-card" style="grid-column: 1 / -1; padding: 20px; text-align: center;">Loading Clubhouse Gratitude Wall...</li>
+              </ul>
+
+              <div id="clubhouseBadgeRack" class="clubhouse-badge-rack" aria-label="Unlockable Clubhouse Milestone Badges">
+                <div class="clubhouse-badge-rack-head">
+                  <span class="clubhouse-badge-rack-title">🏅 Collective Clubhouse Trophy Shelf • Powered by Live Supabase Activity</span>
+                  <span id="clubhouseBadgesUnlockedCount" class="clubhouse-badge-rack-count">Syncing badges...</span>
+                </div>
+                <ul id="clubhouseBadgesGrid" class="clubhouse-badges-grid" role="list">
+                  <li class="clubhouse-badge-tile"><span class="clubhouse-badge-icon">🪵</span><span class="clubhouse-badge-name">Hearth Kindler</span><span class="clubhouse-badge-progress">Loading...</span></li>
+                </ul>
               </div>
             </div>
           </div>
@@ -1380,6 +1510,7 @@
   <script src="js/modules/raffle-wheel.js?v=1.0"></script>
   <script src="js/modules/promo-card-generator.js?v=1.1"></script>
   <script src="js/modules/community-hub-wings.js?v=1.0"></script>
+  <script src="js/modules/clubhouse-community-sync.js?v=1.0"></script>
   <script src="js/modules/telemetry-lens.js?v=1.0"></script>
 </body>
 </html>

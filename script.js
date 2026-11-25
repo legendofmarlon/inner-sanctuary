@@ -4669,6 +4669,10 @@ document.addEventListener('DOMContentLoaded', () => {
         resultBox.style.display = 'block';
       }
 
+      window.dispatchEvent(new CustomEvent('sanctuary:plinko-sprout', {
+        detail: { focus: basket.title, count: seedsSown }
+      }));
+
       // Play 3-tone celebration harmony (432Hz major chord)
       playHarmonicTone(432, 0.8, 0.03);
       setTimeout(() => playHarmonicTone(540, 0.8, 0.03), 90);

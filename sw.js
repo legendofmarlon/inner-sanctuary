@@ -1,7 +1,7 @@
 // Inner Sanctuary Wellness Foundation — Progressive Web App Service Worker
 // Version: 1.0.0 (Sanctuary in Your Pocket)
 
-const CACHE_NAME = 'inner-sanctuary-cache-v25';
+const CACHE_NAME = 'inner-sanctuary-cache-v26';
 const PRECACHE_ASSETS = [
   './',
   './index.html',
@@ -12,6 +12,7 @@ const PRECACHE_ASSETS = [
   './emblem.png',
   './emblem.jpg',
   './js/modules/adaptive-atmosphere.js',
+  './js/modules/clubhouse-community-sync.js',
   './js/modules/community-hub-wings.js',
   './js/modules/community-popup.js',
   './js/modules/funder-dossier.js',
@@ -75,8 +76,13 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Skip caching Netlify function calls and oversized animated GIFs
-  if (req.url.includes('/.netlify/functions/') || /\.gif(\?|$)/i.test(req.url)) {
+  // Skip caching Netlify function calls, live Supabase REST/Auth/Upload APIs, and oversized animated GIFs
+  if (
+    req.url.includes('/.netlify/functions/') ||
+    req.url.includes('.supabase.co/rest/') ||
+    req.url.includes('.supabase.co/auth/') ||
+    /\.gif(\?|$)/i.test(req.url)
+  ) {
     return;
   }
 
