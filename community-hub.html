@@ -94,9 +94,42 @@
       background: var(--forest-dark);
       transform: translateY(-1px);
     }
+    /* ── Prominent Home button ── */
+    .hub-home-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 10px 20px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #164A38 0%, #0B3325 100%);
+      color: #FAD277 !important;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      text-decoration: none;
+      border: 2px solid rgba(250, 210, 119, 0.72);
+      white-space: nowrap;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 14px rgba(11, 51, 37, 0.3), inset 0 1px 0 rgba(255, 224, 178, 0.18);
+    }
+    .hub-home-cta:hover {
+      background: linear-gradient(135deg, #1E5C47 0%, #113D2C 100%);
+      border-color: #FAD277;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(11, 51, 37, 0.4);
+    }
+    .hub-home-cta .home-icon {
+      font-size: 1.05rem;
+      line-height: 1;
+    }
     @media (max-width: 768px) {
-      .hub-back-pill, #btnSpeakeasyNav, #btnNavPauseBooth {
+      #btnSpeakeasyNav, #btnNavPauseBooth {
         display: none !important;
+      }
+      .hub-home-cta {
+        padding: 9px 15px;
+        font-size: 0.82rem;
       }
     }
   </style>
@@ -128,7 +161,7 @@
       </div>
 
       <ul class="hub-top-links" role="navigation" aria-label="Sanctuary Sections">
-        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html" class="hub-home-cta"><span class="home-icon">🏡</span> Sanctuary Home</a></li>
         <li><a href="#clubhouse-map" class="is-active">The Hub</a></li>
         <li><a href="#clubhouse-wing-release">Activities</a></li>
         <li><a href="#clubhouse-wing-stage">Stage &amp; Jam</a></li>
@@ -150,7 +183,7 @@
     <!-- Mobile Navigation Drawer -->
     <div id="mobile-nav-drawer" class="hidden" style="display: none; padding: 20px; border-bottom: 2px solid var(--sunburst-gold); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);">
       <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; margin: 0; padding: 0;">
-        <li><a href="index.html" class="mobile-nav-item"><span class="mobile-nav-main">← Sanctuary Home</span><span class="mobile-nav-sub">501(c)(3) Main Landing Page</span></a></li>
+        <li><a href="index.html" class="mobile-nav-item" style="background: linear-gradient(135deg, rgba(22,74,56,0.18) 0%, rgba(197,154,63,0.12) 100%); border: 1.5px solid rgba(250,210,119,0.55) !important;"><span class="mobile-nav-main">🏡 ← Back to Sanctuary Home</span><span class="mobile-nav-sub">Main 501(c)(3) Landing Page</span></a></li>
         <li><a href="#clubhouse-map" onclick="document.getElementById('mobile-nav-drawer').style.display='none';" class="mobile-nav-item"><span class="mobile-nav-main">🏡 The Clubhouse Explorer</span><span class="mobile-nav-sub">Wings, Audio &amp; Blueprint Map</span></a></li>
         <li><a href="#sanctuary-reflection" onclick="document.getElementById('mobile-nav-drawer').style.display='none';" class="mobile-nav-item"><span class="mobile-nav-main">✨ Daily Sanctuary Sparks</span><span class="mobile-nav-sub">3D Flip Card &amp; Prompts</span></a></li>
         <li><a href="#breath" onclick="document.getElementById('mobile-nav-drawer').style.display='none';" class="mobile-nav-item"><span class="mobile-nav-main">🕊️ Pause &amp; Breathe</span><span class="mobile-nav-sub">Orb &amp; Sacred Labyrinth</span></a></li>
