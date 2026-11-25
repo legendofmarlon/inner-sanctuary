@@ -25,7 +25,7 @@
   <link rel="stylesheet" href="styles/modules/community-popup.css?v=1.0" />
   <link rel="stylesheet" href="styles/modules/funder-dossier.css?v=1.0" />
   <link rel="stylesheet" href="styles/modules/promo-card-generator.css?v=1.0" />
-  <link rel="stylesheet" href="styles/modules/community-hub-wings.css?v=1.0" />
+  <link rel="stylesheet" href="styles/modules/community-hub-wings.css?v=2.3" />
 
   <style>
     .hub-hero-banner {
@@ -101,7 +101,7 @@
     }
   </style>
 </head>
-<body data-element="fire">
+<body data-element="fire" class="community-hub-page">
 
   <!-- Living Atmosphere Background Layers -->
   <canvas id="sanctuary-3d-canvas" class="sanctuary-3d-canvas" aria-hidden="true"></canvas>
@@ -114,48 +114,26 @@
   <canvas id="elemental-sanctuary-bg"></canvas>
   <div id="lantern-aura" class="lantern-aura"></div>
 
-  <!-- Top Announcement Bar -->
-  <div class="announcement-bar">
-    <div class="container" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
-      <span style="display: inline-flex; align-items: center; gap: 7px;">
-        <span style="font-size: 1rem;">✨</span>
-        <strong>Community Hub:</strong>
-        <span>Interactive Reflections, Intention Bracelets, Pause Tools &amp; The Greenroom</span>
-      </span>
-      <div style="display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap;">
-        <a href="index.html" class="btn-top-download-app" style="background: rgba(255, 255, 255, 0.16); color: #FFFFFF; font-weight: 700; font-size: 0.74rem; padding: 4px 12px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.45); text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
-          <span>← Sanctuary Home</span>
-        </a>
-        <button type="button" onclick="openZeffyModal(event)" class="btn-liquid-gold pulse-gold" style="background: var(--sunburst-gold); color: #1C1B18; font-weight: 700; font-size: 0.74rem; padding: 4px 12px; border-radius: 999px; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
-          <span>🌱 Give $1 Seed</span>
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Clean Sticky Hub Navigation -->
-  <nav id="sanctuary-nav">
+  <!-- Minimalist Floating Twilight Hub Navigation -->
+  <nav id="sanctuary-nav" aria-label="Main Community Hub Navigation">
     <div class="container nav-inner">
       <div class="brand-group">
         <a href="index.html" class="brand-group" style="text-decoration: none;">
           <img class="nav-emblem" src="emblem.png" alt="Inner Sanctuary Emblem Logo" width="996" height="1024" onerror="this.src='emblem.jpg'" onclick="handleSpeakeasyKnock(event)" title="Tap 3 times for Greenroom vault" />
           <div class="brand-text-block">
-            <span class="nav-title serif-brand">INNER SANCTUARY</span>
+            <span class="nav-title serif-brand">THE INNER SANCTUARY</span>
             <span class="nav-subtitle">COMMUNITY HUB</span>
           </div>
         </a>
       </div>
 
-      <div class="primary-hub-tabs" role="navigation" aria-label="Main Sanctuary Tabs">
-        <a href="index.html" class="primary-tab-pill" title="Return to Main Sanctuary Home">
-          <span>🏛️</span>
-          <span>Home</span>
-        </a>
-        <a href="community-hub.html" class="primary-tab-pill active" aria-current="page">
-          <span>✨</span>
-          <span>Community Hub</span>
-        </a>
-      </div>
+      <ul class="hub-top-links" role="navigation" aria-label="Sanctuary Sections">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#clubhouse-map" class="is-active">The Hub</a></li>
+        <li><a href="#clubhouse-wing-release">Activities</a></li>
+        <li><a href="#clubhouse-wing-stage">Stage &amp; Jam</a></li>
+        <li><a href="index.html#grant-hub-portal">Grants</a></li>
+      </ul>
 
       <div class="nav-actions-group">
         <div id="atmosphereSwitcherMount"></div>
@@ -164,102 +142,167 @@
           <span class="speakeasy-nav-text">Greenroom</span>
           <span class="speakeasy-knock-counter" id="speakeasyKnockCounter">✦</span>
         </button>
+        <button type="button" onclick="openZeffyModal(event)" class="hub-nav-join-btn" title="Join the Circle / Plant Your $1 Community Seed">Join Us</button>
         <button type="button" id="mobile-nav-toggle" class="mobile-nav-toggle" onclick="toggleMobileNavDrawer(event)" aria-label="Toggle Menu" aria-expanded="false">☰</button>
       </div>
     </div>
 
     <!-- Mobile Navigation Drawer -->
-    <div id="mobile-nav-drawer" class="hidden" style="display: none; padding: 20px; background: rgba(246, 243, 236, 0.98); backdrop-filter: blur(16px); border-bottom: 2px solid var(--sunburst-gold); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);">
+    <div id="mobile-nav-drawer" class="hidden" style="display: none; padding: 20px; border-bottom: 2px solid var(--sunburst-gold); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);">
       <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; margin: 0; padding: 0;">
-        <li><a href="index.html" class="mobile-nav-item"><span class="mobile-nav-main">← Sanctuary Home</span><span class="mobile-nav-sub">Return to Main Page</span></a></li>
-        <li><a href="#stage-lounge" onclick="document.getElementById('mobile-nav-drawer').style.display='none';" class="mobile-nav-item"><span class="mobile-nav-main">🎶 Stage &amp; Jam Lounge</span><span class="mobile-nav-sub">3-Min Timer, Chords &amp; Promo Studio</span></a></li>
+        <li><a href="index.html" class="mobile-nav-item"><span class="mobile-nav-main">← Sanctuary Home</span><span class="mobile-nav-sub">501(c)(3) Main Landing Page</span></a></li>
+        <li><a href="#clubhouse-map" onclick="document.getElementById('mobile-nav-drawer').style.display='none';" class="mobile-nav-item"><span class="mobile-nav-main">🏡 The Clubhouse Explorer</span><span class="mobile-nav-sub">Wings, Audio &amp; Blueprint Map</span></a></li>
         <li><a href="#sanctuary-reflection" onclick="document.getElementById('mobile-nav-drawer').style.display='none';" class="mobile-nav-item"><span class="mobile-nav-main">✨ Daily Sanctuary Sparks</span><span class="mobile-nav-sub">3D Flip Card &amp; Prompts</span></a></li>
         <li><a href="#breath" onclick="document.getElementById('mobile-nav-drawer').style.display='none';" class="mobile-nav-item"><span class="mobile-nav-main">🕊️ Pause &amp; Breathe</span><span class="mobile-nav-sub">Orb &amp; Sacred Labyrinth</span></a></li>
         <li><a href="#bracelet-creator" onclick="document.getElementById('mobile-nav-drawer').style.display='none';" class="mobile-nav-item"><span class="mobile-nav-main">📿 Intention Bracelet</span><span class="mobile-nav-sub">Keepsake Weaver</span></a></li>
         <li><a href="#zen-plinko" onclick="document.getElementById('mobile-nav-drawer').style.display='none';" class="mobile-nav-item"><span class="mobile-nav-main">🎯 Zen Plinko</span><span class="mobile-nav-sub">Seed Blessing Ritual</span></a></li>
-        <li><a href="#hearth-mirror-portal" onclick="document.getElementById('mobile-nav-drawer').style.display='none';" class="mobile-nav-item"><span class="mobile-nav-main">🕯️ The Hearth Mirror</span><span class="mobile-nav-sub">Personal Reflection</span></a></li>
-        <li><a href="#greenroom-vault" onclick="document.getElementById('mobile-nav-drawer').style.display='none';" class="mobile-nav-item"><span class="mobile-nav-main">🗝️ The Greenroom</span><span class="mobile-nav-sub">Speakeasy &amp; Jam Sessions</span></a></li>
+        <li><a href="#hearth-mirror-portal" onclick="document.getElementById('mobile-nav-drawer').style.display='none';" class="mobile-nav-item"><span class="mobile-nav-main">🔥 The Hearth Mirror</span><span class="mobile-nav-sub">Reflection &amp; Mood Check-In</span></a></li>
+        <li><a href="#gratitude-wall-station" onclick="document.getElementById('mobile-nav-drawer').style.display='none';" class="mobile-nav-item"><span class="mobile-nav-main">🌻 Gratitude &amp; Photo Wall</span><span class="mobile-nav-sub">Community Pinboard &amp; Badges</span></a></li>
+        <li><a href="#stage-lounge" onclick="document.getElementById('mobile-nav-drawer').style.display='none';" class="mobile-nav-item"><span class="mobile-nav-main">🎤 Stage &amp; Jam Lounge</span><span class="mobile-nav-sub">3-Min Timer, Chords &amp; Promo Studio</span></a></li>
+        <li><a href="#greenroom-vault" onclick="document.getElementById('mobile-nav-drawer').style.display='none';" class="mobile-nav-item"><span class="mobile-nav-main">🗝️ The Greenroom</span><span class="mobile-nav-sub">Speakeasy, Vinyl &amp; Raffle</span></a></li>
+        <li><button type="button" onclick="openZeffyModal(event); document.getElementById('mobile-nav-drawer').style.display='none';" class="btn btn-gold btn-liquid-gold" style="width: 100%; justify-content: center; padding: 12px;">🌱 Give $1 Seed (0% Fee Zeffy)</button></li>
       </ul>
-    </div>
-
-    <!-- Contextual Sub-Navigation Bar (Community Hub) -->
-    <div id="sanctuarySubnavBar" class="sanctuary-subnav-bar" aria-label="Community Hub Quick Links">
-      <div class="sanctuary-subnav-inner">
-        <span class="subnav-context-badge">On Community Hub</span>
-        <a href="#stage-lounge" class="subnav-pill-link">🎶 Stage &amp; Jam Lounge</a>
-        <a href="#sanctuary-reflection" class="subnav-pill-link">✨ Daily Sparks</a>
-        <a href="#breath" class="subnav-pill-link">🕊️ Breathe &amp; Pause</a>
-        <a href="#bracelet-creator" class="subnav-pill-link">📿 Intention Bracelet</a>
-        <a href="#zen-plinko" class="subnav-pill-link">🎯 Zen Plinko</a>
-        <a href="#greenroom-vault" class="subnav-pill-link">🕯️ Hearth &amp; 🗝️ Greenroom</a>
-        <a href="#hub-keepsakes" class="subnav-pill-link">🖼️ Keepsakes &amp; Art</a>
-      </div>
     </div>
   </nav>
 
   <main id="main-content">
 
-    <!-- Hub Clubhouse Foyer Welcome Banner -->
-    <section class="hub-hero-banner">
-      <div class="container">
-        <div class="hub-hero-glass-card clubhouse-foyer-card">
-          <svg class="clubhouse-porch-gable" viewBox="0 0 560 72" aria-hidden="true">
-            <path d="M18 58 L280 8 L542 58" fill="none" stroke="#8A572E" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" />
-            <path d="M36 58 L280 14 L524 58" fill="none" stroke="#FAD277" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.85" />
-            <line x1="92" y1="48" x2="468" y2="48" stroke="#6E4423" stroke-width="6" stroke-linecap="round" />
-            <circle cx="110" cy="57" r="6" fill="#FAD277" stroke="#593416" stroke-width="2" />
-            <circle cx="280" cy="48" r="7" fill="#FAD277" stroke="#593416" stroke-width="2" />
-            <circle cx="450" cy="57" r="6" fill="#FAD277" stroke="#593416" stroke-width="2" />
-            <rect x="208" y="34" width="144" height="24" rx="12" fill="#3F230D" stroke="#FAD277" stroke-width="1.6" />
-            <text x="280" y="50" text-anchor="middle" fill="#FAD277" font-family="Cinzel, serif" font-size="11" font-weight="700" letter-spacing="1.4">CLUBHOUSE LODGE</text>
-          </svg>
-          <div class="master-eyebrow-tag" style="margin-bottom: 12px;">
-            <span>🏡 INNER SANCTUARY CLUBHOUSE • SANTA ANA &amp; ONLINE LIVING ROOM ✦</span>
-          </div>
-          <h1 class="master-heading-1" style="color: var(--forest-green); margin-bottom: 10px;">
-            Step Into the Sanctuary Clubhouse
-          </h1>
-          <div class="flourish-divider" style="color: var(--sunburst-gold); margin-bottom: 12px;">✦</div>
-          <p class="master-lead-text" style="max-width: 760px; margin: 0 auto 18px;">
-            Every table and corner has a purpose: step right into the <strong>Chill &amp; Release Lounge</strong> to breathe, pull a Spark, and weave an anchor—or head over to <strong>Vibe &amp; Stage</strong> for rehearsal timing, chord pockets, and Midnight Vinyl throwbacks.
-          </p>
+    <!-- Full-Bleed Twilight Lodge Hero -->
+    <section class="hub-lodge-hero" aria-label="The Inner Sanctuary Twilight Lodge">
+      <div class="hub-lodge-hero-media" aria-hidden="true">
+        <img src="images/clubhouse-cabin-speakeasy.jpg" alt="Warm twilight A-frame timber clubhouse lodge with stone fireplace, floor-to-ceiling pine windows, acoustic guitar, cello, emerald sofa, and string lights" class="hub-lodge-hero-img" width="1408" height="768" />
+        <div class="hub-lodge-hero-scrim"></div>
+      </div>
 
-          <!-- Live Shared Clubhouse Neighbor Board Ticker -->
-          <div class="hub-lantern-ticker" id="hubLanternTicker" aria-live="polite">
-            <div class="hub-lantern-badge">💬 Shared Neighbor Board</div>
-            <div class="hub-lantern-whisper" id="hubLanternWhisperText">
-              "Walked into the living room stressed from work—3 slow breaths and a warm acoustic chord later, my shoulders finally dropped." — Santa Ana Neighbor
-            </div>
-            <a href="#gratitude-wall-station" class="hub-lantern-share-link">Share a gratitude note or photo →</a>
-          </div>
+      <!-- Ethereal Floating Breath Pods in the Rafters -->
+      <div class="hub-floating-pods-layer">
+        <button type="button" class="hub-breath-pod hub-breath-pod--left" onclick="if(window.sanctuaryPauseBooth){window.sanctuaryPauseBooth.open();}else{window.sanctuaryHubWings.focusClubhouseZone('breath',{scroll:true});}" title="Enter 60-Second Floating Breath Pod">
+          <span class="hub-breath-pod-icon">🕊️</span>
+          <span class="hub-breath-pod-tag">60s Pause</span>
+        </button>
+        <button type="button" class="hub-breath-pod hub-breath-pod--right" onclick="window.sanctuaryHubWings.focusClubhouseZone('sparks', { scroll: true })" title="Draw Today's Sanctuary Spark">
+          <span class="hub-breath-pod-icon">✨</span>
+          <span class="hub-breath-pod-tag">Sparks</span>
+        </button>
+      </div>
 
-          <!-- Streamlined 2-Wing Clubhouse Switcher -->
-          <div class="hub-wing-filter-bar" role="group" aria-label="Choose Your Clubhouse Wing">
-            <button type="button" class="hub-wing-pill active" data-wing-filter="all" aria-pressed="true" onclick="window.sanctuaryHubWings.filterWing('all')">🏡 Full Clubhouse Tour</button>
-            <button type="button" class="hub-wing-pill" data-wing-filter="release" aria-pressed="false" onclick="window.sanctuaryHubWings.filterWing('release')">🕯️ Wing 01 • Chill &amp; Release Lounge</button>
-            <button type="button" class="hub-wing-pill" data-wing-filter="stage" aria-pressed="false" onclick="window.sanctuaryHubWings.filterWing('stage')">🎧 Wing 02 • Vibe &amp; Stage Room</button>
-          </div>
-          <div class="hub-pill-nav" style="margin-top: 14px;">
-            <a href="#sanctuary-reflection" class="ritual-pill-btn">✨ Sparks Table</a>
-            <a href="#breath" class="ritual-pill-btn">🕊️ Breath Nook</a>
-            <a href="#bracelet-creator" class="ritual-pill-btn">📿 Bracelet Bench</a>
-            <a href="#zen-plinko" class="ritual-pill-btn">🎯 Seed Plinko</a>
-            <a href="#hearth-mirror-portal" class="ritual-pill-btn">🔥 Hearth Fireside</a>
-            <a href="#gratitude-wall-station" class="ritual-pill-btn">🌻 Gratitude &amp; Photos</a>
-            <a href="#stage-lounge" class="ritual-pill-btn">🎤 Stage &amp; Chords</a>
-            <a href="#throwbacks-lounge" class="ritual-pill-btn">💽 Throwbacks Vinyl</a>
-            <a href="#greenroom-vault" class="ritual-pill-btn">🗝️ Secret Greenroom</a>
-          </div>
+      <!-- Interactive Lodge Room Hotspots Mapped Directly Over Cabin Zones -->
+      <div class="hub-lodge-hotspots" role="group" aria-label="Interactive Lodge Room Hotspots">
+        <button type="button" class="lodge-hotspot-pin" data-lodge-pin="vinyl" style="left: 14%; top: 53%;" onclick="window.sanctuaryHubWings.focusClubhouseZone('vinyl', { scroll: true })">
+          <span class="lodge-hotspot-dot"></span>
+          <span>💽 Vinyl &amp; Greenroom</span>
+        </button>
+        <button type="button" class="lodge-hotspot-pin" data-lodge-pin="stage" style="left: 22%; top: 41%;" onclick="window.sanctuaryHubWings.focusClubhouseZone('stage', { scroll: true })">
+          <span class="lodge-hotspot-dot"></span>
+          <span>🎤 Acoustic Stage</span>
+        </button>
+        <button type="button" class="lodge-hotspot-pin" data-lodge-pin="sparks" style="left: 36%; top: 45%;" onclick="window.sanctuaryHubWings.focusClubhouseZone('sparks', { scroll: true })">
+          <span class="lodge-hotspot-dot"></span>
+          <span>✨ Sparks Lounge</span>
+        </button>
+        <button type="button" class="lodge-hotspot-pin" data-lodge-pin="hearth" style="left: 50%; top: 38%;" onclick="window.sanctuaryHubWings.focusClubhouseZone('hearth', { scroll: true })">
+          <span class="lodge-hotspot-dot"></span>
+          <span>🔥 Hearth Mirror</span>
+        </button>
+        <button type="button" class="lodge-hotspot-pin" data-lodge-pin="bracelet" style="left: 72%; top: 48%;" onclick="window.sanctuaryHubWings.focusClubhouseZone('bracelet', { scroll: true })">
+          <span class="lodge-hotspot-dot"></span>
+          <span>📿 Bracelet &amp; Tea</span>
+        </button>
+        <button type="button" class="lodge-hotspot-pin" data-lodge-pin="plinko" style="left: 87%; top: 41%;" onclick="window.sanctuaryHubWings.focusClubhouseZone('plinko', { scroll: true })">
+          <span class="lodge-hotspot-dot"></span>
+          <span>🎯 Seed Plinko</span>
+        </button>
+      </div>
+
+      <!-- Left Vertical Wing & Scroll Rail -->
+      <div class="hub-hero-left-rail" aria-label="Quick Wing Switcher and Scroll">
+        <div class="hub-rail-pill" role="group" aria-label="Filter Clubhouse Wings">
+          <button type="button" class="hub-rail-dot active" data-wing-filter="all" aria-pressed="true" onclick="window.sanctuaryHubWings.filterWing('all')" title="Full Clubhouse Tour">🏡</button>
+          <button type="button" class="hub-rail-dot" data-wing-filter="release" aria-pressed="false" onclick="window.sanctuaryHubWings.filterWing('release'); document.getElementById('clubhouse-wing-release').scrollIntoView({behavior:'smooth'});" title="Wing 01 • Chill & Release Lounge">🕯️</button>
+          <button type="button" class="hub-rail-dot" data-wing-filter="stage" aria-pressed="false" onclick="window.sanctuaryHubWings.filterWing('stage'); document.getElementById('clubhouse-wing-stage').scrollIntoView({behavior:'smooth'});" title="Wing 02 • Vibe & Stage Room">🎧</button>
+        </div>
+        <a href="#clubhouse-map" class="hub-rail-scroll-cue" aria-label="Scroll down to Clubhouse Explorer">
+          <span>S</span>
+          <span class="hub-rail-line" aria-hidden="true"></span>
+          <span>↓</span>
+        </a>
+      </div>
+
+      <!-- Bottom-Center Welcome Hero Overlay -->
+      <div class="hub-lodge-hero-content">
+        <div class="hub-lodge-kicker">Welcome To</div>
+        <h1 class="hub-lodge-title">The Inner Sanctuary</h1>
+        <p class="hub-lodge-sub">
+          A warm, substance-free community clubhouse where you can pause, connect, and create.
+        </p>
+        <div class="hub-lodge-cta-row">
+          <a href="#clubhouse-map" class="hub-hero-btn-primary" onclick="window.sanctuaryHubWings.filterWing('all')">Explore The Hub</a>
+          <a href="#clubhouse-wing-release" class="hub-hero-btn-secondary">Our Activities</a>
+        </div>
+      </div>
+
+      <!-- Bottom-Right Social Stack & Live Room Finder -->
+      <div class="hub-hero-right-hud">
+        <div class="hub-hero-socials" aria-label="Community Channels">
+          <a href="https://www.instagram.com/ourinnersanctuary/" target="_blank" rel="noopener noreferrer" class="hub-hero-social-link" title="@ourinnersanctuary on Instagram" aria-label="Instagram">📸</a>
+          <a href="https://www.meetup.com/socal-creatives-collective/events/317462800/" target="_blank" rel="noopener noreferrer" class="hub-hero-social-link" title="SoCal Creatives Collective on Meetup" aria-label="Meetup Events">🎶</a>
+          <a href="index.html#connect" class="hub-hero-social-link" title="Connect with Inner Sanctuary 501(c)(3)" aria-label="Community Connect">✉️</a>
         </div>
 
-        <!-- Interactive Architectural Sanctuary Clubhouse Scene (Each Activity Lights Up Live) -->
-        <div class="clubhouse-blueprint-card" id="clubhouse-blueprint-card" role="region" aria-label="Interactive Sanctuary Clubhouse Scene">
-          <div class="clubhouse-scene-topbar">
-            <span class="clubhouse-scene-badge">🏛️ Interactive Sanctuary Clubhouse • Click or Hover Any Station to Light It Up</span>
-            <span class="clubhouse-scene-status" id="clubhouseSceneStatus">✨ Whole Clubhouse Lit — Hover a wing or card below</span>
-          </div>
+        <div class="hub-hero-search-wrap">
+          <div id="hubHeroSearchResults" class="hub-hero-search-results" role="listbox" aria-label="Matching Clubhouse Rooms"></div>
+          <label for="hubHeroSearchInput" class="sr-only">Search Clubhouse activities and rooms</label>
+          <input type="search" id="hubHeroSearchInput" class="hub-hero-search-input" placeholder="Search rooms &amp; tools..." autocomplete="off" />
+          <span class="hub-hero-search-icon" aria-hidden="true">🔍</span>
+        </div>
+      </div>
+    </section>
 
-          <div class="clubhouse-svg-stage" id="clubhouseSvgStage">
+    <!-- Sleek Twilight Clubhouse Command Dock -->
+    <section id="clubhouse-map" class="hub-lodge-dock-section" aria-label="Clubhouse Command Dock and Interactive Floorplan">
+      <div class="container">
+        <div class="clubhouse-blueprint-card" id="clubhouse-blueprint-card" role="region" aria-label="Clubhouse Wing Switcher, Audio & Interactive Map">
+          <div class="hub-dock-controls-grid">
+            <div class="clubhouse-scene-topbar" style="margin-bottom: 0;">
+              <span class="clubhouse-scene-badge">🏡 Santa Ana &amp; Online Sanctuary Clubhouse • 100% Substance-Free • $0 Entry</span>
+              <span class="clubhouse-scene-status" id="clubhouseSceneStatus">✨ Whole Clubhouse Lit — Choose a hotspot or wing below</span>
+            </div>
+
+            <!-- Live Shared Clubhouse Neighbor Board Ticker -->
+            <div class="hub-lantern-ticker" id="hubLanternTicker" aria-live="polite">
+              <div class="hub-lantern-badge">💬 Shared Neighbor Board</div>
+              <div class="hub-lantern-whisper" id="hubLanternWhisperText">
+                "Walked into the living room stressed from work—3 slow breaths and a warm acoustic chord later, my shoulders finally dropped." — Santa Ana Neighbor
+              </div>
+              <a href="#gratitude-wall-station" class="hub-lantern-share-link">Share a gratitude note or photo →</a>
+            </div>
+
+            <!-- Streamlined 2-Wing Clubhouse Switcher -->
+            <div class="hub-wing-filter-bar" role="group" aria-label="Choose Your Clubhouse Wing">
+              <button type="button" class="hub-wing-pill active" data-wing-filter="all" aria-pressed="true" onclick="window.sanctuaryHubWings.filterWing('all')">🏡 Full Clubhouse Tour</button>
+              <button type="button" class="hub-wing-pill" data-wing-filter="release" aria-pressed="false" onclick="window.sanctuaryHubWings.filterWing('release')">🕯️ Wing 01 • Chill &amp; Release Lounge</button>
+              <button type="button" class="hub-wing-pill" data-wing-filter="stage" aria-pressed="false" onclick="window.sanctuaryHubWings.filterWing('stage')">🎧 Wing 02 • Vibe &amp; Stage Room</button>
+            </div>
+
+            <!-- Interactive Station Chips + Blueprint Toggle -->
+            <div class="clubhouse-hotspot-bar" style="margin-top: 0;">
+              <div class="clubhouse-hotspot-pills" role="group" aria-label="Light up activity zone in Clubhouse">
+                <button type="button" class="clubhouse-zone-chip" data-chip-zone="sparks" onclick="window.sanctuaryHubWings.focusClubhouseZone('sparks', { scroll: true })">✨ Sparks</button>
+                <button type="button" class="clubhouse-zone-chip" data-chip-zone="breath" onclick="window.sanctuaryHubWings.focusClubhouseZone('breath', { scroll: true })">🕊️ Breath Nook</button>
+                <button type="button" class="clubhouse-zone-chip" data-chip-zone="bracelet" onclick="window.sanctuaryHubWings.focusClubhouseZone('bracelet', { scroll: true })">📿 Bracelets</button>
+                <button type="button" class="clubhouse-zone-chip" data-chip-zone="plinko" onclick="window.sanctuaryHubWings.focusClubhouseZone('plinko', { scroll: true })">🎯 Plinko</button>
+                <button type="button" class="clubhouse-zone-chip" data-chip-zone="hearth" onclick="window.sanctuaryHubWings.focusClubhouseZone('hearth', { scroll: true })">🔥 Fireside</button>
+                <button type="button" class="clubhouse-zone-chip" data-chip-zone="stage" onclick="window.sanctuaryHubWings.focusClubhouseZone('stage', { scroll: true })">🎤 Open Mic</button>
+                <button type="button" class="clubhouse-zone-chip" data-chip-zone="vinyl" onclick="window.sanctuaryHubWings.focusClubhouseZone('vinyl', { scroll: true })">💽 Vinyl &amp; Vault</button>
+              </div>
+              <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                <button type="button" id="btnToggleBlueprintSvg" class="clubhouse-zone-chip" aria-expanded="false" onclick="window.sanctuaryHubWings.toggleBlueprintView()">🗺️ Show Blueprint Map</button>
+                <button type="button" id="btnResetClubhouseLights" class="clubhouse-zone-chip" onclick="window.sanctuaryHubWings.clearClubhouseLights()">✦ All Lights On</button>
+              </div>
+            </div>
+
+            <!-- Toggleable Architectural SVG Floorplan (Preserved for Visual Floorplan Lovers) -->
+            <div class="clubhouse-svg-stage" id="clubhouseSvgStage" hidden>
             <svg class="clubhouse-architectural-svg" viewBox="0 0 1200 430" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustrated cutaway floorplan of the Inner Sanctuary Clubhouse showing Wing 01 Chill and Release Lounge and Wing 02 Vibe and Stage Room">
               <defs>
                 <linearGradient id="clubhouseWallGrad" x1="0" y1="0" x2="0" y2="1">
@@ -452,39 +495,27 @@
             </svg>
           </div>
 
-          <div class="clubhouse-hotspot-bar">
-            <div class="clubhouse-hotspot-pills" role="group" aria-label="Light up activity zone in Clubhouse">
-              <button type="button" class="clubhouse-zone-chip" data-chip-zone="sparks" onclick="window.sanctuaryHubWings.focusClubhouseZone('sparks', { scroll: true })">✨ Sparks</button>
-              <button type="button" class="clubhouse-zone-chip" data-chip-zone="breath" onclick="window.sanctuaryHubWings.focusClubhouseZone('breath', { scroll: true })">🕊️ Breath Nook</button>
-              <button type="button" class="clubhouse-zone-chip" data-chip-zone="bracelet" onclick="window.sanctuaryHubWings.focusClubhouseZone('bracelet', { scroll: true })">📿 Bracelets</button>
-              <button type="button" class="clubhouse-zone-chip" data-chip-zone="plinko" onclick="window.sanctuaryHubWings.focusClubhouseZone('plinko', { scroll: true })">🎯 Plinko</button>
-              <button type="button" class="clubhouse-zone-chip" data-chip-zone="hearth" onclick="window.sanctuaryHubWings.focusClubhouseZone('hearth', { scroll: true })">🔥 Fireside</button>
-              <button type="button" class="clubhouse-zone-chip" data-chip-zone="stage" onclick="window.sanctuaryHubWings.focusClubhouseZone('stage', { scroll: true })">🎤 Open Mic</button>
-              <button type="button" class="clubhouse-zone-chip" data-chip-zone="vinyl" onclick="window.sanctuaryHubWings.focusClubhouseZone('vinyl', { scroll: true })">💽 Vinyl &amp; Vault</button>
+          <!-- Continuous Living Room Ambient Audio & Vinyl Lounge Dock -->
+          <div class="hub-living-audio-bar" id="hubLivingAudioBar" role="region" aria-label="Living Room Ambient Sound Controls">
+            <div class="hub-audio-meta">
+              <span class="hub-audio-dot" id="hubAudioDot" aria-hidden="true"></span>
+              <div>
+                <div class="hub-audio-title">Living Room Sound &amp; Groove Bar</div>
+                <div class="hub-audio-status" id="hubAudioStatus">Tap any vibe to keep soft ambiance playing while you explore</div>
+              </div>
             </div>
-            <button type="button" id="btnResetClubhouseLights" class="clubhouse-zone-chip" onclick="window.sanctuaryHubWings.clearClubhouseLights()">✦ All Lights On</button>
-          </div>
-        </div>
-
-        <!-- Continuous Living Room Ambient Audio & Vinyl Lounge Dock -->
-        <div class="hub-living-audio-bar" id="hubLivingAudioBar" role="region" aria-label="Living Room Ambient Sound Controls">
-          <div class="hub-audio-meta">
-            <span class="hub-audio-dot" id="hubAudioDot" aria-hidden="true"></span>
-            <div>
-              <div class="hub-audio-title">Living Room Sound &amp; Groove Bar</div>
-              <div class="hub-audio-status" id="hubAudioStatus">Tap any vibe to keep soft ambiance playing while you explore</div>
+            <div class="hub-audio-actions">
+              <button type="button" id="btnHubRainToggle" class="hub-audio-pill" aria-pressed="false" onclick="window.sanctuaryHubWings.toggleLivingRoomDrone()">
+                <span>🌧️</span> <span>Warm Hearth Breeze</span>
+              </button>
+              <button type="button" id="btnHubGrooveBarToggle" class="hub-audio-pill" aria-pressed="false" onclick="window.sanctuaryHubWings.toggleGroove()">
+                <span>🥁</span> <span>Pocket Rhythm</span>
+              </button>
+              <button type="button" class="hub-audio-pill hub-audio-vinyl" onclick="window.sanctuaryHubWings.openThrowbacksVinyl('rnb')">
+                <span>💽</span> <span>Spin Midnight Vinyl ↗</span>
+              </button>
             </div>
           </div>
-          <div class="hub-audio-actions">
-            <button type="button" id="btnHubRainToggle" class="hub-audio-pill" aria-pressed="false" onclick="window.sanctuaryHubWings.toggleLivingRoomDrone()">
-              <span>🌧️</span> <span>Warm Hearth Breeze</span>
-            </button>
-            <button type="button" id="btnHubGrooveBarToggle" class="hub-audio-pill" aria-pressed="false" onclick="window.sanctuaryHubWings.toggleGroove()">
-              <span>🥁</span> <span>Pocket Rhythm</span>
-            </button>
-            <button type="button" class="hub-audio-pill hub-audio-vinyl" onclick="window.sanctuaryHubWings.openThrowbacksVinyl('rnb')">
-              <span>💽</span> <span>Spin Midnight Vinyl ↗</span>
-            </button>
           </div>
         </div>
       </div>
@@ -1505,11 +1536,11 @@
   </button>
 
   <script src="script.js?v=6.2"></script>
-  <script src="js/modules/adaptive-atmosphere.js?v=1.0"></script>
+  <script src="js/modules/adaptive-atmosphere.js?v=1.1"></script>
   <script src="js/modules/pause-booth.js?v=1.0"></script>
   <script src="js/modules/raffle-wheel.js?v=1.0"></script>
   <script src="js/modules/promo-card-generator.js?v=1.1"></script>
-  <script src="js/modules/community-hub-wings.js?v=1.0"></script>
+  <script src="js/modules/community-hub-wings.js?v=2.1"></script>
   <script src="js/modules/clubhouse-community-sync.js?v=1.0"></script>
   <script src="js/modules/telemetry-lens.js?v=1.0"></script>
 </body>

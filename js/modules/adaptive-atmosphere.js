@@ -102,7 +102,7 @@
     const labelEl = document.getElementById('atmosphereCurrentLabel');
     if (iconEl) iconEl.textContent = config.icon;
     if (labelEl) {
-      labelEl.textContent = currentPref === 'auto' ? `${config.icon} Auto` : config.name;
+      labelEl.textContent = currentPref === 'auto' ? 'Auto' : config.name;
     }
 
     // Update option buttons in dropdown if present

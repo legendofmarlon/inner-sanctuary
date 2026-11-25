@@ -33,7 +33,7 @@
       }
     });
 
-    document.querySelectorAll('.hub-wing-pill').forEach((btn) => {
+    document.querySelectorAll('.hub-wing-pill, .hub-rail-dot[data-wing-filter]').forEach((btn) => {
       const btnWing = btn.getAttribute('data-wing-filter');
       const isActive = btnWing === activeWing || (btnWing === 'release' && (activeWing === 'pause' || activeWing === 'craft')) || (btnWing === 'stage' && (activeWing === 'greenroom' || activeWing === 'keepsakes'));
       btn.classList.toggle('active', isActive);
@@ -658,6 +658,9 @@
     document.querySelectorAll('.clubhouse-svg-zone').forEach((g) => {
       g.classList.toggle('is-lit', g.getAttribute('data-zone') === zoneKey);
     });
+    document.querySelectorAll('.lodge-hotspot-pin[data-lodge-pin]').forEach((pin) => {
+      pin.classList.toggle('is-lit', pin.getAttribute('data-lodge-pin') === zoneKey);
+    });
     document.querySelectorAll('.clubhouse-zone-chip[data-chip-zone]').forEach((chip) => {
       chip.classList.toggle('is-lit', chip.getAttribute('data-chip-zone') === zoneKey);
     });
@@ -685,11 +688,124 @@
     const statusEl = document.getElementById('clubhouseSceneStatus');
     if (stageEl) stageEl.classList.remove('has-active-zone');
     document.querySelectorAll('.clubhouse-svg-zone').forEach((g) => g.classList.remove('is-lit'));
+    document.querySelectorAll('.lodge-hotspot-pin[data-lodge-pin]').forEach((p) => p.classList.remove('is-lit'));
     document.querySelectorAll('.clubhouse-zone-chip').forEach((c) => c.classList.remove('is-lit'));
     document.querySelectorAll('.clubhouse-station-card').forEach((card) => card.classList.remove('is-clubhouse-lit'));
     if (statusEl) {
-      statusEl.textContent = '✨ Whole Clubhouse Lit — Hover a wing or card below';
+      statusEl.textContent = '✨ Whole Clubhouse Lit — Choose a hotspot or wing below';
     }
+  }
+
+  function toggleBlueprintView() {
+    const svgStage = document.getElementById('clubhouseSvgStage');
+    const toggleBtn = document.getElementById('btnToggleBlueprintSvg');
+    if (!svgStage) return;
+    const isNowHidden = !svgStage.hidden;
+    svgStage.hidden = isNowHidden;
+    if (toggleBtn) {
+      toggleBtn.setAttribute('aria-expanded', String(!isNowHidden));
+      toggleBtn.textContent = isNowHidden ? '🗺️ Show Blueprint Map' : '✕ Hide Blueprint Map';
+    }
+  }
+
+  const HUB_SEARCH_INDEX = [
+    { zone: 'sparks', targetId: 'sanctuary-reflection', title: '✨ Daily Sanctuary Sparks', meta: '3D flip card & Gemini reflection generator', keywords: 'spark card reflection oracle gemini mindfulness quote' },
+    { zone: 'breath', targetId: 'breath', title: '🕊️ Pause & Breathe Alcove', meta: '60s living breath orb & Sacred Labyrinth', keywords: 'breath orb pause labyrinth calm breathing meditation pod' },
+    { zone: 'bracelet', targetId: 'bracelet-creator', title: '📿 Intention Bracelet Bench', meta: 'Weave 3-bead keepsake anchor bracelet', keywords: 'bracelet beads weave intention keepsake craft' },
+    { zone: 'plinko', targetId: 'zen-plinko', title: '🎯 Drop-a-Seed Zen Plinko', meta: 'Interactive community seed blessing board', keywords: 'plinko seed game drop blessing' },
+    { zone: 'hearth', targetId: 'hearth-mirror-portal', title: '🔥 The Hearth Mirror', meta: 'Emotional check-in & AI grounding companion', keywords: 'hearth fire mirror emotion check-in mood' },
+    { zone: 'hearth', targetId: 'gratitude-wall-station', title: '🌻 Shared Gratitude & Photo Wall', meta: 'Live community pinboard & milestone badges', keywords: 'gratitude wall photo trophy badges community feed' },
+    { zone: 'stage', targetId: 'stage-lounge', title: '🎤 Open Mic & Jam Prep Lounge', meta: '3-min rehearsal timer, chord pad & rhythm', keywords: 'open mic stage timer chords guitar jam djembe tempo promo' },
+    { zone: 'vinyl', targetId: 'throwbacks-lounge', title: '💽 Midnight Vinyl & Throwbacks', meta: 'Turntable deck & acoustic throwback vibes', keywords: 'vinyl turntable throwback music rnb record' },
+    { zone: 'vinyl', targetId: 'greenroom-vault', title: '🗝️ Secret Greenroom & Raffle Vault', meta: '3-knock speakeasy, guestbook & raffle wheel', keywords: 'greenroom speakeasy raffle wheel passkey secret 777' },
+    { zone: 'stage', targetId: 'hub-keepsakes', title: '🖼️ Sanctuary Keepsakes & Wallpapers', meta: 'Lock screens, 16:9 hearth frame & pitch brief', keywords: 'wallpaper keepsake download backdrop canva pdf' }
+  ];
+
+  function bindHeroSearchAndNav() {
+    const navEl = document.getElementById('sanctuary-nav');
+    if (navEl) {
+      const onScroll = () => {
+        navEl.classList.toggle('is-scrolled', window.scrollY > 36);
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    }
+
+    // Close mobile nav drawer automatically when widening back to desktop
+    const desktopMq = window.matchMedia('(min-width: 981px)');
+    const closeDrawerOnDesktop = (e) => {
+      if (!e.matches) return;
+      const drawer = document.getElementById('mobile-nav-drawer');
+      const toggle = document.getElementById('mobile-nav-toggle');
+      if (drawer) drawer.style.display = 'none';
+      if (toggle) toggle.setAttribute('aria-expanded', 'false');
+    };
+    if (desktopMq.addEventListener) desktopMq.addEventListener('change', closeDrawerOnDesktop);
+    else if (desktopMq.addListener) desktopMq.addListener(closeDrawerOnDesktop);
+
+    const input = document.getElementById('hubHeroSearchInput');
+    const resultsBox = document.getElementById('hubHeroSearchResults');
+    if (!input || !resultsBox) return;
+
+    function jumpToResult(item) {
+      if (!item) return;
+      if (item.zone) focusClubhouseZone(item.zone);
+      if (activeWing !== 'all') filterWing('all');
+      const targetEl = document.getElementById(item.targetId);
+      if (targetEl) targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      resultsBox.classList.remove('is-open');
+      input.blur();
+    }
+
+    function renderSearch(query) {
+      const q = String(query || '').trim().toLowerCase();
+      if (!q) {
+        resultsBox.classList.remove('is-open');
+        resultsBox.innerHTML = '';
+        return;
+      }
+      const matches = HUB_SEARCH_INDEX.filter((item) =>
+        `${item.title} ${item.meta} ${item.keywords}`.toLowerCase().includes(q)
+      ).slice(0, 6);
+
+      if (!matches.length) {
+        resultsBox.innerHTML = '<div style="padding: 10px; font-size: 0.78rem; color: #CBD7D0;">No matching room — try "open mic", "breath", "sparks", or "vinyl".</div>';
+      } else {
+        resultsBox.innerHTML = matches.map((m, idx) => `
+          <button type="button" class="hub-search-result-btn" data-match-idx="${idx}">
+            <span class="hub-search-result-title">${m.title}</span>
+            <span class="hub-search-result-meta">${m.meta}</span>
+          </button>
+        `).join('');
+        resultsBox.querySelectorAll('.hub-search-result-btn').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const match = matches[Number(btn.getAttribute('data-match-idx'))];
+            jumpToResult(match);
+          });
+        });
+      }
+      resultsBox.classList.add('is-open');
+    }
+
+    input.addEventListener('input', () => renderSearch(input.value));
+    input.addEventListener('focus', () => {
+      if (input.value.trim()) renderSearch(input.value);
+    });
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        const firstBtn = resultsBox.querySelector('.hub-search-result-btn');
+        if (firstBtn) firstBtn.click();
+      } else if (e.key === 'Escape') {
+        input.value = '';
+        resultsBox.classList.remove('is-open');
+      }
+    });
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.hub-hero-search-wrap')) {
+        resultsBox.classList.remove('is-open');
+      }
+    });
   }
 
   function bindClubhouseZoneListeners() {
@@ -702,6 +818,11 @@
           focusClubhouseZone(key, { scroll: true });
         }
       });
+    });
+
+    document.querySelectorAll('.lodge-hotspot-pin[data-lodge-pin]').forEach((pinEl) => {
+      const key = pinEl.getAttribute('data-lodge-pin');
+      pinEl.addEventListener('mouseenter', () => focusClubhouseZone(key));
     });
 
     document.querySelectorAll('.clubhouse-station-card[data-clubhouse-zone]').forEach((cardEl) => {
@@ -719,6 +840,7 @@
     revealWingForTarget,
     focusClubhouseZone,
     clearClubhouseLights,
+    toggleBlueprintView,
     setStagePreset,
     toggleStageTimer,
     resetStageTimer,
@@ -739,6 +861,7 @@
     renderLedgerCount();
     startLanternWhisperLoop();
     bindClubhouseZoneListeners();
+    bindHeroSearchAndNav();
 
     // Sync nav links & in-page anchor clicks cleanly with Wing visibility
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
