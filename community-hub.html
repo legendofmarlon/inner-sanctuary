@@ -70,6 +70,17 @@
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
     }
+    [data-atmosphere="night"] .hub-section-cream {
+      background: rgba(15, 25, 20, 0.93);
+      color: #EDE8DD;
+    }
+    [data-atmosphere="night"] .hub-section-warm {
+      background: rgba(20, 32, 26, 0.94);
+      color: #EDE8DD;
+    }
+    [data-atmosphere="night"] #hub-keepsakes .section-subtitle {
+      color: #F8D98C !important;
+    }
     .hub-back-pill {
       display: inline-flex;
       align-items: center;
@@ -133,7 +144,7 @@
     <div class="container nav-inner">
       <div class="brand-group">
         <a href="index.html" class="brand-group" style="text-decoration: none;">
-          <img class="nav-emblem" src="emblem.png" alt="Inner Sanctuary Emblem Logo" onerror="this.src='emblem.jpg'" onclick="handleSpeakeasyKnock(event)" title="Tap 3 times for Greenroom vault" />
+          <img class="nav-emblem" src="emblem.png" alt="Inner Sanctuary Emblem Logo" width="996" height="1024" onerror="this.src='emblem.jpg'" onclick="handleSpeakeasyKnock(event)" title="Tap 3 times for Greenroom vault" />
           <div class="brand-text-block">
             <span class="nav-title serif-brand">INNER SANCTUARY</span>
             <span class="nav-subtitle">COMMUNITY HUB</span>
@@ -335,6 +346,7 @@
           <div class="somatic-oracle-custom-bar">
             <div class="somatic-oracle-input-wrap">
               <span class="oracle-input-icon">✨</span>
+              <label for="somaticCustomInput" class="sr-only">How does your body feel?</label>
               <input type="text" id="somaticCustomInput" class="somatic-oracle-input" placeholder="How does your body feel? (e.g. tight chest, tired, anxious, seeking joy)" aria-label="Generate a Sanctuary Spark with Gemini" />
               <button type="button" id="btnOracleGenerate" class="btn-oracle-generate" title="Generate Sanctuary Spark with Gemini">
                 <span id="oracleBtnText">✨ Generate with Gemini</span>
@@ -621,6 +633,7 @@
           </div>
 
           <div style="margin-bottom: 20px;">
+            <label for="hearthReflectionInput" class="sr-only">Whisper what you are carrying or navigating today</label>
             <textarea id="hearthReflectionInput" placeholder="Whisper what you are carrying or navigating today (or tap a feeling above)..." rows="2" style="width: 100%; box-sizing: border-box; background: rgba(18, 30, 24, 0.75); border: 1.5px solid rgba(197, 154, 63, 0.35); border-radius: 12px; color: #FFFDF7; font-size: 0.95rem; padding: 14px 16px; font-family: inherit; line-height: 1.5; resize: vertical; outline: none;"></textarea>
           </div>
 
@@ -706,7 +719,7 @@
         <div class="hub-keepsakes-grid">
           <div class="hub-keepsake-card">
             <div class="hub-keepsake-media">
-              <img src="images/sanctuary-pause-wallpaper.jpg" alt="Botanical olive leaf &amp; gold filigree Sanctuary calm wallpaper" />
+              <img src="images/sanctuary-pause-wallpaper.jpg" alt="Botanical olive leaf &amp; gold filigree Sanctuary calm wallpaper" width="768" height="1376" />
             </div>
             <div class="hub-keepsake-body">
               <div class="stage-panel-eyebrow">📱 Mobile Lock Screen (9:16)</div>
@@ -718,7 +731,7 @@
 
           <div class="hub-keepsake-card">
             <div class="hub-keepsake-media">
-              <img src="images/sanctuary-jam-emblem-backdrop.jpg" alt="Warm amber lantern glow and golden botanical crest backdrop" />
+              <img src="images/sanctuary-jam-emblem-backdrop.jpg" alt="Warm amber lantern glow and golden botanical crest backdrop" width="1376" height="768" />
             </div>
             <div class="hub-keepsake-body">
               <div class="stage-panel-eyebrow">🕯️ Desktop / Room Backdrop (16:9)</div>
@@ -730,7 +743,7 @@
 
           <div class="hub-keepsake-card">
             <div class="hub-keepsake-media">
-              <img src="images/openmic/openmic-nov15-acoustic-duo-harmony.jpg" alt="Acoustic musicians sharing warm living room stage in Orange County" />
+              <img src="images/openmic/openmic-nov15-acoustic-duo-harmony.jpg" alt="Acoustic musicians sharing warm living room stage in Orange County" width="1024" height="576" />
             </div>
             <div class="hub-keepsake-body">
               <div class="stage-panel-eyebrow">🎨 Canva Venue Loop &amp; Brief</div>
@@ -800,6 +813,7 @@
             <p class="speakeasy-gate-sub">Whisper the sacred passkey to unlock the speakeasy wheel for active gathering perks and keepsakes.</p>
             <form id="speakeasyWheelForm" onsubmit="event.preventDefault(); window.sanctuaryRaffleWheel.unlockWithPasskey();">
               <div class="speakeasy-gate-input-wrap">
+                <label for="speakeasyWheelPassInput" class="sr-only">Speakeasy wheel passkey</label>
                 <input type="password" id="speakeasyWheelPassInput" class="speakeasy-gate-input" placeholder="Whisper passkey (e.g. 777)..." autocomplete="off" />
                 <button type="submit" id="speakeasyWheelUnlockBtn" class="btn btn-gold btn-liquid-gold speakeasy-gate-btn"><span>Unlock</span> <span>🗝️</span></button>
               </div>
@@ -862,6 +876,7 @@
               <div class="raffle-vip-actions">
                 <button type="button" onclick="window.sanctuaryRaffleWheel.exportClaimsCSV()" class="btn btn-gold">Export Claims CSV</button>
                 <button type="button" onclick="window.sanctuaryRaffleWheel.resetTestSpins()" class="btn btn-outline">Reset Spins</button>
+                <label for="raffleForceDropSelect" class="sr-only">Force raffle prize drop</label>
                 <select id="raffleForceDropSelect" onchange="window.sanctuaryRaffleWheel.setForcedPrize(this.value)">
                   <option value="">Random</option><option value="headphones">Headphones</option><option value="innout">In-N-Out</option><option value="gear">Gear</option><option value="bracelet">Bracelet</option><option value="elixir">Elixir</option>
                 </select>
@@ -920,7 +935,9 @@
               <button type="button" class="btn-outline-gold" onclick="discardVoiceRecording()">✕ Retake</button>
             </div>
             <div class="text-whisper-form" id="textWhisperForm" style="display: none;">
+              <label for="textWhisperInput" class="sr-only">Your whisper message</label>
               <textarea id="textWhisperInput" class="text-whisper-textarea" maxlength="240" rows="3"></textarea>
+              <label for="textWhisperAuthor" class="sr-only">Your name or alias</label>
               <input type="text" id="textWhisperAuthor" class="text-whisper-author-input" maxlength="50" />
               <button type="button" class="btn btn-gold" onclick="submitTextWhisper()">Post Whisper</button>
             </div>

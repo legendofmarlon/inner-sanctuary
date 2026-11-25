@@ -1,15 +1,37 @@
 // Inner Sanctuary Wellness Foundation — Progressive Web App Service Worker
 // Version: 1.0.0 (Sanctuary in Your Pocket)
 
-const CACHE_NAME = 'inner-sanctuary-cache-v23';
+const CACHE_NAME = 'inner-sanctuary-cache-v24';
 const PRECACHE_ASSETS = [
   './',
   './index.html',
+  './community-hub.html',
   './styles.css',
   './script.js',
   './manifest.json',
   './emblem.png',
-  './emblem.jpg'
+  './emblem.jpg',
+  './js/modules/adaptive-atmosphere.js',
+  './js/modules/community-hub-wings.js',
+  './js/modules/community-popup.js',
+  './js/modules/funder-dossier.js',
+  './js/modules/pause-booth.js',
+  './js/modules/promo-card-generator.js',
+  './js/modules/pulse-constellation.js',
+  './js/modules/raffle-wheel.js',
+  './js/modules/run-of-show.js',
+  './js/modules/sanctuary-os.js',
+  './js/modules/telemetry-lens.js',
+  './styles/modules/adaptive-atmosphere.css',
+  './styles/modules/community-hub-wings.css',
+  './styles/modules/community-popup.css',
+  './styles/modules/funder-dossier.css',
+  './styles/modules/pause-booth.css',
+  './styles/modules/promo-card-generator.css',
+  './styles/modules/pulse-constellation.css',
+  './styles/modules/raffle-wheel.css',
+  './styles/modules/run-of-show.css',
+  './styles/modules/sanctuary-os.css'
 ];
 
 // Install: Cache critical shell resources and skip waiting
@@ -50,6 +72,11 @@ self.addEventListener('fetch', (event) => {
 
   // Only handle GET requests and valid http/https schemes
   if (req.method !== 'GET' || !req.url.startsWith('http')) {
+    return;
+  }
+
+  // Skip caching Netlify function calls so live endpoints always hit network
+  if (req.url.includes('/.netlify/functions/')) {
     return;
   }
 

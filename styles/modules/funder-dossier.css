@@ -1493,9 +1493,11 @@ body.funder-quick-view-active #sanctuary-nav {
   color: #FFFFFF;
 }
 
-.sim-tier-pill.active {
+.sim-tier-pill.active,
+.sim-tier-pill.active:hover,
+.sim-tier-pill.active:focus-visible {
   background: linear-gradient(135deg, #F5D77F 0%, #D49B35 100%);
-  color: #111D16;
+  color: #111D16 !important;
   border-color: #FCE6A2;
   box-shadow: 0 4px 14px rgba(245, 215, 127, 0.35);
 }

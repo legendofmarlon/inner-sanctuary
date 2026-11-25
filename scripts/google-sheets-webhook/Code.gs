@@ -51,14 +51,20 @@ function doPost(e) {
         r.somaticState || ''
       ]);
     } else if (kind === 'openmic_rsvp') {
-      const sheet = ss.getSheetByName('Gatherings_Roster') || ss.insertSheet('Gatherings_Roster');
+      const sheet = ss.getSheetByName('OpenMic_Performers') || ss.insertSheet('OpenMic_Performers');
+      if (sheet.getLastRow() === 0) {
+        sheet.appendRow(['Registered_At', 'Event', 'Performer_Name', 'Category', 'Slot', 'Piece_Title', 'Email', 'Instagram', 'Tech_Needs']);
+      }
       sheet.appendRow([
         r.registeredAt || new Date().toISOString(),
-        'Upcoming Open Mic',
+        r.eventTitle || 'Upcoming Open Mic',
         r.name || '',
         r.category || r.artType || '',
         r.slot || '',
-        r.pieceTitle || ''
+        r.pieceTitle || '',
+        r.email || '',
+        r.instagram || '',
+        r.techNeeds || ''
       ]);
     }
 

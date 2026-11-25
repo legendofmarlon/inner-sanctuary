@@ -10,7 +10,7 @@ const { corsHeaders, appendLedgerRecord } = require('./_persistence');
 
 const ROSTER_PATH = path.resolve(__dirname, '../../content/run-of-show-roster.json');
 const TMP_ROSTER_PATH = path.join(os.tmpdir(), 'sanctuary-roster.json');
-const STAGE_PASSKEY = process.env.SANCTUARY_STAGE_PASSKEY || 'sanctuary432';
+const STAGE_PASSKEY = process.env.SANCTUARY_STAGE_PASSKEY || '';
 
 let inMemoryRoster = null;
 
@@ -98,7 +98,11 @@ exports.handler = async function (event) {
     return { statusCode: 200, headers, body: '' };
   }
 
+
   if (event.httpMethod === 'GET') {
+    if (!STAGE_PASSKEY) {
+      return { statusCode: 503, headers: { 'Content-Type': 'application/json', ...headers }, body: JSON.stringify({ error: 'Stage passkey not configured' }) };
+    }
     const passkey = event.headers['x-stage-passkey'] || (event.queryStringParameters && event.queryStringParameters.key);
     if (!passkey || passkey !== STAGE_PASSKEY) {
       return { statusCode: 401, headers, body: JSON.stringify({ error: 'Unauthorized: Valid Host Passkey Required' }) };
@@ -111,6 +115,9 @@ exports.handler = async function (event) {
   }
 
   if (event.httpMethod === 'PATCH') {
+    if (!STAGE_PASSKEY) {
+      return { statusCode: 503, headers: { 'Content-Type': 'application/json', ...headers }, body: JSON.stringify({ error: 'Stage passkey not configured' }) };
+    }
     const passkey = event.headers['x-stage-passkey'];
     if (passkey !== STAGE_PASSKEY) {
       return { statusCode: 401, headers, body: JSON.stringify({ error: 'Unauthorized' }) };
