@@ -415,6 +415,15 @@
       statusEl.style.display = 'block';
       setTimeout(() => { statusEl.style.display = 'none'; }, 3500);
     }
+
+    // Non-blocking backend persistence sync (when hosted on Netlify or webhook configured)
+    if (typeof fetch === 'function') {
+      fetch('/.netlify/functions/hub-checkin', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(row)
+      }).catch(() => {});
+    }
   }
 
   function csvEscape(val) {

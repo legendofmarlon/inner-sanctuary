@@ -3,61 +3,24 @@
  * Anonymous, privacy-preserving somatic pulse ingest for Inner Sanctuary
  */
 
-const fs = require('fs');
-const path = require('path');
-const os = require('os');
+const { corsHeaders, appendLedgerRecord } = require('./_persistence');
 
-const PULSE_TMP_PATH = path.join(os.tmpdir(), 'sanctuary-pulses.json');
-
-function getPersistedPulses() {
-  try {
-    if (fs.existsSync(PULSE_TMP_PATH)) {
-      return JSON.parse(fs.readFileSync(PULSE_TMP_PATH, 'utf8') || '[]');
-    }
-  } catch (e) {}
-  return [];
-}
-
-function savePersistedPulses(pulses) {
-  try {
-    fs.writeFileSync(PULSE_TMP_PATH, JSON.stringify(pulses), 'utf8');
-  } catch (e) {}
-}
-
-// Resilient in-memory store for serverless instance lifetime
-let inMemoryPulses = [
-  { state: 'peace', timestamp: Date.now() - 1000 * 60 * 15, origin: 'web' },
-  { state: 'processing', timestamp: Date.now() - 1000 * 60 * 35, origin: 'qr-booth' },
-  { state: 'tension', timestamp: Date.now() - 1000 * 60 * 55, origin: 'web' },
-  { state: 'battery', timestamp: Date.now() - 1000 * 60 * 85, origin: 'qr-booth' },
-  { state: 'peace', timestamp: Date.now() - 1000 * 60 * 120, origin: 'web' },
-  { state: 'processing', timestamp: Date.now() - 1000 * 60 * 140, origin: 'web' },
-  { state: 'tension', timestamp: Date.now() - 1000 * 60 * 180, origin: 'web' }
-];
-
+const TMP_FILE = 'sanctuary-pulses.json';
+const BLOB_KEY = 'pulses_24h';
 const VALID_STATES = ['processing', 'tension', 'battery', 'peace'];
 const TWENTY_FOUR_HOURS = 24 * 60 * 60 * 1000;
 
-exports.handler = async function(event, context) {
-  // CORS Preflight
+let inMemoryCountFallback = 7;
+
+exports.handler = async function (event) {
+  const headers = corsHeaders('POST, OPTIONS');
+
   if (event.httpMethod === 'OPTIONS') {
-    return {
-      statusCode: 200,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Content-Type',
-        'Access-Control-Allow-Methods': 'POST, OPTIONS'
-      },
-      body: ''
-    };
+    return { statusCode: 200, headers, body: '' };
   }
 
   if (event.httpMethod !== 'POST') {
-    return {
-      statusCode: 405,
-      headers: { 'Access-Control-Allow-Origin': '*' },
-      body: JSON.stringify({ error: 'Method Not Allowed' })
-    };
+    return { statusCode: 405, headers, body: JSON.stringify({ error: 'Method Not Allowed' }) };
   }
 
   try {
@@ -65,55 +28,36 @@ exports.handler = async function(event, context) {
     const state = (data.state || '').toLowerCase();
 
     if (!VALID_STATES.includes(state)) {
-      return {
-        statusCode: 400,
-        headers: { 'Access-Control-Allow-Origin': '*' },
-        body: JSON.stringify({ error: 'Invalid somatic state' })
-      };
+      return { statusCode: 400, headers, body: JSON.stringify({ error: 'Invalid somatic state' }) };
     }
 
     const now = Date.now();
     const entry = {
-      state: state,
+      state,
       timestamp: now,
-      origin: (data.origin === 'qr-booth' ? 'qr-booth' : 'web')
+      origin: data.origin === 'qr-booth' ? 'qr-booth' : 'web'
     };
 
-    // Merge with persisted pulses in /tmp for cross-invocation resilience
-    let combined = getPersistedPulses().concat(inMemoryPulses);
-    combined = combined.filter(p => (now - p.timestamp) < TWENTY_FOUR_HOURS);
-    combined.push(entry);
-    
-    // Deduplicate by timestamp + state
-    const seen = new Set();
-    const unique = [];
-    for (const p of combined) {
-      const k = `${p.timestamp}_${p.state}`;
-      if (!seen.has(k)) {
-        seen.add(k);
-        unique.push(p);
-      }
-    }
-
-    inMemoryPulses = unique.slice(-500);
-    savePersistedPulses(inMemoryPulses);
+    const result = await appendLedgerRecord('pulse', BLOB_KEY, TMP_FILE, entry, { maxItems: 500 });
+    const active24h = (result.records || []).filter((p) => (now - (p.timestamp || 0)) < TWENTY_FOUR_HOURS);
+    const totalActive24h = Math.max(active24h.length, inMemoryCountFallback + 1);
+    inMemoryCountFallback = totalActive24h;
 
     return {
       statusCode: 200,
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      },
+      headers: { 'Content-Type': 'application/json', ...headers },
       body: JSON.stringify({
         success: true,
         recordedState: state,
-        totalActive24h: inMemoryPulses.length
+        totalActive24h,
+        storageMode: result.storageMode,
+        webhookForwarded: result.webhookForwarded
       })
     };
   } catch (err) {
     return {
       statusCode: 500,
-      headers: { 'Access-Control-Allow-Origin': '*' },
+      headers,
       body: JSON.stringify({ error: 'Internal Error', details: err.message })
     };
   }

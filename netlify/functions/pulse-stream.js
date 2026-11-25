@@ -3,24 +3,12 @@
  * Returns aggregated 24h community pulse metrics and constellation telemetry
  */
 
-const fs = require('fs');
-const path = require('path');
-const os = require('os');
+const { corsHeaders, readLedgerRecords } = require('./_persistence');
 
-const PULSE_TMP_PATH = path.join(os.tmpdir(), 'sanctuary-pulses.json');
-
-function getPersistedPulses() {
-  try {
-    if (fs.existsSync(PULSE_TMP_PATH)) {
-      return JSON.parse(fs.readFileSync(PULSE_TMP_PATH, 'utf8') || '[]');
-    }
-  } catch (e) {}
-  return [];
-}
-
+const TMP_FILE = 'sanctuary-pulses.json';
+const BLOB_KEY = 'pulses_24h';
 const TWENTY_FOUR_HOURS = 24 * 60 * 60 * 1000;
 
-// Base seed data for healthy community pulse representation
 const DEFAULT_SEED_PULSES = [
   { state: 'peace', minutesAgo: 8 },
   { state: 'processing', minutesAgo: 22 },
@@ -42,60 +30,40 @@ const DEFAULT_SEED_PULSES = [
   { state: 'tension', minutesAgo: 890 }
 ];
 
-exports.handler = async function(event, context) {
-  // CORS Preflight
+exports.handler = async function (event) {
+  const headers = corsHeaders('GET, OPTIONS');
+
   if (event.httpMethod === 'OPTIONS') {
-    return {
-      statusCode: 200,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Content-Type',
-        'Access-Control-Allow-Methods': 'GET, OPTIONS'
-      },
-      body: ''
-    };
+    return { statusCode: 200, headers, body: '' };
   }
 
   const now = Date.now();
+  const { records, source } = await readLedgerRecords(BLOB_KEY, TMP_FILE);
+  const persisted = (records || []).filter((p) => (now - (p.timestamp || 0)) < TWENTY_FOUR_HOURS);
 
-  // Load real pulses submitted to this serverless environment
-  const persisted = getPersistedPulses().filter(p => (now - p.timestamp) < TWENTY_FOUR_HOURS);
   const liveNodes = persisted.map((p, idx) => {
     const ageMinutes = Math.max(1, Math.round((now - p.timestamp) / (60 * 1000)));
     return {
       id: `live-node-${idx}-${p.timestamp}`,
       state: p.state,
-      ageMinutes: ageMinutes,
+      ageMinutes,
       intensity: Math.max(0.45, +(1 - (ageMinutes / 1440)).toFixed(2)),
       isLive: true
     };
   });
 
-  // Generate constellation nodes based on seeds + active minutes
-  const seedNodes = DEFAULT_SEED_PULSES.map((seed, idx) => {
-    const timestamp = now - (seed.minutesAgo * 60 * 1000);
-    return {
-      id: `pulse-node-${idx}`,
-      state: seed.state,
-      ageMinutes: seed.minutesAgo,
-      // Freshness decay: 1.0 (recent) down to 0.35 (older)
-      intensity: Math.max(0.35, +(1 - (seed.minutesAgo / 1440)).toFixed(2))
-    };
-  });
+  const seedNodes = DEFAULT_SEED_PULSES.map((seed, idx) => ({
+    id: `pulse-node-${idx}`,
+    state: seed.state,
+    ageMinutes: seed.minutesAgo,
+    intensity: Math.max(0.35, +(1 - (seed.minutesAgo / 1440)).toFixed(2))
+  }));
 
   const nodes = liveNodes.concat(seedNodes);
+  const breakdown = { processing: 0, tension: 0, battery: 0, peace: 0 };
 
-  const breakdown = {
-    processing: 0,
-    tension: 0,
-    battery: 0,
-    peace: 0
-  };
-
-  nodes.forEach(n => {
-    if (breakdown[n.state] !== undefined) {
-      breakdown[n.state]++;
-    }
+  nodes.forEach((n) => {
+    if (breakdown[n.state] !== undefined) breakdown[n.state]++;
   });
 
   const total = nodes.length;
@@ -110,14 +78,15 @@ exports.handler = async function(event, context) {
     statusCode: 200,
     headers: {
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
+      ...headers,
       'Cache-Control': 'public, max-age=15, stale-while-revalidate=45'
     },
     body: JSON.stringify({
       totalCheckins24h: total,
-      breakdown: breakdown,
-      percentages: percentages,
-      nodes: nodes,
+      breakdown,
+      percentages,
+      nodes,
+      storageMode: source,
       timestamp: now
     })
   };

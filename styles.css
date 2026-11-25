@@ -7612,6 +7612,11 @@ body[data-element="ether"] nav::after {
   .medallion-philosophy-portal p,
   .medallion-leadership-portal p,
   .medallion-verification-portal p,
+  .sponsorship-campaign-wrapper > div:first-child p,
+  .sponsorship-campaign-wrapper .logic-step-card p,
+  .event-featured-card p,
+  .openmic-gallery-callout p,
+  #grantImpactSimulator p,
   .dark-surface p,
   footer p {
     color: #FFFDF7 !important;
@@ -13299,4 +13304,198 @@ body[data-element="fire"] .explorer-pulse-dot {
   border-color: #C59A3F;
   color: #F8D98C;
   box-shadow: 0 4px 14px rgba(43, 68, 54, 0.25);
+}
+
+
+/* ==================== ADAPTIVE VISITOR LENS & SECTION PRIORITY ORDERING ==================== */
+main#main-content {
+  display: flex;
+  flex-direction: column;
+}
+
+main#main-content > * {
+  width: 100%;
+}
+
+main#main-content > .trust-ribbon { order: 1; }
+main#main-content > #openmic-photo-wheel { order: 2; }
+main#main-content > #core-activations { order: 3; }
+main#main-content > #mission { order: 4; }
+main#main-content > #method { order: 5; }
+main#main-content > #programs { order: 6; }
+main#main-content > #open-mic { order: 7; }
+main#main-content > #horizons { order: 8; }
+main#main-content > #community-hub { order: 9; }
+main#main-content > #donate { order: 10; }
+main#main-content > #circle-growth { order: 11; }
+main#main-content > #sponsorship { order: 12; }
+main#main-content > #stay-in-loop { order: 13; }
+main#main-content > #connect { order: 14; }
+main#main-content > section.container:last-of-type { order: 15; }
+
+/* Grantmaker Priority (?lens=funder or Quick-View): elevate Sponsorship + Simulator directly below 3D Proof */
+body.lens-funder main#main-content > #sponsorship { order: 3; }
+body.lens-funder main#main-content > #core-activations { order: 4; }
+body.lens-funder main#main-content > #open-mic { order: 5; }
+body.lens-funder main#main-content > #mission { order: 6; }
+
+/* Neighbor Priority (?lens=neighbor): elevate Open Mic Countdown & Community Hub right below 3D Proof */
+body.lens-neighbor main#main-content > #open-mic { order: 3; }
+body.lens-neighbor main#main-content > #community-hub { order: 4; }
+body.lens-neighbor main#main-content > #core-activations { order: 5; }
+
+.adaptive-lens-ribbon {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px dashed rgba(197, 154, 63, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+}
+
+.adaptive-lens-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.adaptive-lens-eyebrow {
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #1A2E22;
+  background: rgba(197, 154, 63, 0.24);
+  border: 1px solid rgba(197, 154, 63, 0.45);
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+.adaptive-lens-status {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--charcoal-muted);
+}
+
+.adaptive-lens-controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.lens-switch-btn {
+  min-height: 34px !important;
+  padding: 5px 12px !important;
+  border-radius: 999px;
+  border: 1px solid rgba(43, 68, 54, 0.28);
+  background: rgba(255, 255, 255, 0.86);
+  color: var(--forest-green);
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.22s ease;
+}
+
+.lens-switch-btn:hover {
+  border-color: var(--sunburst-gold);
+  background: rgba(248, 217, 140, 0.2);
+}
+
+.lens-switch-btn.active {
+  background: linear-gradient(135deg, #1E3327, #2B4436);
+  border-color: var(--sunburst-gold);
+  color: #F8D98C;
+  box-shadow: 0 4px 12px rgba(30, 51, 39, 0.22);
+}
+
+.lens-elevated-notice {
+  max-width: 980px;
+  margin: 0 auto 18px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  background: linear-gradient(90deg, rgba(24, 42, 32, 0.94), rgba(35, 62, 47, 0.94));
+  border: 1.5px solid rgba(248, 217, 140, 0.72);
+  color: #F8D98C !important;
+  font-size: 0.8rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.14);
+}
+
+.lens-elevated-notice[hidden] {
+  display: none !important;
+}
+
+.lens-notice-reset {
+  min-height: 30px !important;
+  padding: 4px 12px !important;
+  border-radius: 999px;
+  border: 1px solid rgba(248, 217, 140, 0.65);
+  background: rgba(197, 154, 63, 0.2);
+  color: #FFFFFF;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.lens-notice-reset:hover {
+  background: var(--sunburst-gold);
+  color: #16261D;
+}
+
+/* Gentle living motion in Fullscreen Photo Lightbox (replaces 18.2MB animated GIF overhead) */
+.wheel-modal-stage img {
+  animation: livePhotoBreathe 9s ease-in-out infinite alternate;
+}
+
+[data-atmosphere="night"] .adaptive-lens-eyebrow {
+  background: rgba(248, 217, 140, 0.18);
+  color: #F8D98C;
+}
+
+[data-atmosphere="night"] .adaptive-lens-status {
+  color: #CBD7D0 !important;
+}
+
+[data-atmosphere="night"] .lens-switch-btn {
+  background: rgba(20, 36, 28, 0.88);
+  border-color: rgba(248, 217, 140, 0.28);
+  color: #EDE8DD;
+}
+
+[data-atmosphere="night"] .lens-switch-btn.active {
+  background: linear-gradient(135deg, #D4A84E, #F3D179);
+  color: #16261D;
+}
+
+@media (max-width: 768px) {
+  .adaptive-lens-ribbon {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .adaptive-lens-meta {
+    justify-content: center;
+  }
+
+  .adaptive-lens-controls {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .lens-switch-btn {
+    flex: 1 1 auto;
+    min-height: 34px !important;
+    font-size: 0.7rem !important;
+    padding: 5px 8px !important;
+    text-align: center;
+  }
 }

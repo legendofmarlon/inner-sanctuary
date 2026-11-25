@@ -4984,8 +4984,8 @@ document.addEventListener('DOMContentLoaded', () => {
       categories: ["music", "stage"]
     },
     {
-      src: "images/openmic/openmic-nov15-stone-hearth-celebration.gif",
-      caption: "Joyful Embodiment • Drums, Dancing & Laughter Before the Grand Hearth (Nov 15 • Live GIF)",
+      src: "images/openmic/openmic-nov15-stone-hearth-celebration.jpg",
+      caption: "Joyful Embodiment • Drums, Dancing & Laughter Before the Grand Hearth (Nov 15)",
       alt: "Community members dancing and drumming with pure joy before the stone fireplace",
       tag: "🎸 Music & Rhythm",
       categories: ["music", "community"]

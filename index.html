@@ -924,6 +924,17 @@
         <span>CRA-Eligible Community Partner</span>
       </div>
     </div>
+    <div class="container adaptive-lens-ribbon" role="region" aria-label="Adaptive Page View Lens">
+      <div class="adaptive-lens-meta">
+        <span class="adaptive-lens-eyebrow">✦ Adaptive Experience</span>
+        <span id="lensStatusReadout" class="adaptive-lens-status">Full Journey View — Mission, Gatherings &amp; Partnerships in story order</span>
+      </div>
+      <div class="adaptive-lens-controls" role="group" aria-label="Choose Visitor Perspective">
+        <button type="button" class="lens-switch-btn active" data-lens="default" aria-pressed="true" onclick="window.sanctuaryLens && window.sanctuaryLens.set('default', true, false)">📖 Full Story</button>
+        <button type="button" class="lens-switch-btn" data-lens="funder" aria-pressed="false" onclick="window.sanctuaryLens && window.sanctuaryLens.set('funder', true, false)">🏛️ Grantmaker Priority</button>
+        <button type="button" class="lens-switch-btn" data-lens="neighbor" aria-pressed="false" onclick="window.sanctuaryLens && window.sanctuaryLens.set('neighbor', true, false)">🌱 Neighbor Priority</button>
+      </div>
+    </div>
   </section>
 
   <!-- ==================== LIVING SANCTUARY 3D COVERFLOW GALLERY & IMPACT REACH ==================== -->
@@ -1298,11 +1309,14 @@
           </div>
         </div>
         <div class="core-funder-strip-actions">
-          <a href="reports/inner-sanctuary-fiduciary-one-pager.html" target="_blank" rel="noopener noreferrer" class="activation-btn-primary" style="background: var(--sunburst-gold); color: #1C1B18 !important;" title="Open Official 1-Page Grantmaker Fiduciary Dossier">
-            <span>📑 1-Page Fiduciary Dossier (PDF) ↗</span>
+          <a href="#grantImpactSimulator" class="activation-btn-primary" style="background: var(--sunburst-gold); color: #1C1B18 !important;" title="Open Interactive Grant Impact Projections Simulator">
+            <span>📊 Grant Calculator</span>
+          </a>
+          <a href="reports/inner-sanctuary-fiduciary-one-pager.html" target="_blank" rel="noopener noreferrer" class="activation-btn-secondary" style="border-color: rgba(245, 215, 127, 0.5); color: #FFFDF7 !important; background: rgba(255,255,255,0.08);" title="Open Official 1-Page Grantmaker Fiduciary Dossier">
+            <span>📑 1-Page Dossier (PDF) ↗</span>
           </a>
           <button type="button" onclick="openFunderModal(event, 'summary')" class="activation-btn-secondary" style="border-color: rgba(245, 215, 127, 0.5); color: #FFFDF7 !important; background: rgba(255,255,255,0.08);" title="Open Interactive Institutional Dossier">
-            <span>🏛️ Open Funder Dossier</span>
+            <span>🏛️ Funder Modal</span>
           </button>
         </div>
       </div>
@@ -1666,6 +1680,10 @@
   <!-- ==================== UPCOMING COMMUNITY OPEN MIC & PAUSE ACTIVATIONS ==================== -->
   <section id="open-mic" class="section-padding" style="background: rgba(240, 236, 225, 0.90); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid rgba(197, 154, 63, 0.25);">
     <div class="container">
+      <div id="neighborElevatedNotice" class="lens-elevated-notice" hidden>
+        <span>🌱 Neighbor Priority Active — Upcoming Open Mic Gatherings &amp; Dec 10 Countdown elevated directly beneath the 3D Community Gallery</span>
+        <button type="button" class="lens-notice-reset" onclick="window.sanctuaryLens && window.sanctuaryLens.set('default', true, false)">Reset Order</button>
+      </div>
       
       <div class="section-header" style="max-width: 860px; margin: 0 auto 20px;">
         <div class="section-subtitle">Get Into Your Element • Community Gathering</div>
@@ -2500,6 +2518,10 @@
   <!-- ==================== INSTITUTIONAL GIVING, GRANTS & CORPORATE PARTNERSHIPS ==================== -->
   <section id="sponsorship" class="section-padding" style="background: rgba(240, 236, 225, 0.90); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid rgba(197, 154, 63, 0.25);">
     <div class="container">
+      <div id="funderElevatedNotice" class="lens-elevated-notice" hidden>
+        <span>🏛️ Grantmaker Priority Active — Partnership Tiers &amp; Grant Impact Simulator elevated directly beneath the 3D Community Gallery</span>
+        <button type="button" class="lens-notice-reset" onclick="window.sanctuaryLens && window.sanctuaryLens.set('default', true, false)">Reset Order</button>
+      </div>
       
       <!-- Luminous Sanctuary Forest Green & Gold Outlined Sponsorship Container -->
       <div class="sponsorship-campaign-wrapper">
@@ -4273,6 +4295,7 @@
     </div>
   </div>
 
+  <script src="js/modules/telemetry-lens.js?v=1.0"></script>
   <script src="js/modules/funder-dossier.js?v=1.0"></script>
 </body>
 </html>

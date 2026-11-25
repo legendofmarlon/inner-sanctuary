@@ -250,8 +250,14 @@
     });
 
     if (nextState) {
-      showFunderToast('🏛️ 30-Sec Funder Quick-View active — compliance, outcomes & grant calculator ready');
+      if (window.sanctuaryLens && typeof window.sanctuaryLens.set === 'function') {
+        window.sanctuaryLens.set('funder', false, false);
+      }
+      showFunderToast('🏛️ 30-Sec Funder Quick-View active — Grants & Simulator elevated below 3D Proof');
     } else {
+      if (window.sanctuaryLens && typeof window.sanctuaryLens.set === 'function') {
+        window.sanctuaryLens.set('default', false, false);
+      }
       showFunderToast('Returned to full community experience');
     }
   };
