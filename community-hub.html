@@ -241,6 +241,220 @@
           </div>
         </div>
 
+        <!-- Interactive Architectural Sanctuary Clubhouse Scene (Each Activity Lights Up Live) -->
+        <div class="clubhouse-blueprint-card" id="clubhouse-blueprint-card" role="region" aria-label="Interactive Sanctuary Clubhouse Scene">
+          <div class="clubhouse-scene-topbar">
+            <span class="clubhouse-scene-badge">🏛️ Interactive Sanctuary Clubhouse • Click or Hover Any Station to Light It Up</span>
+            <span class="clubhouse-scene-status" id="clubhouseSceneStatus">✨ Whole Clubhouse Lit — Hover a wing or card below</span>
+          </div>
+
+          <div class="clubhouse-svg-stage" id="clubhouseSvgStage">
+            <svg class="clubhouse-architectural-svg" viewBox="0 0 1200 430" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustrated cutaway floorplan of the Inner Sanctuary Clubhouse showing Wing 01 Chill and Release Lounge and Wing 02 Vibe and Stage Room">
+              <defs>
+                <linearGradient id="clubhouseWallGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#0E3B2B" />
+                  <stop offset="65%" stop-color="#164A38" />
+                  <stop offset="100%" stop-color="#0B3325" />
+                </linearGradient>
+                <linearGradient id="clubhouseFloorGrad" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#3E2717" />
+                  <stop offset="50%" stop-color="#593923" />
+                  <stop offset="100%" stop-color="#3A2314" />
+                </linearGradient>
+                <linearGradient id="lampBeamGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#FAD277" stop-opacity="0.58" />
+                  <stop offset="65%" stop-color="#FAD277" stop-opacity="0.16" />
+                  <stop offset="100%" stop-color="#FAD277" stop-opacity="0" />
+                </linearGradient>
+                <radialGradient id="orbGlowGrad" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#FFF9D2" />
+                  <stop offset="50%" stop-color="#FAD277" />
+                  <stop offset="100%" stop-color="#D4AF37" stop-opacity="0" />
+                </radialGradient>
+                <radialGradient id="flameGlowGrad" cx="50%" cy="60%" r="55%">
+                  <stop offset="0%" stop-color="#FFF0A8" />
+                  <stop offset="45%" stop-color="#F59E0B" />
+                  <stop offset="100%" stop-color="#DC2626" stop-opacity="0" />
+                </radialGradient>
+                <linearGradient id="skyTwilightGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#072218" />
+                  <stop offset="100%" stop-color="#14533C" />
+                </linearGradient>
+              </defs>
+
+              <!-- Outer Clubhouse Silhouette & Interior Shell -->
+              <rect x="0" y="0" width="1200" height="430" fill="#072218" />
+              <!-- Interior Back Walls -->
+              <polygon points="35,96 600,24 1165,96 1165,356 35,356" fill="url(#clubhouseWallGrad)" stroke="#D4AF37" stroke-width="2.5" />
+              <!-- Cedar Timber Floor -->
+              <polygon points="35,356 1165,356 1190,418 10,418" fill="url(#clubhouseFloorGrad)" stroke="#C59A3F" stroke-width="2" />
+              <line x1="25" y1="382" x2="1175" y2="382" stroke="#2D1B0E" stroke-opacity="0.45" stroke-width="1.5" />
+              <line x1="16" y1="402" x2="1184" y2="402" stroke="#2D1B0E" stroke-opacity="0.45" stroke-width="1.5" />
+
+              <!-- Cedar Roof Beams & Center Wing Arch Divider -->
+              <line x1="600" y1="24" x2="600" y2="356" stroke="#D4AF37" stroke-opacity="0.28" stroke-width="2" stroke-dasharray="6 6" />
+              <line x1="35" y1="96" x2="1165" y2="96" stroke="#6E4726" stroke-width="8" />
+              <polygon points="22,98 600,18 1178,98 1178,86 600,6 22,86" fill="#6E4726" stroke="#D4AF37" stroke-width="1.5" />
+
+              <!-- Wing Architectural Overhead Banners Inside Scene -->
+              <rect x="200" y="54" width="230" height="24" rx="12" fill="#0B3325" stroke="#FAD277" stroke-opacity="0.65" />
+              <text x="315" y="70" text-anchor="middle" fill="#FAD277" font-family="Montserrat, sans-serif" font-size="10.5" font-weight="800" letter-spacing="1.4">WING 01 • CHILL &amp; RELEASE</text>
+              <rect x="815" y="54" width="210" height="24" rx="12" fill="#0B3325" stroke="#FAD277" stroke-opacity="0.65" />
+              <text x="920" y="70" text-anchor="middle" fill="#FAD277" font-family="Montserrat, sans-serif" font-size="10.5" font-weight="800" letter-spacing="1.4">WING 02 • VIBE &amp; STAGE</text>
+
+              <!-- 1. CORNER 01: DAILY SPARKS TABLE -->
+              <g class="clubhouse-svg-zone" data-zone="sparks" role="button" tabindex="0" aria-label="Light up Table 01: Daily Sparks" onclick="window.sanctuaryHubWings.focusClubhouseZone('sparks', { scroll: true })">
+                <polygon class="zone-beam" points="118,96 42,356 205,356" fill="url(#lampBeamGrad)" />
+                <circle class="zone-halo" cx="122" cy="285" r="72" fill="url(#orbGlowGrad)" opacity="0.25" />
+                <line x1="120" y1="96" x2="120" y2="144" stroke="#D4AF37" stroke-width="2" />
+                <polygon points="104,144 136,144 146,162 94,162" fill="#D4AF37" />
+                <ellipse cx="122" cy="368" rx="66" ry="11" fill="#FAF7F0" fill-opacity="0.9" stroke="#C59A3F" stroke-width="1.5" />
+                <rect x="116" y="302" width="12" height="58" fill="#5C3A1E" />
+                <ellipse cx="122" cy="360" rx="22" ry="5" fill="#432813" />
+                <ellipse cx="122" cy="302" rx="48" ry="11" fill="#8B5A2B" stroke="#FAD277" stroke-width="1.5" />
+                <rect x="96" y="286" width="22" height="14" rx="2" transform="rotate(-10 96 286)" fill="#FAF7F0" stroke="#C59A3F" stroke-width="1.2" />
+                <rect x="112" y="283" width="22" height="14" rx="2" transform="rotate(6 112 283)" fill="#FFFDF7" stroke="#D4AF37" stroke-width="1.2" />
+                <circle cx="144" cy="291" r="6" fill="#FAD277" />
+                <rect x="52" y="294" width="28" height="44" rx="8" fill="#1E5D47" stroke="#A7F3D0" stroke-opacity="0.4" />
+                <rect x="48" y="322" width="36" height="24" rx="6" fill="#246B52" />
+                <g class="zone-tag-pill">
+                  <rect x="58" y="388" width="128" height="22" rx="11" fill="#0B3325" stroke="#FAD277" stroke-width="1.2" />
+                  <text x="122" y="403" text-anchor="middle" fill="#FFFDF7" font-family="Montserrat, sans-serif" font-size="10.5" font-weight="700">✨ Sparks Table</text>
+                </g>
+              </g>
+
+              <!-- 2. CORNER 02: PAUSE & BREATHE ALCOVE -->
+              <g class="clubhouse-svg-zone" data-zone="breath" role="button" tabindex="0" aria-label="Light up Corner 02: Pause and Breathe Nook" onclick="window.sanctuaryHubWings.focusClubhouseZone('breath', { scroll: true })">
+                <polygon class="zone-beam" points="282,96 205,356 365,356" fill="url(#lampBeamGrad)" />
+                <path d="M236,276 L236,166 A48,48 0 0,1 332,166 L332,276 Z" fill="url(#skyTwilightGrad)" stroke="#D4AF37" stroke-width="3" />
+                <line x1="284" y1="118" x2="284" y2="276" stroke="#D4AF37" stroke-width="1.5" stroke-opacity="0.65" />
+                <line x1="236" y1="204" x2="332" y2="204" stroke="#D4AF37" stroke-width="1.5" stroke-opacity="0.65" />
+                <circle cx="260" cy="156" r="2" fill="#FAD277" />
+                <circle cx="308" cy="146" r="2.5" fill="#FFFDF7" />
+                <ellipse cx="284" cy="364" rx="58" ry="12" fill="#FAF7F0" stroke="#2E8B6E" stroke-width="2" />
+                <ellipse cx="284" cy="355" rx="34" ry="9" fill="#1B6148" stroke="#FAD277" stroke-width="1.5" />
+                <circle class="zone-halo clubhouse-orb-beacon" cx="284" cy="272" r="46" fill="url(#orbGlowGrad)" opacity="0.65" />
+                <circle class="clubhouse-orb-beacon" cx="284" cy="272" r="22" fill="#FAD277" stroke="#FFFDF7" stroke-width="2" />
+                <text x="284" y="275" text-anchor="middle" fill="#0B3325" font-family="Cinzel, serif" font-size="8" font-weight="800">BREATHE</text>
+                <g class="zone-tag-pill">
+                  <rect x="220" y="388" width="128" height="22" rx="11" fill="#0B3325" stroke="#FAD277" stroke-width="1.2" />
+                  <text x="284" y="403" text-anchor="middle" fill="#FFFDF7" font-family="Montserrat, sans-serif" font-size="10.5" font-weight="700">🕊️ Breath Nook</text>
+                </g>
+              </g>
+
+              <!-- 3. WORKTABLE 03: BRACELET BENCH -->
+              <g class="clubhouse-svg-zone" data-zone="bracelet" role="button" tabindex="0" aria-label="Light up Worktable 03: Bracelet Bench" onclick="window.sanctuaryHubWings.focusClubhouseZone('bracelet', { scroll: true })">
+                <polygon class="zone-beam" points="444,96 376,356 516,356" fill="url(#lampBeamGrad)" />
+                <circle class="zone-halo" cx="446" cy="296" r="64" fill="url(#orbGlowGrad)" opacity="0.28" />
+                <line x1="446" y1="96" x2="446" y2="146" stroke="#D4AF37" stroke-width="2" />
+                <polygon points="428,146 464,146 472,162 420,162" fill="#D4AF37" />
+                <rect x="386" y="308" width="120" height="12" rx="4" fill="#9A6838" stroke="#FAD277" stroke-width="1.4" />
+                <rect x="396" y="320" width="10" height="44" fill="#6E4726" />
+                <rect x="486" y="320" width="10" height="44" fill="#6E4726" />
+                <circle cx="410" cy="298" r="8" fill="#8B5A2B" stroke="#FAD277" stroke-width="1" />
+                <circle cx="430" cy="298" r="8" fill="#F4C2C2" stroke="#FFFDF7" stroke-width="1" />
+                <circle cx="450" cy="298" r="8" fill="#2E7D73" stroke="#A7F3D0" stroke-width="1" />
+                <circle cx="470" cy="298" r="8" fill="#FFD700" stroke="#FFFDF7" stroke-width="1" />
+                <circle cx="490" cy="298" r="8" fill="#4A704A" stroke="#A7F3D0" stroke-width="1" />
+                <g class="zone-tag-pill">
+                  <rect x="380" y="388" width="132" height="22" rx="11" fill="#0B3325" stroke="#FAD277" stroke-width="1.2" />
+                  <text x="446" y="403" text-anchor="middle" fill="#FFFDF7" font-family="Montserrat, sans-serif" font-size="10.5" font-weight="700">📿 Bracelet Bench</text>
+                </g>
+              </g>
+
+              <!-- 4. CORNER 04: ZEN PLINKO BOARD -->
+              <g class="clubhouse-svg-zone" data-zone="plinko" role="button" tabindex="0" aria-label="Light up Corner 04: Drop a Seed Plinko Board" onclick="window.sanctuaryHubWings.focusClubhouseZone('plinko', { scroll: true })">
+                <polygon class="zone-beam" points="562,96 510,356 616,356" fill="url(#lampBeamGrad)" />
+                <circle class="zone-halo" cx="562" cy="236" r="68" fill="url(#orbGlowGrad)" opacity="0.28" />
+                <rect x="524" y="152" width="76" height="190" rx="10" fill="#0E3B2B" stroke="#FAD277" stroke-width="2.5" />
+                <circle cx="544" cy="184" r="3" fill="#FAD277" />
+                <circle cx="562" cy="184" r="3" fill="#FAD277" />
+                <circle cx="580" cy="184" r="3" fill="#FAD277" />
+                <circle cx="553" cy="208" r="3" fill="#FAD277" />
+                <circle cx="571" cy="208" r="3" fill="#FAD277" />
+                <circle cx="544" cy="232" r="3" fill="#FAD277" />
+                <circle cx="562" cy="232" r="3" fill="#FAD277" />
+                <circle cx="580" cy="232" r="3" fill="#FAD277" />
+                <circle cx="562" cy="258" r="6" fill="#FFD700" stroke="#FFFDF7" stroke-width="1.4" />
+                <rect x="530" y="312" width="64" height="22" rx="4" fill="#1B6148" stroke="#FAD277" stroke-width="1" />
+                <g class="zone-tag-pill">
+                  <rect x="518" y="388" width="90" height="22" rx="11" fill="#0B3325" stroke="#FAD277" stroke-width="1.2" />
+                  <text x="563" y="403" text-anchor="middle" fill="#FFFDF7" font-family="Montserrat, sans-serif" font-size="10.5" font-weight="700">🎯 Plinko</text>
+                </g>
+              </g>
+
+              <!-- 5. FIRESIDE 05: THE HEARTH MIRROR FIREPLACE -->
+              <g class="clubhouse-svg-zone" data-zone="hearth" role="button" tabindex="0" aria-label="Light up Fireside 05: Hearth Mirror Fireplace" onclick="window.sanctuaryHubWings.focusClubhouseZone('hearth', { scroll: true })">
+                <polygon class="zone-beam" points="702,96 626,356 778,356" fill="url(#lampBeamGrad)" />
+                <rect x="652" y="102" width="100" height="254" rx="4" fill="#123A2B" stroke="#C59A3F" stroke-width="2" />
+                <ellipse cx="702" cy="186" rx="28" ry="36" fill="#0B3325" stroke="#FAD277" stroke-width="3.5" />
+                <ellipse cx="702" cy="186" rx="20" ry="27" fill="#245E45" opacity="0.65" />
+                <rect x="642" y="256" width="120" height="12" rx="3" fill="#6E4726" stroke="#D4AF37" stroke-width="1.5" />
+                <path d="M668,356 L668,300 A34,34 0 0,1 736,300 L736,356 Z" fill="#071B13" stroke="#D4AF37" stroke-width="2" />
+                <circle class="zone-halo" cx="702" cy="322" r="54" fill="url(#flameGlowGrad)" opacity="0.85" />
+                <path class="clubhouse-hearth-flame" d="M702,296 C714,316 718,334 702,346 C686,334 690,316 702,296 Z" fill="#F59E0B" />
+                <path class="clubhouse-hearth-flame" d="M702,312 C709,324 711,336 702,344 C693,336 695,324 702,312 Z" fill="#FEF08A" />
+                <g class="zone-tag-pill">
+                  <rect x="634" y="388" width="136" height="22" rx="11" fill="#0B3325" stroke="#FAD277" stroke-width="1.2" />
+                  <text x="702" y="403" text-anchor="middle" fill="#FFFDF7" font-family="Montserrat, sans-serif" font-size="10.5" font-weight="700">🔥 Hearth Fireside</text>
+                </g>
+              </g>
+
+              <!-- 6. MAIN STAGE: OPEN MIC, ACOUSTIC GUITAR & KEEPSAKE WALL -->
+              <g class="clubhouse-svg-zone" data-zone="stage" role="button" tabindex="0" aria-label="Light up Main Stage: Open Mic Timer and Acoustic Chords" onclick="window.sanctuaryHubWings.focusClubhouseZone('stage', { scroll: true })">
+                <polygon class="zone-beam" points="894,96 792,356 998,356" fill="url(#lampBeamGrad)" />
+                <circle class="zone-halo" cx="894" cy="276" r="88" fill="url(#orbGlowGrad)" opacity="0.32" />
+                <rect x="818" y="140" width="38" height="48" rx="3" fill="#FAF7F0" stroke="#D4AF37" stroke-width="2" />
+                <rect x="875" y="132" width="46" height="54" rx="3" fill="#164A38" stroke="#FAD277" stroke-width="2" />
+                <rect x="938" y="140" width="38" height="48" rx="3" fill="#FAF7F0" stroke="#D4AF37" stroke-width="2" />
+                <rect x="804" y="336" width="182" height="20" rx="3" fill="#7A4C2A" stroke="#FAD277" stroke-width="1.6" />
+                <ellipse cx="894" cy="336" rx="70" ry="8" fill="#164A38" stroke="#FAD277" stroke-width="1.2" />
+                <line x1="894" y1="242" x2="894" y2="334" stroke="#E2E8F0" stroke-width="2.2" />
+                <circle cx="894" cy="238" r="6" fill="#FAD277" />
+                <ellipse cx="848" cy="306" rx="14" ry="18" fill="#B45309" stroke="#FAD277" stroke-width="1.4" />
+                <rect x="845" y="256" width="6" height="36" fill="#6E4726" />
+                <polygon points="932,334 948,334 953,298 927,298" fill="#8B5A2B" stroke="#FAD277" stroke-width="1.3" />
+                <g class="zone-tag-pill">
+                  <rect x="822" y="388" width="144" height="22" rx="11" fill="#0B3325" stroke="#FAD277" stroke-width="1.2" />
+                  <text x="894" y="403" text-anchor="middle" fill="#FFFDF7" font-family="Montserrat, sans-serif" font-size="10.5" font-weight="700">🎤 Open Mic Stage</text>
+                </g>
+              </g>
+
+              <!-- 7. BOOTH & DOOR: THROWBACKS VINYL & SECRET GREENROOM -->
+              <g class="clubhouse-svg-zone" data-zone="vinyl" role="button" tabindex="0" aria-label="Light up Midnight Vinyl Booth and Secret Greenroom Door" onclick="window.sanctuaryHubWings.focusClubhouseZone('vinyl', { scroll: true })">
+                <polygon class="zone-beam" points="1078,96 1002,356 1154,356" fill="url(#lampBeamGrad)" />
+                <circle class="zone-halo" cx="1078" cy="272" r="76" fill="url(#orbGlowGrad)" opacity="0.32" />
+                <rect x="1010" y="288" width="64" height="68" rx="4" fill="#5C3A1E" stroke="#D4AF37" stroke-width="1.8" />
+                <g class="clubhouse-vinyl-spinner">
+                  <circle cx="1042" cy="284" r="18" fill="#0A1410" stroke="#FAD277" stroke-width="1.4" />
+                  <circle cx="1042" cy="284" r="6" fill="#D4AF37" />
+                  <line x1="1042" y1="268" x2="1042" y2="274" stroke="#FFFDF7" stroke-width="1.5" />
+                </g>
+                <path d="M1090,356 L1090,214 A28,28 0 0,1 1146,214 L1146,356 Z" fill="#0A2E21" stroke="#FAD277" stroke-width="2.5" />
+                <circle cx="1118" cy="264" r="11" fill="#164A38" stroke="#FAD277" stroke-width="2" />
+                <text x="1118" y="268" text-anchor="middle" fill="#FAD277" font-family="Cinzel, serif" font-size="9" font-weight="800">✦</text>
+                <g class="zone-tag-pill">
+                  <rect x="1008" y="388" width="142" height="22" rx="11" fill="#0B3325" stroke="#FAD277" stroke-width="1.2" />
+                  <text x="1079" y="403" text-anchor="middle" fill="#FFFDF7" font-family="Montserrat, sans-serif" font-size="10.5" font-weight="700">💽 Vinyl &amp; Greenroom</text>
+                </g>
+              </g>
+            </svg>
+          </div>
+
+          <div class="clubhouse-hotspot-bar">
+            <div class="clubhouse-hotspot-pills" role="group" aria-label="Light up activity zone in Clubhouse">
+              <button type="button" class="clubhouse-zone-chip" data-chip-zone="sparks" onclick="window.sanctuaryHubWings.focusClubhouseZone('sparks', { scroll: true })">✨ Sparks</button>
+              <button type="button" class="clubhouse-zone-chip" data-chip-zone="breath" onclick="window.sanctuaryHubWings.focusClubhouseZone('breath', { scroll: true })">🕊️ Breath Nook</button>
+              <button type="button" class="clubhouse-zone-chip" data-chip-zone="bracelet" onclick="window.sanctuaryHubWings.focusClubhouseZone('bracelet', { scroll: true })">📿 Bracelets</button>
+              <button type="button" class="clubhouse-zone-chip" data-chip-zone="plinko" onclick="window.sanctuaryHubWings.focusClubhouseZone('plinko', { scroll: true })">🎯 Plinko</button>
+              <button type="button" class="clubhouse-zone-chip" data-chip-zone="hearth" onclick="window.sanctuaryHubWings.focusClubhouseZone('hearth', { scroll: true })">🔥 Fireside</button>
+              <button type="button" class="clubhouse-zone-chip" data-chip-zone="stage" onclick="window.sanctuaryHubWings.focusClubhouseZone('stage', { scroll: true })">🎤 Open Mic</button>
+              <button type="button" class="clubhouse-zone-chip" data-chip-zone="vinyl" onclick="window.sanctuaryHubWings.focusClubhouseZone('vinyl', { scroll: true })">💽 Vinyl &amp; Vault</button>
+            </div>
+            <button type="button" id="btnResetClubhouseLights" class="clubhouse-zone-chip" onclick="window.sanctuaryHubWings.clearClubhouseLights()">✦ All Lights On</button>
+          </div>
+        </div>
+
         <!-- Continuous Living Room Ambient Audio & Vinyl Lounge Dock -->
         <div class="hub-living-audio-bar" id="hubLivingAudioBar" role="region" aria-label="Living Room Ambient Sound Controls">
           <div class="hub-audio-meta">
@@ -280,7 +494,7 @@
 
         <div class="clubhouse-room-grid">
           <!-- Corner 01: Daily Sanctuary Spark Table -->
-          <div class="clubhouse-station-card">
+          <div class="clubhouse-station-card" data-clubhouse-zone="sparks">
             <span class="clubhouse-station-plaque">✨ Table 01 • Daily Sparks</span>
             <div class="sanctuary-reflection-widget" id="sanctuary-reflection">
               <div class="reflection-widget-header">
@@ -341,7 +555,7 @@
           </div>
 
           <!-- Corner 02: Living Breath Orb & Sacred Labyrinth Nook -->
-          <div id="breath" class="clubhouse-station-card">
+          <div id="breath" class="clubhouse-station-card" data-clubhouse-zone="breath">
             <span class="clubhouse-station-plaque">🕊️ Corner 02 • Breath &amp; Labyrinth Nook</span>
             <div style="text-align: center; display: flex; flex-direction: column; height: 100%; justify-content: space-between;">
               <div class="section-header" style="margin: 0 auto 10px; text-align: center;">
@@ -399,7 +613,7 @@
           </div>
 
           <!-- Worktable 03: Digital Intention Bracelet Workbench -->
-          <div class="clubhouse-station-card">
+          <div class="clubhouse-station-card" data-clubhouse-zone="bracelet">
             <span class="clubhouse-station-plaque">📿 Worktable 03 • Bracelet Bench</span>
             <div class="digital-bracelet-creator" id="bracelet-creator">
               <div class="bracelet-header">
@@ -464,7 +678,7 @@
           </div>
 
           <!-- Corner 04: Zen Plinko Seed Blessing -->
-          <div class="clubhouse-station-card clubhouse-station-card--dark">
+          <div class="clubhouse-station-card clubhouse-station-card--dark" data-clubhouse-zone="plinko">
             <span class="clubhouse-station-plaque">🎯 Corner 04 • Drop-a-Seed Plinko</span>
             <div id="zen-plinko" class="zen-plinko-wrapper">
               <div style="text-align: center; position: relative; z-index: 2; margin-bottom: 16px;">
@@ -551,7 +765,7 @@
           </div>
 
           <!-- Fireside 05: The Hearth Mirror Fireplace & Neighbor Check-In Ledger -->
-          <div class="clubhouse-station-card clubhouse-station-card--dark clubhouse-station-card--wide">
+          <div class="clubhouse-station-card clubhouse-station-card--dark clubhouse-station-card--wide" data-clubhouse-zone="hearth">
             <span class="clubhouse-station-plaque">🔥 Fireside 05 • Hearth Mirror &amp; Neighbor Check-In</span>
             <div class="hearth-mirror-card" id="hearth-mirror-portal" style="color: #FFFDF7; text-align: center; position: relative;">
               <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(250, 210, 119, 0.18); border: 1px solid rgba(250, 210, 119, 0.45); padding: 5px 14px; border-radius: 999px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; color: #FAD277; text-transform: uppercase; margin-bottom: 14px;">
@@ -645,7 +859,7 @@
 
         <div class="clubhouse-room-grid">
           <!-- Stage & Unplugged Jam Prep Lounge -->
-          <div id="stage-lounge" class="clubhouse-station-card clubhouse-station-card--dark clubhouse-station-card--wide">
+          <div id="stage-lounge" class="clubhouse-station-card clubhouse-station-card--dark clubhouse-station-card--wide" data-clubhouse-zone="stage">
             <span class="clubhouse-station-plaque">🎤 Main Stage • Timer, Chords &amp; Throwbacks Vinyl</span>
             <div class="stage-lounge-card">
               <div class="stage-lounge-header">
@@ -737,7 +951,7 @@
           </div>
 
           <!-- Backstage Door: Secret Speakeasy & Raffle Vault -->
-          <div id="greenroom-vault" class="clubhouse-station-card clubhouse-station-card--dark clubhouse-station-card--wide">
+          <div id="greenroom-vault" class="clubhouse-station-card clubhouse-station-card--dark clubhouse-station-card--wide" data-clubhouse-zone="vinyl">
             <span class="clubhouse-station-plaque">🗝️ Backstage Door • Secret Greenroom &amp; Raffle Vault</span>
             <div class="speakeasy-hearth-invite-card" id="community-raffle-wheel" data-alias="community-pulse-wall" aria-label="Inner Sanctuary Secret Speakeasy Raffle Wheel" style="max-width: 100%; margin: 0;">
               <div class="speakeasy-invite-halo"></div>
@@ -759,7 +973,7 @@
           </div>
 
           <!-- Clubhouse Pinboard Wall: Botanical Keepsakes & Wallpapers -->
-          <div id="hub-keepsakes" class="clubhouse-station-card clubhouse-station-card--wide">
+          <div id="hub-keepsakes" class="clubhouse-station-card clubhouse-station-card--wide" data-clubhouse-zone="stage">
             <span class="clubhouse-station-plaque">🖼️ Clubhouse Wall • Keepsakes, Backdrops &amp; Stage Loop</span>
             <div class="section-header" style="max-width: 720px; margin: 0 auto 24px; text-align: center;">
               <div class="section-subtitle" style="color: #8C6D23; font-weight: 700; letter-spacing: 0.12em;">Carry Calm Everywhere • Dec 10 Visual Kit</div>

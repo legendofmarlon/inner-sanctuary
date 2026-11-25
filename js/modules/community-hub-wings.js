@@ -637,10 +637,88 @@
     setInterval(renderNext, 7000);
   }
 
+  const CLUBHOUSE_ZONES = {
+    sparks: { wing: 'release', targetId: 'sanctuary-reflection', label: 'Table 01 • Daily Sparks' },
+    breath: { wing: 'release', targetId: 'breath', label: 'Corner 02 • Pause & Breathe Nook' },
+    bracelet: { wing: 'release', targetId: 'bracelet-creator', label: 'Worktable 03 • Intention Bracelets' },
+    plinko: { wing: 'release', targetId: 'zen-plinko', label: 'Corner 04 • Drop-a-Seed Plinko' },
+    hearth: { wing: 'release', targetId: 'hearth-mirror-portal', label: 'Fireside 05 • Hearth Mirror & Check-In' },
+    stage: { wing: 'stage', targetId: 'stage-lounge', label: 'Main Stage • Timer, Chords & Keepsakes' },
+    vinyl: { wing: 'stage', targetId: 'throwbacks-lounge', label: 'Booth & Door • Midnight Vinyl & Secret Greenroom' }
+  };
+
+  function focusClubhouseZone(zoneKey, opts) {
+    const info = CLUBHOUSE_ZONES[zoneKey];
+    if (!info) return;
+    const options = opts || {};
+    const stageEl = document.getElementById('clubhouseSvgStage');
+    const statusEl = document.getElementById('clubhouseSceneStatus');
+
+    if (stageEl) stageEl.classList.add('has-active-zone');
+    document.querySelectorAll('.clubhouse-svg-zone').forEach((g) => {
+      g.classList.toggle('is-lit', g.getAttribute('data-zone') === zoneKey);
+    });
+    document.querySelectorAll('.clubhouse-zone-chip[data-chip-zone]').forEach((chip) => {
+      chip.classList.toggle('is-lit', chip.getAttribute('data-chip-zone') === zoneKey);
+    });
+    document.querySelectorAll('.clubhouse-station-card[data-clubhouse-zone]').forEach((card) => {
+      card.classList.toggle('is-clubhouse-lit', card.getAttribute('data-clubhouse-zone') === zoneKey);
+    });
+
+    if (statusEl) {
+      statusEl.textContent = `✨ Lit in Clubhouse: ${info.label}`;
+    }
+
+    if (options.scroll) {
+      if (activeWing !== 'all' && activeWing !== info.wing) {
+        filterWing(info.wing);
+      }
+      const target = document.getElementById(info.targetId);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+  }
+
+  function clearClubhouseLights() {
+    const stageEl = document.getElementById('clubhouseSvgStage');
+    const statusEl = document.getElementById('clubhouseSceneStatus');
+    if (stageEl) stageEl.classList.remove('has-active-zone');
+    document.querySelectorAll('.clubhouse-svg-zone').forEach((g) => g.classList.remove('is-lit'));
+    document.querySelectorAll('.clubhouse-zone-chip').forEach((c) => c.classList.remove('is-lit'));
+    document.querySelectorAll('.clubhouse-station-card').forEach((card) => card.classList.remove('is-clubhouse-lit'));
+    if (statusEl) {
+      statusEl.textContent = '✨ Whole Clubhouse Lit — Hover a wing or card below';
+    }
+  }
+
+  function bindClubhouseZoneListeners() {
+    document.querySelectorAll('.clubhouse-svg-zone').forEach((zoneEl) => {
+      const key = zoneEl.getAttribute('data-zone');
+      zoneEl.addEventListener('mouseenter', () => focusClubhouseZone(key));
+      zoneEl.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          focusClubhouseZone(key, { scroll: true });
+        }
+      });
+    });
+
+    document.querySelectorAll('.clubhouse-station-card[data-clubhouse-zone]').forEach((cardEl) => {
+      const key = cardEl.getAttribute('data-clubhouse-zone');
+      const activate = () => focusClubhouseZone(key);
+      cardEl.addEventListener('mouseenter', activate);
+      cardEl.addEventListener('focusin', activate);
+      cardEl.addEventListener('click', activate);
+    });
+  }
+
   // Expose cleanly on shared Sanctuary namespace
   window.sanctuaryHubWings = {
     filterWing,
     revealWingForTarget,
+    focusClubhouseZone,
+    clearClubhouseLights,
     setStagePreset,
     toggleStageTimer,
     resetStageTimer,
@@ -660,6 +738,7 @@
     renderStageTimer();
     renderLedgerCount();
     startLanternWhisperLoop();
+    bindClubhouseZoneListeners();
 
     // Sync nav links & in-page anchor clicks cleanly with Wing visibility
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {

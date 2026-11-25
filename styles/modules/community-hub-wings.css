@@ -819,3 +819,207 @@
     padding: 20px 16px;
   }
 }
+
+/* =========================================================================
+   INTERACTIVE ARCHITECTURAL SANCTUARY CLUBHOUSE SCENE (LIGHT-UP WINGS)
+   ========================================================================= */
+.clubhouse-blueprint-card {
+  max-width: 1020px;
+  margin: 18px auto 0;
+  background: radial-gradient(circle at 50% 0%, rgba(16, 66, 48, 0.98) 0%, rgba(8, 36, 25, 0.99) 100%);
+  border: 2px solid rgba(250, 210, 119, 0.62);
+  border-radius: 24px;
+  padding: 18px 18px 16px;
+  box-shadow: 0 22px 54px rgba(4, 18, 12, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  color: #FFFDF7;
+}
+
+.clubhouse-scene-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.clubhouse-scene-badge {
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #FAD277;
+}
+
+.clubhouse-scene-status {
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: #A7F3D0;
+  background: rgba(7, 34, 24, 0.88);
+  border: 1px solid rgba(46, 139, 110, 0.6);
+  padding: 5px 12px;
+  border-radius: 999px;
+}
+
+.clubhouse-svg-stage {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1.5px solid rgba(250, 210, 119, 0.35);
+  background: #072218;
+}
+
+.clubhouse-architectural-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
+}
+
+.clubhouse-svg-zone {
+  cursor: pointer;
+  transition: opacity 0.35s ease, filter 0.35s ease, transform 0.35s ease;
+  outline: none;
+}
+
+.clubhouse-svg-zone .zone-beam,
+.clubhouse-svg-zone .zone-halo {
+  opacity: 0.24;
+  transition: opacity 0.35s ease, filter 0.35s ease;
+  pointer-events: none;
+}
+
+.clubhouse-svg-zone .zone-tag-pill {
+  opacity: 0.88;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* When a zone is highlighted, gently dim peers and illuminate active corner */
+.clubhouse-svg-stage.has-active-zone .clubhouse-svg-zone:not(.is-lit) {
+  opacity: 0.52;
+}
+
+.clubhouse-svg-zone.is-lit,
+.clubhouse-svg-zone:hover,
+.clubhouse-svg-zone:focus-visible {
+  opacity: 1 !important;
+  filter: drop-shadow(0 0 14px rgba(250, 210, 119, 0.52));
+}
+
+.clubhouse-svg-zone.is-lit .zone-beam,
+.clubhouse-svg-zone:hover .zone-beam,
+.clubhouse-svg-zone:focus-visible .zone-beam {
+  opacity: 0.92;
+}
+
+.clubhouse-svg-zone.is-lit .zone-halo,
+.clubhouse-svg-zone:hover .zone-halo,
+.clubhouse-svg-zone:focus-visible .zone-halo {
+  opacity: 1;
+}
+
+.clubhouse-svg-zone.is-lit .zone-tag-pill,
+.clubhouse-svg-zone:hover .zone-tag-pill {
+  opacity: 1;
+}
+
+/* Ambient interior animations inside Clubhouse illustration */
+.clubhouse-hearth-flame {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: clubhouseFlameFlicker 2.8s ease-in-out infinite alternate;
+}
+
+.clubhouse-orb-beacon {
+  transform-box: fill-box;
+  transform-origin: center center;
+  animation: clubhouseOrbFloat 4.2s ease-in-out infinite;
+}
+
+.clubhouse-vinyl-spinner {
+  transform-box: fill-box;
+  transform-origin: center center;
+  animation: clubhouseVinylSpin 7s linear infinite;
+}
+
+@keyframes clubhouseFlameFlicker {
+  0% { transform: scaleY(0.95) scaleX(0.98); opacity: 0.88; }
+  50% { transform: scaleY(1.06) scaleX(1.03); opacity: 1; }
+  100% { transform: scaleY(0.98) scaleX(1.0); opacity: 0.92; }
+}
+
+@keyframes clubhouseOrbFloat {
+  0%, 100% { transform: scale(0.97) translateY(0); }
+  50% { transform: scale(1.05) translateY(-3px); }
+}
+
+@keyframes clubhouseVinylSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Clubhouse Quick Legend Chips & Light-Up Station Cards Below */
+.clubhouse-hotspot-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.clubhouse-hotspot-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.clubhouse-zone-chip {
+  background: rgba(7, 34, 24, 0.85);
+  border: 1px solid rgba(250, 210, 119, 0.4);
+  color: #E6F2EB;
+  padding: 5px 11px;
+  border-radius: 999px;
+  font-family: var(--font-sans);
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.clubhouse-zone-chip:hover,
+.clubhouse-zone-chip.is-lit {
+  background: linear-gradient(135deg, #FAD277 0%, #D9A23D 100%);
+  color: #0B3325;
+  border-color: #FFFDF7;
+  box-shadow: 0 4px 14px rgba(250, 210, 119, 0.45);
+}
+
+/* Lit Station Card Glow Sync */
+.clubhouse-station-card {
+  transition: box-shadow 0.35s ease, border-color 0.35s ease, transform 0.35s ease;
+}
+
+.clubhouse-station-card.is-clubhouse-lit {
+  border-color: #FAD277 !important;
+  box-shadow: 0 0 0 3px rgba(250, 210, 119, 0.45), 0 22px 54px rgba(250, 210, 119, 0.25) !important;
+  transform: translateY(-2px);
+}
+
+.clubhouse-station-card.is-clubhouse-lit .clubhouse-station-plaque {
+  background: linear-gradient(135deg, #FAD277 0%, #D9A23D 100%);
+  color: #0B3325;
+  border-color: #FFFDF7;
+}
+
+@media (max-width: 720px) {
+  .clubhouse-blueprint-card {
+    padding: 12px 10px;
+  }
+  .clubhouse-hotspot-bar {
+    justify-content: center;
+  }
+  .clubhouse-hotspot-pills {
+    justify-content: center;
+  }
+}
