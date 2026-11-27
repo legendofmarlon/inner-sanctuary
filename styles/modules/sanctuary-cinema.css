@@ -720,12 +720,208 @@ body[data-element="ether"] .cinema-theater-stage {
   --theater-glow: rgba(168, 85, 247, 0.24);
 }
 
-.cinema-theater-canvas {
+/* Full-Bleed Photography Slideshow Backdrop Engine */
+.cinema-theater-slides {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: #050E09;
+}
+
+.cinema-theater-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1.6s cubic-bezier(0.25, 1, 0.5, 1), visibility 1.6s ease;
+  will-change: opacity, transform;
+}
+
+.cinema-theater-slide.active {
+  opacity: 1;
+  visibility: visible;
+  z-index: 1;
+}
+
+.theater-slide-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 38%;
+  display: block;
+  transform: scale(1.0);
+  will-change: transform;
+}
+
+.cinema-theater-slide.active .theater-slide-img.ken-burns-1 {
+  animation: theaterKenBurns1 16s cubic-bezier(0.25, 1, 0.5, 1) infinite alternate;
+}
+
+.cinema-theater-slide.active .theater-slide-img.ken-burns-2 {
+  animation: theaterKenBurns2 18s cubic-bezier(0.25, 1, 0.5, 1) infinite alternate;
+}
+
+@keyframes theaterKenBurns1 {
+  0% { transform: scale(1.0) translate3d(0, 0, 0); }
+  100% { transform: scale(1.08) translate3d(-1.8%, -1.2%, 0); }
+}
+
+@keyframes theaterKenBurns2 {
+  0% { transform: scale(1.08) translate3d(1.5%, 0.8%, 0); }
+  100% { transform: scale(1.0) translate3d(-0.8%, -0.5%, 0); }
+}
+
+/* Dual-Layer Filmic Vignette & Contrast Gradients */
+.theater-slide-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 50% 45%, rgba(4, 13, 9, 0.38) 0%, rgba(3, 10, 7, 0.76) 72%, rgba(2, 6, 4, 0.94) 100%),
+    linear-gradient(180deg, rgba(3, 8, 5, 0.72) 0%, transparent 22%, transparent 74%, rgba(2, 6, 4, 0.92) 100%);
+}
+
+/* Top Subtle Progress Indicator */
+.theater-slide-progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 6;
+  background: rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+}
+
+.theater-slide-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #D4AF37 0%, #F5D77F 60%, #86EFAC 100%);
+  box-shadow: 0 0 10px rgba(245, 215, 127, 0.7);
+  transition: width 0.4s ease;
+}
+
+/* Bottom-Left Persistent Story Caption */
+.theater-story-caption {
+  position: absolute;
+  bottom: 86px;
+  left: 24px;
+  z-index: 4;
+  pointer-events: none;
+  max-width: 440px;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.theater-caption-tag {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #F8D98C;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+  margin-bottom: 2px;
+}
+
+.theater-caption-title {
+  display: block;
+  font-family: var(--font-serif, 'Fraunces', serif);
+  font-size: clamp(0.98rem, 1.6vw, 1.2rem);
+  font-weight: 700;
+  color: #FFFDF7;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.95);
+  line-height: 1.32;
+}
+
+/* Visual Chapters Thumbnail Drawer */
+.theater-chapters-drawer {
+  position: absolute;
+  bottom: 84px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 6;
+  width: calc(100% - 32px);
+  max-width: 960px;
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 12px 14px;
+  border-radius: 20px;
+  background: rgba(7, 18, 13, 0.92);
+  border: 1.5px solid rgba(245, 215, 127, 0.42);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0 22px 56px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 244, 214, 0.18);
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(245, 215, 127, 0.3) transparent;
+}
+
+.theater-chapter-chip {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 6px 12px 6px 6px;
+  border-radius: 13px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(245, 215, 127, 0.22);
+  cursor: pointer;
+  flex-shrink: 0;
+  text-align: left;
+  transition: all 0.22s ease;
+  font-family: inherit;
+}
+
+.theater-chapter-chip:hover,
+.theater-chapter-chip.active {
+  background: rgba(197, 154, 63, 0.28);
+  border-color: #FCE6A2;
+  box-shadow: 0 0 16px rgba(245, 215, 127, 0.32);
+}
+
+.theater-chapter-thumb {
+  width: 44px;
+  height: 44px;
+  border-radius: 9px;
+  object-fit: cover;
+  border: 1px solid rgba(245, 215, 127, 0.35);
+}
+
+.theater-chapter-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.theater-chapter-tag {
+  font-size: 0.62rem;
+  font-weight: 800;
+  color: #F8D98C;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.theater-chapter-name {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: #FFFDF7;
+  max-width: 140px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cinema-theater-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
   pointer-events: none;
 }
 
@@ -1286,11 +1482,11 @@ body.cinema-theater-idle:not(.cinema-theater-typing) .cinema-theater-top-hud {
   gap: 7px;
   padding: 9px 14px;
   border-radius: 999px;
-  background: rgba(8, 22, 15, 0.84);
+  background: rgba(8, 22, 15, 0.88);
   border: 1.5px solid rgba(245, 215, 127, 0.45);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 244, 214, 0.16);
   transition: opacity 0.4s ease;
 }
 
@@ -1301,8 +1497,14 @@ body.cinema-theater-idle:not(.cinema-theater-typing) .cinema-theater-top-hud {
   margin: 0 2px;
 }
 
+.cinema-dock-nav-pair {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
 .cinema-theater-chip {
-  padding: 6px 11px;
+  padding: 6px 12px;
   border-radius: 999px;
   border: 1px solid rgba(245, 215, 127, 0.26);
   background: rgba(255, 255, 255, 0.06);
@@ -1311,6 +1513,45 @@ body.cinema-theater-idle:not(.cinema-theater-typing) .cinema-theater-top-hud {
   font-weight: 700;
   cursor: pointer;
   transition: all 0.2s ease;
+  font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.cinema-theater-arrow {
+  padding: 5px 10px;
+  font-size: 0.88rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.theater-chip-gold {
+  background: rgba(197, 154, 63, 0.24);
+  border-color: rgba(245, 215, 127, 0.55);
+  color: #FFFDF7;
+}
+
+.theater-chip-gold:hover,
+.theater-chip-gold.active {
+  background: linear-gradient(135deg, #C59A3F 0%, #9E741E 100%);
+  color: #FFFFFF;
+  border-color: #FCE6A2;
+  box-shadow: 0 0 16px rgba(245, 215, 127, 0.4);
+}
+
+.theater-chip-breath {
+  background: rgba(22, 101, 52, 0.38);
+  border-color: rgba(134, 239, 172, 0.55);
+  color: #BBF7D0;
+}
+
+.theater-chip-breath:hover,
+.theater-chip-breath.active {
+  background: rgba(22, 163, 74, 0.65);
+  color: #FFFFFF;
+  border-color: #86EFAC;
+  box-shadow: 0 0 16px rgba(134, 239, 172, 0.45);
 }
 
 .cinema-theater-chip:hover,
@@ -1345,10 +1586,39 @@ body.cinema-theater-idle:not(.cinema-theater-typing) .cinema-theater-top-hud {
   .theater-hud-pill,
   .theater-hud-btn,
   .cinema-theater-dock,
-  .theater-pop-window {
+  .theater-pop-window,
+  .theater-chapters-drawer {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
-    background: rgba(8, 21, 15, 0.94);
+    background: rgba(8, 21, 15, 0.95);
+  }
+  .theater-chapters-drawer {
+    bottom: 66px;
+    width: calc(100% - 16px);
+    padding: 8px 10px;
+    border-radius: 16px;
+    gap: 8px;
+  }
+  .theater-chapter-chip {
+    padding: 4px 9px 4px 4px;
+    gap: 7px;
+  }
+  .theater-chapter-thumb {
+    width: 38px;
+    height: 38px;
+  }
+  .theater-chapter-name {
+    max-width: 110px;
+    font-size: 0.72rem;
+  }
+  .theater-story-caption {
+    bottom: 62px;
+    left: 12px;
+    max-width: calc(100% - 24px);
+  }
+  body.cinema-theater-has-popup .theater-story-caption {
+    opacity: 0 !important;
+    pointer-events: none !important;
   }
   .cinema-theater-top-hud {
     gap: 6px;

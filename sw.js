@@ -1,7 +1,7 @@
 // Inner Sanctuary Wellness Foundation — Progressive Web App Service Worker
 // Version: 1.0.0 (Sanctuary in Your Pocket)
 
-const CACHE_NAME = 'inner-sanctuary-cache-v41';
+const CACHE_NAME = 'inner-sanctuary-cache-v42';
 const PRECACHE_ASSETS = [
   './',
   './index.html',
@@ -11,6 +11,14 @@ const PRECACHE_ASSETS = [
   './manifest.json',
   './emblem.png',
   './emblem.jpg',
+  './images/openmic/community-sanctuary-family.jpg',
+  './images/openmic/openmic-nov15-acoustic-duo-harmony.jpg',
+  './images/openmic/openmic-nov15-stone-hearth-celebration.jpg',
+  './images/openmic/openmic-nov15-clubhouse-pool-dusk.jpg',
+  './images/openmic/openmic-nov15-spoken-word-circle.jpg',
+  './images/openmic/openmic-nov15-storyteller-reflection.jpg',
+  './images/openmic/openmic-nov15-djembe-poolside-rhythm.jpg',
+  './images/openmic/openmic-nov15-reconnect-sisterhood.jpg',
   './js/modules/adaptive-atmosphere.js',
   './js/modules/clubhouse-community-sync.js',
   './js/modules/community-hub-wings.js',

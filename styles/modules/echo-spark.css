@@ -395,8 +395,8 @@ body[data-element="ether"] {
 }
 
 .echo-win-title {
-  font-family: 'Cinzel', serif;
-  font-size: 0.94rem;
+  font-family: var(--font-serif, 'Fraunces', serif);
+  font-size: 0.96rem;
   font-weight: 700;
   color: var(--win-text);
 }

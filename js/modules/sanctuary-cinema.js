@@ -370,6 +370,163 @@
     let showTheaterSpotify = false;
     let cachedNotes = [];
 
+    // Photography Slideshow & Visual Chapters State
+    const SLIDE_INTERVAL_MS = 8500;
+    const THEATER_SLIDES = [
+      {
+        tag: 'Chapter 01 • Hearth Warmth',
+        title: '52 Neighbors Finding Home in One Room',
+        sub: 'The Nov 15 Gathering • Substance-free community warmth in Santa Ana',
+        src: 'images/openmic/community-sanctuary-family.jpg',
+        element: 'fire'
+      },
+      {
+        tag: 'Chapter 02 • Acoustic Harmony',
+        title: 'Unplugged Strings & Pure Breath',
+        sub: 'Acoustic Harmony • Soulful presence and shared rhythm',
+        src: 'images/openmic/openmic-nov15-acoustic-duo-harmony.jpg',
+        element: 'water'
+      },
+      {
+        tag: 'Chapter 03 • The Stone Hearth',
+        title: 'Where Nobody Has to Wear a Mask',
+        sub: 'The Stone Hearth • Shared warmth, zero judgment',
+        src: 'images/openmic/openmic-nov15-stone-hearth-celebration.jpg',
+        element: 'fire'
+      },
+      {
+        tag: 'Chapter 04 • Evening Serenity',
+        title: 'Twilight Stillness & Gathering',
+        sub: 'Poolside Dusk • Golden hour settling across Orange County',
+        src: 'images/openmic/openmic-nov15-clubhouse-pool-dusk.jpg',
+        element: 'water'
+      },
+      {
+        tag: 'Chapter 05 • Spoken Word Circle',
+        title: 'Honoring the Sacred Voice',
+        sub: 'Spoken Word Circle • Raw truth and compassionate witnesses',
+        src: 'images/openmic/openmic-nov15-spoken-word-circle.jpg',
+        element: 'air'
+      },
+      {
+        tag: 'Chapter 06 • Living Storytelling',
+        title: 'Stories That Mend the Spirit',
+        sub: 'Intimate Storytelling • Healing together in the living room circle',
+        src: 'images/openmic/openmic-nov15-storyteller-reflection.jpg',
+        element: 'earth'
+      },
+      {
+        tag: 'Chapter 07 • Ancestral Drum',
+        title: 'The Ancestral Drum & Living Rhythm',
+        sub: 'Poolside Djembe • The heartbeat of our Orange County family',
+        src: 'images/openmic/openmic-nov15-djembe-poolside-rhythm.jpg',
+        element: 'earth'
+      },
+      {
+        tag: 'Chapter 08 • Reconnection',
+        title: 'Tender Presence & Sisterhood Hugs',
+        sub: 'Unconditional Acceptance • Healing together without masks',
+        src: 'images/openmic/openmic-nov15-reconnect-sisterhood.jpg',
+        element: 'ether'
+      }
+    ];
+
+    let currentSlideIdx = 0;
+    let isSlideshowPlaying = !prefersReducedMotion;
+    let slideTimer = null;
+    let chaptersDrawerOpen = false;
+    let slidesMounted = false;
+
+    function mountTheaterSlides() {
+      const container = document.getElementById('theaterBackdropSlides');
+      if (!container || slidesMounted) return;
+
+      container.innerHTML = THEATER_SLIDES.map((s, idx) => `
+        <div class="cinema-theater-slide${idx === currentSlideIdx ? ' active' : ''}" data-slide-idx="${idx}" aria-hidden="${idx === currentSlideIdx ? 'false' : 'true'}">
+          <img src="${s.src}" alt="${escapeHtml(s.title)}" class="theater-slide-img ken-burns-${(idx % 2) + 1}" loading="${idx === 0 ? 'eager' : 'lazy'}" />
+          <div class="theater-slide-overlay" aria-hidden="true"></div>
+        </div>
+      `).join('');
+
+      const drawer = document.getElementById('theaterChaptersDrawer');
+      if (drawer) {
+        drawer.innerHTML = THEATER_SLIDES.map((s, idx) => `
+          <button type="button" class="theater-chapter-chip${idx === currentSlideIdx ? ' active' : ''}" data-chapter-idx="${idx}" onclick="window.sanctuaryCinema && window.sanctuaryCinema.selectSlide(${idx})" aria-label="Go to ${escapeHtml(s.title)}">
+            <img src="${s.src}" alt="" class="theater-chapter-thumb" loading="lazy" />
+            <div class="theater-chapter-meta">
+              <span class="theater-chapter-tag">${escapeHtml(s.tag.split('•')[0].trim())}</span>
+              <span class="theater-chapter-name">${escapeHtml(s.title)}</span>
+            </div>
+          </button>
+        `).join('');
+      }
+
+      slidesMounted = true;
+      updateSlideUI();
+    }
+
+    function updateSlideUI() {
+      if (!slidesMounted) return;
+      const slides = document.querySelectorAll('.cinema-theater-slide');
+      slides.forEach((slide, idx) => {
+        const active = idx === currentSlideIdx;
+        slide.classList.toggle('active', active);
+        slide.setAttribute('aria-hidden', active ? 'false' : 'true');
+        if (active && !prefersReducedMotion) {
+          const img = slide.querySelector('.theater-slide-img');
+          if (img) {
+            img.style.animation = 'none';
+            void img.offsetWidth;
+            img.style.animation = '';
+          }
+        }
+      });
+
+      const drawerChips = document.querySelectorAll('.theater-chapter-chip');
+      drawerChips.forEach((btn, idx) => {
+        const active = idx === currentSlideIdx;
+        btn.classList.toggle('active', active);
+        btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+
+      const fill = document.getElementById('theaterSlideProgressFill');
+      if (fill) {
+        fill.style.width = `${((currentSlideIdx + 1) / THEATER_SLIDES.length) * 100}%`;
+      }
+
+      const s = THEATER_SLIDES[currentSlideIdx];
+      const tagEl = document.getElementById('theaterCaptionTag');
+      const titleEl = document.getElementById('theaterCaptionTitle');
+      if (tagEl) tagEl.textContent = s.tag;
+      if (titleEl) titleEl.textContent = s.title;
+
+      const slideToggleBtn = document.getElementById('theaterSlideshowToggle');
+      if (slideToggleBtn) {
+        slideToggleBtn.classList.toggle('active', isSlideshowPlaying);
+        slideToggleBtn.textContent = isSlideshowPlaying ? '⏸ Auto-Play' : '▶ Play Slides';
+      }
+    }
+
+    function stopSlideTimer() {
+      if (slideTimer) {
+        clearInterval(slideTimer);
+        slideTimer = null;
+      }
+    }
+
+    function startSlideTimer() {
+      stopSlideTimer();
+      if (!isSlideshowPlaying || prefersReducedMotion || !isTheater) return;
+      slideTimer = setInterval(() => {
+        if (!isTheater) {
+          stopSlideTimer();
+          return;
+        }
+        currentSlideIdx = (currentSlideIdx + 1) % THEATER_SLIDES.length;
+        updateSlideUI();
+      }, SLIDE_INTERVAL_MS);
+    }
+
     const SUPABASE_URL = 'https://xleadnehhbzjltykhtsn.supabase.co';
     const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_QbXx1RuAukuz7M-fgCXH7w_fBOj25wm';
 
@@ -566,6 +723,13 @@
         stargazeBtn.textContent = isStargaze ? '👁️ Exit Stargaze' : '👁️ Stargaze';
       }
 
+      const stargazeDockBtn = document.getElementById('theaterStargazeDockBtn');
+      if (stargazeDockBtn) {
+        stargazeDockBtn.classList.toggle('active', isStargaze);
+        stargazeDockBtn.setAttribute('aria-pressed', isStargaze ? 'true' : 'false');
+        stargazeDockBtn.textContent = isStargaze ? '👁️ Exit Stargaze' : '👁️ Stargaze';
+      }
+
       const audioBtn = document.getElementById('theaterAudioBtn');
       if (audioBtn && window.soundscape) {
         audioBtn.textContent = window.soundscape.isPlaying ? '🔊 Pause Sound' : '🔈 Tune In';
@@ -580,6 +744,7 @@
 
       syncElementCopy();
       syncDockPopupButtons();
+      updateSlideUI();
     };
 
     // Ambient Element-Reactive Theater Particles
@@ -727,12 +892,14 @@
       } catch (_) {}
     };
 
-    // Box Breath Controller inside Mixer Pop-Up
+    // Box Breath Controller inside Mixer Pop-Up & Sacred Medallion
     function updateBreathWidgetUI() {
       const orb = document.getElementById('theaterBreathOrb');
       const title = document.getElementById('theaterBreathPhaseName');
       const hint = document.getElementById('theaterBreathPhaseHint');
       const btn = document.getElementById('theaterBreathToggleBtn');
+      const dockBreathBtn = document.getElementById('theaterBreathDockBtn');
+      const kickerEl = document.getElementById('theaterKickerText');
       const phase = BREATH_PHASES[breathStepIdx] || BREATH_PHASES[0];
 
       if (orb) {
@@ -749,6 +916,38 @@
         btn.textContent = breathRunning ? '⏸ Pause Breath' : '▶ Start Breath';
         btn.classList.toggle('active', breathRunning);
       }
+      if (dockBreathBtn) {
+        dockBreathBtn.classList.toggle('active', breathRunning);
+        dockBreathBtn.textContent = breathRunning ? `🌬️ ${phase.label} (${breathTick}s)` : '🌬️ Breath';
+      }
+      if (kickerEl) {
+        if (breathRunning) {
+          kickerEl.textContent = `✦ ${phase.label.toUpperCase()} (${breathTick}s) • ${phase.hint.toUpperCase()} ✦`;
+        } else {
+          const lore = ELEMENT_LORE[getActiveElementKey()] || ELEMENT_LORE.fire;
+          kickerEl.textContent = lore.kicker;
+        }
+      }
+
+      // Dynamic Medallion Halo Expansion
+      const halos = document.querySelectorAll('.theater-breath-halo');
+      halos.forEach((h) => {
+        if (breathRunning) {
+          if (phase.key === 'inhale' || phase.key === 'hold') {
+            h.style.transform = 'scale(1.22)';
+            h.style.opacity = '0.9';
+          } else if (phase.key === 'exhale') {
+            h.style.transform = 'scale(0.88)';
+            h.style.opacity = '0.4';
+          } else {
+            h.style.transform = 'scale(1.0)';
+            h.style.opacity = '0.6';
+          }
+        } else {
+          h.style.transform = '';
+          h.style.opacity = '';
+        }
+      });
     }
 
     function stopBreathTimer() {
@@ -1204,9 +1403,13 @@
         isStargaze = false;
         stopBreathTimer();
         stopParticleLoop();
+        stopSlideTimer();
+        if (window.sanctuaryCinema.toggleChaptersDrawer) window.sanctuaryCinema.toggleChaptersDrawer(false);
         document.body.classList.remove('cinema-theater-idle', 'cinema-theater-typing', 'cinema-theater-has-popup');
       } else {
+        mountTheaterSlides();
         startParticleLoop();
+        startSlideTimer();
         wakeDockIdleTimer();
         if (!hasShownWelcomePop && !isMobileViewport) {
           hasShownWelcomePop = true;
@@ -1234,6 +1437,46 @@
       }
     };
 
+    window.sanctuaryCinema.stepSlide = function (delta) {
+      currentSlideIdx = (currentSlideIdx + delta + THEATER_SLIDES.length) % THEATER_SLIDES.length;
+      updateSlideUI();
+      if (isSlideshowPlaying) startSlideTimer();
+      wakeDockIdleTimer();
+    };
+
+    window.sanctuaryCinema.selectSlide = function (idx) {
+      currentSlideIdx = ((idx % THEATER_SLIDES.length) + THEATER_SLIDES.length) % THEATER_SLIDES.length;
+      updateSlideUI();
+      if (isSlideshowPlaying) startSlideTimer();
+      wakeDockIdleTimer();
+    };
+
+    window.sanctuaryCinema.toggleAutoPlaySlides = function (force) {
+      isSlideshowPlaying = typeof force === 'boolean' ? force : !isSlideshowPlaying;
+      if (isSlideshowPlaying) {
+        startSlideTimer();
+      } else {
+        stopSlideTimer();
+      }
+      updateSlideUI();
+      wakeDockIdleTimer();
+    };
+
+    window.sanctuaryCinema.toggleChaptersDrawer = function (force) {
+      chaptersDrawerOpen = typeof force === 'boolean' ? force : !chaptersDrawerOpen;
+      const drawer = document.getElementById('theaterChaptersDrawer');
+      const trigger = document.getElementById('theaterChaptersTrigger');
+      if (drawer) {
+        drawer.style.display = chaptersDrawerOpen ? 'flex' : 'none';
+        drawer.setAttribute('aria-hidden', chaptersDrawerOpen ? 'false' : 'true');
+      }
+      if (trigger) {
+        trigger.classList.toggle('active', chaptersDrawerOpen);
+        trigger.setAttribute('aria-pressed', chaptersDrawerOpen ? 'true' : 'false');
+      }
+      wakeDockIdleTimer();
+    };
+
     window.sanctuaryCinema.theaterToggleSound = function () {
       if (window.soundscape) {
         window.soundscape.toggle();
@@ -1257,6 +1500,33 @@
           wakeDockIdleTimer();
         }
       });
+
+      // Mobile touch swipe to transition photos
+      let touchStartX = 0;
+      let touchStartY = 0;
+      stageEl.addEventListener('touchstart', (e) => {
+        if (e.touches && e.touches[0]) {
+          touchStartX = e.touches[0].clientX;
+          touchStartY = e.touches[0].clientY;
+        }
+      }, { passive: true });
+
+      stageEl.addEventListener('touchend', (e) => {
+        if (e.changedTouches && e.changedTouches[0]) {
+          const deltaX = e.changedTouches[0].clientX - touchStartX;
+          const deltaY = e.changedTouches[0].clientY - touchStartY;
+          if (Math.abs(deltaX) > 44 && Math.abs(deltaX) > Math.abs(deltaY) * 1.4) {
+            if (e.target && e.target.closest && e.target.closest('#cinemaTheaterDock, .theater-pop-window, #theaterChaptersDrawer')) {
+              return;
+            }
+            if (deltaX < 0) {
+              window.sanctuaryCinema.stepSlide(1);
+            } else {
+              window.sanctuaryCinema.stepSlide(-1);
+            }
+          }
+        }
+      }, { passive: true });
     }
 
     // Keep Theater synced if visitor switches Element outside Theater or via voice
@@ -1270,10 +1540,25 @@
       if (/INPUT|TEXTAREA|SELECT/.test(tag) || (e.target && e.target.isContentEditable)) return;
 
       if (e.key === 'Escape' && isTheater) {
+        if (chaptersDrawerOpen) {
+          window.sanctuaryCinema.toggleChaptersDrawer(false);
+          return;
+        }
         window.sanctuaryCinema.toggleTheater(false);
       } else if ((e.key === 'f' || e.key === 'F') && !e.metaKey && !e.ctrlKey && !e.altKey) {
         if (document.getElementById('cinemaTheaterStage')) {
           window.sanctuaryCinema.toggleTheater();
+        }
+      } else if (isTheater) {
+        if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          window.sanctuaryCinema.stepSlide(1);
+        } else if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          window.sanctuaryCinema.stepSlide(-1);
+        } else if (e.key === ' ' || e.code === 'Space') {
+          e.preventDefault();
+          window.sanctuaryCinema.toggleAutoPlaySlides();
         }
       }
     });
