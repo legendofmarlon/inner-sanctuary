@@ -26,6 +26,7 @@
   <link rel="stylesheet" href="styles/modules/funder-dossier.css?v=1.0" />
   <link rel="stylesheet" href="styles/modules/promo-card-generator.css?v=1.0" />
   <link rel="stylesheet" href="styles/modules/community-hub-wings.css?v=2.3" />
+  <link rel="stylesheet" href="styles/modules/sanctuary-cinema.css?v=1.0" />
 
   <style>
     .hub-hero-banner {
@@ -146,6 +147,7 @@
   </div>
   <canvas id="elemental-sanctuary-bg"></canvas>
   <div id="lantern-aura" class="lantern-aura"></div>
+  <div class="cinema-atmosphere-overlay" aria-hidden="true"></div>
 
   <!-- Minimalist Floating Twilight Hub Navigation -->
   <nav id="sanctuary-nav" aria-label="Main Community Hub Navigation">
@@ -170,6 +172,14 @@
 
       <div class="nav-actions-group">
         <div id="atmosphereSwitcherMount"></div>
+        <button id="spotify-toggle-btn" class="spotify-pill-btn" type="button" onclick="toggleSpotifyPlayer()" aria-expanded="false" aria-controls="sanctuarySpotifyTray" title="Listen to Sanctuary 432Hz Healing Soundscape on Spotify" style="display: inline-flex; align-items: center; gap: 6px; background: rgba(30, 215, 96, 0.16); border: 1px solid rgba(30, 215, 96, 0.45); color: #86EFAC; padding: 6px 12px; border-radius: 999px; font-size: 0.74rem; font-weight: 700; cursor: pointer; transition: all 0.2s ease;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+          <span class="hub-pill-label">Spotify Vibe</span>
+        </button>
+        <button type="button" id="cinemaTheaterToggleBtn" class="cinema-theater-toggle-btn" aria-pressed="false" onclick="window.sanctuaryCinema && window.sanctuaryCinema.toggleTheater()" title="Enter Fullscreen Sanctuary Projector Mode (Hotkey: F)">
+          <span>🎭</span>
+          <span class="hub-pill-label">Theater</span>
+        </button>
         <button type="button" id="btnSpeakeasyNav" class="nav-speakeasy-badge" onclick="handleSpeakeasyKnock(event)" title="🗝️ The Greenroom • 3 knocks unlock secret sessions">
           <span class="speakeasy-key-icon">🗝️</span>
           <span class="speakeasy-nav-text">Greenroom</span>
@@ -184,6 +194,10 @@
     <div id="mobile-nav-drawer" class="hidden" style="display: none; padding: 20px; border-bottom: 2px solid var(--sunburst-gold); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);">
       <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; margin: 0; padding: 0;">
         <li><a href="index.html" class="mobile-nav-item" style="background: linear-gradient(135deg, rgba(22,74,56,0.18) 0%, rgba(197,154,63,0.12) 100%); border: 1.5px solid rgba(250,210,119,0.55) !important;"><span class="mobile-nav-main">🏡 ← Back to Sanctuary Home</span><span class="mobile-nav-sub">Main 501(c)(3) Landing Page</span></a></li>
+        <li style="display: flex; gap: 8px;">
+          <button type="button" onclick="toggleSpotifyPlayer(); document.getElementById('mobile-nav-drawer').style.display='none';" class="btn btn-outline" style="flex: 1; padding: 9px; border-color: rgba(30,215,96,0.5); color: #86EFAC; font-size: 0.78rem;">🎧 Spotify Vibe</button>
+          <button type="button" onclick="if(window.sanctuaryCinema) window.sanctuaryCinema.toggleTheater(true); document.getElementById('mobile-nav-drawer').style.display='none';" class="btn btn-outline" style="flex: 1; padding: 9px; border-color: rgba(245,215,127,0.5); color: #FCE6A2; font-size: 0.78rem;">🎭 Theater Mode</button>
+        </li>
         <li><a href="#clubhouse-map" onclick="document.getElementById('mobile-nav-drawer').style.display='none';" class="mobile-nav-item"><span class="mobile-nav-main">🏡 The Clubhouse Explorer</span><span class="mobile-nav-sub">Wings, Audio &amp; Blueprint Map</span></a></li>
         <li><a href="#sanctuary-reflection" onclick="document.getElementById('mobile-nav-drawer').style.display='none';" class="mobile-nav-item"><span class="mobile-nav-main">✨ Daily Sanctuary Sparks</span><span class="mobile-nav-sub">3D Flip Card &amp; Prompts</span></a></li>
         <li><a href="#breath" onclick="document.getElementById('mobile-nav-drawer').style.display='none';" class="mobile-nav-item"><span class="mobile-nav-main">🕊️ Pause &amp; Breathe</span><span class="mobile-nav-sub">Orb &amp; Sacred Labyrinth</span></a></li>
@@ -198,12 +212,30 @@
     </div>
   </nav>
 
+  <!-- Collapsible Sanctuary Spotify Player Tray -->
+  <div id="sanctuarySpotifyTray" class="spotify-player-tray" style="display: none; background: rgba(14, 24, 18, 0.98); border-bottom: 1.5px solid rgba(30, 215, 96, 0.4); padding: 12px 20px; transition: all 0.3s ease;">
+    <div class="container" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 1.3rem;">🎧</span>
+        <div>
+          <div style="font-size: 0.84rem; font-weight: 700; color: #FFFDF7;">Sanctuary 432Hz Restorative Soundscape &amp; Acoustic Soul</div>
+          <div style="font-size: 0.72rem; color: #86EFAC;">Curated meditative and soulful acoustic frequencies for deep somatic pause</div>
+        </div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 12px; width: 100%; max-width: 480px;">
+        <iframe title="Sanctuary 432Hz Restorative Soundscape on Spotify" style="border-radius:12px; width: 100%; height: 80px;" src="https://open.spotify.com/embed/playlist/37i9dQZF1DX4sWSpwq3LiO?utm_source=generator&theme=0" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        <button type="button" onclick="toggleSpotifyPlayer()" style="background: none; border: none; color: #CBD7D0; font-size: 1.4rem; cursor: pointer; padding: 4px 8px; line-height: 1;" title="Close Spotify Player" aria-label="Close Spotify Player">&times;</button>
+      </div>
+    </div>
+  </div>
+
   <main id="main-content">
 
     <!-- Full-Bleed Twilight Lodge Hero -->
     <section class="hub-lodge-hero" aria-label="The Inner Sanctuary Twilight Lodge">
       <div class="hub-lodge-hero-media" aria-hidden="true">
         <img src="images/clubhouse-cabin-speakeasy.jpg" alt="Warm twilight A-frame timber clubhouse lodge with stone fireplace, floor-to-ceiling pine windows, acoustic guitar, cello, emerald sofa, and string lights" class="hub-lodge-hero-img" width="1408" height="768" />
+        <div class="hub-hearth-firelight"></div>
         <div class="hub-lodge-hero-scrim"></div>
       </div>
 
@@ -621,6 +653,9 @@
                 <button type="button" class="btn-reflection-action btn-reflection-share" id="btnShareIG" onclick="openStorySnapshotFromReflection(event)" title="Create 9:16 Instagram Story snapshot card">
                   <span>📸 Share to IG Story</span>
                 </button>
+                <button type="button" class="btn-reflection-action btn-reflection-share" id="btnSaveSparkWallpaper" onclick="openSparkWallpaperStudio(event)" title="Save today's Spark as a 9:16 phone lock-screen wallpaper">
+                  <span>📱 9:16 Wallpaper</span>
+                </button>
               </div>
 
               <div class="reflection-copy-toast" id="reflectionCopyToast" role="status" aria-live="polite">
@@ -999,7 +1034,7 @@
                     </div>
 
                     <div id="gratitudePhotoPreview" class="gratitude-photo-preview">
-                      <img id="gratitudePhotoPreviewImg" alt="Selected photo preview ready for Gratitude Wall upload" />
+                      <img id="gratitudePhotoPreviewImg" width="1080" height="1080" alt="Selected photo preview ready for Gratitude Wall upload" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'/%3E" style="display:none;" />
                       <button type="button" id="btnRemoveGratitudePhoto" class="gratitude-remove-photo-btn">✕ Remove Photo</button>
                     </div>
 
@@ -1159,7 +1194,7 @@
                   <span>🗝️ Knock 3 Times &amp; Open Wheel</span>
                   <span>→</span>
                 </button>
-                <a href="https://www.meetup.com/socal-creatives-collective/events/317462800/" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="border-color: rgba(245, 215, 127, 0.55); color: #F5D77F !important; text-decoration: none;">
+                <a href="https://www.meetup.com/socal-creatives-collective/events/317462800/" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="background: rgba(18, 30, 24, 0.78); border-color: rgba(245, 215, 127, 0.65); color: #F5D77F !important; text-decoration: none;">
                   <span>🎵 RSVP: Unplugged Jam Session ↗</span>
                 </a>
               </div>
@@ -1244,25 +1279,68 @@
     <div class="speakeasy-modal-dialog">
       <button type="button" class="speakeasy-modal-close" aria-label="Close Greenroom window" onclick="closeSpeakeasyModal()">&times;</button>
       <div class="speakeasy-modal-header">
-        <div class="speakeasy-modal-badge">✦ THE SANCTUARY GREENROOM • SECRET CLUBHOUSE ✦</div>
-        <h3 class="speakeasy-modal-title serif-brand">Welcome to the Clubhouse Hearth</h3>
-        <p class="speakeasy-modal-sub">You knocked three times on the medallion. Step into the warm cabin glow, take a deep breath, and make yourself at home.</p>
+        <div class="speakeasy-modal-badge">✦ THE SECRET CLUBHOUSE • COMMUNITY HEARTH ✦</div>
+        <h3 class="speakeasy-modal-title serif-brand">Welcome to the Secret Clubhouse</h3>
+        <p class="speakeasy-modal-sub">You knocked three times on the medallion. Pull up a seat by the hearth, pour a warm cup, reflect with neighbors, or unlock the prize wheel.</p>
       </div>
 
-      <div class="speakeasy-welcome-banner" style="background: rgba(197, 154, 63, 0.22); border: 1.5px solid rgba(212, 175, 55, 0.55); border-radius: 16px; padding: 18px 22px; margin-bottom: 24px; text-align: center;">
-        <div style="color: #FCE6A2; font-family: 'Cinzel', serif; font-size: 1.1rem; font-weight: 700; letter-spacing: 0.08em; margin-bottom: 6px;">
+      <div class="speakeasy-welcome-banner" style="background: linear-gradient(135deg, rgba(212, 163, 75, 0.24) 0%, rgba(43, 68, 54, 0.55) 100%); border: 1.5px solid rgba(248, 217, 140, 0.55); border-radius: 14px; padding: 12px 18px; margin-bottom: 14px; text-align: center;">
+        <div style="color: #FCE6A2; font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 700; letter-spacing: 0.08em; margin-bottom: 4px;">
           🔥 "The sanctuary you searched for is right here with us."
         </div>
-        <p style="color: #E2ECE5; font-size: 0.92rem; margin: 0; line-height: 1.6;">
-          You've unlocked our private community hearth. Listen to unplugged vibes, post a neighbor shoutout, or spin the community raffle vault.
+        <p style="color: #EEF5F0; font-size: 0.86rem; margin: 0; line-height: 1.5;">
+          A warm, alcohol-free gathering room to sip, reflect, spin acoustic records, share with neighbors, and try the Secret Raffle Wheel.
         </p>
       </div>
 
       <div class="speakeasy-tabs-bar" role="tablist">
         <button type="button" class="speakeasy-tab-btn active" id="tabBtnWheel" onclick="switchSpeakeasyTab('wheel')"><span>🎰</span> <span>Secret Raffle</span></button>
-        <button type="button" class="speakeasy-tab-btn" id="tabBtnVinyl" onclick="switchSpeakeasyTab('vinyl')"><span>💽</span> <span>Midnight Vinyl</span></button>
-        <button type="button" class="speakeasy-tab-btn" id="tabBtnMic" onclick="switchSpeakeasyTab('mic')"><span>🎙️</span> <span>Pass the Mic</span></button>
-        <button type="button" class="speakeasy-tab-btn" id="tabBtnPass" onclick="switchSpeakeasyTab('pass')"><span>🎫</span> <span>Backstage Pass</span></button>
+        <button type="button" class="speakeasy-tab-btn" id="tabBtnMic" onclick="switchSpeakeasyTab('mic')"><span>🛋️</span> <span>Living Room</span></button>
+        <button type="button" class="speakeasy-tab-btn" id="tabBtnElixir" onclick="switchSpeakeasyTab('elixir')"><span>☕</span> <span>Elixir Bar</span></button>
+        <button type="button" class="speakeasy-tab-btn" id="tabBtnVinyl" onclick="switchSpeakeasyTab('vinyl')"><span>💽</span> <span>Acoustic Lounge</span></button>
+        <button type="button" class="speakeasy-tab-btn" id="tabBtnPass" onclick="switchSpeakeasyTab('pass')"><span>🎫</span> <span>Member Card</span></button>
+      </div>
+
+      <div class="speakeasy-tab-pane" id="tabPaneElixir" style="display: none;">
+        <div class="speakeasy-elixir-stage">
+          <div class="elixir-menu-header">
+            <span class="elixir-menu-badge">✦ ZERO-PROOF SANCTUARY POUR BAR ✦</span>
+            <h4 class="serif-brand" style="color: #FFFFFF; margin: 6px 0 4px;">Pour Yourself Something Warm</h4>
+            <p style="color: #DCE8E0; font-size: 0.86rem; margin: 0;">Pick a botanical elixir to set your mood—it stamps right onto your Clubhouse Member Card.</p>
+          </div>
+          <div class="elixir-menu-grid">
+            <button type="button" class="elixir-card-btn" data-elixir="hibiscus" onclick="pourClubhouseElixir('hibiscus', this)">
+              <span class="elixir-icon">🌺</span>
+              <span class="elixir-name">Hibiscus &amp; Ginger Glow</span>
+              <span class="elixir-vibe">Warming • Heart-Opening</span>
+            </button>
+            <button type="button" class="elixir-card-btn" data-elixir="chamomile" onclick="pourClubhouseElixir('chamomile', this)">
+              <span class="elixir-icon">🍯</span>
+              <span class="elixir-name">Chamomile Honey Mist</span>
+              <span class="elixir-vibe">Unhurried • Soft Exhale</span>
+            </button>
+            <button type="button" class="elixir-card-btn" data-elixir="cedar" onclick="pourClubhouseElixir('cedar', this)">
+              <span class="elixir-icon">🌲</span>
+              <span class="elixir-name">Smoked Cedar &amp; Bergamot</span>
+              <span class="elixir-vibe">Grounded • Fireside Calm</span>
+            </button>
+            <button type="button" class="elixir-card-btn" data-elixir="matcha" onclick="pourClubhouseElixir('matcha', this)">
+              <span class="elixir-icon">🍵</span>
+              <span class="elixir-name">Lavender Matcha Tonic</span>
+              <span class="elixir-vibe">Lucid • Creative Flow</span>
+            </button>
+          </div>
+          <div class="elixir-serving-card" id="elixirServingCard" style="display: none;">
+            <div class="elixir-serving-top">
+              <span id="elixirServingIcon" style="font-size: 1.6rem;">🌺</span>
+              <div>
+                <div class="elixir-serving-title" id="elixirServingTitle">Hibiscus &amp; Ginger Glow</div>
+                <div class="elixir-serving-note" id="elixirServingNote">Crisp ruby hibiscus steeped with warm ginger root and raw orange peel.</div>
+              </div>
+            </div>
+            <div class="elixir-serving-prompt" id="elixirServingPrompt">"What is one thing in your life right now that deserves your warmth?"</div>
+          </div>
+        </div>
       </div>
 
       <div class="speakeasy-tab-pane active" id="tabPaneWheel">
@@ -1383,8 +1461,13 @@
       <div class="speakeasy-tab-pane" id="tabPaneMic" style="display: none;">
         <div class="speakeasy-mic-stage">
           <div class="speakeasy-record-card">
-            <span class="record-badge">🎙️ PASS THE MIC</span>
-            <h4 class="serif-brand" style="color: #FFFFFF; margin: 4px 0 6px;">The Mic is Open to You</h4>
+            <span class="record-badge">🛋️ LIVING ROOM CIRCLE • COMMUNE &amp; REFLECT</span>
+            <h4 class="serif-brand" style="color: #FFFFFF; margin: 4px 0 6px;">Pull Up a Chair &amp; Share</h4>
+            <div class="clubhouse-prompts-row" aria-label="Clubhouse Table Prompts">
+              <button type="button" class="table-prompt-chip" onclick="selectClubhousePrompt('One small win I am carrying this week: ')">✨ Small win this week</button>
+              <button type="button" class="table-prompt-chip" onclick="selectClubhousePrompt('What I am giving myself permission to put down tonight: ')">🍃 Letting go tonight</button>
+              <button type="button" class="table-prompt-chip" onclick="selectClubhousePrompt('A blessing for whoever reads this next: ')">🕯️ Blessing for a neighbor</button>
+            </div>
             <div class="record-actions-wrap" id="recordActionsWrap">
               <button type="button" class="btn btn-gold" id="btnStartVoiceRecord" onclick="toggleVoiceRecording()"><span id="voiceRecordIcon">🎙️</span> <span id="voiceRecordLabel">Record 10s Voice Note</span></button>
               <button type="button" class="btn-outline-gold" id="btnOpenTextWhisper" onclick="toggleTextWhisperForm()"><span>✍️ Leave a Note</span></button>
@@ -1397,9 +1480,9 @@
             </div>
             <div class="text-whisper-form" id="textWhisperForm" style="display: none;">
               <label for="textWhisperInput" class="sr-only">Your clubhouse note</label>
-              <textarea id="textWhisperInput" class="text-whisper-textarea" maxlength="240" rows="3"></textarea>
+              <textarea id="textWhisperInput" class="text-whisper-textarea" maxlength="240" rows="3" placeholder="Drop a warm note, affirmation, or shoutout to the Greenroom hearth..."></textarea>
               <label for="textWhisperAuthor" class="sr-only">Your name or alias</label>
-              <input type="text" id="textWhisperAuthor" class="text-whisper-author-input" maxlength="50" />
+              <input type="text" id="textWhisperAuthor" class="text-whisper-author-input" maxlength="50" placeholder="Your name or alias (e.g. Marlon)" />
               <button type="button" class="btn btn-gold" onclick="submitTextWhisper()">Post Note</button>
             </div>
             <div class="whisper-feedback-toast" id="whisperToast" style="display: none;">✓ Posted to the Greenroom Hearth!</div>
@@ -1412,8 +1495,11 @@
         <div class="speakeasy-pass-stage">
           <div class="pass-preview-laminate">
             <div class="pass-inner-border">
-              <div class="pass-header-top"><h4 class="pass-main-title serif-brand">BACKSTAGE GREENROOM</h4></div>
-              <div class="pass-center-emblem"><div class="pass-number" id="passNumberDisplay">PASS NO. 0842</div></div>
+              <div class="pass-header-top"><h4 class="pass-main-title serif-brand">SECRET CLUBHOUSE</h4></div>
+              <div class="pass-center-emblem">
+                <div class="pass-number" id="passNumberDisplay">MEMBER NO. 0842</div>
+                <div class="pass-elixir-stamp" id="passElixirDisplay" style="margin-top: 6px; font-size: 0.72rem; color: #FCE6A2; letter-spacing: 0.06em;">☕ POUR: PICK AN ELIXIR</div>
+              </div>
               <div class="pass-footer-date" id="passFooterDate">ADMITTED: NOVEMBER 2026 • 501(c)(3) SANCTUARY</div>
             </div>
           </div>
@@ -1506,13 +1592,15 @@
         <span class="ig-story-badge">✦ INSTAGRAM STORY SNAPSHOT</span>
         <h3 class="ig-story-title serif-brand">Your Sanctuary Story Card</h3>
       </div>
-      <div class="ig-story-themes" role="group">
+      <div class="ig-story-themes" role="group" aria-label="Story &amp; Wallpaper Themes">
         <button type="button" class="ig-theme-pill active" id="pillThemeLake" onclick="setStoryTheme('lake')"><span>🌊 Mirror Lake</span></button>
         <button type="button" class="ig-theme-pill" id="pillThemeDawn" onclick="setStoryTheme('dawn')"><span>🌅 Golden Dawn</span></button>
         <button type="button" class="ig-theme-pill" id="pillThemeObsidian" onclick="setStoryTheme('obsidian')"><span>🪞 Obsidian Mirror</span></button>
+        <button type="button" class="ig-theme-pill" id="pillThemeHearth" onclick="setStoryTheme('hearth')"><span>🔥 Hearth Fire</span></button>
+        <button type="button" class="ig-theme-pill" id="pillThemeRedwood" onclick="setStoryTheme('redwood')"><span>🌿 Redwood Mist</span></button>
       </div>
       <canvas id="igStoryCanvas" width="1080" height="1920" style="display: none;"></canvas>
-      <div class="ig-story-preview-stage"><img id="igStoryPreviewImg" alt="Sanctuary Instagram Story Preview" class="ig-story-preview-img" /></div>
+      <div class="ig-story-preview-stage"><img id="igStoryPreviewImg" width="1080" height="1920" alt="Sanctuary Instagram Story Preview" class="ig-story-preview-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'/%3E" style="display:none;" /></div>
       <div class="ig-story-actions">
         <button type="button" class="btn btn-gold" id="btnDownloadStory" onclick="downloadIgStoryImage()">💾 Save Image</button>
         <button type="button" class="btn btn-outline-gold" id="btnNativeShareStory" onclick="shareToNativeInstagram()">📱 Share</button>
@@ -1568,6 +1656,25 @@
     <span class="back-to-top-text">Top</span>
   </button>
 
+  <!-- ==================== FULLSCREEN SANCTUARY PROJECTOR / THEATER STAGE ==================== -->
+  <div id="cinemaTheaterStage" class="cinema-theater-stage" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Sanctuary Theater Mode">
+    <div class="cinema-theater-center">
+      <img src="emblem.png" width="996" height="1024" alt="Inner Sanctuary Sacred Medallion" class="cinema-theater-emblem" onerror="this.src='emblem.jpg'" />
+      <div class="cinema-theater-kicker">Pause. Breathe. Remember.</div>
+      <h2 class="cinema-theater-quote">Come Home to Yourself.</h2>
+    </div>
+    <div class="cinema-theater-dock" role="toolbar" aria-label="Theater Sanctuary Controls">
+      <button type="button" id="theaterAudioBtn" class="cinema-theater-chip" onclick="window.sanctuaryCinema && window.sanctuaryCinema.theaterToggleSound()">🔈 Tune In</button>
+      <button type="button" class="cinema-theater-chip" onclick="window.switchElementTheme && window.switchElementTheme('fire', true)">🔥 Fire</button>
+      <button type="button" class="cinema-theater-chip" onclick="window.switchElementTheme && window.switchElementTheme('water', true)">🌊 Water</button>
+      <button type="button" class="cinema-theater-chip" onclick="window.switchElementTheme && window.switchElementTheme('earth', true)">🌿 Earth</button>
+      <button type="button" class="cinema-theater-chip" onclick="window.switchElementTheme && window.switchElementTheme('air', true)">🌬️ Air</button>
+      <button type="button" class="cinema-theater-chip" onclick="window.switchElementTheme && window.switchElementTheme('ether', true)">🌌 Ether</button>
+      <button type="button" class="cinema-theater-chip" onclick="openPauseModal(event)">🍃 60s Pause</button>
+      <button type="button" class="cinema-theater-exit" onclick="window.sanctuaryCinema && window.sanctuaryCinema.toggleTheater(false)">✕ Exit Theater (Esc)</button>
+    </div>
+  </div>
+
   <script src="script.js?v=6.2"></script>
   <script src="js/modules/adaptive-atmosphere.js?v=1.1"></script>
   <script src="js/modules/pause-booth.js?v=1.0"></script>
@@ -1576,5 +1683,6 @@
   <script src="js/modules/community-hub-wings.js?v=2.1"></script>
   <script src="js/modules/clubhouse-community-sync.js?v=1.0"></script>
   <script src="js/modules/telemetry-lens.js?v=1.0"></script>
+  <script src="js/modules/sanctuary-cinema.js?v=1.0"></script>
 </body>
 </html>

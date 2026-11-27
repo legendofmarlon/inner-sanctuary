@@ -2,11 +2,12 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  // Floating $1 Seed Action Button & Back to Top Medallion on Scroll
+  // Floating $1 Seed Action Button, Pause Booth Pill & Back to Top Medallion on Scroll
   const floatingSeedPill = document.getElementById('floating-seed-pill');
   const btnBackToTop = document.getElementById('btnBackToTop');
+  const floatingPausePill = document.querySelector('.floating-pause-booth-pill');
   const pwaBanner = document.getElementById('pwaInstallBanner');
-  if (floatingSeedPill || btnBackToTop) {
+  if (floatingSeedPill || btnBackToTop || floatingPausePill) {
     let ticking = false;
     window.addEventListener('scroll', () => {
       if (!ticking) {
@@ -20,23 +21,48 @@ document.addEventListener('DOMContentLoaded', () => {
             }
           }
           if (floatingSeedPill) {
-            if (isOverDonation) {
+            const heroActions = document.querySelector('.hero-mission-actions');
+            let isOverHeroCTAs = false;
+            if (heroActions) {
+              const r = heroActions.getBoundingClientRect();
+              if (r.top < window.innerHeight + 80 && r.bottom > -80) {
+                isOverHeroCTAs = true;
+              }
+            }
+            const seedThreshold = (window.innerWidth <= 768) ? 1200 : 340;
+            if (isOverDonation || isOverHeroCTAs) {
               document.body.classList.add('viewing-donation');
               floatingSeedPill.classList.remove('is-visible');
             } else {
               document.body.classList.remove('viewing-donation');
-              if (window.scrollY > 340) {
+              if (window.scrollY > seedThreshold) {
                 floatingSeedPill.classList.add('is-visible');
               } else {
                 floatingSeedPill.classList.remove('is-visible');
               }
             }
           }
+          if (floatingPausePill) {
+            if (window.scrollY > 380 && !isOverDonation) {
+              floatingPausePill.classList.add('is-visible');
+            } else {
+              floatingPausePill.classList.remove('is-visible');
+            }
+          }
           if (btnBackToTop) {
-            if (window.scrollY > 500) {
+            const topThreshold = (window.innerWidth <= 768) ? 900 : 500;
+            if (window.scrollY > topThreshold) {
               btnBackToTop.classList.add('is-visible');
             } else {
               btnBackToTop.classList.remove('is-visible');
+            }
+          }
+          const subnavBar = document.getElementById('sanctuarySubnavBar');
+          if (subnavBar && subnavBar.classList.contains('scroll-reveal-subnav')) {
+            if (window.scrollY > 360) {
+              subnavBar.classList.add('is-visible');
+            } else {
+              subnavBar.classList.remove('is-visible');
             }
           }
           if (pwaBanner) {
@@ -52,6 +78,28 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }, { passive: true });
   }
+
+  // Universal Accessible Modal Dismissal via ESC key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' || e.key === 'Esc' || e.keyCode === 27) {
+      if (typeof window.closePauseModal === 'function') window.closePauseModal();
+      if (typeof window.closeBraceletKeepsakeModal === 'function') window.closeBraceletKeepsakeModal();
+      if (typeof window.closeSpeakeasyModal === 'function') window.closeSpeakeasyModal();
+      if (typeof window.closeIgStoryModal === 'function') window.closeIgStoryModal();
+      if (typeof window.closeZeffyModal === 'function') window.closeZeffyModal();
+      if (typeof window.closeFunderModal === 'function') window.closeFunderModal();
+      if (window.sanctuaryPauseBooth && typeof window.sanctuaryPauseBooth.close === 'function') {
+        window.sanctuaryPauseBooth.close();
+      }
+      if (window.sanctuaryOS && typeof window.sanctuaryOS.close === 'function') {
+        window.sanctuaryOS.close();
+      }
+      const mobileDrawer = document.getElementById('mobile-nav-drawer');
+      if (mobileDrawer && mobileDrawer.style.display !== 'none') {
+        mobileDrawer.style.display = 'none';
+      }
+    }
+  });
 
 
   let soundscape = null;
@@ -1248,6 +1296,35 @@ document.addEventListener('DOMContentLoaded', () => {
         return this.audioCache[key];
       }
 
+      attachAnalyser(audio) {
+        if (!audio) return;
+        try {
+          if (!this._connectedAudios) this._connectedAudios = new WeakSet();
+          const AudioCtx = window.AudioContext || window.webkitAudioContext;
+          if (!AudioCtx) return;
+          if (!this._audioCtx) {
+            this._audioCtx = new AudioCtx();
+            this._analyser = this._audioCtx.createAnalyser();
+            this._analyser.fftSize = 128;
+            this._analyser.smoothingTimeConstant = 0.85;
+            this._freqData = new Uint8Array(this._analyser.frequencyBinCount);
+            this._analyser.connect(this._audioCtx.destination);
+            window._sanctuaryAudioAnalyser = this._analyser;
+            window._sanctuaryAudioFreqData = this._freqData;
+          }
+          if (this._audioCtx.state === 'suspended') {
+            this._audioCtx.resume().catch(() => {});
+          }
+          if (!this._connectedAudios.has(audio)) {
+            const src = this._audioCtx.createMediaElementSource(audio);
+            src.connect(this._analyser);
+            this._connectedAudios.add(audio);
+          }
+        } catch (err) {
+          // Safe fallback: audio still plays via native element output if Web Audio is unavailable
+        }
+      }
+
       start() {
         this.isPlaying = true;
         this.playElement(this.currentElement);
@@ -1292,6 +1369,7 @@ document.addEventListener('DOMContentLoaded', () => {
       playElement(element) {
         const audio = this.getAudio(element);
         audio.preload = 'auto';
+        this.attachAnalyser(audio);
         this.activeAudio = audio;
         const playPromise = audio.play();
         if (playPromise !== undefined) {
@@ -1307,6 +1385,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const prevAudio = this.activeAudio;
         const nextAudio = this.getAudio(newElement);
         nextAudio.preload = 'auto';
+        this.attachAnalyser(nextAudio);
         this.activeAudio = nextAudio;
 
         const playPromise = nextAudio.play();
@@ -1413,6 +1492,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     soundscape = new NaturalStudioSoundscape();
     window.soundscape = soundscape;
+    window.getSanctuaryAudioEnergy = function() {
+      if (!soundscape || !soundscape.isPlaying) return 0;
+      const analyser = window._sanctuaryAudioAnalyser;
+      const data = window._sanctuaryAudioFreqData;
+      if (!analyser || !data) return 0.22;
+      analyser.getByteFrequencyData(data);
+      let sum = 0;
+      const bins = Math.min(24, data.length);
+      for (let i = 0; i < bins; i++) sum += data[i];
+      return Math.min(1, (sum / (bins * 255)) * 1.9);
+    };
 
     // Soundscape Toggle Button
     const soundToggleBtn = document.getElementById('soundscape-toggle-btn');
@@ -4354,8 +4444,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const modal = document.getElementById('braceletKeepsakeModal');
       if (modal) {
         modal.style.display = 'flex';
+        modal.setAttribute('aria-hidden', 'false');
         renderCompletedRing();
         playHarmonicTone(528, 0.8, 0.015);
+        if (typeof window.triggerGentlePwaMilestone === 'function') {
+          window.triggerGentlePwaMilestone('bracelet');
+        }
       }
     };
 
@@ -4363,6 +4457,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const modal = document.getElementById('braceletKeepsakeModal');
       if (modal) {
         modal.style.display = 'none';
+        modal.setAttribute('aria-hidden', 'true');
       }
     };
 
@@ -4652,6 +4747,9 @@ document.addEventListener('DOMContentLoaded', () => {
       seedsSown++;
       localStorage.setItem(STORAGE_KEY, seedsSown);
       if (seedCounter) seedCounter.textContent = seedsSown;
+      if (typeof window.triggerGentlePwaMilestone === 'function') {
+        window.triggerGentlePwaMilestone('plinko');
+      }
 
       // Highlight legend card
       basketCards.forEach((c, idx) => {
@@ -4988,8 +5086,10 @@ document.addEventListener('DOMContentLoaded', () => {
       categories: ["music", "stage"]
     },
     {
-      src: "images/openmic/openmic-nov15-stone-hearth-celebration.gif",
-      caption: "Joyful Embodiment • Drums, Dancing & Laughter Before the Grand Hearth (Nov 15 • Live GIF)",
+      src: "images/openmic/openmic-nov15-stone-hearth-celebration.jpg",
+      webmSrc: "images/openmic/openmic-nov15-stone-hearth-celebration.webm",
+      videoSrc: "images/openmic/openmic-nov15-stone-hearth-celebration.mp4",
+      caption: "Joyful Embodiment • Drums, Dancing & Laughter Before the Grand Hearth (Nov 15 • Live Clip)",
       alt: "Community members dancing and drumming with pure joy before the stone fireplace",
       tag: "🎸 Music & Rhythm",
       categories: ["music", "community"]
@@ -5331,6 +5431,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById('PhotoWheelModal');
     if (!modal) return;
 
+    const vid = document.getElementById('wheelModalVideo');
+    if (vid) {
+      vid.pause();
+      vid.removeAttribute('src');
+    }
+
     modal.style.display = 'none';
     modal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
@@ -5342,12 +5448,37 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!data) return;
 
     const img = document.getElementById('wheelModalImg');
+    const vid = document.getElementById('wheelModalVideo');
     const caption = document.getElementById('wheelModalCaption');
     const counter = document.getElementById('wheelModalCounter');
 
-    if (img) {
-      img.src = data.src;
-      img.alt = data.alt;
+    if (data.videoSrc && vid) {
+      if (img) img.style.display = 'none';
+      vid.style.display = 'block';
+      vid.poster = data.src || '';
+      vid.innerHTML = '';
+      if (data.webmSrc) {
+        const sWebm = document.createElement('source');
+        sWebm.src = data.webmSrc;
+        sWebm.type = 'video/webm';
+        vid.appendChild(sWebm);
+      }
+      const sMp4 = document.createElement('source');
+      sMp4.src = data.videoSrc;
+      sMp4.type = 'video/mp4';
+      vid.appendChild(sMp4);
+      vid.load();
+      vid.play().catch(() => {});
+    } else {
+      if (vid) {
+        vid.pause();
+        vid.style.display = 'none';
+      }
+      if (img) {
+        img.style.display = 'block';
+        img.src = data.src;
+        img.alt = data.alt;
+      }
     }
     if (caption) caption.textContent = data.caption;
     if (counter) counter.textContent = `Photo ${window.currentPhotoWheelIndex + 1} of ${photoWheelData.length}`;
@@ -5509,7 +5640,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.currentStoryTheme = themeName || 'lake';
     
     // Update active pill UI
-    ['lake', 'dawn', 'obsidian'].forEach(t => {
+    ['lake', 'dawn', 'obsidian', 'hearth', 'redwood'].forEach(t => {
       const pill = document.getElementById('pillTheme' + t.charAt(0).toUpperCase() + t.slice(1));
       if (pill) {
         if (t === window.currentStoryTheme) {
@@ -5521,6 +5652,16 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     renderAndShowStoryModal();
+  };
+
+  window.openSparkWallpaperStudio = function(e) {
+    if (e) e.preventDefault();
+    window.currentStoryTheme = 'hearth';
+    window.openStorySnapshotFromReflection(e);
+    ['lake', 'dawn', 'obsidian', 'hearth', 'redwood'].forEach(t => {
+      const pill = document.getElementById('pillTheme' + t.charAt(0).toUpperCase() + t.slice(1));
+      if (pill) pill.classList.toggle('active', t === 'hearth');
+    });
   };
 
   window.openStorySnapshotFromReflection = function(e) {
@@ -5638,6 +5779,38 @@ document.addEventListener('DOMContentLoaded', () => {
         badgeBorder: 'rgba(240, 230, 210, 0.65)',
         stardust: 'rgba(255, 255, 255, 0.75)',
         waterHorizonGlow: 'rgba(200, 220, 255, 0.10)'
+      },
+      hearth: {
+        name: 'Warm Hearth Fire',
+        bg: ['#120805', '#24110A', '#3B1B0F', '#140905'],
+        auraColor1: 'rgba(255, 195, 110, 0.26)',
+        auraColor2: 'rgba(229, 130, 60, 0.14)',
+        rippleStroke: (a) => `rgba(255, 200, 125, ${a})`,
+        cardFace: ['#1F110B', '#2F1910', '#160B07'],
+        sheenBeam: 'rgba(255, 225, 180, 0.18)',
+        goldTrim: '#F8D98C',
+        goldTrimDim: 'rgba(212, 163, 75, 0.42)',
+        headerEmblem: '#F8D98C',
+        badgeBg: 'rgba(255, 195, 110, 0.15)',
+        badgeBorder: 'rgba(248, 217, 140, 0.70)',
+        stardust: 'rgba(255, 225, 165, 0.70)',
+        waterHorizonGlow: 'rgba(255, 150, 75, 0.14)'
+      },
+      redwood: {
+        name: 'Redwood Sanctuary Mist',
+        bg: ['#07110C', '#0F2218', '#183626', '#09150F'],
+        auraColor1: 'rgba(134, 239, 172, 0.22)',
+        auraColor2: 'rgba(248, 217, 140, 0.12)',
+        rippleStroke: (a) => `rgba(167, 243, 208, ${a})`,
+        cardFace: ['#0E1E16', '#162F22', '#0A1610'],
+        sheenBeam: 'rgba(220, 252, 231, 0.15)',
+        goldTrim: '#F5D77F',
+        goldTrimDim: 'rgba(197, 154, 63, 0.38)',
+        headerEmblem: '#F5D77F',
+        badgeBg: 'rgba(134, 239, 172, 0.14)',
+        badgeBorder: 'rgba(245, 215, 127, 0.68)',
+        stardust: 'rgba(209, 250, 229, 0.65)',
+        waterHorizonGlow: 'rgba(110, 231, 183, 0.12)'
       }
     };
 
@@ -6163,7 +6336,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Export to Preview Image & Display Modal
     const dataUrl = canvas.toDataURL('image/png');
-    if (previewImg) previewImg.src = dataUrl;
+    if (previewImg) {
+      previewImg.src = dataUrl;
+      previewImg.style.display = 'block';
+    }
     modal.style.display = 'flex';
     modal.setAttribute('aria-hidden', 'false');
 
@@ -6430,22 +6606,25 @@ document.addEventListener('DOMContentLoaded', () => {
       const mobileItem = document.getElementById('mobilePwaInstallItem');
       if (mobileItem) mobileItem.style.display = 'block';
 
-      // Gentle welcome window reveal 2.2 seconds after landing on the page
-      setTimeout(() => {
-        const dismissedAt = localStorage.getItem(DISMISS_KEY);
-        const sessionDismissed = sessionStorage.getItem('sanctuary_welcome_dismissed');
-        const now = Date.now();
-        const isDismissedRecently = dismissedAt && (now - parseInt(dismissedAt, 10)) < (DISMISS_DURATION_DAYS * 24 * 60 * 60 * 1000);
-
-        if (!isDismissedRecently && !sessionDismissed && !isStandalone()) {
-          const banner = document.getElementById('pwaInstallBanner');
-          if (banner) {
-            banner.style.display = 'block';
-          }
-        }
-      }, 2200);
+      // Gentle milestone-based PWA prompt (triggered after pause/bracelet/plinko instead of cold load)
     }
   });
+
+  window.triggerGentlePwaMilestone = function(reason) {
+    if (isStandalone()) return;
+    const dismissedAt = localStorage.getItem(DISMISS_KEY);
+    const sessionDismissed = sessionStorage.getItem('sanctuary_welcome_dismissed');
+    const now = Date.now();
+    const isDismissedRecently = dismissedAt && (now - parseInt(dismissedAt, 10)) < (DISMISS_DURATION_DAYS * 24 * 60 * 60 * 1000);
+    if (isDismissedRecently || sessionDismissed) return;
+
+    setTimeout(() => {
+      const banner = document.getElementById('pwaInstallBanner');
+      if (banner && banner.style.display !== 'block') {
+        banner.style.display = 'block';
+      }
+    }, 950);
+  };
 
   // Direct trigger prompt for Android button inside modal
   window.triggerPwaPromptDirect = function() {
@@ -6673,7 +6852,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const hearth = getHearthOrigin();
     const t = now * 0.001;
 
-    // Somatic Breathwork Stoking Dynamics
+    // Somatic Breathwork + Audio-Reactive Stoking Dynamics
     let breathStoke = 1.0;
     if (window.sanctuaryBreathSync && window.sanctuaryBreathSync.active) {
       const bStep = window.sanctuaryBreathSync.step; // 0 = Inhale, 1 = Exhale
@@ -6681,6 +6860,8 @@ document.addEventListener('DOMContentLoaded', () => {
       // Inhale stokes the fire with thermal oxygen; exhale relaxes into deep cozy warmth
       breathStoke = bStep === 0 ? (1.0 + bEase * 0.40) : (1.0 - bEase * 0.15);
     }
+    const audioEnergy = typeof window.getSanctuaryAudioEnergy === 'function' ? window.getSanctuaryAudioEnergy() : 0;
+    breathStoke += audioEnergy * 0.38;
 
     // Wavy lines & wave ribbons removed per user request
 
@@ -7113,7 +7294,7 @@ window.openPulsePresenceModal = function(e) {
     modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
 
-    // Open directly to Secret Raffle Wheel (before Midnight Vinyl)
+    // Open directly to the Secret Raffle Wheel at the front of the Secret Clubhouse
     switchSpeakeasyTab('wheel');
 
     // Initialize Guestbook on first open
@@ -7151,7 +7332,7 @@ window.openPulsePresenceModal = function(e) {
   // 6. Tab Switching
   window.switchSpeakeasyTab = function(tabName) {
     activeTab = tabName;
-    const tabs = ['wheel', 'vinyl', 'mic', 'pass'];
+    const tabs = ['wheel', 'elixir', 'vinyl', 'mic', 'pass'];
     tabs.forEach(t => {
       const btn = document.getElementById('tabBtn' + t.charAt(0).toUpperCase() + t.slice(1));
       const pane = document.getElementById('tabPane' + t.charAt(0).toUpperCase() + t.slice(1));
@@ -7163,6 +7344,73 @@ window.openPulsePresenceModal = function(e) {
     });
     if (tabName === 'wheel' && window.sanctuaryRaffleWheel && window.sanctuaryRaffleWheel.initWheelCanvas) {
       setTimeout(() => window.sanctuaryRaffleWheel.initWheelCanvas(), 60);
+    }
+  };
+
+  // 6b. Secret Clubhouse Elixir Bar & Living Room Prompts
+  const CLUBHOUSE_ELIXIRS = {
+    hibiscus: {
+      icon: '🌺',
+      title: 'Hibiscus & Ginger Glow',
+      note: 'Crisp ruby hibiscus steeped with warm ginger root, cardamom, and raw orange peel.',
+      prompt: '"What is one thing in your life right now that deserves your warmth?"'
+    },
+    chamomile: {
+      icon: '🍯',
+      title: 'Chamomile Honey Mist',
+      note: 'Sun-dried chamomile blossoms swirled with wildflower honey and steamed oat milk.',
+      prompt: '"If you didn’t have to rush anything tonight, what would you notice first?"'
+    },
+    cedar: {
+      icon: '🌲',
+      title: 'Smoked Cedar & Bergamot',
+      note: 'Earl Grey bergamot over toasted cedarwood bitters and a twist of charred lemon.',
+      prompt: '"Where in your story do you already feel deeply rooted?"'
+    },
+    matcha: {
+      icon: '🍵',
+      title: 'Lavender Matcha Tonic',
+      note: 'Ceremonial stone-ground green tea whisked with culinary lavender and sparkling spring water.',
+      prompt: '"What creative spark has been quietly tapping on your shoulder lately?"'
+    }
+  };
+
+  window.pourClubhouseElixir = function(key, btnEl) {
+    const item = CLUBHOUSE_ELIXIRS[key] || CLUBHOUSE_ELIXIRS.hibiscus;
+    document.querySelectorAll('.elixir-card-btn').forEach(b => b.classList.remove('active'));
+    if (btnEl) btnEl.classList.add('active');
+
+    const card = document.getElementById('elixirServingCard');
+    const iconEl = document.getElementById('elixirServingIcon');
+    const titleEl = document.getElementById('elixirServingTitle');
+    const noteEl = document.getElementById('elixirServingNote');
+    const promptEl = document.getElementById('elixirServingPrompt');
+    const passStamp = document.getElementById('passElixirDisplay');
+
+    if (iconEl) iconEl.textContent = item.icon;
+    if (titleEl) titleEl.textContent = item.title;
+    if (noteEl) noteEl.textContent = item.note;
+    if (promptEl) promptEl.textContent = item.prompt;
+    if (card) card.style.display = 'block';
+    if (passStamp) passStamp.textContent = `${item.icon} POUR: ${item.title.toUpperCase()}`;
+
+    try { localStorage.setItem('sanctuary_clubhouse_elixir', key); } catch (_) {}
+    if (typeof playHarmonicTone === 'function') playHarmonicTone(528, 0.5, 0.02);
+    if (typeof showToast === 'function') showToast(`${item.icon} Poured ${item.title} — stamped on your Clubhouse Card!`);
+  };
+
+  window.selectClubhousePrompt = function(promptPrefix) {
+    const form = document.getElementById('textWhisperForm');
+    const input = document.getElementById('textWhisperInput');
+    const btn = document.getElementById('btnOpenTextWhisper');
+    if (form && form.style.display === 'none') {
+      form.style.display = 'flex';
+      if (btn) btn.classList.add('active');
+    }
+    if (input) {
+      input.value = promptPrefix;
+      input.focus();
+      input.setSelectionRange(input.value.length, input.value.length);
     }
   };
 
@@ -8108,6 +8356,7 @@ Provide a deeply compassionate, grounded 2-3 sentence reflection. Never use clin
     const isHidden = tray.style.display === 'none' || !tray.style.display;
     tray.style.display = isHidden ? 'block' : 'none';
     if (btn) {
+      btn.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
       btn.style.background = isHidden ? 'rgba(30, 215, 96, 0.35)' : 'rgba(30, 215, 96, 0.16)';
       btn.style.borderColor = isHidden ? '#1ED760' : 'rgba(30, 215, 96, 0.45)';
       btn.style.boxShadow = isHidden ? '0 0 14px rgba(30, 215, 96, 0.5)' : 'none';
@@ -8258,6 +8507,9 @@ Provide a deeply compassionate, grounded 2-3 sentence reflection. Never use clin
         <a href="${gatheringHref}" onclick="closePauseModal()" class="btn btn-gold">Join Next Gathering 🌿</a>
         <button type="button" onclick="startPauseExperience()" class="btn btn-outline" style="border-color: rgba(197, 154, 63, 0.5); color: var(--forest-green);">Breathe Again</button>
       `;
+    }
+    if (typeof window.triggerGentlePwaMilestone === 'function') {
+      window.triggerGentlePwaMilestone('pause');
     }
   }
 

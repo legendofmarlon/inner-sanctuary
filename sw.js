@@ -1,7 +1,7 @@
 // Inner Sanctuary Wellness Foundation — Progressive Web App Service Worker
 // Version: 1.0.0 (Sanctuary in Your Pocket)
 
-const CACHE_NAME = 'inner-sanctuary-cache-v26';
+const CACHE_NAME = 'inner-sanctuary-cache-v27';
 const PRECACHE_ASSETS = [
   './',
   './index.html',
@@ -21,6 +21,7 @@ const PRECACHE_ASSETS = [
   './js/modules/pulse-constellation.js',
   './js/modules/raffle-wheel.js',
   './js/modules/run-of-show.js',
+  './js/modules/sanctuary-cinema.js',
   './js/modules/sanctuary-os.js',
   './js/modules/telemetry-lens.js',
   './styles/modules/adaptive-atmosphere.css',
@@ -32,6 +33,7 @@ const PRECACHE_ASSETS = [
   './styles/modules/pulse-constellation.css',
   './styles/modules/raffle-wheel.css',
   './styles/modules/run-of-show.css',
+  './styles/modules/sanctuary-cinema.css',
   './styles/modules/sanctuary-os.css'
 ];
 

@@ -333,6 +333,7 @@
   <link rel="stylesheet" href="styles/modules/promo-card-generator.css?v=1.0">
   <link rel="stylesheet" href="styles/modules/sanctuary-os.css">
   <link rel="stylesheet" href="styles/modules/funder-dossier.css?v=1.0">
+  <link rel="stylesheet" href="styles/modules/sanctuary-cinema.css?v=1.0">
 </head>
 <body data-element="fire">
 
@@ -409,6 +410,7 @@
   <!-- Elemental Sanctuary Ambient Canvas -->
   <canvas id="elemental-sanctuary-bg"></canvas>
   <div id="lantern-aura" class="lantern-aura"></div>
+  <div class="cinema-atmosphere-overlay" aria-hidden="true"></div>
 
   <!-- Parallax Botanical Canopy Accents (Framing the Sanctuary) -->
   <svg class="botanical-canopy botanical-top-left" viewBox="0 0 260 260" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -448,9 +450,6 @@
         <button type="button" onclick="triggerPwaInstall(event)" class="btn-top-download-app" style="background: rgba(255, 255, 255, 0.18); color: #FFFFFF; font-weight: 700; font-size: 0.74rem; padding: 4px 12px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.45); cursor: pointer; display: inline-flex; align-items: center; gap: 5px; box-shadow: 0 2px 8px rgba(0,0,0,0.18); transition: all 0.2s ease;" title="Download Inner Sanctuary App to Your Phone">
           <span>📱 Download App</span>
         </button>
-        <button type="button" onclick="openZeffyModal(event)" class="btn-liquid-gold pulse-gold" style="background: var(--sunburst-gold); color: #1C1B18; font-weight: 700; font-size: 0.74rem; padding: 4px 12px; border-radius: 999px; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 2px 8px rgba(197, 154, 63, 0.4);">
-          <span>🌱 Give $1 Seed</span>
-        </button>
       </div>
     </div>
   </div>
@@ -459,7 +458,7 @@
   <nav id="sanctuary-nav">
     <div class="container nav-inner">
       <div class="brand-group">
-        <a href="#remember" class="brand-group" style="text-decoration: none;">
+        <a href="index.html" class="brand-group" style="text-decoration: none;">
           <img class="nav-emblem" src="emblem.png" width="996" height="1024" alt="Inner Sanctuary Emblem Logo" onerror="this.src='emblem.jpg'" onclick="handleSpeakeasyKnock(event)" title="Inner Sanctuary Sacred Medallion • Tap 3 times for healing bells">
           <div class="brand-text-block">
             <span class="nav-title serif-brand">INNER SANCTUARY</span>
@@ -607,15 +606,16 @@
     <!-- Contextual Sub-Navigation Bar (Home) -->
     <div id="sanctuarySubnavBar" class="sanctuary-subnav-bar" aria-label="Home Section Quick Links">
       <div class="sanctuary-subnav-inner">
-        <span class="subnav-context-badge">On Home</span>
-        <a href="#remember" class="subnav-pill-link">🏠 Pause &amp; Hero</a>
-        <a href="#openmic-photo-wheel" class="subnav-pill-link">📸 3D Gallery</a>
-        <a href="#core-activations" class="subnav-pill-link">✦ Activations</a>
-        <a href="#mission" class="subnav-pill-link">📖 Mission</a>
+        <a href="index.html" class="subnav-context-badge" style="text-decoration: none;">🏠 Top</a>
+        <a href="#remember" class="subnav-pill-link">📖 Story</a>
+        <a href="#sanctuary-cinema-reel" class="subnav-pill-link">🎬 Reel</a>
+        <a href="#openmic-photo-wheel" class="subnav-pill-link">📸 Gallery</a>
+        <a href="#core-activations" class="subnav-pill-link">✦ Programs</a>
         <a href="#open-mic" class="subnav-pill-link">📅 Events</a>
-        <a href="#grantImpactSimulator" class="subnav-pill-link">🏛️ Grants &amp; Sim</a>
+        <a href="#grant-hub-portal" class="subnav-pill-link">🏛️ Grants</a>
         <a href="#connect" class="subnav-pill-link">✉️ Connect</a>
       </div>
+      <div class="cinema-story-progress" id="cinemaStoryProgress" aria-hidden="true"></div>
     </div>
   </nav>
 
@@ -627,25 +627,25 @@
       <div class="element-status-wrap">
         <span class="element-cycle-tag" id="weekly-cycle-badge">✦ Weekly Focus</span>
         <div class="element-active-text-group">
-          <span id="active-element-name" class="element-active-title">Tune into this week's element: <strong>🌬️ Air</strong></span>
+          <span id="active-element-name" class="element-active-title">Tune into this week's element: <strong>🔥 Fire</strong></span>
           <span class="desktop-only" style="color: rgba(197, 154, 63, 0.6); margin: 0 6px;">•</span>
-          <span id="active-element-date" class="element-date-range desktop-only">Nov 2 – Nov 8</span>
+          <span id="active-element-date" class="element-date-range desktop-only">Nov 23 – Nov 29</span>
           <span class="desktop-only" style="color: rgba(197, 154, 63, 0.6); margin: 0 6px;">•</span>
-          <span id="active-element-quote" class="element-quote-short desktop-only">"Unburdening the chest. Open ocean breeze creating space for clarity and weightless peace."</span>
+          <span id="active-element-quote" class="element-quote-short desktop-only">"Sacred hearth warmth. Gathering together around firelight for unhurried connection and creative courage."</span>
         </div>
       </div>
 
-      <!-- Weekly Immersion Action & Natural Breeze Toggle -->
+      <!-- Weekly Immersion Action & Natural Soundscape + Spotify Controls -->
       <div class="weekly-soundscape-action-wrap">
         
-        <div class="active-element-pill-badge" id="active-weekly-pill" title="This Week's Active Element: Air &amp; Ocean Breeze Sky Sanctuary">
-          <span class="pill-icon">🌬️</span>
-          <span class="pill-title" id="active-pill-title">Air &amp; Ocean Breeze</span>
-          <span class="pill-vibe-tag">Breeze</span>
+        <div class="active-element-pill-badge" id="active-weekly-pill" title="This Week's Active Element: Fire &amp; Hearth Sanctuary">
+          <span class="pill-icon">🔥</span>
+          <span class="pill-title" id="active-pill-title">Fire &amp; Hearth</span>
+          <span class="pill-vibe-tag">Fire</span>
         </div>
 
         <div class="soundscape-controls-wrap">
-          <button id="soundscape-toggle-btn" class="soundscape-toggle-btn" type="button" aria-pressed="false" title="Click to toggle ambient nature breeze">
+          <button id="soundscape-toggle-btn" class="soundscape-toggle-btn" type="button" aria-pressed="false" title="Click to toggle ambient nature soundscape">
             <span id="soundscape-icon">🔈</span>
             <span id="soundscape-label">Tune In</span>
             <span class="sound-wave-bars" aria-hidden="true">
@@ -653,6 +653,17 @@
               <span class="sound-wave-bar"></span>
               <span class="sound-wave-bar"></span>
             </span>
+          </button>
+
+          <!-- Spotify Vibe Button -->
+          <button id="spotify-toggle-btn" class="spotify-pill-btn" type="button" onclick="toggleSpotifyPlayer()" aria-expanded="false" aria-controls="sanctuarySpotifyTray" title="Listen to Sanctuary 432Hz Healing Soundscape on Spotify" style="display: inline-flex; align-items: center; gap: 6px; background: rgba(30, 215, 96, 0.16); border: 1px solid rgba(30, 215, 96, 0.45); color: #86EFAC; padding: 5px 12px; border-radius: 999px; font-size: 0.74rem; font-weight: 700; cursor: pointer; transition: all 0.2s ease;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+            <span>Spotify Vibe</span>
+          </button>
+
+          <button type="button" id="cinemaTheaterToggleBtn" class="cinema-theater-toggle-btn" aria-pressed="false" onclick="window.sanctuaryCinema && window.sanctuaryCinema.toggleTheater()" title="Enter Fullscreen Sanctuary Projector Mode (Hotkey: F)">
+            <span>🎭</span>
+            <span>Theater</span>
           </button>
 
           <div class="volume-control-pill" title="Adjust Nature Audio Volume">
@@ -667,8 +678,25 @@
     </div>
   </aside>
 
+  <!-- Collapsible Sanctuary Spotify Player Tray -->
+  <div id="sanctuarySpotifyTray" class="spotify-player-tray" style="display: none; background: rgba(14, 24, 18, 0.98); border-bottom: 1.5px solid rgba(30, 215, 96, 0.4); padding: 12px 20px; transition: all 0.3s ease;">
+    <div class="container" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 1.3rem;">🎧</span>
+        <div>
+          <div style="font-size: 0.84rem; font-weight: 700; color: #FFFDF7;">Sanctuary 432Hz Restorative Soundscape &amp; Acoustic Soul</div>
+          <div style="font-size: 0.72rem; color: #86EFAC;">Curated meditative and soulful acoustic frequencies for deep somatic pause</div>
+        </div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 12px; width: 100%; max-width: 480px;">
+        <iframe title="Sanctuary 432Hz Restorative Soundscape on Spotify" style="border-radius:12px; width: 100%; height: 80px;" src="https://open.spotify.com/embed/playlist/37i9dQZF1DX4sWSpwq3LiO?utm_source=generator&theme=0" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        <button type="button" onclick="toggleSpotifyPlayer()" style="background: none; border: none; color: #CBD7D0; font-size: 1.4rem; cursor: pointer; padding: 4px 8px; line-height: 1;" title="Close Spotify Player" aria-label="Close Spotify Player">&times;</button>
+      </div>
+    </div>
+  </div>
+
   <!-- ==================== HERO SECTION ==================== -->
-  <header class="hero">
+  <header class="hero cinema-hero-stage">
     <div class="container">
       
       <!-- Emblem Medallion with Celestial Ring & 3D Shimmer Aura -->
@@ -730,155 +758,19 @@
           <button type="button" onclick="openPauseModal(event)" class="btn btn-outline hero-glow-orb-cta" style="cursor: pointer; display: inline-flex; align-items: center; gap: 8px;"><span class="hero-orb-dot" aria-hidden="true"></span><span>60-Sec Glow Pause</span></button>
           <a href="#programs" class="btn btn-forest">Explore Experiences</a>
         </div>
-      </div>
 
-      <!-- ==================== SACRED MEDALLION EXECUTIVE LEADERSHIP & BOARD STEWARDSHIP (ABOVE THE SPARK) ==================== -->
-      <div id="leadership-stewardship" class="medallion-leadership-portal" aria-label="Executive Leadership and Board Stewardship">
-        
-        <!-- Outer Breathing Golden-Sapphire Halo -->
-        <div class="medallion-portal-halo" aria-hidden="true"></div>
-        
-        <!-- Dashed Celestial Orbiting Ring -->
-        <div class="medallion-portal-ring" aria-hidden="true"></div>
-        
-        <!-- Metallic Light Sweep Shimmer -->
-        <div class="medallion-portal-shimmer" aria-hidden="true"></div>
-
-        <div class="medallion-portal-inner">
-          
-          <!-- Section Header in Sacred Medallion Style -->
-          <div class="medallion-portal-header">
-            <div class="medallion-portal-crest">
-              <span class="crest-icon">👥</span>
-              <span class="crest-badge">✦ Black-Founded &amp; Community-Governed ✦</span>
-            </div>
-            <h3 class="serif-brand medallion-portal-title">
-              Executive Leadership &amp; Board Stewardship
-            </h3>
-            <p class="medallion-verification-sub">
-              Grounded in grassroots accountability, lived experience, and trauma-informed somatic care. Overseeing California 501(c)(3) public charity governance, community health equity, and CRA banking compliance.
-            </p>
-            
-            <!-- Quick-Reference Fiduciary Strip -->
-            <div class="medallion-portal-ein-strip">
-              <span>Federal EIN: <strong class="medallion-portal-ein">39-3757168</strong></span>
-              <span class="medallion-portal-dot">•</span>
-              <span>CA 501(c)(3) Public Charity</span>
-              <span class="medallion-portal-dot">•</span>
-              <span>100% Substance-Free Spaces</span>
-              <span class="medallion-portal-dot desktop-only">•</span>
-              <span class="desktop-only" style="color: #CBD5E1;">Contributions 100% Tax-Deductible</span>
-            </div>
+        <!-- 20-Second Guided Voice Grounding Bar -->
+        <div id="heroVoiceGroundingBar" class="hero-voice-grounding-bar" role="region" aria-label="Guided Voice Grounding Clip">
+          <button type="button" id="voiceGroundingToggleBtn" class="voice-grounding-btn" aria-pressed="false" onclick="window.sanctuaryCinema && window.sanctuaryCinema.toggleVoiceGrounding()">
+            <span>🎙️</span><span>20s Voice Grounding</span>
+          </button>
+          <div id="voiceGroundingStatus" class="voice-grounding-status" aria-live="polite">Guided breath cue • Hear a 20-sec sanctuary reset</div>
+          <div id="voicePhaseDots" class="voice-phase-dots" aria-hidden="true">
+            <span class="voice-phase-dot">Inhale</span>
+            <span class="voice-phase-dot">Hold</span>
+            <span class="voice-phase-dot">Exhale</span>
+            <span class="voice-phase-dot">Remember</span>
           </div>
-
-          <!-- 2 Executive Leader Cards Grid -->
-          <div class="medallion-leadership-grid">
-            
-            <!-- Leader 1: Teshia Campbell -->
-            <div class="funder-inline-leader-card">
-              <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 12px;">
-                <div class="leader-avatar-orb" style="width: 52px; height: 52px; border-radius: 50%; background: radial-gradient(circle, rgba(197, 154, 63, 0.28) 0%, rgba(10, 22, 36, 0.9) 100%); border: 1.5px solid #D4AF37; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; box-shadow: 0 0 16px rgba(212, 175, 55, 0.35); flex-shrink: 0;">🌿</div>
-                <div>
-                  <h4 style="font-family: 'Cinzel', serif; font-size: 1.22rem; color: #FFFDF7; margin: 0 0 3px;">Teshia Campbell</h4>
-                  <div style="font-size: 0.78rem; color: #F8D98C; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;">Founder &amp; Executive Director</div>
-                </div>
-              </div>
-              <p style="font-size: 0.86rem; color: #CBD5E1; line-height: 1.6; margin: 0 0 14px;">
-                Visionary architect of community care programs, youth mental health initiatives, and institutional grant management. Teshia oversees operational governance, CRA banking compliance, and trauma-informed somatic curriculum design.
-              </p>
-              <div style="display: flex; flex-wrap: wrap; gap: 6px;">
-                <span class="fiduciary-badge-pill">✦ Operational Governance</span>
-                <span class="fiduciary-badge-pill">✦ CRA Banking Compliance</span>
-                <span class="fiduciary-badge-pill">✦ Somatic Curriculum</span>
-              </div>
-            </div>
-
-            <!-- Leader 2: Marlon Smith -->
-            <div class="funder-inline-leader-card">
-              <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 12px;">
-                <div class="leader-avatar-orb" style="width: 52px; height: 52px; border-radius: 50%; background: radial-gradient(circle, rgba(245, 215, 127, 0.3) 0%, rgba(10, 22, 36, 0.9) 100%); border: 1.5px solid #F5D77F; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; box-shadow: 0 0 16px rgba(245, 215, 127, 0.35); flex-shrink: 0;">🎙️</div>
-                <div>
-                  <h4 style="font-family: 'Cinzel', serif; font-size: 1.22rem; color: #FFFDF7; margin: 0 0 3px;">Marlon Smith</h4>
-                  <div style="font-size: 0.78rem; color: #F8D98C; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;">President &amp; Primary Host</div>
-                </div>
-              </div>
-              <p style="font-size: 0.86rem; color: #CBD5E1; line-height: 1.6; margin: 0 0 14px;">
-                Cultural connector and community facilitator championing restorative open mic stages, artist development, and somatic stillness. Marlon directs community partnership activations, staging logistics, and civic neighborhood engagement.
-              </p>
-              <div style="display: flex; flex-wrap: wrap; gap: 6px;">
-                <span class="fiduciary-badge-pill">✦ Restorative Open Mic</span>
-                <span class="fiduciary-badge-pill">✦ Artist Development</span>
-                <span class="fiduciary-badge-pill">✦ Civic Engagement</span>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- Actions -->
-          <div class="medallion-portal-actions">
-            <button type="button" class="medallion-btn-gold" onclick="openFunderModal(event, 'leadership')">
-              <span>👥</span> View Board Stewardship in Dossier
-            </button>
-            <button type="button" class="medallion-btn-cyan" onclick="openFunderModal(event, 'summary')">
-              <span>🏛️</span> Institutional Dossier (PDF &amp; CRA)
-            </button>
-            <a href="#grant-hub-portal" class="medallion-btn-cyan">
-              <span>📜</span> Institutional Grants Bar
-            </a>
-            <button type="button" class="medallion-btn-copy" onclick="copyFunderEIN(event)">
-              <span>📋</span> Copy EIN: 39-3757168
-            </button>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- ==================== PROMINENT INSTITUTIONAL GRANT & FUNDER TAB BAR ==================== -->
-      <div id="grant-hub-portal" class="grant-funder-prominent-bar" aria-label="Institutional Grants and CRA Fiduciary Hub">
-        <div class="grant-tab-inner">
-          
-          <div class="grant-tab-left">
-            <div class="grant-tab-badge-row">
-              <span class="grant-tab-pill">🏛️ IRS 501(c)(3) Public Charity • § 509(a)(1)</span>
-              <span class="grant-tab-cra-tag">🏦 Bank CRA Qualified Community Partner</span>
-            </div>
-            <h3 class="grant-tab-title">
-              Institutional Funder Hub &amp; <span class="gold-accent">Fiduciary Due Diligence</span>
-            </h3>
-            <div class="grant-tab-fiduciary-meta">
-              <span>EIN: <strong>39-3757168</strong></span> • 
-              <span>State: <strong>California Active Charity</strong></span> • 
-              <span>Teshia Campbell, Founder &amp; ED</span> • 
-              <span>100% Tax-Deductible</span>
-            </div>
-          </div>
-
-          <div class="grant-tab-actions">
-            <a href="reports/inner-sanctuary-fiduciary-one-pager.html" target="_blank" rel="noopener noreferrer" class="grant-tab-btn-primary" title="Open Official 1-Page Grantmaker Fiduciary Dossier (Printable PDF)">
-              <span>📑</span>
-              <span>1-Page Fiduciary Dossier (PDF)</span>
-              <span style="font-size: 0.85em; opacity: 0.85;">↗</span>
-            </a>
-            <a href="reports/inner-sanctuary-grant-pitch-deck.pdf" target="_blank" rel="noopener noreferrer" class="grant-tab-btn-sub" title="Open 7-Slide Partner &amp; Grant Pitch Deck (PDF)">
-              <span>📊</span>
-              <span>7-Slide Pitch Deck (PDF) ↗</span>
-            </a>
-            <button type="button" onclick="copyFunderEIN(event)" class="grant-tab-btn-copy" title="Copy Federal EIN: 39-3757168 to Clipboard">
-              <span>📋</span>
-              <span>Copy EIN</span>
-            </button>
-            <button type="button" id="btnFunderQuickViewToggle" onclick="toggleFunderQuickView(event)" class="grant-tab-btn-quickview" aria-pressed="false" title="Switch page into streamlined 30-second Grant Program Officer executive brief">
-              <span>⚡ 30-Sec Funder Quick-View</span>
-            </button>
-            <button type="button" onclick="openFunderModal(event, 'summary')" class="grant-tab-btn-sub" title="Open Interactive Institutional Dossier">
-              <span>🏛️</span>
-              <span>Interactive Dossier</span>
-            </button>
-            <a href="#sponsorship" class="grant-tab-btn-scroll" title="Scroll to Full Institutional Due Diligence &amp; Board Governance">
-              <span>Full Due Diligence &amp; Metrics ↓</span>
-            </a>
-          </div>
-
         </div>
       </div>
 
@@ -897,7 +789,7 @@
       <div class="funder-quickview-actions">
         <button type="button" class="funder-qv-link" onclick="copyFunderEIN(event)">📋 Copy EIN</button>
         <a href="#grantImpactSimulator" class="funder-qv-link">📊 Grant Calculator</a>
-        <a href="reports/inner-sanctuary-fiduciary-one-pager.html" target="_blank" rel="noopener noreferrer" class="funder-qv-link" style="background: rgba(245, 215, 127, 0.22); border-color: #F5D77F; color: #FCE6A2;">📄 1-Page PDF ↗</a>
+        <a href="reports/inner-sanctuary-fiduciary-one-pager.pdf" target="_blank" rel="noopener noreferrer" class="funder-qv-link" style="background: rgba(245, 215, 127, 0.22); border-color: #F5D77F; color: #FCE6A2;">📄 1-Page PDF ↗</a>
         <a href="reports/inner-sanctuary-grant-pitch-deck.pdf" target="_blank" rel="noopener noreferrer" class="funder-qv-link" style="background: rgba(134, 239, 172, 0.16); border-color: rgba(134, 239, 172, 0.5); color: #86EFAC;">📊 Pitch Deck PDF ↗</a>
         <button type="button" class="funder-qv-link" onclick="toggleFunderQuickView(event, false)" style="border-color: rgba(248, 113, 113, 0.5); color: #FCA5A5;">✕ Exit Funder View</button>
       </div>
@@ -934,6 +826,83 @@
         <button type="button" class="lens-switch-btn active" data-lens="default" aria-pressed="true" onclick="window.sanctuaryLens && window.sanctuaryLens.set('default', true, false)">📖 Full Story</button>
         <button type="button" class="lens-switch-btn" data-lens="funder" aria-pressed="false" onclick="window.sanctuaryLens && window.sanctuaryLens.set('funder', true, false)">🏛️ Grantmaker Priority</button>
         <button type="button" class="lens-switch-btn" data-lens="neighbor" aria-pressed="false" onclick="window.sanctuaryLens && window.sanctuaryLens.set('neighbor', true, false)">🌱 Neighbor Priority</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== WIDESCREEN SANCTUARY DOCUMENTARY REEL ==================== -->
+  <section id="sanctuary-cinema-reel" class="section-padding cinema-reel-section" aria-label="Sanctuary Documentary Atmosphere Reel">
+    <div class="container">
+      <div class="cinema-reel-shell">
+        <div class="cinema-reel-topbar">
+          <div>
+            <div class="cinema-reel-eyebrow">
+              <span class="cinema-reel-live-dot" aria-hidden="true"></span>
+              <span>Sanctuary Documentary Reel • Four Rooms of Stillness &amp; Voice</span>
+            </div>
+            <h2 class="cinema-reel-title">Step Inside the Atmosphere</h2>
+          </div>
+          <div class="cinema-reel-controls">
+            <button type="button" class="cinema-reel-play-btn" onclick="window.sanctuaryCinema && window.sanctuaryCinema.prevScene()" aria-label="Previous scene">‹ Prev</button>
+            <button type="button" id="cinemaReelPlayBtn" class="cinema-reel-play-btn" aria-pressed="true" onclick="window.sanctuaryCinema && window.sanctuaryCinema.togglePlay()">
+              <span>⏸</span><span>Pause Reel</span>
+            </button>
+            <button type="button" class="cinema-reel-play-btn" onclick="window.sanctuaryCinema && window.sanctuaryCinema.nextScene()" aria-label="Next scene">Next ›</button>
+            <button type="button" class="cinema-reel-play-btn" onclick="window.sanctuaryCinema && window.sanctuaryCinema.toggleTheater(true)" title="Launch Fullscreen Sanctuary Projector Mode">🎭 Theater</button>
+          </div>
+        </div>
+
+        <div class="cinema-reel-viewport">
+          <figure class="cinema-reel-slide active" aria-hidden="false">
+            <img src="images/openmic/community-sanctuary-family.jpg" alt="Inner Sanctuary community members, artists, families, and elders gathered smiling together" width="1024" height="595" style="object-position: center 22%;" />
+          </figure>
+          <figure class="cinema-reel-slide" aria-hidden="true">
+            <img src="images/video-frame-acoustic-stage.jpg" alt="Intimate acoustic open mic stage bathed in golden hearth light" width="1376" height="768" loading="lazy" />
+          </figure>
+          <figure class="cinema-reel-slide" aria-hidden="true">
+            <img src="images/video-frame-bead-weaver.jpg" alt="Handcrafted gemstone intention bracelet weaving station" width="1376" height="768" loading="lazy" />
+          </figure>
+          <figure class="cinema-reel-slide" aria-hidden="true">
+            <img src="images/video-frame-unhurried-circle.jpg" alt="Unhurried community healing circle gathered together in conversation" width="1376" height="768" loading="lazy" />
+          </figure>
+
+          <div class="cinema-reel-scrim" aria-hidden="true"></div>
+
+          <div class="cinema-reel-caption-overlay">
+            <div>
+              <span class="cinema-reel-scene-tag" id="cinemaReelTag">Scene 01 • Real Community Warmth</span>
+              <h3 class="cinema-reel-scene-heading" id="cinemaReelHeading">Come As You Are, Together</h3>
+              <p class="cinema-reel-scene-desc" id="cinemaReelDesc">Artists, families, youth, and elders sharing the room in substance-free warmth and belonging.</p>
+            </div>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <a href="community-hub.html" class="btn btn-gold" style="padding: 9px 16px; font-size: 0.78rem; text-decoration: none;">✨ Enter Community Hub ↗</a>
+              <button type="button" onclick="openPauseModal(event)" class="cinema-reel-play-btn" style="padding: 9px 14px;">🍃 60s Pause</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="cinema-reel-progress-track" aria-hidden="true">
+          <div class="cinema-reel-progress-fill" id="cinemaReelProgress"></div>
+        </div>
+
+        <div class="cinema-reel-chapters" role="tablist" aria-label="Documentary Reel Scenes">
+          <button type="button" class="cinema-chapter-btn active" role="tab" aria-selected="true" onclick="window.sanctuaryCinema && window.sanctuaryCinema.goToScene(0)">
+            <span class="cinema-chapter-num">01 • Community</span>
+            <span class="cinema-chapter-label">The Living Circle</span>
+          </button>
+          <button type="button" class="cinema-chapter-btn" role="tab" aria-selected="false" onclick="window.sanctuaryCinema && window.sanctuaryCinema.goToScene(1)">
+            <span class="cinema-chapter-num">02 • Expression</span>
+            <span class="cinema-chapter-label">Acoustic Open Mic</span>
+          </button>
+          <button type="button" class="cinema-chapter-btn" role="tab" aria-selected="false" onclick="window.sanctuaryCinema && window.sanctuaryCinema.goToScene(2)">
+            <span class="cinema-chapter-num">03 • Keepsake</span>
+            <span class="cinema-chapter-label">Intention Bracelets</span>
+          </button>
+          <button type="button" class="cinema-chapter-btn" role="tab" aria-selected="false" onclick="window.sanctuaryCinema && window.sanctuaryCinema.goToScene(3)">
+            <span class="cinema-chapter-num">04 • Belonging</span>
+            <span class="cinema-chapter-label">Unhurried Circle</span>
+          </button>
+        </div>
       </div>
     </div>
   </section>
@@ -1070,8 +1039,11 @@
 
               <!-- Slide 4: Community members dancing and drumming with pure joy before the stone fireplace -->
               <div class="photo-wheel-slide slot-hidden" data-slide-idx="3" data-categories="music community" onclick="handleCoverflowSlideClick(3, event)">
-                <img src="images/openmic/openmic-nov15-stone-hearth-celebration.jpg" data-animated-src="images/openmic/openmic-nov15-stone-hearth-celebration.gif" alt="Community members dancing and drumming with pure joy before the stone fireplace" width="576" height="1024">
-                <span class="coverflow-gif-badge" aria-label="Live Animated GIF Moment">🎬 LIVE GIF</span>
+                <video autoplay muted loop playsinline preload="metadata" poster="images/openmic/openmic-nov15-stone-hearth-celebration.jpg" width="576" height="1024" aria-label="Community members dancing and drumming with pure joy before the stone fireplace">
+                  <source src="images/openmic/openmic-nov15-stone-hearth-celebration.webm" type="video/webm">
+                  <source src="images/openmic/openmic-nov15-stone-hearth-celebration.mp4" type="video/mp4">
+                </video>
+                <span class="coverflow-gif-badge" aria-label="Live Video Moment">🎬 LIVE CLIP</span>
                 <span class="coverflow-expand-hint">🔍 Click to Expand</span>
                 <div class="slide-caption-bar">
                   <span class="slide-caption-text">Joyful Embodiment • Drums, Dancing &amp; Laughter Before the Grand Hearth • Nov 15</span>
@@ -1342,7 +1314,7 @@
           <a href="#grantImpactSimulator" class="activation-btn-primary" style="background: var(--sunburst-gold); color: #1C1B18 !important;" title="Open Interactive Grant Impact Projections Simulator">
             <span>📊 Grant Calculator</span>
           </a>
-          <a href="reports/inner-sanctuary-fiduciary-one-pager.html" target="_blank" rel="noopener noreferrer" class="activation-btn-secondary" style="border-color: rgba(245, 215, 127, 0.5); color: #FFFDF7 !important; background: rgba(255,255,255,0.08);" title="Open Official 1-Page Grantmaker Fiduciary Dossier">
+          <a href="reports/inner-sanctuary-fiduciary-one-pager.pdf" target="_blank" rel="noopener noreferrer" class="activation-btn-secondary" style="border-color: rgba(245, 215, 127, 0.5); color: #FFFDF7 !important; background: rgba(255,255,255,0.08);" title="Open Official 1-Page Grantmaker Fiduciary Dossier">
             <span>📑 1-Page Dossier (PDF) ↗</span>
           </a>
           <button type="button" onclick="openFunderModal(event, 'summary')" class="activation-btn-secondary" style="border-color: rgba(245, 215, 127, 0.5); color: #FFFDF7 !important; background: rgba(255,255,255,0.08);" title="Open Interactive Institutional Dossier">
@@ -1726,6 +1698,9 @@
           <button type="button" class="btn btn-outline" onclick="window.sanctuaryPromoCard.open()" style="border-color: rgba(197, 154, 63, 0.5); color: var(--forest-green); font-size: 0.78rem; padding: 6px 16px; border-radius: 999px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;" title="Open Artist Promo Graphic Studio">
             <span>🎨 Artist Promo Studio</span>
           </button>
+          <button type="button" id="btnPreviewLiveTonight" class="btn btn-outline" aria-pressed="false" onclick="window.sanctuaryCinema && window.sanctuaryCinema.toggleLiveTonightPreview()" style="border-color: rgba(197, 154, 63, 0.5); color: var(--forest-green); font-size: 0.78rem; padding: 6px 16px; border-radius: 999px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;" title="Preview what this card switches to on Dec 10 Event Night">
+            <span>🔴 Preview Live Tonight</span>
+          </button>
         </div>
         <div class="flourish-divider">✦</div>
         <p style="font-size: 1.08rem; color: var(--charcoal-muted); line-height: 1.8;">
@@ -1801,6 +1776,24 @@
           </div>
         </div>
 
+        <!-- Event-Day / Live Tonight Auto-Switch Banner -->
+        <div id="liveTonightStageBanner" class="live-tonight-banner" hidden aria-live="polite">
+          <div class="live-tonight-pill">
+            <span class="live-tonight-dot" aria-hidden="true"></span>
+            <span id="liveTonightPillText">LIVE TONIGHT • SANCTUARY DOORS ARE OPEN</span>
+          </div>
+          <h4 class="live-tonight-heading">Welcome to Alton Studio — Pull Up &amp; Unplug</h4>
+          <p class="live-tonight-sub">
+            1501 W Alton Ave, Santa Ana • 6:00 PM – 8:00 PM PST • 100% Free &amp; Alcohol-Free Sanctuary
+          </p>
+          <div class="live-tonight-actions">
+            <a href="https://maps.google.com/?q=1501+W+Alton+Ave+Santa+Ana+CA+92704" target="_blank" rel="noopener noreferrer" class="btn btn-gold" style="padding: 9px 16px; font-size: 0.8rem; text-decoration: none;">🗺️ Get Directions ↗</a>
+            <a href="#openmic-roster-stage" class="btn btn-outline" style="padding: 9px 16px; font-size: 0.8rem; border-color: rgba(134, 239, 172, 0.55); color: #86EFAC; text-decoration: none;">🎙️ View / Claim Mic Slot ↓</a>
+            <button type="button" onclick="window.sanctuaryCinema && window.sanctuaryCinema.openInviteFlyer()" class="btn btn-outline" style="padding: 9px 16px; font-size: 0.8rem; border-color: rgba(245, 215, 127, 0.5); color: #FCE6A2; cursor: pointer;">📲 Share Invite Flyer</button>
+            <button type="button" onclick="window.sanctuaryCinema && window.sanctuaryCinema.toggleTheater(true)" class="btn btn-outline" style="padding: 9px 16px; font-size: 0.8rem; border-color: rgba(245, 215, 127, 0.5); color: #FCE6A2; cursor: pointer;">🎭 Projector Mode</button>
+          </div>
+        </div>
+
         <div style="text-align: center; margin-top: 16px;">
           <a href="#openmic-photo-wheel" class="btn-open-wheel-modal" style="text-decoration: none;">
             <span>📸 View 120+ Neighbors &amp; 360h Care in the 3D Gallery Showcase ↑</span>
@@ -1839,6 +1832,10 @@
               <h4 style="font-family: 'Cinzel', serif; font-size: 1.25rem; color: #FFFFFF; font-weight: 700; margin-bottom: 8px; line-height: 1.35;">
                 🎶 Jam Session: The Unplugged Playground
               </h4>
+              <div class="openmic-slot-availability-pill" id="dec10SlotCounter" title="Reserve your spot before the room reaches capacity">
+                <span class="slot-live-dot"></span>
+                <span>🎶 4 of 12 Acoustic &amp; Spoken-Word Slots Open • Free Entry</span>
+              </div>
               <p style="color: #CBD7D0; font-size: 0.88rem; line-height: 1.6; margin-bottom: 18px; flex-grow: 1;">
                 10 Humans. A Few Instruments. Endless Possibilities. An intimate unplugged circle co-hosted with SoCal Creatives Collective. Bring an acoustic instrument or simply come pause and listen.
               </p>
@@ -1846,7 +1843,10 @@
                 <a href="https://www.meetup.com/socal-creatives-collective/events/317462800/" target="_blank" rel="noopener noreferrer" class="btn btn-gold" style="flex: 1; text-align: center; font-size: 0.82rem; padding: 10px 14px; display: inline-flex; align-items: center; justify-content: center; gap: 6px;">
                   <span>RSVP on Meetup</span> <span>↗</span>
                 </a>
-                <div style="display: flex; gap: 6px;">
+                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                  <button type="button" onclick="window.sanctuaryCinema && window.sanctuaryCinema.openInviteFlyer()" class="btn btn-outline" style="font-size: 0.78rem; padding: 10px 12px; border-color: rgba(134, 239, 172, 0.55); color: #86EFAC; cursor: pointer;" title="Generate &amp; Share Dec 10 Invite Flyer">
+                    📲 Invite Flyer
+                  </button>
                   <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=%F0%9F%8E%B6+Jam+Session%3A+The+Unplugged+Playground&dates=20261211T020000Z/20261211T040000Z&details=An+Intimate+Jam+Session+with+SoCal+Creatives+Collective.+RSVP%3A+https%3A%2F%2Fwww.meetup.com%2Fsocal-creatives-collective%2Fevents%2F317462800%2F&location=1501+W+Alton+Ave%2C+Santa+Ana%2C+CA+92704" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 0.78rem; padding: 10px 12px; border-color: rgba(197, 154, 63, 0.45); color: #F5D77F;" title="Add to Google Calendar">
                     📅 Google
                   </a>
@@ -1873,6 +1873,10 @@
               <h4 style="font-family: 'Cinzel', serif; font-size: 1.25rem; color: #FFFFFF; font-weight: 700; margin-bottom: 8px; line-height: 1.35;">
                 🎤 Winter Open Mic &amp; Pause Activation Schedule
               </h4>
+              <div class="openmic-slot-availability-pill" id="winterOpenMicSlotCounter" title="Next Clubhouse Open Mic Performer Slots">
+                <span class="slot-live-dot"></span>
+                <span>🎙️ 5 of 12 Performer Slots Open • Next Clubhouse Cycle</span>
+              </div>
               <p style="color: #CBD7D0; font-size: 0.88rem; line-height: 1.6; margin-bottom: 18px; flex-grow: 1;">
                 Reserve a spoken-word/acoustic slot for our next Clubhouse Open Mic or invite a Permission to Pause mobile booth to your campus, workplace, or neighborhood space.
               </p>
@@ -1896,7 +1900,7 @@
           <h3 class="serif-brand" style="font-size: clamp(1.6rem, 2.8vw, 2.2rem); color: var(--forest-green); letter-spacing: 0.04em; margin-bottom: 8px;">
             Past Gatherings &amp; Verified Impact
           </h3>
-          <p style="color: var(--charcoal-muted); font-size: 1.02rem; line-height: 1.7; margin: 0 auto; max-width: 680px; font-weight: 500;">
+          <p style="color: #D3DFD8; font-size: 1.02rem; line-height: 1.7; margin: 0 auto; max-width: 680px; font-weight: 500; text-shadow: 0 1px 4px rgba(0,0,0,0.4);">
             Every gathering is archived in our transparent open ledger. Review documented community participation, attendee voices, and download official 1-page sponsor receipts for CRA and corporate partner tax verification.
           </p>
         </div>
@@ -1906,7 +1910,7 @@
             <!-- Event Card: 2026-11-22-friendsgiving (Archived automatically past end date) -->
             <div class="calendar-event-card" data-event-id="friendsgiving" data-event-start="2026-11-22T14:00:00-08:00" data-event-end="2026-11-22T18:00:00-08:00" style="background: rgba(30, 49, 39, 0.96); border: 1.5px solid rgba(197, 154, 63, 0.45); border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 10px 30px rgba(0,0,0,0.25);">
               <div style="position: relative; height: 180px; overflow: hidden;">
-                <img src="images/openmic/openmic-nov15-reconnect-sisterhood.jpg" alt="RECONNECT community leaders gathered at Our Sanctuary Clubhouse" style="width: 100%; height: 100%; object-fit: cover;" width="722" height="1024">
+                <img src="images/openmic/openmic-nov15-reconnect-sisterhood.jpg" alt="RECONNECT community leaders gathered at Our Sanctuary Clubhouse" style="width: 100%; height: 100%; object-fit: cover; object-position: center 20%;" width="722" height="1024">
                 <div style="position: absolute; top: 12px; left: 12px; background: rgba(18, 30, 24, 0.90); border: 1px solid #86EFAC; color: #86EFAC; font-size: 0.72rem; font-weight: 700; padding: 4px 10px; border-radius: 999px;">
                   ✓ COMPLETED GATHERING • NOV 22
                 </div>
@@ -2017,7 +2021,7 @@
         <div class="openmic-roster-card" id="openmic-roster-stage">
           <div class="roster-header">
             <div>
-              <span class="roster-badge">✦ Gathering Lineup • Sunday, Nov 15</span>
+              <span class="roster-badge">✦ Gathering Lineup • Thu, Dec 10 (Unplugged Playground)</span>
               <h4 class="roster-title serif-brand">Community Stage Roster</h4>
               <p class="roster-sub">10 unhurried 5-minute stage spots. Spoken word, acoustic music, or personal reflections.</p>
             </div>
@@ -2530,7 +2534,7 @@
             <span style="color: #C2DEC9;">✓ 0% Platform Fees (Keeps 100%)</span>
           </div>
           <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-            <a href="reports/inner-sanctuary-fiduciary-one-pager.html" target="_blank" rel="noopener noreferrer" class="btn btn-gold" style="font-size: 0.76rem; padding: 6px 12px; border-radius: 6px; display: inline-flex; align-items: center; gap: 6px; font-weight: 700; text-decoration: none; box-shadow: 0 2px 10px rgba(197, 154, 63, 0.3);">
+            <a href="reports/inner-sanctuary-fiduciary-one-pager.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-gold" style="font-size: 0.76rem; padding: 6px 12px; border-radius: 6px; display: inline-flex; align-items: center; gap: 6px; font-weight: 700; text-decoration: none; box-shadow: 0 2px 10px rgba(197, 154, 63, 0.3);">
               <span>📄 View 1-Page Fiduciary Dossier</span> <span>↗</span>
             </a>
             <span style="color: #CFE3D6; font-size: 0.82rem;">Foundation Grantmaker or CRA Partner?</span>
@@ -2551,6 +2555,137 @@
       <div id="funderElevatedNotice" class="lens-elevated-notice" hidden>
         <span>🏛️ Grantmaker Priority Active — Partnership Tiers &amp; Grant Impact Simulator elevated directly beneath the 3D Community Gallery</span>
         <button type="button" class="lens-notice-reset" onclick="window.sanctuaryLens && window.sanctuaryLens.set('default', true, false)">Reset Order</button>
+      </div>
+
+      <!-- ==================== PROMINENT INSTITUTIONAL GRANT & FUNDER TAB BAR ==================== -->
+      <div id="grant-hub-portal" class="grant-funder-prominent-bar" style="margin-top: 0; margin-bottom: 24px;" aria-label="Institutional Grants and CRA Fiduciary Hub">
+        <div class="grant-tab-inner">
+          <div class="grant-tab-left">
+            <div class="grant-tab-badge-row">
+              <span class="grant-tab-pill">🏛️ IRS 501(c)(3) Public Charity • § 509(a)(1)</span>
+              <span class="grant-tab-cra-tag">🏦 Bank CRA Qualified Community Partner</span>
+            </div>
+            <h3 class="grant-tab-title">
+              Institutional Funder Hub &amp; <span class="gold-accent">Fiduciary Due Diligence</span>
+            </h3>
+            <div class="grant-tab-fiduciary-meta">
+              <span>EIN: <strong>39-3757168</strong></span> • 
+              <span>State: <strong>California Active Charity</strong></span> • 
+              <span>Teshia Campbell, Founder &amp; ED</span> • 
+              <span>100% Tax-Deductible</span>
+            </div>
+          </div>
+
+          <div class="grant-tab-actions">
+            <a href="reports/inner-sanctuary-fiduciary-one-pager.pdf" target="_blank" rel="noopener noreferrer" class="grant-tab-btn-primary" title="Open Official 1-Page Grantmaker Fiduciary Dossier (Printable PDF)">
+              <span>📑</span>
+              <span>1-Page Fiduciary Dossier (PDF)</span>
+              <span style="font-size: 0.85em; opacity: 0.85;">↗</span>
+            </a>
+            <a href="reports/inner-sanctuary-grant-pitch-deck.pdf" target="_blank" rel="noopener noreferrer" class="grant-tab-btn-sub" title="Open 7-Slide Partner &amp; Grant Pitch Deck (PDF)">
+              <span>📊</span>
+              <span>7-Slide Pitch Deck (PDF) ↗</span>
+            </a>
+            <button type="button" onclick="copyFunderEIN(event)" class="grant-tab-btn-copy" title="Copy Federal EIN: 39-3757168 to Clipboard">
+              <span>📋</span>
+              <span>Copy EIN</span>
+            </button>
+            <button type="button" id="btnFunderQuickViewToggle" onclick="toggleFunderQuickView(event)" class="grant-tab-btn-quickview" aria-pressed="false" title="Switch page into streamlined 30-second Grant Program Officer executive brief">
+              <span>⚡ 30-Sec Funder Quick-View</span>
+            </button>
+            <button type="button" onclick="openFunderModal(event, 'summary')" class="grant-tab-btn-sub" title="Open Interactive Institutional Dossier">
+              <span>🏛️</span>
+              <span>Interactive Dossier</span>
+            </button>
+            <a href="#institutional-verification" class="grant-tab-btn-scroll" title="Scroll to Full Institutional Due Diligence &amp; Board Governance">
+              <span>Full Due Diligence &amp; Metrics ↓</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== SACRED MEDALLION EXECUTIVE LEADERSHIP & BOARD STEWARDSHIP ==================== -->
+      <div id="leadership-stewardship" class="medallion-leadership-portal" style="margin-bottom: 28px;" aria-label="Executive Leadership and Board Stewardship">
+        <div class="medallion-portal-halo" aria-hidden="true"></div>
+        <div class="medallion-portal-ring" aria-hidden="true"></div>
+        <div class="medallion-portal-shimmer" aria-hidden="true"></div>
+
+        <div class="medallion-portal-inner">
+          <div class="medallion-portal-header">
+            <div class="medallion-portal-crest">
+              <span class="crest-icon">👥</span>
+              <span class="crest-badge">✦ Black-Founded &amp; Community-Governed ✦</span>
+            </div>
+            <h3 class="serif-brand medallion-portal-title">
+              Executive Leadership &amp; Board Stewardship
+            </h3>
+            <p class="medallion-verification-sub">
+              Grounded in grassroots accountability, lived experience, and trauma-informed somatic care. Overseeing California 501(c)(3) public charity governance, community health equity, and CRA banking compliance.
+            </p>
+            <div class="medallion-portal-ein-strip">
+              <span>Federal EIN: <strong class="medallion-portal-ein">39-3757168</strong></span>
+              <span class="medallion-portal-dot">•</span>
+              <span>CA 501(c)(3) Public Charity</span>
+              <span class="medallion-portal-dot">•</span>
+              <span>100% Substance-Free Spaces</span>
+              <span class="medallion-portal-dot desktop-only">•</span>
+              <span class="desktop-only" style="color: #CBD5E1;">Contributions 100% Tax-Deductible</span>
+            </div>
+          </div>
+
+          <div class="medallion-leadership-grid">
+            <div class="funder-inline-leader-card">
+              <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 12px;">
+                <div class="leader-avatar-orb" style="width: 52px; height: 52px; border-radius: 50%; background: radial-gradient(circle, rgba(197, 154, 63, 0.28) 0%, rgba(10, 22, 36, 0.9) 100%); border: 1.5px solid #D4AF37; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; box-shadow: 0 0 16px rgba(212, 175, 55, 0.35); flex-shrink: 0;">🌿</div>
+                <div>
+                  <h4 style="font-family: 'Cinzel', serif; font-size: 1.22rem; color: #FFFDF7; margin: 0 0 3px;">Teshia Campbell</h4>
+                  <div style="font-size: 0.78rem; color: #F8D98C; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;">Founder &amp; Executive Director</div>
+                </div>
+              </div>
+              <p style="font-size: 0.86rem; color: #CBD5E1; line-height: 1.6; margin: 0 0 14px;">
+                Visionary architect of community care programs, youth mental health initiatives, and institutional grant management. Teshia oversees operational governance, CRA banking compliance, and trauma-informed somatic curriculum design.
+              </p>
+              <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+                <span class="fiduciary-badge-pill">✦ Operational Governance</span>
+                <span class="fiduciary-badge-pill">✦ CRA Banking Compliance</span>
+                <span class="fiduciary-badge-pill">✦ Somatic Curriculum</span>
+              </div>
+            </div>
+
+            <div class="funder-inline-leader-card">
+              <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 12px;">
+                <div class="leader-avatar-orb" style="width: 52px; height: 52px; border-radius: 50%; background: radial-gradient(circle, rgba(245, 215, 127, 0.3) 0%, rgba(10, 22, 36, 0.9) 100%); border: 1.5px solid #F5D77F; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; box-shadow: 0 0 16px rgba(245, 215, 127, 0.35); flex-shrink: 0;">🎙️</div>
+                <div>
+                  <h4 style="font-family: 'Cinzel', serif; font-size: 1.22rem; color: #FFFDF7; margin: 0 0 3px;">Marlon Smith</h4>
+                  <div style="font-size: 0.78rem; color: #F8D98C; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;">President &amp; Primary Host</div>
+                </div>
+              </div>
+              <p style="font-size: 0.86rem; color: #CBD5E1; line-height: 1.6; margin: 0 0 14px;">
+                Cultural connector and community facilitator championing restorative open mic stages, artist development, and somatic stillness. Marlon directs community partnership activations, staging logistics, and civic neighborhood engagement.
+              </p>
+              <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+                <span class="fiduciary-badge-pill">✦ Restorative Open Mic</span>
+                <span class="fiduciary-badge-pill">✦ Artist Development</span>
+                <span class="fiduciary-badge-pill">✦ Civic Engagement</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="medallion-portal-actions">
+            <button type="button" class="medallion-btn-gold" onclick="openFunderModal(event, 'leadership')">
+              <span>👥</span> View Board Stewardship in Dossier
+            </button>
+            <button type="button" class="medallion-btn-cyan" onclick="openFunderModal(event, 'summary')">
+              <span>🏛️</span> Institutional Dossier (PDF &amp; CRA)
+            </button>
+            <a href="#grant-hub-portal" class="medallion-btn-cyan">
+              <span>📜</span> Institutional Grants Bar
+            </a>
+            <button type="button" class="medallion-btn-copy" onclick="copyFunderEIN(event)">
+              <span>📋</span> Copy EIN: 39-3757168
+            </button>
+          </div>
+        </div>
       </div>
       
       <!-- Luminous Sanctuary Forest Green & Gold Outlined Sponsorship Container -->
@@ -2875,7 +3010,7 @@
 
             <!-- Medallion Verification Actions -->
             <div class="medallion-portal-actions">
-              <a href="reports/inner-sanctuary-fiduciary-one-pager.html" target="_blank" rel="noopener noreferrer" class="medallion-btn-gold" title="Open Official 1-Page Printable Fiduciary Dossier &amp; Due Diligence Sheet">
+              <a href="reports/inner-sanctuary-fiduciary-one-pager.pdf" target="_blank" rel="noopener noreferrer" class="medallion-btn-gold" title="Open Official 1-Page Printable Fiduciary Dossier &amp; Due Diligence Sheet">
                 <span>📑</span> 1-Page Fiduciary Dossier (Printable PDF) ↗
               </a>
               <button type="button" class="medallion-btn-cyan" onclick="openFunderModal(event, 'summary')" title="Open Interactive Institutional Dossier with Audit Tabs">
@@ -3121,7 +3256,7 @@
 
             <div class="funder-action-buttons" style="display: flex; flex-direction: column; gap: 10px;">
               <!-- 1-Page Fiduciary Dossier Instant Download -->
-              <a href="reports/inner-sanctuary-fiduciary-one-pager.html" target="_blank" rel="noopener noreferrer" class="btn btn-gold" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 18px; font-size: 0.82rem; font-weight: 700; text-decoration: none; box-shadow: 0 4px 18px rgba(197, 154, 63, 0.35);">
+              <a href="reports/inner-sanctuary-fiduciary-one-pager.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-gold" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 18px; font-size: 0.82rem; font-weight: 700; text-decoration: none; box-shadow: 0 4px 18px rgba(197, 154, 63, 0.35);">
                 <span>📄 Instant 1-Page Fiduciary Dossier (Printable / PDF)</span> <span>↗</span>
               </a>
               <!-- 7-Slide Partner & Grant Pitch Deck Download -->
@@ -3455,11 +3590,11 @@
             <li><a href="community-hub.html#zen-plinko">The Zen Plinko Seed Ritual ↗</a></li>
             <li><a href="#dollar-campaign-anchor">The $1 Community Seed</a></li>
             <li><a href="#sponsorship">Institutional Grants & Partnerships</a></li>
-            <li><a href="javascript:void(0)" onclick="openFunderModal(event)" style="color: #F8D98C; font-weight: 600;">🏛️ Institutional Grants &amp; Funder Hub</a></li>
+            <li><button type="button" onclick="openFunderModal(event)" style="background:none;border:none;padding:0;font:inherit;color:#F8D98C;font-weight:600;cursor:pointer;text-align:left;">🏛️ Institutional Grants &amp; Funder Hub</button></li>
             <li><a href="#stay-in-loop">Stay in the Loop</a></li>
             <li><a href="#connect">Get Involved With Us</a></li>
-            <li><a href="javascript:void(0)" onclick="if(window.sanctuaryOS) window.sanctuaryOS.open(); else if(window.openDiscoveryOsWindow) openDiscoveryOsWindow();" style="color: var(--sunburst-gold); font-weight: 600;">⚡ Sanctuary OS (Mission Control) ⌘K</a></li>
-            <li><a href="javascript:void(0)" id="btnPwaFooterInstall" onclick="triggerPwaInstall(event)">📱 Add Sanctuary to Home Screen</a></li>
+            <li><button type="button" onclick="if(window.sanctuaryOS) window.sanctuaryOS.open(); else if(window.openDiscoveryOsWindow) openDiscoveryOsWindow();" style="background:none;border:none;padding:0;font:inherit;color:var(--sunburst-gold);font-weight:600;cursor:pointer;text-align:left;">⚡ Sanctuary OS (Mission Control) ⌘K</button></li>
+            <li><button type="button" id="btnPwaFooterInstall" onclick="triggerPwaInstall(event)" style="background:none;border:none;padding:0;font:inherit;color:inherit;cursor:pointer;text-align:left;">📱 Add Sanctuary to Home Screen</button></li>
           </ul>
         </div>
 
@@ -3518,6 +3653,7 @@
   <script src="js/modules/community-popup.js?v=1.0"></script>
   <script src="js/modules/run-of-show.js?v=1.0"></script>
   <script src="js/modules/promo-card-generator.js?v=1.0"></script>
+  <script src="js/modules/sanctuary-cinema.js?v=1.0"></script>
 
   <!-- Hidden Netlify Form Definition for Community Circle Newsletter Alerts -->
   <form name="sanctuary-newsletter" data-netlify="true" netlify-honeypot="bot-field" hidden>
@@ -3600,6 +3736,7 @@
 
       <div class="wheel-modal-stage">
         <img id="wheelModalImg" src="images/openmic/openmic-nov15-living-room-sanctuary.jpg" alt="Community circle gathered in the clubhouse living room around the indoor tree" width="1024" height="576">
+        <video id="wheelModalVideo" autoplay muted loop playsinline controls style="display: none; width: 100%; height: 100%; object-fit: contain; border-radius: 10px;"></video>
         <button type="button" class="modal-arrow modal-arrow-prev" onclick="modalPrevPhoto()" aria-label="Previous">‹</button>
         <button type="button" class="modal-arrow modal-arrow-next" onclick="modalNextPhoto()" aria-label="Next">›</button>
       </div>
@@ -4158,6 +4295,14 @@
         <p class="funder-modal-sub">
           Official California 501(c)(3) Public Charity (Federal EIN: <strong>39-3757168</strong>). Black-Founded &amp; Black-Led community mental health, trauma-informed somatic care, and alcohol-free creative sanctuaries.
         </p>
+        <div class="funder-quick-docs-strip">
+          <a href="reports/inner-sanctuary-fiduciary-one-pager.pdf" target="_blank" rel="noopener noreferrer" class="btn-funder-tearsheet" title="Open 1-Page Print-Ready 501(c)(3) Executive Summary">
+            <span>📄 1-Page Executive Tear-Sheet (Print / PDF) ↗</span>
+          </a>
+          <a href="reports/inner-sanctuary-grant-pitch-deck.pdf" target="_blank" rel="noopener noreferrer" class="btn-funder-tearsheet secondary" title="Download 7-Slide Institutional Partner Brief PDF">
+            <span>📊 7-Slide Grant Brief (PDF) ↗</span>
+          </a>
+        </div>
       </div>
 
       <!-- Navigation Tabs -->
@@ -4267,7 +4412,7 @@
             <div class="funder-stat-card">
               <div class="funder-stat-val">360h</div>
               <div class="funder-stat-label">Care Hours Delivered</div>
-              <div class="funder-stat-sub">Across 24 open mics, unplugged jam sessions, and pause activations (120+ neighbors)</div>
+              <div class="funder-stat-sub">Across 24 featured performers &amp; healers at our verified Santa Ana &amp; OC circles (120+ neighbors)</div>
             </div>
           </div>
 
@@ -4328,6 +4473,44 @@
         </div>
       </div>
 
+    </div>
+  </div>
+
+  <!-- ==================== FULLSCREEN SANCTUARY PROJECTOR / THEATER STAGE ==================== -->
+  <div id="cinemaTheaterStage" class="cinema-theater-stage" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Sanctuary Theater Mode">
+    <div class="cinema-theater-center">
+      <img src="emblem.png" width="996" height="1024" alt="Inner Sanctuary Sacred Medallion" class="cinema-theater-emblem" onerror="this.src='emblem.jpg'" />
+      <div class="cinema-theater-kicker">Pause. Breathe. Remember.</div>
+      <h2 class="cinema-theater-quote">Come Home to Yourself.</h2>
+    </div>
+    <div class="cinema-theater-dock" role="toolbar" aria-label="Theater Sanctuary Controls">
+      <button type="button" id="theaterAudioBtn" class="cinema-theater-chip" onclick="window.sanctuaryCinema && window.sanctuaryCinema.theaterToggleSound()">🔈 Tune In</button>
+      <button type="button" class="cinema-theater-chip" onclick="window.switchElementTheme && window.switchElementTheme('fire', true)">🔥 Fire</button>
+      <button type="button" class="cinema-theater-chip" onclick="window.switchElementTheme && window.switchElementTheme('water', true)">🌊 Water</button>
+      <button type="button" class="cinema-theater-chip" onclick="window.switchElementTheme && window.switchElementTheme('earth', true)">🌿 Earth</button>
+      <button type="button" class="cinema-theater-chip" onclick="window.switchElementTheme && window.switchElementTheme('air', true)">🌬️ Air</button>
+      <button type="button" class="cinema-theater-chip" onclick="window.switchElementTheme && window.switchElementTheme('ether', true)">🌌 Ether</button>
+      <button type="button" class="cinema-theater-chip" onclick="openPauseModal(event)">🍃 60s Pause</button>
+      <button type="button" class="cinema-theater-exit" onclick="window.sanctuaryCinema && window.sanctuaryCinema.toggleTheater(false)">✕ Exit Theater (Esc)</button>
+    </div>
+  </div>
+
+  <!-- ==================== DEC 10 "BRING A FRIEND" INVITE FLYER MODAL ==================== -->
+  <div id="inviteFlyerModal" class="invite-flyer-backdrop" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Share Dec 10 Invite Flyer" style="display: none;" onclick="if(event.target === this && window.sanctuaryCinema) window.sanctuaryCinema.closeInviteFlyer()">
+    <div class="invite-flyer-dialog">
+      <button type="button" class="invite-flyer-close" onclick="window.sanctuaryCinema && window.sanctuaryCinema.closeInviteFlyer()" aria-label="Close invite flyer modal">&times;</button>
+      <div class="invite-flyer-badge">✦ BRING A FRIEND • DEC 10 FLYER ✦</div>
+      <h3 class="invite-flyer-title">Share Unplugged Playground</h3>
+      <canvas id="inviteFlyerCanvas" width="1080" height="1920" style="display: none;"></canvas>
+      <div class="invite-flyer-preview-wrap">
+        <img id="inviteFlyerPreviewImg" class="invite-flyer-preview-img" width="1080" height="1920" alt="Dec 10 Jam Session invite flyer preview" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'/%3E" />
+      </div>
+      <div class="invite-flyer-actions">
+        <button type="button" class="btn btn-gold" onclick="window.sanctuaryCinema && window.sanctuaryCinema.downloadInviteFlyer()" style="font-size: 0.8rem; padding: 9px 14px;">💾 Save PNG</button>
+        <button type="button" class="btn btn-outline" onclick="window.sanctuaryCinema && window.sanctuaryCinema.shareInviteFlyer()" style="font-size: 0.8rem; padding: 9px 14px; border-color: rgba(134, 239, 172, 0.55); color: #86EFAC;">📱 Share</button>
+        <button type="button" class="btn btn-outline" onclick="window.sanctuaryCinema && window.sanctuaryCinema.copyInviteText()" style="font-size: 0.8rem; padding: 9px 14px; border-color: rgba(245, 215, 127, 0.5); color: #FCE6A2;">📋 Copy Text</button>
+      </div>
+      <div id="inviteFlyerToast" class="invite-flyer-toast" role="status" aria-live="polite"></div>
     </div>
   </div>
 

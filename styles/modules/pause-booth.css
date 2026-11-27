@@ -394,7 +394,7 @@
   margin-top: 14px;
 }
 
-/* Floating QR / Check-in Quick Pill for mobile visitors (docked on bottom-left) */
+/* Floating QR / Check-in Quick Pill (docked on bottom-left, reveal on scroll) */
 .floating-pause-booth-pill {
   position: fixed;
   bottom: 24px;
@@ -414,7 +414,16 @@
   align-items: center;
   gap: 8px;
   letter-spacing: 0.04em;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(12px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.floating-pause-booth-pill.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
 }
 
 .floating-pause-booth-pill:hover {
@@ -422,11 +431,8 @@
   box-shadow: 0 12px 30px rgba(197, 154, 63, 0.4);
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .floating-pause-booth-pill {
-    bottom: 16px;
-    left: 14px;
-    padding: 8px 14px;
-    font-size: 0.74rem;
+    display: none !important;
   }
 }

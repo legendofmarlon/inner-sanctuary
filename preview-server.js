@@ -23,7 +23,9 @@ const MIME_TYPES = {
   '.mp3': 'audio/mpeg',
   '.ogg': 'audio/ogg',
   '.wav': 'audio/wav',
-  '.mp4': 'video/mp4'
+  '.mp4': 'video/mp4',
+  '.webm': 'video/webm',
+  '.pdf': 'application/pdf'
 };
 
 // Live reload clients

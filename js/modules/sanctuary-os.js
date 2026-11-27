@@ -30,27 +30,11 @@
   // ---------------------------------------------------------------------------
   // CONSTANTS & SESSION KEYS
   // ---------------------------------------------------------------------------
-  const STORAGE_KEY_SESSION = 'sanctuary_os_session_v1';
+  const STORAGE_KEY_SESSION = 'sanctuary_os_session_v2';
+  const LEGACY_SESSION_KEY = 'sanctuary_os_session_v1';
+  const VERIFY_ENDPOINT = '/.netlify/functions/verify-os-passkey';
   const STORAGE_KEY_CLAIMS = 'sanctuary_raffle_claims';
   const STORAGE_KEY_ROSTER = 'sanctuary_mc_roster_v1';
-
-  // Valid Leadership Passkeys
-  const OPERATORS = {
-    'jag7393': {
-      user: 'marlon',
-      name: 'Marlon Smith',
-      role: 'President & Primary Host',
-      avatar: '🎙️',
-      badge: 'MC HOST COMMAND'
-    },
-    'guitar123': {
-      user: 'teshia',
-      name: 'Teshia Campbell',
-      role: 'Founder & Executive Director',
-      avatar: '🌿',
-      badge: 'EXECUTIVE STEWARD'
-    }
-  };
 
   // Default seed performers for MC live stage queue
   const DEFAULT_PERFORMERS = [
@@ -490,13 +474,15 @@
   // PERSISTENCE & DATA INITIALIZATION
   // ---------------------------------------------------------------------------
   function initPersistentState() {
-    // 1. Session state
+    // 1. Session state (verified operator metadata only — never stores passkeys)
     try {
+      localStorage.removeItem(LEGACY_SESSION_KEY);
+      sessionStorage.removeItem(LEGACY_SESSION_KEY);
       const savedSession = sessionStorage.getItem(STORAGE_KEY_SESSION) || localStorage.getItem(STORAGE_KEY_SESSION);
       if (savedSession) {
         const parsed = JSON.parse(savedSession);
-        if (parsed && parsed.user && OPERATORS[parsed.passkey]) {
-          state.operator = OPERATORS[parsed.passkey];
+        if (parsed && parsed.operator && parsed.operator.user && parsed.operator.name) {
+          state.operator = parsed.operator;
         }
       }
     } catch (e) {
@@ -625,7 +611,7 @@
   // ---------------------------------------------------------------------------
   // AUTHENTICATION & SESSION MANAGEMENT
   // ---------------------------------------------------------------------------
-  function authenticate(eventOrPass) {
+  async function authenticate(eventOrPass) {
     let passkey = '';
     if (eventOrPass && typeof eventOrPass.preventDefault === 'function') {
       eventOrPass.preventDefault();
@@ -639,32 +625,60 @@
     }
 
     const trimmed = (passkey || '').trim();
-    const op = OPERATORS[trimmed];
     const errEl = document.getElementById('sanctuaryOsAuthError');
+    const unlockBtn = document.getElementById('sanctuaryOsUnlockBtn');
 
-    if (op) {
-      state.operator = op;
-      try {
-        const payload = JSON.stringify({ passkey: trimmed, user: op.user, name: op.name, timestamp: Date.now() });
-        sessionStorage.setItem(STORAGE_KEY_SESSION, payload);
-        localStorage.setItem(STORAGE_KEY_SESSION, payload);
-        sessionStorage.setItem('sanctuary_wheel_vip', op.user);
-      } catch (e) {}
-
+    if (!trimmed) {
       if (errEl) {
-        errEl.textContent = '';
-        errEl.style.display = 'none';
+        errEl.textContent = '⚠️ Please enter your leadership passkey.';
+        errEl.style.display = 'block';
       }
-      renderAuthState();
-      showToast(`✦ Welcome ${op.name}! Sanctuary OS Unlocked (${op.badge})`);
-      return true;
-    } else {
+      return false;
+    }
+
+    if (unlockBtn) unlockBtn.disabled = true;
+
+    try {
+      const response = await fetch(VERIFY_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ passkey: trimmed })
+      });
+      const result = await response.json().catch(() => ({}));
+
+      if (response.ok && result && result.ok && result.operator) {
+        const op = result.operator;
+        state.operator = op;
+        try {
+          const payload = JSON.stringify({ operator: op, timestamp: Date.now() });
+          sessionStorage.setItem(STORAGE_KEY_SESSION, payload);
+          localStorage.setItem(STORAGE_KEY_SESSION, payload);
+          sessionStorage.setItem('sanctuary_wheel_vip', op.user);
+        } catch (e) {}
+
+        if (errEl) {
+          errEl.textContent = '';
+          errEl.style.display = 'none';
+        }
+        renderAuthState();
+        showToast(`✦ Welcome ${op.name}! Sanctuary OS Unlocked (${op.badge})`);
+        return true;
+      }
+
       if (errEl) {
-        errEl.textContent = "⚠️ Access Denied. Invalid leadership authorization passkey.";
+        errEl.textContent = '⚠️ Access Denied. Invalid leadership authorization passkey.';
         errEl.style.display = 'block';
       }
       playConfirmTone();
       return false;
+    } catch (err) {
+      if (errEl) {
+        errEl.textContent = '⚠️ Unable to reach verification endpoint. Please retry.';
+        errEl.style.display = 'block';
+      }
+      return false;
+    } finally {
+      if (unlockBtn) unlockBtn.disabled = false;
     }
   }
 
@@ -1634,7 +1648,24 @@
     toggle: toggleModal,
     toggleMaximize: toggleMaximize,
     switchTab: switchTab,
-    switchSubTab: (subTab) => { state.activeSubTab = subTab; },
+    switchSubTab: (subTab) => {
+      state.activeSubTab = subTab;
+      const panelMap = {
+        radar: 'osSubPanelRadar',
+        graph: 'osSubPanelGraph',
+        sentinel: 'osSubPanelSentinel'
+      };
+      document.querySelectorAll('.radar-subtab-btn').forEach(btn => {
+        const match = btn.getAttribute('data-subtab') === subTab;
+        btn.classList.toggle('active', match);
+        btn.setAttribute('aria-pressed', match ? 'true' : 'false');
+      });
+      Object.entries(panelMap).forEach(([key, id]) => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = key === subTab ? 'block' : 'none';
+      });
+      if (subTab === 'radar') startRadarLoop();
+    },
 
     // Authentication
     unlock: authenticate,

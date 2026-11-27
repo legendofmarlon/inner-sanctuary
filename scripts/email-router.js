@@ -4,19 +4,17 @@
  * 
  * Routing Policy:
  * 1. hello@innersanctuarywellnessfoundation.org:
- *    - Filtered STRICTLY for Daily Scout & Grant Findings (Awesome Foundation, CAC, CRA Banks, Venues).
- *    - Protected from automated system noise, sentinel sweeps, or code logs.
+ *    - PAUSED FOR NOW per user request so the main org inbox is not overwhelmed.
  * 
  * 2. innersanctuary0@gmail.com & legendofmarlon@gmail.com:
  *    - Receives ALL updates: Grants, Scouts, Sentinel Sweeps, Board Dossiers, and Community RSVPs.
  */
 
 const EMAIL_ROUTING = {
-  // Grants, CRA Sponsorships & Venue Scouts (Clean, high-priority opportunities only)
+  // Grants, CRA Sponsorships & Venue Scouts (Gmail leadership inboxes only for now)
   scoutAndGrantRecipients: [
     'legendofmarlon@gmail.com',
-    'innersanctuary0@gmail.com',
-    'hello@innersanctuarywellnessfoundation.org'
+    'innersanctuary0@gmail.com'
   ],
 
   // System, Sentinel, Technical, and General Operational logs

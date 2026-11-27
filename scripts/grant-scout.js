@@ -280,11 +280,13 @@ function auditGrantPipeline() {
       dualRoutingPolicy: {
         route1: {
           recipient: 'hello@innersanctuarywellnessfoundation.org',
-          description: 'Filtered strictly for high-priority grants, institutional opportunities, and venue scouts. Protected from automated system logs.'
+          status: 'paused',
+          description: 'Temporarily paused so the main org inbox is not overwhelmed.'
         },
         route2: {
           recipients: ['legendofmarlon@gmail.com', 'innersanctuary0@gmail.com'],
-          description: 'Comprehensive executive and operational leadership dispatch (President Marlon Smith & Founder Teshia Campbell).'
+          status: 'active',
+          description: 'Active executive and operational leadership dispatch (President Marlon Smith & Founder Teshia Campbell).'
         }
       }
     },
@@ -720,10 +722,10 @@ function generateExecutiveHtmlDigest(audit) {
 
       <!-- Dual Routing Dispatch Notification -->
       <div class="routing-banner">
-        <div><strong>✦ Dual-Routing Dispatch Policy:</strong> High-priority executive synthesis delivering to:</div>
+        <div><strong>✦ Active Dispatch Policy:</strong> High-priority executive synthesis delivering to:</div>
         <div style="font-family: monospace; font-size: 0.78rem;">
-          Route 1 (Official Org): hello@innersanctuarywellnessfoundation.org<br>
-          Route 2 (Executive Leadership): legendofmarlon@gmail.com, innersanctuary0@gmail.com
+          Active Recipients: legendofmarlon@gmail.com, innersanctuary0@gmail.com<br>
+          Official Org (Paused): hello@innersanctuarywellnessfoundation.org
         </div>
       </div>
 
@@ -828,7 +830,7 @@ function prepareEmailDigestContent() {
 ## Executive Grant Scout & Discovery Pipeline Digest
 **Date:** ${currentDate} | **Tax Status:** IRS 501(c)(3) Public Charity (EIN: 39-3757168)  
 **Leadership:** Teshia Campbell, Founder & Executive Director • Marlon Smith, President & Primary Host  
-**Dual-Routing Notice:** Confirmed dispatch to \`hello@innersanctuarywellnessfoundation.org\` (Route 1) and \`legendofmarlon@gmail.com\`, \`innersanctuary0@gmail.com\` (Route 2).
+**Routing Notice:** Confirmed dispatch to \`legendofmarlon@gmail.com\` and \`innersanctuary0@gmail.com\` (\`hello@innersanctuarywellnessfoundation.org\` paused for now).
 
 ---
 
@@ -885,14 +887,14 @@ Our autonomous Sanctuary Grant Scout Agent has completed an exhaustive audit of 
 // 5. TEST & CONFIRM DUAL-ROUTING DISPATCH
 // ==========================================
 function dispatchDualRoutingEmail({ live = true } = {}) {
-  const recipients = getRecipientsForType('grant'); // ['legendofmarlon@gmail.com', 'innersanctuary0@gmail.com', 'hello@innersanctuarywellnessfoundation.org']
-  const primaryTo = 'legendofmarlon@gmail.com';
-  const ccList = 'innersanctuary0@gmail.com, hello@innersanctuarywellnessfoundation.org';
+  const recipients = getRecipientsForType('grant'); // ['legendofmarlon@gmail.com', 'innersanctuary0@gmail.com']
+  const primaryTo = recipients[0] || 'legendofmarlon@gmail.com';
+  const ccList = recipients.slice(1).join(', ');
   const subject = '🌿 [Grant Scout Digest] California Arts Council, CDPH Health Equity & Black-Led Wellness Grants — Nov 2026';
   
   const bodyFile = prepareEmailDigestContent();
   console.log(`Email markdown prepared at: ${bodyFile}`);
-  console.log(`Recipients configured: To: ${primaryTo} | CC: ${ccList}`);
+  console.log(`Recipients configured: To: ${primaryTo}${ccList ? ` | CC: ${ccList}` : ''}`);
 
   if (!live) {
     console.log('⚡ Dry-run mode: Email not dispatched over wire.');
@@ -902,7 +904,8 @@ function dispatchDualRoutingEmail({ live = true } = {}) {
   try {
     console.log('🚀 Executing authenticated Gmail dispatch...');
     // Using gmail mutate send with --body-file and --md
-    const cmd = `gmail mutate send --to "${primaryTo}" --cc "${ccList}" --subject "${subject}" --body-file "${bodyFile}" --md`;
+    const ccFlag = ccList ? ` --cc "${ccList}"` : '';
+    const cmd = `gmail mutate send --to "${primaryTo}"${ccFlag} --subject "${subject}" --body-file "${bodyFile}" --md`;
     const output = execSync(cmd, { encoding: 'utf8' });
     console.log('✅ Dispatch confirmed successfully!\nOutput:\n', output);
     return { success: true, output };

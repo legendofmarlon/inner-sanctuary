@@ -1,5 +1,5 @@
 {
-  "auditTimestamp": "2026-11-21T17:00:24.342Z",
+  "auditTimestamp": "2026-11-27T01:00:22.608Z",
   "organization": "Inner Sanctuary Wellness Foundation",
   "taxStatus": "IRS 501(c)(3) Public Charity",
   "ein": "39-3757168",
@@ -26,14 +26,16 @@
     "dualRoutingPolicy": {
       "route1": {
         "recipient": "hello@innersanctuarywellnessfoundation.org",
-        "description": "Filtered strictly for high-priority grants, institutional opportunities, and venue scouts. Protected from automated system logs."
+        "status": "paused",
+        "description": "Temporarily paused so the main org inbox is not overwhelmed."
       },
       "route2": {
         "recipients": [
           "legendofmarlon@gmail.com",
           "innersanctuary0@gmail.com"
         ],
-        "description": "Comprehensive executive and operational leadership dispatch (President Marlon Smith & Founder Teshia Campbell)."
+        "status": "active",
+        "description": "Active executive and operational leadership dispatch (President Marlon Smith & Founder Teshia Campbell)."
       }
     }
   },
