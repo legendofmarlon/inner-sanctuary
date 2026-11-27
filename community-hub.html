@@ -26,7 +26,7 @@
   <link rel="stylesheet" href="styles/modules/funder-dossier.css?v=1.0" />
   <link rel="stylesheet" href="styles/modules/promo-card-generator.css?v=1.0" />
   <link rel="stylesheet" href="styles/modules/community-hub-wings.css?v=2.3" />
-  <link rel="stylesheet" href="styles/modules/sanctuary-cinema.css?v=2.2" />
+  <link rel="stylesheet" href="styles/modules/sanctuary-cinema.css?v=2.3" />
   <link rel="stylesheet" href="styles/modules/echo-spark.css?v=2.0" />
 
   <style>
@@ -1680,10 +1680,11 @@
     </div>
 
     <div class="cinema-theater-center" id="theaterCenterMedallion">
-      <div class="theater-medallion-wrap">
+      <div class="theater-medallion-wrap" id="theaterMedallionWrap">
         <div class="theater-breath-halo" aria-hidden="true"></div>
         <div class="theater-breath-halo theater-breath-halo--outer" aria-hidden="true"></div>
-        <img src="emblem.png" width="996" height="1024" alt="Inner Sanctuary Sacred Medallion" class="cinema-theater-emblem" onerror="this.src='emblem.jpg'" />
+        <img src="emblem.png" width="996" height="1024" alt="Inner Sanctuary Sacred Medallion" class="cinema-theater-emblem" id="theaterCenterEmblem" onerror="this.src='emblem.jpg'" />
+        <canvas id="theaterMedallionBreathCanvas" class="theater-medallion-breath-canvas" aria-hidden="true"></canvas>
       </div>
       <div class="cinema-theater-kicker" id="theaterKickerText">Pause. Breathe. Remember.</div>
       <h2 class="cinema-theater-quote" id="theaterMainQuote">Come Home to Yourself.</h2>
@@ -1740,7 +1741,7 @@
   <script src="js/modules/community-hub-wings.js?v=2.1"></script>
   <script src="js/modules/clubhouse-community-sync.js?v=1.0"></script>
   <script src="js/modules/telemetry-lens.js?v=1.0"></script>
-  <script src="js/modules/sanctuary-cinema.js?v=2.2"></script>
+  <script src="js/modules/sanctuary-cinema.js?v=2.3"></script>
   <script src="js/modules/echo-spark.js?v=2.0"></script>
 </body>
 </html>

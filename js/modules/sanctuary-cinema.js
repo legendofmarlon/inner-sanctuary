@@ -353,6 +353,9 @@
     let idleTimer = null;
     let particleRaf = null;
     let particles = [];
+    let breathPlumes = [];
+    let ambientCycleStart = typeof performance !== 'undefined' ? performance.now() : Date.now();
+    let guidedCycleStart = typeof performance !== 'undefined' ? performance.now() : Date.now();
     let bowlCtx = null;
     let hasShownWelcomePop = false;
 
@@ -890,13 +893,199 @@
         window.addEventListener('resize', handleResize, { passive: true });
       }
 
-      const frame = () => {
+      const easeCos = (u) => 0.5 - 0.5 * Math.cos(Math.PI * Math.max(0, Math.min(1, u)));
+
+      const hexToRgb = (hex) => {
+        const clean = String(hex || '#F5D77F').replace('#', '');
+        if (clean.length !== 6) return '245, 215, 127';
+        const n = parseInt(clean, 16);
+        return `${(n >> 16) & 255}, ${(n >> 8) & 255}, ${n & 255}`;
+      };
+
+      const getBreathKinematics = (now) => {
+        if (breathRunning) {
+          const p = (((now - guidedCycleStart) % 16000) + 16000) % 16000 / 16000;
+          if (p < 0.25) {
+            const e = easeCos(p / 0.25);
+            return { scale: 0.93 + 0.20 * e, exhaleIntensity: 0, inhaleIntensity: Math.sin(Math.PI * (p / 0.25)) };
+          }
+          if (p < 0.50) {
+            return { scale: 1.13, exhaleIntensity: 0.06, inhaleIntensity: 0 };
+          }
+          if (p < 0.75) {
+            const u = (p - 0.50) / 0.25;
+            const e = easeCos(u);
+            return { scale: 1.13 - 0.20 * e, exhaleIntensity: Math.sin(Math.PI * u), inhaleIntensity: 0 };
+          }
+          const uRest = (p - 0.75) / 0.25;
+          return { scale: 0.93, exhaleIntensity: Math.max(0, 0.12 * (1 - uRest)), inhaleIntensity: 0 };
+        }
+
+        // Smooth continuous 10s sanctuary breath cycle when Theater Mode is open
+        const p = (((now - ambientCycleStart) % 10000) + 10000) % 10000 / 10000;
+        if (p < 0.40) {
+          const e = easeCos(p / 0.40);
+          return { scale: 0.94 + 0.15 * e, exhaleIntensity: 0, inhaleIntensity: Math.sin(Math.PI * (p / 0.40)) * 0.65 };
+        }
+        if (p < 0.50) {
+          return { scale: 1.09, exhaleIntensity: 0.08, inhaleIntensity: 0 };
+        }
+        if (p < 0.90) {
+          const u = (p - 0.50) / 0.40;
+          const e = easeCos(u);
+          return { scale: 1.09 - 0.15 * e, exhaleIntensity: Math.sin(Math.PI * u), inhaleIntensity: 0 };
+        }
+        const uSettle = (p - 0.90) / 0.10;
+        return { scale: 0.94, exhaleIntensity: Math.max(0, 0.12 * (1 - uSettle)), inhaleIntensity: 0 };
+      };
+
+      const emitMouthPlume = (x, y, dirX, dirY, intensity, accentRgb, isMobile) => {
+        const cap = isMobile ? 48 : 96;
+        if (breathPlumes.length >= cap) return;
+        const speed = (1.1 + Math.random() * 1.15) * (0.65 + intensity * 0.75);
+        breathPlumes.push({
+          isSpark: false,
+          x,
+          y,
+          vx: dirX * speed + (Math.random() - 0.5) * 0.18,
+          vy: dirY * speed + (Math.random() - 0.5) * 0.24,
+          r: 4.5 + Math.random() * 3.5,
+          grow: 0.34 + Math.random() * 0.22,
+          alpha: (0.20 + Math.random() * 0.14) * Math.min(1, 0.45 + intensity * 0.7),
+          age: 0,
+          life: 62 + Math.random() * 28,
+          seed: Math.random() * Math.PI * 2,
+          rgb: accentRgb
+        });
+
+        if (Math.random() < 0.48 * intensity && breathPlumes.length < cap) {
+          breathPlumes.push({
+            isSpark: true,
+            x: x + (Math.random() - 0.5) * 4,
+            y: y + (Math.random() - 0.5) * 4,
+            vx: dirX * (speed * 1.18) + (Math.random() - 0.5) * 0.3,
+            vy: dirY * (speed * 1.05) + (Math.random() - 0.5) * 0.3,
+            r: 1.1 + Math.random() * 1.6,
+            grow: 0,
+            alpha: 0.58 + Math.random() * 0.32,
+            age: 0,
+            life: 48 + Math.random() * 26,
+            seed: Math.random() * Math.PI * 2,
+            rgb: accentRgb
+          });
+        }
+      };
+
+      const updateMedallionBreath = (now, lore) => {
+        const stageEl = document.getElementById('cinemaTheaterStage');
+        const emblem = document.getElementById('theaterCenterEmblem');
+        const bCanvas = document.getElementById('theaterMedallionBreathCanvas');
+        if (!stageEl || !emblem) return;
+
+        const kin = getBreathKinematics(now);
+        stageEl.style.setProperty('--theater-breath-scale', kin.scale.toFixed(4));
+        stageEl.style.setProperty('--theater-breath-glow', Math.max(0, (kin.scale - 0.93) * 5).toFixed(3));
+        stageEl.style.setProperty('--theater-halo-opacity', (0.46 + Math.max(0, kin.scale - 0.93) * 2.4).toFixed(3));
+
+        if (!bCanvas) return;
+        const bCtx = bCanvas.getContext('2d');
+        if (!bCtx) return;
+
+        const cw = bCanvas.clientWidth || 440;
+        const ch = bCanvas.clientHeight || 380;
+        if (Math.abs(bCanvas.width - cw) > 2 || Math.abs(bCanvas.height - ch) > 2) {
+          bCanvas.width = cw;
+          bCanvas.height = ch;
+        }
+
+        bCtx.clearRect(0, 0, cw, ch);
+
+        const baseD = Math.max(96, (emblem.offsetWidth || 180) - 16);
+        const liveD = baseD * kin.scale;
+        const cx = cw * 0.5;
+        const cy = ch * 0.5;
+
+        // Exact coordinates verified from emblem.png artwork (996x1024):
+        // Left profile lips at (~19.5%, ~32.5%); Right lifted chin lips at (~74.0%, ~35.5%)
+        const mxL = cx + (-0.305) * liveD;
+        const myL = cy + (-0.175) * liveD;
+        const mxR = cx + (0.240) * liveD;
+        const myR = cy + (-0.145) * liveD;
+
+        const accentRgb = hexToRgb((lore && lore.colors && lore.colors[0]) || '#F5D77F');
+        const isMob = window.innerWidth <= 768;
+
+        if (kin.exhaleIntensity > 0.06) {
+          // Delicate lip origin mist glow connecting stream seamlessly to both mouths
+          [
+            [mxL, myL, -1, -0.18],
+            [mxR, myR, 1, -0.32]
+          ].forEach(([mx, my, dx, dy]) => {
+            const ox = mx + dx * 6;
+            const oy = my + dy * 4;
+            const lipGrad = bCtx.createRadialGradient(mx, my, 0, ox, oy, 26);
+            lipGrad.addColorStop(0, `rgba(255, 253, 245, ${(0.34 * kin.exhaleIntensity).toFixed(3)})`);
+            lipGrad.addColorStop(0.55, `rgba(${accentRgb}, ${(0.16 * kin.exhaleIntensity).toFixed(3)})`);
+            lipGrad.addColorStop(1, 'rgba(255, 253, 245, 0)');
+            bCtx.fillStyle = lipGrad;
+            bCtx.beginPath();
+            bCtx.arc(ox, oy, 26, 0, Math.PI * 2);
+            bCtx.fill();
+          });
+
+          if (Math.random() < (isMob ? 0.55 : 0.85) * Math.max(0.25, kin.exhaleIntensity)) {
+            emitMouthPlume(mxL, myL, -1.0, -0.18, kin.exhaleIntensity, accentRgb, isMob);
+            emitMouthPlume(mxR, myR, 1.0, -0.30, kin.exhaleIntensity, accentRgb, isMob);
+          }
+        }
+
+        for (let i = breathPlumes.length - 1; i >= 0; i--) {
+          const p = breathPlumes[i];
+          p.age += 1;
+          if (p.age >= p.life) {
+            breathPlumes.splice(i, 1);
+            continue;
+          }
+
+          const progress = p.age / p.life;
+          p.x += p.vx;
+          p.y += p.vy + Math.sin(p.age * 0.14 + p.seed) * 0.24;
+          p.vx *= 0.988;
+          p.vy -= 0.011; // Breath rises softly in twilight air
+          p.r += p.grow;
+
+          const env = progress < 0.16 ? (progress / 0.16) : (1 - (progress - 0.16) / 0.84);
+          const alpha = Math.max(0, p.alpha * env * env);
+
+          if (p.isSpark) {
+            bCtx.fillStyle = `rgba(255, 252, 238, ${alpha.toFixed(3)})`;
+            bCtx.beginPath();
+            bCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            bCtx.fill();
+          } else {
+            const grad = bCtx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
+            grad.addColorStop(0, `rgba(255, 253, 246, ${(alpha * 0.72).toFixed(3)})`);
+            grad.addColorStop(0.5, `rgba(${p.rgb}, ${(alpha * 0.34).toFixed(3)})`);
+            grad.addColorStop(1, `rgba(${p.rgb}, 0)`);
+            bCtx.fillStyle = grad;
+            bCtx.beginPath();
+            bCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            bCtx.fill();
+          }
+        }
+      };
+
+      const frame = (now) => {
         if (!isTheater) {
           particleRaf = null;
           return;
         }
+        const ts = now || (typeof performance !== 'undefined' ? performance.now() : Date.now());
         const key = getActiveElementKey();
         const lore = ELEMENT_LORE[key] || ELEMENT_LORE.fire;
+
+        updateMedallionBreath(ts, lore);
+
         const w = canvas.width;
         const h = canvas.height;
         ctx.clearRect(0, 0, w, h);
@@ -945,6 +1134,18 @@
       if (particleRaf) {
         window.cancelAnimationFrame(particleRaf);
         particleRaf = null;
+      }
+      breathPlumes = [];
+      const bCanvas = document.getElementById('theaterMedallionBreathCanvas');
+      if (bCanvas) {
+        const bCtx = bCanvas.getContext('2d');
+        if (bCtx) bCtx.clearRect(0, 0, bCanvas.width, bCanvas.height);
+      }
+      const stageEl = document.getElementById('cinemaTheaterStage');
+      if (stageEl) {
+        stageEl.style.removeProperty('--theater-breath-scale');
+        stageEl.style.removeProperty('--theater-breath-glow');
+        stageEl.style.removeProperty('--theater-halo-opacity');
       }
     }
 
@@ -1027,30 +1228,11 @@
           kickerEl.textContent = lore.kicker;
         }
       }
-
-      // Dynamic Medallion Halo Expansion
-      const halos = document.querySelectorAll('.theater-breath-halo');
-      halos.forEach((h) => {
-        if (breathRunning) {
-          if (phase.key === 'inhale' || phase.key === 'hold') {
-            h.style.transform = 'scale(1.22)';
-            h.style.opacity = '0.9';
-          } else if (phase.key === 'exhale') {
-            h.style.transform = 'scale(0.88)';
-            h.style.opacity = '0.4';
-          } else {
-            h.style.transform = 'scale(1.0)';
-            h.style.opacity = '0.6';
-          }
-        } else {
-          h.style.transform = '';
-          h.style.opacity = '';
-        }
-      });
     }
 
     function stopBreathTimer() {
       breathRunning = false;
+      ambientCycleStart = typeof performance !== 'undefined' ? performance.now() : Date.now();
       if (breathTimer) {
         clearInterval(breathTimer);
         breathTimer = null;
@@ -1064,6 +1246,7 @@
         return;
       }
       breathRunning = true;
+      guidedCycleStart = typeof performance !== 'undefined' ? performance.now() : Date.now();
       breathStepIdx = 0;
       breathTick = BREATH_PHASES[0].secs;
       if (window.soundscape && window.soundscape.isPlaying) {
@@ -1510,6 +1693,7 @@
         if (window.sanctuaryCinema.toggleStageDrawer) window.sanctuaryCinema.toggleStageDrawer(false);
         document.body.classList.remove('cinema-theater-idle', 'cinema-theater-typing', 'cinema-theater-has-popup', 'cinema-theater-stage-drawer-open');
       } else {
+        ambientCycleStart = typeof performance !== 'undefined' ? performance.now() : Date.now();
         mountTheaterSlides();
         startParticleLoop();
         startSlideTimer();
