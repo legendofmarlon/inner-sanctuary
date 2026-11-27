@@ -346,29 +346,872 @@
 
   function initTheaterMode() {
     let isTheater = false;
+    let isStargaze = false;
+    let currentEl = document.body.getAttribute('data-element') || 'fire';
+    let promptCursor = { fire: 0, water: 0, earth: 0, air: 0, ether: 0 };
+    let zCounter = 20;
+    let idleTimer = null;
+    let particleRaf = null;
+    let particles = [];
+    let bowlCtx = null;
+    let hasShownWelcomePop = false;
+
+    // Breathing Box state inside Breath & Sound pop-up
+    let breathTimer = null;
+    let breathRunning = false;
+    let breathStepIdx = 0;
+    let breathTick = 4;
+
+    // Mini-Cinema Reel state
+    let miniReelIdx = 0;
+
+    // Hearth & Notes subtab state
+    let notesTab = 'note';
+    let showTheaterSpotify = false;
+    let cachedNotes = [];
+
+    const SUPABASE_URL = 'https://xleadnehhbzjltykhtsn.supabase.co';
+    const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_QbXx1RuAukuz7M-fgCXH7w_fBOj25wm';
+
+    const ELEMENT_LORE = {
+      fire: {
+        badge: '🔥 FIRE • HEARTH WARMTH & COURAGE',
+        kicker: 'Warmth Without Performance',
+        quote: 'Come Warm Your Hands by the Fire.',
+        intention: 'Courageous belonging & creative release',
+        affirmation: 'You do not have to earn rest, warmth, or a seat by the fire.',
+        colors: ['#FBBF24', '#F97316', '#FDE68A'],
+        prompts: [
+          'Where in your chest could use a little more warmth tonight?',
+          'If you could lay down one heavy expectation before midnight, what is it?',
+          'What song, poem, or truth has been waiting for a safe room to land in?'
+        ]
+      },
+      water: {
+        badge: '🌊 WATER • FLOW & EXHALE',
+        kicker: 'Wash Away the Hurry',
+        quote: 'Let Everything Rush Past Except This Breath.',
+        intention: 'Unforced rhythm & emotional softness',
+        affirmation: 'Even slow rivers reach the ocean without forcing a single wave.',
+        colors: ['#38BDF8', '#7DD3FC', '#BAE6FD'],
+        prompts: [
+          'What rushing thought can you hand back to the creek tonight?',
+          'Notice your jaw and shoulders—can they drop half an inch right now?',
+          'What does unhurried peace feel like inside your ribs?'
+        ]
+      },
+      earth: {
+        badge: '🌿 EARTH • ROOTS & STILLNESS',
+        kicker: 'Held by Living Ground',
+        quote: 'Feel Your Feet Upon the Living Soil.',
+        intention: 'Grounded safety & steady presence',
+        affirmation: 'You are held right where you stand; nothing needs to be rushed.',
+        colors: ['#4ADE80', '#86EFAC', '#FDE68A'],
+        prompts: [
+          'Notice three places where your body is supported by the chair or floor.',
+          'What small quiet win from today deserves to be honored?',
+          'Who in your community is an anchor stone you are grateful for?'
+        ]
+      },
+      air: {
+        badge: '🌬️ AIR • CLARITY & SPACE',
+        kicker: 'Open Sky Inside You',
+        quote: 'Make Room for a Weightless Peace.',
+        intention: 'Mental spaciousness & gentle release',
+        affirmation: 'You are allowed more sky than noise inside your own mind.',
+        colors: ['#93C5FD', '#E0F2FE', '#FFFFFF'],
+        prompts: [
+          'Exhale a second slower than you inhaled—what opens up in your chest?',
+          'Which headline or worry can gently wait until tomorrow morning?',
+          'If calm had a color moving through the room right now, what shade is it?'
+        ]
+      },
+      ether: {
+        badge: '🌌 ETHER • STARLIGHT & MEMORY',
+        kicker: 'The Sanctuary Within',
+        quote: 'Pause. Breathe. Remember Who You Are.',
+        intention: 'Awe, memory & shared humanity',
+        affirmation: 'The sanctuary you spent years looking for is already breathing inside you.',
+        colors: ['#C084FC', '#F8D98C', '#E9D5FF'],
+        prompts: [
+          'What quiet part of you still remembers how to create without fear?',
+          'Imagine fifty neighbors breathing slowly together in one candlelit room.',
+          'What memory brings you straight home to yourself in five seconds?'
+        ]
+      }
+    };
+
+    const MINI_REEL_CLIPS = [
+      {
+        type: 'video',
+        chip: '🎬 Stone Hearth Loop',
+        title: 'Nov 15 • Stone Hearth Celebration',
+        desc: 'Candlelight, laughter, and unplugged instruments in our Orange County circle.',
+        poster: 'images/openmic/openmic-nov15-stone-hearth-celebration.jpg',
+        webm: 'images/openmic/openmic-nov15-stone-hearth-celebration.webm',
+        mp4: 'images/openmic/openmic-nov15-stone-hearth-celebration.mp4'
+      },
+      {
+        type: 'image',
+        chip: '🏡 Community Family',
+        title: 'Come As You Are, Together',
+        desc: 'Artists, elders, and youth sharing substance-free warmth side by side.',
+        src: 'images/openmic/community-sanctuary-family.jpg'
+      },
+      {
+        type: 'image',
+        chip: '🎸 Unplugged Stage',
+        title: 'Acoustic Harmony Under String Lights',
+        desc: 'Zero competition, zero pressure—just raw human voices witnessed with care.',
+        src: 'images/openmic/openmic-nov15-acoustic-duo-harmony.jpg'
+      },
+      {
+        type: 'image',
+        chip: '🥁 Dusk Circle',
+        title: 'Poolside Djembe & Rhythm Circle',
+        desc: 'Drums, spoken word, and sunset breath across Orange County.',
+        src: 'images/openmic/openmic-nov15-djembe-poolside-rhythm.jpg'
+      },
+      {
+        type: 'image',
+        chip: '📿 Anchor Keepsakes',
+        title: 'Intention Woven by Hand',
+        desc: 'Every attendee weaves an anchor-word gemstone bracelet to carry home.',
+        src: 'images/video-frame-bead-weaver.jpg'
+      }
+    ];
+
+    const BREATH_PHASES = [
+      { key: 'inhale', label: 'Inhale', secs: 4, hint: 'Breathe in slowly through the nose' },
+      { key: 'hold', label: 'Hold', secs: 4, hint: 'Rest softly at the top' },
+      { key: 'exhale', label: 'Exhale', secs: 4, hint: 'Let shoulders fall as you release' },
+      { key: 'hold', label: 'Settle', secs: 4, hint: 'Quiet stillness before the next wave' }
+    ];
+
+    const POPUP_META = {
+      ritual: { title: '✨ Element Lore & Prompt', wide: false, defaultPos: { x: 18, y: 18 } },
+      mixer: { title: '🌬️ Breath & Sound Studio', wide: false, defaultPos: { x: -18, y: 18 } },
+      reel: { title: '🎬 Sanctuary Mini-Cinema', wide: true, defaultPos: { x: 18, y: -18 } },
+      notes: { title: '🌻 Hearth Notes & Dec 10', wide: false, defaultPos: { x: -18, y: -18 } }
+    };
+
+    const escapeHtml = (str) =>
+      String(str || '').replace(/[&<>"']/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
+
+    function getActiveElementKey() {
+      return document.body.getAttribute('data-element') || currentEl || 'fire';
+    }
+
+    function wakeDockIdleTimer() {
+      document.body.classList.remove('cinema-theater-idle');
+      if (idleTimer) clearTimeout(idleTimer);
+      if (!isTheater) return;
+      idleTimer = setTimeout(() => {
+        if (isTheater && !document.body.classList.contains('cinema-theater-typing')) {
+          document.body.classList.add('cinema-theater-idle');
+        }
+      }, 4500);
+    }
+
+    function syncElementCopy() {
+      const key = getActiveElementKey();
+      currentEl = key;
+      const lore = ELEMENT_LORE[key] || ELEMENT_LORE.fire;
+
+      const hudText = document.getElementById('theaterHudElementText');
+      if (hudText) hudText.textContent = lore.badge;
+
+      const kickerEl = document.getElementById('theaterKickerText');
+      const quoteEl = document.getElementById('theaterMainQuote');
+      const subEl = document.getElementById('theaterSubQuote');
+      if (kickerEl) kickerEl.textContent = lore.kicker;
+      if (quoteEl) quoteEl.textContent = lore.quote;
+      if (subEl) subEl.textContent = `${lore.intention} • Tap a window below to explore.`;
+
+      document.querySelectorAll('.theater-el-chip[data-theater-el]').forEach((btn) => {
+        const match = btn.getAttribute('data-theater-el') === key;
+        btn.classList.toggle('active', match);
+        btn.setAttribute('aria-pressed', match ? 'true' : 'false');
+      });
+
+      const ritualWin = document.getElementById('theaterWin-ritual');
+      if (ritualWin) renderPopupBody('ritual', ritualWin.querySelector('.theater-pop-body'));
+    }
+
+    function syncDockPopupButtons() {
+      document.querySelectorAll('.theater-pop-trigger[data-theater-pop]').forEach((btn) => {
+        const key = btn.getAttribute('data-theater-pop');
+        const isOpen = !!document.getElementById(`theaterWin-${key}`);
+        btn.classList.toggle('active', isOpen);
+        btn.setAttribute('aria-pressed', isOpen ? 'true' : 'false');
+      });
+    }
 
     const syncTheaterUI = () => {
       document.body.classList.toggle('cinema-theater-mode', isTheater);
+      document.body.classList.toggle('cinema-theater-stargaze', isTheater && isStargaze);
       const stage = document.getElementById('cinemaTheaterStage');
       if (stage) stage.setAttribute('aria-hidden', isTheater ? 'false' : 'true');
 
       const toggleBtn = document.getElementById('cinemaTheaterToggleBtn');
       if (toggleBtn) toggleBtn.setAttribute('aria-pressed', isTheater ? 'true' : 'false');
 
+      const stargazeBtn = document.getElementById('theaterStargazeBtn');
+      if (stargazeBtn) {
+        stargazeBtn.classList.toggle('active', isStargaze);
+        stargazeBtn.setAttribute('aria-pressed', isStargaze ? 'true' : 'false');
+        stargazeBtn.textContent = isStargaze ? '👁️ Exit Stargaze' : '👁️ Stargaze';
+      }
+
       const audioBtn = document.getElementById('theaterAudioBtn');
       if (audioBtn && window.soundscape) {
         audioBtn.textContent = window.soundscape.isPlaying ? '🔊 Pause Sound' : '🔈 Tune In';
+        audioBtn.classList.toggle('active', !!window.soundscape.isPlaying);
       }
+
+      const mixerSoundBtn = document.getElementById('theaterMixerSoundBtn');
+      if (mixerSoundBtn && window.soundscape) {
+        mixerSoundBtn.textContent = window.soundscape.isPlaying ? '🔊 Sound Playing (Pause)' : '🔈 Start Nature Soundscape';
+        mixerSoundBtn.classList.toggle('active', !!window.soundscape.isPlaying);
+      }
+
+      syncElementCopy();
+      syncDockPopupButtons();
+    };
+
+    // Ambient Element-Reactive Theater Particles
+    function initParticles(canvas) {
+      particles = [];
+      const count = 42;
+      const w = canvas.width || window.innerWidth;
+      const h = canvas.height || window.innerHeight;
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          r: 1.2 + Math.random() * 2.8,
+          vx: (Math.random() - 0.5) * 0.45,
+          vy: (Math.random() - 0.5) * 0.45,
+          phase: Math.random() * Math.PI * 2,
+          colorIdx: i % 3
+        });
+      }
+    }
+
+    function startParticleLoop() {
+      if (prefersReducedMotion || particleRaf) return;
+      const canvas = document.getElementById('theaterAmbienceCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      const resize = () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      };
+      resize();
+      if (!particles.length) initParticles(canvas);
+
+      const frame = () => {
+        if (!isTheater) {
+          particleRaf = null;
+          return;
+        }
+        if (canvas.width !== window.innerWidth || canvas.height !== window.innerHeight) {
+          resize();
+        }
+        const key = getActiveElementKey();
+        const lore = ELEMENT_LORE[key] || ELEMENT_LORE.fire;
+        const w = canvas.width;
+        const h = canvas.height;
+        ctx.clearRect(0, 0, w, h);
+
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          p.phase += 0.02;
+
+          if (key === 'fire') {
+            p.y -= 0.48 + (i % 3) * 0.14;
+            p.x += Math.sin(p.phase) * 0.35;
+          } else if (key === 'water') {
+            p.y -= 0.28;
+            p.x += Math.sin(p.phase * 0.8) * 0.45;
+          } else if (key === 'earth') {
+            p.x += Math.cos(p.phase * 0.6) * 0.32;
+            p.y += Math.sin(p.phase * 0.5) * 0.28;
+          } else if (key === 'air') {
+            p.x += 0.58 + (i % 2) * 0.25;
+            p.y += Math.sin(p.phase) * 0.22;
+          } else {
+            p.x += Math.cos(p.phase * 0.3) * 0.12;
+            p.y += Math.sin(p.phase * 0.3) * 0.12;
+          }
+
+          if (p.y < -12) p.y = h + 12;
+          if (p.y > h + 12) p.y = -12;
+          if (p.x < -12) p.x = w + 12;
+          if (p.x > w + 12) p.x = -12;
+
+          const alpha = 0.25 + (Math.sin(p.phase) + 1) * 0.28;
+          ctx.globalAlpha = alpha;
+          ctx.fillStyle = lore.colors[p.colorIdx] || '#F5D77F';
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.globalAlpha = 1;
+        particleRaf = window.requestAnimationFrame(frame);
+      };
+
+      particleRaf = window.requestAnimationFrame(frame);
+    }
+
+    function stopParticleLoop() {
+      if (particleRaf) {
+        window.cancelAnimationFrame(particleRaf);
+        particleRaf = null;
+      }
+    }
+
+    // 432Hz Warm Singing Bowl Synthesizer (zero external audio required)
+    window.sanctuaryCinema.playBowl = function () {
+      try {
+        const Ctx = window.AudioContext || window.webkitAudioContext;
+        if (!Ctx) return;
+        if (!bowlCtx) bowlCtx = new Ctx();
+        if (bowlCtx.state === 'suspended') bowlCtx.resume();
+
+        const now = bowlCtx.currentTime;
+        const master = bowlCtx.createGain();
+        master.gain.setValueAtTime(0.0001, now);
+        master.gain.linearRampToValueAtTime(0.22, now + 0.04);
+        master.gain.exponentialRampToValueAtTime(0.0001, now + 4.4);
+        master.connect(bowlCtx.destination);
+
+        const partials = [
+          { freq: 216, gain: 0.45, decay: 4.3 },
+          { freq: 432, gain: 0.6, decay: 4.0 },
+          { freq: 648, gain: 0.22, decay: 3.1 },
+          { freq: 1084, gain: 0.08, decay: 2.1 }
+        ];
+
+        partials.forEach((p) => {
+          const osc = bowlCtx.createOscillator();
+          const g = bowlCtx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(p.freq, now);
+          g.gain.setValueAtTime(p.gain, now);
+          g.gain.exponentialRampToValueAtTime(0.001, now + p.decay);
+          osc.connect(g);
+          g.connect(master);
+          osc.start(now);
+          osc.stop(now + p.decay + 0.05);
+        });
+
+        const btn = document.getElementById('theaterBowlBtn');
+        if (btn) {
+          btn.classList.add('active');
+          setTimeout(() => btn.classList.remove('active'), 1600);
+        }
+      } catch (_) {}
+    };
+
+    // Box Breath Controller inside Mixer Pop-Up
+    function updateBreathWidgetUI() {
+      const orb = document.getElementById('theaterBreathOrb');
+      const title = document.getElementById('theaterBreathPhaseName');
+      const hint = document.getElementById('theaterBreathPhaseHint');
+      const btn = document.getElementById('theaterBreathToggleBtn');
+      const phase = BREATH_PHASES[breathStepIdx] || BREATH_PHASES[0];
+
+      if (orb) {
+        orb.setAttribute('data-phase', breathRunning ? phase.key : 'idle');
+        orb.textContent = breathRunning ? `${breathTick}s` : '4·4·4·4';
+      }
+      if (title) {
+        title.textContent = breathRunning ? `${phase.label} (${breathTick}s)` : 'Ready for 4-4-4-4 Breath';
+      }
+      if (hint) {
+        hint.textContent = breathRunning ? phase.hint : 'Pace your inhale, hold, exhale & settle.';
+      }
+      if (btn) {
+        btn.textContent = breathRunning ? '⏸ Pause Breath' : '▶ Start Breath';
+        btn.classList.toggle('active', breathRunning);
+      }
+    }
+
+    function stopBreathTimer() {
+      breathRunning = false;
+      if (breathTimer) {
+        clearInterval(breathTimer);
+        breathTimer = null;
+      }
+      updateBreathWidgetUI();
+    }
+
+    window.sanctuaryCinema.toggleTheaterBreath = function () {
+      if (breathRunning) {
+        stopBreathTimer();
+        return;
+      }
+      breathRunning = true;
+      breathStepIdx = 0;
+      breathTick = BREATH_PHASES[0].secs;
+      if (window.soundscape && window.soundscape.isPlaying) {
+        window.soundscape.syncBreath(BREATH_PHASES[0].key, BREATH_PHASES[0].secs);
+      }
+      updateBreathWidgetUI();
+
+      breathTimer = setInterval(() => {
+        breathTick -= 1;
+        if (breathTick <= 0) {
+          breathStepIdx = (breathStepIdx + 1) % BREATH_PHASES.length;
+          const next = BREATH_PHASES[breathStepIdx];
+          breathTick = next.secs;
+          if (window.soundscape && window.soundscape.isPlaying) {
+            window.soundscape.syncBreath(next.key, next.secs);
+          }
+        }
+        updateBreathWidgetUI();
+      }, 1000);
+    };
+
+    // Fetch latest 3 Gratitude notes from Supabase for Hearth & Notes pop-up
+    async function loadRecentTheaterNotes() {
+      const listEl = document.getElementById('theaterNotesRecentList');
+      if (!listEl) return;
+      try {
+        const res = await fetch(
+          `${SUPABASE_URL}/rest/v1/clubhouse_gratitude_posts?select=author_name,neighborhood,message,created_at&order=created_at.desc&limit=3`,
+          {
+            headers: {
+              apikey: SUPABASE_PUBLISHABLE_KEY,
+              Authorization: `Bearer ${SUPABASE_PUBLISHABLE_KEY}`
+            }
+          }
+        );
+        if (!res.ok) throw new Error('Unable to load notes');
+        cachedNotes = await res.json();
+        renderRecentTheaterNotes();
+      } catch (_) {
+        if (listEl) {
+          listEl.innerHTML = '<div class="theater-note-item">Community notes will appear live once online.</div>';
+        }
+      }
+    }
+
+    function renderRecentTheaterNotes() {
+      const listEl = document.getElementById('theaterNotesRecentList');
+      if (!listEl) return;
+      if (!Array.isArray(cachedNotes) || !cachedNotes.length) {
+        listEl.innerHTML = '<div class="theater-note-item">Be the first tonight to leave a gratitude spark.</div>';
+        return;
+      }
+      listEl.innerHTML = cachedNotes
+        .slice(0, 3)
+        .map(
+          (n) => `
+          <div class="theater-note-item">
+            <div class="theater-note-meta">${escapeHtml(n.author_name || 'Neighbor')} • ${escapeHtml(n.neighborhood || 'OC')}</div>
+            <div>"${escapeHtml(n.message)}"</div>
+          </div>`
+        )
+        .join('');
+    }
+
+    async function submitTheaterNote(e) {
+      if (e && e.preventDefault) e.preventDefault();
+      const nameIn = document.getElementById('theaterNoteName');
+      const msgIn = document.getElementById('theaterNoteMsg');
+      const statusEl = document.getElementById('theaterNoteStatus');
+      const submitBtn = document.getElementById('theaterNoteSubmit');
+      if (!msgIn) return;
+
+      const message = msgIn.value.trim().slice(0, 260);
+      if (message.length < 3) {
+        if (statusEl) statusEl.textContent = 'Write at least a few words to share.';
+        msgIn.focus();
+        return;
+      }
+      const authorName = (nameIn && nameIn.value.trim().slice(0, 50)) || 'Theater Guest';
+      if (submitBtn) submitBtn.disabled = true;
+      if (statusEl) statusEl.textContent = 'Sending spark to Sanctuary Wall...';
+
+      try {
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/clubhouse_gratitude_posts`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            apikey: SUPABASE_PUBLISHABLE_KEY,
+            Authorization: `Bearer ${SUPABASE_PUBLISHABLE_KEY}`,
+            Prefer: 'return=representation'
+          },
+          body: JSON.stringify({
+            author_name: authorName,
+            neighborhood: 'Sanctuary Theater',
+            category: 'gratitude',
+            message: message,
+            warmth_base: 1
+          })
+        });
+        if (!res.ok) throw new Error('Could not save note right now');
+        msgIn.value = '';
+        if (statusEl) statusEl.textContent = '✓ Pinned live to the Gratitude Wall!';
+        await loadRecentTheaterNotes();
+        if (window.sanctuaryCommunitySync && typeof window.sanctuaryCommunitySync.refresh === 'function') {
+          window.sanctuaryCommunitySync.refresh();
+        }
+      } catch (err) {
+        if (statusEl) statusEl.textContent = `⚠️ ${err.message || 'Please try again.'}`;
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+      }
+    }
+
+    // Pop-Up Window Renderer
+    function renderPopupBody(key, bodyEl) {
+      if (!bodyEl) return;
+      const elKey = getActiveElementKey();
+      const lore = ELEMENT_LORE[elKey] || ELEMENT_LORE.fire;
+
+      if (key === 'ritual') {
+        const pIdx = (promptCursor[elKey] || 0) % lore.prompts.length;
+        bodyEl.innerHTML = `
+          <div class="theater-card-box">
+            <div class="theater-card-label">${lore.badge}</div>
+            <p style="margin:0;color:#CBD7D0;font-size:0.78rem;">${lore.intention}</p>
+          </div>
+          <div class="theater-card-box">
+            <div class="theater-card-label">Somatic Check-In Prompt (${pIdx + 1}/${lore.prompts.length})</div>
+            <p class="theater-prompt-text">${lore.prompts[pIdx]}</p>
+          </div>
+          <div class="theater-card-box">
+            <div class="theater-card-label">Sanctuary Affirmation</div>
+            <p class="theater-affirmation-quote">“${lore.affirmation}”</p>
+          </div>
+          <div class="theater-action-row">
+            <button type="button" class="theater-mini-btn" onclick="window.sanctuaryCinema.nextTheaterPrompt()">✨ Next Prompt</button>
+            <button type="button" class="theater-mini-btn" onclick="window.sanctuaryCinema.playBowl()">🔔 Chime Bowl</button>
+          </div>
+          <div class="theater-action-row">
+            ${['fire', 'water', 'earth', 'air', 'ether']
+              .map(
+                (k) =>
+                  `<button type="button" class="theater-mini-btn ${k === elKey ? 'active' : ''}" onclick="window.sanctuaryCinema.selectTheaterElement('${k}')">${ELEMENT_LORE[k].badge.split(' ')[0]} ${k.charAt(0).toUpperCase() + k.slice(1)}</button>`
+              )
+              .join('')}
+          </div>
+        `;
+      } else if (key === 'mixer') {
+        const currentVol = window.soundscape ? Math.round((window.soundscape.volume || 0.5) * 100) : 50;
+        const soundPlaying = !!(window.soundscape && window.soundscape.isPlaying);
+        bodyEl.innerHTML = `
+          <div class="theater-breath-orb-stage">
+            <div class="theater-breath-orb" id="theaterBreathOrb" data-phase="idle">4·4·4·4</div>
+            <div style="flex:1;min-width:0;">
+              <div id="theaterBreathPhaseName" style="font-weight:800;font-size:0.84rem;color:#FCE6A2;">Ready for 4-4-4-4 Breath</div>
+              <div id="theaterBreathPhaseHint" style="font-size:0.74rem;color:#CBD7D0;margin:2px 0 8px;">Pace your inhale, hold, exhale &amp; settle.</div>
+              <button type="button" id="theaterBreathToggleBtn" class="theater-mini-btn" onclick="window.sanctuaryCinema.toggleTheaterBreath()">▶ Start Breath</button>
+            </div>
+          </div>
+          <div class="theater-card-box">
+            <div class="theater-card-label">Ambient Soundscape Mixer</div>
+            <div class="theater-action-row" style="margin-bottom:8px;">
+              <button type="button" id="theaterMixerSoundBtn" class="theater-mini-btn ${soundPlaying ? 'active' : ''}" onclick="window.sanctuaryCinema.theaterToggleSound()">${soundPlaying ? '🔊 Sound Playing (Pause)' : '🔈 Start Nature Soundscape'}</button>
+            </div>
+            <label for="theaterVolumeRange" style="display:flex;justify-content:space-between;font-size:0.72rem;color:#CBD7D0;margin-bottom:4px;">
+              <span>Nature Volume</span><span id="theaterVolReadout">${currentVol}%</span>
+            </label>
+            <input id="theaterVolumeRange" class="theater-slider" type="range" min="0" max="100" value="${currentVol}" />
+          </div>
+          <div class="theater-action-row">
+            <button type="button" class="theater-mini-btn" onclick="window.sanctuaryCinema.toggleVoiceGrounding()">🎙️ 20s Voice Grounding</button>
+            <button type="button" class="theater-mini-btn" onclick="window.sanctuaryCinema.playBowl()">🔔 432Hz Bowl</button>
+            <button type="button" class="theater-mini-btn theater-mini-btn--green" id="theaterSpotifyEmbedBtn" onclick="window.sanctuaryCinema.toggleTheaterSpotify()">🎧 ${showTheaterSpotify ? 'Hide Spotify' : 'Spotify 432Hz'}</button>
+          </div>
+          ${
+            showTheaterSpotify
+              ? `<iframe title="Sanctuary 432Hz Spotify Mini Player" style="border-radius:12px;width:100%;height:80px;border:0;" src="https://open.spotify.com/embed/playlist/37i9dQZF1DX4sWSpwq3LiO?utm_source=generator&theme=0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`
+              : ''
+          }
+        `;
+        const slider = bodyEl.querySelector('#theaterVolumeRange');
+        const readout = bodyEl.querySelector('#theaterVolReadout');
+        if (slider) {
+          slider.addEventListener('input', (ev) => {
+            const pct = Number(ev.target.value);
+            if (readout) readout.textContent = `${pct}%`;
+            if (window.soundscape && typeof window.soundscape.setVolume === 'function') {
+              window.soundscape.setVolume(pct / 100);
+            }
+            const mainSlider = document.getElementById('soundscape-volume');
+            if (mainSlider) mainSlider.value = String(pct);
+          });
+        }
+        updateBreathWidgetUI();
+      } else if (key === 'reel') {
+        const clip = MINI_REEL_CLIPS[miniReelIdx % MINI_REEL_CLIPS.length];
+        bodyEl.innerHTML = `
+          <div class="theater-reel-media-box">
+            ${
+              clip.type === 'video'
+                ? `<video autoplay muted loop playsinline poster="${clip.poster}"><source src="${clip.webm}" type="video/webm" /><source src="${clip.mp4}" type="video/mp4" /></video>`
+                : `<img src="${clip.src}" alt="${clip.title}" />`
+            }
+            <span class="theater-reel-chip">${clip.chip} (${(miniReelIdx % MINI_REEL_CLIPS.length) + 1}/${MINI_REEL_CLIPS.length})</span>
+          </div>
+          <div>
+            <div style="font-family:'Cinzel',serif;font-size:0.96rem;color:#FFFDF7;font-weight:700;">${clip.title}</div>
+            <p style="margin:3px 0 0;font-size:0.78rem;color:#CBD7D0;">${clip.desc}</p>
+          </div>
+          <div class="theater-action-row" style="justify-content:space-between;">
+            <div class="theater-action-row">
+              <button type="button" class="theater-mini-btn" onclick="window.sanctuaryCinema.stepMiniReel(-1)">‹ Prev</button>
+              <button type="button" class="theater-mini-btn" onclick="window.sanctuaryCinema.stepMiniReel(1)">Next ›</button>
+            </div>
+            <button type="button" class="theater-mini-btn" onclick="window.sanctuaryCinema.openInviteFlyer && window.sanctuaryCinema.openInviteFlyer()">🎨 Dec 10 Flyer</button>
+          </div>
+        `;
+      } else if (key === 'notes') {
+        bodyEl.innerHTML = `
+          <div class="theater-subtabs" role="tablist">
+            <button type="button" class="theater-subtab-btn ${notesTab === 'note' ? 'active' : ''}" onclick="window.sanctuaryCinema.setTheaterNotesTab('note')">🌻 Gratitude Notes</button>
+            <button type="button" class="theater-subtab-btn ${notesTab === 'dec10' ? 'active' : ''}" onclick="window.sanctuaryCinema.setTheaterNotesTab('dec10')">🎶 Dec 10 Jam Night</button>
+          </div>
+          ${
+            notesTab === 'note'
+              ? `
+                <form id="theaterQuickNoteForm" style="display:flex;flex-direction:column;gap:7px;">
+                  <input id="theaterNoteName" class="theater-input" type="text" maxlength="50" placeholder="Your first name or nickname (optional)" />
+                  <textarea id="theaterNoteMsg" class="theater-textarea" rows="2" maxlength="260" placeholder="Drop a gentle wish or gratitude spark for the wall..."></textarea>
+                  <div class="theater-action-row" style="justify-content:space-between;">
+                    <span id="theaterNoteStatus" style="font-size:0.72rem;color:#86EFAC;"></span>
+                    <button type="submit" id="theaterNoteSubmit" class="theater-mini-btn theater-mini-btn--green">✨ Pin Live Note</button>
+                  </div>
+                </form>
+                <div class="theater-card-label" style="margin-top:2px;">Latest Live Wall Sparks</div>
+                <div id="theaterNotesRecentList" style="display:flex;flex-direction:column;gap:6px;">
+                  <div class="theater-note-item">Loading recent sanctuary notes...</div>
+                </div>
+              `
+              : `
+                <div class="theater-card-box">
+                  <div class="theater-card-label">Next Gathering • Orange County</div>
+                  <div style="font-family:'Cinzel',serif;font-size:0.96rem;color:#FFFDF7;font-weight:700;margin-bottom:4px;">Jam Session: The Unplugged Playground</div>
+                  <div style="font-size:0.78rem;color:#CBD7D0;">📅 Thu, Dec 10, 2026 • 6:00 – 8:00 PM PST</div>
+                  <div style="font-size:0.78rem;color:#86EFAC;margin-top:3px;">📍 1501 W Alton Ave, Santa Ana, CA</div>
+                  <div style="font-size:0.74rem;color:#F8D98C;margin-top:4px;">100% Free Admission • Substance-Free • All Welcome</div>
+                </div>
+                <div class="theater-action-row">
+                  <a href="https://www.meetup.com/socal-creatives-collective/events/317462800/" target="_blank" rel="noopener noreferrer" class="theater-mini-btn theater-mini-btn--green">🎟️ RSVP on Meetup ↗</a>
+                  <button type="button" class="theater-mini-btn" onclick="window.sanctuaryCinema.openInviteFlyer && window.sanctuaryCinema.openInviteFlyer()">🎨 Bring-a-Friend Flyer</button>
+                  <button type="button" class="theater-mini-btn" onclick="if(typeof openZeffyModal==='function') openZeffyModal(event)">🌱 $1 Community Seed</button>
+                </div>
+              `
+          }
+        `;
+        if (notesTab === 'note') {
+          const form = bodyEl.querySelector('#theaterQuickNoteForm');
+          if (form) form.addEventListener('submit', submitTheaterNote);
+          if (cachedNotes.length) renderRecentTheaterNotes();
+          else loadRecentTheaterNotes();
+        }
+      }
+    }
+
+    function attachWindowDragging(win) {
+      const header = win.querySelector('.theater-pop-header');
+      if (!header) return;
+      let startX = 0;
+      let startY = 0;
+      let baseLeft = 0;
+      let baseTop = 0;
+      let dragging = false;
+
+      header.addEventListener('pointerdown', (e) => {
+        if (e.target.closest('button')) return;
+        if (window.innerWidth <= 768) return;
+        const stage = document.getElementById('theaterPopupStage');
+        if (!stage) return;
+
+        dragging = true;
+        zCounter += 1;
+        win.style.zIndex = String(zCounter);
+
+        const stageRect = stage.getBoundingClientRect();
+        const winRect = win.getBoundingClientRect();
+        baseLeft = winRect.left - stageRect.left;
+        baseTop = winRect.top - stageRect.top;
+        win.style.left = `${baseLeft}px`;
+        win.style.top = `${baseTop}px`;
+        win.style.right = 'auto';
+        win.style.bottom = 'auto';
+
+        startX = e.clientX;
+        startY = e.clientY;
+        header.setPointerCapture(e.pointerId);
+      });
+
+      header.addEventListener('pointermove', (e) => {
+        if (!dragging) return;
+        const stage = document.getElementById('theaterPopupStage');
+        if (!stage) return;
+        const stageRect = stage.getBoundingClientRect();
+        const maxLeft = Math.max(0, stageRect.width - win.offsetWidth);
+        const maxTop = Math.max(0, stageRect.height - win.offsetHeight);
+        const nextLeft = Math.min(maxLeft, Math.max(0, baseLeft + (e.clientX - startX)));
+        const nextTop = Math.min(maxTop, Math.max(0, baseTop + (e.clientY - startY)));
+        win.style.left = `${nextLeft}px`;
+        win.style.top = `${nextTop}px`;
+      });
+
+      const endDrag = (e) => {
+        if (!dragging) return;
+        dragging = false;
+        try {
+          header.releasePointerCapture(e.pointerId);
+        } catch (_) {}
+      };
+      header.addEventListener('pointerup', endDrag);
+      header.addEventListener('pointercancel', endDrag);
+    }
+
+    function openTheaterPopup(key, forceOpen) {
+      const stage = document.getElementById('theaterPopupStage');
+      const meta = POPUP_META[key];
+      if (!stage || !meta) return;
+
+      if (isStargaze) {
+        isStargaze = false;
+        syncTheaterUI();
+      }
+
+      const existing = document.getElementById(`theaterWin-${key}`);
+      if (existing) {
+        if (forceOpen === true) {
+          zCounter += 1;
+          existing.style.zIndex = String(zCounter);
+          existing.classList.remove('is-minimized');
+          return;
+        }
+        existing.remove();
+        syncDockPopupButtons();
+        return;
+      }
+
+      if (forceOpen === false) return;
+
+      const win = document.createElement('section');
+      win.id = `theaterWin-${key}`;
+      win.className = `theater-pop-window${meta.wide ? ' is-wide' : ''}`;
+      win.setAttribute('aria-label', meta.title);
+      zCounter += 1;
+      win.style.zIndex = String(zCounter);
+
+      // Position cleanly per corner on desktop
+      if (meta.defaultPos.x >= 0) win.style.left = `${meta.defaultPos.x}px`;
+      else win.style.right = `${Math.abs(meta.defaultPos.x)}px`;
+      if (meta.defaultPos.y >= 0) win.style.top = `${meta.defaultPos.y}px`;
+      else win.style.bottom = `${Math.abs(meta.defaultPos.y)}px`;
+
+      win.innerHTML = `
+        <header class="theater-pop-header">
+          <div class="theater-pop-title-group">
+            <span class="theater-pop-badge">${meta.title}</span>
+          </div>
+          <div class="theater-pop-win-btns">
+            <button type="button" class="theater-win-btn" data-win-min aria-label="Minimize window" title="Minimize">―</button>
+            <button type="button" class="theater-win-btn theater-win-btn--close" data-win-close aria-label="Close window" title="Close">✕</button>
+          </div>
+        </header>
+        <div class="theater-pop-body"></div>
+      `;
+
+      win.addEventListener('pointerdown', () => {
+        zCounter += 1;
+        win.style.zIndex = String(zCounter);
+      });
+
+      win.querySelector('[data-win-min]').addEventListener('click', () => {
+        win.classList.toggle('is-minimized');
+      });
+      win.querySelector('[data-win-close]').addEventListener('click', () => {
+        win.remove();
+        if (key === 'mixer') stopBreathTimer();
+        syncDockPopupButtons();
+      });
+
+      renderPopupBody(key, win.querySelector('.theater-pop-body'));
+      attachWindowDragging(win);
+      stage.appendChild(win);
+      syncDockPopupButtons();
+    }
+
+    window.sanctuaryCinema.toggleTheaterPopup = function (key, forceOpen) {
+      openTheaterPopup(key, forceOpen);
+    };
+
+    window.sanctuaryCinema.selectTheaterElement = function (elKey) {
+      if (window.switchElementTheme) window.switchElementTheme(elKey, true);
+      syncElementCopy();
+    };
+
+    window.sanctuaryCinema.nextTheaterPrompt = function () {
+      const elKey = getActiveElementKey();
+      promptCursor[elKey] = ((promptCursor[elKey] || 0) + 1) % ELEMENT_LORE[elKey].prompts.length;
+      const win = document.getElementById('theaterWin-ritual');
+      if (win) renderPopupBody('ritual', win.querySelector('.theater-pop-body'));
+    };
+
+    window.sanctuaryCinema.stepMiniReel = function (delta) {
+      miniReelIdx = (miniReelIdx + delta + MINI_REEL_CLIPS.length) % MINI_REEL_CLIPS.length;
+      const win = document.getElementById('theaterWin-reel');
+      if (win) renderPopupBody('reel', win.querySelector('.theater-pop-body'));
+    };
+
+    window.sanctuaryCinema.setTheaterNotesTab = function (tab) {
+      notesTab = tab;
+      const win = document.getElementById('theaterWin-notes');
+      if (win) renderPopupBody('notes', win.querySelector('.theater-pop-body'));
+    };
+
+    window.sanctuaryCinema.toggleTheaterSpotify = function () {
+      showTheaterSpotify = !showTheaterSpotify;
+      const win = document.getElementById('theaterWin-mixer');
+      if (win) renderPopupBody('mixer', win.querySelector('.theater-pop-body'));
+    };
+
+    window.sanctuaryCinema.toggleStargaze = function (force) {
+      isStargaze = typeof force === 'boolean' ? force : !isStargaze;
+      syncTheaterUI();
     };
 
     window.sanctuaryCinema.toggleTheater = function (forceState) {
       isTheater = typeof forceState === 'boolean' ? forceState : !isTheater;
+      if (!isTheater) {
+        isStargaze = false;
+        stopBreathTimer();
+        stopParticleLoop();
+        document.body.classList.remove('cinema-theater-idle', 'cinema-theater-typing');
+      } else {
+        startParticleLoop();
+        wakeDockIdleTimer();
+        if (!hasShownWelcomePop) {
+          hasShownWelcomePop = true;
+          setTimeout(() => {
+            if (isTheater && !document.getElementById('theaterWin-ritual')) {
+              openTheaterPopup('ritual', true);
+            }
+          }, 420);
+        }
+      }
+
       syncTheaterUI();
 
       if (isTheater && window.soundscape && !window.soundscape.isPlaying) {
         try {
           window.soundscape.start();
-          setTimeout(syncTheaterUI, 80);
+          setTimeout(syncTheaterUI, 90);
         } catch (_) {}
       }
 
@@ -385,6 +1228,30 @@
         syncTheaterUI();
       }
     };
+
+    // Track pointer activity & input focus inside Theater stage
+    const stageEl = document.getElementById('cinemaTheaterStage');
+    if (stageEl) {
+      stageEl.addEventListener('pointermove', wakeDockIdleTimer, { passive: true });
+      stageEl.addEventListener('pointerdown', wakeDockIdleTimer, { passive: true });
+      stageEl.addEventListener('focusin', (e) => {
+        if (/INPUT|TEXTAREA|SELECT/.test((e.target && e.target.tagName) || '')) {
+          document.body.classList.add('cinema-theater-typing');
+        }
+      });
+      stageEl.addEventListener('focusout', (e) => {
+        if (/INPUT|TEXTAREA|SELECT/.test((e.target && e.target.tagName) || '')) {
+          document.body.classList.remove('cinema-theater-typing');
+          wakeDockIdleTimer();
+        }
+      });
+    }
+
+    // Keep Theater synced if visitor switches Element outside Theater or via voice
+    const observer = new MutationObserver(() => {
+      if (isTheater) syncElementCopy();
+    });
+    observer.observe(document.body, { attributes: true, attributeFilter: ['data-element'] });
 
     document.addEventListener('keydown', (e) => {
       const tag = (e.target && e.target.tagName) || '';

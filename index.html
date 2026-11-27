@@ -333,7 +333,7 @@
   <link rel="stylesheet" href="styles/modules/promo-card-generator.css?v=1.0">
   <link rel="stylesheet" href="styles/modules/sanctuary-os.css">
   <link rel="stylesheet" href="styles/modules/funder-dossier.css?v=1.0">
-  <link rel="stylesheet" href="styles/modules/sanctuary-cinema.css?v=1.0">
+  <link rel="stylesheet" href="styles/modules/sanctuary-cinema.css?v=1.2">
 </head>
 <body data-element="fire">
 
@@ -3653,7 +3653,7 @@
   <script src="js/modules/community-popup.js?v=1.0"></script>
   <script src="js/modules/run-of-show.js?v=1.0"></script>
   <script src="js/modules/promo-card-generator.js?v=1.0"></script>
-  <script src="js/modules/sanctuary-cinema.js?v=1.0"></script>
+  <script src="js/modules/sanctuary-cinema.js?v=1.2"></script>
 
   <!-- Hidden Netlify Form Definition for Community Circle Newsletter Alerts -->
   <form name="sanctuary-newsletter" data-netlify="true" netlify-honeypot="bot-field" hidden>
@@ -4478,20 +4478,48 @@
 
   <!-- ==================== FULLSCREEN SANCTUARY PROJECTOR / THEATER STAGE ==================== -->
   <div id="cinemaTheaterStage" class="cinema-theater-stage" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Sanctuary Theater Mode">
-    <div class="cinema-theater-center">
-      <img src="emblem.png" width="996" height="1024" alt="Inner Sanctuary Sacred Medallion" class="cinema-theater-emblem" onerror="this.src='emblem.jpg'" />
-      <div class="cinema-theater-kicker">Pause. Breathe. Remember.</div>
-      <h2 class="cinema-theater-quote">Come Home to Yourself.</h2>
+    <canvas id="theaterAmbienceCanvas" class="cinema-theater-canvas" aria-hidden="true"></canvas>
+
+    <div class="cinema-theater-top-hud">
+      <div class="theater-hud-pill" id="theaterElementHudPill">
+        <span class="theater-hud-dot" aria-hidden="true"></span>
+        <span id="theaterHudElementText">🔥 FIRE • HEARTH WARMTH &amp; COURAGE</span>
+      </div>
+      <div class="theater-hud-actions">
+        <button type="button" class="theater-hud-btn" id="theaterBowlBtn" onclick="window.sanctuaryCinema && window.sanctuaryCinema.playBowl()" title="Ring warm 432Hz Singing Bowl">🔔 432Hz Bowl</button>
+        <button type="button" class="theater-hud-btn" id="theaterStargazeBtn" onclick="window.sanctuaryCinema && window.sanctuaryCinema.toggleStargaze()" aria-pressed="false" title="Dim UI for pure stargaze view">👁️ Stargaze</button>
+      </div>
     </div>
-    <div class="cinema-theater-dock" role="toolbar" aria-label="Theater Sanctuary Controls">
+
+    <div class="cinema-theater-center" id="theaterCenterMedallion">
+      <div class="theater-medallion-wrap">
+        <div class="theater-breath-halo" aria-hidden="true"></div>
+        <div class="theater-breath-halo theater-breath-halo--outer" aria-hidden="true"></div>
+        <img src="emblem.png" width="996" height="1024" alt="Inner Sanctuary Sacred Medallion" class="cinema-theater-emblem" onerror="this.src='emblem.jpg'" />
+      </div>
+      <div class="cinema-theater-kicker" id="theaterKickerText">Pause. Breathe. Remember.</div>
+      <h2 class="cinema-theater-quote" id="theaterMainQuote">Come Home to Yourself.</h2>
+      <p class="cinema-theater-subline" id="theaterSubQuote">Tap any sanctuary tile below to open interactive floating windows without leaving the room.</p>
+    </div>
+
+    <!-- Floating Interactive Pop-Up Window Layer -->
+    <div id="theaterPopupStage" class="theater-popup-stage" aria-live="polite"></div>
+
+    <div class="cinema-theater-dock" id="cinemaTheaterDock" role="toolbar" aria-label="Theater Sanctuary Controls">
       <button type="button" id="theaterAudioBtn" class="cinema-theater-chip" onclick="window.sanctuaryCinema && window.sanctuaryCinema.theaterToggleSound()">🔈 Tune In</button>
-      <button type="button" class="cinema-theater-chip" onclick="window.switchElementTheme && window.switchElementTheme('fire', true)">🔥 Fire</button>
-      <button type="button" class="cinema-theater-chip" onclick="window.switchElementTheme && window.switchElementTheme('water', true)">🌊 Water</button>
-      <button type="button" class="cinema-theater-chip" onclick="window.switchElementTheme && window.switchElementTheme('earth', true)">🌿 Earth</button>
-      <button type="button" class="cinema-theater-chip" onclick="window.switchElementTheme && window.switchElementTheme('air', true)">🌬️ Air</button>
-      <button type="button" class="cinema-theater-chip" onclick="window.switchElementTheme && window.switchElementTheme('ether', true)">🌌 Ether</button>
+      <div class="cinema-dock-divider" aria-hidden="true"></div>
+      <button type="button" class="cinema-theater-chip theater-pop-trigger" data-theater-pop="ritual" onclick="window.sanctuaryCinema && window.sanctuaryCinema.toggleTheaterPopup('ritual')">✨ Element Lore</button>
+      <button type="button" class="cinema-theater-chip theater-pop-trigger" data-theater-pop="mixer" onclick="window.sanctuaryCinema && window.sanctuaryCinema.toggleTheaterPopup('mixer')">🌬️ Breath &amp; Sound</button>
+      <button type="button" class="cinema-theater-chip theater-pop-trigger" data-theater-pop="reel" onclick="window.sanctuaryCinema && window.sanctuaryCinema.toggleTheaterPopup('reel')">🎬 Sanctuary Reel</button>
+      <button type="button" class="cinema-theater-chip theater-pop-trigger" data-theater-pop="notes" onclick="window.sanctuaryCinema && window.sanctuaryCinema.toggleTheaterPopup('notes')">🌻 Hearth &amp; Notes</button>
+      <div class="cinema-dock-divider" aria-hidden="true"></div>
+      <button type="button" class="cinema-theater-chip theater-el-chip" data-theater-el="fire" onclick="window.sanctuaryCinema && window.sanctuaryCinema.selectTheaterElement('fire')" title="Switch to Fire Element">🔥</button>
+      <button type="button" class="cinema-theater-chip theater-el-chip" data-theater-el="water" onclick="window.sanctuaryCinema && window.sanctuaryCinema.selectTheaterElement('water')" title="Switch to Water Element">🌊</button>
+      <button type="button" class="cinema-theater-chip theater-el-chip" data-theater-el="earth" onclick="window.sanctuaryCinema && window.sanctuaryCinema.selectTheaterElement('earth')" title="Switch to Earth Element">🌿</button>
+      <button type="button" class="cinema-theater-chip theater-el-chip" data-theater-el="air" onclick="window.sanctuaryCinema && window.sanctuaryCinema.selectTheaterElement('air')" title="Switch to Air Element">🌬️</button>
+      <button type="button" class="cinema-theater-chip theater-el-chip" data-theater-el="ether" onclick="window.sanctuaryCinema && window.sanctuaryCinema.selectTheaterElement('ether')" title="Switch to Ether Element">🌌</button>
       <button type="button" class="cinema-theater-chip" onclick="openPauseModal(event)">🍃 60s Pause</button>
-      <button type="button" class="cinema-theater-exit" onclick="window.sanctuaryCinema && window.sanctuaryCinema.toggleTheater(false)">✕ Exit Theater (Esc)</button>
+      <button type="button" class="cinema-theater-exit" onclick="window.sanctuaryCinema && window.sanctuaryCinema.toggleTheater(false)">✕ Exit (Esc)</button>
     </div>
   </div>
 

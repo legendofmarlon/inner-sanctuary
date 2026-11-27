@@ -680,6 +680,8 @@ main#main-content > #sanctuary-cinema-reel { order: 2; }
 
 /* Fullscreen Projector / Deep Sanctuary Mode */
 .cinema-theater-stage {
+  --theater-accent: #F59E0B;
+  --theater-glow: rgba(245, 158, 11, 0.28);
   position: fixed;
   inset: 0;
   z-index: 12000;
@@ -687,18 +689,57 @@ main#main-content > #sanctuary-cinema-reel { order: 2; }
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 36px 24px 28px;
+  padding: 20px 22px 22px;
   pointer-events: none;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.55s ease, visibility 0.55s ease;
-  background: radial-gradient(ellipse at 50% 45%, rgba(6, 15, 11, 0.12) 0%, rgba(4, 10, 7, 0.58) 100%);
+  overflow: hidden;
+  transition: opacity 0.55s ease, visibility 0.55s ease, background 0.8s ease;
+  background:
+    radial-gradient(circle at 50% 44%, var(--theater-glow) 0%, rgba(6, 16, 11, 0.42) 48%, rgba(3, 9, 6, 0.84) 100%);
+}
+
+body[data-element="fire"] .cinema-theater-stage {
+  --theater-accent: #FBBF24;
+  --theater-glow: rgba(234, 88, 12, 0.24);
+}
+body[data-element="water"] .cinema-theater-stage {
+  --theater-accent: #38BDF8;
+  --theater-glow: rgba(14, 165, 233, 0.22);
+}
+body[data-element="earth"] .cinema-theater-stage {
+  --theater-accent: #4ADE80;
+  --theater-glow: rgba(34, 197, 94, 0.22);
+}
+body[data-element="air"] .cinema-theater-stage {
+  --theater-accent: #93C5FD;
+  --theater-glow: rgba(147, 197, 253, 0.20);
+}
+body[data-element="ether"] .cinema-theater-stage {
+  --theater-accent: #C084FC;
+  --theater-glow: rgba(168, 85, 247, 0.24);
+}
+
+.cinema-theater-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
 }
 
 body.cinema-theater-mode .cinema-theater-stage {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
+}
+
+body.cinema-theater-mode #pauseModal,
+body.cinema-theater-mode .pause-booth-overlay,
+body.cinema-theater-mode #ZeffyQuickDonateModal,
+body.cinema-theater-mode #inviteFlyerModal {
+  z-index: 12650 !important;
 }
 
 body.cinema-theater-mode .announcement-bar,
@@ -716,68 +757,544 @@ body.cinema-theater-mode #btnBackToTop {
   transition: opacity 0.4s ease;
 }
 
+/* Top HUD */
+.cinema-theater-top-hud {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: 1220px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.theater-hud-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: rgba(8, 22, 15, 0.72);
+  border: 1px solid rgba(245, 215, 127, 0.36);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #FCE6A2;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+}
+
+.theater-hud-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--theater-accent);
+  box-shadow: 0 0 12px var(--theater-accent);
+  animation: theaterPulseDot 2.4s ease-in-out infinite;
+}
+
+@keyframes theaterPulseDot {
+  0%, 100% { transform: scale(0.95); opacity: 0.75; }
+  50% { transform: scale(1.25); opacity: 1; }
+}
+
+.theater-hud-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.theater-hud-btn {
+  padding: 7px 13px;
+  border-radius: 999px;
+  background: rgba(8, 22, 15, 0.74);
+  border: 1px solid rgba(245, 215, 127, 0.36);
+  color: #E7F2EC;
+  font-size: 0.73rem;
+  font-weight: 700;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.2s ease;
+}
+
+.theater-hud-btn:hover,
+.theater-hud-btn.active {
+  background: rgba(245, 215, 127, 0.22);
+  border-color: #FCE6A2;
+  color: #FFFDF7;
+  box-shadow: 0 0 18px rgba(245, 215, 127, 0.25);
+}
+
 .cinema-theater-center {
+  position: relative;
+  z-index: 2;
   margin: auto 0;
   text-align: center;
-  max-width: 640px;
+  max-width: 620px;
+  transition: opacity 0.45s ease, transform 0.45s ease;
+  pointer-events: none;
+}
+
+.theater-medallion-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.theater-breath-halo {
+  position: absolute;
+  inset: -22px;
+  border-radius: 50%;
+  border: 1.5px solid color-mix(in srgb, var(--theater-accent) 48%, transparent);
+  background: radial-gradient(circle, var(--theater-glow) 0%, transparent 70%);
+  animation: theaterBreathHalo 8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.theater-breath-halo--outer {
+  inset: -44px;
+  border-style: dashed;
+  border-color: rgba(245, 215, 127, 0.24);
+  animation: theaterBreathHaloOuter 14s linear infinite;
+}
+
+@keyframes theaterBreathHalo {
+  0%, 100% { transform: scale(0.94); opacity: 0.52; }
+  50% { transform: scale(1.14); opacity: 0.96; }
+}
+
+@keyframes theaterBreathHaloOuter {
+  0% { transform: rotate(0deg) scale(1); opacity: 0.42; }
+  50% { transform: rotate(180deg) scale(1.06); opacity: 0.72; }
+  100% { transform: rotate(360deg) scale(1); opacity: 0.42; }
 }
 
 .cinema-theater-emblem {
-  width: clamp(150px, 24vw, 220px);
-  height: clamp(150px, 24vw, 220px);
+  position: relative;
+  z-index: 2;
+  width: clamp(138px, 21vw, 196px);
+  height: clamp(138px, 21vw, 196px);
   border-radius: 50%;
   border: 3px solid #D4AF37;
   padding: 5px;
   background: #FAF8F5;
   object-fit: cover;
   box-shadow:
-    0 0 calc(36px + var(--cinema-audio-energy, 0) * 55px) rgba(248, 217, 140, 0.55),
+    0 0 calc(34px + var(--cinema-audio-energy, 0) * 58px) rgba(248, 217, 140, 0.58),
     0 20px 60px rgba(0, 0, 0, 0.55);
   animation: medallionFloat 7s ease-in-out infinite;
-  margin-bottom: 22px;
 }
 
 .cinema-theater-kicker {
   font-family: 'Cinzel', serif;
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   font-weight: 700;
   letter-spacing: 0.28em;
   color: #F8D98C;
   text-transform: uppercase;
   margin-bottom: 8px;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.75);
 }
 
 .cinema-theater-quote {
   font-family: 'Cinzel', serif;
-  font-size: clamp(1.5rem, 3.2vw, 2.3rem);
+  font-size: clamp(1.45rem, 3vw, 2.2rem);
+  color: #FFFDF7;
+  margin: 0 0 8px;
+  text-shadow: 0 3px 20px rgba(0, 0, 0, 0.8);
+}
+
+.cinema-theater-subline {
+  font-size: 0.84rem;
+  color: rgba(226, 239, 231, 0.82);
+  margin: 0 auto;
+  max-width: 460px;
+  line-height: 1.5;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85);
+}
+
+/* Stargaze Mode & Dock Auto-Fade */
+body.cinema-theater-stargaze .cinema-theater-kicker,
+body.cinema-theater-stargaze .cinema-theater-quote,
+body.cinema-theater-stargaze .cinema-theater-subline,
+body.cinema-theater-stargaze .theater-hud-pill,
+body.cinema-theater-stargaze .theater-popup-stage {
+  opacity: 0.08 !important;
+  pointer-events: none !important;
+}
+
+body.cinema-theater-idle:not(.cinema-theater-typing) .cinema-theater-dock,
+body.cinema-theater-idle:not(.cinema-theater-typing) .cinema-theater-top-hud {
+  opacity: 0.25;
+}
+
+.cinema-theater-dock:hover,
+.cinema-theater-top-hud:hover {
+  opacity: 1 !important;
+}
+
+/* Interactive Floating Pop-Up Windows Stage */
+.theater-popup-stage {
+  position: fixed;
+  inset: 70px 18px 92px;
+  z-index: 4;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+
+.theater-pop-window {
+  position: absolute;
+  width: min(360px, calc(100vw - 32px));
+  max-height: calc(100vh - 185px);
+  display: flex;
+  flex-direction: column;
+  border-radius: 18px;
+  background: linear-gradient(160deg, rgba(11, 28, 20, 0.92) 0%, rgba(5, 14, 10, 0.96) 100%);
+  border: 1.5px solid rgba(245, 215, 127, 0.45);
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.65),
+    0 0 28px var(--theater-glow);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  color: #F4F7F4;
+  pointer-events: auto;
+  overflow: hidden;
+  animation: theaterPopIn 0.28s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes theaterPopIn {
+  from { opacity: 0; transform: translate3d(0, 14px, 0) scale(0.96); }
+  to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+
+.theater-pop-window.is-wide {
+  width: min(410px, calc(100vw - 32px));
+}
+
+.theater-pop-window.is-minimized .theater-pop-body {
+  display: none;
+}
+
+.theater-pop-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 12px 10px 14px;
+  background: rgba(197, 154, 63, 0.14);
+  border-bottom: 1px solid rgba(245, 215, 127, 0.24);
+  cursor: grab;
+  user-select: none;
+}
+
+.theater-pop-header:active {
+  cursor: grabbing;
+}
+
+.theater-pop-title-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.theater-pop-badge {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #FCE6A2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.theater-pop-win-btns {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.theater-win-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid rgba(245, 215, 127, 0.3);
+  background: rgba(255, 255, 255, 0.08);
+  color: #FCE6A2;
+  font-size: 0.82rem;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.theater-win-btn:hover {
+  background: rgba(245, 215, 127, 0.28);
+  color: #FFFFFF;
+}
+
+.theater-win-btn--close:hover {
+  background: rgba(220, 38, 38, 0.45);
+  border-color: rgba(248, 113, 113, 0.7);
+}
+
+.theater-pop-body {
+  padding: 14px;
+  overflow-y: auto;
+  font-size: 0.84rem;
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.theater-card-box {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(245, 215, 127, 0.22);
+  border-radius: 12px;
+  padding: 11px 12px;
+}
+
+.theater-card-label {
+  font-size: 0.66rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.11em;
+  color: #F8D98C;
+  margin-bottom: 4px;
+}
+
+.theater-prompt-text {
+  font-size: 0.88rem;
   color: #FFFDF7;
   margin: 0;
-  text-shadow: 0 3px 20px rgba(0, 0, 0, 0.75);
+  font-weight: 600;
+}
+
+.theater-affirmation-quote {
+  font-family: 'Cinzel', serif;
+  font-size: 0.92rem;
+  color: #86EFAC;
+  margin: 0;
+}
+
+.theater-action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  align-items: center;
+}
+
+.theater-mini-btn {
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(245, 215, 127, 0.42);
+  background: rgba(197, 154, 63, 0.16);
+  color: #FCE6A2;
+  font-size: 0.74rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  text-decoration: none;
+}
+
+.theater-mini-btn:hover,
+.theater-mini-btn.active {
+  background: linear-gradient(135deg, #C59A3F 0%, #9E741E 100%);
+  color: #FFFFFF;
+  border-color: #FCE6A2;
+}
+
+.theater-mini-btn--green {
+  background: rgba(22, 101, 52, 0.45);
+  border-color: rgba(134, 239, 172, 0.5);
+  color: #BBF7D0;
+}
+
+.theater-mini-btn--green:hover {
+  background: rgba(22, 163, 74, 0.65);
+  color: #FFFFFF;
+}
+
+/* Breathing Orb inside Breath & Sound Pop-Up */
+.theater-breath-orb-stage {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(7, 19, 14, 0.72);
+  border: 1px solid rgba(245, 215, 127, 0.25);
+}
+
+.theater-breath-orb {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #FFFDF7;
+  background: radial-gradient(circle at 35% 30%, rgba(252, 230, 162, 0.9), rgba(22, 74, 56, 0.92));
+  border: 2px solid #F5D77F;
+  box-shadow: 0 0 22px var(--theater-glow);
+  transition: transform 0.9s ease, box-shadow 0.9s ease;
+}
+
+.theater-breath-orb[data-phase="inhale"] { transform: scale(1.16); box-shadow: 0 0 32px rgba(134, 239, 172, 0.55); }
+.theater-breath-orb[data-phase="hold"] { transform: scale(1.16); box-shadow: 0 0 30px rgba(245, 215, 127, 0.6); }
+.theater-breath-orb[data-phase="exhale"] { transform: scale(0.86); box-shadow: 0 0 14px rgba(147, 197, 253, 0.4); }
+
+.theater-slider {
+  width: 100%;
+  accent-color: #F5D77F;
+  cursor: pointer;
+}
+
+/* Mini-Cinema Video & Photo Stage */
+.theater-reel-media-box {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(245, 215, 127, 0.35);
+  background: #040B07;
+}
+
+.theater-reel-media-box img,
+.theater-reel-media-box video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.theater-reel-chip {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgba(5, 13, 9, 0.8);
+  border: 1px solid rgba(245, 215, 127, 0.45);
+  color: #FCE6A2;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Hearth & Notes Tabbed Pop-Up */
+.theater-subtabs {
+  display: flex;
+  gap: 6px;
+}
+
+.theater-subtab-btn {
+  flex: 1;
+  padding: 7px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(245, 215, 127, 0.25);
+  background: rgba(255, 255, 255, 0.05);
+  color: #CBD7D0;
+  font-size: 0.74rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.theater-subtab-btn.active {
+  background: rgba(197, 154, 63, 0.25);
+  border-color: #F5D77F;
+  color: #FFFDF7;
+}
+
+.theater-input,
+.theater-textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 10px;
+  border: 1px solid rgba(245, 215, 127, 0.34);
+  background: rgba(4, 11, 7, 0.72);
+  color: #FFFDF7;
+  padding: 8px 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.8rem;
+}
+
+.theater-input:focus,
+.theater-textarea:focus {
+  outline: none;
+  border-color: #FCE6A2;
+  box-shadow: 0 0 0 2px rgba(245, 215, 127, 0.22);
+}
+
+.theater-note-item {
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.77rem;
+}
+
+.theater-note-meta {
+  font-size: 0.68rem;
+  color: #F8D98C;
+  font-weight: 700;
+  margin-bottom: 2px;
 }
 
 .cinema-theater-dock {
+  position: relative;
+  z-index: 5;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 8px;
-  padding: 10px 14px;
+  gap: 7px;
+  padding: 9px 14px;
   border-radius: 999px;
-  background: rgba(10, 24, 17, 0.82);
+  background: rgba(8, 22, 15, 0.84);
   border: 1.5px solid rgba(245, 215, 127, 0.45);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.5);
+  transition: opacity 0.4s ease;
+}
+
+.cinema-dock-divider {
+  width: 1px;
+  height: 20px;
+  background: rgba(245, 215, 127, 0.25);
+  margin: 0 2px;
 }
 
 .cinema-theater-chip {
-  padding: 6px 12px;
+  padding: 6px 11px;
   border-radius: 999px;
-  border: 1px solid rgba(245, 215, 127, 0.28);
+  border: 1px solid rgba(245, 215, 127, 0.26);
   background: rgba(255, 255, 255, 0.06);
   color: #E7F2EC;
-  font-size: 0.74rem;
+  font-size: 0.73rem;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -785,20 +1302,57 @@ body.cinema-theater-mode #btnBackToTop {
 
 .cinema-theater-chip:hover,
 .cinema-theater-chip.active {
-  background: rgba(245, 215, 127, 0.24);
+  background: rgba(245, 215, 127, 0.26);
   border-color: #FCE6A2;
   color: #FFFDF7;
+  box-shadow: 0 0 14px rgba(245, 215, 127, 0.28);
 }
 
 .cinema-theater-exit {
-  padding: 6px 14px;
+  padding: 6px 13px;
   border-radius: 999px;
   border: 1px solid rgba(248, 113, 113, 0.55);
-  background: rgba(127, 29, 29, 0.35);
+  background: rgba(127, 29, 29, 0.4);
   color: #FECACA;
-  font-size: 0.74rem;
+  font-size: 0.73rem;
   font-weight: 700;
   cursor: pointer;
+}
+
+.cinema-theater-exit:hover {
+  background: rgba(185, 28, 28, 0.65);
+  color: #FFFFFF;
+}
+
+@media (max-width: 768px) {
+  .cinema-theater-stage {
+    padding: 14px 12px 14px;
+  }
+  .cinema-theater-dock {
+    border-radius: 18px;
+    padding: 8px 10px;
+    gap: 5px;
+  }
+  .cinema-dock-divider {
+    display: none;
+  }
+  .theater-popup-stage {
+    inset: 60px 10px 108px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+  .theater-pop-window,
+  .theater-pop-window.is-wide {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: 100% !important;
+    max-height: 46vh;
+  }
 }
 
 /* Community Hub Cabin Hearth Firelight & Subtle Parallax */
@@ -836,7 +1390,9 @@ body.cinema-theater-mode #btnBackToTop {
 
 @media (prefers-reduced-motion: reduce) {
   .hub-lodge-hero-img,
-  .cinema-theater-emblem {
+  .cinema-theater-emblem,
+  .theater-breath-halo,
+  .theater-hud-dot {
     transform: none !important;
     animation: none !important;
   }
