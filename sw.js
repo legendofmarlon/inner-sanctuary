@@ -1,7 +1,7 @@
 // Inner Sanctuary Wellness Foundation — Progressive Web App Service Worker
 // Version: 1.0.0 (Sanctuary in Your Pocket)
 
-const CACHE_NAME = 'inner-sanctuary-cache-v32';
+const CACHE_NAME = 'inner-sanctuary-cache-v33';
 const PRECACHE_ASSETS = [
   './',
   './index.html',

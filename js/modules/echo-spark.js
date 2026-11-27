@@ -168,31 +168,39 @@
         <span>Summon Echo</span>
       </button>
 
-      <section id="echoCompanionWindow" class="echo-companion-window" role="dialog" aria-label="Echo Sanctuary Friend" aria-hidden="true">
+      <section id="echoCompanionWindow" class="echo-companion-window" data-echo-theme="prism" role="dialog" aria-label="Echo Sanctuary Friend" aria-hidden="true">
         <header id="echoWinHeader" class="echo-win-header">
           <div class="echo-win-identity">
             <div class="echo-avatar-mini" aria-hidden="true"></div>
             <div>
-              <div class="echo-win-title">Echo • Sanctuary Spark</div>
-              <div id="echoWinStatus" class="echo-win-status">🕯️ Sanctuary Friend Ready</div>
+              <div class="echo-win-title">Echo</div>
+              <div id="echoWinStatus" class="echo-win-status">Your Celestial Spark</div>
             </div>
           </div>
           <div class="echo-win-controls">
-            <button type="button" id="echoResetChatBtn" class="echo-icon-btn" title="Start a fresh Echo conversation">↻ New</button>
-            <button type="button" id="echoSpeakToggleBtn" class="echo-icon-btn" aria-pressed="false" title="Read Echo replies softly aloud">🔇 Voice</button>
-            <button type="button" id="echoRoamToggleBtn" class="echo-icon-btn" aria-pressed="true" title="Toggle Echo gently flying around screen">🪽 Roam</button>
-            <button type="button" id="echoHideBtn" class="echo-icon-btn" title="Tuck Echo into a corner pill">―</button>
-            <button type="button" id="echoCloseBtn" class="echo-icon-btn" aria-label="Close Echo window" title="Close">&times;</button>
+            <button type="button" id="echoModeToggleBtn" class="echo-icon-btn" title="Switch between Chat and Daily Reflection Mirror">🪞 Reflect</button>
+            <button type="button" id="echoMenuBtn" class="echo-icon-btn echo-icon-btn--round" aria-expanded="false" aria-controls="echoMenuPopover" title="Themes &amp; Echo Settings">⋯</button>
+            <button type="button" id="echoCloseBtn" class="echo-icon-btn echo-icon-btn--round" aria-label="Close Echo window" title="Close">&times;</button>
           </div>
         </header>
 
-        <div class="echo-win-tabs" role="tablist" aria-label="Echo Modes">
-          <button type="button" class="echo-tab-btn active" data-echo-tab="chat" role="tab" aria-selected="true">💬 Talk</button>
-          <button type="button" class="echo-tab-btn" data-echo-tab="guide" role="tab" aria-selected="false">🧭 Guide</button>
-          <button type="button" class="echo-tab-btn" data-echo-tab="studio" role="tab" aria-selected="false">✨ Spark Lab</button>
+        <div id="echoMenuPopover" class="echo-menu-popover" hidden>
+          <div class="echo-menu-label">Mirror Theme</div>
+          <div class="echo-theme-grid">
+            <button type="button" class="echo-theme-swatch active" data-echo-theme-pick="prism">🔮 Prism</button>
+            <button type="button" class="echo-theme-swatch" data-echo-theme-pick="mist">🌸 Mist</button>
+            <button type="button" class="echo-theme-swatch" data-echo-theme-pick="portal">✨ Star</button>
+          </div>
+          <div class="echo-menu-actions">
+            <button type="button" id="echoSpeakToggleBtn" class="echo-menu-item" aria-pressed="false">🔇 Voice Read-Aloud: Off</button>
+            <button type="button" id="echoRoamToggleBtn" class="echo-menu-item" aria-pressed="true">🪽 Spark Flight: Roaming</button>
+            <button type="button" id="echoOpenGuideBtn" class="echo-menu-item">🧭 Sanctuary Guide &amp; Dec 10</button>
+            <button type="button" id="echoResetChatBtn" class="echo-menu-item">↻ Start Fresh Chat</button>
+            <button type="button" id="echoHideBtn" class="echo-menu-item">― Tuck Echo to Corner</button>
+          </div>
         </div>
 
-        <div id="echoTabChat" class="echo-win-body" style="padding-bottom:6px;">
+        <div id="echoTabChat" class="echo-win-body">
           <div id="echoChatStream" class="echo-chat-stream"></div>
         </div>
 
@@ -200,17 +208,16 @@
         <div id="echoTabStudio" class="echo-win-body" hidden></div>
 
         <div id="echoStarterRow" class="echo-starter-row">
-          <button type="button" class="echo-starter-chip" data-echo-prompt="Match my room vibe — my head feels busy today.">🌊 Calm my vibe</button>
+          <button type="button" class="echo-starter-chip" data-echo-prompt="I want to feel a little lighter and more joyful tonight.">☀️ Lift my spirit</button>
           <button type="button" class="echo-starter-chip" data-echo-prompt="Tell me everything about the Dec 10 open mic in Santa Ana!">🎶 Dec 10 Jam</button>
           <button type="button" class="echo-starter-chip" data-echo-prompt="Help me write 4 warm lines to read at open mic.">✍️ Lyric spark</button>
-          <button type="button" class="echo-starter-chip" data-echo-prompt="Quick 30-second overview for a donor or grant officer?">📄 501(c)(3) Info</button>
         </div>
 
         <form id="echoComposerForm" class="echo-composer">
-          <input id="echoComposerInput" class="echo-composer-input" type="text" maxlength="500" placeholder="Tell Echo how you're feeling or ask anything..." autocomplete="off" />
-          <button type="submit" id="echoSendBtn" class="echo-send-btn">Send ✦</button>
+          <input id="echoComposerInput" class="echo-composer-input" type="text" maxlength="500" placeholder="Share a thought or ask anything..." autocomplete="off" />
+          <button type="submit" id="echoSendBtn" class="echo-send-btn">Send</button>
         </form>
-        <div class="echo-disclaimer">Echo is your supportive Sanctuary friend — not medical or clinical therapy. Crisis? Text/Call 988.</div>
+        <div class="echo-disclaimer">Warm Sanctuary peer spark · Not clinical therapy · Crisis? Call/Text 988</div>
       </section>
     `;
 
@@ -227,6 +234,7 @@
     let isHidden = Boolean(prefs.hidden);
     let isRoaming = prefs.roam !== false && !prefersReducedMotion;
     let speakEnabled = Boolean(prefs.speak);
+    let windowTheme = ['prism', 'mist', 'portal'].includes(prefs.theme) ? prefs.theme : 'prism';
     let activeTab = 'chat';
     let previousInteractionId = sessionMemory.previousInteractionId || '';
     let sessionMessages = Array.isArray(sessionMemory.messages) ? sessionMemory.messages : [];
@@ -262,9 +270,20 @@
     const sendBtn = document.getElementById('echoSendBtn');
     const roamBtn = document.getElementById('echoRoamToggleBtn');
     const speakBtn = document.getElementById('echoSpeakToggleBtn');
+    const modeToggleBtn = document.getElementById('echoModeToggleBtn');
+    const menuBtn = document.getElementById('echoMenuBtn');
+    const menuPopover = document.getElementById('echoMenuPopover');
 
     function persistPrefs() {
-      savePrefs({ hidden: isHidden, roam: isRoaming, speak: speakEnabled });
+      savePrefs({ hidden: isHidden, roam: isRoaming, speak: speakEnabled, theme: windowTheme });
+    }
+
+    function applyWindowTheme(nextTheme) {
+      windowTheme = ['prism', 'mist', 'portal'].includes(nextTheme) ? nextTheme : 'prism';
+      if (winEl) winEl.setAttribute('data-echo-theme', windowTheme);
+      document.querySelectorAll('.echo-theme-swatch[data-echo-theme-pick]').forEach((btn) => {
+        btn.classList.toggle('active', btn.getAttribute('data-echo-theme-pick') === windowTheme);
+      });
     }
 
     function pickSafeTarget() {
@@ -408,14 +427,12 @@
       if (actor) actor.hidden = isHidden || isOpen;
       if (summonPill) summonPill.hidden = !isHidden || isOpen;
       if (roamBtn) {
-        roamBtn.classList.toggle('active', isRoaming);
         roamBtn.setAttribute('aria-pressed', isRoaming ? 'true' : 'false');
-        roamBtn.textContent = isRoaming ? '🪽 Roam' : '📍 Perched';
+        roamBtn.textContent = isRoaming ? '🪽 Spark Flight: Roaming' : '📍 Spark Flight: Perched';
       }
       if (speakBtn) {
-        speakBtn.classList.toggle('active', speakEnabled);
         speakBtn.setAttribute('aria-pressed', speakEnabled ? 'true' : 'false');
-        speakBtn.textContent = speakEnabled ? '🔊 Voice On' : '🔇 Voice';
+        speakBtn.textContent = speakEnabled ? '🔊 Voice Read-Aloud: On' : '🔇 Voice Read-Aloud: Off';
       }
       if (winEl) {
         winEl.classList.toggle('is-open', isOpen);
@@ -641,6 +658,10 @@
       const el = document.getElementById('echoTabGuide');
       if (!el) return;
       el.innerHTML = `
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span class="echo-info-kicker">🧭 Sanctuary Field Guide</span>
+          <button type="button" id="echoBackToChatBtn" class="echo-action-chip">← Back to Chat</button>
+        </div>
         <div class="echo-info-card">
           <div class="echo-info-kicker">🎶 Next Free Gathering</div>
           <h4 class="echo-info-heading">Jam Session: The Unplugged Playground</h4>
@@ -674,6 +695,8 @@
       el.querySelectorAll('[data-echo-act]').forEach((btn) => {
         btn.addEventListener('click', () => executeEchoAction(btn.getAttribute('data-echo-act')));
       });
+      const backBtn = el.querySelector('#echoBackToChatBtn');
+      if (backBtn) backBtn.addEventListener('click', () => switchTab('chat'));
     }
 
     function renderStudioTab() {
@@ -681,6 +704,10 @@
       if (!el) return;
       const item = ANCHOR_WORDS[anchorIdx % ANCHOR_WORDS.length];
       el.innerHTML = `
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span class="echo-info-kicker">🧭 Sanctuary Field Guide</span>
+          <button type="button" id="echoBackToChatBtn" class="echo-action-chip">← Back to Chat</button>
+        </div>
         <div class="echo-info-card">
           <div class="echo-info-kicker">🎲 Today's Anchor Word</div>
           <div id="echoAnchorWordBox" class="echo-word-display">${item.word}</div>
@@ -743,27 +770,33 @@
     }
 
     function switchTab(nextTab) {
-      activeTab = nextTab;
-      document.querySelectorAll('.echo-tab-btn[data-echo-tab]').forEach((btn) => {
-        const match = btn.getAttribute('data-echo-tab') === nextTab;
-        btn.classList.toggle('active', match);
-        btn.setAttribute('aria-selected', match ? 'true' : 'false');
-      });
+      const normalized = nextTab === 'reflect' ? 'studio' : nextTab;
+      activeTab = normalized;
 
       const chatEl = document.getElementById('echoTabChat');
       const guideEl = document.getElementById('echoTabGuide');
       const studioEl = document.getElementById('echoTabStudio');
-      if (chatEl) chatEl.hidden = nextTab !== 'chat';
-      if (guideEl) guideEl.hidden = nextTab !== 'guide';
-      if (studioEl) studioEl.hidden = nextTab !== 'studio';
-      if (starterRow) starterRow.style.display = nextTab === 'chat' ? 'flex' : 'none';
-      if (composerForm) composerForm.style.display = nextTab === 'chat' ? 'flex' : 'none';
+      if (chatEl) chatEl.hidden = normalized !== 'chat';
+      if (guideEl) guideEl.hidden = normalized !== 'guide';
+      if (studioEl) studioEl.hidden = normalized !== 'studio';
+      if (starterRow) starterRow.style.display = normalized === 'chat' ? 'flex' : 'none';
+      if (composerForm) composerForm.style.display = normalized === 'chat' ? 'flex' : 'none';
+      if (modeToggleBtn) {
+        const showingReflect = normalized === 'studio';
+        modeToggleBtn.textContent = showingReflect ? '💬 Chat' : '🪞 Reflect';
+        modeToggleBtn.classList.toggle('active', showingReflect);
+      }
+      if (menuPopover) {
+        menuPopover.hidden = true;
+        if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false');
+      }
     }
 
     function openWindow(tab = 'chat') {
       isOpen = true;
       isHidden = false;
       hideWhisper();
+      applyWindowTheme(windowTheme);
       syncVisibilityState();
       switchTab(tab);
       checkBackendHealth();
@@ -774,6 +807,8 @@
 
     function closeWindow() {
       isOpen = false;
+      if (menuPopover) menuPopover.hidden = true;
+      if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false');
       if ('speechSynthesis' in window) window.speechSynthesis.cancel();
       syncVisibilityState();
     }
@@ -854,6 +889,35 @@
     }
 
     document.getElementById('echoCloseBtn').addEventListener('click', closeWindow);
+    if (modeToggleBtn) {
+      modeToggleBtn.addEventListener('click', () => {
+        switchTab(activeTab === 'studio' ? 'chat' : 'studio');
+      });
+    }
+    if (menuBtn && menuPopover) {
+      menuBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const willOpen = menuPopover.hidden;
+        menuPopover.hidden = !willOpen;
+        menuBtn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+      });
+      document.addEventListener('click', (e) => {
+        if (!menuPopover.hidden && !menuPopover.contains(e.target) && e.target !== menuBtn) {
+          menuPopover.hidden = true;
+          menuBtn.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+    document.querySelectorAll('.echo-theme-swatch[data-echo-theme-pick]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        applyWindowTheme(btn.getAttribute('data-echo-theme-pick'));
+        persistPrefs();
+      });
+    });
+    const openGuideBtn = document.getElementById('echoOpenGuideBtn');
+    if (openGuideBtn) {
+      openGuideBtn.addEventListener('click', () => switchTab('guide'));
+    }
     const resetBtn = document.getElementById('echoResetChatBtn');
     if (resetBtn) {
       resetBtn.addEventListener('click', () => {
@@ -863,7 +927,7 @@
         if (chatStream) chatStream.innerHTML = '';
         appendMessage(
           'echo',
-          "Fresh spark, clean slate! Tell me how today's feeling, ask about Dec 10 in Santa Ana, or pull an Anchor Word in Spark Lab.",
+          "Fresh spark, clean mirror ✨ What's one bright thing you're celebrating tonight, or how can I help you unwind?",
           {
             suggestedElement: '',
             actionType: 'open_theater',
@@ -871,11 +935,13 @@
           },
           true
         );
+        switchTab('chat');
       });
     }
     document.getElementById('echoHideBtn').addEventListener('click', () => {
       isOpen = false;
       isHidden = true;
+      if (menuPopover) menuPopover.hidden = true;
       persistPrefs();
       syncVisibilityState();
     });
@@ -896,10 +962,6 @@
         syncVisibilityState();
       });
     }
-
-    document.querySelectorAll('.echo-tab-btn[data-echo-tab]').forEach((btn) => {
-      btn.addEventListener('click', () => switchTab(btn.getAttribute('data-echo-tab')));
-    });
 
     document.querySelectorAll('.echo-starter-chip[data-echo-prompt]').forEach((btn) => {
       btn.addEventListener('click', () => sendChatMessage(btn.getAttribute('data-echo-prompt')));
@@ -962,7 +1024,7 @@
     } else {
       appendMessage(
         'echo',
-        "Hey friend — I'm Echo, your wandering Sanctuary Spark! Tell me how today's been feeling, ask anything about Dec 10 in Santa Ana, or tap Spark Lab for an Anchor Word & open mic inspiration.",
+        "Hey friend ✨ Take a slow breath with me. What’s one small bright thing you want to celebrate or lean into tonight?",
         {
           suggestedElement: '',
           actionType: 'open_theater',
@@ -971,6 +1033,7 @@
         true
       );
     }
+    applyWindowTheme(windowTheme);
     renderGuideTab();
     renderStudioTab();
     syncVisibilityState();
