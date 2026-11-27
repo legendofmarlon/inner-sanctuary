@@ -1177,7 +1177,8 @@ body.cinema-theater-mode #btnBackToTop {
   transform: scale(calc(var(--theater-breath-scale, 1) * 1.06)) translateZ(0);
   opacity: var(--theater-halo-opacity, 0.72);
   pointer-events: none;
-  transition: transform 0.2s linear, opacity 0.2s linear;
+  will-change: transform, opacity;
+  transition: border-color 0.45s ease;
 }
 
 .theater-breath-halo--outer {
@@ -1185,6 +1186,15 @@ body.cinema-theater-mode #btnBackToTop {
   border-style: solid;
   border-color: rgba(245, 215, 127, 0.18);
   transform: scale(calc(var(--theater-breath-scale, 1) * 1.12)) translateZ(0);
+}
+
+body.cinema-theater-breathing .theater-breath-halo {
+  border-color: rgba(192, 132, 252, 0.56);
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.28) 0%, transparent 70%);
+}
+
+body.cinema-theater-breathing .theater-breath-halo--outer {
+  border-color: rgba(233, 213, 255, 0.26);
 }
 
 /* Precision 60fps SVG Breath Timing Progress Ring */
@@ -1197,6 +1207,7 @@ body.cinema-theater-mode #btnBackToTop {
   transform: rotate(-90deg) scale(var(--theater-breath-scale, 1)) translateZ(0);
   pointer-events: none;
   opacity: 0;
+  will-change: transform, opacity;
   transition: opacity 0.45s ease;
 }
 
@@ -1206,19 +1217,18 @@ body.cinema-theater-breathing .theater-breath-ring-svg {
 
 .theater-breath-ring-track {
   fill: none;
-  stroke: rgba(255, 248, 224, 0.14);
+  stroke: rgba(233, 213, 255, 0.18);
   stroke-width: 2.5;
 }
 
 .theater-breath-ring-arc {
   fill: none;
-  stroke: #86EFAC;
+  stroke: #C084FC;
   stroke-width: 3.5;
   stroke-linecap: round;
   stroke-dasharray: 691.15;
   stroke-dashoffset: 691.15;
-  filter: drop-shadow(0 0 8px rgba(134, 239, 172, 0.65));
-  transition: stroke 0.35s ease;
+  filter: drop-shadow(0 0 10px rgba(192, 132, 252, 0.78));
 }
 
 .cinema-theater-emblem {
@@ -1319,9 +1329,9 @@ body.cinema-theater-breathing .theater-breath-guide-hud {
   text-transform: uppercase;
   padding: 4px 10px;
   border-radius: 999px;
-  background: rgba(134, 239, 172, 0.18);
-  border: 1px solid rgba(134, 239, 172, 0.5);
-  color: #BBF7D0;
+  background: rgba(192, 132, 252, 0.22);
+  border: 1px solid rgba(192, 132, 252, 0.62);
+  color: #F3E8FF;
 }
 
 .breath-countdown-group {
@@ -1344,7 +1354,7 @@ body.cinema-theater-breathing .theater-breath-guide-hud {
   font-size: 0.62rem;
   font-weight: 800;
   letter-spacing: 0.14em;
-  color: #F8D98C;
+  color: #E9D5FF;
 }
 
 .breath-beat-pips {
@@ -1357,14 +1367,14 @@ body.cinema-theater-breathing .theater-breath-guide-hud {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.22);
+  background: rgba(233, 213, 255, 0.22);
   transition: transform 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
 }
 
 .breath-beat-pip.is-filled {
-  background: #FCE6A2;
+  background: #C084FC;
   transform: scale(1.22);
-  box-shadow: 0 0 8px rgba(248, 217, 140, 0.78);
+  box-shadow: 0 0 8px rgba(192, 132, 252, 0.85);
 }
 
 .breath-guide-controls {
@@ -1634,15 +1644,16 @@ body.cinema-theater-idle:not(.cinema-theater-typing) .cinema-theater-top-hud {
   font-size: 0.78rem;
   font-weight: 800;
   color: #FFFDF7;
-  background: radial-gradient(circle at 35% 30%, rgba(252, 230, 162, 0.9), rgba(22, 74, 56, 0.92));
-  border: 2px solid #F5D77F;
-  box-shadow: 0 0 22px var(--theater-glow);
-  transition: transform 0.9s ease, box-shadow 0.9s ease;
+  background: radial-gradient(circle at 35% 30%, rgba(233, 213, 255, 0.92), rgba(88, 28, 135, 0.92));
+  border: 2px solid #C084FC;
+  box-shadow: 0 0 22px rgba(168, 85, 247, 0.48);
+  transform: scale(var(--theater-breath-scale, 1));
+  will-change: transform, box-shadow;
 }
 
-.theater-breath-orb[data-phase="inhale"] { transform: scale(1.16); box-shadow: 0 0 32px rgba(134, 239, 172, 0.55); }
-.theater-breath-orb[data-phase="hold"] { transform: scale(1.16); box-shadow: 0 0 30px rgba(245, 215, 127, 0.6); }
-.theater-breath-orb[data-phase="exhale"] { transform: scale(0.86); box-shadow: 0 0 14px rgba(147, 197, 253, 0.4); }
+.theater-breath-orb[data-phase="inhale"] { box-shadow: 0 0 32px rgba(192, 132, 252, 0.65); }
+.theater-breath-orb[data-phase="hold"] { box-shadow: 0 0 30px rgba(216, 180, 254, 0.72); }
+.theater-breath-orb[data-phase="exhale"] { box-shadow: 0 0 20px rgba(233, 213, 255, 0.56); }
 
 .theater-slider {
   width: 100%;
