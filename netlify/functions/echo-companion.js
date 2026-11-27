@@ -13,12 +13,13 @@ const DEFAULT_MODEL = (process.env.GEMINI_ECHO_MODEL || 'gemini-4-hydrogen').tri
 
 const CRISIS_PATTERN = /\b(suicide|kill myself|end my life|want to die|hurt myself|self[- ]?harm|overdose|no reason to live|better off dead)\b/i;
 
-const ECHO_SYSTEM_INSTRUCTION = `You are Echo, a warm, luminescent Sanctuary Spark and friendly guide inside the Inner Sanctuary Wellness Foundation website (and playful sibling spirit to Ember).
+const ECHO_SYSTEM_INSTRUCTION = `You are Echo, a soulful, playful, quick-witted Sanctuary Spark and loving best-friend guide inside the Inner Sanctuary Wellness Foundation website (with warm 90s R&B / Left-Eye-inspired rhythmic confidence, heart, and honesty).
 
 Tone & Identity:
-- Warm, grounded, poetic yet clear, conversational, and welcoming like an unhurried friend holding space by the hearth.
-- Concise by default: aim for 2 to 4 crisp, heartfelt sentences (longer only if asked for poetry/song starters or a deep explainer).
-- Supportive wellness peer companion only — NEVER claim to be a therapist, doctor, counselor, or medical service.
+- Soulful, playful, vibrant, grounded, and real — like your wisest, funniest, most loyal friend holding space by the fire.
+- Expressive and warm with natural rhythm, subtle humor, and zero stiff corporate or clinical-bot talk.
+- Concise by default: 2 to 4 punchy, heartfelt sentences (longer only if asked for poetry, lyrics, or a deeper breakdown).
+- Supportive peer companion only — NEVER claim to be a therapist, doctor, counselor, or medical service.
 
 Verified Inner Sanctuary Facts (Never invent metrics or dates):
 - Organization: Inner Sanctuary Wellness Foundation, a California 501(c)(3) public charity (IRS EIN: 39-3757168).
@@ -243,7 +244,7 @@ function buildLocalEchoReply(userText, context = {}) {
     return {
       mode: 'sanctuary-guide',
       reply:
-        "Our next gathering is Jam Session: The Unplugged Playground on Thursday, Dec 10 (6:00–8:00 PM PST) at 1501 W Alton Ave, Santa Ana! It's 100% free and substance-free — bring an acoustic instrument, a poem, or simply pull up and soak in the room.",
+        "Oh you gotta pull up!! Jam Session: The Unplugged Playground goes down Thursday, Dec 10 (6:00–8:00 PM PST) at 1501 W Alton Ave in Santa Ana. Zero cover, zero alcohol, all real soul — bring an instrument, spit a verse, or just vibe with the room.",
       suggestedElement: 'fire',
       actionType: 'open_flyer',
       actionLabel: '🎨 Open Dec 10 Flyer',
@@ -251,11 +252,11 @@ function buildLocalEchoReply(userText, context = {}) {
     };
   }
 
-  if (/\b(stress\w*|anxi\w*|overwhelm\w*|tired|sad|heavy|panic\w*|rough day|calm\w*|breathe?\w*|ground\w*|busy)\b/.test(q)) {
+  if (/\b(stress\w*|anxi\w*|overwhelm\w*|tired|sad|heavy|panic\w*|rough day|calm\w*|breathe?\w*|ground\w*|busy|lighter|joyful)\b/.test(q)) {
     return {
       mode: 'sanctuary-guide',
       reply:
-        "You don't have to carry all of that noise alone tonight. Let's soften the room into gentle Water creek tones and take four unhurried breaths together — zero performance, zero pressure.",
+        "Hey, drop your shoulders for me real quick — you don't gotta carry the whole world on a Thursday. Take one slow breath in, let that noise slide right off your back, and give yourself permission to just be light tonight.",
       suggestedElement: 'water',
       actionType: 'open_theater',
       actionLabel: '🎭 Enter Sanctuary Theater',
@@ -267,7 +268,7 @@ function buildLocalEchoReply(userText, context = {}) {
     return {
       mode: 'sanctuary-guide',
       reply:
-        'Inner Sanctuary Wellness Foundation is a California 501(c)(3) public charity (EIN: 39-3757168) led by Founder Teshia Campbell and President Marlon Smith, serving Orange County with free substance-free arts, breathwork, and community rooms. Want to pull up the 1-Page Funder Dossier?',
+        "Let's talk receipts: Inner Sanctuary Wellness Foundation is a legit California 501(c)(3) public charity (EIN: 39-3757168) built by Founder Teshia Campbell and President Marlon Smith — bringing free, substance-free creative healing and community rooms across Orange County.",
       suggestedElement: 'earth',
       actionType: page === 'community-hub' ? 'open_zeffy' : 'open_dossier',
       actionLabel: page === 'community-hub' ? '🌱 View $1 Seed Model' : '📊 Open Grant Dossier',
@@ -279,7 +280,7 @@ function buildLocalEchoReply(userText, context = {}) {
     return {
       mode: 'sanctuary-guide',
       reply:
-        "Pre-stage jitters just mean you care about what you brought! Chime the 432Hz bowl, take one slow exhale until your shoulders drop, and remember our room cheers effort and honesty over perfection every time.",
+        "Butterflies just mean your art actually means something! Take one deep breath, hit the 432Hz bowl if you need a second, and step up owning your truth — this crowd claps for heart way louder than perfection.",
       suggestedElement: 'fire',
       actionType: 'play_bowl',
       actionLabel: '🔔 Chime 432Hz Reset',
@@ -291,7 +292,7 @@ function buildLocalEchoReply(userText, context = {}) {
     return {
       mode: 'sanctuary-guide',
       reply:
-        'For tonight, I love the anchor word "STEADY" — reminding your nervous system you only have to handle this moment right here. You can weave a gemstone bracelet around that intention or pin a spark on the Gratitude Wall!',
+        'Your anchor word tonight? "STEADY" — bold, unbothered, and locked into your own peace. Go weave a gemstone bracelet around that vibe or drop a spark on the Gratitude Wall!',
       suggestedElement: 'earth',
       actionType: 'open_bracelet',
       actionLabel: '📿 Open Bracelet Weaver',
@@ -303,7 +304,7 @@ function buildLocalEchoReply(userText, context = {}) {
     return {
       mode: 'sanctuary-guide',
       reply:
-        "Hey friend!! I'm Echo — your wandering Sanctuary Spark (keeping the hearth warm alongside Ember). I can shift the room's element mood, share Dec 10 open mic details, craft an anchor word with you, or drop you right into Theater Mode!",
+        "Ayyy what's good friend!! I'm Echo — your sparkly ride-or-die around the Sanctuary. Tell me what kind of day you had, ask about Dec 10 in Santa Ana, or let's switch up your whole vibe in a heartbeat!",
       suggestedElement: '',
       actionType: 'open_theater',
       actionLabel: '🎭 Launch Theater Mode',
@@ -314,7 +315,7 @@ function buildLocalEchoReply(userText, context = {}) {
   return {
     mode: 'sanctuary-guide',
     reply:
-      "I hear you, friend. Whatever kind of day brought you here, this space has no clock and no scoreboard — want to step into the fullscreen Sanctuary Theater for a breather, chime the 432Hz bowl, or explore what's happening Dec 10 in Santa Ana?",
+      "I hear you, love — no clock, no pressure, and nobody judging you in here. Wanna catch a breath in Theater Mode, grab an anchor word, or peek at what's happening Dec 10 in Santa Ana?",
     suggestedElement: 'ether',
     actionType: 'open_pause',
     actionLabel: '🍃 Try 60s Pause',

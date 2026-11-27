@@ -22,7 +22,7 @@ function requestGeminiTts(text, apiKey, timeoutMs = 15000) {
               text,
               speech_metadata: {
                 speaker: TTS_VOICE,
-                style: 'warm, soothing, unhurried, and genuinely encouraging friend'
+                style: 'soulful, playful, confident, warm rhythmic 90s R&B best-friend energy — expressive, witty, and genuinely uplifting'
               }
             }
           ]
