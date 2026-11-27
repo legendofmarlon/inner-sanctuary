@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inner Sanctuary — Typography Preview & Comparison Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=DM+Sans:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-deep: #0D1712;
+      --bg-card: rgba(22, 38, 30, 0.75);
+      --border-line: rgba(245, 215, 127, 0.22);
+      --gold-primary: #F5D77F;
+      --gold-deep: #C59A3F;
+      --text-main: #FFFDF7;
+      --text-muted: rgba(237, 243, 240, 0.72);
+      --forest-green: #1C3326;
+      --emerald-accent: #2E5C44;
+      --radius-lg: 20px;
+      --radius-sm: 10px;
+    }
+
+    [data-theme="fire"] {
+      --bg-deep: #1A0D0B;
+      --bg-card: rgba(43, 20, 16, 0.78);
+      --border-line: rgba(251, 146, 60, 0.3);
+      --gold-primary: #FDBA74;
+      --gold-deep: #EA580C;
+    }
+    [data-theme="water"] {
+      --bg-deep: #0B161A;
+      --bg-card: rgba(16, 36, 43, 0.78);
+      --border-line: rgba(56, 189, 248, 0.3);
+      --gold-primary: #7DD3FC;
+      --gold-deep: #0284C7;
+    }
+    [data-theme="ether"] {
+      --bg-deep: #130D1F;
+      --bg-card: rgba(33, 20, 51, 0.8);
+      --border-line: rgba(192, 132, 252, 0.32);
+      --gold-primary: #E9D5FF;
+      --gold-deep: #A855F7;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg-deep);
+      color: var(--text-main);
+      font-family: 'Montserrat', sans-serif;
+      min-height: 100vh;
+      padding-bottom: 80px;
+      transition: background 0.35s ease;
+    }
+
+    .preview-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(13, 23, 18, 0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-line);
+      padding: 16px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .preview-title-wrap h1 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--gold-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .preview-title-wrap p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .controls-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .pill-btn {
+      padding: 7px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border-line);
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-main);
+      font-size: 0.74rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .pill-btn:hover, .pill-btn.active {
+      border-color: var(--gold-primary);
+      background: rgba(245, 215, 127, 0.16);
+      color: var(--gold-primary);
+    }
+
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 28px 20px;
+    }
+
+    /* Tab switcher for active view */
+    .view-mode-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 12px;
+      overflow-x: auto;
+    }
+    .view-tab {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.86rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+    .view-tab.active {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--gold-primary);
+    }
+
+    /* Pairings Grid */
+    .pairings-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 22px;
+    }
+
+    .pairing-card {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-line);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+    .pairing-card:hover {
+      border-color: var(--gold-primary);
+      transform: translateY(-2px);
+    }
+    .pairing-card.is-current {
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .pairing-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background: rgba(245, 215, 127, 0.14);
+      color: var(--gold-primary);
+      border: 1px solid rgba(245, 215, 127, 0.26);
+      align-self: flex-start;
+    }
+
+    .pairing-meta {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+      padding-bottom: 12px;
+    }
+    .pairing-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--gold-primary);
+    }
+    .pairing-fonts {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    /* Live Sample Content within Card */
+    .sample-eyebrow {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold-primary);
+    }
+
+    .sample-hero-title {
+      font-size: 1.6rem;
+      line-height: 1.25;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-top: 6px;
+    }
+
+    .sample-lead {
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    .sample-mantra-box {
+      padding: 14px 18px;
+      border-radius: var(--radius-sm);
+      background: rgba(0, 0, 0, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      margin-top: 4px;
+    }
+    .sample-mantra-quote {
+      font-size: 1.12rem;
+      font-weight: 600;
+      color: var(--gold-primary);
+      line-height: 1.4;
+    }
+    .sample-mantra-author {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .sample-echo-bubble {
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      font-size: 0.8rem;
+      line-height: 1.55;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .sample-echo-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--gold-primary);
+    }
+
+    .sample-actions-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
+    }
+    .sample-btn-primary {
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #F5D77F, #C59A3F);
+      color: #121D17;
+      font-size: 0.76rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+    }
+    .sample-btn-secondary {
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-line);
+      color: var(--text-main);
+      font-size: 0.76rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* Font Specific Rules */
+    /* Baseline: Cinzel + Montserrat */
+    .card-baseline .font-heading { font-family: 'Cinzel', serif; letter-spacing: 0.06em; }
+    .card-baseline .font-body { font-family: 'Montserrat', sans-serif; }
+
+    /* Option 1: Fraunces + Plus Jakarta Sans */
+    .card-opt1 .font-heading { font-family: 'Fraunces', serif; letter-spacing: -0.01em; }
+    .card-opt1 .font-body { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+    /* Option 2: Cormorant Garamond + Outfit */
+    .card-opt2 .font-heading { font-family: 'Cormorant Garamond', serif; font-size: 1.85rem; letter-spacing: 0.02em; font-weight: 600; }
+    .card-opt2 .font-body { font-family: 'Outfit', sans-serif; }
+
+    /* Option 3: Playfair Display + DM Sans */
+    .card-opt3 .font-heading { font-family: 'Playfair Display', serif; letter-spacing: 0.01em; }
+    .card-opt3 .font-body { font-family: 'DM Sans', sans-serif; }
+
+    /* Option 4: Syne + Inter */
+    .card-opt4 .font-heading { font-family: 'Syne', sans-serif; font-weight: 700; letter-spacing: -0.02em; }
+    .card-opt4 .font-body { font-family: 'Inter', sans-serif; }
+
+    /* Interactive Live Tester Section */
+    .tester-section {
+      margin-top: 36px;
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-line);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+    }
+    .tester-input {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--border-line);
+      color: var(--text-main);
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+    }
+    .tester-input:focus {
+      outline: none;
+      border-color: var(--gold-primary);
+    }
+    .tester-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+    }
+    .tester-cell {
+      padding: 16px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+    }
+    .tester-cell h4 {
+      font-size: 0.72rem;
+      color: var(--gold-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+    .tester-text-display {
+      font-size: 1.25rem;
+      line-height: 1.4;
+      color: var(--text-main);
+      word-break: break-word;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="preview-header">
+    <div class="preview-title-wrap">
+      <h1>✨ Inner Sanctuary Typography Lab</h1>
+      <p>Compare the current font pairing against 4 curated, soulful directions</p>
+    </div>
+    <div class="controls-row">
+      <span style="font-size:0.75rem; color:var(--text-muted); font-weight:600;">Atmosphere:</span>
+      <button type="button" class="pill-btn active" onclick="setTheme('earth')">🌿 Earth (Default)</button>
+      <button type="button" class="pill-btn" onclick="setTheme('fire')">🔥 Fire</button>
+      <button type="button" class="pill-btn" onclick="setTheme('water')">🌊 Water</button>
+      <button type="button" class="pill-btn" onclick="setTheme('ether')">🌌 Ether</button>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <div class="view-mode-bar">
+      <button type="button" class="view-tab active" onclick="filterCards('all')">View All Pairings Side-by-Side</button>
+      <button type="button" class="view-tab" onclick="filterCards('baseline')">Current: Cinzel + Montserrat</button>
+      <button type="button" class="view-tab" onclick="filterCards('opt1')">Option 1: Fraunces + Plus Jakarta</button>
+      <button type="button" class="view-tab" onclick="filterCards('opt2')">Option 2: Cormorant + Outfit</button>
+      <button type="button" class="view-tab" onclick="filterCards('opt3')">Option 3: Playfair + DM Sans</button>
+      <button type="button" class="view-tab" onclick="filterCards('opt4')">Option 4: Syne + Inter</button>
+    </div>
+
+    <!-- Pairings Comparison Grid -->
+    <div class="pairings-grid" id="pairingsGrid">
+
+      <!-- BASELINE: Current -->
+      <article class="pairing-card card-baseline" data-key="baseline">
+        <span class="pairing-badge">Current Baseline</span>
+        <div class="pairing-meta">
+          <div class="pairing-name font-heading">Cinzel + Montserrat</div>
+          <div class="pairing-fonts font-body">Roman Inscriptional Serif & Geometric Sans</div>
+        </div>
+
+        <div>
+          <span class="sample-eyebrow font-body">THE THREEFOLD METHOD</span>
+          <h2 class="sample-hero-title font-heading">WITNESS YOURSELF. EXPRESS YOUR TRUTH.</h2>
+          <p class="sample-lead font-body">Inner Sanctuary is a Black-founded wellness foundation cultivating restorative spaces through guided breathing, acoustic jams, and community connection.</p>
+        </div>
+
+        <div class="sample-mantra-box">
+          <div class="sample-mantra-quote font-heading">"Laugh. Sing. Dance."</div>
+          <div class="sample-mantra-author font-body">Dec 10 Jam Session • 1501 W Alton Ave, Santa Ana</div>
+        </div>
+
+        <div class="sample-echo-bubble font-body">
+          <div class="sample-echo-header font-heading">✨ Echo • Sanctuary Spark</div>
+          <div>"Yo, drop your shoulders real quick — want me to shift the vibe to calm Water tones tonight?"</div>
+        </div>
+
+        <div class="sample-actions-row font-body">
+          <button class="sample-btn-primary">🍃 60s Pause</button>
+          <button class="sample-btn-secondary">🎨 Dec 10 Flyer</button>
+        </div>
+      </article>
+
+      <!-- OPTION 1: Warm Organic Editorial -->
+      <article class="pairing-card card-opt1" data-key="opt1">
+        <span class="pairing-badge" style="background:rgba(134,239,172,0.18); color:#86EFAC; border-color:rgba(134,239,172,0.35);">⭐ Top Recommendation</span>
+        <div class="pairing-meta">
+          <div class="pairing-name font-heading">Fraunces + Plus Jakarta Sans</div>
+          <div class="pairing-fonts font-body">Warm Organic Editorial Serif & Friendly Humane Sans</div>
+        </div>
+
+        <div>
+          <span class="sample-eyebrow font-body">The Threefold Method</span>
+          <h2 class="sample-hero-title font-heading">Witness yourself. Express your truth.</h2>
+          <p class="sample-lead font-body">Inner Sanctuary is a Black-founded wellness foundation cultivating restorative spaces through guided breathing, acoustic jams, and community connection.</p>
+        </div>
+
+        <div class="sample-mantra-box">
+          <div class="sample-mantra-quote font-heading">"Laugh. Sing. Dance."</div>
+          <div class="sample-mantra-author font-body">Dec 10 Jam Session • 1501 W Alton Ave, Santa Ana</div>
+        </div>
+
+        <div class="sample-echo-bubble font-body">
+          <div class="sample-echo-header font-heading">✨ Echo • Sanctuary Spark</div>
+          <div>"Yo, drop your shoulders real quick — want me to shift the vibe to calm Water tones tonight?"</div>
+        </div>
+
+        <div class="sample-actions-row font-body">
+          <button class="sample-btn-primary">🍃 60s Pause</button>
+          <button class="sample-btn-secondary">🎨 Dec 10 Flyer</button>
+        </div>
+      </article>
+
+      <!-- OPTION 2: Sacred Classical Elegance -->
+      <article class="pairing-card card-opt2" data-key="opt2">
+        <span class="pairing-badge">Lyrical & Sacred</span>
+        <div class="pairing-meta">
+          <div class="pairing-name font-heading">Cormorant Garamond + Outfit</div>
+          <div class="pairing-fonts font-body">Graceful High-Art Serif & Crisp Modern Sans</div>
+        </div>
+
+        <div>
+          <span class="sample-eyebrow font-body">The Threefold Method</span>
+          <h2 class="sample-hero-title font-heading">Witness yourself. Express your truth.</h2>
+          <p class="sample-lead font-body">Inner Sanctuary is a Black-founded wellness foundation cultivating restorative spaces through guided breathing, acoustic jams, and community connection.</p>
+        </div>
+
+        <div class="sample-mantra-box">
+          <div class="sample-mantra-quote font-heading">"Laugh. Sing. Dance."</div>
+          <div class="sample-mantra-author font-body">Dec 10 Jam Session • 1501 W Alton Ave, Santa Ana</div>
+        </div>
+
+        <div class="sample-echo-bubble font-body">
+          <div class="sample-echo-header font-heading">✨ Echo • Sanctuary Spark</div>
+          <div>"Yo, drop your shoulders real quick — want me to shift the vibe to calm Water tones tonight?"</div>
+        </div>
+
+        <div class="sample-actions-row font-body">
+          <button class="sample-btn-primary">🍃 60s Pause</button>
+          <button class="sample-btn-secondary">🎨 Dec 10 Flyer</button>
+        </div>
+      </article>
+
+      <!-- OPTION 3: Soulful Heritage & R&B Rhythms -->
+      <article class="pairing-card card-opt3" data-key="opt3">
+        <span class="pairing-badge">Soulful & Musical</span>
+        <div class="pairing-meta">
+          <div class="pairing-name font-heading">Playfair Display + DM Sans</div>
+          <div class="pairing-fonts font-body">High-Contrast Lyrical Serif & Geometric Neutral Sans</div>
+        </div>
+
+        <div>
+          <span class="sample-eyebrow font-body">The Threefold Method</span>
+          <h2 class="sample-hero-title font-heading">Witness yourself. Express your truth.</h2>
+          <p class="sample-lead font-body">Inner Sanctuary is a Black-founded wellness foundation cultivating restorative spaces through guided breathing, acoustic jams, and community connection.</p>
+        </div>
+
+        <div class="sample-mantra-box">
+          <div class="sample-mantra-quote font-heading">"Laugh. Sing. Dance."</div>
+          <div class="sample-mantra-author font-body">Dec 10 Jam Session • 1501 W Alton Ave, Santa Ana</div>
+        </div>
+
+        <div class="sample-echo-bubble font-body">
+          <div class="sample-echo-header font-heading">✨ Echo • Sanctuary Spark</div>
+          <div>"Yo, drop your shoulders real quick — want me to shift the vibe to calm Water tones tonight?"</div>
+        </div>
+
+        <div class="sample-actions-row font-body">
+          <button class="sample-btn-primary">🍃 60s Pause</button>
+          <button class="sample-btn-secondary">🎨 Dec 10 Flyer</button>
+        </div>
+      </article>
+
+      <!-- OPTION 4: Contemporary Creative Studio -->
+      <article class="pairing-card card-opt4" data-key="opt4">
+        <span class="pairing-badge">Modern Creative</span>
+        <div class="pairing-meta">
+          <div class="pairing-name font-heading">Syne + Inter</div>
+          <div class="pairing-fonts font-body">Distinctive Sculptural Sans & Workhorse Sans</div>
+        </div>
+
+        <div>
+          <span class="sample-eyebrow font-body">The Threefold Method</span>
+          <h2 class="sample-hero-title font-heading">Witness yourself. Express your truth.</h2>
+          <p class="sample-lead font-body">Inner Sanctuary is a Black-founded wellness foundation cultivating restorative spaces through guided breathing, acoustic jams, and community connection.</p>
+        </div>
+
+        <div class="sample-mantra-box">
+          <div class="sample-mantra-quote font-heading">"Laugh. Sing. Dance."</div>
+          <div class="sample-mantra-author font-body">Dec 10 Jam Session • 1501 W Alton Ave, Santa Ana</div>
+        </div>
+
+        <div class="sample-echo-bubble font-body">
+          <div class="sample-echo-header font-heading">✨ Echo • Sanctuary Spark</div>
+          <div>"Yo, drop your shoulders real quick — want me to shift the vibe to calm Water tones tonight?"</div>
+        </div>
+
+        <div class="sample-actions-row font-body">
+          <button class="sample-btn-primary">🍃 60s Pause</button>
+          <button class="sample-btn-secondary">🎨 Dec 10 Flyer</button>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- Live Custom Text Playground -->
+    <section class="tester-section">
+      <div style="margin-bottom:14px;">
+        <h3 style="font-size:1.1rem; color:var(--gold-primary); font-weight:700;">✍️ Live Text Tester</h3>
+        <p style="font-size:0.78rem; color:var(--text-muted);">Type any headline, song lyric, or mission statement below to see it render live across all 5 heading fonts:</p>
+      </div>
+      <input type="text" id="liveInput" class="tester-input" value="Where healing meets acoustic soul and community truth." placeholder="Type any text to preview..." oninput="updateLiveText(this.value)" />
+
+      <div class="tester-grid">
+        <div class="tester-cell">
+          <h4>Cinzel (Current)</h4>
+          <div id="disp-cinzel" class="tester-text-display font-heading" style="font-family:'Cinzel', serif;">Where healing meets acoustic soul and community truth.</div>
+        </div>
+        <div class="tester-cell">
+          <h4>Fraunces (Option 1)</h4>
+          <div id="disp-fraunces" class="tester-text-display font-heading" style="font-family:'Fraunces', serif;">Where healing meets acoustic soul and community truth.</div>
+        </div>
+        <div class="tester-cell">
+          <h4>Cormorant Garamond (Option 2)</h4>
+          <div id="disp-cormorant" class="tester-text-display font-heading" style="font-family:'Cormorant Garamond', serif; font-size:1.45rem;">Where healing meets acoustic soul and community truth.</div>
+        </div>
+        <div class="tester-cell">
+          <h4>Playfair Display (Option 3)</h4>
+          <div id="disp-playfair" class="tester-text-display font-heading" style="font-family:'Playfair Display', serif;">Where healing meets acoustic soul and community truth.</div>
+        </div>
+        <div class="tester-cell">
+          <h4>Syne (Option 4)</h4>
+          <div id="disp-syne" class="tester-text-display font-heading" style="font-family:'Syne', sans-serif;">Where healing meets acoustic soul and community truth.</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    function setTheme(theme) {
+      document.body.setAttribute('data-theme', theme);
+      document.querySelectorAll('.controls-row .pill-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent.toLowerCase().includes(theme));
+      });
+    }
+
+    function filterCards(key) {
+      document.querySelectorAll('.view-tab').forEach(t => t.classList.remove('active'));
+      event.target.classList.add('active');
+
+      const cards = document.querySelectorAll('.pairing-card');
+      cards.forEach(card => {
+        if (key === 'all' || card.getAttribute('data-key') === key) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function updateLiveText(val) {
+      const text = val || "Where healing meets acoustic soul and community truth.";
+      document.getElementById('disp-cinzel').textContent = text;
+      document.getElementById('disp-fraunces').textContent = text;
+      document.getElementById('disp-cormorant').textContent = text;
+      document.getElementById('disp-playfair').textContent = text;
+      document.getElementById('disp-syne').textContent = text;
+    }
+  </script>
+</body>
+</html>
