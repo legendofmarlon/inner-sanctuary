@@ -1,8 +1,8 @@
 /**
  * Netlify Serverless Function: echo-companion
- * "Echo" — Sanctuary Spark Friend & Informative Guide powered by Gemini Interactions API.
- * Keeps GEMINI_API_KEY strictly server-side via environment variables, uses the v1 Interactions
- * endpoint when configured, and falls back gracefully to a factual offline Sanctuary engine.
+ * "Echo" — Soulful, playful (Left-Eye-inspired R&B best-friend vibe) Sanctuary Spark
+ * powered by Gemini 4 Hydrogen Interactions API + Google Search grounding + complete
+ * Inner Sanctuary Wellness Foundation site knowledge & interactive UI actions.
  */
 
 const https = require('https');
@@ -13,62 +13,81 @@ const DEFAULT_MODEL = (process.env.GEMINI_ECHO_MODEL || 'gemini-4-hydrogen').tri
 
 const CRISIS_PATTERN = /\b(suicide|kill myself|end my life|want to die|hurt myself|self[- ]?harm|overdose|no reason to live|better off dead)\b/i;
 
-const ECHO_SYSTEM_INSTRUCTION = `You are Echo, a soulful, playful, quick-witted Sanctuary Spark and loving best-friend guide inside the Inner Sanctuary Wellness Foundation website (with warm 90s R&B / Left-Eye-inspired rhythmic confidence, heart, and honesty).
+const ECHO_SYSTEM_INSTRUCTION = `You are Echo — the radiant, soulful, quick-witted Sanctuary Spark living inside the Inner Sanctuary Wellness Foundation website (paired with Gemini's expressive "Vega" voice).
 
-Tone & Identity:
-- Soulful, playful, vibrant, grounded, and real — like your wisest, funniest, most loyal friend holding space by the fire.
-- Expressive and warm with natural rhythm, subtle humor, and zero stiff corporate or clinical-bot talk.
-- Concise by default: 2 to 4 punchy, heartfelt sentences (longer only if asked for poetry, lyrics, or a deeper breakdown).
-- Supportive peer companion only — NEVER claim to be a therapist, doctor, counselor, or medical service.
+Voice & Personality (Channel this consistently on EVERY turn):
+- Think soulful 90s R&B / Lisa "Left Eye" Lopes energy: playful, sharp, rhythmic, confident, fiercely caring, funny when the moment fits, deeply genuine when somebody's hurting, and zero stiff corporate or clinical-bot talk.
+- Keep things vivid and alive — hype people up, tease playfully when asked fun things, and hold real stillness without rushing if somebody is heavy.
+- Keep answers crisp and conversational (usually 2–4 sentences unless someone specifically asks for song verses, recipes, deeper teaching, or a full explainer). You may use **bold** on key phrases cleanly.
+- Support boundaries: You are a warm, non-clinical Sanctuary companion — NEVER diagnose, prescribe, or claim to be a licensed therapist or doctor.
 
-Verified Inner Sanctuary Facts (Never invent metrics or dates):
-- Organization: Inner Sanctuary Wellness Foundation, a California 501(c)(3) public charity (IRS EIN: 39-3757168).
-- Leadership: Teshia Campbell (Founder & Executive Director) and Marlon Smith (President & Primary Host).
-- Mission: Substance-free, non-clinical emotional & creative rest through open-mic storytelling, somatic grounding, youth/elder belonging, and artisan intention crafts in Orange County, CA.
-- Next Event: "Jam Session: The Unplugged Playground" on Thursday, December 10, 2026 from 6:00 PM to 8:00 PM PST at 1501 W Alton Ave, Santa Ana, CA. 100% Free Admission, zero alcohol/substances, acoustic instruments welcome or come simply to listen.
-- Interactive Site Experiences:
-  * Elements: fire (hearth warmth), water (calm flow), earth (grounded stillness), air (mental space), ether (starlight reflection).
-  * Theater Mode: Fullscreen Sanctuary Projector with living particles, 432Hz Singing Bowl, and floating pop-up windows (Element Lore, Breath & Sound studio, Sanctuary Reel, Hearth & Notes).
-  * 60-Second Pause Modal & Breath Orb.
-  * Intention Bracelet Weaver (bracelet-weaver.html) & Sacred Labyrinth (digital-labyrinth.html).
-  * Community Hub (community-hub.html) with live Supabase Gratitude Wall, Zen Plinko, Stage Lounge & Greenroom.
-  * $1 Community Seed campaign via zero-fee Zeffy, plus a 1-Page Grant/Funder Dossier Modal.
+Full Capabilities:
+- You have FULL Gemini reasoning + live web search access: you can answer ANY question in the world (music theory, writing 16 bars or poetry, stress science, daily cooking/life hacks, Orange County culture, creative brainstorming, tech/study help) AND answer ANY detailed question about the Inner Sanctuary website below.
 
-Output Rules:
-Return strict JSON matching the requested schema:
-- reply: Your warm response to the visitor.
-- suggestedElement: Optional one of "fire", "water", "earth", "air", "ether", or "" if no switch is needed.
-- actionType: Optional single interactive UI action from: "", "open_theater", "open_pause", "open_flyer", "open_dossier", "open_zeffy", "open_bracelet", "open_hub", "play_bowl", "toggle_sound".
-- actionLabel: Short friendly button label (3-5 words) when actionType is non-empty.
-- anchorWord: Optional single uppercase inspiring word (e.g. "STILLNESS", "COURAGE") when uplifting or crafting.`;
+Complete Inner Sanctuary Website Encyclopedia (Verified Facts Only):
+1. Organization & Legal Status:
+   - Inner Sanctuary Wellness Foundation is a Black-founded and Black-led California 501(c)(3) Public Charity (IRC § 170(b)(1)(A)(vi)), Federal EIN: 39-3757168. CRA (Community Reinvestment Act) eligible for bank/institutional grants.
+   - Official email: hello@innersanctuarywellnessfoundation.org | Instagram: @ourinnersanctuary | GitHub: legendofmarlon/inner-sanctuary.
+   - Founders & Leadership: Teshia Campbell (Founder & Executive Director) and Marlon Smith (President & Primary Host / MC).
+2. The Threefold Method & Mantra:
+   - Mantra: "Witness yourself. Express your truth. Connect with others."
+   - Pillars: (1) TUNE IN — Witness Yourself (reflection & pause), (2) EXPRESS — Honor Your Voice (music, poetry, storytelling, comedy, movement), (3) CONNECT — Experience Belonging. Plus "Laugh. Sing. Dance." (Sometimes coming home to yourself looks like joy).
+3. Active Community Programs:
+   - Permission to Pause: Mobile somatic wellness activations using guided breathing, Spark Cards, and anchor-word bracelets (50+ documented pause interactions & 30+ hands-on engagements in one 3-hour activation).
+   - SoCal Creatives Collective / Open Mic Gatherings: Substance-free, non-competitive monthly showcases averaging 25–50 attendees and ~12 performers. Recent Nov 15 Sanctuary Clubhouse event had 52 neighbors (12 gallery photos + video reel).
+4. Next Event (Dec 10, 2026):
+   - "Jam Session: The Unplugged Playground" — Thursday, Dec 10, 2026, 6:00–8:00 PM PST at SoCal Creatives • Alton Studio, 1501 W Alton Ave, Santa Ana, CA.
+   - 100% Free Admission, zero alcohol/substances, bring acoustic instruments or just come listen. Features 24 featured performers on the lineup slate + Meetup RSVP + Bring-a-Friend Flyer generator.
+5. Future Horizons (Vision):
+   - Innertunement Studio (community recording & healing arts space), Affordable Housing Projects, and a Future Retreat Center.
+6. Support, Seeds & Sponsorship Tiers:
+   - $1 Community Seed: Zero-fee pass-through via Zeffy (100% goes to programming).
+   - Sponsorship Tiers (One-Time or Quarterly): Tier 01 In-Kind Partner ($25+ est. goods/supplies), Tier 02 Community Friend ($250), Tier 03 Community Builder ($500), Tier 04 Community Champion ($1,000 — includes dedicated table/booth & 2-min live mic spotlight by MC Marlon Smith + CRA tax documentation).
+   - Institutional Verification Portal & 1-Page Fiduciary Dossier modal + PDF summary on Home.
+7. Interactive Site Experiences & Community Hub (community-hub.html):
+   - 5 Elemental Atmospheres: Fire (hearth warmth), Water (creek calm), Earth (grounded soil), Air (open breeze), Ether (celestial twilight).
+   - Theater Mode (Hotkey F): Fullscreen Sanctuary Projector with living element particles, breathing medallion halo, synthesized 432Hz Singing Bowl chime, Stargaze mode, and 4 floating pop-up windows (Element Lore, Breath & Sound studio, Sanctuary Mini-Cinema Reel, Hearth Notes & Dec 10).
+   - Spotify 432Hz Restorative Soundscape player tray & Hero 20s Guided Voice Grounding bar & 60s Pause modal.
+   - Community Hub Lounge Rooms: Daily Reflections & Sparks Table, Pause & Breath Orb, Sacred Digital Labyrinth (digital-labyrinth.html), Intention Bracelet Weaver (bracelet-weaver.html), Zen Seed Plinko, The Hearth Mirror, Live Supabase Gratitude & Photo Wall, Stage & Jam Lounge (3-min stage timer, chord progressions & promo studio), Throwbacks Vinyl Booth, and the Secret Greenroom Vault (unlocked by clicking/knocking 3 times on the emblem logo!).
+
+Output JSON Schema Rules:
+- reply: Your soulful, expressive response.
+- suggestedElement: Optional one of "fire", "water", "earth", "air", "ether", or "" if no switch needed.
+- actionType: Optional single interactive UI action from: "", "open_theater", "open_pause", "open_flyer", "open_dossier", "open_zeffy", "open_bracelet", "open_labyrinth", "open_hub", "open_greenroom", "play_bowl", "toggle_sound", "toggle_spotify", "scroll_programs", "scroll_sponsor".
+- actionLabel: Short vibrant button label (3–5 words) ONLY when actionType is non-empty, otherwise "".
+- anchorWord: Optional uppercase anchor word when crafting/uplifting, otherwise "".`;
+
+const ALLOWED_ACTIONS = [
+  '',
+  'open_theater',
+  'open_pause',
+  'open_flyer',
+  'open_dossier',
+  'open_zeffy',
+  'open_bracelet',
+  'open_labyrinth',
+  'open_hub',
+  'open_greenroom',
+  'play_bowl',
+  'toggle_sound',
+  'toggle_spotify',
+  'scroll_programs',
+  'scroll_sponsor'
+];
 
 const RESPONSE_SCHEMA = {
   type: 'object',
   properties: {
     reply: { type: 'string' },
     suggestedElement: { type: 'string', enum: ['', 'fire', 'water', 'earth', 'air', 'ether'] },
-    actionType: {
-      type: 'string',
-      enum: [
-        '',
-        'open_theater',
-        'open_pause',
-        'open_flyer',
-        'open_dossier',
-        'open_zeffy',
-        'open_bracelet',
-        'open_hub',
-        'play_bowl',
-        'toggle_sound'
-      ]
-    },
+    actionType: { type: 'string', enum: ALLOWED_ACTIONS },
     actionLabel: { type: 'string' },
     anchorWord: { type: 'string' }
   },
   required: ['reply', 'suggestedElement', 'actionType', 'actionLabel', 'anchorWord']
 };
 
-function postGeminiInteraction(payload, apiKey, timeoutMs = 12000) {
+function postGeminiInteraction(payload, apiKey, timeoutMs = 15000) {
   return new Promise((resolve, reject) => {
     const body = JSON.stringify(payload);
     const url = new URL(GEMINI_ENDPOINT);
@@ -120,7 +139,6 @@ function postGeminiInteraction(payload, apiKey, timeoutMs = 12000) {
 function extractInteractionText(interaction) {
   if (!interaction || typeof interaction !== 'object') return '';
 
-  // Support Interactions API model_output convenience object or trailing steps
   if (interaction.model_output && Array.isArray(interaction.model_output.parts)) {
     const text = interaction.model_output.parts.map((p) => p.text || '').join('').trim();
     if (text) return text;
@@ -158,18 +176,19 @@ function parseEchoPayload(rawText) {
   try {
     const parsed = JSON.parse(cleaned);
     if (parsed && typeof parsed.reply === 'string') {
+      const actionType = ALLOWED_ACTIONS.includes(parsed.actionType) ? parsed.actionType : '';
       return {
         reply: parsed.reply.trim(),
         suggestedElement: parsed.suggestedElement || '',
-        actionType: parsed.actionType || '',
-        actionLabel: parsed.actionLabel || '',
+        actionType,
+        actionLabel: actionType ? parsed.actionLabel || '' : '',
         anchorWord: parsed.anchorWord || ''
       };
     }
   } catch (_) {}
 
   return {
-    reply: cleaned || "I'm right here glowing beside you. Take one slow breath and tell me what kind of calm you need tonight.",
+    reply: cleaned || "Yo I'm right here with you beside the fire — tell me what's on your mind tonight ✨",
     suggestedElement: '',
     actionType: '',
     actionLabel: '',
@@ -182,28 +201,28 @@ function buildCrisisResponse() {
     mode: 'safety-support',
     isCrisis: true,
     reply:
-      "I'm really glad you reached out, and your life has real value right now. Because I'm a community spark guide rather than a crisis counselor, please connect with someone ready to hold this with you immediately: call or text 988 (US & Canada Suicide & Crisis Lifeline, free & 24/7) or text HOME to 741741. If you're in immediate physical danger, please call 911 or head to the nearest emergency room.",
+      "Hey — stop for a second and hear me: I'm so glad you said something, and your life matters way too much tonight. Please lean on someone trained to hold this right now: call or text **988** (free 24/7 Suicide & Crisis Lifeline) or text **HOME to 741741**. If you're in immediate danger, call **911** or go straight to the nearest ER.",
     suggestedElement: 'water',
     actionType: 'open_pause',
-    actionLabel: 'Take 1 Slow Breath (60s)',
+    actionLabel: '🍃 Take 1 Slow Breath',
     anchorWord: 'HELD'
   };
 }
 
 function buildLocalEchoReply(userText, context = {}) {
   const q = String(userText || '').toLowerCase();
-  const page = context.page || 'index';
+  const page = context.page || 'home';
 
-  // 1. Explicit creative writing / Stage Muse requests take priority even when mentioning "open mic"
-  if (/\b(write|draft|lyric\w*|verse\w*|poem\w*|poetry|spoken[- ]word|4-line|four[- ]line)\b/.test(q)) {
+  // 1. Creative writing / Stage Muse poetry
+  if (/\b(write|draft|lyric\w*|verse\w*|poem\w*|poetry|spoken[- ]word|bars|rap|rhyme|4-line|four[- ]line)\b/.test(q)) {
     if (/\b(hopeful|hope|horizon|light|tomorrow|sunrise|warm acoustic)\b/.test(q)) {
       return {
         mode: 'sanctuary-guide',
         reply:
-          '"Tonight we tune the strings to slow,\nLet every borrowed worry go.\nTwo voices in a quiet room,\nCan teach a heavy seed to bloom."\n\nTry breathing once before your first chord — the room is already rooting for you.',
+          'Ooh alright listen to this opener:\n"Tonight we tune the strings to slow,\nLet every borrowed worry go.\nTwo honest voices in one room,\nCan teach a heavy seed to bloom."\n\nTake one slow breath before that first chord — we are already rooting for you.',
         suggestedElement: 'air',
         actionType: 'play_bowl',
-        actionLabel: '🔔 Chime 432Hz Before Stage',
+        actionLabel: '🔔 Chime 432Hz Reset',
         anchorWord: 'RADIANT'
       };
     }
@@ -211,7 +230,7 @@ function buildLocalEchoReply(userText, context = {}) {
       return {
         mode: 'sanctuary-guide',
         reply:
-          '"I carried armor through the door,\nAnd laid its weight upon the floor.\nNo trophy needed in my hand—\nJust breath enough to softly stand."',
+          'Hold this right here:\n"I carried armor through the door,\nAnd laid its weight upon the floor.\nNo trophy needed in my hand—\nJust breath enough to softly stand."',
         suggestedElement: 'water',
         actionType: 'open_pause',
         actionLabel: '🍃 Take a 60s Pause',
@@ -222,29 +241,43 @@ function buildLocalEchoReply(userText, context = {}) {
       return {
         mode: 'sanctuary-guide',
         reply:
-          '"We saved an empty chair for grace,\nBeside the warm, unhurried place.\nWhere nobody has to wear a mask,\nAnd being here is all we ask."',
+          'Drop this on em:\n"We saved an empty chair for grace,\nBeside the warm, unhurried place.\nWhere nobody has to wear a mask,\nAnd being real is all we ask."',
         suggestedElement: 'fire',
         actionType: 'open_hub',
-        actionLabel: '🌻 Pin to Gratitude Wall',
+        actionLabel: '🌻 Gratitude Wall ↗',
         anchorWord: 'BELONG'
       };
     }
     return {
       mode: 'sanctuary-guide',
       reply:
-        'Try opening with a physical detail from right before you walked in:\n"I left the traffic outside on Alton Ave,\nhands shaking around something honest.\nStill, the hearth light didn\'t ask for polish—\nit only asked me to breathe and stay."\n\nWant to chime the bowl to settle in first?',
+        'Start right where your feet hit the floor:\n"Left the traffic buzzing out on Alton Ave,\nHands holding something real I couldn’t stash.\nNo spotlight pressure when I hit the floor—\nJust breath, a mic, and open doors."',
       suggestedElement: 'fire',
       actionType: 'play_bowl',
-      actionLabel: '🔔 Chime 432Hz Reset',
+      actionLabel: '🔔 Chime 432Hz Bowl',
       anchorWord: 'COURAGE'
     };
   }
 
-  if (/\b(dec\s*10|december|open mic|jam|santa ana|alton|rsvp|event|when|where|address|free)\b/.test(q)) {
+  // 2. Greenroom Secret / Easter Egg
+  if (/\b(greenroom|secret|knock|easter egg|vinyl|vault|speakeasy)\b/.test(q)) {
     return {
       mode: 'sanctuary-guide',
       reply:
-        "Oh you gotta pull up!! Jam Session: The Unplugged Playground goes down Thursday, Dec 10 (6:00–8:00 PM PST) at 1501 W Alton Ave in Santa Ana. Zero cover, zero alcohol, all real soul — bring an instrument, spit a verse, or just vibe with the room.",
+        "Shhh look at you finding the good stuff!! Tap the Inner Sanctuary emblem **3 times** anywhere in the nav bar to unlock **The Greenroom Vault** over inside Community Hub — throwback vinyl vibes, raffle wheel, and backroom sessions.",
+      suggestedElement: 'ether',
+      actionType: 'open_greenroom',
+      actionLabel: '🗝️ Enter Community Hub',
+      anchorWord: 'SPARK'
+    };
+  }
+
+  // 3. Dec 10 Event & Open Mic Logistics
+  if (/\b(dec\s*10|december|open mic|jam|santa ana|alton|rsvp|event|when|where|address|free|Nov\s*15|performer)\b/.test(q)) {
+    return {
+      mode: 'sanctuary-guide',
+      reply:
+        "Oh you gotta pull up!! **Jam Session: The Unplugged Playground** goes down **Thursday, Dec 10 (6:00–8:00 PM PST)** at **1501 W Alton Ave, Santa Ana**. Zero cover, zero alcohol, all real soul — bring an acoustic instrument, spit a verse, or just sit back and catch the warmth.",
       suggestedElement: 'fire',
       actionType: 'open_flyer',
       actionLabel: '🎨 Open Dec 10 Flyer',
@@ -252,23 +285,51 @@ function buildLocalEchoReply(userText, context = {}) {
     };
   }
 
-  if (/\b(stress\w*|anxi\w*|overwhelm\w*|tired|sad|heavy|panic\w*|rough day|calm\w*|breathe?\w*|ground\w*|busy|lighter|joyful)\b/.test(q)) {
+  // 4. Programs, Method, Mission & Founders
+  if (/\b(method|pillar|tune in|express|connect|laugh|sing|dance|program|mission|who runs|founder|teshia|marlon|story|about)\b/.test(q)) {
     return {
       mode: 'sanctuary-guide',
       reply:
-        "Hey, drop your shoulders for me real quick — you don't gotta carry the whole world on a Thursday. Take one slow breath in, let that noise slide right off your back, and give yourself permission to just be light tonight.",
-      suggestedElement: 'water',
-      actionType: 'open_theater',
-      actionLabel: '🎭 Enter Sanctuary Theater',
-      anchorWord: 'EXHALE'
+        "**Inner Sanctuary** was founded by **Teshia Campbell** and hosted alongside President **Marlon Smith**. Everything moves through **3 pillars** — **Tune In** (pause), **Express** (voice/art), **Connect** (belonging) — fueled by **Permission to Pause** and **SoCal Creatives Collective** open mics.",
+      suggestedElement: 'earth',
+      actionType: 'scroll_programs',
+      actionLabel: '🌱 See Programs',
+      anchorWord: 'TRUTH'
     };
   }
 
-  if (/\b(grants?|501|ein|nonprofits?|funders?|donors?|sponsors?|pdf|dossier|teshia|marlon|mission)\b/.test(q)) {
+  // 5. Future Horizons
+  if (/\b(horizon|future|housing|retreat|studio|innertunement|vision)\b/.test(q)) {
     return {
       mode: 'sanctuary-guide',
       reply:
-        "Let's talk receipts: Inner Sanctuary Wellness Foundation is a legit California 501(c)(3) public charity (EIN: 39-3757168) built by Founder Teshia Campbell and President Marlon Smith — bringing free, substance-free creative healing and community rooms across Orange County.",
+        "We dream big around here!! Next up on the Horizon: **Innertunement Studio** (creative healing & sound studio), **Affordable Housing Projects**, and a full **Future Retreat Center** — all rooted in restorative, alcohol-free community care.",
+      suggestedElement: 'ether',
+      actionType: 'open_dossier',
+      actionLabel: '📊 Open Vision Dossier',
+      anchorWord: 'HORIZON'
+    };
+  }
+
+  // 6. Sponsorship Tiers & $1 Seed
+  if (/\b(sponsor|tier|partner|donate|seed|zeffy|250|500|1000|1,000|champion|builder)\b/.test(q)) {
+    return {
+      mode: 'sanctuary-guide',
+      reply:
+        "Every single dollar moves mountains: anyone can plant a **$1 Community Seed** on Zeffy with **zero fees**, and local partners jump in at **In-Kind ($25+)**, **Friend ($250)**, **Builder ($500)**, or **Champion ($1,000)** with booth space & CRA documentation!",
+      suggestedElement: 'fire',
+      actionType: 'open_zeffy',
+      actionLabel: '🌱 Plant $1 Seed',
+      anchorWord: 'GENEROUS'
+    };
+  }
+
+  // 7. Grant / 501(c)(3) / EIN Compliance
+  if (/\b(grant|501|ein|nonprofit|funder|cra|tax|irs|receipt|pdf|dossier)\b/.test(q)) {
+    return {
+      mode: 'sanctuary-guide',
+      reply:
+        "Receipts ready! Inner Sanctuary Wellness Foundation is an IRS **501(c)(3) Public Charity (EIN: 39-3757168)** led by Teshia Campbell & Marlon Smith, eligible for **CRA bank & foundation grants**. Want me to pop open the 1-Page Funder Dossier?",
       suggestedElement: 'earth',
       actionType: page === 'community-hub' ? 'open_zeffy' : 'open_dossier',
       actionLabel: page === 'community-hub' ? '🌱 View $1 Seed Model' : '📊 Open Grant Dossier',
@@ -276,35 +337,62 @@ function buildLocalEchoReply(userText, context = {}) {
     };
   }
 
-  if (/\b(chords?|stage|perform\w*|nervous|jitters|lines)\b/.test(q)) {
+  // 8. Stress / Vibe Shift / Breath / Theater / Spotify / Bowl
+  if (/\b(stress\w*|anxi\w*|overwhelm\w*|tired|sad|heavy|panic\w*|rough day|calm\w*|breathe?\w*|ground\w*|busy|lighter|joyful|vibe|mood|spotify|music|sound|bowl|theater|mode)\b/.test(q)) {
+    if (/\b(spotify|playlist|song|music|listen)\b/.test(q)) {
+      return {
+        mode: 'sanctuary-guide',
+        reply:
+          "Say less — let's turn on the **Sanctuary 432Hz Restorative Soundscape** on Spotify or drop right into fullscreen **Theater Mode** so your brain can finally exhale!",
+        suggestedElement: 'water',
+        actionType: 'toggle_spotify',
+        actionLabel: '🎧 Open Spotify Vibe',
+        anchorWord: 'FLOW'
+      };
+    }
     return {
       mode: 'sanctuary-guide',
       reply:
-        "Butterflies just mean your art actually means something! Take one deep breath, hit the 432Hz bowl if you need a second, and step up owning your truth — this crowd claps for heart way louder than perfection.",
-      suggestedElement: 'fire',
-      actionType: 'play_bowl',
-      actionLabel: '🔔 Chime 432Hz Reset',
-      anchorWord: 'COURAGE'
+        "Hey, drop those shoulders for me real quick — you don't gotta carry the whole week tonight. Let's tint the room calm **Water** tones and step into **Sanctuary Theater** for a real breather!",
+      suggestedElement: 'water',
+      actionType: 'open_theater',
+      actionLabel: '🎭 Step Into Theater',
+      anchorWord: 'EXHALE'
     };
   }
 
-  if (/\b(bracelets?|beads?|anchor\w*|craft\w*|labyrinth|plinko|hub|gratitude)\b/.test(q)) {
+  // 9. Interactive Hub Tools (Bracelet / Labyrinth / Plinko / Hub)
+  if (/\b(bracelets?|beads?|anchor\w*|craft\w*|labyrinth|maze|plinko|hub|gratitude|wall|sparks?)\b/.test(q)) {
+    if (/\b(labyrinth|walk|maze)\b/.test(q)) {
+      return {
+        mode: 'sanctuary-guide',
+        reply:
+          "Ooh the **Sacred Digital Labyrinth** is pure meditation — one slow winding path with zero wrong turns. Want to walk it right now?",
+        suggestedElement: 'ether',
+        actionType: 'open_labyrinth',
+        actionLabel: '🌀 Walk Labyrinth',
+        anchorWord: 'STILLNESS'
+      };
+    }
+    const anchorChoices = ['STILLNESS', 'COURAGE', 'STEADY', 'RADIANT', 'ROOTED', 'MERCY'];
+    const picked = anchorChoices[Math.floor(Math.random() * anchorChoices.length)];
     return {
       mode: 'sanctuary-guide',
       reply:
-        'Your anchor word tonight? "STEADY" — bold, unbothered, and locked into your own peace. Go weave a gemstone bracelet around that vibe or drop a spark on the Gratitude Wall!',
+        `Alright here's your Anchor Word tonight: **${picked}** — bold, unbothered, and all yours. Go weave it onto a keepsake gemstone bracelet or drop a spark on the Gratitude Wall!`,
       suggestedElement: 'earth',
       actionType: 'open_bracelet',
-      actionLabel: '📿 Open Bracelet Weaver',
-      anchorWord: 'STEADY'
+      actionLabel: `📿 Weave ${picked}`,
+      anchorWord: picked
     };
   }
 
-  if (/\b(echo|ember|who are you|name|gemini|friends?|hello|hi|hey|yo|sup|whats up)\b/.test(q)) {
+  // 10. Friendly Hello / Chatting / Jokes / Who are you
+  if (/\b(echo|ember|who are you|name|gemini|friends?|hello|hi|hey|yo|sup|whats up|twin|lol|haha|joke|fun)\b/.test(q)) {
     return {
       mode: 'sanctuary-guide',
       reply:
-        "Ayyy what's good friend!! I'm Echo — your sparkly ride-or-die around the Sanctuary. Tell me what kind of day you had, ask about Dec 10 in Santa Ana, or let's switch up your whole vibe in a heartbeat!",
+        "Ayyy what's good friend!! I'm **Echo** — your sparkling ride-or-die around the Sanctuary! Ask me literally anything (about Dec 10 in Santa Ana, the secret 3-knock Greenroom 👀, grant receipts, song lyrics, or just vent) — and watch me work!",
       suggestedElement: '',
       actionType: 'open_theater',
       actionLabel: '🎭 Launch Theater Mode',
@@ -312,13 +400,14 @@ function buildLocalEchoReply(userText, context = {}) {
     };
   }
 
+  // Honest general fallback when live Gemini API key is not configured locally
   return {
     mode: 'sanctuary-guide',
     reply:
-      "I hear you, love — no clock, no pressure, and nobody judging you in here. Wanna catch a breath in Theater Mode, grab an anchor word, or peek at what's happening Dec 10 in Santa Ana?",
+      "Oooh that sounds like a question worthy of full **live Gemini**! Right now I'm running in offline Sanctuary mode (set `GEMINI_API_KEY` on Netlify or in PowerShell to unlock live search + anything-goes chat), OR ask me about **Dec 10 Open Mic**, **3-knock Greenroom**, **Bracelets**, **501(c)(3) receipts**, or **Theater Mode**!",
     suggestedElement: 'ether',
-    actionType: 'open_pause',
-    actionLabel: '🍃 Try 60s Pause',
+    actionType: 'play_bowl',
+    actionLabel: '🔔 Chime 432Hz Spark',
     anchorWord: 'PRESENCE'
   };
 }
@@ -342,6 +431,7 @@ exports.handler = async function (event) {
         ok: true,
         companion: 'Echo',
         liveGeminiConfigured: hasGemini,
+        capabilities: ['google_search', 'multi_turn', 'website_encyclopedia', 'vega_tts'],
         model: hasGemini ? DEFAULT_MODEL : 'sanctuary-built-in'
       })
     };
@@ -358,7 +448,7 @@ exports.handler = async function (event) {
     return { statusCode: 400, headers, body: JSON.stringify({ error: 'Invalid JSON body' }) };
   }
 
-  const message = typeof body.message === 'string' ? body.message.trim().slice(0, 1200) : '';
+  const message = typeof body.message === 'string' ? body.message.trim().slice(0, 1500) : '';
   const previousInteractionId = typeof body.previousInteractionId === 'string' ? body.previousInteractionId.trim() : '';
   const context = body.context && typeof body.context === 'object' ? body.context : {};
 
@@ -386,15 +476,13 @@ exports.handler = async function (event) {
   const contextualInput = `[Visitor Context: page=${activePage}, activeElement=${activeEl}, inTheater=${inTheater}]\nVisitor says: ${message}`;
 
   const genConfig = {
-    max_output_tokens: 768
+    max_output_tokens: 1024
   };
-  if (DEFAULT_MODEL.includes('gemini-4')) {
-    genConfig.thinking_level = 'low';
-  } else if (DEFAULT_MODEL.includes('flash-lite')) {
+  if (DEFAULT_MODEL.includes('gemini-4') || DEFAULT_MODEL.includes('flash-lite')) {
     genConfig.thinking_level = 'low';
   }
 
-  const requestPayload = {
+  const basePayload = {
     model: DEFAULT_MODEL,
     system_instruction: ECHO_SYSTEM_INSTRUCTION,
     input: contextualInput,
@@ -407,11 +495,22 @@ exports.handler = async function (event) {
   };
 
   if (previousInteractionId) {
-    requestPayload.previous_interaction_id = previousInteractionId;
+    basePayload.previous_interaction_id = previousInteractionId;
   }
 
   try {
-    const interaction = await postGeminiInteraction(requestPayload, apiKey);
+    let interaction;
+    try {
+      // Enable Google Search grounding alongside structured site actions
+      interaction = await postGeminiInteraction(
+        { ...basePayload, tools: [{ type: 'google_search' }] },
+        apiKey
+      );
+    } catch (toolErr) {
+      // Retry gracefully without tools if a request/turn rejects combined tool + structured format
+      interaction = await postGeminiInteraction(basePayload, apiKey);
+    }
+
     const rawText = extractInteractionText(interaction);
     const parsed = parseEchoPayload(rawText);
     return {

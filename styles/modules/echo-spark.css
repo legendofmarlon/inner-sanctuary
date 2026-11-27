@@ -384,6 +384,16 @@ body[data-element="ether"] {
   background: #FFFFFF;
 }
 
+@keyframes echoAvatarPulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 14px rgba(192, 132, 252, 0.65); }
+  50% { transform: scale(1.14); box-shadow: 0 0 22px rgba(248, 217, 140, 0.95); }
+}
+
+.echo-avatar-mini.is-thinking,
+.echo-avatar-mini.is-speaking {
+  animation: echoAvatarPulse 1.05s ease-in-out infinite;
+}
+
 .echo-win-title {
   font-family: 'Cinzel', serif;
   font-size: 0.94rem;
@@ -440,15 +450,20 @@ body[data-element="ether"] {
 
 .echo-msg-row {
   display: flex;
-  max-width: 88%;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 89%;
+  gap: 5px;
 }
 
 .echo-msg-row--user {
   align-self: flex-end;
+  align-items: flex-end;
 }
 
 .echo-msg-row--echo {
   align-self: flex-start;
+  align-items: flex-start;
 }
 
 .echo-msg-bubble {
@@ -457,6 +472,39 @@ body[data-element="ether"] {
   font-size: 0.81rem;
   line-height: 1.48;
   white-space: pre-wrap;
+}
+
+.echo-msg-bubble strong {
+  color: var(--win-kicker);
+  font-weight: 700;
+}
+
+.echo-action-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.echo-action-chip {
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--win-kicker);
+  background: var(--win-pill-bg);
+  color: var(--win-kicker);
+  font-size: 0.69rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.16s ease, filter 0.16s ease;
+}
+
+.echo-action-chip:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.12);
+}
+
+.echo-action-chip--element {
+  border-color: var(--win-pill-border);
+  color: var(--win-pill-text);
 }
 
 .echo-msg-row--echo .echo-msg-bubble {
@@ -581,6 +629,8 @@ body.cinema-theater-stargaze .echo-spark-layer {
   .echo-svg-flame,
   .echo-svg-tongue,
   .echo-svg-fleck,
+  .echo-avatar-mini.is-thinking,
+  .echo-avatar-mini.is-speaking,
   .echo-companion-window::before {
     animation: none !important;
   }

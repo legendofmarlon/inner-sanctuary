@@ -97,6 +97,46 @@
     }
   }
 
+  const ELEMENT_CHIP_LABELS = {
+    fire: '🔥 Shift to Fire',
+    water: '💧 Shift to Water',
+    earth: '🌿 Shift to Earth',
+    air: '🌬️ Shift to Air',
+    ether: '🔮 Shift to Ether'
+  };
+
+  const ACTION_FALLBACK_LABELS = {
+    open_theater: '🎭 Enter Theater Mode',
+    open_pause: '🍃 Take 60s Pause',
+    open_flyer: '🎨 Dec 10 Invite Flyer',
+    open_dossier: '📑 View 501(c)(3) Dossier',
+    open_zeffy: '🌱 Plant $1 Seed',
+    open_bracelet: '📿 Weave Bracelet',
+    open_labyrinth: '🌀 Walk Labyrinth',
+    open_hub: '🏡 Enter Community Hub',
+    open_greenroom: '🗝️ Find the Greenroom',
+    play_bowl: '🔔 Chime 432Hz Bowl',
+    toggle_sound: '🔊 Nature Soundscape',
+    toggle_spotify: '🎧 Spotify 432Hz Tray',
+    scroll_programs: '🎶 See Programs & Events',
+    scroll_sponsor: '🤝 View Sponsorship Tiers'
+  };
+
+  const WHISPER_LINES = [
+    "Psst… knock 3 times on the emblem 👀🗝️",
+    "Drop your shoulders real quick — want me to shift the vibe? ✨",
+    "Ask me literally anything — Dec 10 in Santa Ana or 16 fresh bars 🎶",
+    "Need fire, water breeze, or twilight ether tonight? Tap me 🔮"
+  ];
+
+  function formatEchoHtml(rawText) {
+    const escaped = String(rawText || '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+    return escaped.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  }
+
   function detectCurrentPage() {
     const p = (window.location.pathname || '').toLowerCase();
     if (p.includes('community-hub')) return 'community-hub';
@@ -147,11 +187,12 @@
       <section id="echoCompanionWindow" class="echo-companion-window" data-echo-theme="prism" role="dialog" aria-label="Chat with Echo" aria-hidden="true">
         <header id="echoWinHeader" class="echo-win-header">
           <div class="echo-win-identity">
-            <div class="echo-avatar-mini" aria-hidden="true"></div>
+            <div id="echoMiniAvatar" class="echo-avatar-mini" aria-hidden="true"></div>
             <span class="echo-win-title">Echo</span>
           </div>
           <div class="echo-win-controls">
             <button type="button" id="echoThemeCycleBtn" class="echo-icon-btn" title="Switch Echo window theme">🔮 Prism</button>
+            <button type="button" id="echoResetChatBtn" class="echo-icon-btn echo-icon-btn--round" aria-label="Start fresh conversation" title="Fresh chat">↻</button>
             <button type="button" id="echoCloseBtn" class="echo-icon-btn echo-icon-btn--round" aria-label="Close Echo chat" title="Close">&times;</button>
           </div>
         </header>
@@ -161,9 +202,10 @@
         </div>
 
         <div id="echoStarterRow" class="echo-starter-row">
-          <button type="button" class="echo-starter-chip" data-echo-prompt="I want to feel a little lighter and more joyful tonight.">☀️ Lift my spirit</button>
-          <button type="button" class="echo-starter-chip" data-echo-prompt="Tell me about the Dec 10 Jam Session in Santa Ana!">🎶 Dec 10 Jam</button>
-          <button type="button" class="echo-starter-chip" data-echo-prompt="Give me an anchor word for tonight.">✨ Anchor word</button>
+          <button type="button" class="echo-starter-chip" data-echo-prompt="I want to drop my shoulders and feel brighter right now — surprise me with a mood shift!">☀️ Shift my mood</button>
+          <button type="button" class="echo-starter-chip" data-echo-prompt="Break down everything happening at Dec 10 The Unplugged Playground in Santa Ana!">🎶 Dec 10 Santa Ana</button>
+          <button type="button" class="echo-starter-chip" data-echo-prompt="What is the secret Greenroom Easter egg and everything inside the Community Hub?">🗝️ 3-knock secret</button>
+          <button type="button" class="echo-starter-chip" data-echo-prompt="Give me a bold creative life hack or fun 4-line spark verse right now!">✨ Ask Gemini</button>
         </div>
 
         <form id="echoComposerForm" class="echo-composer">
@@ -211,6 +253,9 @@
     const composerInput = document.getElementById('echoComposerInput');
     const sendBtn = document.getElementById('echoSendBtn');
     const themeBtn = document.getElementById('echoThemeCycleBtn');
+    const miniAvatar = document.getElementById('echoMiniAvatar');
+    const resetChatBtn = document.getElementById('echoResetChatBtn');
+    let whisperIndex = 0;
 
     function applyWindowTheme(nextTheme) {
       windowTheme = THEME_ORDER.includes(nextTheme) ? nextTheme : 'prism';
@@ -223,6 +268,7 @@
     }
 
     function stopEchoAudio() {
+      if (miniAvatar) miniAvatar.classList.remove('is-speaking');
       if (activeVoiceAudio) {
         try {
           activeVoiceAudio.pause();
@@ -240,6 +286,7 @@
         triggerBtn.disabled = true;
         triggerBtn.textContent = '⏳';
       }
+      if (miniAvatar) miniAvatar.classList.add('is-speaking');
 
       try {
         const res = await fetch(TTS_ENDPOINT, {
@@ -253,6 +300,7 @@
           activeVoiceAudio = audio;
           audio.onended = () => {
             if (activeVoiceAudio === audio) activeVoiceAudio = null;
+            if (miniAvatar) miniAvatar.classList.remove('is-speaking');
             if (triggerBtn) triggerBtn.textContent = orig;
           };
           if (triggerBtn) {
@@ -264,6 +312,7 @@
         }
       } catch (_) {}
 
+      if (miniAvatar) miniAvatar.classList.remove('is-speaking');
       if (triggerBtn) {
         triggerBtn.disabled = false;
         triggerBtn.textContent = '🔔';
@@ -394,6 +443,133 @@
       if (!rafId) rafId = requestAnimationFrame(tickFlight);
     }
 
+    function shiftElementVibe(elKey) {
+      if (!elKey || !ELEMENT_CHIP_LABELS[elKey]) return;
+      if (typeof window.switchElementTheme === 'function') {
+        window.switchElementTheme(elKey, true);
+      } else {
+        document.body.setAttribute('data-element', elKey);
+      }
+      if (window.sanctuaryCinema && typeof window.sanctuaryCinema.selectTheaterElement === 'function' && document.body.classList.contains('cinema-theater-mode')) {
+        window.sanctuaryCinema.selectTheaterElement(elKey);
+      }
+    }
+
+    function executeEchoAction(actionType, meta = {}) {
+      const page = detectCurrentPage();
+      const closeOnMobileOverlay = () => {
+        if (window.innerWidth <= 640) closeWindow();
+      };
+
+      switch (actionType) {
+        case 'open_theater':
+          closeOnMobileOverlay();
+          if (window.sanctuaryCinema && typeof window.sanctuaryCinema.toggleTheater === 'function') {
+            window.sanctuaryCinema.toggleTheater(true);
+          } else {
+            window.location.href = 'index.html#sanctuaryPortalSection';
+          }
+          break;
+        case 'open_pause':
+          closeOnMobileOverlay();
+          if (typeof window.openPauseModal === 'function') {
+            window.openPauseModal();
+          } else {
+            window.location.href = 'index.html#programs';
+          }
+          break;
+        case 'open_flyer':
+          closeOnMobileOverlay();
+          if (window.sanctuaryCinema && typeof window.sanctuaryCinema.openInviteFlyer === 'function') {
+            window.sanctuaryCinema.openInviteFlyer();
+          } else {
+            window.location.href = 'index.html#programs';
+          }
+          break;
+        case 'open_dossier':
+          closeOnMobileOverlay();
+          if (typeof window.openFunderModal === 'function') {
+            window.openFunderModal(null, 'summary');
+          } else {
+            window.location.href = 'index.html#sponsorship';
+          }
+          break;
+        case 'open_zeffy':
+          closeOnMobileOverlay();
+          if (typeof window.openZeffyModal === 'function') {
+            window.openZeffyModal();
+          } else {
+            window.open('https://www.zeffy.com/en-US/donation-form/plant-a-seed-make-it-grow', '_blank', 'noopener,noreferrer');
+          }
+          break;
+        case 'open_bracelet': {
+          const anchorParam = meta && meta.anchorWord ? `?anchor=${encodeURIComponent(meta.anchorWord)}` : '';
+          window.location.href = `bracelet-weaver.html${anchorParam}`;
+          break;
+        }
+        case 'open_labyrinth':
+          window.location.href = 'digital-labyrinth.html';
+          break;
+        case 'open_hub':
+          if (page === 'community-hub') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          } else {
+            window.location.href = 'community-hub.html';
+          }
+          break;
+        case 'open_greenroom':
+          if (page === 'community-hub' && window.sanctuaryHubWings && typeof window.sanctuaryHubWings.focusClubhouseZone === 'function') {
+            window.sanctuaryHubWings.focusClubhouseZone('vinyl', { scroll: true });
+          } else {
+            window.location.href = 'community-hub.html#greenroom-vault';
+          }
+          break;
+        case 'play_bowl':
+          if (window.sanctuaryCinema && typeof window.sanctuaryCinema.playBowl === 'function') {
+            window.sanctuaryCinema.playBowl();
+          } else {
+            playStandaloneBowl();
+          }
+          break;
+        case 'toggle_sound':
+          if (window.sanctuaryCinema && typeof window.sanctuaryCinema.theaterToggleSound === 'function') {
+            window.sanctuaryCinema.theaterToggleSound();
+          } else {
+            playStandaloneBowl();
+          }
+          break;
+        case 'toggle_spotify':
+          if (typeof window.toggleSpotifyPlayer === 'function') {
+            window.toggleSpotifyPlayer();
+          } else {
+            window.location.href = 'index.html';
+          }
+          break;
+        case 'scroll_programs': {
+          const el = document.getElementById('programs');
+          if (el) {
+            closeOnMobileOverlay();
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          } else {
+            window.location.href = 'index.html#programs';
+          }
+          break;
+        }
+        case 'scroll_sponsor': {
+          const el = document.getElementById('sponsorship');
+          if (el) {
+            closeOnMobileOverlay();
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          } else {
+            window.location.href = 'index.html#sponsorship';
+          }
+          break;
+        }
+        default:
+          break;
+      }
+    }
+
     function appendMessage(role, text, meta = {}, persist = true) {
       if (!chatStream) return;
       if (persist) {
@@ -409,7 +585,7 @@
 
       const bubble = document.createElement('div');
       bubble.className = 'echo-msg-bubble';
-      bubble.textContent = text;
+      bubble.innerHTML = formatEchoHtml(text);
 
       if (role === 'echo' && !meta.isWelcome) {
         const audioBtn = document.createElement('button');
@@ -422,6 +598,33 @@
       }
 
       row.appendChild(bubble);
+
+      if (role === 'echo' && !meta.isWelcome) {
+        const hasAction = Boolean(meta.actionType && ACTION_FALLBACK_LABELS[meta.actionType]);
+        const hasElement = Boolean(meta.suggestedElement && ELEMENT_CHIP_LABELS[meta.suggestedElement]);
+        if (hasAction || hasElement) {
+          const pillRow = document.createElement('div');
+          pillRow.className = 'echo-action-pills';
+          if (hasAction) {
+            const actionBtn = document.createElement('button');
+            actionBtn.type = 'button';
+            actionBtn.className = 'echo-action-chip';
+            actionBtn.textContent = meta.actionLabel || ACTION_FALLBACK_LABELS[meta.actionType];
+            actionBtn.addEventListener('click', () => executeEchoAction(meta.actionType, meta));
+            pillRow.appendChild(actionBtn);
+          }
+          if (hasElement) {
+            const elBtn = document.createElement('button');
+            elBtn.type = 'button';
+            elBtn.className = 'echo-action-chip echo-action-chip--element';
+            elBtn.textContent = ELEMENT_CHIP_LABELS[meta.suggestedElement];
+            elBtn.addEventListener('click', () => shiftElementVibe(meta.suggestedElement));
+            pillRow.appendChild(elBtn);
+          }
+          row.appendChild(pillRow);
+        }
+      }
+
       chatStream.appendChild(row);
 
       const body = document.getElementById('echoTabChat');
@@ -434,11 +637,14 @@
       appendMessage('user', msg);
       if (composerInput) composerInput.value = '';
       if (sendBtn) sendBtn.disabled = true;
+      if (miniAvatar) miniAvatar.classList.add('is-thinking');
 
       const typingRow = document.createElement('div');
       typingRow.className = 'echo-msg-row echo-msg-row--echo';
-      typingRow.innerHTML = '<div class="echo-msg-bubble" style="opacity:0.7;">✨ ...</div>';
+      typingRow.innerHTML = '<div class="echo-msg-bubble" style="opacity:0.78;">✨ Echo is tuning in...</div>';
       if (chatStream) chatStream.appendChild(typingRow);
+      const bodyEl = document.getElementById('echoTabChat');
+      if (bodyEl) bodyEl.scrollTop = bodyEl.scrollHeight;
 
       try {
         const res = await fetch(ENDPOINT, {
@@ -458,15 +664,21 @@
         typingRow.remove();
 
         if (data && data.interactionId) previousInteractionId = data.interactionId;
-        const reply = (data && data.reply) || "I'm right here glowing beside you ✨";
+        const reply = (data && data.reply) || "Yo I'm right here beside the fire with you ✨";
         appendMessage('echo', reply, {
           suggestedElement: data && data.suggestedElement,
-          actionType: data && data.actionType
+          actionType: data && data.actionType,
+          actionLabel: data && data.actionLabel,
+          anchorWord: data && data.anchorWord
         });
       } catch (_) {
         typingRow.remove();
-        appendMessage('echo', "I'm right here glowing beside you! Ask about Dec 10 in Santa Ana or take a slow breath with me ✨");
+        appendMessage('echo', "Yo I'm right here glowing beside you! Ask about Dec 10 in Santa Ana, anything in the universe, or take a quick breath with me ✨", {
+          actionType: 'open_pause',
+          actionLabel: '🍃 Take 60s Pause'
+        });
       } finally {
+        if (miniAvatar) miniAvatar.classList.remove('is-thinking');
         if (sendBtn) sendBtn.disabled = false;
         if (composerInput) composerInput.focus();
       }
@@ -550,6 +762,22 @@
     }
 
     document.getElementById('echoCloseBtn').addEventListener('click', closeWindow);
+    if (resetChatBtn) {
+      resetChatBtn.addEventListener('click', () => {
+        stopEchoAudio();
+        previousInteractionId = '';
+        sessionMessages = [];
+        saveSessionMemory({ previousInteractionId: '', messages: [] });
+        if (chatStream) chatStream.innerHTML = '';
+        appendMessage(
+          'echo',
+          "Fresh slate! I'm **Echo** ✨ Ask me anything in the universe, weave a bracelet, or shift the whole Sanctuary vibe.",
+          { isWelcome: true },
+          true
+        );
+        if (composerInput) composerInput.focus();
+      });
+    }
     if (themeBtn) {
       themeBtn.addEventListener('click', () => {
         const nextIdx = (THEME_ORDER.indexOf(windowTheme) + 1) % THEME_ORDER.length;
@@ -618,7 +846,7 @@
     } else {
       appendMessage(
         'echo',
-        "Hey friend ✨ I'm Echo. How are you feeling tonight, or what can I help you explore?",
+        "Yo — welcome in! I'm **Echo** ✨ Drop your shoulders real quick. Ask me anything in the universe, weave a bracelet, or tell me what kind of night we're having.",
         { isWelcome: true },
         true
       );
@@ -638,9 +866,15 @@
       true
     );
 
-    setTimeout(() => {
-      showWhisper("Psst — I'm Echo ✨ Tap me to chat!", 5500);
-    }, 2800);
+    const cycleWhisper = () => {
+      const line = WHISPER_LINES[whisperIndex % WHISPER_LINES.length];
+      whisperIndex += 1;
+      showWhisper(line, 5600);
+    };
+    setTimeout(cycleWhisper, 2600);
+    setInterval(() => {
+      if (!isOpen && document.visibilityState === 'visible') cycleWhisper();
+    }, 34000);
 
     window.sanctuaryEcho = {
       open: openWindow,
