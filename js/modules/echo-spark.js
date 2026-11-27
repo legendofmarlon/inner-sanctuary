@@ -427,20 +427,9 @@
       }
     }
 
-    function speakWithBrowserFallback(text) {
-      if (!('speechSynthesis' in window) || !text) return;
-      try {
-        const clean = String(text).replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu, '').trim();
-        if (!clean) return;
-        const utter = new SpeechSynthesisUtterance(clean);
-        const voices = window.speechSynthesis.getVoices ? window.speechSynthesis.getVoices() : [];
-        const preferred = voices.find((v) => /natural|google us english|aria|samantha|victoria|ava/i.test(v.name));
-        if (preferred) utter.voice = preferred;
-        utter.rate = 0.96;
-        utter.pitch = 1.06;
-        utter.volume = 0.9;
-        window.speechSynthesis.speak(utter);
-      } catch (_) {}
+    function speakWithBrowserFallback() {
+      // Avoid uncanny OS speechSynthesis; chime a gentle 432Hz singing bowl instead
+      playStandaloneBowl();
     }
 
     async function speakTextSoftly(text, options = {}) {
@@ -471,11 +460,11 @@
           };
           audio.onerror = () => {
             if (activeVoiceAudio === audio) activeVoiceAudio = null;
-            speakWithBrowserFallback(text);
+            speakWithBrowserFallback();
           };
           if (triggerBtn) {
             triggerBtn.disabled = false;
-            triggerBtn.textContent = '🔊 Playing (Vega)';
+            triggerBtn.textContent = '🔊 Vega Speaking';
           }
           await audio.play();
           return;
@@ -484,9 +473,12 @@
 
       if (triggerBtn) {
         triggerBtn.disabled = false;
-        triggerBtn.textContent = origLabel || '🔊 Listen';
+        triggerBtn.textContent = '🔔 Chime (Set GEMINI_API_KEY for Vega)';
+        setTimeout(() => {
+          if (triggerBtn) triggerBtn.textContent = origLabel || '🔊 Listen';
+        }, 3200);
       }
-      speakWithBrowserFallback(text);
+      speakWithBrowserFallback();
     }
 
     function syncVisibilityState() {
