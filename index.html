@@ -333,7 +333,7 @@
   <link rel="stylesheet" href="styles/modules/promo-card-generator.css?v=1.0">
   <link rel="stylesheet" href="styles/modules/sanctuary-os.css">
   <link rel="stylesheet" href="styles/modules/funder-dossier.css?v=1.0">
-  <link rel="stylesheet" href="styles/modules/sanctuary-cinema.css?v=2.1">
+  <link rel="stylesheet" href="styles/modules/sanctuary-cinema.css?v=2.2">
   <link rel="stylesheet" href="styles/modules/echo-spark.css?v=2.0">
 </head>
 <body data-element="fire">
@@ -725,8 +725,8 @@
       <!-- Core Manifesto Box: Pause. Breathe. Remember. -->
       <div id="remember" class="hero-manifesto-box" style="margin-bottom: 28px;">
         <div class="manifesto-lead-title">PAUSE. BREATHE. <span>REMEMBER.</span></div>
-        <h2 class="hero-inner-headline" style="font-family: 'Cinzel', serif; font-size: clamp(2rem, 3.8vw, 2.75rem); color: var(--forest-green); font-weight: 700; margin: 14px 0 6px; letter-spacing: 0.03em;">Come Home to Yourself.</h2>
-        <div class="hero-supporting-tagline" style="font-family: 'Cinzel', serif; font-size: clamp(0.95rem, 1.6vw, 1.15rem); color: var(--sunburst-gold); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 22px;">Making Sense of the Human Experience, Together.</div>
+        <h2 class="hero-inner-headline" style="font-family: var(--font-serif, 'Fraunces', serif); font-size: clamp(2rem, 3.8vw, 2.75rem); color: var(--forest-green); font-weight: 700; margin: 14px 0 6px; letter-spacing: -0.01em;">Come Home to Yourself.</h2>
+        <div class="hero-supporting-tagline" style="font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif); font-size: clamp(0.88rem, 1.4vw, 1.04rem); color: var(--sunburst-gold); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 22px;">Making Sense of the Human Experience, Together.</div>
         
         <div class="manifesto-body-text" style="max-width: 780px; margin: 0 auto;">
           <p style="font-size: 1.18rem; font-weight: 600; color: var(--forest-green); line-height: 1.65; margin-bottom: 12px;">
@@ -3654,7 +3654,7 @@
   <script src="js/modules/community-popup.js?v=1.0"></script>
   <script src="js/modules/run-of-show.js?v=1.0"></script>
   <script src="js/modules/promo-card-generator.js?v=1.0"></script>
-  <script src="js/modules/sanctuary-cinema.js?v=2.1"></script>
+  <script src="js/modules/sanctuary-cinema.js?v=2.2"></script>
   <script src="js/modules/echo-spark.js?v=2.0"></script>
 
   <!-- Hidden Netlify Form Definition for Community Circle Newsletter Alerts -->
@@ -4480,19 +4480,19 @@
 
   <!-- ==================== FULLSCREEN SANCTUARY PROJECTOR / THEATER STAGE ==================== -->
   <div id="cinemaTheaterStage" class="cinema-theater-stage" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Sanctuary Theater Mode">
-    <!-- Full-Bleed Photography Slideshow Backdrop Engine -->
-    <div id="theaterBackdropSlides" class="cinema-theater-slides" aria-hidden="true"></div>
+    <!-- Optional Media Backdrop Stage (Video / Slideshow / 8K Nature; transparent in default Living Atmosphere mode) -->
+    <div id="theaterBackdropSlides" class="cinema-theater-slides is-hidden-media" aria-hidden="true"></div>
     <canvas id="theaterAmbienceCanvas" class="cinema-theater-canvas" aria-hidden="true"></canvas>
 
-    <!-- Top Slideshow Progress Bar -->
-    <div id="theaterSlideProgressBar" class="theater-slide-progress-bar" aria-hidden="true">
+    <!-- Subtle Top Media Progress Sliver (visible in Video / Slideshow / 8K modes) -->
+    <div id="theaterSlideProgressBar" class="theater-slide-progress-bar is-hidden" aria-hidden="true">
       <div id="theaterSlideProgressFill" class="theater-slide-progress-fill"></div>
     </div>
 
     <div class="cinema-theater-top-hud">
       <div class="theater-hud-pill" id="theaterElementHudPill">
         <span class="theater-hud-dot" aria-hidden="true"></span>
-        <span id="theaterHudElementText">🔥 FIRE • HEARTH WARMTH &amp; COURAGE</span>
+        <span id="theaterHudElementText">🔥 FIRE • LIVING ATMOSPHERE</span>
       </div>
       <div class="theater-hud-actions">
         <button type="button" class="theater-hud-btn" id="theaterBowlBtn" onclick="window.sanctuaryCinema && window.sanctuaryCinema.playBowl()" title="Ring warm 432Hz Singing Bowl">🔔 432Hz Bowl</button>
@@ -4508,44 +4508,29 @@
       </div>
       <div class="cinema-theater-kicker" id="theaterKickerText">Pause. Breathe. Remember.</div>
       <h2 class="cinema-theater-quote" id="theaterMainQuote">Come Home to Yourself.</h2>
-      <p class="cinema-theater-subline" id="theaterSubQuote">Tap any sanctuary tile below to open interactive floating windows without leaving the room.</p>
+      <p class="cinema-theater-subline" id="theaterSubQuote">Use the glass capsule below to switch backdrops (Video, Slides, 8K Nature), breathe, or tune the room.</p>
     </div>
 
-    <!-- Persistent Bottom-Left Story Caption -->
-    <div id="theaterStoryCaption" class="theater-story-caption" aria-live="polite">
-      <span class="theater-caption-tag" id="theaterCaptionTag">Chapter 01 • Hearth Warmth</span>
-      <span class="theater-caption-title" id="theaterCaptionTitle">52 Neighbors Finding Home in One Room</span>
+    <!-- Discreet Bottom-Left Media Caption (visible in Video / Slideshow / 8K modes) -->
+    <div id="theaterStoryCaption" class="theater-story-caption is-hidden" aria-live="polite">
+      <span class="theater-caption-tag" id="theaterCaptionTag">Living Atmosphere</span>
+      <span class="theater-caption-title" id="theaterCaptionTitle">Sanctuary Glow</span>
     </div>
 
     <!-- Floating Interactive Pop-Up Window Layer -->
     <div id="theaterPopupStage" class="theater-popup-stage" aria-live="polite"></div>
 
-    <!-- Visual Chapters Thumbnail Drawer -->
-    <div id="theaterChaptersDrawer" class="theater-chapters-drawer" role="region" aria-label="Visual Chapters Carousel" aria-hidden="true" style="display: none;"></div>
+    <!-- Sleek Backdrop & Media Stage Selector Drawer -->
+    <div id="theaterStageDrawer" class="theater-stage-drawer" role="dialog" aria-label="Backdrop & Media Stage Selector" aria-hidden="true" style="display: none;"></div>
 
-    <!-- Revamped Frosted-Glass Curator Dock -->
+    <!-- Sculpted 5-Action Glass Director Capsule -->
     <div class="cinema-theater-dock" id="cinemaTheaterDock" role="toolbar" aria-label="Theater Sanctuary Controls">
-      <button type="button" class="cinema-theater-chip theater-chip-gold" id="theaterChaptersTrigger" onclick="window.sanctuaryCinema && window.sanctuaryCinema.toggleChaptersDrawer()" aria-pressed="false" title="Browse Visual Story Chapters">🖼️ Stories</button>
-      <button type="button" class="cinema-theater-chip" id="theaterSlideshowToggle" onclick="window.sanctuaryCinema && window.sanctuaryCinema.toggleAutoPlaySlides()" title="Auto-advance photography slideshow">⏸ Auto-Play</button>
-      <div class="cinema-dock-nav-pair">
-        <button type="button" class="cinema-theater-chip cinema-theater-arrow" onclick="window.sanctuaryCinema && window.sanctuaryCinema.stepSlide(-1)" title="Previous photo (←)" aria-label="Previous photo">‹</button>
-        <button type="button" class="cinema-theater-chip cinema-theater-arrow" onclick="window.sanctuaryCinema && window.sanctuaryCinema.stepSlide(1)" title="Next photo (→)" aria-label="Next photo">›</button>
-      </div>
-      <div class="cinema-dock-divider" aria-hidden="true"></div>
+      <button type="button" class="cinema-theater-chip theater-chip-gold" id="theaterStageDrawerBtn" onclick="window.sanctuaryCinema && window.sanctuaryCinema.toggleStageDrawer()" aria-pressed="false" title="Switch Backdrop: Living Atmosphere, Video Reel, Story Slides, 8K Nature">🖼️ Backdrop</button>
+      <button type="button" class="cinema-theater-chip theater-pop-trigger" data-theater-pop="ritual" onclick="window.sanctuaryCinema && window.sanctuaryCinema.toggleTheaterPopup('ritual')" title="Switch Element &amp; Somatic Prompt">🎨 Element</button>
+      <button type="button" id="theaterAudioBtn" class="cinema-theater-chip theater-pop-trigger" data-theater-pop="mixer" onclick="window.sanctuaryCinema && window.sanctuaryCinema.toggleTheaterPopup('mixer')" title="Sound Desk, Volume &amp; Spotify">🎧 Sound</button>
       <button type="button" class="cinema-theater-chip theater-chip-breath" id="theaterBreathDockBtn" onclick="window.sanctuaryCinema && window.sanctuaryCinema.toggleTheaterBreath()" title="Synchronized 4-4-4-4 Box Breathing">🌬️ Breath</button>
-      <button type="button" id="theaterAudioBtn" class="cinema-theater-chip" onclick="window.sanctuaryCinema && window.sanctuaryCinema.theaterToggleSound()" title="Ambient nature soundscape">🔈 Tune In</button>
-      <div class="cinema-dock-divider" aria-hidden="true"></div>
-      <button type="button" class="cinema-theater-chip theater-pop-trigger" data-theater-pop="mixer" onclick="window.sanctuaryCinema && window.sanctuaryCinema.toggleTheaterPopup('mixer')" title="Sound Desk, Spotify &amp; Mixer">🎧 Sound Desk</button>
-      <button type="button" class="cinema-theater-chip theater-pop-trigger" data-theater-pop="notes" onclick="window.sanctuaryCinema && window.sanctuaryCinema.toggleTheaterPopup('notes')" title="Hearth Gratitude Wall &amp; Dec 10 RSVP">🌻 Hearth &amp; Dec 10</button>
-      <button type="button" class="cinema-theater-chip theater-pop-trigger" data-theater-pop="ritual" onclick="window.sanctuaryCinema && window.sanctuaryCinema.toggleTheaterPopup('ritual')" title="Elemental Lore &amp; Affirmations">✨ Lore</button>
-      <button type="button" class="cinema-theater-chip" onclick="window.sanctuaryEcho && window.sanctuaryEcho.open('chat')" title="Chat with Echo Spark">✨ Echo</button>
-      <div class="cinema-dock-divider" aria-hidden="true"></div>
-      <button type="button" class="cinema-theater-chip theater-el-chip" data-theater-el="fire" onclick="window.sanctuaryCinema && window.sanctuaryCinema.selectTheaterElement('fire')" title="Fire: Warmth &amp; Courage">🔥</button>
-      <button type="button" class="cinema-theater-chip theater-el-chip" data-theater-el="water" onclick="window.sanctuaryCinema && window.sanctuaryCinema.selectTheaterElement('water')" title="Water: Flow &amp; Healing">🌊</button>
-      <button type="button" class="cinema-theater-chip theater-el-chip" data-theater-el="earth" onclick="window.sanctuaryCinema && window.sanctuaryCinema.selectTheaterElement('earth')" title="Earth: Grounding &amp; Root">🌿</button>
-      <button type="button" class="cinema-theater-chip theater-el-chip" data-theater-el="air" onclick="window.sanctuaryCinema && window.sanctuaryCinema.selectTheaterElement('air')" title="Air: Breath &amp; Clarity">🌬️</button>
-      <button type="button" class="cinema-theater-chip theater-el-chip" data-theater-el="ether" onclick="window.sanctuaryCinema && window.sanctuaryCinema.selectTheaterElement('ether')" title="Ether: Infinite Space">🌌</button>
-      <button type="button" class="cinema-theater-exit" onclick="window.sanctuaryCinema && window.sanctuaryCinema.toggleTheater(false)">✕ Exit (Esc)</button>
+      <button type="button" class="cinema-theater-chip theater-pop-trigger" data-theater-pop="notes" onclick="window.sanctuaryCinema && window.sanctuaryCinema.toggleTheaterPopup('notes')" title="Hearth Gratitude Wall, Dec 10 &amp; Echo Spark">✦ Hearth</button>
+      <button type="button" class="cinema-theater-exit" onclick="window.sanctuaryCinema && window.sanctuaryCinema.toggleTheater(false)" title="Exit Theater Mode (Esc)">✕</button>
     </div>
   </div>
 

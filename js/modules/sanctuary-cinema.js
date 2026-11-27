@@ -370,108 +370,207 @@
     let showTheaterSpotify = false;
     let cachedNotes = [];
 
-    // Photography Slideshow & Visual Chapters State
+    // 4-Mode Backdrop & Visual Stage Engine ('living' DEFAULT | 'video' | 'slideshow' | 'nature')
     const SLIDE_INTERVAL_MS = 8500;
-    const THEATER_SLIDES = [
-      {
-        tag: 'Chapter 01 • Hearth Warmth',
-        title: '52 Neighbors Finding Home in One Room',
-        sub: 'The Nov 15 Gathering • Substance-free community warmth in Santa Ana',
-        src: 'images/openmic/community-sanctuary-family.jpg',
-        element: 'fire'
-      },
-      {
-        tag: 'Chapter 02 • Acoustic Harmony',
-        title: 'Unplugged Strings & Pure Breath',
-        sub: 'Acoustic Harmony • Soulful presence and shared rhythm',
-        src: 'images/openmic/openmic-nov15-acoustic-duo-harmony.jpg',
-        element: 'water'
-      },
-      {
-        tag: 'Chapter 03 • The Stone Hearth',
-        title: 'Where Nobody Has to Wear a Mask',
-        sub: 'The Stone Hearth • Shared warmth, zero judgment',
-        src: 'images/openmic/openmic-nov15-stone-hearth-celebration.jpg',
-        element: 'fire'
-      },
-      {
-        tag: 'Chapter 04 • Evening Serenity',
-        title: 'Twilight Stillness & Gathering',
-        sub: 'Poolside Dusk • Golden hour settling across Orange County',
-        src: 'images/openmic/openmic-nov15-clubhouse-pool-dusk.jpg',
-        element: 'water'
-      },
-      {
-        tag: 'Chapter 05 • Spoken Word Circle',
-        title: 'Honoring the Sacred Voice',
-        sub: 'Spoken Word Circle • Raw truth and compassionate witnesses',
-        src: 'images/openmic/openmic-nov15-spoken-word-circle.jpg',
-        element: 'air'
-      },
-      {
-        tag: 'Chapter 06 • Living Storytelling',
-        title: 'Stories That Mend the Spirit',
-        sub: 'Intimate Storytelling • Healing together in the living room circle',
-        src: 'images/openmic/openmic-nov15-storyteller-reflection.jpg',
-        element: 'earth'
-      },
-      {
-        tag: 'Chapter 07 • Ancestral Drum',
-        title: 'The Ancestral Drum & Living Rhythm',
-        sub: 'Poolside Djembe • The heartbeat of our Orange County family',
-        src: 'images/openmic/openmic-nov15-djembe-poolside-rhythm.jpg',
-        element: 'earth'
-      },
-      {
-        tag: 'Chapter 08 • Reconnection',
-        title: 'Tender Presence & Sisterhood Hugs',
-        sub: 'Unconditional Acceptance • Healing together without masks',
-        src: 'images/openmic/openmic-nov15-reconnect-sisterhood.jpg',
-        element: 'ether'
-      }
+    const BACKDROP_MODES = [
+      { key: 'living', label: '✨ Living Sky' },
+      { key: 'video', label: '🎬 Motion Video' },
+      { key: 'slideshow', label: '📸 Story Slides' },
+      { key: 'nature', label: '🏔️ 8K Horizons' }
     ];
 
+    const BACKDROP_PLAYLISTS = {
+      video: [
+        {
+          type: 'video',
+          tag: 'Film 01 • Stone Hearth Gathering',
+          title: 'Nov 15 Stone Hearth Circle',
+          poster: 'images/openmic/openmic-nov15-stone-hearth-celebration.jpg',
+          webm: 'images/openmic/openmic-nov15-stone-hearth-celebration.webm',
+          mp4: 'images/openmic/openmic-nov15-stone-hearth-celebration.mp4',
+          thumb: 'images/openmic/openmic-nov15-stone-hearth-celebration.jpg'
+        },
+        {
+          type: 'image',
+          tag: 'Scene 02 • Candlelit Room',
+          title: 'Acoustic Strings & Presence',
+          src: 'images/video-frame-acoustic-stage.jpg',
+          thumb: 'images/video-frame-acoustic-stage.jpg'
+        },
+        {
+          type: 'image',
+          tag: 'Scene 03 • 432Hz Resonance',
+          title: 'Warm Sound Bowl Immersion',
+          src: 'images/video-frame-sound-bowl.jpg',
+          thumb: 'images/video-frame-sound-bowl.jpg'
+        },
+        {
+          type: 'image',
+          tag: 'Scene 04 • Handwoven Intentions',
+          title: 'Anchor Gemstone Circle',
+          src: 'images/video-frame-bead-weaver.jpg',
+          thumb: 'images/video-frame-bead-weaver.jpg'
+        },
+        {
+          type: 'image',
+          tag: 'Scene 05 • The Unhurried Circle',
+          title: 'Shared Sanctuary Warmth',
+          src: 'images/video-frame-unhurried-circle.jpg',
+          thumb: 'images/video-frame-unhurried-circle.jpg'
+        }
+      ],
+      slideshow: [
+        { type: 'image', tag: 'Chapter 01 • Hearth Warmth', title: '52 Neighbors Finding Home in One Room', src: 'images/openmic/community-sanctuary-family.jpg', thumb: 'images/openmic/community-sanctuary-family.jpg' },
+        { type: 'image', tag: 'Chapter 02 • Acoustic Harmony', title: 'Unplugged Strings & Pure Breath', src: 'images/openmic/openmic-nov15-acoustic-duo-harmony.jpg', thumb: 'images/openmic/openmic-nov15-acoustic-duo-harmony.jpg' },
+        { type: 'image', tag: 'Chapter 03 • Stone Hearth', title: 'Where Nobody Has to Wear a Mask', src: 'images/openmic/openmic-nov15-stone-hearth-celebration.jpg', thumb: 'images/openmic/openmic-nov15-stone-hearth-celebration.jpg' },
+        { type: 'image', tag: 'Chapter 04 • Twilight Stillness', title: 'Poolside Dusk & Gathering', src: 'images/openmic/openmic-nov15-clubhouse-pool-dusk.jpg', thumb: 'images/openmic/openmic-nov15-clubhouse-pool-dusk.jpg' },
+        { type: 'image', tag: 'Chapter 05 • Spoken Word', title: 'Honoring the Sacred Voice', src: 'images/openmic/openmic-nov15-spoken-word-circle.jpg', thumb: 'images/openmic/openmic-nov15-spoken-word-circle.jpg' },
+        { type: 'image', tag: 'Chapter 06 • Storytelling', title: 'Stories That Mend the Spirit', src: 'images/openmic/openmic-nov15-storyteller-reflection.jpg', thumb: 'images/openmic/openmic-nov15-storyteller-reflection.jpg' },
+        { type: 'image', tag: 'Chapter 07 • Ancestral Drum', title: 'Poolside Djembe Rhythm', src: 'images/openmic/openmic-nov15-djembe-poolside-rhythm.jpg', thumb: 'images/openmic/openmic-nov15-djembe-poolside-rhythm.jpg' },
+        { type: 'image', tag: 'Chapter 08 • Belonging', title: 'Tender Presence & Sisterhood', src: 'images/openmic/openmic-nov15-reconnect-sisterhood.jpg', thumb: 'images/openmic/openmic-nov15-reconnect-sisterhood.jpg' }
+      ],
+      nature: [
+        { type: 'image', tag: '8K Horizon • Fire', title: 'Warm Ember Hearth', src: 'images/nature-fire-8k.jpg', thumb: 'images/nature-fire-8k.jpg' },
+        { type: 'image', tag: '8K Horizon • Water', title: 'Mountain Creek Stillness', src: 'images/nature-water-8k.jpg', thumb: 'images/nature-water-8k.jpg' },
+        { type: 'image', tag: '8K Horizon • Ocean', title: 'Endless Ocean Horizon', src: 'images/sky-ocean-infinite-8k.jpg', thumb: 'images/sky-ocean-infinite-8k.jpg' },
+        { type: 'image', tag: '8K Horizon • Earth', title: 'Ancient Forest Canopy', src: 'images/nature-earth-8k.jpg', thumb: 'images/nature-earth-8k.jpg' },
+        { type: 'image', tag: '8K Horizon • Air', title: 'Open Sky Clarity', src: 'images/sky-air-8k.jpg', thumb: 'images/sky-air-8k.jpg' },
+        { type: 'image', tag: '8K Horizon • Ether', title: 'Celestial Twilight', src: 'images/nature-ether-8k.jpg', thumb: 'images/nature-ether-8k.jpg' },
+        { type: 'image', tag: '8K Horizon • Sanctuary', title: 'Twilight Cabin Lodge', src: 'images/clubhouse-cabin-speakeasy.jpg', thumb: 'images/clubhouse-cabin-speakeasy.jpg' }
+      ]
+    };
+
+    let backdropMode = 'living'; // Preserve original Living Sky atmosphere by default
     let currentSlideIdx = 0;
     let isSlideshowPlaying = !prefersReducedMotion;
     let slideTimer = null;
-    let chaptersDrawerOpen = false;
-    let slidesMounted = false;
+    let stageDrawerOpen = false;
+    let mountedPlaylistKey = null;
 
-    function mountTheaterSlides() {
+    function getActivePlaylist() {
+      return BACKDROP_PLAYLISTS[backdropMode] || [];
+    }
+
+    function mountTheaterSlides(forceRebuild) {
       const container = document.getElementById('theaterBackdropSlides');
-      if (!container || slidesMounted) return;
+      if (!container) return;
 
-      container.innerHTML = THEATER_SLIDES.map((s, idx) => `
-        <div class="cinema-theater-slide${idx === currentSlideIdx ? ' active' : ''}" data-slide-idx="${idx}" aria-hidden="${idx === currentSlideIdx ? 'false' : 'true'}">
-          <img src="${s.src}" alt="${escapeHtml(s.title)}" class="theater-slide-img ken-burns-${(idx % 2) + 1}" loading="${idx === 0 ? 'eager' : 'lazy'}" />
-          <div class="theater-slide-overlay" aria-hidden="true"></div>
-        </div>
-      `).join('');
-
-      const drawer = document.getElementById('theaterChaptersDrawer');
-      if (drawer) {
-        drawer.innerHTML = THEATER_SLIDES.map((s, idx) => `
-          <button type="button" class="theater-chapter-chip${idx === currentSlideIdx ? ' active' : ''}" data-chapter-idx="${idx}" onclick="window.sanctuaryCinema && window.sanctuaryCinema.selectSlide(${idx})" aria-label="Go to ${escapeHtml(s.title)}">
-            <img src="${s.src}" alt="" class="theater-chapter-thumb" loading="lazy" />
-            <div class="theater-chapter-meta">
-              <span class="theater-chapter-tag">${escapeHtml(s.tag.split('•')[0].trim())}</span>
-              <span class="theater-chapter-name">${escapeHtml(s.title)}</span>
-            </div>
-          </button>
-        `).join('');
+      if (backdropMode === 'living') {
+        container.classList.add('is-hidden-media');
+        container.innerHTML = '';
+        mountedPlaylistKey = 'living';
+        updateSlideUI();
+        renderStageDrawer();
+        return;
       }
 
-      slidesMounted = true;
+      container.classList.remove('is-hidden-media');
+      const list = getActivePlaylist();
+
+      if (mountedPlaylistKey !== backdropMode || forceRebuild) {
+        currentSlideIdx = ((currentSlideIdx % list.length) + list.length) % list.length;
+        container.innerHTML = list.map((s, idx) => `
+          <div class="cinema-theater-slide${idx === currentSlideIdx ? ' active' : ''}" data-slide-idx="${idx}" aria-hidden="${idx === currentSlideIdx ? 'false' : 'true'}">
+            ${
+              s.type === 'video'
+                ? `<video class="theater-slide-video" autoplay muted loop playsinline poster="${s.poster}"><source src="${s.webm}" type="video/webm" /><source src="${s.mp4}" type="video/mp4" /></video>`
+                : `<img src="${s.src}" alt="${escapeHtml(s.title)}" class="theater-slide-img ken-burns-${(idx % 2) + 1}" loading="${idx === 0 ? 'eager' : 'lazy'}" />`
+            }
+            <div class="theater-slide-overlay" aria-hidden="true"></div>
+          </div>
+        `).join('');
+        mountedPlaylistKey = backdropMode;
+      }
+
       updateSlideUI();
+      renderStageDrawer();
+    }
+
+    function renderStageDrawer() {
+      const drawer = document.getElementById('theaterStageDrawer');
+      if (!drawer) return;
+
+      const list = getActivePlaylist();
+      const modeMeta = BACKDROP_MODES.find((m) => m.key === backdropMode) || BACKDROP_MODES[0];
+
+      drawer.innerHTML = `
+        <div class="theater-stage-header">
+          <div>
+            <div class="theater-card-label" style="margin-bottom:2px;">Visual Sanctuary Backdrop</div>
+            <div style="font-size:0.74rem;color:#CBD7D0;">${
+              backdropMode === 'living'
+                ? 'Displaying your original 8K Living Sky, Constellations & Ambient Particles.'
+                : `${modeMeta.label} • Playing item ${(currentSlideIdx % Math.max(1, list.length)) + 1} of ${list.length}`
+            }</div>
+          </div>
+          <button type="button" class="theater-win-btn theater-win-btn--close" onclick="window.sanctuaryCinema.toggleStageDrawer(false)" aria-label="Close backdrop panel">✕</button>
+        </div>
+
+        <div class="theater-mode-tabs" role="tablist" aria-label="Backdrop Display Modes">
+          ${BACKDROP_MODES.map((m) => `
+            <button type="button" class="theater-mode-tab${backdropMode === m.key ? ' active' : ''}" role="tab" aria-selected="${backdropMode === m.key ? 'true' : 'false'}" onclick="window.sanctuaryCinema.setBackdropMode('${m.key}')">${m.label}</button>
+          `).join('')}
+        </div>
+
+        ${
+          backdropMode !== 'living' && list.length
+            ? `
+              <div class="theater-stage-transport">
+                <div class="theater-action-row">
+                  <button type="button" class="theater-mini-btn" onclick="window.sanctuaryCinema.stepSlide(-1)">‹ Prev</button>
+                  <button type="button" class="theater-mini-btn ${isSlideshowPlaying ? 'active' : ''}" onclick="window.sanctuaryCinema.toggleAutoPlaySlides()">${isSlideshowPlaying ? '⏸ Pause Auto' : '▶ Auto-Play'}</button>
+                  <button type="button" class="theater-mini-btn" onclick="window.sanctuaryCinema.stepSlide(1)">Next ›</button>
+                </div>
+                <button type="button" class="theater-mini-btn ${isStargaze ? 'active' : ''}" onclick="window.sanctuaryCinema.toggleStargaze()">${isStargaze ? '👁️ Show Text' : '👁️ Hide Center Text'}</button>
+              </div>
+              <div class="theater-stage-thumbs">
+                ${list.map((s, idx) => `
+                  <button type="button" class="theater-chapter-chip${idx === currentSlideIdx ? ' active' : ''}" onclick="window.sanctuaryCinema.selectSlide(${idx})">
+                    <img src="${s.thumb || s.src}" alt="" class="theater-chapter-thumb" loading="lazy" />
+                    <div class="theater-chapter-meta">
+                      <span class="theater-chapter-tag">${s.type === 'video' ? '🎬 Film' : escapeHtml(s.tag.split('•')[0].trim())}</span>
+                      <span class="theater-chapter-name">${escapeHtml(s.title)}</span>
+                    </div>
+                  </button>
+                `).join('')}
+              </div>
+            `
+            : ''
+        }
+      `;
     }
 
     function updateSlideUI() {
-      if (!slidesMounted) return;
+      const progressBar = document.getElementById('theaterSlideProgressBar');
+      const captionBox = document.getElementById('theaterStoryCaption');
+      const stageBtn = document.getElementById('theaterStageDrawerBtn');
+      const isMedia = backdropMode !== 'living';
+
+      if (progressBar) progressBar.classList.toggle('is-hidden', !isMedia);
+      if (captionBox) captionBox.classList.toggle('is-hidden', !isMedia);
+      if (stageBtn) {
+        const modeMeta = BACKDROP_MODES.find((m) => m.key === backdropMode);
+        stageBtn.textContent = isMedia && modeMeta ? modeMeta.label.split(' ')[0] + ' Backdrop' : '🖼️ Backdrop';
+        stageBtn.classList.toggle('active', stageDrawerOpen || isMedia);
+      }
+
+      if (!isMedia) return;
+      const list = getActivePlaylist();
+      if (!list.length) return;
+
       const slides = document.querySelectorAll('.cinema-theater-slide');
       slides.forEach((slide, idx) => {
         const active = idx === currentSlideIdx;
         slide.classList.toggle('active', active);
         slide.setAttribute('aria-hidden', active ? 'false' : 'true');
+        const vid = slide.querySelector('video');
+        if (vid) {
+          if (active) {
+            vid.play().catch(() => {});
+          } else {
+            vid.pause();
+          }
+        }
         if (active && !prefersReducedMotion) {
           const img = slide.querySelector('.theater-slide-img');
           if (img) {
@@ -482,29 +581,18 @@
         }
       });
 
-      const drawerChips = document.querySelectorAll('.theater-chapter-chip');
-      drawerChips.forEach((btn, idx) => {
-        const active = idx === currentSlideIdx;
-        btn.classList.toggle('active', active);
-        btn.setAttribute('aria-pressed', active ? 'true' : 'false');
-      });
-
       const fill = document.getElementById('theaterSlideProgressFill');
       if (fill) {
-        fill.style.width = `${((currentSlideIdx + 1) / THEATER_SLIDES.length) * 100}%`;
+        fill.style.width = `${((currentSlideIdx + 1) / list.length) * 100}%`;
       }
 
-      const s = THEATER_SLIDES[currentSlideIdx];
+      const s = list[currentSlideIdx];
       const tagEl = document.getElementById('theaterCaptionTag');
       const titleEl = document.getElementById('theaterCaptionTitle');
-      if (tagEl) tagEl.textContent = s.tag;
-      if (titleEl) titleEl.textContent = s.title;
+      if (tagEl && s) tagEl.textContent = s.tag;
+      if (titleEl && s) titleEl.textContent = s.title;
 
-      const slideToggleBtn = document.getElementById('theaterSlideshowToggle');
-      if (slideToggleBtn) {
-        slideToggleBtn.classList.toggle('active', isSlideshowPlaying);
-        slideToggleBtn.textContent = isSlideshowPlaying ? '⏸ Auto-Play' : '▶ Play Slides';
-      }
+      if (stageDrawerOpen) renderStageDrawer();
     }
 
     function stopSlideTimer() {
@@ -516,13 +604,17 @@
 
     function startSlideTimer() {
       stopSlideTimer();
-      if (!isSlideshowPlaying || prefersReducedMotion || !isTheater) return;
+      if (backdropMode === 'living' || !isSlideshowPlaying || prefersReducedMotion || !isTheater) return;
+      const list = getActivePlaylist();
+      if (!list.length) return;
       slideTimer = setInterval(() => {
-        if (!isTheater) {
+        if (!isTheater || backdropMode === 'living') {
           stopSlideTimer();
           return;
         }
-        currentSlideIdx = (currentSlideIdx + 1) % THEATER_SLIDES.length;
+        const activeList = getActivePlaylist();
+        if (!activeList.length) return;
+        currentSlideIdx = (currentSlideIdx + 1) % activeList.length;
         updateSlideUI();
       }, SLIDE_INTERVAL_MS);
     }
@@ -681,9 +773,9 @@
       const kickerEl = document.getElementById('theaterKickerText');
       const quoteEl = document.getElementById('theaterMainQuote');
       const subEl = document.getElementById('theaterSubQuote');
-      if (kickerEl) kickerEl.textContent = lore.kicker;
+      if (kickerEl && !breathRunning) kickerEl.textContent = lore.kicker;
       if (quoteEl) quoteEl.textContent = lore.quote;
-      if (subEl) subEl.textContent = `${lore.intention} • Tap a window below to explore.`;
+      if (subEl) subEl.textContent = `${lore.intention} • Choose Living Sky, Video, or Slides from Backdrop below.`;
 
       document.querySelectorAll('.theater-el-chip[data-theater-el]').forEach((btn) => {
         const match = btn.getAttribute('data-theater-el') === key;
@@ -732,14 +824,21 @@
 
       const audioBtn = document.getElementById('theaterAudioBtn');
       if (audioBtn && window.soundscape) {
-        audioBtn.textContent = window.soundscape.isPlaying ? '🔊 Pause Sound' : '🔈 Tune In';
-        audioBtn.classList.toggle('active', !!window.soundscape.isPlaying);
+        audioBtn.classList.toggle('sound-active', !!window.soundscape.isPlaying);
       }
 
       const mixerSoundBtn = document.getElementById('theaterMixerSoundBtn');
       if (mixerSoundBtn && window.soundscape) {
         mixerSoundBtn.textContent = window.soundscape.isPlaying ? '🔊 Sound Playing (Pause)' : '🔈 Start Nature Soundscape';
         mixerSoundBtn.classList.toggle('active', !!window.soundscape.isPlaying);
+      }
+
+      const hudText = document.getElementById('theaterHudElementText');
+      const activeKey = getActiveElementKey();
+      const modeMeta = BACKDROP_MODES.find((m) => m.key === backdropMode);
+      if (hudText) {
+        const elLabel = (ELEMENT_LORE[activeKey] || ELEMENT_LORE.fire).badge.split('•')[0].trim();
+        hudText.textContent = `${elLabel} • ${(modeMeta ? modeMeta.label.replace(/^[^A-Za-z]+/, '') : 'Living Sky').toUpperCase()}`;
       }
 
       syncElementCopy();
@@ -1219,6 +1318,10 @@
                 </div>
               `
           }
+          <div class="theater-action-row" style="padding-top:6px;border-top:1px solid rgba(245,215,127,0.18);">
+            <button type="button" class="theater-mini-btn" onclick="window.sanctuaryEcho && window.sanctuaryEcho.open('chat')">✨ Chat with Echo</button>
+            <button type="button" class="theater-mini-btn" onclick="if(window.sanctuaryPauseBooth){window.sanctuaryPauseBooth.open();}else if(typeof openPauseModal==='function'){openPauseModal(event);}">🍃 60s Pause Booth</button>
+          </div>
         `;
         if (notesTab === 'note') {
           const form = bodyEl.querySelector('#theaterQuickNoteForm');
@@ -1404,21 +1507,13 @@
         stopBreathTimer();
         stopParticleLoop();
         stopSlideTimer();
-        if (window.sanctuaryCinema.toggleChaptersDrawer) window.sanctuaryCinema.toggleChaptersDrawer(false);
-        document.body.classList.remove('cinema-theater-idle', 'cinema-theater-typing', 'cinema-theater-has-popup');
+        if (window.sanctuaryCinema.toggleStageDrawer) window.sanctuaryCinema.toggleStageDrawer(false);
+        document.body.classList.remove('cinema-theater-idle', 'cinema-theater-typing', 'cinema-theater-has-popup', 'cinema-theater-stage-drawer-open');
       } else {
         mountTheaterSlides();
         startParticleLoop();
         startSlideTimer();
         wakeDockIdleTimer();
-        if (!hasShownWelcomePop && !isMobileViewport) {
-          hasShownWelcomePop = true;
-          setTimeout(() => {
-            if (isTheater && !document.getElementById('theaterWin-ritual')) {
-              openTheaterPopup('ritual', true);
-            }
-          }, 420);
-        }
       }
 
       syncTheaterUI();
@@ -1437,15 +1532,33 @@
       }
     };
 
+    window.sanctuaryCinema.setBackdropMode = function (mode) {
+      if (!['living', 'video', 'slideshow', 'nature'].includes(mode)) return;
+      backdropMode = mode;
+      currentSlideIdx = 0;
+      mountTheaterSlides(true);
+      if (mode === 'living') {
+        stopSlideTimer();
+      } else {
+        startSlideTimer();
+      }
+      syncTheaterUI();
+      wakeDockIdleTimer();
+    };
+
     window.sanctuaryCinema.stepSlide = function (delta) {
-      currentSlideIdx = (currentSlideIdx + delta + THEATER_SLIDES.length) % THEATER_SLIDES.length;
+      const list = getActivePlaylist();
+      if (!list.length) return;
+      currentSlideIdx = (currentSlideIdx + delta + list.length) % list.length;
       updateSlideUI();
       if (isSlideshowPlaying) startSlideTimer();
       wakeDockIdleTimer();
     };
 
     window.sanctuaryCinema.selectSlide = function (idx) {
-      currentSlideIdx = ((idx % THEATER_SLIDES.length) + THEATER_SLIDES.length) % THEATER_SLIDES.length;
+      const list = getActivePlaylist();
+      if (!list.length) return;
+      currentSlideIdx = ((idx % list.length) + list.length) % list.length;
       updateSlideUI();
       if (isSlideshowPlaying) startSlideTimer();
       wakeDockIdleTimer();
@@ -1462,20 +1575,24 @@
       wakeDockIdleTimer();
     };
 
-    window.sanctuaryCinema.toggleChaptersDrawer = function (force) {
-      chaptersDrawerOpen = typeof force === 'boolean' ? force : !chaptersDrawerOpen;
-      const drawer = document.getElementById('theaterChaptersDrawer');
-      const trigger = document.getElementById('theaterChaptersTrigger');
+    window.sanctuaryCinema.toggleStageDrawer = function (force) {
+      stageDrawerOpen = typeof force === 'boolean' ? force : !stageDrawerOpen;
+      document.body.classList.toggle('cinema-theater-stage-drawer-open', isTheater && stageDrawerOpen);
+      if (stageDrawerOpen) renderStageDrawer();
+      const drawer = document.getElementById('theaterStageDrawer');
+      const trigger = document.getElementById('theaterStageDrawerBtn');
       if (drawer) {
-        drawer.style.display = chaptersDrawerOpen ? 'flex' : 'none';
-        drawer.setAttribute('aria-hidden', chaptersDrawerOpen ? 'false' : 'true');
+        drawer.style.display = stageDrawerOpen ? 'flex' : 'none';
+        drawer.setAttribute('aria-hidden', stageDrawerOpen ? 'false' : 'true');
       }
       if (trigger) {
-        trigger.classList.toggle('active', chaptersDrawerOpen);
-        trigger.setAttribute('aria-pressed', chaptersDrawerOpen ? 'true' : 'false');
+        trigger.classList.toggle('active', stageDrawerOpen || backdropMode !== 'living');
+        trigger.setAttribute('aria-pressed', stageDrawerOpen ? 'true' : 'false');
       }
       wakeDockIdleTimer();
     };
+
+    window.sanctuaryCinema.toggleChaptersDrawer = window.sanctuaryCinema.toggleStageDrawer;
 
     window.sanctuaryCinema.theaterToggleSound = function () {
       if (window.soundscape) {
@@ -1516,7 +1633,7 @@
           const deltaX = e.changedTouches[0].clientX - touchStartX;
           const deltaY = e.changedTouches[0].clientY - touchStartY;
           if (Math.abs(deltaX) > 44 && Math.abs(deltaX) > Math.abs(deltaY) * 1.4) {
-            if (e.target && e.target.closest && e.target.closest('#cinemaTheaterDock, .theater-pop-window, #theaterChaptersDrawer')) {
+            if (e.target && e.target.closest && e.target.closest('#cinemaTheaterDock, .theater-pop-window, #theaterStageDrawer')) {
               return;
             }
             if (deltaX < 0) {
@@ -1540,8 +1657,8 @@
       if (/INPUT|TEXTAREA|SELECT/.test(tag) || (e.target && e.target.isContentEditable)) return;
 
       if (e.key === 'Escape' && isTheater) {
-        if (chaptersDrawerOpen) {
-          window.sanctuaryCinema.toggleChaptersDrawer(false);
+        if (stageDrawerOpen) {
+          window.sanctuaryCinema.toggleStageDrawer(false);
           return;
         }
         window.sanctuaryCinema.toggleTheater(false);
@@ -1549,7 +1666,7 @@
         if (document.getElementById('cinemaTheaterStage')) {
           window.sanctuaryCinema.toggleTheater();
         }
-      } else if (isTheater) {
+      } else if (isTheater && backdropMode !== 'living') {
         if (e.key === 'ArrowRight') {
           e.preventDefault();
           window.sanctuaryCinema.stepSlide(1);
