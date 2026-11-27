@@ -597,49 +597,49 @@
       const row = document.createElement('div');
       row.className = `echo-msg-row echo-msg-row--${role}`;
 
-      const bubble = document.createElement('div');
-      bubble.className = 'echo-msg-bubble';
-      bubble.textContent = text;
-      row.appendChild(bubble);
-
-      if (role === 'echo' && meta.anchorWord) {
-        const badge = document.createElement('span');
-        badge.className = 'echo-anchor-badge';
-        badge.textContent = `✦ Anchor Word: ${meta.anchorWord}`;
-        row.appendChild(badge);
+      if (role === 'echo' && meta.isWelcome) {
+        const welcomeCard = document.createElement('div');
+        welcomeCard.className = 'echo-info-card';
+        welcomeCard.innerHTML = `<div class="echo-info-kicker">✦ Joyful Mirror</div><div style="font-size:0.82rem;line-height:1.5;">${escapeHtml(text)}</div>`;
+        row.className = 'echo-msg-row echo-msg-row--echo';
+        row.style.maxWidth = '100%';
+        row.appendChild(welcomeCard);
+      } else {
+        const bubble = document.createElement('div');
+        bubble.className = 'echo-msg-bubble';
+        bubble.textContent = text;
+        row.appendChild(bubble);
       }
 
-      if (role === 'echo') {
+      if (role === 'echo' && !meta.isWelcome && (meta.actionType || meta.suggestedElement)) {
         const actionsWrap = document.createElement('div');
         actionsWrap.className = 'echo-action-pills';
 
         const listenBtn = document.createElement('button');
         listenBtn.type = 'button';
         listenBtn.className = 'echo-action-chip';
-        listenBtn.textContent = '🔊 Listen';
-        listenBtn.title = 'Hear Echo speak this message (Gemini Vega TTS)';
+        listenBtn.textContent = '🔊';
+        listenBtn.title = 'Hear Echo speak (Gemini Vega)';
         listenBtn.addEventListener('click', () => speakTextSoftly(text, { force: true, triggerBtn: listenBtn }));
         actionsWrap.appendChild(listenBtn);
 
-        if (meta.suggestedElement && ELEMENT_LABELS[meta.suggestedElement]) {
+        if (meta.actionType) {
+          const actBtn = document.createElement('button');
+          actBtn.type = 'button';
+          actBtn.className = 'echo-action-chip';
+          actBtn.textContent = meta.actionLabel || 'Open ✨';
+          actBtn.addEventListener('click', () => executeEchoAction(meta.actionType, meta.anchorWord || ''));
+          actionsWrap.appendChild(actBtn);
+        } else if (meta.suggestedElement && ELEMENT_LABELS[meta.suggestedElement]) {
           const elBtn = document.createElement('button');
           elBtn.type = 'button';
           elBtn.className = 'echo-action-chip';
           elBtn.textContent = `Sync ${ELEMENT_LABELS[meta.suggestedElement]}`;
           elBtn.addEventListener('click', () => {
             if (window.switchElementTheme) window.switchElementTheme(meta.suggestedElement, true);
-            elBtn.textContent = `✓ Synced ${ELEMENT_LABELS[meta.suggestedElement]}`;
+            elBtn.textContent = `✓ ${ELEMENT_LABELS[meta.suggestedElement]}`;
           });
           actionsWrap.appendChild(elBtn);
-        }
-
-        if (meta.actionType) {
-          const actBtn = document.createElement('button');
-          actBtn.type = 'button';
-          actBtn.className = 'echo-action-chip';
-          actBtn.textContent = meta.actionLabel || 'Open Sanctuary Space ✨';
-          actBtn.addEventListener('click', () => executeEchoAction(meta.actionType, meta.anchorWord || ''));
-          actionsWrap.appendChild(actBtn);
         }
 
         row.appendChild(actionsWrap);
@@ -770,39 +770,14 @@
       if (!el) return;
       const item = ANCHOR_WORDS[anchorIdx % ANCHOR_WORDS.length];
       el.innerHTML = `
-        <div style="display:flex;justify-content:space-between;align-items:center;">
-          <span class="echo-info-kicker">🧭 Sanctuary Field Guide</span>
-          <button type="button" id="echoBackToChatBtn" class="echo-action-chip">← Back to Chat</button>
-        </div>
-        <div class="echo-info-card">
-          <div class="echo-info-kicker">🎲 Today's Anchor Word</div>
+        <div class="echo-info-card" style="margin:auto 0;text-align:center;padding:18px 16px;gap:12px;">
+          <div class="echo-info-kicker">Today’s Mirror Word</div>
           <div id="echoAnchorWordBox" class="echo-word-display">${item.word}</div>
-          <p id="echoAnchorLine" class="echo-info-copy" style="text-align:center;">${item.line}</p>
-          <div class="echo-action-pills" style="justify-content:center;">
-            <button type="button" id="echoNextAnchorBtn" class="echo-action-chip">✨ Draw Another Word</button>
-            <button type="button" id="echoGoBraceletBtn" class="echo-action-chip">📿 Weave Bracelet</button>
-          </div>
-        </div>
-
-        <div class="echo-info-card">
-          <div class="echo-info-kicker">🎙️ Stage Muse (Instant Writing Spark)</div>
-          <p class="echo-info-copy">Prepping a poem, song, or honesty share? Pick a mood and Echo will write a 4-line spark in chat:</p>
-          <div class="echo-action-pills">
-            <button type="button" class="echo-action-chip" data-muse="Write a 4-line hopeful acoustic open mic opener for an unplugged room in Santa Ana.">🌅 Hopeful</button>
-            <button type="button" class="echo-action-chip" data-muse="Write 4 tender spoken-word lines about laying down heavy burdens and exhaling.">🌊 Tender</button>
-            <button type="button" class="echo-action-chip" data-muse="Write a warm 4-line gratitude verse about finding real community around a fire.">🔥 Grateful</button>
-          </div>
-        </div>
-
-        <div class="echo-info-card">
-          <div class="echo-info-kicker">🔔 Sonic &amp; Element Reset</div>
-          <div class="echo-action-pills">
-            <button type="button" id="echoBowlPlayBtn" class="echo-action-chip">🔔 Ring 432Hz Bowl</button>
-            <button type="button" class="echo-action-chip" data-el-shift="fire">🔥 Fire</button>
-            <button type="button" class="echo-action-chip" data-el-shift="water">🌊 Water</button>
-            <button type="button" class="echo-action-chip" data-el-shift="earth">🌿 Earth</button>
-            <button type="button" class="echo-action-chip" data-el-shift="air">🌬️ Air</button>
-            <button type="button" class="echo-action-chip" data-el-shift="ether">🌌 Ether</button>
+          <p id="echoAnchorLine" class="echo-info-copy" style="text-align:center;">“${item.line}”</p>
+          <div class="echo-action-pills" style="justify-content:center;padding-top:4px;">
+            <button type="button" id="echoNextAnchorBtn" class="echo-action-chip">✨ New Spark</button>
+            <button type="button" id="echoGoBraceletBtn" class="echo-action-chip">📿 Weave Word</button>
+            <button type="button" id="echoBowlPlayBtn" class="echo-action-chip">🔔 432Hz Bowl</button>
           </div>
         </div>
       `;
@@ -811,7 +786,7 @@
         anchorIdx = (anchorIdx + 1) % ANCHOR_WORDS.length;
         const next = ANCHOR_WORDS[anchorIdx];
         document.getElementById('echoAnchorWordBox').textContent = next.word;
-        document.getElementById('echoAnchorLine').textContent = next.line;
+        document.getElementById('echoAnchorLine').textContent = `“${next.line}”`;
       });
       el.querySelector('#echoGoBraceletBtn').addEventListener('click', () => {
         const wordBox = document.getElementById('echoAnchorWordBox');
@@ -819,20 +794,6 @@
         executeEchoAction('open_bracelet', activeWord);
       });
       el.querySelector('#echoBowlPlayBtn').addEventListener('click', () => executeEchoAction('play_bowl'));
-
-      el.querySelectorAll('[data-el-shift]').forEach((btn) => {
-        btn.addEventListener('click', () => {
-          const k = btn.getAttribute('data-el-shift');
-          if (window.switchElementTheme) window.switchElementTheme(k, true);
-        });
-      });
-
-      el.querySelectorAll('[data-muse]').forEach((btn) => {
-        btn.addEventListener('click', () => {
-          switchTab('chat');
-          sendChatMessage(btn.getAttribute('data-muse'));
-        });
-      });
     }
 
     function switchTab(nextTab) {
@@ -994,11 +955,7 @@
         appendMessage(
           'echo',
           "Fresh spark, clean mirror ✨ What's one bright thing you're celebrating tonight, or how can I help you unwind?",
-          {
-            suggestedElement: '',
-            actionType: 'open_theater',
-            actionLabel: '🎭 Step Into Theater'
-          },
+          { isWelcome: true },
           true
         );
         switchTab('chat');
@@ -1091,11 +1048,7 @@
       appendMessage(
         'echo',
         "Hey friend ✨ Take a slow breath with me. What’s one small bright thing you want to celebrate or lean into tonight?",
-        {
-          suggestedElement: '',
-          actionType: 'open_theater',
-          actionLabel: '🎭 Step Into Theater'
-        },
+        { isWelcome: true },
         true
       );
     }
