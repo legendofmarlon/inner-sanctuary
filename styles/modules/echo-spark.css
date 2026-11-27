@@ -401,6 +401,41 @@ body[data-element="ether"] {
   color: var(--win-text);
 }
 
+.echo-mode-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 7px;
+  border-radius: 999px;
+  border: 1px solid var(--win-pill-border);
+  background: var(--win-pill-bg);
+  color: var(--win-muted);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.echo-mode-badge.is-live {
+  border-color: var(--win-kicker);
+  color: var(--win-kicker);
+}
+
+.echo-status-hint {
+  position: relative;
+  z-index: 1;
+  padding: 5px 14px;
+  font-size: 0.67rem;
+  line-height: 1.35;
+  color: var(--win-kicker);
+  background: rgba(0, 0, 0, 0.16);
+  border-bottom: 1px solid var(--win-line);
+}
+
+.echo-status-hint[hidden] {
+  display: none;
+}
+
 .echo-win-controls {
   display: flex;
   align-items: center;

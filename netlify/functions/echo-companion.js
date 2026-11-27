@@ -209,12 +209,19 @@ function buildCrisisResponse() {
   };
 }
 
+function pickTurnVariant(options, turnIndex = 0) {
+  if (!Array.isArray(options) || !options.length) return '';
+  const idx = Math.abs(Number(turnIndex) || 0) % options.length;
+  return options[idx];
+}
+
 function buildLocalEchoReply(userText, context = {}) {
   const q = String(userText || '').toLowerCase();
   const page = context.page || 'home';
+  const turn = Number(context.turnIndex) || 0;
 
   // 1. Creative writing / Stage Muse poetry
-  if (/\b(write|draft|lyric\w*|verse\w*|poem\w*|poetry|spoken[- ]word|bars|rap|rhyme|4-line|four[- ]line)\b/.test(q)) {
+  if (/\b(lyric\w*|verse\w*|poem\w*|poetry|spoken[- ]word|4-line|four[- ]line|open mic opener)\b/.test(q)) {
     if (/\b(hopeful|hope|horizon|light|tomorrow|sunrise|warm acoustic)\b/.test(q)) {
       return {
         mode: 'sanctuary-guide',
@@ -260,9 +267,10 @@ function buildLocalEchoReply(userText, context = {}) {
   }
 
   // 2. Greenroom Secret / Easter Egg
-  if (/\b(greenroom|secret|knock|easter egg|vinyl|vault|speakeasy)\b/.test(q)) {
+  if (/\b(greenroom|speakeasy|easter egg|3[- ]?knock|three[- ]?knock|secret vault|vinyl booth)\b/.test(q)) {
     return {
       mode: 'sanctuary-guide',
+      liveGeminiConfigured: false,
       reply:
         "Shhh look at you finding the good stuff!! Tap the Inner Sanctuary emblem **3 times** anywhere in the nav bar to unlock **The Greenroom Vault** over inside Community Hub — throwback vinyl vibes, raffle wheel, and backroom sessions.",
       suggestedElement: 'ether',
@@ -273,9 +281,10 @@ function buildLocalEchoReply(userText, context = {}) {
   }
 
   // 3. Dec 10 Event & Open Mic Logistics
-  if (/\b(dec\s*10|december|open mic|jam|santa ana|alton|rsvp|event|when|where|address|free|Nov\s*15|performer)\b/.test(q)) {
+  if (/\b(dec(?:ember)?\s*10|open mic|unplugged playground|santa ana|1501\s*w\.?\s*alton|alton ave|alton studio|nov\s*15|jam session|flyer|rsvp)\b/.test(q)) {
     return {
       mode: 'sanctuary-guide',
+      liveGeminiConfigured: false,
       reply:
         "Oh you gotta pull up!! **Jam Session: The Unplugged Playground** goes down **Thursday, Dec 10 (6:00–8:00 PM PST)** at **1501 W Alton Ave, Santa Ana**. Zero cover, zero alcohol, all real soul — bring an acoustic instrument, spit a verse, or just sit back and catch the warmth.",
       suggestedElement: 'fire',
@@ -286,9 +295,10 @@ function buildLocalEchoReply(userText, context = {}) {
   }
 
   // 4. Programs, Method, Mission & Founders
-  if (/\b(method|pillar|tune in|express|connect|laugh|sing|dance|program|mission|who runs|founder|teshia|marlon|story|about)\b/.test(q)) {
+  if (/\b(threefold|3 pillars?|tune in|socal creatives|permission to pause|teshia|marlon|inner sanctuary|founder|who runs|mission statement|your mission|about (?:inner sanctuary|the sanctuary|this site|y'?all))\b/.test(q)) {
     return {
       mode: 'sanctuary-guide',
+      liveGeminiConfigured: false,
       reply:
         "**Inner Sanctuary** was founded by **Teshia Campbell** and hosted alongside President **Marlon Smith**. Everything moves through **3 pillars** — **Tune In** (pause), **Express** (voice/art), **Connect** (belonging) — fueled by **Permission to Pause** and **SoCal Creatives Collective** open mics.",
       suggestedElement: 'earth',
@@ -299,9 +309,10 @@ function buildLocalEchoReply(userText, context = {}) {
   }
 
   // 5. Future Horizons
-  if (/\b(horizon|future|housing|retreat|studio|innertunement|vision)\b/.test(q)) {
+  if (/\b(innertunement|future horizon\w*|retreat center|affordable housing)\b/.test(q)) {
     return {
       mode: 'sanctuary-guide',
+      liveGeminiConfigured: false,
       reply:
         "We dream big around here!! Next up on the Horizon: **Innertunement Studio** (creative healing & sound studio), **Affordable Housing Projects**, and a full **Future Retreat Center** — all rooted in restorative, alcohol-free community care.",
       suggestedElement: 'ether',
@@ -312,9 +323,10 @@ function buildLocalEchoReply(userText, context = {}) {
   }
 
   // 6. Sponsorship Tiers & $1 Seed
-  if (/\b(sponsor|tier|partner|donate|seed|zeffy|250|500|1000|1,000|champion|builder)\b/.test(q)) {
+  if (/\b(sponsor\w*|tier\s*0?[1-4]|community (?:friend|builder|champion|seed)|zeffy|\$1 seed|\$250|\$500|\$1,?000|in-?kind partner)\b/.test(q)) {
     return {
       mode: 'sanctuary-guide',
+      liveGeminiConfigured: false,
       reply:
         "Every single dollar moves mountains: anyone can plant a **$1 Community Seed** on Zeffy with **zero fees**, and local partners jump in at **In-Kind ($25+)**, **Friend ($250)**, **Builder ($500)**, or **Champion ($1,000)** with booth space & CRA documentation!",
       suggestedElement: 'fire',
@@ -325,9 +337,10 @@ function buildLocalEchoReply(userText, context = {}) {
   }
 
   // 7. Grant / 501(c)(3) / EIN Compliance
-  if (/\b(grant|501|ein|nonprofit|funder|cra|tax|irs|receipt|pdf|dossier)\b/.test(q)) {
+  if (/\b(501\s*\(?c\)?\s*\(?3\)?|ein\b|39-3757168|funder dossier|cra grant|irs receipt|nonprofit|tax-?exempt)\b/.test(q)) {
     return {
       mode: 'sanctuary-guide',
+      liveGeminiConfigured: false,
       reply:
         "Receipts ready! Inner Sanctuary Wellness Foundation is an IRS **501(c)(3) Public Charity (EIN: 39-3757168)** led by Teshia Campbell & Marlon Smith, eligible for **CRA bank & foundation grants**. Want me to pop open the 1-Page Funder Dossier?",
       suggestedElement: 'earth',
@@ -338,10 +351,11 @@ function buildLocalEchoReply(userText, context = {}) {
   }
 
   // 8. Stress / Vibe Shift / Breath / Theater / Spotify / Bowl
-  if (/\b(stress\w*|anxi\w*|overwhelm\w*|tired|sad|heavy|panic\w*|rough day|calm\w*|breathe?\w*|ground\w*|busy|lighter|joyful|vibe|mood|spotify|music|sound|bowl|theater|mode)\b/.test(q)) {
+  if (/\b(stress\w*|anxi\w*|overwhelm\w*|burnout|panic\w*|rough day|drop my shoulders|shift my mood|feel brighter|calm\w*|60s pause|breathe?\b|spotify|432\s*hz|singing bowl|theater mode)\b/.test(q)) {
     if (/\b(spotify|playlist|song|music|listen)\b/.test(q)) {
       return {
         mode: 'sanctuary-guide',
+        liveGeminiConfigured: false,
         reply:
           "Say less — let's turn on the **Sanctuary 432Hz Restorative Soundscape** on Spotify or drop right into fullscreen **Theater Mode** so your brain can finally exhale!",
         suggestedElement: 'water',
@@ -350,22 +364,45 @@ function buildLocalEchoReply(userText, context = {}) {
         anchorWord: 'FLOW'
       };
     }
+    const calmVariations = [
+      {
+        reply:
+          "Hey, drop those shoulders for me real quick — you don't gotta carry the whole week tonight. Let's tint the room calm **Water** tones and step into **Sanctuary Theater** for a real breather!",
+        suggestedElement: 'water',
+        actionType: 'open_theater',
+        actionLabel: '🎭 Step Into Theater',
+        anchorWord: 'EXHALE'
+      },
+      {
+        reply:
+          "Alright breathe with me: four seconds in, six seconds all the way out. Let's ring the **432Hz Singing Bowl** or open the **60-Second Pause** right here.",
+        suggestedElement: 'air',
+        actionType: 'open_pause',
+        actionLabel: '🍃 Take 60s Pause',
+        anchorWord: 'BREEZE'
+      },
+      {
+        reply:
+          "Swap the whole mood right now — hit **Earth** tones for steadiness, or launch fullscreen **Theater Mode** and let the fireplace particles slow your pulse down.",
+        suggestedElement: 'earth',
+        actionType: 'open_theater',
+        actionLabel: '🌿 Ground in Theater',
+        anchorWord: 'ROOTED'
+      }
+    ];
     return {
       mode: 'sanctuary-guide',
-      reply:
-        "Hey, drop those shoulders for me real quick — you don't gotta carry the whole week tonight. Let's tint the room calm **Water** tones and step into **Sanctuary Theater** for a real breather!",
-      suggestedElement: 'water',
-      actionType: 'open_theater',
-      actionLabel: '🎭 Step Into Theater',
-      anchorWord: 'EXHALE'
+      liveGeminiConfigured: false,
+      ...pickTurnVariant(calmVariations, turn)
     };
   }
 
   // 9. Interactive Hub Tools (Bracelet / Labyrinth / Plinko / Hub)
-  if (/\b(bracelets?|beads?|anchor\w*|craft\w*|labyrinth|maze|plinko|hub|gratitude|wall|sparks?)\b/.test(q)) {
+  if (/\b(bracelet\w*|anchor word|digital labyrinth|community hub|gratitude wall|zen plinko)\b/.test(q)) {
     if (/\b(labyrinth|walk|maze)\b/.test(q)) {
       return {
         mode: 'sanctuary-guide',
+        liveGeminiConfigured: false,
         reply:
           "Ooh the **Sacred Digital Labyrinth** is pure meditation — one slow winding path with zero wrong turns. Want to walk it right now?",
         suggestedElement: 'ether',
@@ -375,9 +412,10 @@ function buildLocalEchoReply(userText, context = {}) {
       };
     }
     const anchorChoices = ['STILLNESS', 'COURAGE', 'STEADY', 'RADIANT', 'ROOTED', 'MERCY'];
-    const picked = anchorChoices[Math.floor(Math.random() * anchorChoices.length)];
+    const picked = anchorChoices[turn % anchorChoices.length];
     return {
       mode: 'sanctuary-guide',
+      liveGeminiConfigured: false,
       reply:
         `Alright here's your Anchor Word tonight: **${picked}** — bold, unbothered, and all yours. Go weave it onto a keepsake gemstone bracelet or drop a spark on the Gratitude Wall!`,
       suggestedElement: 'earth',
@@ -387,24 +425,48 @@ function buildLocalEchoReply(userText, context = {}) {
     };
   }
 
-  // 10. Friendly Hello / Chatting / Jokes / Who are you
-  if (/\b(echo|ember|who are you|name|gemini|friends?|hello|hi|hey|yo|sup|whats up|twin|lol|haha|joke|fun)\b/.test(q)) {
+  // 10. Friendly Hello / Who Echo is (only direct greetings or identity questions)
+  if (/^\s*(hi+|hey+|yo+|hello+|sup|what'?s up)\b|\b(who are you|what is your name|are you echo|are you gemini)\b/.test(q)) {
+    const greetings = [
+      {
+        reply:
+          "Ayyy what's good!! I'm **Echo** — ask me about **Dec 10 in Santa Ana**, the **3-knock Greenroom secret**, **Sponsorships / EIN**, or set `GEMINI_API_KEY` in Netlify / `.env` to unlock live Gemini + Vega voice!",
+        actionType: 'open_theater',
+        actionLabel: '🎭 Launch Theater Mode'
+      },
+      {
+        reply:
+          "Right now I'm on **built-in Sanctuary backup** because `GEMINI_API_KEY` isn't configured yet — drop your key in Netlify Environment Variables (or local `.env`) and watch me go full **Gemini 4 + Google Search + Vega**!",
+        actionType: 'open_hub',
+        actionLabel: '🏡 Tour Community Hub'
+      },
+      {
+        reply:
+          "Still glowing over here! While we wire up `GEMINI_API_KEY` for live open chat, tap any action below — test the **432Hz bowl**, check **Dec 10**, or **Weave a Bracelet**!",
+        actionType: 'play_bowl',
+        actionLabel: '🔔 Chime 432Hz Spark'
+      }
+    ];
     return {
       mode: 'sanctuary-guide',
-      reply:
-        "Ayyy what's good friend!! I'm **Echo** — your sparkling ride-or-die around the Sanctuary! Ask me literally anything (about Dec 10 in Santa Ana, the secret 3-knock Greenroom 👀, grant receipts, song lyrics, or just vent) — and watch me work!",
+      liveGeminiConfigured: false,
       suggestedElement: '',
-      actionType: 'open_theater',
-      actionLabel: '🎭 Launch Theater Mode',
-      anchorWord: 'WARMTH'
+      anchorWord: 'WARMTH',
+      ...pickTurnVariant(greetings, turn)
     };
   }
 
-  // Honest general fallback when live Gemini API key is not configured locally
+  // Honest, non-repetitive offline notice when GEMINI_API_KEY is not configured
+  const offlineNotes = [
+    "I hear you — right now I'm running in **Offline Sanctuary Mode** because `GEMINI_API_KEY` isn't set on Netlify or in `.env` yet. Add that key to unlock live **Gemini 4 + Google Search** + **Vega voice**! Meanwhile, ask me anything about **Dec 10**, **Programs**, **EIN 39-3757168**, or the **Greenroom**.",
+    "Full live **Gemini brain + Vega voice** is waiting on `GEMINI_API_KEY` (zero env vars are set on Netlify right now). Once that key is added, I'll answer any question in the world — until then, tap **Theater Mode**, **Dec 10 Flyer**, or **60s Pause**!",
+    "Yo I can't hit live Gemini servers until `GEMINI_API_KEY` is added to **ourinnersanctuary** on Netlify (or `.env` for local preview). Once you save that key, every answer + Vega voice comes alive automatically!"
+  ];
   return {
     mode: 'sanctuary-guide',
-    reply:
-      "Oooh that sounds like a question worthy of full **live Gemini**! Right now I'm running in offline Sanctuary mode (set `GEMINI_API_KEY` on Netlify or in PowerShell to unlock live search + anything-goes chat), OR ask me about **Dec 10 Open Mic**, **3-knock Greenroom**, **Bracelets**, **501(c)(3) receipts**, or **Theater Mode**!",
+    liveGeminiConfigured: false,
+    needsApiKey: true,
+    reply: pickTurnVariant(offlineNotes, turn),
     suggestedElement: 'ether',
     actionType: 'play_bowl',
     actionLabel: '🔔 Chime 432Hz Spark',
@@ -466,7 +528,7 @@ exports.handler = async function (event) {
     return {
       statusCode: 200,
       headers,
-      body: JSON.stringify({ ok: true, interactionId: '', ...local })
+      body: JSON.stringify({ ok: true, liveGeminiConfigured: false, interactionId: '', ...local })
     };
   }
 
@@ -476,17 +538,24 @@ exports.handler = async function (event) {
   const contextualInput = `[Visitor Context: page=${activePage}, activeElement=${activeEl}, inTheater=${inTheater}]\nVisitor says: ${message}`;
 
   const genConfig = {
-    max_output_tokens: 1024
+    max_output_tokens: 4096
   };
   if (DEFAULT_MODEL.includes('gemini-4') || DEFAULT_MODEL.includes('flash-lite')) {
     genConfig.thinking_level = 'low';
   }
 
-  const basePayload = {
+  const plainPayload = {
     model: DEFAULT_MODEL,
     system_instruction: ECHO_SYSTEM_INSTRUCTION,
     input: contextualInput,
-    generation_config: genConfig,
+    generation_config: genConfig
+  };
+  if (previousInteractionId) {
+    plainPayload.previous_interaction_id = previousInteractionId;
+  }
+
+  const schemaPayload = {
+    ...plainPayload,
     response_format: {
       type: 'text',
       mime_type: 'application/json',
@@ -494,21 +563,25 @@ exports.handler = async function (event) {
     }
   };
 
-  if (previousInteractionId) {
-    basePayload.previous_interaction_id = previousInteractionId;
-  }
-
   try {
     let interaction;
     try {
-      // Enable Google Search grounding alongside structured site actions
+      // 1st choice: Google Search grounding + structured site action JSON
       interaction = await postGeminiInteraction(
-        { ...basePayload, tools: [{ type: 'google_search' }] },
+        { ...schemaPayload, tools: [{ type: 'google_search' }] },
         apiKey
       );
-    } catch (toolErr) {
-      // Retry gracefully without tools if a request/turn rejects combined tool + structured format
-      interaction = await postGeminiInteraction(basePayload, apiKey);
+    } catch (_) {
+      try {
+        // 2nd choice: Structured JSON without tools
+        interaction = await postGeminiInteraction(schemaPayload, apiKey);
+      } catch (_) {
+        // 3rd choice: Live Gemini with Google Search, unrestricted text output
+        interaction = await postGeminiInteraction(
+          { ...plainPayload, tools: [{ type: 'google_search' }] },
+          apiKey
+        );
+      }
     }
 
     const rawText = extractInteractionText(interaction);
@@ -518,6 +591,7 @@ exports.handler = async function (event) {
       headers,
       body: JSON.stringify({
         ok: true,
+        liveGeminiConfigured: true,
         mode: 'gemini-live',
         model: DEFAULT_MODEL,
         interactionId: interaction.id || '',
@@ -532,8 +606,9 @@ exports.handler = async function (event) {
       headers,
       body: JSON.stringify({
         ok: true,
+        liveGeminiConfigured: false,
         interactionId: '',
-        fallbackReason: 'transient-error',
+        fallbackReason: String(err.message || 'transient-error').slice(0, 140),
         ...fallback
       })
     };

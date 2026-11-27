@@ -11,6 +11,34 @@ const os = require('os');
 const http = require('http');
 const https = require('https');
 
+function loadLocalEnvOnce() {
+  if (process.env.AWS_LAMBDA_FUNCTION_NAME || process.env.NETLIFY || process.env.NODE_ENV === 'test') return;
+  const repoRoot = path.resolve(__dirname, '..', '..');
+  for (const envName of ['.env', '.env.local']) {
+    try {
+      const envPath = path.join(repoRoot, envName);
+      if (!fs.existsSync(envPath)) continue;
+      const lines = fs.readFileSync(envPath, 'utf8').split(/\r?\n/);
+      for (const rawLine of lines) {
+        const line = rawLine.trim();
+        if (!line || line.startsWith('#')) continue;
+        const eqIdx = line.indexOf('=');
+        if (eqIdx <= 0) continue;
+        const key = line.slice(0, eqIdx).trim();
+        let val = line.slice(eqIdx + 1).trim();
+        if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
+          val = val.slice(1, -1);
+        }
+        if (key && !(key in process.env) && val && !val.includes('your_gemini_api_key')) {
+          process.env[key] = val;
+        }
+      }
+    } catch (_) {}
+  }
+}
+
+loadLocalEnvOnce();
+
 function corsHeaders(methods = 'GET, POST, OPTIONS', extraHeaders = '') {
   const allowHeaders = extraHeaders ? `Content-Type, ${extraHeaders}` : 'Content-Type';
   return {

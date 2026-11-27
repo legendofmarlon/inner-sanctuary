@@ -5,6 +5,30 @@ const path = require('path');
 const PORT = process.env.PORT || 3000;
 const ROOT_DIR = __dirname;
 
+function loadDotEnv() {
+  for (const name of ['.env', '.env.local']) {
+    try {
+      const p = path.join(ROOT_DIR, name);
+      if (!fs.existsSync(p)) continue;
+      for (const raw of fs.readFileSync(p, 'utf8').split(/\r?\n/)) {
+        const line = raw.trim();
+        if (!line || line.startsWith('#')) continue;
+        const eq = line.indexOf('=');
+        if (eq <= 0) continue;
+        const k = line.slice(0, eq).trim();
+        let v = line.slice(eq + 1).trim();
+        if ((v.startsWith('"') && v.endsWith('"')) || (v.startsWith("'") && v.endsWith("'"))) {
+          v = v.slice(1, -1);
+        }
+        if (k && !(k in process.env) && v && !v.includes('your_gemini_api_key')) {
+          process.env[k] = v;
+        }
+      }
+    } catch (_) {}
+  }
+}
+loadDotEnv();
+
 const MIME_TYPES = {
   '.html': 'text/html; charset=utf-8',
   '.css': 'text/css; charset=utf-8',
@@ -152,6 +176,7 @@ function startServer(port) {
       const functionFile = path.join(ROOT_DIR, 'netlify', 'functions', `${functionName}.js`);
       if (fs.existsSync(functionFile)) {
         try {
+          loadDotEnv();
           delete require.cache[require.resolve(functionFile)];
           const fnModule = require(functionFile);
           let bodyData = '';

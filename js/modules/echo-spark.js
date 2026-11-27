@@ -189,6 +189,7 @@
           <div class="echo-win-identity">
             <div id="echoMiniAvatar" class="echo-avatar-mini" aria-hidden="true"></div>
             <span class="echo-win-title">Echo</span>
+            <span id="echoModeBadge" class="echo-mode-badge" title="Checking Echo connection...">Sanctuary</span>
           </div>
           <div class="echo-win-controls">
             <button type="button" id="echoThemeCycleBtn" class="echo-icon-btn" title="Switch Echo window theme">🔮 Prism</button>
@@ -196,6 +197,7 @@
             <button type="button" id="echoCloseBtn" class="echo-icon-btn echo-icon-btn--round" aria-label="Close Echo chat" title="Close">&times;</button>
           </div>
         </header>
+        <div id="echoStatusHint" class="echo-status-hint" role="status" hidden></div>
 
         <div id="echoTabChat" class="echo-win-body">
           <div id="echoChatStream" class="echo-chat-stream"></div>
@@ -255,7 +257,44 @@
     const themeBtn = document.getElementById('echoThemeCycleBtn');
     const miniAvatar = document.getElementById('echoMiniAvatar');
     const resetChatBtn = document.getElementById('echoResetChatBtn');
+    const modeBadge = document.getElementById('echoModeBadge');
+    const statusHintEl = document.getElementById('echoStatusHint');
     let whisperIndex = 0;
+    let statusChecked = false;
+
+    function updateConnectionStatus(isLive, hintText = '') {
+      if (modeBadge) {
+        modeBadge.textContent = isLive ? '✦ Gemini' : 'Offline';
+        modeBadge.classList.toggle('is-live', Boolean(isLive));
+        modeBadge.title = isLive
+          ? 'Live Gemini + Google Search + Vega Voice connected'
+          : 'Offline Sanctuary backup — set GEMINI_API_KEY in Netlify or local .env for live Gemini & Vega Voice';
+      }
+      if (statusHintEl) {
+        if (hintText && !isLive) {
+          statusHintEl.textContent = hintText;
+          statusHintEl.hidden = false;
+        } else if (isLive && !hintText) {
+          statusHintEl.textContent = '';
+          statusHintEl.hidden = true;
+        } else if (hintText) {
+          statusHintEl.textContent = hintText;
+          statusHintEl.hidden = false;
+        }
+      }
+    }
+
+    async function refreshEndpointStatus() {
+      try {
+        const res = await fetch(ENDPOINT, { method: 'GET' });
+        const data = await res.json();
+        const isLive = Boolean(data && data.liveGeminiConfigured);
+        updateConnectionStatus(
+          isLive,
+          isLive ? '' : 'Offline mode: add GEMINI_API_KEY in Netlify (or .env) for live Gemini chat & Vega voice.'
+        );
+      } catch (_) {}
+    }
 
     function applyWindowTheme(nextTheme) {
       windowTheme = THEME_ORDER.includes(nextTheme) ? nextTheme : 'prism';
@@ -288,6 +327,7 @@
       }
       if (miniAvatar) miniAvatar.classList.add('is-speaking');
 
+      let ttsFallbackReason = '';
       try {
         const res = await fetch(TTS_ENDPOINT, {
           method: 'POST',
@@ -296,6 +336,9 @@
         });
         const data = await res.json();
         if (data && data.ok && data.audioBase64) {
+          if (statusHintEl && modeBadge && modeBadge.classList.contains('is-live')) {
+            statusHintEl.hidden = true;
+          }
           const audio = new Audio(`data:${data.mimeType || 'audio/wav'};base64,${data.audioBase64}`);
           activeVoiceAudio = audio;
           audio.onended = () => {
@@ -310,7 +353,16 @@
           await audio.play();
           return;
         }
+        ttsFallbackReason = (data && (data.detail || data.reason)) || '';
       } catch (_) {}
+
+      if (statusHintEl && ttsFallbackReason) {
+        statusHintEl.textContent =
+          ttsFallbackReason === 'GEMINI_API_KEY not configured'
+            ? '🔔 432Hz bell played — add GEMINI_API_KEY on Netlify or .env to enable Vega voice.'
+            : `🔔 432Hz bell fallback (${ttsFallbackReason.slice(0, 72)})`;
+        statusHintEl.hidden = false;
+      }
 
       if (miniAvatar) miniAvatar.classList.remove('is-speaking');
       if (triggerBtn) {
@@ -656,12 +708,23 @@
             context: {
               page: detectCurrentPage(),
               element: document.body.getAttribute('data-element') || 'fire',
-              inTheater: document.body.classList.contains('cinema-theater-mode')
+              inTheater: document.body.classList.contains('cinema-theater-mode'),
+              turnIndex: sessionMessages.length
             }
           })
         });
         const data = await res.json();
         typingRow.remove();
+
+        const isLive = Boolean(data && (data.liveGeminiConfigured || data.mode === 'gemini-live'));
+        updateConnectionStatus(
+          isLive,
+          isLive
+            ? ''
+            : data && data.fallbackReason
+            ? `Gemini fallback active (${String(data.fallbackReason).slice(0, 68)})`
+            : 'Offline mode: add GEMINI_API_KEY in Netlify (or .env) for live Gemini chat & Vega voice.'
+        );
 
         if (data && data.interactionId) previousInteractionId = data.interactionId;
         const reply = (data && data.reply) || "Yo I'm right here beside the fire with you ✨";
@@ -673,6 +736,7 @@
         });
       } catch (_) {
         typingRow.remove();
+        updateConnectionStatus(false);
         appendMessage('echo', "Yo I'm right here glowing beside you! Ask about Dec 10 in Santa Ana, anything in the universe, or take a quick breath with me ✨", {
           actionType: 'open_pause',
           actionLabel: '🍃 Take 60s Pause'
@@ -689,6 +753,10 @@
       hideWhisper();
       applyWindowTheme(windowTheme);
       syncVisibilityState();
+      if (!statusChecked) {
+        statusChecked = true;
+        refreshEndpointStatus();
+      }
       if (composerInput) setTimeout(() => composerInput.focus(), 120);
     }
 
