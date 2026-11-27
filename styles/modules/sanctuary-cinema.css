@@ -729,10 +729,23 @@ body[data-element="ether"] .cinema-theater-stage {
   pointer-events: none;
 }
 
+body.cinema-theater-mode {
+  overflow: hidden !important;
+  height: 100dvh;
+  overscroll-behavior: none;
+}
+
 body.cinema-theater-mode .cinema-theater-stage {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
+}
+
+body.cinema-theater-mode #argon-dust-canvas,
+body.cinema-theater-mode #elemental-sanctuary-bg,
+body.cinema-theater-mode #sanctuary-3d-canvas,
+body.cinema-theater-mode .cinema-atmosphere-overlay {
+  display: none !important;
 }
 
 body.cinema-theater-mode #pauseModal,
@@ -853,28 +866,28 @@ body.cinema-theater-mode #btnBackToTop {
   position: absolute;
   inset: -22px;
   border-radius: 50%;
-  border: 1.5px solid color-mix(in srgb, var(--theater-accent) 48%, transparent);
+  border: 1.5px solid rgba(245, 215, 127, 0.38);
   background: radial-gradient(circle, var(--theater-glow) 0%, transparent 70%);
   animation: theaterBreathHalo 8s ease-in-out infinite;
   pointer-events: none;
+  transform: translateZ(0);
 }
 
 .theater-breath-halo--outer {
-  inset: -44px;
-  border-style: dashed;
-  border-color: rgba(245, 215, 127, 0.24);
-  animation: theaterBreathHaloOuter 14s linear infinite;
+  inset: -42px;
+  border-style: solid;
+  border-color: rgba(245, 215, 127, 0.18);
+  animation: theaterBreathHaloOuter 10s ease-in-out infinite alternate;
 }
 
 @keyframes theaterBreathHalo {
   0%, 100% { transform: scale(0.94); opacity: 0.52; }
-  50% { transform: scale(1.14); opacity: 0.96; }
+  50% { transform: scale(1.12); opacity: 0.92; }
 }
 
 @keyframes theaterBreathHaloOuter {
-  0% { transform: rotate(0deg) scale(1); opacity: 0.42; }
-  50% { transform: rotate(180deg) scale(1.06); opacity: 0.72; }
-  100% { transform: rotate(360deg) scale(1); opacity: 0.42; }
+  0% { transform: scale(0.98); opacity: 0.36; }
+  100% { transform: scale(1.06); opacity: 0.68; }
 }
 
 .cinema-theater-emblem {
@@ -1326,18 +1339,56 @@ body.cinema-theater-idle:not(.cinema-theater-typing) .cinema-theater-top-hud {
 
 @media (max-width: 768px) {
   .cinema-theater-stage {
-    padding: 14px 12px 14px;
+    height: 100dvh;
+    padding: 12px 10px 14px;
+  }
+  .theater-hud-pill,
+  .theater-hud-btn,
+  .cinema-theater-dock,
+  .theater-pop-window {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(8, 21, 15, 0.94);
+  }
+  .cinema-theater-top-hud {
+    gap: 6px;
+  }
+  .theater-hud-pill {
+    font-size: 0.64rem;
+    padding: 5px 10px;
+    max-width: 100%;
+  }
+  .theater-hud-btn {
+    font-size: 0.68rem;
+    padding: 5px 10px;
   }
   .cinema-theater-dock {
-    border-radius: 18px;
-    padding: 8px 10px;
-    gap: 5px;
+    border-radius: 999px;
+    padding: 7px 10px;
+    gap: 6px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start;
+    max-width: 100%;
+    scrollbar-width: none;
+  }
+  .cinema-theater-dock::-webkit-scrollbar {
+    display: none;
+  }
+  .cinema-theater-chip,
+  .cinema-theater-exit {
+    flex-shrink: 0;
+    white-space: nowrap;
   }
   .cinema-dock-divider {
     display: none;
   }
+  body.cinema-theater-has-popup .cinema-theater-center {
+    opacity: 0.14;
+  }
   .theater-popup-stage {
-    inset: 60px 10px 108px;
+    inset: 72px 10px 68px;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -1351,7 +1402,7 @@ body.cinema-theater-idle:not(.cinema-theater-typing) .cinema-theater-top-hud {
     right: auto !important;
     bottom: auto !important;
     width: 100% !important;
-    max-height: 46vh;
+    max-height: 54dvh;
   }
 }
 

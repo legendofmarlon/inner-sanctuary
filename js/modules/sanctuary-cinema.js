@@ -539,12 +539,15 @@
     }
 
     function syncDockPopupButtons() {
+      let hasAnyOpen = false;
       document.querySelectorAll('.theater-pop-trigger[data-theater-pop]').forEach((btn) => {
         const key = btn.getAttribute('data-theater-pop');
         const isOpen = !!document.getElementById(`theaterWin-${key}`);
+        if (isOpen) hasAnyOpen = true;
         btn.classList.toggle('active', isOpen);
         btn.setAttribute('aria-pressed', isOpen ? 'true' : 'false');
       });
+      document.body.classList.toggle('cinema-theater-has-popup', hasAnyOpen);
     }
 
     const syncTheaterUI = () => {
@@ -612,13 +615,21 @@
       resize();
       if (!particles.length) initParticles(canvas);
 
+      const handleResize = () => {
+        if (!isTheater) return;
+        if (Math.abs(canvas.width - window.innerWidth) > 2 || Math.abs(canvas.height - window.innerHeight) > 48) {
+          resize();
+        }
+      };
+      if (!canvas.dataset.resizeBound) {
+        canvas.dataset.resizeBound = 'true';
+        window.addEventListener('resize', handleResize, { passive: true });
+      }
+
       const frame = () => {
         if (!isTheater) {
           particleRaf = null;
           return;
-        }
-        if (canvas.width !== window.innerWidth || canvas.height !== window.innerHeight) {
-          resize();
         }
         const key = getActiveElementKey();
         const lore = ELEMENT_LORE[key] || ELEMENT_LORE.fire;
@@ -1188,15 +1199,16 @@
 
     window.sanctuaryCinema.toggleTheater = function (forceState) {
       isTheater = typeof forceState === 'boolean' ? forceState : !isTheater;
+      const isMobileViewport = window.innerWidth <= 768;
       if (!isTheater) {
         isStargaze = false;
         stopBreathTimer();
         stopParticleLoop();
-        document.body.classList.remove('cinema-theater-idle', 'cinema-theater-typing');
+        document.body.classList.remove('cinema-theater-idle', 'cinema-theater-typing', 'cinema-theater-has-popup');
       } else {
         startParticleLoop();
         wakeDockIdleTimer();
-        if (!hasShownWelcomePop) {
+        if (!hasShownWelcomePop && !isMobileViewport) {
           hasShownWelcomePop = true;
           setTimeout(() => {
             if (isTheater && !document.getElementById('theaterWin-ritual')) {
@@ -1215,7 +1227,7 @@
         } catch (_) {}
       }
 
-      if (isTheater && document.documentElement.requestFullscreen && !document.fullscreenElement) {
+      if (!isMobileViewport && isTheater && document.documentElement.requestFullscreen && !document.fullscreenElement) {
         document.documentElement.requestFullscreen().catch(() => {});
       } else if (!isTheater && document.fullscreenElement && document.exitFullscreen) {
         document.exitFullscreen().catch(() => {});
