@@ -135,9 +135,30 @@
         </div>
         <button type="button" id="echoSpriteBtn" class="echo-sprite-btn" aria-label="Chat with Echo, your Sanctuary Spark Friend" title="Hey! I'm Echo — tap to chat or drag me anywhere">
           <span class="echo-halo-aura" aria-hidden="true"></span>
-          <span class="echo-star-rays" aria-hidden="true"></span>
-          <span class="echo-star-rays echo-star-rays--inner" aria-hidden="true"></span>
-          <span class="echo-core-star" aria-hidden="true"></span>
+          <svg class="echo-ember-svg" viewBox="0 0 64 64" width="52" height="52" aria-hidden="true">
+            <defs>
+              <radialGradient id="echoEmberOuter" cx="50%" cy="62%" r="55%">
+                <stop offset="0%" stop-color="#FFFFFF" />
+                <stop offset="45%" stop-color="var(--echo-core)" />
+                <stop offset="100%" stop-color="var(--echo-mid)" />
+              </radialGradient>
+              <linearGradient id="echoStarGleam" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.95" />
+                <stop offset="55%" stop-color="var(--echo-core)" stop-opacity="0.85" />
+                <stop offset="100%" stop-color="var(--echo-mid)" stop-opacity="0.2" />
+              </linearGradient>
+            </defs>
+            <!-- Tall slender celestial 4-point star flare -->
+            <path class="echo-svg-flare" d="M32 2 L34.2 28.5 L58 32 L34.2 35.5 L32 62 L29.8 35.5 L6 32 L29.8 28.5 Z" fill="url(#echoStarGleam)" />
+            <!-- Organic teardrop ember flame body -->
+            <path class="echo-svg-flame" d="M32 13 C38.5 24 42.5 32.5 42.5 40 C42.5 46.2 37.8 51 32 51 C26.2 51 21.5 46.2 21.5 40 C21.5 32.5 25.5 24 32 13 Z" fill="url(#echoEmberOuter)" />
+            <!-- White-hot inner spark tongue -->
+            <path class="echo-svg-tongue" d="M32 23 C35.5 30 37.5 35.2 37.5 39.5 C37.5 43.2 35.1 46 32 46 C28.9 46 26.5 43.2 26.5 39.5 C26.5 35.2 28.5 30 32 23 Z" fill="#FFFFFF" opacity="0.94" />
+            <!-- Tiny rising ember flecks -->
+            <circle class="echo-svg-fleck echo-svg-fleck--1" cx="22" cy="18" r="1.7" fill="#FFFDF7" />
+            <circle class="echo-svg-fleck echo-svg-fleck--2" cx="43" cy="21" r="1.4" fill="var(--echo-core)" />
+            <circle class="echo-svg-fleck echo-svg-fleck--3" cx="32" cy="8" r="1.5" fill="#FFFFFF" />
+          </svg>
           <span class="echo-name-pill">Echo</span>
         </button>
       </div>
