@@ -907,73 +907,105 @@
           const p = (((now - guidedCycleStart) % 16000) + 16000) % 16000 / 16000;
           if (p < 0.25) {
             const e = easeCos(p / 0.25);
-            return { scale: 0.93 + 0.20 * e, exhaleIntensity: 0, inhaleIntensity: Math.sin(Math.PI * (p / 0.25)) };
+            return { scale: 0.91 + 0.23 * e, exhaleIntensity: 0, inhaleIntensity: Math.sin(Math.PI * (p / 0.25)) };
           }
           if (p < 0.50) {
-            return { scale: 1.13, exhaleIntensity: 0.06, inhaleIntensity: 0 };
+            return { scale: 1.14, exhaleIntensity: 0.12, inhaleIntensity: 0 };
           }
           if (p < 0.75) {
             const u = (p - 0.50) / 0.25;
             const e = easeCos(u);
-            return { scale: 1.13 - 0.20 * e, exhaleIntensity: Math.sin(Math.PI * u), inhaleIntensity: 0 };
+            return { scale: 1.14 - 0.23 * e, exhaleIntensity: Math.sin(Math.PI * u), inhaleIntensity: 0 };
           }
           const uRest = (p - 0.75) / 0.25;
-          return { scale: 0.93, exhaleIntensity: Math.max(0, 0.12 * (1 - uRest)), inhaleIntensity: 0 };
+          return { scale: 0.91, exhaleIntensity: Math.max(0.08, 0.22 * (1 - uRest)), inhaleIntensity: 0 };
         }
 
         // Smooth continuous 10s sanctuary breath cycle when Theater Mode is open
         const p = (((now - ambientCycleStart) % 10000) + 10000) % 10000 / 10000;
-        if (p < 0.40) {
-          const e = easeCos(p / 0.40);
-          return { scale: 0.94 + 0.15 * e, exhaleIntensity: 0, inhaleIntensity: Math.sin(Math.PI * (p / 0.40)) * 0.65 };
+        if (p < 0.38) {
+          const e = easeCos(p / 0.38);
+          return { scale: 0.92 + 0.19 * e, exhaleIntensity: 0.08, inhaleIntensity: Math.sin(Math.PI * (p / 0.38)) * 0.7 };
         }
-        if (p < 0.50) {
-          return { scale: 1.09, exhaleIntensity: 0.08, inhaleIntensity: 0 };
+        if (p < 0.46) {
+          return { scale: 1.11, exhaleIntensity: 0.18, inhaleIntensity: 0 };
         }
-        if (p < 0.90) {
-          const u = (p - 0.50) / 0.40;
+        if (p < 0.88) {
+          const u = (p - 0.46) / 0.42;
           const e = easeCos(u);
-          return { scale: 1.09 - 0.15 * e, exhaleIntensity: Math.sin(Math.PI * u), inhaleIntensity: 0 };
+          return { scale: 1.11 - 0.19 * e, exhaleIntensity: Math.max(0.25, Math.sin(Math.PI * u)), inhaleIntensity: 0 };
         }
-        const uSettle = (p - 0.90) / 0.10;
-        return { scale: 0.94, exhaleIntensity: Math.max(0, 0.12 * (1 - uSettle)), inhaleIntensity: 0 };
+        const uSettle = (p - 0.88) / 0.12;
+        return { scale: 0.92, exhaleIntensity: Math.max(0.12, 0.28 * (1 - uSettle)), inhaleIntensity: 0 };
       };
 
       const emitMouthPlume = (x, y, dirX, dirY, intensity, accentRgb, isMobile) => {
-        const cap = isMobile ? 48 : 96;
+        const cap = isMobile ? 54 : 110;
         if (breathPlumes.length >= cap) return;
-        const speed = (1.1 + Math.random() * 1.15) * (0.65 + intensity * 0.75);
+        const speed = (1.85 + Math.random() * 1.45) * (0.7 + intensity * 0.65);
         breathPlumes.push({
           isSpark: false,
           x,
           y,
-          vx: dirX * speed + (Math.random() - 0.5) * 0.18,
-          vy: dirY * speed + (Math.random() - 0.5) * 0.24,
-          r: 4.5 + Math.random() * 3.5,
-          grow: 0.34 + Math.random() * 0.22,
-          alpha: (0.20 + Math.random() * 0.14) * Math.min(1, 0.45 + intensity * 0.7),
+          vx: dirX * speed + (Math.random() - 0.5) * 0.24,
+          vy: dirY * speed + (Math.random() - 0.5) * 0.32,
+          r: 6 + Math.random() * 4.5,
+          grow: 0.42 + Math.random() * 0.28,
+          alpha: (0.32 + Math.random() * 0.18) * Math.min(1, 0.5 + intensity * 0.65),
           age: 0,
-          life: 62 + Math.random() * 28,
+          life: 72 + Math.random() * 32,
           seed: Math.random() * Math.PI * 2,
           rgb: accentRgb
         });
 
-        if (Math.random() < 0.48 * intensity && breathPlumes.length < cap) {
+        if (Math.random() < 0.7 * intensity && breathPlumes.length < cap) {
           breathPlumes.push({
             isSpark: true,
             x: x + (Math.random() - 0.5) * 4,
             y: y + (Math.random() - 0.5) * 4,
-            vx: dirX * (speed * 1.18) + (Math.random() - 0.5) * 0.3,
-            vy: dirY * (speed * 1.05) + (Math.random() - 0.5) * 0.3,
-            r: 1.1 + Math.random() * 1.6,
+            vx: dirX * (speed * 1.2) + (Math.random() - 0.5) * 0.35,
+            vy: dirY * (speed * 1.08) + (Math.random() - 0.5) * 0.35,
+            r: 1.4 + Math.random() * 1.9,
             grow: 0,
-            alpha: 0.58 + Math.random() * 0.32,
+            alpha: 0.72 + Math.random() * 0.25,
             age: 0,
-            life: 48 + Math.random() * 26,
+            life: 60 + Math.random() * 30,
             seed: Math.random() * Math.PI * 2,
             rgb: accentRgb
           });
         }
+      };
+
+      const drawBreathRibbons = (bCtx, mx, my, dirX, dirY, reach, now, intensity, accentRgb) => {
+        const ribbonOffsets = [-0.26, 0, 0.24];
+        const phase = now * 0.0042;
+        ribbonOffsets.forEach((spread, idx) => {
+          const sx = mx + dirX * 2;
+          const sy = my + dirY * 2;
+          const ex = mx + dirX * reach * (0.82 + idx * 0.12);
+          const ey = my + (dirY + spread) * reach * 0.78 - Math.sin(phase + idx) * 14;
+          const c1x = sx + dirX * (reach * 0.35);
+          const c1y = sy + (dirY + spread * 0.4) * (reach * 0.25) + Math.sin(phase + idx * 1.7) * 9;
+          const c2x = sx + dirX * (reach * 0.7);
+          const c2y = sy + (dirY + spread * 0.85) * (reach * 0.58) - Math.cos(phase + idx * 1.3) * 12;
+
+          const grad = bCtx.createLinearGradient(sx, sy, ex, ey);
+          // Warm gold-bronze at lips (visible over ivory emblem cream), transitioning into radiant cream-gold mist over sky
+          grad.addColorStop(0, `rgba(197, 154, 63, ${(0.58 * intensity).toFixed(3)})`);
+          grad.addColorStop(0.28, `rgba(248, 217, 140, ${(0.64 * intensity).toFixed(3)})`);
+          grad.addColorStop(0.62, `rgba(255, 253, 247, ${(0.36 * intensity).toFixed(3)})`);
+          grad.addColorStop(1, `rgba(${accentRgb}, 0)`);
+
+          bCtx.save();
+          bCtx.strokeStyle = grad;
+          bCtx.lineWidth = idx === 1 ? 3.2 : 2.1;
+          bCtx.lineCap = 'round';
+          bCtx.beginPath();
+          bCtx.moveTo(sx, sy);
+          bCtx.bezierCurveTo(c1x, c1y, c2x, c2y, ex, ey);
+          bCtx.stroke();
+          bCtx.restore();
+        });
       };
 
       const updateMedallionBreath = (now, lore) => {
@@ -984,15 +1016,15 @@
 
         const kin = getBreathKinematics(now);
         stageEl.style.setProperty('--theater-breath-scale', kin.scale.toFixed(4));
-        stageEl.style.setProperty('--theater-breath-glow', Math.max(0, (kin.scale - 0.93) * 5).toFixed(3));
-        stageEl.style.setProperty('--theater-halo-opacity', (0.46 + Math.max(0, kin.scale - 0.93) * 2.4).toFixed(3));
+        stageEl.style.setProperty('--theater-breath-glow', Math.max(0, (kin.scale - 0.91) * 5).toFixed(3));
+        stageEl.style.setProperty('--theater-halo-opacity', (0.45 + Math.max(0, kin.scale - 0.91) * 2.4).toFixed(3));
 
         if (!bCanvas) return;
         const bCtx = bCanvas.getContext('2d');
         if (!bCtx) return;
 
-        const cw = bCanvas.clientWidth || 440;
-        const ch = bCanvas.clientHeight || 380;
+        const cw = bCanvas.clientWidth || 540;
+        const ch = bCanvas.clientHeight || 430;
         if (Math.abs(bCanvas.width - cw) > 2 || Math.abs(bCanvas.height - ch) > 2) {
           bCanvas.width = cw;
           bCanvas.height = ch;
@@ -1014,28 +1046,32 @@
 
         const accentRgb = hexToRgb((lore && lore.colors && lore.colors[0]) || '#F5D77F');
         const isMob = window.innerWidth <= 768;
+        const reach = isMob ? 105 : 155;
 
-        if (kin.exhaleIntensity > 0.06) {
-          // Delicate lip origin mist glow connecting stream seamlessly to both mouths
+        if (kin.exhaleIntensity > 0.05) {
+          // Silk air-breath ribbons & warm golden lip mist emerging directly from both mouths
+          drawBreathRibbons(bCtx, mxL, myL, -1.0, -0.18, reach * (0.65 + kin.exhaleIntensity * 0.45), now, kin.exhaleIntensity, accentRgb);
+          drawBreathRibbons(bCtx, mxR, myR, 1.0, -0.28, reach * (0.65 + kin.exhaleIntensity * 0.45), now, kin.exhaleIntensity, accentRgb);
+
           [
             [mxL, myL, -1, -0.18],
-            [mxR, myR, 1, -0.32]
+            [mxR, myR, 1, -0.28]
           ].forEach(([mx, my, dx, dy]) => {
-            const ox = mx + dx * 6;
-            const oy = my + dy * 4;
-            const lipGrad = bCtx.createRadialGradient(mx, my, 0, ox, oy, 26);
-            lipGrad.addColorStop(0, `rgba(255, 253, 245, ${(0.34 * kin.exhaleIntensity).toFixed(3)})`);
-            lipGrad.addColorStop(0.55, `rgba(${accentRgb}, ${(0.16 * kin.exhaleIntensity).toFixed(3)})`);
+            const ox = mx + dx * 12;
+            const oy = my + dy * 8;
+            const lipGrad = bCtx.createRadialGradient(mx, my, 0, ox, oy, 32);
+            lipGrad.addColorStop(0, `rgba(212, 162, 68, ${(0.45 * kin.exhaleIntensity).toFixed(3)})`);
+            lipGrad.addColorStop(0.5, `rgba(255, 250, 232, ${(0.30 * kin.exhaleIntensity).toFixed(3)})`);
             lipGrad.addColorStop(1, 'rgba(255, 253, 245, 0)');
             bCtx.fillStyle = lipGrad;
             bCtx.beginPath();
-            bCtx.arc(ox, oy, 26, 0, Math.PI * 2);
+            bCtx.arc(ox, oy, 32, 0, Math.PI * 2);
             bCtx.fill();
           });
 
-          if (Math.random() < (isMob ? 0.55 : 0.85) * Math.max(0.25, kin.exhaleIntensity)) {
+          if (Math.random() < (isMob ? 0.72 : 0.96) * Math.max(0.35, kin.exhaleIntensity)) {
             emitMouthPlume(mxL, myL, -1.0, -0.18, kin.exhaleIntensity, accentRgb, isMob);
-            emitMouthPlume(mxR, myR, 1.0, -0.30, kin.exhaleIntensity, accentRgb, isMob);
+            emitMouthPlume(mxR, myR, 1.0, -0.28, kin.exhaleIntensity, accentRgb, isMob);
           }
         }
 
@@ -1049,24 +1085,36 @@
 
           const progress = p.age / p.life;
           p.x += p.vx;
-          p.y += p.vy + Math.sin(p.age * 0.14 + p.seed) * 0.24;
-          p.vx *= 0.988;
-          p.vy -= 0.011; // Breath rises softly in twilight air
+          p.y += p.vy + Math.sin(p.age * 0.14 + p.seed) * 0.34;
+          p.vx *= 0.992;
+          p.vy -= 0.012; // Breath rises gently into twilight sky
           p.r += p.grow;
 
-          const env = progress < 0.16 ? (progress / 0.16) : (1 - (progress - 0.16) / 0.84);
-          const alpha = Math.max(0, p.alpha * env * env);
+          const env = progress < 0.15 ? (progress / 0.15) : (1 - (progress - 0.15) / 0.85);
+          const alpha = Math.max(0, p.alpha * env);
+
+          // Blend warm amber tint inside bright medallion border, luminous ivory mist once outside the medallion
+          const distFromCenter = Math.hypot(p.x - cx, p.y - cy);
+          const isOutsideRim = distFromCenter > liveD * 0.46;
 
           if (p.isSpark) {
-            bCtx.fillStyle = `rgba(255, 252, 238, ${alpha.toFixed(3)})`;
+            bCtx.fillStyle = isOutsideRim
+              ? `rgba(255, 253, 240, ${alpha.toFixed(3)})`
+              : `rgba(186, 134, 34, ${(alpha * 0.85).toFixed(3)})`;
             bCtx.beginPath();
             bCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
             bCtx.fill();
           } else {
             const grad = bCtx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
-            grad.addColorStop(0, `rgba(255, 253, 246, ${(alpha * 0.72).toFixed(3)})`);
-            grad.addColorStop(0.5, `rgba(${p.rgb}, ${(alpha * 0.34).toFixed(3)})`);
-            grad.addColorStop(1, `rgba(${p.rgb}, 0)`);
+            if (isOutsideRim) {
+              grad.addColorStop(0, `rgba(255, 253, 247, ${(alpha * 0.62).toFixed(3)})`);
+              grad.addColorStop(0.5, `rgba(${p.rgb}, ${(alpha * 0.36).toFixed(3)})`);
+              grad.addColorStop(1, `rgba(${p.rgb}, 0)`);
+            } else {
+              grad.addColorStop(0, `rgba(197, 154, 63, ${(alpha * 0.54).toFixed(3)})`);
+              grad.addColorStop(0.55, `rgba(218, 178, 92, ${(alpha * 0.28).toFixed(3)})`);
+              grad.addColorStop(1, 'rgba(197, 154, 63, 0)');
+            }
             bCtx.fillStyle = grad;
             bCtx.beginPath();
             bCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);

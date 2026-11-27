@@ -878,8 +878,13 @@ body[data-element="ether"] .cinema-theater-stage {
 }
 
 body.cinema-theater-stage-drawer-open .cinema-theater-center {
-  opacity: 0.16;
-  transform: translateY(-28px) scale(0.96);
+  opacity: 0.10;
+  transform: translateY(-76px) scale(0.90);
+}
+
+body.cinema-theater-mode .echo-whisper-bubble {
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
 
 body.cinema-theater-stage-drawer-open .theater-story-caption {
@@ -1150,10 +1155,17 @@ body.cinema-theater-mode #btnBackToTop {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: calc(100% + 260px);
-  height: calc(100% + 190px);
+  width: calc(100% + 360px);
+  height: calc(100% + 240px);
   z-index: 4;
   pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .theater-medallion-breath-canvas {
+    width: calc(100% + 220px);
+    height: calc(100% + 160px);
+  }
 }
 
 .theater-breath-halo {
