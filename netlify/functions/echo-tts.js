@@ -7,7 +7,8 @@
  */
 
 const https = require('https');
-const { corsHeaders } = require('./_persistence');
+const http = require('http');
+const { corsHeaders, getGeminiRuntimeConfig } = require('./_persistence');
 
 const TTS_MODEL = (process.env.GEMINI_ECHO_TTS_MODEL || 'gemini-3.8-flash-lite-tts').trim();
 const TTS_FALLBACK_MODEL = 'gemini-3.8-flash-tts';
@@ -26,14 +27,16 @@ function sanitizeForSpeech(rawText) {
     .trim();
 }
 
-function postJsonHttps(hostname, reqPath, payloadObj, extraHeaders = {}, timeoutMs = 15000) {
+function postJsonEndpoint(endpointUrl, payloadObj, extraHeaders = {}, timeoutMs = 15000) {
   return new Promise((resolve, reject) => {
     const body = JSON.stringify(payloadObj);
-    const req = https.request(
+    const parsedUrl = new URL(endpointUrl);
+    const lib = parsedUrl.protocol === 'http:' ? http : https;
+    const req = lib.request(
       {
-        hostname,
-        port: 443,
-        path: reqPath,
+        hostname: parsedUrl.hostname,
+        port: parsedUrl.port || (parsedUrl.protocol === 'http:' ? 80 : 443),
+        path: parsedUrl.pathname + parsedUrl.search,
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -71,7 +74,7 @@ function postJsonHttps(hostname, reqPath, payloadObj, extraHeaders = {}, timeout
   });
 }
 
-async function requestGeminiTtsInteractions(text, apiKey, model = TTS_MODEL, apiVersion = 'v1') {
+async function requestGeminiTtsInteractions(text, apiKey, baseUrl, model = TTS_MODEL, apiVersion = 'v1') {
   const payload = {
     model,
     input: [
@@ -103,9 +106,8 @@ async function requestGeminiTtsInteractions(text, apiKey, model = TTS_MODEL, api
     }
   };
 
-  const parsed = await postJsonHttps(
-    'generativelanguage.googleapis.com',
-    `/${apiVersion}/interactions`,
+  const parsed = await postJsonEndpoint(
+    `${baseUrl}/${apiVersion}/interactions`,
     payload,
     {
       'x-goog-api-key': apiKey,
@@ -138,7 +140,7 @@ async function requestGeminiTtsInteractions(text, apiKey, model = TTS_MODEL, api
   throw new Error('No audio output returned from Gemini Interactions TTS');
 }
 
-async function requestGeminiTtsGenerateContent(text, apiKey, model = TTS_MODEL) {
+async function requestGeminiTtsGenerateContent(text, apiKey, baseUrl, model = TTS_MODEL) {
   const payload = {
     contents: [
       {
@@ -158,9 +160,8 @@ async function requestGeminiTtsGenerateContent(text, apiKey, model = TTS_MODEL) 
     }
   };
 
-  const parsed = await postJsonHttps(
-    'generativelanguage.googleapis.com',
-    `/v1beta/models/${encodeURIComponent(model)}:generateContent`,
+  const parsed = await postJsonEndpoint(
+    `${baseUrl}/v1beta/models/${encodeURIComponent(model)}:generateContent`,
     payload,
     { 'x-goog-api-key': apiKey }
   );
@@ -205,7 +206,7 @@ exports.handler = async function (event) {
     return { statusCode: 400, headers, body: JSON.stringify({ error: 'Text is required for speech synthesis' }) };
   }
 
-  const apiKey = (process.env.GEMINI_API_KEY || '').trim();
+  const { apiKey, baseUrl } = getGeminiRuntimeConfig();
   if (!apiKey) {
     return {
       statusCode: 200,
@@ -220,10 +221,10 @@ exports.handler = async function (event) {
   }
 
   const attempts = [
-    () => requestGeminiTtsInteractions(cleanText, apiKey, TTS_MODEL, 'v1'),
-    () => requestGeminiTtsInteractions(cleanText, apiKey, TTS_MODEL, 'v1beta'),
-    () => requestGeminiTtsInteractions(cleanText, apiKey, TTS_FALLBACK_MODEL, 'v1'),
-    () => requestGeminiTtsGenerateContent(cleanText, apiKey, TTS_MODEL)
+    () => requestGeminiTtsInteractions(cleanText, apiKey, baseUrl, TTS_MODEL, 'v1'),
+    () => requestGeminiTtsInteractions(cleanText, apiKey, baseUrl, TTS_MODEL, 'v1beta'),
+    () => requestGeminiTtsInteractions(cleanText, apiKey, baseUrl, TTS_FALLBACK_MODEL, 'v1'),
+    () => requestGeminiTtsGenerateContent(cleanText, apiKey, baseUrl, TTS_MODEL)
   ];
 
   let lastErr = null;

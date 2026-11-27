@@ -6,9 +6,9 @@
  */
 
 const https = require('https');
-const { corsHeaders } = require('./_persistence');
+const http = require('http');
+const { corsHeaders, getGeminiRuntimeConfig } = require('./_persistence');
 
-const GEMINI_ENDPOINT = 'https://generativelanguage.googleapis.com/v1/interactions';
 const DEFAULT_MODEL = (process.env.GEMINI_ECHO_MODEL || 'gemini-4-hydrogen').trim();
 
 const CRISIS_PATTERN = /\b(suicide|kill myself|end my life|want to die|hurt myself|self[- ]?harm|overdose|no reason to live|better off dead)\b/i;
@@ -87,16 +87,17 @@ const RESPONSE_SCHEMA = {
   required: ['reply', 'suggestedElement', 'actionType', 'actionLabel', 'anchorWord']
 };
 
-function postGeminiInteraction(payload, apiKey, timeoutMs = 15000) {
+function postGeminiInteraction(payload, apiKey, baseUrl = 'https://generativelanguage.googleapis.com', timeoutMs = 15000) {
   return new Promise((resolve, reject) => {
     const body = JSON.stringify(payload);
-    const url = new URL(GEMINI_ENDPOINT);
+    const url = new URL(`${baseUrl.replace(/\/+$/, '')}/v1/interactions`);
+    const lib = url.protocol === 'http:' ? http : https;
 
-    const req = https.request(
+    const req = lib.request(
       {
         hostname: url.hostname,
-        port: 443,
-        path: url.pathname,
+        port: url.port || (url.protocol === 'http:' ? 80 : 443),
+        path: url.pathname + url.search,
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -485,7 +486,8 @@ exports.handler = async function (event) {
   }
 
   if (event.httpMethod === 'GET') {
-    const hasGemini = Boolean((process.env.GEMINI_API_KEY || '').trim());
+    const runtime = getGeminiRuntimeConfig();
+    const hasGemini = Boolean(runtime.apiKey);
     return {
       statusCode: 200,
       headers,
@@ -493,6 +495,7 @@ exports.handler = async function (event) {
         ok: true,
         companion: 'Echo',
         liveGeminiConfigured: hasGemini,
+        hasGatewayEnv: runtime.hasGatewayEnv,
         capabilities: ['google_search', 'multi_turn', 'website_encyclopedia', 'vega_tts'],
         model: hasGemini ? DEFAULT_MODEL : 'sanctuary-built-in'
       })
@@ -522,7 +525,7 @@ exports.handler = async function (event) {
     return { statusCode: 200, headers, body: JSON.stringify({ ok: true, ...buildCrisisResponse() }) };
   }
 
-  const apiKey = (process.env.GEMINI_API_KEY || '').trim();
+  const { apiKey, baseUrl } = getGeminiRuntimeConfig();
   if (!apiKey) {
     const local = buildLocalEchoReply(message, context);
     return {
@@ -569,17 +572,19 @@ exports.handler = async function (event) {
       // 1st choice: Google Search grounding + structured site action JSON
       interaction = await postGeminiInteraction(
         { ...schemaPayload, tools: [{ type: 'google_search' }] },
-        apiKey
+        apiKey,
+        baseUrl
       );
     } catch (_) {
       try {
         // 2nd choice: Structured JSON without tools
-        interaction = await postGeminiInteraction(schemaPayload, apiKey);
+        interaction = await postGeminiInteraction(schemaPayload, apiKey, baseUrl);
       } catch (_) {
         // 3rd choice: Live Gemini with Google Search, unrestricted text output
         interaction = await postGeminiInteraction(
           { ...plainPayload, tools: [{ type: 'google_search' }] },
-          apiKey
+          apiKey,
+          baseUrl
         );
       }
     }

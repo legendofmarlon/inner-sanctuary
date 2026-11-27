@@ -189,6 +189,28 @@ async function sendResendNotification({ subject, text, to }) {
   return { sent: Boolean(res.ok), statusCode: res.statusCode };
 }
 
+function getEnvVal(name) {
+  const fromProc = (process.env[name] || '').trim();
+  if (fromProc) return fromProc;
+  try {
+    if (typeof globalThis !== 'undefined' && globalThis.Netlify && globalThis.Netlify.env) {
+      return (globalThis.Netlify.env.get(name) || '').trim();
+    }
+  } catch (_) {}
+  return '';
+}
+
+function getGeminiRuntimeConfig() {
+  const apiKey = getEnvVal('GEMINI_API_KEY') || getEnvVal('GOOGLE_API_KEY');
+  const rawBaseUrl = getEnvVal('GOOGLE_GEMINI_BASE_URL') || 'https://generativelanguage.googleapis.com';
+  return {
+    apiKey,
+    baseUrl: rawBaseUrl.replace(/\/+$/, ''),
+    customBaseUrl: Boolean(getEnvVal('GOOGLE_GEMINI_BASE_URL')),
+    hasGatewayEnv: Boolean(getEnvVal('NETLIFY_AI_GATEWAY_KEY') && getEnvVal('NETLIFY_AI_GATEWAY_URL'))
+  };
+}
+
 module.exports = {
   corsHeaders,
   postJson,
@@ -197,5 +219,6 @@ module.exports = {
   writeTmpJson,
   readLedgerRecords,
   appendLedgerRecord,
-  sendResendNotification
+  sendResendNotification,
+  getGeminiRuntimeConfig
 };
