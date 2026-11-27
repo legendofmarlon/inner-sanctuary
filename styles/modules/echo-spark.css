@@ -54,12 +54,21 @@ body[data-element="ether"] {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--echo-core);
-  box-shadow: 0 0 10px var(--echo-glow);
+  background: radial-gradient(circle, #FFFFFF 0%, var(--echo-core) 55%, var(--echo-mid) 100%);
+  box-shadow: 0 0 10px var(--echo-core), 0 0 18px var(--echo-glow);
   pointer-events: none;
-  opacity: 0.75;
+  opacity: 0.9;
   transform: translate(-50%, -50%) scale(1);
-  transition: opacity 0.65s ease, transform 0.65s ease;
+  transition: opacity 0.85s ease-out, transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+.echo-trail-mote--spark {
+  width: 9px;
+  height: 9px;
+  border-radius: 0;
+  clip-path: polygon(50% 0%, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0% 50%, 38% 38%);
+  background: linear-gradient(135deg, #FFFFFF 0%, var(--echo-core) 100%);
 }
 
 .echo-spark-actor {
@@ -80,8 +89,8 @@ body[data-element="ether"] {
 
 .echo-sprite-btn {
   position: relative;
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
   border: none;
   background: transparent;
@@ -96,67 +105,61 @@ body[data-element="ether"] {
 
 .echo-sprite-btn:hover,
 .echo-sprite-btn:focus-visible {
-  transform: scale(1.18);
+  transform: scale(1.2);
   outline: none;
 }
 
 .echo-halo-aura {
   position: absolute;
-  inset: 2px;
+  inset: 0;
   border-radius: 50%;
-  background: radial-gradient(circle, var(--echo-core) 0%, var(--echo-mid) 38%, transparent 72%);
-  box-shadow: 0 0 26px var(--echo-glow), 0 0 52px var(--echo-glow);
-  opacity: 0.9;
-  animation: echoAuraPulse 2.8s ease-in-out infinite;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.72) 0%, var(--echo-core) 24%, var(--echo-mid) 50%, transparent 74%);
+  box-shadow: 0 0 28px var(--echo-glow), 0 0 56px var(--echo-glow);
+  opacity: 0.92;
+  animation: echoAuraPulse 2.6s ease-in-out infinite;
 }
 
 @keyframes echoAuraPulse {
-  0%, 100% { transform: scale(0.92); opacity: 0.78; }
-  50% { transform: scale(1.14); opacity: 1; }
+  0%, 100% { transform: scale(0.88); opacity: 0.74; }
+  50% { transform: scale(1.16); opacity: 1; }
 }
 
-.echo-wing {
+.echo-star-rays {
   position: absolute;
-  width: 20px;
-  height: 11px;
-  border-radius: 60% 40% 60% 40%;
-  background: linear-gradient(135deg, #FFFFFF 0%, var(--echo-wing) 100%);
-  box-shadow: 0 0 10px var(--echo-glow);
-  top: 13px;
-  opacity: 0.85;
+  width: 44px;
+  height: 44px;
+  clip-path: polygon(50% 0%, 58% 42%, 100% 50%, 58% 58%, 50% 100%, 42% 58%, 0% 50%, 42% 42%);
+  background: linear-gradient(135deg, #FFFFFF 0%, var(--echo-core) 52%, var(--echo-mid) 100%);
+  filter: drop-shadow(0 0 8px var(--echo-core)) drop-shadow(0 0 14px var(--echo-glow));
+  animation: echoStarTwinkle 3.8s ease-in-out infinite;
+  pointer-events: none;
 }
 
-.echo-wing--left {
-  left: 1px;
-  transform-origin: right center;
-  animation: echoWingLeft 0.55s ease-in-out infinite alternate;
+.echo-star-rays--inner {
+  width: 28px;
+  height: 28px;
+  opacity: 0.88;
+  animation: echoStarCrossTwinkle 2.4s ease-in-out infinite alternate;
 }
 
-.echo-wing--right {
-  right: 1px;
-  transform-origin: left center;
-  border-radius: 40% 60% 40% 60%;
-  animation: echoWingRight 0.55s ease-in-out infinite alternate;
+@keyframes echoStarTwinkle {
+  0%, 100% { transform: rotate(0deg) scale(0.92); opacity: 0.9; }
+  50% { transform: rotate(18deg) scale(1.08); opacity: 1; }
 }
 
-@keyframes echoWingLeft {
-  from { transform: rotate(-16deg) scaleY(0.88); }
-  to { transform: rotate(22deg) scaleY(1.06); }
-}
-
-@keyframes echoWingRight {
-  from { transform: rotate(16deg) scaleY(0.88); }
-  to { transform: rotate(-22deg) scaleY(1.06); }
+@keyframes echoStarCrossTwinkle {
+  from { transform: rotate(45deg) scale(0.82); opacity: 0.68; }
+  to { transform: rotate(28deg) scale(1.06); opacity: 0.96; }
 }
 
 .echo-core-star {
   position: relative;
   z-index: 2;
-  width: 17px;
-  height: 17px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #FFFFFF 0%, var(--echo-core) 58%, var(--echo-mid) 100%);
-  box-shadow: 0 0 14px #FFFFFF, 0 0 24px var(--echo-glow);
+  background: radial-gradient(circle at 38% 35%, #FFFFFF 0%, #FFFFFF 45%, var(--echo-core) 82%, var(--echo-mid) 100%);
+  box-shadow: 0 0 12px #FFFFFF, 0 0 24px var(--echo-core), 0 0 36px var(--echo-glow);
 }
 
 .echo-name-pill {
@@ -314,6 +317,7 @@ body[data-element="ether"] {
 }
 
 .echo-avatar-mini {
+  position: relative;
   width: 28px;
   height: 28px;
   border-radius: 50%;
@@ -321,6 +325,15 @@ body[data-element="ether"] {
   background: radial-gradient(circle at 35% 35%, #FFFFFF, var(--echo-core) 45%, var(--echo-mid) 100%);
   box-shadow: 0 0 16px var(--echo-glow);
   border: 1.5px solid rgba(255, 255, 255, 0.7);
+}
+
+.echo-avatar-mini::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  clip-path: polygon(50% 0%, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0% 50%, 40% 40%);
+  background: #FFFFFF;
+  filter: drop-shadow(0 0 4px #FFFFFF);
 }
 
 .echo-win-title {
@@ -625,8 +638,8 @@ body.cinema-theater-stargaze .echo-spark-layer {
 
 @media (prefers-reduced-motion: reduce) {
   .echo-halo-aura,
-  .echo-wing--left,
-  .echo-wing--right {
+  .echo-star-rays,
+  .echo-star-rays--inner {
     animation: none !important;
   }
 }

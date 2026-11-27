@@ -135,8 +135,8 @@
         </div>
         <button type="button" id="echoSpriteBtn" class="echo-sprite-btn" aria-label="Chat with Echo, your Sanctuary Spark Friend" title="Hey! I'm Echo — tap to chat or drag me anywhere">
           <span class="echo-halo-aura" aria-hidden="true"></span>
-          <span class="echo-wing echo-wing--left" aria-hidden="true"></span>
-          <span class="echo-wing echo-wing--right" aria-hidden="true"></span>
+          <span class="echo-star-rays" aria-hidden="true"></span>
+          <span class="echo-star-rays echo-star-rays--inner" aria-hidden="true"></span>
           <span class="echo-core-star" aria-hidden="true"></span>
           <span class="echo-name-pill">Echo</span>
         </button>
@@ -264,20 +264,34 @@
       targetY = minY + Math.random() * Math.max(40, maxY - minY);
     }
 
-    function spawnTrailMote(x, y) {
+    function spawnTrailMote(x, y, vx = 0, vy = 0) {
       if (prefersReducedMotion || isHidden || isOpen) return;
       const layer = document.getElementById('echoSparkLayer');
       if (!layer) return;
+
+      const isStarSpark = Math.random() < 0.34;
       const mote = document.createElement('span');
-      mote.className = 'echo-trail-mote';
-      mote.style.left = `${x + 24}px`;
-      mote.style.top = `${y + 24}px`;
+      mote.className = isStarSpark ? 'echo-trail-mote echo-trail-mote--spark' : 'echo-trail-mote';
+      const size = isStarSpark ? 7 + Math.random() * 4 : 3.5 + Math.random() * 4.5;
+      mote.style.width = `${size.toFixed(1)}px`;
+      mote.style.height = `${size.toFixed(1)}px`;
+
+      const jitterX = (Math.random() - 0.5) * 10;
+      const jitterY = (Math.random() - 0.5) * 10;
+      mote.style.left = `${x + 26 + jitterX}px`;
+      mote.style.top = `${y + 26 + jitterY}px`;
       layer.appendChild(mote);
+
+      // Trail drifts gently behind motion + curls upward like a warm rising ember
+      const driftX = Math.max(-28, Math.min(28, -vx * 3.2 + (Math.random() - 0.5) * 14));
+      const driftY = Math.max(-34, Math.min(18, -vy * 3.2 - 12 - Math.random() * 14));
+      const rotDeg = isStarSpark ? Math.round((Math.random() - 0.5) * 90) : 0;
+
       requestAnimationFrame(() => {
         mote.style.opacity = '0';
-        mote.style.transform = 'translate(-50%, -50%) scale(0.2)';
+        mote.style.transform = `translate(calc(-50% + ${driftX.toFixed(1)}px), calc(-50% + ${driftY.toFixed(1)}px)) scale(0.15) rotate(${rotDeg}deg)`;
       });
-      setTimeout(() => mote.remove(), 680);
+      setTimeout(() => mote.remove(), 880);
     }
 
     let stepCount = 0;
@@ -295,25 +309,27 @@
         const elKey = document.body.getAttribute('data-element') || 'fire';
 
         const flightStyles = {
-          fire: { ease: 0.017, bobFreq: 0.085, bobAmp: 0.62, waveX: 0.14, trailGap: 210 },
-          water: { ease: 0.011, bobFreq: 0.032, bobAmp: 0.45, waveX: 0.35, trailGap: 260 },
-          earth: { ease: 0.009, bobFreq: 0.03, bobAmp: 0.22, waveX: 0.08, trailGap: 280 },
-          air: { ease: 0.02, bobFreq: 0.045, bobAmp: 0.32, waveX: 0.42, trailGap: 185 },
-          ether: { ease: 0.011, bobFreq: 0.025, bobAmp: 0.28, waveX: 0.24, trailGap: 195 }
+          fire: { ease: 0.017, bobFreq: 0.085, bobAmp: 0.62, waveX: 0.14, trailGap: 78 },
+          water: { ease: 0.011, bobFreq: 0.032, bobAmp: 0.45, waveX: 0.35, trailGap: 98 },
+          earth: { ease: 0.009, bobFreq: 0.03, bobAmp: 0.22, waveX: 0.08, trailGap: 112 },
+          air: { ease: 0.02, bobFreq: 0.045, bobAmp: 0.32, waveX: 0.42, trailGap: 74 },
+          ether: { ease: 0.011, bobFreq: 0.025, bobAmp: 0.28, waveX: 0.24, trailGap: 88 }
         };
         const style = flightStyles[elKey] || flightStyles.fire;
 
         if (dist < 18 || stepCount % 320 === 0) {
           pickSafeTarget();
         } else {
-          posX += dx * style.ease + Math.cos(stepCount * (style.bobFreq * 0.7)) * style.waveX;
-          posY += dy * style.ease + Math.sin(stepCount * style.bobFreq) * style.bobAmp;
-        }
+          const stepVx = dx * style.ease + Math.cos(stepCount * (style.bobFreq * 0.7)) * style.waveX;
+          const stepVy = dy * style.ease + Math.sin(stepCount * style.bobFreq) * style.bobAmp;
+          posX += stepVx;
+          posY += stepVy;
 
-        const now = Date.now();
-        if (dist > 28 && now - lastTrailAt > style.trailGap) {
-          lastTrailAt = now;
-          spawnTrailMote(posX, posY);
+          const now = Date.now();
+          if (dist > 16 && now - lastTrailAt > style.trailGap) {
+            lastTrailAt = now;
+            spawnTrailMote(posX, posY, stepVx, stepVy);
+          }
         }
       }
 
@@ -768,10 +784,17 @@
         const dx = e.clientX - dragStartX;
         const dy = e.clientY - dragStartY;
         if (Math.hypot(dx, dy) > 6) pointerMovedDuringDrag = true;
+        const prevX = posX;
+        const prevY = posY;
         posX = spriteOrigX + dx;
         posY = spriteOrigY + dy;
         targetX = posX;
         targetY = posY;
+        const now = Date.now();
+        if (now - lastTrailAt > 48) {
+          lastTrailAt = now;
+          spawnTrailMote(posX, posY, posX - prevX, posY - prevY);
+        }
       });
 
       const endSpriteDrag = (e) => {
