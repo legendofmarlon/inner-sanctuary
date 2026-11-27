@@ -8,6 +8,7 @@
   'use strict';
 
   const ENDPOINT = '/.netlify/functions/echo-companion';
+  const TTS_ENDPOINT = '/.netlify/functions/echo-tts';
   const STORAGE_PREF_KEY = 'sanctuary_echo_prefs_v1';
   const STORAGE_SESSION_KEY = 'sanctuary_echo_session_v1';
   const MAX_SESSION_MESSAGES = 18;
@@ -411,16 +412,81 @@
       whisperTimer = setTimeout(hideWhisper, durationMs);
     }
 
-    function speakTextSoftly(text) {
-      if (!speakEnabled || !('speechSynthesis' in window) || !text) return;
+    let activeVoiceAudio = null;
+
+    function stopEchoAudio() {
+      if (activeVoiceAudio) {
+        try {
+          activeVoiceAudio.pause();
+          activeVoiceAudio.currentTime = 0;
+        } catch (_) {}
+        activeVoiceAudio = null;
+      }
+      if ('speechSynthesis' in window) {
+        try { window.speechSynthesis.cancel(); } catch (_) {}
+      }
+    }
+
+    function speakWithBrowserFallback(text) {
+      if (!('speechSynthesis' in window) || !text) return;
       try {
-        window.speechSynthesis.cancel();
-        const utter = new SpeechSynthesisUtterance(text);
-        utter.rate = 0.94;
+        const clean = String(text).replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu, '').trim();
+        if (!clean) return;
+        const utter = new SpeechSynthesisUtterance(clean);
+        const voices = window.speechSynthesis.getVoices ? window.speechSynthesis.getVoices() : [];
+        const preferred = voices.find((v) => /natural|google us english|aria|samantha|victoria|ava/i.test(v.name));
+        if (preferred) utter.voice = preferred;
+        utter.rate = 0.96;
         utter.pitch = 1.06;
-        utter.volume = 0.85;
+        utter.volume = 0.9;
         window.speechSynthesis.speak(utter);
       } catch (_) {}
+    }
+
+    async function speakTextSoftly(text, options = {}) {
+      const force = Boolean(options.force);
+      const triggerBtn = options.triggerBtn || null;
+      if ((!force && !speakEnabled) || !text) return;
+
+      stopEchoAudio();
+      const origLabel = triggerBtn ? triggerBtn.textContent : '';
+      if (triggerBtn) {
+        triggerBtn.disabled = true;
+        triggerBtn.textContent = '⏳ Vega...';
+      }
+
+      try {
+        const res = await fetch(TTS_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text })
+        });
+        const data = await res.json();
+        if (data && data.ok && data.audioBase64) {
+          const audio = new Audio(`data:${data.mimeType || 'audio/wav'};base64,${data.audioBase64}`);
+          activeVoiceAudio = audio;
+          audio.onended = () => {
+            if (activeVoiceAudio === audio) activeVoiceAudio = null;
+            if (triggerBtn) triggerBtn.textContent = origLabel || '🔊 Listen';
+          };
+          audio.onerror = () => {
+            if (activeVoiceAudio === audio) activeVoiceAudio = null;
+            speakWithBrowserFallback(text);
+          };
+          if (triggerBtn) {
+            triggerBtn.disabled = false;
+            triggerBtn.textContent = '🔊 Playing (Vega)';
+          }
+          await audio.play();
+          return;
+        }
+      } catch (_) {}
+
+      if (triggerBtn) {
+        triggerBtn.disabled = false;
+        triggerBtn.textContent = origLabel || '🔊 Listen';
+      }
+      speakWithBrowserFallback(text);
     }
 
     function syncVisibilityState() {
@@ -551,9 +617,17 @@
         row.appendChild(badge);
       }
 
-      if (role === 'echo' && (meta.suggestedElement || meta.actionType)) {
+      if (role === 'echo') {
         const actionsWrap = document.createElement('div');
         actionsWrap.className = 'echo-action-pills';
+
+        const listenBtn = document.createElement('button');
+        listenBtn.type = 'button';
+        listenBtn.className = 'echo-action-chip';
+        listenBtn.textContent = '🔊 Listen';
+        listenBtn.title = 'Hear Echo speak this message (Gemini Vega TTS)';
+        listenBtn.addEventListener('click', () => speakTextSoftly(text, { force: true, triggerBtn: listenBtn }));
+        actionsWrap.appendChild(listenBtn);
 
         if (meta.suggestedElement && ELEMENT_LABELS[meta.suggestedElement]) {
           const elBtn = document.createElement('button');
@@ -809,7 +883,7 @@
       isOpen = false;
       if (menuPopover) menuPopover.hidden = true;
       if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false');
-      if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+      stopEchoAudio();
       syncVisibilityState();
     }
 
@@ -957,7 +1031,7 @@
     if (speakBtn) {
       speakBtn.addEventListener('click', () => {
         speakEnabled = !speakEnabled;
-        if (!speakEnabled && 'speechSynthesis' in window) window.speechSynthesis.cancel();
+        if (!speakEnabled) stopEchoAudio();
         persistPrefs();
         syncVisibilityState();
       });
