@@ -359,11 +359,15 @@
     let bowlCtx = null;
     let hasShownWelcomePop = false;
 
-    // Breathing Box state inside Breath & Sound pop-up
+    // Breathing Box & Guided Cadence state inside Breath & Sound pop-up and Theater HUD
     let breathTimer = null;
     let breathRunning = false;
     let breathStepIdx = 0;
     let breathTick = 4;
+    let breathCadence = 'box';
+    let breathChimesEnabled = true;
+    let lastCuePhaseIdx = -1;
+    let lastPipSignature = '';
 
     // Mini-Cinema Reel state
     let miniReelIdx = 0;
@@ -733,12 +737,62 @@
       }
     ];
 
-    const BREATH_PHASES = [
-      { key: 'inhale', label: 'Inhale', secs: 4, hint: 'Breathe in slowly through the nose' },
-      { key: 'hold', label: 'Hold', secs: 4, hint: 'Rest softly at the top' },
-      { key: 'exhale', label: 'Exhale', secs: 4, hint: 'Let shoulders fall as you release' },
-      { key: 'hold', label: 'Settle', secs: 4, hint: 'Quiet stillness before the next wave' }
-    ];
+    const BREATH_CADENCES = {
+      box: {
+        label: '4·4·4·4 Box',
+        shortLabel: '4·4·4·4',
+        title: 'Ready for 4-4-4-4 Breath',
+        phases: [
+          { key: 'inhale', label: 'Inhale', secs: 4, color: '#86EFAC', badgeBg: 'rgba(134, 239, 172, 0.18)', badgeBorder: 'rgba(134, 239, 172, 0.52)', badgeText: '#BBF7D0', hint: 'Breathe in slowly through the nose' },
+          { key: 'hold', label: 'Hold', secs: 4, color: '#F5D77F', badgeBg: 'rgba(245, 215, 127, 0.20)', badgeBorder: 'rgba(245, 215, 127, 0.56)', badgeText: '#FCE6A2', hint: 'Rest softly at the top' },
+          { key: 'exhale', label: 'Exhale', secs: 4, color: '#FDE68A', badgeBg: 'rgba(253, 230, 138, 0.22)', badgeBorder: 'rgba(253, 230, 138, 0.58)', badgeText: '#FFF8E0', hint: 'Let shoulders fall as you release' },
+          { key: 'settle', label: 'Settle', secs: 4, color: '#93C5FD', badgeBg: 'rgba(147, 197, 253, 0.18)', badgeBorder: 'rgba(147, 197, 253, 0.48)', badgeText: '#DBEAFE', hint: 'Quiet stillness before the next wave' }
+        ]
+      },
+      relax: {
+        label: '4·7·8 Deep',
+        shortLabel: '4·7·8',
+        title: 'Ready for 4-7-8 Deep Calm',
+        phases: [
+          { key: 'inhale', label: 'Inhale', secs: 4, color: '#86EFAC', badgeBg: 'rgba(134, 239, 172, 0.18)', badgeBorder: 'rgba(134, 239, 172, 0.52)', badgeText: '#BBF7D0', hint: 'Quiet, steady inhale through the nose' },
+          { key: 'hold', label: 'Hold', secs: 7, color: '#F5D77F', badgeBg: 'rgba(245, 215, 127, 0.20)', badgeBorder: 'rgba(245, 215, 127, 0.56)', badgeText: '#FCE6A2', hint: 'Let the nervous system soften & anchor' },
+          { key: 'exhale', label: 'Slow Release', secs: 8, color: '#93C5FD', badgeBg: 'rgba(147, 197, 253, 0.20)', badgeBorder: 'rgba(147, 197, 253, 0.54)', badgeText: '#DBEAFE', hint: 'Long, unhurried sigh out through the lips' }
+        ]
+      },
+      coherent: {
+        label: '5·5 Flow',
+        shortLabel: '5·5',
+        title: 'Ready for 5-5 Coherent Flow',
+        phases: [
+          { key: 'inhale', label: 'Inhale', secs: 5, color: '#86EFAC', badgeBg: 'rgba(134, 239, 172, 0.18)', badgeBorder: 'rgba(134, 239, 172, 0.52)', badgeText: '#BBF7D0', hint: 'Smooth rise expanding chest & ribs' },
+          { key: 'exhale', label: 'Exhale', secs: 5, color: '#F5D77F', badgeBg: 'rgba(245, 215, 127, 0.20)', badgeBorder: 'rgba(245, 215, 127, 0.56)', badgeText: '#FCE6A2', hint: 'Even wave out like an ocean tide' }
+        ]
+      }
+    };
+
+    function getActiveCadence() {
+      return BREATH_CADENCES[breathCadence] || BREATH_CADENCES.box;
+    }
+
+    function getGuidedBreathState(now) {
+      const cadence = getActiveCadence();
+      const phases = cadence.phases;
+      const totalMs = phases.reduce((sum, ph) => sum + ph.secs * 1000, 0) || 16000;
+      const elapsedMs = (((now - guidedCycleStart) % totalMs) + totalMs) % totalMs;
+      let cursorMs = 0;
+      for (let i = 0; i < phases.length; i++) {
+        const durMs = phases[i].secs * 1000;
+        if (elapsedMs < cursorMs + durMs || i === phases.length - 1) {
+          const inPhaseMs = Math.max(0, elapsedMs - cursorMs);
+          const progress = Math.min(1, inPhaseMs / durMs);
+          const secsLeft = Math.max(1, Math.ceil((durMs - inPhaseMs) / 1000));
+          const beatIdx = Math.min(phases[i].secs - 1, Math.floor(inPhaseMs / 1000));
+          return { cadence, phases, phaseIdx: i, phase: phases[i], progress, secsLeft, beatIdx };
+        }
+        cursorMs += durMs;
+      }
+      return { cadence, phases, phaseIdx: 0, phase: phases[0], progress: 0, secsLeft: phases[0].secs, beatIdx: 0 };
+    }
 
     const POPUP_META = {
       ritual: { title: '✨ Element Lore & Prompt', wide: false, defaultPos: { x: 18, y: 18 } },
@@ -805,6 +859,7 @@
     const syncTheaterUI = () => {
       document.body.classList.toggle('cinema-theater-mode', isTheater);
       document.body.classList.toggle('cinema-theater-stargaze', isTheater && isStargaze);
+      document.body.classList.toggle('cinema-theater-breathing', isTheater && breathRunning);
       const stage = document.getElementById('cinemaTheaterStage');
       if (stage) stage.setAttribute('aria-hidden', isTheater ? 'false' : 'true');
 
@@ -904,21 +959,20 @@
 
       const getBreathKinematics = (now) => {
         if (breathRunning) {
-          const p = (((now - guidedCycleStart) % 16000) + 16000) % 16000 / 16000;
-          if (p < 0.25) {
-            const e = easeCos(p / 0.25);
-            return { scale: 0.91 + 0.23 * e, exhaleIntensity: 0, inhaleIntensity: Math.sin(Math.PI * (p / 0.25)) };
+          const st = getGuidedBreathState(now);
+          const k = st.phase.key;
+          if (k === 'inhale') {
+            const e = easeCos(st.progress);
+            return { scale: 0.91 + 0.23 * e, exhaleIntensity: 0, inhaleIntensity: Math.sin(Math.PI * st.progress), guided: st };
           }
-          if (p < 0.50) {
-            return { scale: 1.14, exhaleIntensity: 0.12, inhaleIntensity: 0 };
+          if (k === 'hold') {
+            return { scale: 1.14, exhaleIntensity: 0.14, inhaleIntensity: 0, guided: st };
           }
-          if (p < 0.75) {
-            const u = (p - 0.50) / 0.25;
-            const e = easeCos(u);
-            return { scale: 1.14 - 0.23 * e, exhaleIntensity: Math.sin(Math.PI * u), inhaleIntensity: 0 };
+          if (k === 'exhale') {
+            const e = easeCos(st.progress);
+            return { scale: 1.14 - 0.23 * e, exhaleIntensity: Math.sin(Math.PI * st.progress), inhaleIntensity: 0, guided: st };
           }
-          const uRest = (p - 0.75) / 0.25;
-          return { scale: 0.91, exhaleIntensity: Math.max(0.08, 0.22 * (1 - uRest)), inhaleIntensity: 0 };
+          return { scale: 0.91, exhaleIntensity: Math.max(0.08, 0.22 * (1 - st.progress)), inhaleIntensity: 0, guided: st };
         }
 
         // Smooth continuous 10s sanctuary breath cycle when Theater Mode is open
@@ -1019,6 +1073,21 @@
         stageEl.style.setProperty('--theater-breath-glow', Math.max(0, (kin.scale - 0.91) * 5).toFixed(3));
         stageEl.style.setProperty('--theater-halo-opacity', (0.45 + Math.max(0, kin.scale - 0.91) * 2.4).toFixed(3));
 
+        // 60fps synchronized SVG progress ring hugging the sacred medallion
+        const ringArc = document.getElementById('theaterBreathRingArc');
+        if (ringArc) {
+          const circumference = 691.15;
+          if (breathRunning && kin.guided) {
+            const offset = circumference * (1 - kin.guided.progress);
+            const ringColor = kin.guided.phase.color || '#86EFAC';
+            ringArc.style.strokeDashoffset = offset.toFixed(2);
+            ringArc.style.stroke = ringColor;
+            ringArc.style.filter = `drop-shadow(0 0 8px ${ringColor})`;
+          } else {
+            ringArc.style.strokeDashoffset = String(circumference);
+          }
+        }
+
         if (!bCanvas) return;
         const bCtx = bCanvas.getContext('2d');
         if (!bCtx) return;
@@ -1051,11 +1120,11 @@
         if (kin.exhaleIntensity > 0.05) {
           // Silk air-breath ribbons & warm golden lip mist emerging directly from both mouths
           drawBreathRibbons(bCtx, mxL, myL, -1.0, -0.18, reach * (0.65 + kin.exhaleIntensity * 0.45), now, kin.exhaleIntensity, accentRgb);
-          drawBreathRibbons(bCtx, mxR, myR, 1.0, -0.28, reach * (0.65 + kin.exhaleIntensity * 0.45), now, kin.exhaleIntensity, accentRgb);
+          drawBreathRibbons(bCtx, mxR, myR, 0.96, -0.44, reach * (0.65 + kin.exhaleIntensity * 0.45), now, kin.exhaleIntensity, accentRgb);
 
           [
             [mxL, myL, -1, -0.18],
-            [mxR, myR, 1, -0.28]
+            [mxR, myR, 0.96, -0.44]
           ].forEach(([mx, my, dx, dy]) => {
             const ox = mx + dx * 12;
             const oy = my + dy * 8;
@@ -1071,7 +1140,7 @@
 
           if (Math.random() < (isMob ? 0.72 : 0.96) * Math.max(0.35, kin.exhaleIntensity)) {
             emitMouthPlume(mxL, myL, -1.0, -0.18, kin.exhaleIntensity, accentRgb, isMob);
-            emitMouthPlume(mxR, myR, 1.0, -0.28, kin.exhaleIntensity, accentRgb, isMob);
+            emitMouthPlume(mxR, myR, 0.96, -0.44, kin.exhaleIntensity, accentRgb, isMob);
           }
         }
 
@@ -1240,25 +1309,106 @@
       } catch (_) {}
     };
 
-    // Box Breath Controller inside Mixer Pop-Up & Sacred Medallion
-    function updateBreathWidgetUI() {
+    // Whisper-soft WebAudio harmonic chimes so visitors can follow transitions with eyes closed
+    function playPhaseTransitionChime(phaseKey) {
+      if (!breathChimesEnabled) return;
+      try {
+        const Ctx = window.AudioContext || window.webkitAudioContext;
+        if (!Ctx) return;
+        if (!bowlCtx) bowlCtx = new Ctx();
+        if (bowlCtx.state === 'suspended') bowlCtx.resume().catch(() => {});
+
+        const now = bowlCtx.currentTime;
+        const notes = phaseKey === 'inhale'
+          ? [396, 528]
+          : phaseKey === 'exhale'
+            ? [432, 288]
+            : phaseKey === 'settle'
+              ? [216]
+              : [528];
+
+        notes.forEach((freq, idx) => {
+          const osc = bowlCtx.createOscillator();
+          const gain = bowlCtx.createGain();
+          const t0 = now + idx * 0.08;
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, t0);
+          gain.gain.setValueAtTime(0.0001, t0);
+          gain.gain.linearRampToValueAtTime(idx === 0 ? 0.055 : 0.038, t0 + 0.03);
+          gain.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.95);
+          osc.connect(gain);
+          gain.connect(bowlCtx.destination);
+          osc.start(t0);
+          osc.stop(t0 + 1.0);
+        });
+      } catch (_) {}
+    }
+
+    // Box Breath & Cadence Controller inside Mixer Pop-Up & Sacred Medallion HUD
+    function updateBreathWidgetUI(guidedState) {
       const orb = document.getElementById('theaterBreathOrb');
       const title = document.getElementById('theaterBreathPhaseName');
       const hint = document.getElementById('theaterBreathPhaseHint');
       const btn = document.getElementById('theaterBreathToggleBtn');
       const dockBreathBtn = document.getElementById('theaterBreathDockBtn');
       const kickerEl = document.getElementById('theaterKickerText');
-      const phase = BREATH_PHASES[breathStepIdx] || BREATH_PHASES[0];
+      const guideHud = document.getElementById('theaterBreathGuideHud');
+      const badgeEl = document.getElementById('theaterBreathPhaseBadge');
+      const timerBigEl = document.getElementById('theaterBreathTimerBig');
+      const pipsEl = document.getElementById('theaterBreathBeatPips');
+      const chimeBtn = document.getElementById('theaterBreathChimeToggle');
+
+      const st = guidedState || getGuidedBreathState(typeof performance !== 'undefined' ? performance.now() : Date.now());
+      const cadence = st.cadence;
+      const phase = breathRunning ? st.phase : cadence.phases[0];
+      const displaySecs = breathRunning ? st.secsLeft : phase.secs;
+
+      document.body.classList.toggle('cinema-theater-breathing', isTheater && breathRunning);
+      if (guideHud) {
+        guideHud.setAttribute('aria-hidden', (isTheater && breathRunning) ? 'false' : 'true');
+      }
+
+      if (badgeEl) {
+        badgeEl.textContent = phase.label.toUpperCase();
+        badgeEl.style.background = phase.badgeBg;
+        badgeEl.style.borderColor = phase.badgeBorder;
+        badgeEl.style.color = phase.badgeText;
+      }
+      if (timerBigEl) {
+        timerBigEl.textContent = String(displaySecs);
+      }
+      if (pipsEl) {
+        const activeCount = breathRunning ? st.beatIdx + 1 : 0;
+        const pipSig = `${phase.secs}:${activeCount}:${phase.color}`;
+        if (pipSig !== lastPipSignature) {
+          lastPipSignature = pipSig;
+          let html = '';
+          for (let i = 0; i < phase.secs; i++) {
+            const filled = i < activeCount;
+            const styleAttr = filled ? ` style="background:${phase.color};box-shadow:0 0 8px ${phase.color};"` : '';
+            html += `<span class="breath-beat-pip${filled ? ' is-filled' : ''}"${styleAttr}></span>`;
+          }
+          pipsEl.innerHTML = html;
+        }
+      }
+
+      document.querySelectorAll('.breath-cadence-btn[data-cadence]').forEach((cadBtn) => {
+        cadBtn.classList.toggle('active', cadBtn.getAttribute('data-cadence') === breathCadence);
+      });
+      if (chimeBtn) {
+        chimeBtn.classList.toggle('active', breathChimesEnabled);
+        chimeBtn.textContent = breathChimesEnabled ? '🔔 Chimes' : '🔕 Muted';
+      }
 
       if (orb) {
-        orb.setAttribute('data-phase', breathRunning ? phase.key : 'idle');
-        orb.textContent = breathRunning ? `${breathTick}s` : '4·4·4·4';
+        orb.setAttribute('data-phase', breathRunning ? (phase.key === 'settle' ? 'hold' : phase.key) : 'idle');
+        orb.textContent = breathRunning ? `${displaySecs}s` : cadence.shortLabel;
       }
       if (title) {
-        title.textContent = breathRunning ? `${phase.label} (${breathTick}s)` : 'Ready for 4-4-4-4 Breath';
+        title.textContent = breathRunning ? `${phase.label} (${displaySecs}s)` : cadence.title;
       }
       if (hint) {
-        hint.textContent = breathRunning ? phase.hint : 'Pace your inhale, hold, exhale & settle.';
+        hint.textContent = breathRunning ? phase.hint : 'Pace your inhale, hold, release & settle.';
       }
       if (btn) {
         btn.textContent = breathRunning ? '⏸ Pause Breath' : '▶ Start Breath';
@@ -1266,11 +1416,11 @@
       }
       if (dockBreathBtn) {
         dockBreathBtn.classList.toggle('active', breathRunning);
-        dockBreathBtn.textContent = breathRunning ? `🌬️ ${phase.label} (${breathTick}s)` : '🌬️ Breath';
+        dockBreathBtn.textContent = breathRunning ? `🌬️ ${phase.label} ${displaySecs}s` : '🌬️ Breath';
       }
       if (kickerEl) {
         if (breathRunning) {
-          kickerEl.textContent = `✦ ${phase.label.toUpperCase()} (${breathTick}s) • ${phase.hint.toUpperCase()} ✦`;
+          kickerEl.textContent = `✦ ${cadence.label.toUpperCase()} • ${phase.hint.toUpperCase()} ✦`;
         } else {
           const lore = ELEMENT_LORE[getActiveElementKey()] || ELEMENT_LORE.fire;
           kickerEl.textContent = lore.kicker;
@@ -1280,13 +1430,63 @@
 
     function stopBreathTimer() {
       breathRunning = false;
+      lastCuePhaseIdx = -1;
+      lastPipSignature = '';
       ambientCycleStart = typeof performance !== 'undefined' ? performance.now() : Date.now();
       if (breathTimer) {
         clearInterval(breathTimer);
         breathTimer = null;
       }
+      const ringArc = document.getElementById('theaterBreathRingArc');
+      if (ringArc) ringArc.style.strokeDashoffset = '691.15';
       updateBreathWidgetUI();
     }
+
+    function syncGuidedBreathStep(forceImmediate) {
+      const now = typeof performance !== 'undefined' ? performance.now() : Date.now();
+      const st = getGuidedBreathState(now);
+      const changedPhase = st.phaseIdx !== lastCuePhaseIdx;
+      const changedTick = st.secsLeft !== breathTick;
+
+      if (changedPhase || forceImmediate) {
+        lastCuePhaseIdx = st.phaseIdx;
+        breathStepIdx = st.phaseIdx;
+        breathTick = st.secsLeft;
+        playPhaseTransitionChime(st.phase.key);
+        if (window.soundscape && window.soundscape.isPlaying) {
+          const syncKey = st.phase.key === 'settle' ? 'hold' : st.phase.key;
+          window.soundscape.syncBreath(syncKey, st.phase.secs);
+        }
+        updateBreathWidgetUI(st);
+      } else if (changedTick) {
+        breathTick = st.secsLeft;
+        updateBreathWidgetUI(st);
+      }
+    }
+
+    window.sanctuaryCinema.setBreathCadence = function (cadenceKey) {
+      if (!BREATH_CADENCES[cadenceKey]) return;
+      breathCadence = cadenceKey;
+      lastPipSignature = '';
+      lastCuePhaseIdx = -1;
+      guidedCycleStart = typeof performance !== 'undefined' ? performance.now() : Date.now();
+      if (breathRunning) {
+        syncGuidedBreathStep(true);
+      } else {
+        updateBreathWidgetUI();
+      }
+      wakeDockIdleTimer();
+    };
+
+    window.sanctuaryCinema.toggleBreathChimes = function () {
+      breathChimesEnabled = !breathChimesEnabled;
+      if (breathChimesEnabled && breathRunning) {
+        const st = getGuidedBreathState(typeof performance !== 'undefined' ? performance.now() : Date.now());
+        playPhaseTransitionChime(st.phase.key);
+      }
+      updateBreathWidgetUI();
+      wakeDockIdleTimer();
+    };
 
     window.sanctuaryCinema.toggleTheaterBreath = function () {
       if (breathRunning) {
@@ -1295,25 +1495,11 @@
       }
       breathRunning = true;
       guidedCycleStart = typeof performance !== 'undefined' ? performance.now() : Date.now();
-      breathStepIdx = 0;
-      breathTick = BREATH_PHASES[0].secs;
-      if (window.soundscape && window.soundscape.isPlaying) {
-        window.soundscape.syncBreath(BREATH_PHASES[0].key, BREATH_PHASES[0].secs);
-      }
-      updateBreathWidgetUI();
-
-      breathTimer = setInterval(() => {
-        breathTick -= 1;
-        if (breathTick <= 0) {
-          breathStepIdx = (breathStepIdx + 1) % BREATH_PHASES.length;
-          const next = BREATH_PHASES[breathStepIdx];
-          breathTick = next.secs;
-          if (window.soundscape && window.soundscape.isPlaying) {
-            window.soundscape.syncBreath(next.key, next.secs);
-          }
-        }
-        updateBreathWidgetUI();
-      }, 1000);
+      lastCuePhaseIdx = -1;
+      lastPipSignature = '';
+      syncGuidedBreathStep(true);
+      breathTimer = setInterval(() => syncGuidedBreathStep(false), 180);
+      wakeDockIdleTimer();
     };
 
     // Fetch latest 3 Gratitude notes from Supabase for Hearth & Notes pop-up
@@ -1445,12 +1631,13 @@
       } else if (key === 'mixer') {
         const currentVol = window.soundscape ? Math.round((window.soundscape.volume || 0.5) * 100) : 50;
         const soundPlaying = !!(window.soundscape && window.soundscape.isPlaying);
+        const curCadence = getActiveCadence();
         bodyEl.innerHTML = `
           <div class="theater-breath-orb-stage">
-            <div class="theater-breath-orb" id="theaterBreathOrb" data-phase="idle">4·4·4·4</div>
+            <div class="theater-breath-orb" id="theaterBreathOrb" data-phase="idle">${curCadence.shortLabel}</div>
             <div style="flex:1;min-width:0;">
-              <div id="theaterBreathPhaseName" style="font-weight:800;font-size:0.84rem;color:#FCE6A2;">Ready for 4-4-4-4 Breath</div>
-              <div id="theaterBreathPhaseHint" style="font-size:0.74rem;color:#CBD7D0;margin:2px 0 8px;">Pace your inhale, hold, exhale &amp; settle.</div>
+              <div id="theaterBreathPhaseName" style="font-weight:800;font-size:0.84rem;color:#FCE6A2;">${curCadence.title}</div>
+              <div id="theaterBreathPhaseHint" style="font-size:0.74rem;color:#CBD7D0;margin:2px 0 8px;">Pace your inhale, hold, release &amp; settle.</div>
               <button type="button" id="theaterBreathToggleBtn" class="theater-mini-btn" onclick="window.sanctuaryCinema.toggleTheaterBreath()">▶ Start Breath</button>
             </div>
           </div>
@@ -1739,7 +1926,7 @@
         stopParticleLoop();
         stopSlideTimer();
         if (window.sanctuaryCinema.toggleStageDrawer) window.sanctuaryCinema.toggleStageDrawer(false);
-        document.body.classList.remove('cinema-theater-idle', 'cinema-theater-typing', 'cinema-theater-has-popup', 'cinema-theater-stage-drawer-open');
+        document.body.classList.remove('cinema-theater-idle', 'cinema-theater-typing', 'cinema-theater-has-popup', 'cinema-theater-stage-drawer-open', 'cinema-theater-breathing');
       } else {
         ambientCycleStart = typeof performance !== 'undefined' ? performance.now() : Date.now();
         mountTheaterSlides();

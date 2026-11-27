@@ -26,7 +26,7 @@
   <link rel="stylesheet" href="styles/modules/funder-dossier.css?v=1.0" />
   <link rel="stylesheet" href="styles/modules/promo-card-generator.css?v=1.0" />
   <link rel="stylesheet" href="styles/modules/community-hub-wings.css?v=2.3" />
-  <link rel="stylesheet" href="styles/modules/sanctuary-cinema.css?v=2.4" />
+  <link rel="stylesheet" href="styles/modules/sanctuary-cinema.css?v=2.5" />
   <link rel="stylesheet" href="styles/modules/echo-spark.css?v=2.0" />
 
   <style>
@@ -1683,10 +1683,33 @@
       <div class="theater-medallion-wrap" id="theaterMedallionWrap">
         <div class="theater-breath-halo" aria-hidden="true"></div>
         <div class="theater-breath-halo theater-breath-halo--outer" aria-hidden="true"></div>
+        <svg id="theaterBreathRingSvg" class="theater-breath-ring-svg" viewBox="0 0 240 240" aria-hidden="true">
+          <circle class="theater-breath-ring-track" cx="120" cy="120" r="110" />
+          <circle id="theaterBreathRingArc" class="theater-breath-ring-arc" cx="120" cy="120" r="110" />
+        </svg>
         <img src="emblem.png" width="996" height="1024" alt="Inner Sanctuary Sacred Medallion" class="cinema-theater-emblem" id="theaterCenterEmblem" onerror="this.src='emblem.jpg'" />
         <canvas id="theaterMedallionBreathCanvas" class="theater-medallion-breath-canvas" aria-hidden="true"></canvas>
       </div>
       <div class="cinema-theater-kicker" id="theaterKickerText">Pause. Breathe. Remember.</div>
+
+      <!-- Cinematic Guided Breath Timing HUD (Revealed during Active Breath Exercise) -->
+      <div id="theaterBreathGuideHud" class="theater-breath-guide-hud" aria-hidden="true">
+        <div class="breath-guide-readout">
+          <span id="theaterBreathPhaseBadge" class="breath-phase-badge">INHALE</span>
+          <span class="breath-countdown-group">
+            <span id="theaterBreathTimerBig" class="breath-timer-big">4</span>
+            <span class="breath-timer-unit">SEC</span>
+          </span>
+          <div id="theaterBreathBeatPips" class="breath-beat-pips" aria-hidden="true"></div>
+        </div>
+        <div class="breath-guide-controls">
+          <button type="button" class="breath-cadence-btn active" data-cadence="box" onclick="window.sanctuaryCinema && window.sanctuaryCinema.setBreathCadence('box')" title="4s Inhale • 4s Hold • 4s Exhale • 4s Settle">4·4·4·4 Box</button>
+          <button type="button" class="breath-cadence-btn" data-cadence="relax" onclick="window.sanctuaryCinema && window.sanctuaryCinema.setBreathCadence('relax')" title="4s Inhale • 7s Hold • 8s Slow Release">4·7·8 Deep</button>
+          <button type="button" class="breath-cadence-btn" data-cadence="coherent" onclick="window.sanctuaryCinema && window.sanctuaryCinema.setBreathCadence('coherent')" title="5s Inhale • 5s Exhale Balance">5·5 Flow</button>
+          <button type="button" id="theaterBreathChimeToggle" class="breath-cadence-btn active" onclick="window.sanctuaryCinema && window.sanctuaryCinema.toggleBreathChimes()" title="Toggle soft harmonic chime cues on phase change">🔔 Chimes</button>
+        </div>
+      </div>
+
       <h2 class="cinema-theater-quote" id="theaterMainQuote">Come Home to Yourself.</h2>
       <p class="cinema-theater-subline" id="theaterSubQuote">Use the glass capsule below to switch backdrops (Video, Slides, 8K Nature), breathe, or tune the room.</p>
     </div>
@@ -1741,7 +1764,7 @@
   <script src="js/modules/community-hub-wings.js?v=2.1"></script>
   <script src="js/modules/clubhouse-community-sync.js?v=1.0"></script>
   <script src="js/modules/telemetry-lens.js?v=1.0"></script>
-  <script src="js/modules/sanctuary-cinema.js?v=2.4"></script>
+  <script src="js/modules/sanctuary-cinema.js?v=2.5"></script>
   <script src="js/modules/echo-spark.js?v=2.0"></script>
 </body>
 </html>
