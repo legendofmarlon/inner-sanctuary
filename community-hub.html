@@ -27,6 +27,7 @@
   <link rel="stylesheet" href="styles/modules/promo-card-generator.css?v=1.0" />
   <link rel="stylesheet" href="styles/modules/community-hub-wings.css?v=2.3" />
   <link rel="stylesheet" href="styles/modules/sanctuary-cinema.css?v=1.2" />
+  <link rel="stylesheet" href="styles/modules/echo-spark.css?v=1.0" />
 
   <style>
     .hub-hero-banner {
@@ -1698,6 +1699,7 @@
       <button type="button" class="cinema-theater-chip theater-el-chip" data-theater-el="earth" onclick="window.sanctuaryCinema && window.sanctuaryCinema.selectTheaterElement('earth')" title="Switch to Earth Element">🌿</button>
       <button type="button" class="cinema-theater-chip theater-el-chip" data-theater-el="air" onclick="window.sanctuaryCinema && window.sanctuaryCinema.selectTheaterElement('air')" title="Switch to Air Element">🌬️</button>
       <button type="button" class="cinema-theater-chip theater-el-chip" data-theater-el="ether" onclick="window.sanctuaryCinema && window.sanctuaryCinema.selectTheaterElement('ether')" title="Switch to Ether Element">🌌</button>
+      <button type="button" class="cinema-theater-chip" onclick="window.sanctuaryEcho && window.sanctuaryEcho.open('chat')" title="Chat with Echo, your Sanctuary Spark Friend">✨ Echo</button>
       <button type="button" class="cinema-theater-chip" onclick="openPauseModal(event)">🍃 60s Pause</button>
       <button type="button" class="cinema-theater-exit" onclick="window.sanctuaryCinema && window.sanctuaryCinema.toggleTheater(false)">✕ Exit (Esc)</button>
     </div>
@@ -1731,5 +1733,6 @@
   <script src="js/modules/clubhouse-community-sync.js?v=1.0"></script>
   <script src="js/modules/telemetry-lens.js?v=1.0"></script>
   <script src="js/modules/sanctuary-cinema.js?v=1.2"></script>
+  <script src="js/modules/echo-spark.js?v=1.0"></script>
 </body>
 </html>
