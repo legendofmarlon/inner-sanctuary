@@ -231,9 +231,9 @@ body[data-element="ether"] {
 /* Compact Minimized Pill (when visitor hides spark) */
 .echo-summon-pill {
   position: fixed;
-  right: 18px;
-  bottom: 84px;
-  z-index: 12440;
+  right: 24px;
+  bottom: 142px;
+  z-index: 9992;
   display: inline-flex;
   align-items: center;
   gap: 7px;
@@ -617,8 +617,9 @@ body.cinema-theater-stargaze .echo-spark-layer {
     height: min(76vh, 540px);
   }
   .echo-summon-pill {
-    right: 12px;
-    bottom: 72px;
+    left: 14px;
+    right: auto;
+    bottom: 18px;
   }
 }
 

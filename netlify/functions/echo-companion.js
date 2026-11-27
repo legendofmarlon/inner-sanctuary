@@ -193,6 +193,52 @@ function buildLocalEchoReply(userText, context = {}) {
   const q = String(userText || '').toLowerCase();
   const page = context.page || 'index';
 
+  // 1. Explicit creative writing / Stage Muse requests take priority even when mentioning "open mic"
+  if (/\b(write|draft|lyric\w*|verse\w*|poem\w*|poetry|spoken[- ]word|4-line|four[- ]line)\b/.test(q)) {
+    if (/\b(hopeful|hope|horizon|light|tomorrow|sunrise|warm acoustic)\b/.test(q)) {
+      return {
+        mode: 'sanctuary-guide',
+        reply:
+          '"Tonight we tune the strings to slow,\nLet every borrowed worry go.\nTwo voices in a quiet room,\nCan teach a heavy seed to bloom."\n\nTry breathing once before your first chord — the room is already rooting for you.',
+        suggestedElement: 'air',
+        actionType: 'play_bowl',
+        actionLabel: '🔔 Chime 432Hz Before Stage',
+        anchorWord: 'RADIANT'
+      };
+    }
+    if (/\b(tender|soft|heavy|burden|exhale|release|heal|cry|gentle)\b/.test(q)) {
+      return {
+        mode: 'sanctuary-guide',
+        reply:
+          '"I carried armor through the door,\nAnd laid its weight upon the floor.\nNo trophy needed in my hand—\nJust breath enough to softly stand."',
+        suggestedElement: 'water',
+        actionType: 'open_pause',
+        actionLabel: '🍃 Take a 60s Pause',
+        anchorWord: 'EXHALE'
+      };
+    }
+    if (/\b(grateful|gratitude|thank|fire|hearth|community|family|together)\b/.test(q)) {
+      return {
+        mode: 'sanctuary-guide',
+        reply:
+          '"We saved an empty chair for grace,\nBeside the warm, unhurried place.\nWhere nobody has to wear a mask,\nAnd being here is all we ask."',
+        suggestedElement: 'fire',
+        actionType: 'open_hub',
+        actionLabel: '🌻 Pin to Gratitude Wall',
+        anchorWord: 'BELONG'
+      };
+    }
+    return {
+      mode: 'sanctuary-guide',
+      reply:
+        'Try opening with a physical detail from right before you walked in:\n"I left the traffic outside on Alton Ave,\nhands shaking around something honest.\nStill, the hearth light didn\'t ask for polish—\nit only asked me to breathe and stay."\n\nWant to chime the bowl to settle in first?',
+      suggestedElement: 'fire',
+      actionType: 'play_bowl',
+      actionLabel: '🔔 Chime 432Hz Reset',
+      anchorWord: 'COURAGE'
+    };
+  }
+
   if (/\b(dec\s*10|december|open mic|jam|santa ana|alton|rsvp|event|when|where|address|free)\b/.test(q)) {
     return {
       mode: 'sanctuary-guide',
@@ -229,11 +275,11 @@ function buildLocalEchoReply(userText, context = {}) {
     };
   }
 
-  if (/\b(poems?|poetry|songs?|lyrics?|verse\w*|writ\w*|chords?|stage|perform\w*|nervous|jitters|lines)\b/.test(q)) {
+  if (/\b(chords?|stage|perform\w*|nervous|jitters|lines)\b/.test(q)) {
     return {
       mode: 'sanctuary-guide',
       reply:
-        'Try opening with a physical detail from right before you walked in: "I left the traffic outside on Alton Ave, hands shaking around something honest..." Drop by Stage & Jam or chime the bowl first to settle your shoulders.',
+        "Pre-stage jitters just mean you care about what you brought! Chime the 432Hz bowl, take one slow exhale until your shoulders drop, and remember our room cheers effort and honesty over perfection every time.",
       suggestedElement: 'fire',
       actionType: 'play_bowl',
       actionLabel: '🔔 Chime 432Hz Reset',

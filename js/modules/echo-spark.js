@@ -9,6 +9,8 @@
 
   const ENDPOINT = '/.netlify/functions/echo-companion';
   const STORAGE_PREF_KEY = 'sanctuary_echo_prefs_v1';
+  const STORAGE_SESSION_KEY = 'sanctuary_echo_session_v1';
+  const MAX_SESSION_MESSAGES = 18;
   const prefersReducedMotion =
     typeof window !== 'undefined' &&
     window.matchMedia &&
@@ -44,6 +46,66 @@
     try {
       localStorage.setItem(STORAGE_PREF_KEY, JSON.stringify(next));
     } catch (_) {}
+  }
+
+  function loadSessionMemory() {
+    try {
+      const parsed = JSON.parse(sessionStorage.getItem(STORAGE_SESSION_KEY) || '{}');
+      return {
+        previousInteractionId: typeof parsed.previousInteractionId === 'string' ? parsed.previousInteractionId : '',
+        messages: Array.isArray(parsed.messages) ? parsed.messages.slice(-MAX_SESSION_MESSAGES) : []
+      };
+    } catch (_) {
+      return { previousInteractionId: '', messages: [] };
+    }
+  }
+
+  function saveSessionMemory(state) {
+    try {
+      sessionStorage.setItem(
+        STORAGE_SESSION_KEY,
+        JSON.stringify({
+          previousInteractionId: state.previousInteractionId || '',
+          messages: (state.messages || []).slice(-MAX_SESSION_MESSAGES)
+        })
+      );
+    } catch (_) {}
+  }
+
+  let standaloneBowlCtx = null;
+  function playStandaloneBowl() {
+    try {
+      const Ctx = window.AudioContext || window.webkitAudioContext;
+      if (!Ctx) return false;
+      if (!standaloneBowlCtx) standaloneBowlCtx = new Ctx();
+      if (standaloneBowlCtx.state === 'suspended') standaloneBowlCtx.resume();
+      const now = standaloneBowlCtx.currentTime;
+      const master = standaloneBowlCtx.createGain();
+      master.gain.setValueAtTime(0.0001, now);
+      master.gain.linearRampToValueAtTime(0.2, now + 0.04);
+      master.gain.exponentialRampToValueAtTime(0.0001, now + 4.2);
+      master.connect(standaloneBowlCtx.destination);
+      [
+        { freq: 216, gain: 0.42, decay: 4.1 },
+        { freq: 432, gain: 0.58, decay: 3.9 },
+        { freq: 648, gain: 0.2, decay: 2.9 },
+        { freq: 1084, gain: 0.08, decay: 2.0 }
+      ].forEach((p) => {
+        const osc = standaloneBowlCtx.createOscillator();
+        const g = standaloneBowlCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(p.freq, now);
+        g.gain.setValueAtTime(p.gain, now);
+        g.gain.exponentialRampToValueAtTime(0.001, now + p.decay);
+        osc.connect(g);
+        g.connect(master);
+        osc.start(now);
+        osc.stop(now + p.decay + 0.05);
+      });
+      return true;
+    } catch (_) {
+      return false;
+    }
   }
 
   function escapeHtml(str) {
@@ -95,6 +157,7 @@
             </div>
           </div>
           <div class="echo-win-controls">
+            <button type="button" id="echoResetChatBtn" class="echo-icon-btn" title="Start a fresh Echo conversation">↻ New</button>
             <button type="button" id="echoSpeakToggleBtn" class="echo-icon-btn" aria-pressed="false" title="Read Echo replies softly aloud">🔇 Voice</button>
             <button type="button" id="echoRoamToggleBtn" class="echo-icon-btn" aria-pressed="true" title="Toggle Echo gently flying around screen">🪽 Roam</button>
             <button type="button" id="echoHideBtn" class="echo-icon-btn" title="Tuck Echo into a corner pill">―</button>
@@ -138,12 +201,14 @@
     buildUI();
 
     const prefs = loadPrefs();
+    const sessionMemory = loadSessionMemory();
     let isOpen = false;
     let isHidden = Boolean(prefs.hidden);
     let isRoaming = prefs.roam !== false && !prefersReducedMotion;
     let speakEnabled = Boolean(prefs.speak);
     let activeTab = 'chat';
-    let previousInteractionId = '';
+    let previousInteractionId = sessionMemory.previousInteractionId || '';
+    let sessionMessages = Array.isArray(sessionMemory.messages) ? sessionMemory.messages : [];
     let liveGemini = false;
     let anchorIdx = 0;
 
@@ -227,17 +292,26 @@
         const dx = targetX - posX;
         const dy = targetY - posY;
         const dist = Math.hypot(dx, dy);
+        const elKey = document.body.getAttribute('data-element') || 'fire';
+
+        const flightStyles = {
+          fire: { ease: 0.017, bobFreq: 0.085, bobAmp: 0.62, waveX: 0.14, trailGap: 210 },
+          water: { ease: 0.011, bobFreq: 0.032, bobAmp: 0.45, waveX: 0.35, trailGap: 260 },
+          earth: { ease: 0.009, bobFreq: 0.03, bobAmp: 0.22, waveX: 0.08, trailGap: 280 },
+          air: { ease: 0.02, bobFreq: 0.045, bobAmp: 0.32, waveX: 0.42, trailGap: 185 },
+          ether: { ease: 0.011, bobFreq: 0.025, bobAmp: 0.28, waveX: 0.24, trailGap: 195 }
+        };
+        const style = flightStyles[elKey] || flightStyles.fire;
 
         if (dist < 18 || stepCount % 320 === 0) {
           pickSafeTarget();
         } else {
-          // Gentle firefly ease + subtle wing bob
-          posX += dx * 0.014;
-          posY += dy * 0.014 + Math.sin(stepCount * 0.05) * 0.35;
+          posX += dx * style.ease + Math.cos(stepCount * (style.bobFreq * 0.7)) * style.waveX;
+          posY += dy * style.ease + Math.sin(stepCount * style.bobFreq) * style.bobAmp;
         }
 
         const now = Date.now();
-        if (dist > 28 && now - lastTrailAt > 240) {
+        if (dist > 28 && now - lastTrailAt > style.trailGap) {
           lastTrailAt = now;
           spawnTrailMote(posX, posY);
         }
@@ -313,21 +387,32 @@
       if (!isHidden) ensureFlightLoop();
     }
 
-    function executeEchoAction(actionType) {
+    function executeEchoAction(actionType, extraVal = '') {
+      // Prevent open companion window from sitting in front of Sanctuary modals
+      if (['open_theater', 'open_pause', 'open_flyer', 'open_dossier', 'open_zeffy'].includes(actionType)) {
+        closeWindow();
+      }
+
       switch (actionType) {
         case 'open_theater':
           if (window.sanctuaryCinema && typeof window.sanctuaryCinema.toggleTheater === 'function') {
             window.sanctuaryCinema.toggleTheater(true);
+          } else {
+            window.location.href = 'index.html?echo=theater';
           }
           break;
         case 'open_pause':
           if (typeof window.openPauseModal === 'function') {
             window.openPauseModal();
+          } else {
+            window.location.href = 'index.html?echo=pause';
           }
           break;
         case 'open_flyer':
           if (window.sanctuaryCinema && typeof window.sanctuaryCinema.openInviteFlyer === 'function') {
             window.sanctuaryCinema.openInviteFlyer();
+          } else {
+            window.location.href = 'index.html?echo=flyer';
           }
           break;
         case 'open_dossier':
@@ -336,32 +421,50 @@
           } else {
             const portal = document.getElementById('grant-hub-portal');
             if (portal) portal.scrollIntoView({ behavior: 'smooth' });
-            else window.location.href = 'index.html#grant-hub-portal';
+            else window.location.href = 'index.html?echo=dossier';
           }
           break;
         case 'open_zeffy':
           if (typeof window.openZeffyModal === 'function') {
             window.openZeffyModal();
-          }
-          break;
-        case 'open_bracelet':
-          if (document.getElementById('bracelet-creator') && window.sanctuaryHubWings) {
-            window.sanctuaryHubWings.focusClubhouseZone('bracelet', { scroll: true });
           } else {
-            window.location.href = 'bracelet-weaver.html';
+            window.location.href = 'index.html?echo=zeffy';
           }
           break;
+        case 'open_bracelet': {
+          const anchor = String(extraVal || '').trim().toUpperCase().slice(0, 12);
+          if (document.getElementById('bracelet-creator') && window.sanctuaryHubWings) {
+            closeWindow();
+            window.sanctuaryHubWings.focusClubhouseZone('bracelet', { scroll: true });
+          } else if (detectCurrentPage() === 'bracelet-weaver') {
+            if (anchor) {
+              const input = document.getElementById('customWordInput');
+              if (input) {
+                input.value = anchor;
+                input.dispatchEvent(new Event('input', { bubbles: true }));
+              }
+            }
+            closeWindow();
+          } else {
+            window.location.href = anchor ? `bracelet-weaver.html?anchor=${encodeURIComponent(anchor)}` : 'bracelet-weaver.html';
+          }
+          break;
+        }
         case 'open_hub':
           window.location.href = 'community-hub.html';
           break;
         case 'play_bowl':
           if (window.sanctuaryCinema && typeof window.sanctuaryCinema.playBowl === 'function') {
             window.sanctuaryCinema.playBowl();
+          } else {
+            playStandaloneBowl();
           }
           break;
         case 'toggle_sound':
           if (window.soundscape && typeof window.soundscape.toggle === 'function') {
             window.soundscape.toggle();
+          } else {
+            playStandaloneBowl();
           }
           break;
         default:
@@ -369,8 +472,16 @@
       }
     }
 
-    function appendMessage(role, text, meta = {}) {
+    function appendMessage(role, text, meta = {}, persist = true) {
       if (!chatStream) return;
+      if (persist) {
+        sessionMessages.push({ role, text, meta });
+        if (sessionMessages.length > MAX_SESSION_MESSAGES) {
+          sessionMessages = sessionMessages.slice(-MAX_SESSION_MESSAGES);
+        }
+        saveSessionMemory({ previousInteractionId, messages: sessionMessages });
+      }
+
       const row = document.createElement('div');
       row.className = `echo-msg-row echo-msg-row--${role}`;
 
@@ -407,7 +518,7 @@
           actBtn.type = 'button';
           actBtn.className = 'echo-action-chip';
           actBtn.textContent = meta.actionLabel || 'Open Sanctuary Space ✨';
-          actBtn.addEventListener('click', () => executeEchoAction(meta.actionType));
+          actBtn.addEventListener('click', () => executeEchoAction(meta.actionType, meta.anchorWord || ''));
           actionsWrap.appendChild(actBtn);
         }
 
@@ -572,7 +683,11 @@
         document.getElementById('echoAnchorWordBox').textContent = next.word;
         document.getElementById('echoAnchorLine').textContent = next.line;
       });
-      el.querySelector('#echoGoBraceletBtn').addEventListener('click', () => executeEchoAction('open_bracelet'));
+      el.querySelector('#echoGoBraceletBtn').addEventListener('click', () => {
+        const wordBox = document.getElementById('echoAnchorWordBox');
+        const activeWord = wordBox ? wordBox.textContent.trim() : '';
+        executeEchoAction('open_bracelet', activeWord);
+      });
       el.querySelector('#echoBowlPlayBtn').addEventListener('click', () => executeEchoAction('play_bowl'));
 
       el.querySelectorAll('[data-el-shift]').forEach((btn) => {
@@ -695,6 +810,25 @@
     }
 
     document.getElementById('echoCloseBtn').addEventListener('click', closeWindow);
+    const resetBtn = document.getElementById('echoResetChatBtn');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        previousInteractionId = '';
+        sessionMessages = [];
+        saveSessionMemory({ previousInteractionId: '', messages: [] });
+        if (chatStream) chatStream.innerHTML = '';
+        appendMessage(
+          'echo',
+          "Fresh spark, clean slate! Tell me how today's feeling, ask about Dec 10 in Santa Ana, or pull an Anchor Word in Spark Lab.",
+          {
+            suggestedElement: '',
+            actionType: 'open_theater',
+            actionLabel: '🎭 Step Into Theater'
+          },
+          true
+        );
+      });
+    }
     document.getElementById('echoHideBtn').addEventListener('click', () => {
       isOpen = false;
       isHidden = true;
@@ -774,19 +908,57 @@
       winHeader.addEventListener('pointercancel', endWinDrag);
     }
 
-    // Seed initial greeting, Guide, Studio & periodic gentle whispers
-    appendMessage(
-      'echo',
-      "Hey friend — I'm Echo, your wandering Sanctuary Spark! Tell me how today's been feeling, ask anything about Dec 10 in Santa Ana, or tap Spark Lab for an Anchor Word & open mic inspiration.",
-      {
-        suggestedElement: '',
-        actionType: 'open_theater',
-        actionLabel: '🎭 Step Into Theater'
-      }
-    );
+    // Seed initial greeting or restore cross-page conversation from sessionStorage
+    if (sessionMessages.length > 0) {
+      sessionMessages.forEach((entry) => {
+        if (entry && entry.text) {
+          appendMessage(entry.role === 'user' ? 'user' : 'echo', entry.text, entry.meta || {}, false);
+        }
+      });
+    } else {
+      appendMessage(
+        'echo',
+        "Hey friend — I'm Echo, your wandering Sanctuary Spark! Tell me how today's been feeling, ask anything about Dec 10 in Santa Ana, or tap Spark Lab for an Anchor Word & open mic inspiration.",
+        {
+          suggestedElement: '',
+          actionType: 'open_theater',
+          actionLabel: '🎭 Step Into Theater'
+        },
+        true
+      );
+    }
     renderGuideTab();
     renderStudioTab();
     syncVisibilityState();
+
+    // Support deep-linked ?echo= actions when routed back from standalone pages
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const echoParam = params.get('echo');
+      if (echoParam) {
+        const cleanUrl = `${window.location.pathname}${window.location.hash || ''}`;
+        window.history.replaceState({}, document.title, cleanUrl);
+        setTimeout(() => {
+          if (echoParam === 'theater') executeEchoAction('open_theater');
+          else if (echoParam === 'pause') executeEchoAction('open_pause');
+          else if (echoParam === 'flyer') executeEchoAction('open_flyer');
+          else if (echoParam === 'dossier') executeEchoAction('open_dossier');
+          else if (echoParam === 'zeffy') executeEchoAction('open_zeffy');
+        }, 280);
+      }
+    } catch (_) {}
+
+    // Close Echo cleanly with Esc before propagating to page/Theater Esc handlers
+    document.addEventListener(
+      'keydown',
+      (e) => {
+        if (e.key === 'Escape' && isOpen) {
+          e.stopPropagation();
+          closeWindow();
+        }
+      },
+      true
+    );
 
     // React gently when Element changes or Theater Mode opens
     const bodyObserver = new MutationObserver((muts) => {
