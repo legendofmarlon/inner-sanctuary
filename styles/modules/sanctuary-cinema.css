@@ -655,27 +655,52 @@ main#main-content > #sanctuary-cinema-reel { order: 2; }
   opacity: 1;
 }
 
-/* Theater Mode Toggle Pill */
+/* Prominent Luminous Theater Mode Entry Pill */
+@keyframes theaterBtnAura {
+  0%, 100% {
+    box-shadow:
+      0 4px 18px rgba(245, 215, 127, 0.34),
+      0 0 18px rgba(192, 132, 252, 0.24),
+      inset 0 1px 0 rgba(255, 255, 255, 0.65);
+  }
+  50% {
+    box-shadow:
+      0 6px 24px rgba(245, 215, 127, 0.52),
+      0 0 26px rgba(192, 132, 252, 0.40),
+      inset 0 1px 0 rgba(255, 255, 255, 0.82);
+  }
+}
+
 .cinema-theater-toggle-btn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 5px 12px;
+  gap: 7px;
+  padding: 7px 16px;
   border-radius: 999px;
-  font-size: 0.74rem;
-  font-weight: 700;
+  font-size: 0.80rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
   cursor: pointer;
-  color: #FCE6A2;
-  background: rgba(197, 154, 63, 0.18);
-  border: 1px solid rgba(245, 215, 127, 0.48);
-  transition: all 0.22s ease;
+  color: #07140E;
+  background: linear-gradient(135deg, #FCE6A2 0%, #E5B95C 58%, #D8B4FE 100%);
+  border: 1px solid rgba(255, 250, 232, 0.85);
+  box-shadow:
+    0 4px 18px rgba(245, 215, 127, 0.34),
+    0 0 18px rgba(192, 132, 252, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
+  animation: theaterBtnAura 4.2s ease-in-out infinite;
+  transition: transform 0.22s ease, filter 0.22s ease, box-shadow 0.22s ease;
   white-space: nowrap;
 }
 
 .cinema-theater-toggle-btn:hover {
-  background: rgba(245, 215, 127, 0.28);
-  border-color: #FCE6A2;
-  color: #FFFFFF;
+  transform: translateY(-1px) scale(1.03);
+  filter: brightness(1.06);
+  box-shadow:
+    0 8px 26px rgba(245, 215, 127, 0.58),
+    0 0 28px rgba(192, 132, 252, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  color: #040B07;
 }
 
 /* Fullscreen Projector / Deep Sanctuary Mode */
