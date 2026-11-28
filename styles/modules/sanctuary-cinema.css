@@ -709,6 +709,8 @@ main#main-content > #sanctuary-cinema-reel { order: 2; }
   --theater-glow: rgba(245, 158, 11, 0.28);
   position: fixed;
   inset: 0;
+  width: 100%;
+  height: 100%;
   z-index: 12000;
   display: flex;
   flex-direction: column;
@@ -719,7 +721,10 @@ main#main-content > #sanctuary-cinema-reel { order: 2; }
   opacity: 0;
   visibility: hidden;
   overflow: hidden;
-  transition: opacity 0.55s ease, visibility 0.55s ease, background 0.8s ease;
+  transform: translate3d(0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
   background:
     radial-gradient(circle at 50% 44%, var(--theater-glow) 0%, rgba(6, 16, 11, 0.42) 48%, rgba(3, 9, 6, 0.84) 100%);
 }
@@ -1043,8 +1048,8 @@ body.cinema-theater-stage-drawer-open .theater-story-caption {
 
 body.cinema-theater-mode {
   overflow: hidden !important;
-  height: 100dvh;
   overscroll-behavior: none;
+  touch-action: none;
 }
 
 body.cinema-theater-mode .cinema-theater-stage {
@@ -1214,12 +1219,12 @@ body.cinema-theater-mode #btnBackToTop {
 }
 
 body.cinema-theater-breathing .theater-breath-halo {
-  border-color: rgba(192, 132, 252, 0.56);
-  background: radial-gradient(circle, rgba(168, 85, 247, 0.28) 0%, transparent 70%);
+  border-color: rgba(147, 197, 253, 0.62);
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.24) 0%, transparent 70%);
 }
 
 body.cinema-theater-breathing .theater-breath-halo--outer {
-  border-color: rgba(233, 213, 255, 0.26);
+  border-color: rgba(224, 242, 254, 0.28);
 }
 
 /* Precision 60fps SVG Breath Timing Progress Ring */
@@ -1242,18 +1247,18 @@ body.cinema-theater-breathing .theater-breath-ring-svg {
 
 .theater-breath-ring-track {
   fill: none;
-  stroke: rgba(233, 213, 255, 0.18);
+  stroke: rgba(224, 242, 254, 0.18);
   stroke-width: 2.5;
 }
 
 .theater-breath-ring-arc {
   fill: none;
-  stroke: #C084FC;
+  stroke: #93C5FD;
   stroke-width: 3.5;
   stroke-linecap: round;
   stroke-dasharray: 691.15;
   stroke-dashoffset: 691.15;
-  filter: drop-shadow(0 0 10px rgba(192, 132, 252, 0.78));
+  filter: drop-shadow(0 0 8px rgba(147, 197, 253, 0.72));
 }
 
 .cinema-theater-emblem {
@@ -1354,9 +1359,9 @@ body.cinema-theater-breathing .theater-breath-guide-hud {
   text-transform: uppercase;
   padding: 4px 10px;
   border-radius: 999px;
-  background: rgba(192, 132, 252, 0.22);
-  border: 1px solid rgba(192, 132, 252, 0.62);
-  color: #F3E8FF;
+  background: rgba(147, 197, 253, 0.22);
+  border: 1px solid rgba(147, 197, 253, 0.62);
+  color: #E0F2FE;
 }
 
 .breath-countdown-group {
@@ -1379,7 +1384,7 @@ body.cinema-theater-breathing .theater-breath-guide-hud {
   font-size: 0.62rem;
   font-weight: 800;
   letter-spacing: 0.14em;
-  color: #E9D5FF;
+  color: #BAE6FD;
 }
 
 .breath-beat-pips {
@@ -1392,14 +1397,14 @@ body.cinema-theater-breathing .theater-breath-guide-hud {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: rgba(233, 213, 255, 0.22);
+  background: rgba(224, 242, 254, 0.22);
   transition: transform 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
 }
 
 .breath-beat-pip.is-filled {
-  background: #C084FC;
+  background: #93C5FD;
   transform: scale(1.22);
-  box-shadow: 0 0 8px rgba(192, 132, 252, 0.85);
+  box-shadow: 0 0 8px rgba(147, 197, 253, 0.85);
 }
 
 .breath-guide-controls {
@@ -1669,16 +1674,16 @@ body.cinema-theater-idle:not(.cinema-theater-typing) .cinema-theater-top-hud {
   font-size: 0.78rem;
   font-weight: 800;
   color: #FFFDF7;
-  background: radial-gradient(circle at 35% 30%, rgba(233, 213, 255, 0.92), rgba(88, 28, 135, 0.92));
-  border: 2px solid #C084FC;
-  box-shadow: 0 0 22px rgba(168, 85, 247, 0.48);
+  background: radial-gradient(circle at 35% 30%, rgba(224, 242, 254, 0.92), rgba(12, 74, 110, 0.92));
+  border: 2px solid #93C5FD;
+  box-shadow: 0 0 22px rgba(56, 189, 248, 0.45);
   transform: scale(var(--theater-breath-scale, 1));
   will-change: transform, box-shadow;
 }
 
-.theater-breath-orb[data-phase="inhale"] { box-shadow: 0 0 32px rgba(192, 132, 252, 0.65); }
-.theater-breath-orb[data-phase="hold"] { box-shadow: 0 0 30px rgba(216, 180, 254, 0.72); }
-.theater-breath-orb[data-phase="exhale"] { box-shadow: 0 0 20px rgba(233, 213, 255, 0.56); }
+.theater-breath-orb[data-phase="inhale"] { box-shadow: 0 0 32px rgba(147, 197, 253, 0.68); }
+.theater-breath-orb[data-phase="hold"] { box-shadow: 0 0 30px rgba(186, 230, 253, 0.72); }
+.theater-breath-orb[data-phase="exhale"] { box-shadow: 0 0 20px rgba(224, 242, 254, 0.56); }
 
 .theater-slider {
   width: 100%;
@@ -1848,26 +1853,31 @@ body.cinema-theater-idle:not(.cinema-theater-typing) .cinema-theater-top-hud {
   box-shadow: 0 0 16px rgba(245, 215, 127, 0.4);
 }
 
-.theater-chip-breath {
-  background: rgba(22, 101, 52, 0.38);
-  border-color: rgba(134, 239, 172, 0.55);
-  color: #BBF7D0;
-}
-
-.theater-chip-breath:hover,
-.theater-chip-breath.active {
-  background: rgba(22, 163, 74, 0.65);
-  color: #FFFFFF;
-  border-color: #86EFAC;
-  box-shadow: 0 0 16px rgba(134, 239, 172, 0.45);
-}
-
 .cinema-theater-chip:hover,
 .cinema-theater-chip.active {
   background: rgba(245, 215, 127, 0.26);
   border-color: #FCE6A2;
   color: #FFFDF7;
   box-shadow: 0 0 14px rgba(245, 215, 127, 0.28);
+}
+
+.cinema-theater-chip.theater-chip-breath {
+  padding: 8px 16px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  background: linear-gradient(135deg, rgba(186, 230, 253, 0.96) 0%, rgba(125, 211, 252, 0.94) 55%, rgba(56, 189, 248, 0.92) 100%);
+  border-color: #E0F2FE;
+  color: #061A2B;
+  box-shadow: 0 4px 16px rgba(147, 197, 253, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.78);
+}
+
+.cinema-theater-chip.theater-chip-breath:hover,
+.cinema-theater-chip.theater-chip-breath.active {
+  background: linear-gradient(135deg, #E0F2FE 0%, #93C5FD 60%, #38BDF8 100%);
+  color: #041320;
+  border-color: #FFFFFF;
+  box-shadow: 0 0 22px rgba(147, 197, 253, 0.72), inset 0 1px 0 rgba(255, 255, 255, 0.92);
 }
 
 .cinema-theater-exit {
@@ -1887,9 +1897,20 @@ body.cinema-theater-idle:not(.cinema-theater-typing) .cinema-theater-top-hud {
 }
 
 @media (max-width: 768px) {
+  body.cinema-theater-mode .realistic-sky-bg {
+    will-change: auto;
+    transform: none !important;
+  }
   .cinema-theater-stage {
-    height: 100dvh;
+    height: 100%;
     padding: 12px 10px 14px;
+    transition: opacity 0.22s ease, visibility 0.22s ease;
+  }
+  .theater-breath-ring-arc {
+    filter: none !important;
+  }
+  .cinema-theater-emblem {
+    box-shadow: 0 12px 34px rgba(0, 0, 0, 0.52);
   }
   .theater-hud-pill,
   .theater-hud-btn,
@@ -1944,23 +1965,24 @@ body.cinema-theater-idle:not(.cinema-theater-typing) .cinema-theater-top-hud {
     padding: 5px 10px;
   }
   .cinema-theater-dock {
-    border-radius: 999px;
-    padding: 6px 8px;
-    gap: 5px;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    border-radius: 22px;
+    padding: 7px 10px;
+    gap: 6px;
+    flex-wrap: wrap;
+    overflow-x: visible;
     justify-content: center;
     max-width: 100%;
-    scrollbar-width: none;
-  }
-  .cinema-theater-dock::-webkit-scrollbar {
-    display: none;
   }
   .cinema-theater-chip,
   .cinema-theater-exit {
     flex-shrink: 0;
     white-space: nowrap;
+    padding: 6px 11px;
+    font-size: 0.72rem;
+  }
+  .cinema-theater-chip.theater-chip-breath {
+    padding: 7px 14px;
+    font-size: 0.75rem;
   }
   .cinema-dock-divider {
     display: none;

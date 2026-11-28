@@ -737,14 +737,14 @@
       }
     ];
 
-    // Locked Ether celestial violet/lavender palette for sacred breath mist, ribbons, ring & cues
-    const ETHER_BREATH = {
-      coreRgb: '147, 51, 234',
-      rgb: '192, 132, 252',
-      mistRgb: '233, 213, 255',
-      hex: '#C084FC',
-      softHex: '#E9D5FF',
-      deepHex: '#A855F7'
+    // Locked Air sky-blue / cloud-white palette for breath mist, ribbons, ring & cues
+    const AIR_BREATH = {
+      coreRgb: '59, 130, 246',
+      rgb: '147, 197, 253',
+      mistRgb: '224, 242, 254',
+      hex: '#93C5FD',
+      softHex: '#E0F2FE',
+      deepHex: '#60A5FA'
     };
 
     const BREATH_CADENCES = {
@@ -753,10 +753,10 @@
         shortLabel: '4·4·4·4',
         title: 'Ready for 4-4-4-4 Breath',
         phases: [
-          { key: 'inhale', label: 'Inhale', secs: 4, color: '#C084FC', badgeBg: 'rgba(192, 132, 252, 0.22)', badgeBorder: 'rgba(192, 132, 252, 0.62)', badgeText: '#F3E8FF', hint: 'Breathe in slowly through the nose' },
-          { key: 'hold', label: 'Hold', secs: 4, color: '#D8B4FE', badgeBg: 'rgba(168, 85, 247, 0.24)', badgeBorder: 'rgba(216, 180, 254, 0.64)', badgeText: '#FAF5FF', hint: 'Rest softly at the top' },
-          { key: 'exhale', label: 'Exhale', secs: 4, color: '#E9D5FF', badgeBg: 'rgba(233, 213, 255, 0.22)', badgeBorder: 'rgba(233, 213, 255, 0.66)', badgeText: '#FFFFFF', hint: 'Let shoulders fall as you release' },
-          { key: 'settle', label: 'Settle', secs: 4, color: '#A855F7', badgeBg: 'rgba(147, 51, 234, 0.22)', badgeBorder: 'rgba(168, 85, 247, 0.54)', badgeText: '#E9D5FF', hint: 'Quiet stillness before the next wave' }
+          { key: 'inhale', label: 'Inhale', secs: 4, color: '#93C5FD', badgeBg: 'rgba(147, 197, 253, 0.22)', badgeBorder: 'rgba(147, 197, 253, 0.62)', badgeText: '#E0F2FE', hint: 'Breathe in slowly through the nose' },
+          { key: 'hold', label: 'Hold', secs: 4, color: '#BAE6FD', badgeBg: 'rgba(56, 189, 248, 0.22)', badgeBorder: 'rgba(186, 230, 253, 0.64)', badgeText: '#F0F9FF', hint: 'Rest softly at the top' },
+          { key: 'exhale', label: 'Exhale', secs: 4, color: '#E0F2FE', badgeBg: 'rgba(224, 242, 254, 0.24)', badgeBorder: 'rgba(224, 242, 254, 0.70)', badgeText: '#FFFFFF', hint: 'Let shoulders fall as you release' },
+          { key: 'settle', label: 'Settle', secs: 4, color: '#60A5FA', badgeBg: 'rgba(59, 130, 246, 0.22)', badgeBorder: 'rgba(96, 165, 250, 0.56)', badgeText: '#DBEAFE', hint: 'Quiet stillness before the next wave' }
         ]
       },
       relax: {
@@ -764,9 +764,9 @@
         shortLabel: '4·7·8',
         title: 'Ready for 4-7-8 Deep Calm',
         phases: [
-          { key: 'inhale', label: 'Inhale', secs: 4, color: '#C084FC', badgeBg: 'rgba(192, 132, 252, 0.22)', badgeBorder: 'rgba(192, 132, 252, 0.62)', badgeText: '#F3E8FF', hint: 'Quiet, steady inhale through the nose' },
-          { key: 'hold', label: 'Hold', secs: 7, color: '#D8B4FE', badgeBg: 'rgba(168, 85, 247, 0.24)', badgeBorder: 'rgba(216, 180, 254, 0.64)', badgeText: '#FAF5FF', hint: 'Let the nervous system soften & anchor' },
-          { key: 'exhale', label: 'Slow Release', secs: 8, color: '#E9D5FF', badgeBg: 'rgba(233, 213, 255, 0.22)', badgeBorder: 'rgba(233, 213, 255, 0.66)', badgeText: '#FFFFFF', hint: 'Long, unhurried sigh out through the lips' }
+          { key: 'inhale', label: 'Inhale', secs: 4, color: '#93C5FD', badgeBg: 'rgba(147, 197, 253, 0.22)', badgeBorder: 'rgba(147, 197, 253, 0.62)', badgeText: '#E0F2FE', hint: 'Quiet, steady inhale through the nose' },
+          { key: 'hold', label: 'Hold', secs: 7, color: '#BAE6FD', badgeBg: 'rgba(56, 189, 248, 0.22)', badgeBorder: 'rgba(186, 230, 253, 0.64)', badgeText: '#F0F9FF', hint: 'Let the nervous system soften & anchor' },
+          { key: 'exhale', label: 'Slow Release', secs: 8, color: '#E0F2FE', badgeBg: 'rgba(224, 242, 254, 0.24)', badgeBorder: 'rgba(224, 242, 254, 0.70)', badgeText: '#FFFFFF', hint: 'Long, unhurried sigh out through the lips' }
         ]
       },
       coherent: {
@@ -774,8 +774,8 @@
         shortLabel: '5·5',
         title: 'Ready for 5-5 Coherent Flow',
         phases: [
-          { key: 'inhale', label: 'Inhale', secs: 5, color: '#C084FC', badgeBg: 'rgba(192, 132, 252, 0.22)', badgeBorder: 'rgba(192, 132, 252, 0.62)', badgeText: '#F3E8FF', hint: 'Smooth rise expanding chest & ribs' },
-          { key: 'exhale', label: 'Exhale', secs: 5, color: '#E9D5FF', badgeBg: 'rgba(233, 213, 255, 0.22)', badgeBorder: 'rgba(233, 213, 255, 0.66)', badgeText: '#FFFFFF', hint: 'Even wave out like an ocean tide' }
+          { key: 'inhale', label: 'Inhale', secs: 5, color: '#93C5FD', badgeBg: 'rgba(147, 197, 253, 0.22)', badgeBorder: 'rgba(147, 197, 253, 0.62)', badgeText: '#E0F2FE', hint: 'Smooth rise expanding chest & ribs' },
+          { key: 'exhale', label: 'Exhale', secs: 5, color: '#E0F2FE', badgeBg: 'rgba(224, 242, 254, 0.24)', badgeBorder: 'rgba(224, 242, 254, 0.70)', badgeText: '#FFFFFF', hint: 'Even wave out like an ocean tide' }
         ]
       }
     };
@@ -967,43 +967,30 @@
         return `${(n >> 16) & 255}, ${(n >> 8) & 255}, ${n & 255}`;
       };
 
-      const getBreathKinematics = (now) => {
-        if (breathRunning) {
-          const st = getGuidedBreathState(now);
-          const k = st.phase.key;
-          if (k === 'inhale') {
-            const e = easeCos(st.progress);
-            return { scale: 0.91 + 0.23 * e, exhaleIntensity: 0, isExhaling: false, inhaleIntensity: Math.sin(Math.PI * st.progress), guided: st };
-          }
-          if (k === 'hold') {
-            return { scale: 1.14, exhaleIntensity: 0, isExhaling: false, inhaleIntensity: 0, guided: st };
-          }
-          if (k === 'exhale') {
-            const e = easeCos(st.progress);
-            return { scale: 1.14 - 0.23 * e, exhaleIntensity: Math.sin(Math.PI * st.progress), isExhaling: true, inhaleIntensity: 0, guided: st };
-          }
-          return { scale: 0.91, exhaleIntensity: 0, isExhaling: false, inhaleIntensity: 0, guided: st };
-        }
+      let medallionWasActive = false;
 
-        // Smooth continuous 10s sanctuary idle cycle — breath mist strictly only during exhale window
-        const p = (((now - ambientCycleStart) % 10000) + 10000) % 10000 / 10000;
-        if (p < 0.40) {
-          const e = easeCos(p / 0.40);
-          return { scale: 0.92 + 0.19 * e, exhaleIntensity: 0, isExhaling: false, inhaleIntensity: Math.sin(Math.PI * (p / 0.40)) * 0.7 };
+      const getBreathKinematics = (now) => {
+        if (!breathRunning) {
+          return { scale: 1, exhaleIntensity: 0, isExhaling: false, inhaleIntensity: 0 };
         }
-        if (p < 0.48) {
-          return { scale: 1.11, exhaleIntensity: 0, isExhaling: false, inhaleIntensity: 0 };
+        const st = getGuidedBreathState(now);
+        const k = st.phase.key;
+        if (k === 'inhale') {
+          const e = easeCos(st.progress);
+          return { scale: 0.91 + 0.23 * e, exhaleIntensity: 0, isExhaling: false, inhaleIntensity: Math.sin(Math.PI * st.progress), guided: st };
         }
-        if (p < 0.92) {
-          const u = (p - 0.48) / 0.44;
-          const e = easeCos(u);
-          return { scale: 1.11 - 0.19 * e, exhaleIntensity: Math.sin(Math.PI * u), isExhaling: true, inhaleIntensity: 0 };
+        if (k === 'hold') {
+          return { scale: 1.14, exhaleIntensity: 0, isExhaling: false, inhaleIntensity: 0, guided: st };
         }
-        return { scale: 0.92, exhaleIntensity: 0, isExhaling: false, inhaleIntensity: 0 };
+        if (k === 'exhale') {
+          const e = easeCos(st.progress);
+          return { scale: 1.14 - 0.23 * e, exhaleIntensity: Math.sin(Math.PI * st.progress), isExhaling: true, inhaleIntensity: 0, guided: st };
+        }
+        return { scale: 0.91, exhaleIntensity: 0, isExhaling: false, inhaleIntensity: 0, guided: st };
       };
 
       const emitMouthPlume = (x, y, dirX, dirY, intensity, isMobile) => {
-        const cap = isMobile ? 54 : 110;
+        const cap = isMobile ? 48 : 105;
         if (breathPlumes.length >= cap) return;
         const speed = (1.85 + Math.random() * 1.45) * (0.7 + intensity * 0.65);
         breathPlumes.push({
@@ -1051,11 +1038,11 @@
           const c2y = sy + (dirY + spread * 0.85) * (reach * 0.58) - Math.cos(phase + idx * 1.3) * 12;
 
           const grad = bCtx.createLinearGradient(sx, sy, ex, ey);
-          // Rich amethyst Ether at lips (clear over ivory medallion cream) -> glowing lavender mist over night sky
-          grad.addColorStop(0, `rgba(${ETHER_BREATH.coreRgb}, ${(0.64 * intensity).toFixed(3)})`);
-          grad.addColorStop(0.28, `rgba(${ETHER_BREATH.rgb}, ${(0.72 * intensity).toFixed(3)})`);
-          grad.addColorStop(0.64, `rgba(${ETHER_BREATH.mistRgb}, ${(0.44 * intensity).toFixed(3)})`);
-          grad.addColorStop(1, `rgba(${ETHER_BREATH.rgb}, 0)`);
+          // Crisp azure-blue Air stream at lips (visible over cream emblem) -> luminous sky-white mist
+          grad.addColorStop(0, `rgba(${AIR_BREATH.coreRgb}, ${(0.64 * intensity).toFixed(3)})`);
+          grad.addColorStop(0.28, `rgba(${AIR_BREATH.rgb}, ${(0.74 * intensity).toFixed(3)})`);
+          grad.addColorStop(0.64, `rgba(${AIR_BREATH.mistRgb}, ${(0.48 * intensity).toFixed(3)})`);
+          grad.addColorStop(1, `rgba(${AIR_BREATH.rgb}, 0)`);
 
           bCtx.save();
           bCtx.strokeStyle = grad;
@@ -1075,21 +1062,38 @@
         const bCanvas = document.getElementById('theaterMedallionBreathCanvas');
         if (!stageEl || !emblem) return;
 
+        // Stay calm and zero-overhead when guided breathing is inactive
+        if (!breathRunning && breathPlumes.length === 0) {
+          if (medallionWasActive) {
+            medallionWasActive = false;
+            stageEl.style.setProperty('--theater-breath-scale', '1');
+            stageEl.style.setProperty('--theater-breath-glow', '0');
+            stageEl.style.setProperty('--theater-halo-opacity', '0.52');
+            const ringArc = document.getElementById('theaterBreathRingArc');
+            if (ringArc) ringArc.style.strokeDashoffset = '691.15';
+            if (bCanvas) {
+              const bCtx = bCanvas.getContext('2d');
+              if (bCtx) bCtx.clearRect(0, 0, bCanvas.width, bCanvas.height);
+            }
+          }
+          return;
+        }
+        medallionWasActive = true;
+
         const kin = getBreathKinematics(now);
         stageEl.style.setProperty('--theater-breath-scale', kin.scale.toFixed(4));
         stageEl.style.setProperty('--theater-breath-glow', Math.max(0, (kin.scale - 0.91) * 5).toFixed(3));
         stageEl.style.setProperty('--theater-halo-opacity', (0.45 + Math.max(0, kin.scale - 0.91) * 2.4).toFixed(3));
 
-        // 60fps synchronized Ether SVG progress ring hugging the sacred medallion
+        // 60fps synchronized Air SVG progress ring hugging the sacred medallion
         const ringArc = document.getElementById('theaterBreathRingArc');
         if (ringArc) {
           const circumference = 691.15;
           if (breathRunning && kin.guided) {
             const offset = circumference * (1 - kin.guided.progress);
-            const ringColor = kin.guided.phase.color || ETHER_BREATH.hex;
+            const ringColor = kin.guided.phase.color || AIR_BREATH.hex;
             ringArc.style.strokeDashoffset = offset.toFixed(2);
             ringArc.style.stroke = ringColor;
-            ringArc.style.filter = `drop-shadow(0 0 10px ${ringColor})`;
           } else {
             ringArc.style.strokeDashoffset = String(circumference);
           }
@@ -1101,17 +1105,17 @@
 
         const cw = bCanvas.clientWidth || 540;
         const ch = bCanvas.clientHeight || 430;
-        if (Math.abs(bCanvas.width - cw) > 2 || Math.abs(bCanvas.height - ch) > 2) {
+        if (Math.abs(bCanvas.width - cw) > 24 || Math.abs(bCanvas.height - ch) > 24) {
           bCanvas.width = cw;
           bCanvas.height = ch;
         }
 
-        bCtx.clearRect(0, 0, cw, ch);
+        bCtx.clearRect(0, 0, bCanvas.width, bCanvas.height);
 
         const baseD = Math.max(96, (emblem.offsetWidth || 180) - 16);
         const liveD = baseD * kin.scale;
-        const cx = cw * 0.5;
-        const cy = ch * 0.5;
+        const cx = bCanvas.width * 0.5;
+        const cy = bCanvas.height * 0.5;
 
         // Exact coordinates verified from emblem.png artwork (996x1024):
         // Left profile lips at (~19.5%, ~32.5%); Right lifted chin lips at (~74.0%, ~35.5%)
@@ -1124,7 +1128,7 @@
         const reach = isMob ? 105 : 155;
 
         if (kin.isExhaling && kin.exhaleIntensity > 0.04) {
-          // Silk Ether breath ribbons & violet-lavender mist emerging directly from both mouths ONLY on Exhale
+          // Silk Air breath ribbons & sky-blue/cloud mist emerging directly from both mouths ONLY on Exhale
           drawBreathRibbons(bCtx, mxL, myL, -1.0, -0.18, reach * (0.65 + kin.exhaleIntensity * 0.45), now, kin.exhaleIntensity);
           drawBreathRibbons(bCtx, mxR, myR, 0.96, -0.44, reach * (0.65 + kin.exhaleIntensity * 0.45), now, kin.exhaleIntensity);
 
@@ -1135,16 +1139,16 @@
             const ox = mx + dx * 12;
             const oy = my + dy * 8;
             const lipGrad = bCtx.createRadialGradient(mx, my, 0, ox, oy, 32);
-            lipGrad.addColorStop(0, `rgba(${ETHER_BREATH.coreRgb}, ${(0.48 * kin.exhaleIntensity).toFixed(3)})`);
-            lipGrad.addColorStop(0.5, `rgba(${ETHER_BREATH.mistRgb}, ${(0.36 * kin.exhaleIntensity).toFixed(3)})`);
-            lipGrad.addColorStop(1, `rgba(${ETHER_BREATH.rgb}, 0)`);
+            lipGrad.addColorStop(0, `rgba(${AIR_BREATH.coreRgb}, ${(0.46 * kin.exhaleIntensity).toFixed(3)})`);
+            lipGrad.addColorStop(0.5, `rgba(${AIR_BREATH.mistRgb}, ${(0.38 * kin.exhaleIntensity).toFixed(3)})`);
+            lipGrad.addColorStop(1, `rgba(${AIR_BREATH.rgb}, 0)`);
             bCtx.fillStyle = lipGrad;
             bCtx.beginPath();
             bCtx.arc(ox, oy, 32, 0, Math.PI * 2);
             bCtx.fill();
           });
 
-          if (Math.random() < (isMob ? 0.72 : 0.96) * Math.max(0.35, kin.exhaleIntensity)) {
+          if (Math.random() < (isMob ? 0.68 : 0.96) * Math.max(0.35, kin.exhaleIntensity)) {
             emitMouthPlume(mxL, myL, -1.0, -0.18, kin.exhaleIntensity, isMob);
             emitMouthPlume(mxR, myR, 0.96, -0.44, kin.exhaleIntensity, isMob);
           }
@@ -1163,33 +1167,33 @@
           p.x += p.vx;
           p.y += p.vy + Math.sin(p.age * 0.14 + p.seed) * 0.34;
           p.vx *= 0.992;
-          p.vy -= 0.012; // Ether breath rises gently into twilight sky
+          p.vy -= 0.012; // Air breath rises gently into open sky
           p.r += p.grow;
 
           const env = progress < 0.15 ? (progress / 0.15) : (1 - (progress - 0.15) / 0.85);
           const alpha = Math.max(0, p.alpha * env);
 
-          // Rich violet-amethyst inside bright medallion cream; luminous lavender-violet mist outside rim
+          // Crisp azure inside bright medallion cream; luminous sky-blue & cloud-white mist outside rim
           const distFromCenter = Math.hypot(p.x - cx, p.y - cy);
           const isOutsideRim = distFromCenter > liveD * 0.46;
 
           if (p.isSpark) {
             bCtx.fillStyle = isOutsideRim
-              ? `rgba(${ETHER_BREATH.mistRgb}, ${alpha.toFixed(3)})`
-              : `rgba(${ETHER_BREATH.coreRgb}, ${(alpha * 0.88).toFixed(3)})`;
+              ? `rgba(${AIR_BREATH.mistRgb}, ${alpha.toFixed(3)})`
+              : `rgba(${AIR_BREATH.coreRgb}, ${(alpha * 0.88).toFixed(3)})`;
             bCtx.beginPath();
             bCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
             bCtx.fill();
           } else {
             const grad = bCtx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
             if (isOutsideRim) {
-              grad.addColorStop(0, `rgba(${ETHER_BREATH.mistRgb}, ${(alpha * 0.66).toFixed(3)})`);
-              grad.addColorStop(0.5, `rgba(${ETHER_BREATH.rgb}, ${(alpha * 0.44).toFixed(3)})`);
-              grad.addColorStop(1, `rgba(${ETHER_BREATH.rgb}, 0)`);
+              grad.addColorStop(0, `rgba(${AIR_BREATH.mistRgb}, ${(alpha * 0.68).toFixed(3)})`);
+              grad.addColorStop(0.5, `rgba(${AIR_BREATH.rgb}, ${(alpha * 0.44).toFixed(3)})`);
+              grad.addColorStop(1, `rgba(${AIR_BREATH.rgb}, 0)`);
             } else {
-              grad.addColorStop(0, `rgba(${ETHER_BREATH.coreRgb}, ${(alpha * 0.56).toFixed(3)})`);
-              grad.addColorStop(0.55, `rgba(${ETHER_BREATH.rgb}, ${(alpha * 0.34).toFixed(3)})`);
-              grad.addColorStop(1, `rgba(${ETHER_BREATH.rgb}, 0)`);
+              grad.addColorStop(0, `rgba(${AIR_BREATH.coreRgb}, ${(alpha * 0.56).toFixed(3)})`);
+              grad.addColorStop(0.55, `rgba(${AIR_BREATH.rgb}, ${(alpha * 0.34).toFixed(3)})`);
+              grad.addColorStop(1, `rgba(${AIR_BREATH.rgb}, 0)`);
             }
             bCtx.fillStyle = grad;
             bCtx.beginPath();
@@ -1426,7 +1430,7 @@
       }
       if (dockBreathBtn) {
         dockBreathBtn.classList.toggle('active', breathRunning);
-        dockBreathBtn.textContent = breathRunning ? `🌬️ ${phase.label} ${displaySecs}s` : '🌬️ Breath';
+        dockBreathBtn.textContent = breathRunning ? `🌬️ ${phase.label} ${displaySecs}s` : '🌬️ Breathe';
       }
       if (kickerEl) {
         if (breathRunning) {
