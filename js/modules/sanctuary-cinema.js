@@ -984,7 +984,8 @@
         }
         if (k === 'exhale') {
           const e = easeCos(st.progress);
-          return { scale: 1.14 - 0.23 * e, exhaleIntensity: Math.sin(Math.PI * st.progress), isExhaling: true, inhaleIntensity: 0, guided: st };
+          const env = Math.pow(Math.max(0, Math.sin(Math.PI * st.progress)), 0.55);
+          return { scale: 1.14 - 0.23 * e, exhaleIntensity: env, isExhaling: true, inhaleIntensity: 0, guided: st };
         }
         return { scale: 0.91, exhaleIntensity: 0, isExhaling: false, inhaleIntensity: 0, guided: st };
       };
@@ -1154,7 +1155,7 @@
           }
         }
 
-        const ageStep = kin.isExhaling ? 1 : 2.8;
+        const ageStep = kin.isExhaling ? 1 : 5.5;
         for (let i = breathPlumes.length - 1; i >= 0; i--) {
           const p = breathPlumes[i];
           p.age += ageStep;
@@ -1469,10 +1470,12 @@
         breathStepIdx = st.phaseIdx;
         breathTick = st.secsLeft;
         playPhaseTransitionChime(st.phase.key);
-        if (window.soundscape && window.soundscape.isPlaying) {
-          const syncKey = st.phase.key === 'settle' ? 'hold' : st.phase.key;
-          window.soundscape.syncBreath(syncKey, st.phase.secs);
-        }
+        try {
+          if (window.soundscape && window.soundscape.isPlaying && typeof window.soundscape.syncBreath === 'function') {
+            const syncKey = st.phase.key === 'settle' ? 'hold' : st.phase.key;
+            window.soundscape.syncBreath(syncKey, st.phase.secs);
+          }
+        } catch (_) {}
         updateBreathWidgetUI(st);
       } else if (changedTick) {
         breathTick = st.secsLeft;
